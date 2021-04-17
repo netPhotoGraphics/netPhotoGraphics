@@ -1042,11 +1042,24 @@ function next_comment($desc = false) {
  *
  * @return array
  */
-function getCommentStored($numeric = false) {
+function getCommentStored() {
 	global $_comment_stored;
-	if ($numeric) {
-		return array_merge($_comment_stored);
-	}
 	return $_comment_stored;
+}
+
+/**
+ * returns a list of comment record 'types' for "images"
+ * @param string $quote quotation mark to use
+ *
+ * @return string
+ */
+function npg_image_types($quote) {
+	global $_images_classes;
+	$types = array_unique($_images_classes);
+	$typelist = '';
+	foreach ($types as $type) {
+		$typelist .= $quote . strtolower($type) . 's' . $quote . ',';
+	}
+	return substr($typelist, 0, -1);
 }
 ?>

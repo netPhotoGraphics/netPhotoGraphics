@@ -38,6 +38,10 @@ if (abs(OFFSET_PATH) != 2) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
 	//load feature and admin plugins
+	$enabled = getEnabledPlugins();
+
+
+
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
 		if (DEBUG_PLUGINS) {
 			switch ($mask) {
@@ -49,7 +53,8 @@ if (abs(OFFSET_PATH) != 2) {
 					break;
 			}
 		}
-		$enabled = getEnabledPlugins();
+
+
 		foreach ($enabled as $extension => $plugin) {
 			$priority = $plugin['priority'];
 			if ($priority & $mask) {

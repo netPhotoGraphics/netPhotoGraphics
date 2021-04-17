@@ -457,8 +457,7 @@ function checkRequiredField($option) {
 function printContactFormMacro($subject_override = '') {
 	ob_start();
 	printContactForm($subject_override);
-	$content = ob_get_contents();
-	ob_end_clean();
+	$content = ob_get_clean();
 	return $content;
 }
 

@@ -41,20 +41,20 @@ function isAlbumClass($album) {
 
 class AlbumBase extends MediaObject {
 
-	var $name; // Folder name of the album (full path from the albums folder)
-	var $linkname; // may have the .alb suffix stripped off
-	var $parentLinks; // used for dynamic album heritage
-	var $localpath; // Latin1 full server path to the album
-	var $exists = true; // Does the folder exist?
-	var $images = NULL; // Full images array storage.
-	var $parent = null; // The parent album name
-	var $parentalbum = null; // The parent album's album object (lazy)
-	var $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
-	var $manage_some_rights = ALBUM_RIGHTS;
-	var $access_rights = ALL_ALBUMS_RIGHTS;
+	public $name; // Folder name of the album (full path from the albums folder)
+	public $linkname; // may have the .alb suffix stripped off
+	public $parentLinks; // used for dynamic album heritage
+	public $localpath; // Latin1 full server path to the album
+	public $exists = true; // Does the folder exist?
+	public $images = NULL; // Full images array storage.
+	public $parent = null; // The parent album name
+	public $parentalbum = null; // The parent album's album object (lazy)
+	public $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
+	public $manage_some_rights = ALBUM_RIGHTS;
+	public $access_rights = ALL_ALBUMS_RIGHTS;
 	protected $sidecars = array(); // keeps the list of suffixes associated with this album
 	protected $subalbums = null; // Full album array storage.
-	var $index;
+	public $index;
 	protected $lastimagesort = NULL; // remember the order for the last album/image sorts
 	protected $lastsubalbumsort = NULL;
 	protected $albumthumbnail = NULL; // remember the album thumb for the duration of the script
@@ -72,7 +72,7 @@ class AlbumBase extends MediaObject {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->name;
+		return $this->table . '(' . $this->name . ')';
 	}
 
 	/**
@@ -139,10 +139,10 @@ class AlbumBase extends MediaObject {
 		if (empty($folder8)) {
 			$msg = gettext('Invalid album instantiation: No album name');
 		} else if (filesystemToInternal($folderFS) != $folder8) {
-// an attempt to spoof the album name.
+			// an attempt to spoof the album name.
 			$msg = sprintf(gettext('Invalid album instantiation: %1$s!=%2$s'), html_encode(filesystemToInternal($folderFS)), $folder8);
 		} else if ($invalid) {
-//	class specific validity test
+			//	class specific validity test
 			$msg = sprintf(gettext('Invalid album instantiation: %s does not exist.'), $folder8);
 		} else {
 			$msg = false;
@@ -1625,8 +1625,8 @@ class Album extends AlbumBase {
 
 class dynamicAlbum extends AlbumBase {
 
-	var $searchengine; // cache the search engine for dynamic albums
-	var $imageNames; // list of images for handling duplicate file names
+	public $searchengine; // cache the search engine for dynamic albums
+	public $imageNames; // list of images for handling duplicate file names
 
 	function __construct($folder8, $cache = true, $quiet = false) {
 		$folder8 = trim($folder8, '/');

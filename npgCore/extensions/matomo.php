@@ -37,7 +37,7 @@ $plugin_description = gettext('A plugin to insert Matomo JavaScript tracking cod
 
 $option_interface = 'matomoStats';
 
-if (!getOption('matomo_admintracking') || !npg_loggedin(ADMIN_RIGHTS)) {
+if (getOption('matomo_admintracking') || !npg_loggedin(ADMIN_RIGHTS)) {
 	npgFilters::register('theme_body_close', 'matomoStats::script');
 }
 if (getOption('matomo_widgets_code')) {

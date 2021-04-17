@@ -20,10 +20,10 @@ function newArticle($titlelink, $allowCreate = NULL) {
 
 class Article extends CMSItems {
 
-	var $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
-	var $manage_some_rights = ZENPAGE_NEWS_RIGHTS;
-	var $access_rights = ALL_NEWS_RIGHTS;
-	var $categories = NULL;
+	public $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
+	public $manage_some_rights = ZENPAGE_NEWS_RIGHTS;
+	public $access_rights = ALL_NEWS_RIGHTS;
+	public $categories = NULL;
 	protected $index = array();
 
 	function __construct($titlelink, $allowCreate = NULL) {

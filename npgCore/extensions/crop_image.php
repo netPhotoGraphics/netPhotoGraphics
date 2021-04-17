@@ -458,8 +458,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 								} else if ($pasteobj) {
 									ob_start();
 									linkPickerPick($imageobj, 'imageURI', "+'&pick[picture]=' + $('#imageURI').val().replaceAll('&', ':')");
-									$click = ob_get_contents() . "\n\tsetClean('crop');\n\twindow.history.back();";
-									ob_end_clean();
+									$click = ob_get_clean() . "\n\tsetClean('crop');\n\twindow.history.back();";
 									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Done"), array('buttonClick' => $click));
 								} else {
 									backButton(array('buttonLink' => '../../index.php?album=' . pathurlencode($albumname) . '&image=' . urlencode($imagename)));

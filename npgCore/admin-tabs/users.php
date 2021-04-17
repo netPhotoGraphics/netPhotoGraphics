@@ -237,10 +237,9 @@ if (isset($_GET['action'])) {
 							$rights = 0;
 							if ($alter && (!isset($userlist[$i]['group']) || $userlist[$i]['group'] == array(''))) {
 								if (isset($userlist[$i]['rightsenabled'])) {
-									$oldrights = $userobj->getRights() & ~(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS);
+									$oldrights = $userobj->getRights();
 									$rights = processRights($i);
-
-									if (($rights & ~(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) != $oldrights) {
+									if ($rights != $oldrights) {
 										$userobj->setRights($rights | NO_RIGHTS);
 									}
 								}
@@ -719,7 +718,7 @@ echo $refresh;
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
 																$('#show_<?php echo $id; ?>').val(visible);
 																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
-														 <?php
+															 <?php
 															 if (empty($userid)) {
 																 ?>
 															<input type="hidden" name="newuser" value="<?php echo $id ?>" />
@@ -749,8 +748,8 @@ echo $refresh;
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-												echo NO_RIGHTS . '"';
-												echo $alterrights;
+															echo NO_RIGHTS . '"';
+															echo $alterrights;
 															?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php

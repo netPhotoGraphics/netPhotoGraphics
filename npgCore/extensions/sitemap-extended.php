@@ -54,8 +54,8 @@ if (getOption('multi_lingual') && defined('LOCALE_TYPE')) {
  */
 class sitemap {
 
-	var $startmtime;
-	var $disable = false; // manual disable caching a page
+	public $startmtime;
+	public $disable = false; // manual disable caching a page
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {

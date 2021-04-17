@@ -1160,23 +1160,20 @@ function readTags($id, $tbl, $language, $full = false) {
  * @param array $currentValue list of items to be flagged as checked
  * @param array $list the elements of the select list
  * @param bool $descending set true for a reverse order sort
+ * @param bool $localize set true if $list is an array of "language string" => value to sort on the language string
  */
 function generateListFromArray($currentValue, $list, $descending, $localize) {
 	if (!is_null($descending)) {
 		if ($localize) {
 			$list = array_flip($list);
 			localeSort($list);
-			if ($descending) {
-				$temp = array_reverse($temp, true);
-			}
 			$list = array_flip($list);
 		} else {
-			if ($descending) {
-				rsort($list);
-			} else {
-				natcasesort($list);
-			}
+			localeSort($list);
 		}
+	}
+	if ($descending) {
+		$list = array_reverse($list, true);
 	}
 
 	foreach ($list as $key => $item) {
@@ -1378,13 +1375,8 @@ function sortByKey($results, $sortkey, $order) {
 		case 'desc':
 			return sortByMultilingual($results, $sortkey, $order);
 		case 'RAND()':
-			$new = array();
-			$keys = array_keys($results);
-			shuffle($keys);
-			foreach ($keys as $key) {
-				$new[$key] = $results[$key];
-			}
-			return $new;
+			shuffle_assoc($results);
+			return $results;
 		default:
 			if (preg_match('`[\/\(\)\*\+\-!\^\%\<\>\ = \&\|]`', $sortkey)) {
 				return $results; //	We cannot deal with expressions
@@ -1414,46 +1406,39 @@ function sortByKey($results, $sortkey, $order) {
  *
  */
 function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
+
 	if (!is_array($field)) {
 		$field = array($field);
 	}
-	//create the comparator function
-	$comp = 'str';
-	if ($nat) {
-		$comp .= 'nat';
-	}
-	if ($case) {
-		$comp .= 'case';
-	}
-	$comp .= 'cmp';
+
+	uasort($data, function($a, $b) use($field, $nat, $case) {
+		global $coll;
+		$retval = 0;
+		foreach ($field as $fieldname) {
+			if ($retval == 0) {
+				switch ($fieldname) {
+					case 'title':
+					case 'desc':
+						$s1 = isset($a[$fieldname]) ? get_language_string($a[$fieldname]) : NULL;
+						$s2 = isset($b[$fieldname]) ? get_language_string($b[$fieldname]) : NULL;
+						break;
+					default:
+						$s1 = isset($a[$fieldname]) ? $a[$fieldname] : NULL;
+						$s2 = isset($b[$fieldname]) ? $b[$fieldname] : NULL;
+						break;
+				}
+				$retval = localeCompare($s1, $s2, $nat, $case);
+			} else {
+				break;
+			}
+		}
+		return $retval;
+	});
+
 	if ($desc) {
-		uasort($data, function($b, $a) use($field, $comp) {
-			$retval = 0;
-			foreach ($field as $fieldname) {
-				if ($retval == 0) {
-					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
-				} else {
-					break;
-				}
-			}
-			return $retval;
-		});
-	} else {
-		uasort($data, function($a, $b) use($field, $comp) {
-			$retval = 0;
-			foreach ($field as $fieldname) {
-				if ($retval == 0) {
-					$retval = $comp(isset($a[$fieldname]) ? $a[$fieldname] : NULL, isset($b[$fieldname]) ? $b[$fieldname] : NULL);
-				} else {
-					break;
-				}
-			}
-			return $retval;
-		});
+		$data = array_reverse($data, true);
 	}
-	if (!$preserveKeys) {
-		$data = array_values($data);
-	}
+
 	if (!empty($removeCriteria)) {
 		foreach ($data as $key => $datum) {
 			foreach ($removeCriteria as $column) {
@@ -1461,6 +1446,11 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 			}
 		}
 	}
+
+	if (!$preserveKeys) {
+		$data = array_values($data);
+	}
+
 	return $data;
 }
 
@@ -1577,22 +1567,6 @@ function getWatermarkParam($image, $use) {
 }
 
 /**
- * returns a list of comment record 'types' for "images"
- * @param string $quote quotation mark to use
- *
- * @return string
- */
-function npg_image_types($quote) {
-	global $_images_classes;
-	$types = array_unique($_images_classes);
-	$typelist = '';
-	foreach ($types as $type) {
-		$typelist .= $quote . strtolower($type) . 's' . $quote . ',';
-	}
-	return substr($typelist, 0, -1);
-}
-
-/**
 
  * Returns video argument of the current Image.
  *
@@ -1685,7 +1659,7 @@ function byteConvert($bytes) {
  * @return mixed
  */
 function dateTimeConvert($datetime, $raw = false) {
-	// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
+// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
 	$datetime = preg_replace('/(\d{4}):(\d{2}):(\d{2})/', ' \1-\2-\3', $datetime);
 	$time = strtotime($datetime);
 	if ($time == -1 || $time === false)
@@ -1867,7 +1841,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 		$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 	}
 
-	// Handle the login form.
+// Handle the login form.
 	if (DEBUG_LOGIN) {
 		debugLogVar(["handle_password:" => $auth]);
 	}
@@ -2059,7 +2033,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 	if (empty($theme)) {
 		$theme = $_gallery->getCurrentTheme();
 	}
-	// album-theme order of preference is: Album theme => Theme => album => general
+// album-theme order of preference is: Album theme => Theme => album => general
 	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC LIMIT 1';
 	$db = query_single_row($sql);
 	if (empty($db)) {
@@ -2067,32 +2041,6 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 	} else {
 		return $db['value'];
 	}
-}
-
-/**
- * Use to migrate options. If option $newKey exists simply purge the old option
- * else if option $oldKey exists set the option to its value, otherwise set the
- * option to the default
- *
- * @param string $oldKey
- * @param sstring $newKey
- * @param mixed $default
- */
-function replaceOption($oldKey, $newKey, $default, $setOption = 'setOptionDefault') {
-	$existing = getOptionList();
-	if (!array_key_exists($newKey, $existing)) {
-		if (isset($existing[$oldKey])) {
-			$v = $existing[$oldKey];
-		} else {
-			$v = $default;
-		}
-		$setOption($newKey, $v);
-	}
-	purgeOption($oldKey);
-}
-
-function replaceThemeOption($oldKey, $newKey, $default) {
-	replaceOption($oldKey, $newKey, $default, 'setThemeOptionDefault');
 }
 
 /**
@@ -2328,7 +2276,7 @@ function getXSRFToken($action, $modifier = NULL) {
  */
 function XSRFToken($action, $modifier = NULL) {
 	?>
-	<input type="hidden" name="XSRFToken" id="XSRFToken" value="<?php echo getXSRFToken($action, $modifier); ?>" />
+	<input type="hidden" name="XSRFToken" class="XSRFToken" value="<?php echo getXSRFToken($action, $modifier); ?>" />
 	<?php
 }
 
@@ -2599,15 +2547,14 @@ function applyMacros($text) {
 						if ($class == 'function') {
 							ob_start();
 							$data = call_user_func_array($macro['value'], $parameters);
+							$output = ob_get_clean();
 							if (is_null($data)) {
-								$data = ob_get_contents();
+								$data = $output;
 							}
-							ob_end_clean();
 						} else {
 							ob_start();
 							call_user_func_array($macro['value'], $parameters);
-							$data = ob_get_contents();
-							ob_end_clean();
+							$data = ob_get_clean();
 							if (empty($data)) {
 								$data = NULL;
 							}
@@ -2843,7 +2790,7 @@ class npgFunctions {
 	 * @return boolean
 	 */
 	static function removeDir($path, $within = false) {
-		if (($dir = opendir($path)) !== false) {
+		if (is_dir($path) && ($dir = opendir($path)) !== false) {
 			while (($file = readdir($dir)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if ((is_dir($path . '/' . $file))) {
@@ -3202,7 +3149,7 @@ class npgFunctions {
  */
 class _captcha {
 
-	var $name = NULL; // "captcha" name if no captcha plugin loaded
+	public $name = NULL; // "captcha" name if no captcha plugin loaded
 
 	function getCaptcha($prompt = NULL) {
 		return array('input' => NULL, 'html' => '<p class="errorbox">' . gettext('No captcha handler is enabled.') . '</p>', 'hidden' => '');

@@ -150,7 +150,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-											 togglePassword('_downloadList');">
+									 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -408,7 +408,7 @@ class AlbumZip {
 				$zip->addFile($path, internalToFilesystem(trim($file, '/')));
 			}
 			$zip->close();
-			ob_get_clean();
+			@ob_end_clean();
 			header("Pragma: public");
 			header("Expires: 0");
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -493,7 +493,7 @@ function getdownloadList($dir8, $filters8, $excludesuffixes, $sort) {
 	$dirs = array_diff(scandir($dir, $direction), $filters);
 	$dir_array = Array();
 	if ($sort == 'asc') {
-		natsort($dirs);
+		localeSort($dirs);
 	}
 	foreach ($dirs as $file) {
 		if (isset($file[0]) && $file[0] != '.') { //	exclude "hidden" files

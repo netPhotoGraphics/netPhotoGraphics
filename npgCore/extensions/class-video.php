@@ -91,7 +91,7 @@ class VideoObject_Options {
 
 class Video extends Image {
 
-	var $videoalt = array();
+	public $videoalt = array();
 
 	/**
 	 * Constructor for class-video
@@ -177,7 +177,6 @@ class Video extends Image {
 	 */
 	function updateDimensions() {
 		global $_multimedia_extension;
-		$ext = getSuffix($this->filename);
 		$h = $_multimedia_extension->getHeight($this);
 		$w = $_multimedia_extension->getWidth($this);
 		$this->set('width', $w);

@@ -184,16 +184,16 @@ $protocol = FULLWEBPATH;
 $path = $protocol . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($newfilename));
 
 if ($debug) {
-//	i.php is being accessed directly via an image debug link
+	//	i.php is being accessed directly via an image debug link
 	echo "\n<p>Image: <img src=\"" . $path . "\" /></p>";
 } else {
 	if (isset($_GET['returncheckmark'])) {
-//	from the cachemanager cache image generator
+		//	from the cachemanager cache image generator
 		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 		sendImage((int) ($thumb && true), 'i.php');
 		exit();
 	}
-// ... and redirect the browser to it.
+	// ... and redirect the browser to it.
 	$suffix = getSuffix($newfilename);
 	switch ($suffix) {
 		case 'jpg':
@@ -203,21 +203,21 @@ if ($debug) {
 			$suffix = 'wbmp';
 			break;
 		default:
-// use suffix as is
+		// use suffix as is
 	}
 	if (OPEN_IMAGE_CACHE) {
-// send the right headers
+		// send the right headers
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $fmt) . ' GMT');
 		header('Content-Type: image/' . $suffix);
-//redirect to the cached image
+		//redirect to the cached image
 		header('Location: ' . $path, true, 301);
 	} else {
 		$fp = fopen($newfile, 'rb');
-// send the right headers
+		// send the right headers
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header("Content-Type: image/$suffix");
 		header("Content-Length: " . filesize($newfile));
-// dump the picture
+		// dump the picture
 		fpassthru($fp);
 		fclose($fp);
 	}

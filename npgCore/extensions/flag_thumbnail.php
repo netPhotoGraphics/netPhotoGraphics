@@ -22,6 +22,7 @@
  * @package plugins/flag_thumbnail
  * @pluginCategory media
  */
+$plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext('Overlay icons over thumbnails to indicate image status.');
 
 $option_interface = 'flag_thumbnail';
@@ -149,6 +150,11 @@ class flag_thumbnail {
 			} else {
 				$obj = $_current_album;
 			}
+
+			if (empty($obj)) {
+				debugLogBacktrace('flag thumbnail on NULL');
+			}
+
 			switch (getOption('flag_thumbnail_date')) {
 				case "date":
 					$imagedatestamp = strtotime($obj->getDateTime());

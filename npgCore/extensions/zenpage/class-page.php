@@ -14,9 +14,9 @@ function newPage($titlelink, $allowCreate = NULL) {
 
 class Page extends CMSItems {
 
-	var $manage_rights = MANAGE_ALL_PAGES_RIGHTS;
-	var $manage_some_rights = ZENPAGE_PAGES_RIGHTS;
-	var $access_rights = ALL_PAGES_RIGHTS;
+	public $manage_rights = MANAGE_ALL_PAGES_RIGHTS;
+	public $manage_some_rights = ZENPAGE_PAGES_RIGHTS;
+	public $access_rights = ALL_PAGES_RIGHTS;
 
 	function __construct($titlelink, $allowCreate = NULL) {
 		if (is_array($titlelink)) {

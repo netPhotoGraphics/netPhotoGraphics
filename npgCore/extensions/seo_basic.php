@@ -31,10 +31,12 @@ class seo_basic {
 			$priority = extensionEnabled('seo_zenphoto');
 			if (!is_null($priority)) {
 				enableExtension('seo_basic', $priority);
+				purgeOption('_plugin_seo_zenphoto');
 			}
-			purgeOption('_plugin_seo_zenphoto');
-			setOptionDefault('seo_basic_lowercase', getOption('zenphoto_seo_lowercase'));
-			purgeOption('zenphoto_seo_lowercase');
+
+			renameOption('zenphoto_seo_lowercase', 'seo_basic_lowercase');
+
+			setOptionDefault('seo_basic_lowercase', FALSE);
 		}
 	}
 
@@ -1047,7 +1049,7 @@ class seo_basic {
 	 * @return string
 	 */
 	static function filter($string) {
-		$string = str_replace(array_keys(self ::$specialchars), self::$specialchars, $string);
+		$string = str_replace(array_keys(self::$specialchars), self::$specialchars, $string);
 		if (getOption('seo_basic_lowercase')) {
 			$string = strtolower($string);
 		}

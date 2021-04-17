@@ -75,7 +75,7 @@ if (OFFSET_PATH != 2) {
  *
  */
 function printLanguageSelector($flags = NULL) {
-	global $_locale_Subdomains, $_current_locale;
+	global $_locale_Subdomains;
 	$locale = $localeOption = getOption('locale');
 	$dynamic_locale = getNPGCookie('dynamic_locale');
 	if (empty($dynamic_locale)) {
@@ -168,8 +168,6 @@ function printLanguageSelector($flags = NULL) {
 		</ul>
 		<?php
 	} else {
-		$_save_current_locale = $_current_locale;
-		$_current_locale = NULL;
 		$languages = array_merge(array('' => ''), $languages);
 		?>
 		<div class="languageSelect">
@@ -197,7 +195,6 @@ function printLanguageSelector($flags = NULL) {
 			</form>
 		</div>
 		<?php
-		$_current_locale = $_save_current_locale;
 	}
 }
 

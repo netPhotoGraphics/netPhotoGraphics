@@ -20,7 +20,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 class noCaptcha {
 
-	var $name = 'noCaptcha';
+	public $name = 'noCaptcha';
 
 	/**
 	 * Checks if a CAPTCHA string matches the CAPTCHA attached to the comment post

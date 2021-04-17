@@ -139,8 +139,8 @@ function updatePage(&$reports) {
 	$page->setTitle($title);
 	$page->setContent($content);
 	$page->setCommentsAllowed($commentson);
-	if (isset($_POST['author'])) {
-		$page->setOwner(sanitize($_POST['author']));
+	if (isset($_POST['owner'])) {
+		$page->setOwner(sanitize($_POST['owner']));
 	}
 	$page->setPermalink($permalink);
 	$page->setLocked($locked);
@@ -152,7 +152,7 @@ function updatePage(&$reports) {
 	if (getcheckboxState('reset_rating')) {
 		$page->set('total_value', 0);
 		$page->set('total_votes', 0);
-		$page->set('used_ips', 0);
+		$page->set('used_ips', NULL);
 	}
 	processTags($page);
 	$page->setShow($show);
@@ -454,8 +454,8 @@ function updateArticle(&$reports, $newarticle = false) {
 	$article->setContent($content);
 	$article->setDateTime($date);
 	$article->setCommentsAllowed($commentson);
-	if (isset($_POST['author'])) {
-		$article->setOwner(sanitize($_POST['author']));
+	if (isset($_POST['owner'])) {
+		$article->setOwner(sanitize($_POST['owner']));
 	}
 	$article->setPermalink($permalink);
 	$article->setLocked($locked);
@@ -468,7 +468,7 @@ function updateArticle(&$reports, $newarticle = false) {
 	if (getcheckboxState('reset_rating')) {
 		$article->set('total_value', 0);
 		$article->set('total_votes', 0);
-		$article->set('used_ips', 0);
+		$article->set('used_ips', NULL);
 	}
 	processTags($article);
 	$categories = array();
@@ -930,7 +930,7 @@ function updateCategory(&$reports) {
 	if (getcheckboxState('reset_rating')) {
 		$cat->set('total_value', 0);
 		$cat->set('total_votes', 0);
-		$cat->set('used_ips', 0);
+		$cat->set('used_ips', NULL);
 	}
 	$cat->setShow($show);
 

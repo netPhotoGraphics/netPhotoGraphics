@@ -2959,14 +2959,13 @@ function getFullImageURL($image = NULL) {
 	if (is_null($image)) {
 		return false;
 	}
-	$outcome = getOption('protect_full_image');
-	if ($outcome == 'No access') {
-		return NULL;
-	}
-	if ($outcome == 'Unprotected') {
-		return $image->getFullImageURL();
-	} else {
-		return getProtectedImageURL($image, $outcome);
+	switch ($outcome = getOption('protect_full_image')) {
+		case 'No access':
+			return NULL;
+		case 'Unprotected':
+			return $image->getFullImageURL();
+		default:
+			return getProtectedImageURL($image, $outcome);
 	}
 }
 
@@ -4612,7 +4611,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

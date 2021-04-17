@@ -126,8 +126,7 @@ class themeSwitcher {
 		global $_themeSwitcherThemelist;
 		ob_start();
 		$_themeSwitcherThemelist = npgFilters::apply('themeSwitcher_head', $_themeSwitcherThemelist);
-		$scripts = ob_get_contents();
-		ob_end_clean();
+		$scripts = ob_get_clean();
 		$scripts = preg_replace('~<script.*text/javascript.*>\s*//\s*<!--.*CDATA\[?~', '', $scripts);
 		$scripts = preg_replace('~//\s*\]\]>\s*-->\s*\s</script>?~', '', $scripts);
 		?>

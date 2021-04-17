@@ -66,7 +66,6 @@ class titlelinkMigration {
 				'icon' => BADGE_BLUE,
 				'title' => gettext('A utility to append the mod_rewrite_suffix to CMS titlelinks.'),
 				'alt' => '',
-				'hidden' => '',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'titlelinkMigration'
 		);

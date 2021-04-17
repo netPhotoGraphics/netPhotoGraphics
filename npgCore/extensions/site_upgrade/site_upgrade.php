@@ -13,7 +13,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 XSRFdefender('site_upgrade');
 
 $report = '';
-switch (isset($_GET['siteState']) ? $_GET['siteState'] : NULL) {
+switch (isset($_REQUEST['siteState']) ? $_REQUEST['siteState'] : NULL) {
 	case 'closed':
 		setSiteState('closed');
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed');

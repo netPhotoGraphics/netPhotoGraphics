@@ -18,20 +18,20 @@ define('SEARCH_CACHE_DURATION', getOption('search_cache_duration'));
 
 class SearchEngine {
 
-	var $name = '*search*';
-	var $exists = true;
-	var $fieldList = NULL;
-	var $page = 1;
-	var $images = NULL;
-	var $albums = NULL;
-	var $articles = NULL;
-	var $pages = NULL;
-	var $pattern;
-	var $tagPattern;
-	var $language;
+	public $name = '*search*';
+	public $exists = true;
+	public $fieldList = NULL;
+	public $page = 1;
+	public $images = NULL;
+	public $albums = NULL;
+	public $articles = NULL;
+	public $pages = NULL;
+	public $pattern;
+	public $tagPattern;
+	public $language;
 	protected $dynalbumname = NULL;
 	protected $searchprivatetags = NULL;
-	var $album = NULL;
+	public $album = NULL;
 	protected $words;
 	protected $dates;
 	protected $search_no_albums = false; // omit albums
@@ -50,11 +50,11 @@ class SearchEngine {
 	protected $tagSQL = array(); //	cache for the tag hit list
 	// $specialChars are characters with special meaning in parasing searach strings
 	// set to false and they are treated as regular characters
-	var $specialChars = array('"' => true, "'" => true, '`' => true, '\\' => true);
+	public $specialChars = array('"' => true, "'" => true, '`' => true, '\\' => true);
 	// mimic album object
-	var $loaded = false;
-	var $table = 'albums';
-	var $transient = true;
+	public $loaded = false;
+	public $table = 'albums';
+	public $transient = true;
 
 	/**
 	 * Constuctor
@@ -122,10 +122,13 @@ class SearchEngine {
 			$this->search_structure['titlelink'] = gettext('TitleLink');
 			$this->search_structure['news_categories'] = gettext('Categories');
 		}
+		$this->search_structure['gpsLatitude'] = gettext('Latitude');
+		$this->search_structure['gpsLongitude'] = gettext('Longitude');
+
 		//metadata fields
 		foreach ($_exifvars as $field => $row) {
 			if ($row[EXIF_DISPLAY] && $row[EXIF_FIELD_ENABLED]) { //	only those that are "real" and "processed"
-				$this->search_structure[strtolower($field)] = $row[EXIF_DISPLAY_TEXT];
+				$this->search_structure[strtolower($field)] = $row[EXIF_DISPLAY_TEXT] . ' {' . $row[EXIF_SOURCE] . '}';
 			}
 		}
 
@@ -234,7 +237,7 @@ class SearchEngine {
 	 * @return string
 	 */
 	public function __toString() {
-		return 'search object';
+		return 'SearchEngine Object';
 	}
 
 	/**
@@ -987,7 +990,7 @@ class SearchEngine {
 	}
 
 	/**
-	 * get connical sort key and direction parameters.
+	 * get conical sort key and direction parameters.
 	 * @param type $sorttype sort field desired
 	 * @param bool $sortdirection DESC or ASC
 	 * @param type $defaulttype if no sort type otherwise selected use this one
@@ -1142,7 +1145,7 @@ class SearchEngine {
 	 * we can cache this sql and reuse it.
 	 *
 	 * @param string $searchstring the string we are searching on
-	 * @param string $table the table beind searched
+	 * @param string $table the table being searched
 	 * @param array $tagPattern the matching criteria for tags
 	 * @return array
 	 */

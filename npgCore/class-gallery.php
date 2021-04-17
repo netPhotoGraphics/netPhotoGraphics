@@ -8,10 +8,10 @@
 
 class Gallery {
 
-	var $albumdir = NULL;
-	var $table = 'gallery';
-	var $name = '..gallery..';
-	var $branded = false;
+	public $albumdir = NULL;
+	public $table = 'gallery';
+	public $name = '..gallery..';
+	public $branded = false;
 	protected $albums = NULL;
 	protected $theme;
 	protected $themes;
@@ -88,6 +88,20 @@ class Gallery {
 	function setDesc($desc) {
 		$desc = npgFunctions::tagURLs($desc);
 		$this->set('Gallery_description', $desc);
+	}
+
+	function getCopyright($locale = NULL) {
+		$text = $this->get('copyright');
+		if ($locale == 'all') {
+			return npgFunctions::unTagURLs($text);
+		} else {
+			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
+		}
+		return $text;
+	}
+
+	function setCopyright($text) {
+		$this->set('copyright', $text);
 	}
 
 	/**
@@ -502,6 +516,7 @@ class Gallery {
 	 */
 	function garbageCollect($cascade = true, $complete = false, $restart = '') {
 		global $_gallery, $_authority;
+		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/comment_form/functions.php'); // in case comment_form not enabled
 		if (empty($restart)) {
 			setOption('last_garbage_collect', time());
 			/* purge old search cache items */
@@ -753,6 +768,7 @@ class Gallery {
 			$images = query($sql);
 			if ($images) {
 				$c = 0;
+				$imagetypes = npg_image_types('"');
 				while ($image = db_fetch_assoc($images)) {
 					$albumobj = getItemByID('albums', $image['albumid']);
 					if ($albumobj && $albumobj->exists && file_exists($imageName = internalToFilesystem(ALBUM_FOLDER_SERVERPATH . $albumobj->name . '/' . $image['filename']))) {
@@ -767,8 +783,10 @@ class Gallery {
 					} else {
 						$sql = 'DELETE FROM ' . prefix('images') . ' WHERE `id`="' . $image['id'] . '";';
 						$result = query($sql);
-						$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . npg_image_types('"') . ') AND `ownerid` ="' . $image['id'] . '";';
-						$result = query($sql);
+						if ($imagetypes) {
+							$sql = 'DELETE FROM ' . prefix('comments') . ' WHERE `type` IN (' . $imagetypes . ') AND `ownerid` ="' . $image['id'] . '";';
+							$result = query($sql);
+						}
 					}
 					if (++$c >= RECORD_LIMIT) {
 						return $image['id']; // avoide excessive processing
@@ -901,7 +919,7 @@ class Gallery {
 			if ($mine ||
 							($album->getShow() || $viewUnpublished) // published or overridden by parameter
 							|| $subrights && is_null($album->getParent()) // is the user's managed album
-							|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and  user has unpublished rights
+							|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and user has unpublished rights
 			) {
 				$albums_ordered[] = $folder;
 			}

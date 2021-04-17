@@ -125,8 +125,6 @@ echo "\n</head>";
 							ob_start();
 							phpinfo();
 							$phpinfo = ob_get_clean();
-							ob_end_flush();
-
 
 							$i = strpos($phpinfo, '<div class="center">');
 							$phpinfo = substr($phpinfo, $i);

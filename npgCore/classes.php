@@ -38,10 +38,10 @@ define('OBJECT_CACHE_DEPTH', 150); //	how many objects to hold for each object c
 
 class PersistentObject {
 
-	var $loaded = false;
-	var $exists = false;
-	var $table;
-	var $transient;
+	public $loaded = false;
+	public $exists = false;
+	public $table;
+	public $transient;
 	protected $id = 0;
 	private $unique_set = array();
 	private $cache_by;
@@ -495,10 +495,10 @@ class PersistentObject {
 class ThemeObject extends PersistentObject {
 
 	private $commentcount; //Contains the number of comments
-	var $comments = NULL; //Contains an array of the comments of the object
-	var $manage_rights = ADMIN_RIGHTS;
-	var $manage_some_rights = ADMIN_RIGHTS;
-	var $access_rights = VIEW_ALL_RIGHTS;
+	public $comments = NULL; //Contains an array of the comments of the object
+	public $manage_rights = ADMIN_RIGHTS;
+	public $manage_some_rights = ADMIN_RIGHTS;
+	public $access_rights = VIEW_ALL_RIGHTS;
 
 	public function __call($method, $args) {
 		return parent::__call($method, $args);

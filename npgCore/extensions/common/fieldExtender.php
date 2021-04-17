@@ -244,8 +244,7 @@ class fieldExtender {
 			case 'multilingual':
 				ob_start();
 				print_language_string_list($obj->get($field['name']), $instance . '-' . $field['name'], false, NULL, '', '100%');
-				$item = ob_get_contents();
-				ob_end_clean();
+				$item = ob_get_clean();
 				$formatted = true;
 				break;
 			case'function':

@@ -171,35 +171,28 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 							?>
 
 							<div class="floatleft leftdeatil">
-								<div style="width: 135px;">
+								<div class="edit_thumb_container">
 									<?php
-									if ($close = (isImagePhoto($image) || !is_null($image->objectsThumb))) {
+									if ($zoom = isImagePhoto($image)) {
 										?>
-										<a href="<?php echo getAdminLink('admin-tabs/thumbcrop.php'); ?>?a=<?php echo pathurlencode($album->name); ?>&amp;i=<?php echo urlencode($image->filename); ?>&amp;subpage=<?php echo $pagenum; ?>&amp;singleimage=<?php echo urlencode($image->filename); ?>&amp;tagsort=<?php echo html_encode($tagsort); ?>" title="<?php html_encode(printf(gettext('crop %s'), $image->filename)); ?>">
+										<a href="<?php echo html_encode(pathurlencode($image->getFullImageURL())); ?>" class="colorbox fullimagelink" title="<?php echo gettext('zoom'); ?>" >
 											<?php
 										}
 										?>
-
-										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'medium')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
+										<img id="thumb_img-<?php echo $currentimage; ?>" src="<?php echo html_encode(getAdminThumb($image, 'large-uncropped')); ?>" alt="<?php echo html_encode($image->filename); ?>" />
 										<?php
-										if ($close) {
+										if ($zoom) {
 											?>
+											<div class="fullimage-icon">
+												<?php echo MAGNIFY; ?>
+											</div>
 										</a>
 										<?php
 									}
 									?>
 								</div>
-								<?php
-								if (isImagePhoto($image)) {
-									$h = $image->getHeight();
-									$w = $image->getWidth();
-									npgButton('button', MAGNIFY . ' ' . gettext('Zoom'), array('buttonClick' => "$.colorbox({iframe: true, href: '" . $image->getFullImageURL() . "', maxWidth: '" . ($w + 100) . "px', innerWidth: '" . $w . "px', maxHeight: '" . ($h + 100) . "px', innerHeight: '" . $h . "px', scalePhotos: true, close: '" . gettext("close") . "'});", 'buttonClass' => 'fillwidth'));
-									?>
-									<br style="clear: both" />
-									<?php
-								}
-								viewButton(array('buttonLink' => $image->getLink(), 'buttonClass' => 'fillwidth'));
-								?>
+								<br clear="all">
+								<?php viewButton(array('buttonLink' => $image->getLink(), 'buttonClass' => 'fillwidth')); ?>
 								<br style="clear: both" />
 								<p>
 									<?php echo gettext('<strong>Filename:</strong>'); ?>
@@ -401,26 +394,13 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									if ($image->getlastchangeuser()) {
 										?>
 										<p>
-											<?php
-											printf(gettext('Last changed %1$s by %2$s'), $image->getLastchange() . '<br />', $image->getlastchangeuser());
-											?>
+											<?php printLastChange($image); ?>
 										</p>
 										<?php
 									}
 									?>
 									<p>
-										<?php
-										if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-											echo gettext("Owner");
-											?>
-											<select name="<?php echo $currentimage; ?>-owner" size='1' >
-												<?php echo admin_owner_list($image->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-											</select>
-											<?php
-										} else {
-											printf(gettext('Owner: %1$s'), $image->getOwner());
-										}
-										?>
+										<?php printChangeOwner($image, UPLOAD_RIGHTS | ALBUM_RIGHTS, gettext("Owner"), $currentimage); ?>
 									</p>
 									<?php
 									if (extensionEnabled('comment_form')) {

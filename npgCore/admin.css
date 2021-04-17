@@ -497,6 +497,10 @@ code {
 	color: #DD6666;
 }
 
+.logAddl {
+	padding-left: 2em;
+}
+
 /* Warning Messages
 ------------------------------ */
 .logwarning {
@@ -584,7 +588,6 @@ table.noinput td {
 	border: 1px solid #E5E5E5;
 }
 
-
 table.bordered th {
 	font-weight: bold;
 	padding: 8px 8px 4px 10px;
@@ -623,6 +626,19 @@ table.bordered table.compact td {
 	margin: 0px;
 }
 
+.checkbox_array {
+	max-width: 700px !important;
+	min-width: 350px !important;
+}
+
+.columnbreak {
+	break-before: column;
+}
+
+.noColumnBreak {
+	break-inside: avoid-column;
+}
+
 table.options {
 	width: 100%;
 	padding: 0px;
@@ -637,6 +653,7 @@ table.options th {
 	border-bottom: 1px solid #cccccc;
 	background: #f0f4f5;
 	background-repeat: repeat-x;
+	break-inside: avoid-column;
 }
 
 
@@ -666,10 +683,10 @@ table.options tr td {
 	background-repeat: repeat-x;
 }
 
-.checkbox_array {
-	max-width: 700px !important;
-	min-width: 350px !important;
+.optionSet {
+	break-inside: avoid;
 }
+
 .option_name {
 	white-space: nowrap !important;
 	vertical-align: top;
@@ -2446,7 +2463,6 @@ ul.page-list {
 }
 
 .bold {
-	color: red;
 	font-weight: bold;
 }
 
@@ -2587,8 +2603,10 @@ tr.highlightselection td {
 	z-index: 500;
 	top: 2px;
 	right: 2px;
-	padding: 0 1px 0 1px;
+	padding: 4px 1px 0 1px;
 	line-height: 1em;
+	text-align: center;
+	background: lightgray;
 }
 
 /* definition lists */
@@ -2722,4 +2740,28 @@ form.tinyDirty input[type=submit]:active {
 
 .strike {
 	text-decoration: line-through;
+}
+
+.edit_thumb_container {
+	width: 135;
+	position: relative;
+  text-align: left;
+}
+
+.edit_thumb_container .fullimagelink {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.edit_thumb_container .fullimagelink img {
+
+}
+
+.edit_thumb_container .fullimage-icon {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	background: lightgray;
 }

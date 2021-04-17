@@ -50,7 +50,6 @@ class utf8mb4Migration {
 						'icon' => BADGE_BLUE,
 						'title' => gettext('A utility to migrate TEXT and LONGTEXT database fields to utf8mb4 so as to allow 4-byte unicode characters.'),
 						'alt' => '',
-						'hidden' => '',
 						'rights' => ADMIN_RIGHTS,
 						'XSRFTag' => 'utf8mb4Migration'
 				);

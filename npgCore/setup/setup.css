@@ -272,3 +272,10 @@ li {
 	padding-top: 10px;
 	padding-bottom: 15px;
 }
+
+.filelist {
+	height: 250px;
+	display: block;
+	overflow: auto;
+	resize: vertical;
+}

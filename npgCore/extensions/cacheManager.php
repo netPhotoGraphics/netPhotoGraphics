@@ -121,6 +121,14 @@ class cacheManager {
 			self::addCacheSize('admin', ADMIN_THUMB_LARGE, NULL, NULL, ADMIN_THUMB_LARGE, ADMIN_THUMB_LARGE, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_MEDIUM, NULL, NULL, ADMIN_THUMB_MEDIUM, ADMIN_THUMB_MEDIUM, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_SMALL, NULL, NULL, ADMIN_THUMB_SMALL, ADMIN_THUMB_SMALL, NULL, NULL, -1);
+
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_LARGE, NULL, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_MEDIUM, NULL, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, ADMIN_THUMB_SMALL, NULL, NULL, NULL, NULL, NULL, -1);
+
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_LARGE, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_MEDIUM, NULL, NULL, NULL, NULL, -1);
+			self::addCacheSize('admin', NULL, NULL, ADMIN_THUMB_SMALL, NULL, NULL, NULL, NULL, -1);
 		}
 	}
 
@@ -523,7 +531,6 @@ class cacheManager {
 					'icon' => WASTEBASKET,
 					'alt' => '',
 					'title' => gettext('Delete all files from the RSS cache'),
-					'hidden' => '<input type="hidden" name="action" value="clear_rss_cache" />',
 					'rights' => ADMIN_RIGHTS
 			);
 		}
@@ -537,7 +544,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'alt' => '',
 				'title' => gettext('Delete all files from the Image cache'),
-				'hidden' => '<input type="hidden" name="action" value="clear_cache" />',
 				'rights' => ADMIN_RIGHTS
 		);
 		$buttons[] = array(
@@ -549,7 +555,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static HTML cache. HTML pages will be re-cached as they are viewed.'),
 				'alt' => '',
-				'hidden' => '<input type="hidden" name="action" value="clear_html_cache">',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'ClearHTMLCache'
 		);
@@ -563,7 +568,6 @@ class cacheManager {
 				'icon' => WASTEBASKET,
 				'title' => gettext('Clear the static search cache.'),
 				'alt' => '',
-				'hidden' => '<input type="hidden" name="action" value="clear_search_cache">',
 				'rights' => ADMIN_RIGHTS,
 				'XSRFTag' => 'ClearSearchCache'
 		);

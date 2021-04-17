@@ -34,7 +34,9 @@ class htmlmetatags {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			replaceOption('google-site-verification', 'htmlmeta_google-site-verification', '');
+			renameOption('google-site-verification', 'htmlmeta_google-site-verification');
+
+			setOptionDefault('htmlmeta_google-site-verification', '');
 			setOptionDefault('htmlmeta_cache_control', 'no-cache');
 			setOptionDefault('htmlmeta_robots', 'index');
 			setOptionDefault('htmlmeta_revisit_after', '10');
@@ -155,10 +157,18 @@ class htmlmetatags {
 
 		$url = FULLHOSTPATH . getRequestURI();
 
+		// get master admin
+		$admin = $_authority->getMasterUser();
+		if (!$author = $admin->getName()) {
+			$author = $admin->getUser();
+		}
+		$copyright_notice = $_gallery->getCopyright();
+
 		// Convert locale shorttag to allowed html meta format
 		$locale_ = i18n::getUserLocale();
 		$locale = npgFunctions::getLanguageText($locale_, '-');
 		$canonicalurl = '';
+
 		// generate page title, get date
 		$pagetitle = ""; // for gallery index setup below switch
 		$date = strftime(DATE_FORMAT); // if we don't have a item date use current date
@@ -202,6 +212,10 @@ class htmlmetatags {
 					$thumb = FULLHOSTPATH . html_encode($thumbimg->getCustomImage(array('width' => $ogimage_width, 'height' => $ogimage_height)));
 					$twittercard_type = 'summary_large_image';
 				}
+				if ($holder = self::getOwnerName($_current_album->getOwner())) {
+					$author = $holder;
+					$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+				}
 				break;
 			case 'image.php':
 				$pagetitle = getBareImageTitle() . " (" . getBareAlbumTitle() . ") - ";
@@ -212,6 +226,31 @@ class htmlmetatags {
 					$thumb = FULLHOSTPATH . html_encode(getCustomSizedImageMaxSpace($ogimage_width, $ogimage_height));
 					$twittercard_type = 'summary_large_image';
 				}
+				$metadata = $_current_image->getMetaData();
+				$ownerFields = array('XMPImageCredit', 'VideoArtist', 'EXIFArtist', 'IPTCByLine');
+				$holder = NULL;
+				foreach ($ownerFields as $field) {
+					if (isset($metadata[$field]) && !empty($metadata[$field])) {
+						$holder = $metadata[$field];
+						break;
+					}
+				}
+				if (empty($holder)) {
+					if ($holder = self::getOwnerName($_current_image->getOwner())) {
+						$author = $holder;
+					}
+				}
+				if ($holder) {
+					$author = $holder;
+				}
+				$copyrightFields = array('XMPCopyright', 'IPTCCopyright', 'EXIFCopyright');
+				$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+				foreach ($ownerFields as $field) {
+					if (isset($metadata[$field]) && !empty($metadata[$field])) {
+						$copyright_notice = $metadata[$field];
+						break;
+					}
+				}
 				break;
 			case 'news.php':
 				if (function_exists("is_NewsArticle")) {
@@ -220,6 +259,10 @@ class htmlmetatags {
 						$date = getNewsDate();
 						$desc = trim(getBare(getNewsContent()));
 						$canonicalurl = FULLHOSTPATH . $_CMS_current_article->getLink();
+						if ($holder = self::getOwnerName($_CMS_current_article->getOwner())) {
+							$author = $holder;
+							$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+						}
 					} else if (is_NewsCategory()) {
 						$pagetitle = $_CMS_current_category->getTitlelink() . " - ";
 						$date = strftime(DATE_FORMAT);
@@ -239,6 +282,10 @@ class htmlmetatags {
 				$date = getPageDate();
 				$desc = trim(getBare(getPageContent()));
 				$canonicalurl = FULLHOSTPATH . $_CMS_current_page->getLink();
+				if ($holder = self::getOwnerName($_CMS_current_page->getOwner())) {
+					$author = $holder;
+					$copyright_notice = '© ' . FULLWEBPATH . ' - ' . $author;
+				}
 				break;
 			default: // for all other possible static custom pages
 				$custompage = stripSuffix($_gallery_page);
@@ -258,9 +305,6 @@ class htmlmetatags {
 		// shorten desc to the allowed 200 characters if necesssary.
 		$desc = html_encode(trim(substr(getBare($desc), 0, 160)));
 		$pagetitle = $pagetitle . getBareGalleryTitle();
-		// get master admin
-		$admin = $_authority->getMasterUser();
-		$author = $admin->getName();
 		$meta = '';
 		if (getOption('htmlmeta_http-equiv-cache-control')) {
 			$meta .= '<meta http-equiv="Cache-control" content="' . getOption("htmlmeta_cache_control") . '">' . "\n";
@@ -290,7 +334,7 @@ class htmlmetatags {
 			$meta .= '<meta name="author" content="' . $author . '">' . "\n";
 		}
 		if (getOption('htmlmeta_name-copyright')) {
-			$meta .= '<meta name="copyright" content=" (c) ' . FULLWEBPATH . ' - ' . $author . '">' . "\n";
+			$meta .= '<meta name="copyright" content="' . html_encode($copyright_notice) . '">' . "\n";
 		}
 		if (getOption('htmlmeta_name-rights')) {
 			$meta .= '<meta name="rights" content="' . $author . '">' . "\n";
@@ -485,6 +529,19 @@ class htmlmetatags {
 			$alltags = $tags;
 		}
 		return $alltags;
+	}
+
+	static function getOwnerName($owner) {
+		global $_authority;
+		$user = $_authority->getAnAdmin(array('`user`=' => $owner, '`valid`=' => 1));
+		if (is_object($user)) {
+			if ($name = $user->getName()) {
+				return $name;
+			} else {
+				return $owner;
+			}
+		}
+		return FALSE;
 	}
 
 }

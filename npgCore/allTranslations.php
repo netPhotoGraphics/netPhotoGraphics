@@ -49,11 +49,6 @@ gettext('<p>Thanks for your message.</p>');
 gettext('Send another message.');
 gettext('<p>A copy of your e-mail will automatically be sent to the address you provided for your own records.</p>');
 
-/* core//extensions/cookieconsent.php */
-gettext('Agree');
-gettext('More info');
-gettext('This website uses cookies. By continuing to browse the site, you agree to our use of cookies.');
-
 /* core//extensions/favoritesHandler.php */
 gettext('My favorites');
 //gettext('My favorites');

@@ -34,7 +34,7 @@ $option_interface = 'reCAPTCHA_v2';
 
 class reCAPTCHA_v2 {
 
-	var $name = 'reCAPTCHA_v2';
+	public $name = 'reCAPTCHA_v2';
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {

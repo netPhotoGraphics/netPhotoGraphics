@@ -37,17 +37,8 @@ class tinymce {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			$option = getOption('tinymce_zenphoto');
-			if (!is_null($option)) {
-				setOption('tinymce_photo', str_replace('zenphoto', 'photo', $option));
-				purgeOption('tinymce_zenphoto');
-			}
-
-			$option = getOption('tinymce_zenpage');
-			if (!is_null($option)) {
-				setOption('tinymce_CMS', str_replace('zenpage', 'CMS', $option));
-				purgeOption('tinymce_zenpage');
-			}
+			renameOption('tinymce_zenphoto', 'tinymce_photo');
+			renameOption('tinymce_zenpage', 'tinymce_CMS');
 
 			setOptionDefault('tinymce_photo', 'photo-ribbon.php');
 			setOptionDefault('tinymce_CMS', 'CMS-ribbon.php');

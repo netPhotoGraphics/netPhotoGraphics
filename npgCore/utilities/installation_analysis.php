@@ -49,7 +49,7 @@ echo '</head>';
 								$source = '';
 							} else {
 								$clone = clonedFrom();
-								$official .= ' <em>' . gettext('clone') . '<em>';
+								$official .= ' <em>' . gettext('clone') . '</em>';
 								$base = substr(SERVERPATH, 0, -strlen(WEBPATH));
 								if (strpos($base, $clone) == 0) {
 									$base = substr($clone, strlen($base));
@@ -287,7 +287,7 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$host = '<em>' . $_conf_vars['mysql_host'];
+								$host = $_conf_vars['mysql_host'];
 								if (isset($_conf_vars['mysql_port']) && $_conf_vars['mysql_port']) {
 									$host .= ':' . $_conf_vars['mysql_port'];
 								}
@@ -325,10 +325,18 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
+								$authority = new ReflectionClass('_Authority');
+								$file = trim(str_replace(SERVERPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
+								echo gettext('Authentication authority: ') . '<strong>' . $file . '</strong>';
+								?>
+
+							</li>
+							<li>
+								<?php
 								if (isset($_spamFilter)) {
 									$filter = $_spamFilter->displayName();
 								} else {
-									$filter = gettext('No spam filter configured');
+									$filter = '<em>' . gettext('No spam filter configured') . '</em>';
 								}
 								printf(gettext('Spam filter: %s'), $filter)
 								?>
@@ -365,7 +373,7 @@ echo '</head>';
 							<ul class="plugins">
 								<?php
 								if ($c > 0) {
-									natcasesort($plugins);
+									localeSort($plugins);
 									foreach ($plugins as $extension) {
 										$pluginStream = file_get_contents(getPlugin($extension . '.php'));
 										$plugin_version = '';
@@ -434,7 +442,7 @@ echo '</head>';
 												foreach ($array_of_priority as $priority => $array_of_filters) {
 													foreach ($array_of_filters as $data) {
 														?>
-														<li><em><?php echo $priority; ?></em>: <?php echo $data['script'] ?> =&gt; <?php echo $data['function'] ?></li>
+														<li><em><?php echo $priority; ?></em>: <?php echo $data['script'] ?> =&gt; <?php echo $data['function'] ?></em></li>
 														<?php
 													}
 												}

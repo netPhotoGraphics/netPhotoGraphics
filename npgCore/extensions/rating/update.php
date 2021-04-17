@@ -23,10 +23,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 		}
 	}
 	XSRFdefender('clear_rating');
-	query('UPDATE ' . prefix('images') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-	query('UPDATE ' . prefix('albums') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-	query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
-	query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips="" ');
+	query('UPDATE ' . prefix('images') . ' SET total_value=0, total_votes=0, rating=0, used_ips=NULL ');
+	query('UPDATE ' . prefix('albums') . ' SET total_value=0, total_votes=0, rating=0, used_ips=NULL ');
+	query('UPDATE ' . prefix('news') . ' SET total_value=0, total_votes=0, rating=0, used_ips=NULL ');
+	query('UPDATE ' . prefix('pages') . ' SET total_value=0, total_votes=0, rating=0, used_ips=NULL ');
 	header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('All ratings have been set to <em>unrated</em>.'));
 	exit();
 }

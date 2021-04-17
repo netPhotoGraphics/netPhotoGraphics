@@ -89,10 +89,7 @@ class cmsFilters {
 			$sql = 'SELECT `name`,`value` FROM ' . prefix('options') . ' WHERE `name` LIKE "zenpage%" AND `theme` =""';
 			$options = query_full_array($sql);
 			foreach ($options as $opt) {
-				$key = $opt['name'];
-				$value = $opt['value'];
-				setOption(str_replace('zenpage', 'CMS', $key), $value);
-				purgeOption($key);
+				renameOption($opt['name'], str_replace('zenpage', 'CMS', $opt['name']));
 			}
 			setOptionDefault('CMS_articles_per_page', '10');
 			setOptionDefault('CMS_text_length', '500');

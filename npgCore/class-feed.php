@@ -145,8 +145,7 @@ class feed {
 			if (!empty($cachefilepath)) {
 				$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . $cachefilepath;
 				mkdir_recursive(SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/', FOLDER_MOD);
-				$pagecontent = ob_get_contents();
-				ob_end_clean();
+				$pagecontent = ob_get_clean();
 				if ($fh = fopen($cachefilepath, "w")) {
 					fputs($fh, $pagecontent);
 					fclose($fh);

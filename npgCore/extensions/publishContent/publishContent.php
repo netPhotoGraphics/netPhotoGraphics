@@ -420,7 +420,7 @@ echo "</head>\n";
 										$album = newAlbum($key);
 										$albumid = $album->getID();
 										$imagelist = array_flip($imagelist);
-										natcasesort($imagelist);
+										localeSort($imagelist);
 										$imagelist = array_flip($imagelist);
 										?>
 										<li>

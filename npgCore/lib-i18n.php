@@ -30,8 +30,7 @@ if (!extension_loaded('intl')) {
 		static function getLocales($param) {
 			ob_start();
 			system('locale -a');
-			$locales = ob_get_contents();
-			ob_end_clean();
+			$locales = ob_get_clean();
 			return explode("\n", trim($locales));
 		}
 
@@ -293,69 +292,69 @@ class i18n {
 	 *
 	 */
 	static function setMainDomain() {
-		global $_current_admin_obj, $_current_locale;
+		global $_current_admin_obj;
 		if (DEBUG_LOCALE)
 			debugLogBackTrace("i18n::setMainDomain()");
 
 		//	check url language for language
 		if (isset($_REQUEST['locale'])) {
-			$_current_locale = self::validateLocale(sanitize($_REQUEST['locale']), (isset($_POST['locale'])) ? 'POST' : 'URI string');
-			if ($_current_locale) {
-				setNPGCookie('dynamic_locale', $_current_locale);
+			$new_locale = self::validateLocale(sanitize($_REQUEST['locale']), (isset($_POST['locale'])) ? 'POST' : 'URI string');
+			if ($new_locale) {
+				setNPGCookie('dynamic_locale', $new_locale);
 			} else {
 				clearNPGCookie('dynamic_locale');
 			}
 			if (DEBUG_LOCALE)
-				debugLog("dynamic_locale from URL: " . sanitize($_REQUEST['locale']) . "=>$_current_locale");
+				debugLog("dynamic_locale from URL: " . sanitize($_REQUEST['locale']) . "=>$new_locale");
 		} else {
 			if (isset($_SERVER['HTTP_HOST'])) {
 				$matches = explode('.', $_SERVER['HTTP_HOST']);
 			} else {
 				$matches = array(NULL);
 			}
-			$_current_locale = self::validateLocale($matches[0], 'HTTP_HOST');
-			if ($_current_locale && getNPGCookie('dynamic_locale')) {
+			$new_locale = self::validateLocale($matches[0], 'HTTP_HOST');
+			if ($new_locale && getNPGCookie('dynamic_locale')) {
 				clearNPGCookie('dynamic_locale');
 			}
 			if (DEBUG_LOCALE)
-				debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$_current_locale");
+				debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$new_locale");
 		}
 
 		//	check for a language cookie
-		if (!$_current_locale) {
-			$_current_locale = self::validateLocale(getNPGCookie('dynamic_locale'), 'dynamic_locale cookie');
+		if (!$new_locale) {
+			$new_locale = self::validateLocale(getNPGCookie('dynamic_locale'), 'dynamic_locale cookie');
 			if (DEBUG_LOCALE)
-				debugLog("locale from cookie: " . $_current_locale . ';');
+				debugLog("locale from cookie: " . $new_locale . ';');
 		}
 
 		//	check if the user has a language selected
-		if (!$_current_locale && is_object($_current_admin_obj)) {
-			$_current_locale = self::validateLocale($_current_admin_obj->getLanguage(), 'user language');
+		if (!$new_locale && is_object($_current_admin_obj)) {
+			$new_locale = self::validateLocale($_current_admin_obj->getLanguage(), 'user language');
 			;
 			if (DEBUG_LOCALE)
-				debugLog("locale from user: " . $_current_locale);
+				debugLog("locale from user: " . $new_locale);
 		}
 
 		//	check the language option
-		if (!$_current_locale) {
-			$_current_locale = self::validateLocale(getOption('locale'), 'locale option');
+		if (!$new_locale) {
+			$new_locale = self::validateLocale(getOption('locale'), 'locale option');
 			if (DEBUG_LOCALE)
-				debugLog("locale from option: " . $_current_locale);
+				debugLog("locale from option: " . $new_locale);
 		}
 
 		//check the HTTP accept lang
-		if (empty($_current_locale)) { // if one is not set, see if there is a match from 'HTTP_ACCEPT_LANGUAGE'
+		if (empty($new_locale)) { // if one is not set, see if there is a match from 'HTTP_ACCEPT_LANGUAGE'
 			$languageSupport = self::generateLanguageList();
 			$userLang = self::parseHttpAcceptLanguage();
 			foreach ($userLang as $lang) {
 				$l = strtoupper($lang['fullcode']);
-				$_current_locale = self::validateLocale($l, 'HTTP Accept Language');
-				if ($_current_locale)
+				$new_locale = self::validateLocale($l, 'HTTP Accept Language');
+				if ($new_locale)
 					break;
 			}
 		}
 
-		if (empty($_current_locale)) {
+		if (empty($new_locale)) {
 			// return "default" language, English if allowed, otherwise whatever is the "first" allowed language
 			$languageSupport = self::generateLanguageList();
 			if (defined('BASE_LOCALE') && BASE_LOCALE) {
@@ -364,18 +363,26 @@ class i18n {
 				$loc = 'en_US';
 			}
 			if (empty($languageSupport) || in_array($loc, $languageSupport)) {
-				$_current_locale = $loc;
+				$new_locale = $loc;
 			} else {
-				$_current_locale = array_shift($languageSupport);
+				$new_locale = array_shift($languageSupport);
 			}
 			if (DEBUG_LOCALE)
-				debugLog("locale from language list: " . $_current_locale);
+				debugLog("locale from language list: " . $new_locale);
 		} else {
-			setOption('locale', $_current_locale, false);
+			setOption('locale', $new_locale, false);
 		}
+
 		if (DEBUG_LOCALE)
-			debugLog("self::getUserLocale Returning locale: " . $_current_locale);
-		return self::setupCurrentLocale($_current_locale);
+			debugLog("self::getUserLocale Returning locale: " . $new_locale);
+
+		if (class_exists('Collator')) {
+			//	create the global $collator variable
+			$GLOBALS['Collator'] = new Collator($new_locale);
+			$GLOBALS['Collator']->setAttribute(Collator::NUMERIC_COLLATION, Collator::ON);
+		}
+
+		return self::setupCurrentLocale($new_locale);
 	}
 
 	/**
@@ -513,22 +520,6 @@ function getAllTranslations($text) {
 	return $translated;
 }
 
-/**
- * if possible sort by locale rules
- *
- * @global type $_current_locale
- * @param array $strings passed by reference
- */
-function localeSort(&$strings) {
-	global $_current_locale;
-	if (class_exists('Collator')) {
-		$coll = new Collator($_current_locale);
-		$coll->asort($strings);
-	} else {
-		natcasesort($strings);
-	}
-}
-
 if (function_exists('date_default_timezone_set')) { // insure a correct time zone
 	$tz = getOption('time_zone');
 	if (!empty($tz)) {
@@ -538,4 +529,55 @@ if (function_exists('date_default_timezone_set')) { // insure a correct time zon
 		error_reporting($err);
 	}
 	unset($tz);
+}
+
+/**
+ * Sort by locale rules with fallback if Collator class not present
+ *
+ * @param array $strings passed by reference
+ * @param bool $case TRUE for case insensitive sort
+ * @return bool true if success
+ */
+function localeSort(&$strings, $case = TRUE) {
+	global $Collator;
+	if (isset($Collator)) {
+		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
+		return $Collator->asort($strings);
+	} else {
+		if ($case) {
+			return natcasesort($strings);
+		} else {
+			return natsort($strings);
+		}
+	}
+}
+
+/**
+ * locale aware comparator with fallback if Collator class not present
+ *
+ * @param string $a
+ * @param string $b
+ * @param bool $nat true for natural comparison
+ * @param bool $case true for case insensitive comparison
+ * @return int 1 if $a is greater than $b
+ *             0 if $a is equal to $b
+ *            -1 if $a is less than $b
+ */
+function localeCompare($a, $b, $nat, $case) {
+	global $Collator;
+	if ($nat && isset($Collator)) {
+		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
+		return $Collator->compare($a, $b);
+	} else {
+		//create the comparator function
+		$comp = 'str';
+		if ($nat) {
+			$comp .= 'nat';
+		}
+		if ($case) {
+			$comp .= 'case';
+		}
+		$comp .= 'cmp';
+		return $comp($a, $b);
+	}
 }

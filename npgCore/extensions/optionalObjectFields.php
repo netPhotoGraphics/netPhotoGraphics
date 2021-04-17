@@ -378,8 +378,7 @@ class optionalObjectFields extends fieldExtender {
 					<?php generateListFromArray(array(), $albumHeritage, false, true); ?>
 				</select>
 				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
+				$item = ob_get_clean();
 			}
 			return $item;
 		}
@@ -436,8 +435,7 @@ class optionalObjectFields extends fieldExtender {
 					</label>
 				</span>
 				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
+				$item = ob_get_clean();
 			}
 			return $item;
 		}
@@ -493,8 +491,7 @@ class optionalObjectFields extends fieldExtender {
 				<?php tagSelector($obj, 'tags_' . $i, false, $tagsort, $add, 1); ?>
 			</div>
 			<?php
-			$item = ob_get_contents();
-			ob_end_clean();
+			$item = ob_get_clean();
 			return $item;
 		}
 	}
@@ -508,8 +505,7 @@ class optionalObjectFields extends fieldExtender {
 		} else {
 			ob_start();
 			printCodeblockEdit($obj, (int) $instance);
-			$item = ob_get_contents();
-			ob_end_clean();
+			$item = ob_get_clean();
 			return $item;
 		}
 	}
@@ -522,8 +518,7 @@ class optionalObjectFields extends fieldExtender {
 		} else {
 			ob_start();
 			print_language_string_list($obj->getExtraContent('all'), 'extracontent', true, NULL, 'extracontent', '100%', 13);
-			$item = ob_get_contents();
-			ob_end_clean();
+			$item = ob_get_clean();
 			return $item;
 		}
 	}

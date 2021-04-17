@@ -315,8 +315,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function get_npgButton($buttonType, $buttonText, $options = array()) {
 		ob_start();
 		npgButton($buttonType, $buttonText, $options);
-		$button = ob_get_contents();
-		ob_end_clean();
+		$button = ob_get_clean();
 		return $button;
 	}
 
@@ -1558,7 +1557,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				localeSort($list);
 				$list = array_flip($list);
 			} else {
-				natcasesort($list);
+				localeSort($list);
 			}
 		}
 		$cv = array_flip($currentValue);
@@ -1591,11 +1590,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-										 } else {
-											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-										 }
+												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+												 } else {
+													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+												 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -1968,10 +1967,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();
-						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide();$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<a onclick="$('#menu_selections').hide(); $('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<?php
 					foreach ($stuff as $item => $name) {
@@ -2194,7 +2193,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2523,9 +2522,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2586,26 +2585,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 						if ($album->getlastchangeuser()) {
 							?>
 							<p>
-								<?php
-								printf(gettext('Last changed %1$s by %2$s'), $album->getLastchange() . '<br />', $album->getlastchangeuser());
-								?>
+								<?php printLastChange($album); ?>
 							</p>
 							<?php
 						}
 						?>
 						<p>
-							<?php
-							if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-								echo gettext("Owner");
-								?>
-								<select name="<?php echo $suffix; ?>owner" size='1'>
-									<?php echo admin_owner_list($album->getOwner(), UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
-								</select>
-								<?php
-							} else {
-								printf(gettext('Owner: %1$s'), $album->getOwner());
-							}
-							?>
+							<?php printChangeOwner($album, UPLOAD_RIGHTS | ALBUM_RIGHTS, gettext("Owner"), $prefix); ?>
 						</p>
 						<?php
 						if (extensionEnabled('comment_form')) {
@@ -2696,7 +2682,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -3294,7 +3280,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (isset($_POST[$prefix . 'reset_rating'])) {
 			$album->set('total_value', 0);
 			$album->set('total_votes', 0);
-			$album->set('used_ips', 0);
+			$album->set('used_ips', NULL);
 		}
 		if (isset($_POST['publishdate-' . $prefix])) {
 			$pubdate = $album->setPublishDate(sanitize($_POST['publishdate-' . $prefix]));
@@ -3692,7 +3678,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$zip->open($zipfileFS, ZipArchive::CREATE);
 			$zip->addFile($fileFS, basename($fileFS));
 			$zip->close();
-			ob_get_clean();
+			@ob_end_clean();
 			header("Pragma: public");
 			header("Expires: 0");
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -4030,26 +4016,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$link = '';
 		$parents = getParentAlbumsAdmin($album);
 		foreach ($parents as $parent) {
-			$link .= "<a href='" . getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . pathurlencode($parent->name) . "'>" . removeParentAlbumNames($parent) . "</a>/";
+			$link .= "<a href='" . getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;album=' . pathurlencode($parent->name) . "'>" . basename($parent->name) . "</a>/";
 		}
 		return $link;
-	}
-
-	/**
-	 * Removes the parent album name so that we can print a album breadcrumb with them
-	 *
-	 * @param object $album Object of the album
-	 * @return string
-	 */
-	function removeParentAlbumNames($album) {
-		$slash = stristr($album->name, "/");
-		if ($slash) {
-			$array = array_reverse(explode("/", $album->name));
-			$albumname = $array[0];
-		} else {
-			$albumname = $album->name;
-		}
-		return $albumname;
 	}
 
 	/**
@@ -4061,16 +4030,30 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param bit $rights rights of the admin
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
-		$rightslist = sortMultiArray(npg_Authority::getRights(), array('set', 'value'));
+		$rightslist = sortMultiArray(npg_Authority::getRights(), array('sort', 'value'));
+
+		$element = 3;
+		$activeset = false;
+		$format = 'user[%2$s][%1$s]';
 		?>
 		<div class="box-rights rights_stuff">
-			<strong><?php echo gettext("Rights:"); ?></strong>
-			<?php
-			$element = 3;
-			$activeset = false;
-			$format = 'user[%2$s][%1$s]';
-			?>
-			<input type="checkbox" name="<?php printf($format, 'rightsenabled', $id); ?>" class="user-<?php echo $id; ?>" value="1" checked="checked" <?php echo $alterrights; ?> style="display:none" />
+			<div>
+				<span class="bold">
+					<?php echo gettext("Rights:"); ?>
+				</span>
+				<span style="float: right; padding-right: 12px;">
+					<label title="<?php echo gettext('check/uncheck all'); ?>">
+						<input type="checkbox" name="all_<?php echo $id; ?>" id="all-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
+						if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
+							echo ' checked="checked"';
+						echo $alterrights;
+						?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/>
+									 <?php echo gettext('All rights'); ?>
+					</label>
+				</span>
+			</div>
+			<input type="hidden" name="<?php printf($format, 'rightsenabled', $id); ?>" class="user-<?php echo $id; ?>" value="1" checked="checked" <?php echo $alterrights; ?> />
+
 			<?php
 			foreach ($rightslist as $rightselement => $right) {
 				if (!empty($right['set'])) {
@@ -4096,14 +4079,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							?> />
 										 <?php echo $right['name']; ?>
 						</label>
-
 						<?php
-					} else {
-						if ($rights & $right['value']) {
-							?>
-							<input type="hidden" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" value="<?php echo $right['value']; ?>" />
-							<?php
-						}
 					}
 				}
 			}
@@ -4290,6 +4266,11 @@ function processRights($i) {
 			$rights = $rights | $right['value'] | NO_RIGHTS;
 		}
 	}
+
+	if (($rights & ~HIDDEN_RIGHTS) == (ALL_RIGHTS & ~HIDDEN_RIGHTS)) {
+		$rights = $rights | ADMIN_RIGHTS;
+	}
+
 	if ($rights & MANAGE_ALL_ALBUM_RIGHTS) { // these are lock-step linked!
 		$rights = $rights | ALL_ALBUMS_RIGHTS | ALBUM_RIGHTS;
 	}
@@ -4815,30 +4796,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script type="text/javascript">
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 			// ]]> -->
 		</script>
@@ -5224,27 +5205,27 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		// <!-- <![CDATA[
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 		// ]]> -->
 	</script>
@@ -5257,7 +5238,7 @@ function codeblocktabsJS() {
  * @param object $obj
  * @param int $id
  */
-function printCodeblockEdit($obj, $id) {
+function printCodeblockEdit($obj, $id, $hint = TRUE) {
 	$codeblock = getSerializedArray($obj->getCodeblock());
 	$keys = array_keys($codeblock);
 	array_push($keys, 1);
@@ -5268,24 +5249,28 @@ function printCodeblockEdit($obj, $id) {
 	} else {
 		$start = (int) getOption('codeblock_first_tab');
 	}
+	if (isImageClass($obj)) {
+		$script = 'image.php';
+	} else if (isAlbumClass($obj)) {
+		$script = 'album.php';
+	} else { //	news and pages
+		$script = $obj->table . '.php';
+	}
+	$hintText = sprintf(gettext('To display a codeblock place a function call on <code>printCodeBlocks(</code><em>block number</em><code>)</code> at the appropriate place in your <em>%1$s</em> script.'), $script);
+	if ($hint) {
+		?>
+
+		<span class="info_info floatright">
+			<?php echo INFORMATION_BLUE; ?>
+			<div class="option_desc_hidden">
+				<?php echo $hintText ?>
+			</div>
+		</span>
+		<?php
+	}
 	?>
 	<div id="cbd-<?php echo $id; ?>" class="tabs">
 		<ul id="<?php echo 'cbu' . '-' . $id; ?>" class="tabNavigation">
-			<span class="info_info floatright">
-				<?php echo INFORMATION_BLUE; ?>
-				<div class="option_desc_hidden">
-					<?php
-					if (isImageClass($obj)) {
-						$script = 'image.php';
-					} else if (isAlbumClass($obj)) {
-						$script = 'album.php';
-					} else { //	news and pages
-						$script = $obj->table . '.php';
-					}
-					printf(gettext('To display a codeblock place a function call on <code>printCodeBlocks(</code><em>block number</em><code>)</code> at the appropriate place in your <em>%1$s</em> script.'), $script);
-					?>
-				</div>
-			</span>
 			<?php
 			for ($i = $start; $i < $codeblockCount; $i++) {
 				?>
@@ -5326,6 +5311,7 @@ function printCodeblockEdit($obj, $id) {
 		?>
 	</div>
 	<?php
+	return $hintText;
 }
 
 /**
@@ -5679,10 +5665,56 @@ function admin_owner_list($owner, $rightsNeeded) {
 			if ($owner == $user['user']) {
 				$adminlist .= ' SELECTED="SELECTED"';
 			}
+			if ($user['name']) {
+				$adminlist .= ' title="' . $user['name'] . '"';
+			}
 			$adminlist .= '>' . $user['user'] . "</option>\n";
 		}
 	}
 	return $adminlist;
+}
+
+/**
+ * prints the date and user who last changed the object
+ *
+ * @param object $obj the object changed
+ */
+function printLastChange($obj) {
+	$name = '';
+	$user = $obj->getlastchangeuser();
+	if ($user) {
+		$userobj = new npg_Administrator($user, 1);
+		$name = $userobj->getName();
+	}
+	printf(gettext('Last changed %1$s by %2$s'), $obj->getLastchange() . '<br /><span title="' . $name . '">', $obj->getlastchangeuser() . '</span>');
+}
+
+/**
+ * Prints the change owner selector
+ *
+ * @param object $obj the object owned
+ * @param bool $rightsDesired the rights filter for the list
+ * @param string $called the "name" of the element
+ */
+function printChangeOwner($obj, $rightsDesired, $called, $unique = NULL) {
+	if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+		echo $called;
+		?>
+		<select name="<?php echo $unique; ?>owner" size='1'>
+			<?php echo admin_owner_list($obj->getOwner(), $rightsDesired); ?>
+		</select>
+		<?php
+	} else {
+		$name = '';
+		$owner = $obj->getOwner();
+		if ($owner) {
+			$userobj = new npg_Administrator($owner, 1);
+			$name = $userobj->getName();
+		}
+		echo '<span title="' . $name . '">';
+		printf(gettext('Owner: %1$s'), $owner);
+		echo '</span>';
+	}
 }
 
 /**
@@ -5756,7 +5788,7 @@ function getPluginTabs() {
 			'mail' => gettext('mail'),
 			'media' => gettext('media'),
 			'misc' => gettext('misc'),
-			'netPhotoGraphics' => gettext('netPhotoGraphics'),
+			'netphotographics' => gettext('netPhotoGraphics'),
 			'theme' => gettext('theme support'),
 			'tools' => gettext('tools'),
 			'users' => gettext('users')
@@ -5925,6 +5957,26 @@ function getAdminThumb($image, $size) {
 			return $image->getCustomImage(array('size' => ADMIN_THUMB_LARGE, 'cw' => ADMIN_THUMB_LARGE, 'ch' => ADMIN_THUMB_LARGE, 'thumb' => -1));
 		default:
 			return $image->getCustomImage(array('size' => ADMIN_THUMB_SMALL, 'cw' => ADMIN_THUMB_SMALL, 'ch' => ADMIN_THUMB_SMALL, 'thumb' => -1));
+		case 'large-uncropped':
+			$uncroppedSize = ADMIN_THUMB_LARGE;
+		case 'medium-uncropped':
+			if (!isset($uncroppedSize)) {
+				$uncroppedSize = ADMIN_THUMB_MEDIUM;
+			}
+		case 'small-uncropped':
+			if (!isset($uncroppedSize)) {
+				$uncroppedSize = ADMIN_THUMB_SMALL;
+			}
+			$thumbsize = $width = $height = NULL;
+			$orientation = $image->getWidth() - $image->getHeight();
+
+			if ($orientation >= 0) { //	landscape or square
+				$width = $uncroppedSize;
+			} else { //	portrait
+				$height = $uncroppedSize;
+			}
+			return $image->getCustomImage(array('width' => $width, 'height' => $height, 'thumb' => -1));
+			break;
 	}
 }
 
@@ -6232,7 +6284,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php

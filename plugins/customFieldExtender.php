@@ -28,8 +28,8 @@
  * version--say xyzzyCustomFieldExtender.php
  *
  * Be sure to change the class name to something unique--say class xyzzyCustomFieldExtender.
- * Also rename the two functions <code>getCustomField</code> and <code>printCustomField</code>.
- * For instance <code>getXyzzyField</code> and <code>printXyzzyField</code>. These changes
+ * Also rename the functions <code>customFieldExtender_enable</code>, <code>getCustomField</code>, and <code>printCustomField</code>.
+ * For instance <code>xyzzyFieldExtender_enable</code>, <code>getXyzzyField</code>, etc. These changes
  * allow your plugin to co-exist with other custom field extender plugins.
  *
  * @author Stephen Billard (sbillard)
@@ -208,8 +208,7 @@ class customFieldExtender extends fieldExtender {
 					<?php echo admin_owner_list($item, UPLOAD_RIGHTS | ALBUM_RIGHTS); ?>
 				</select>
 				<?php
-				$item = ob_get_contents();
-				ob_end_clean();
+				$item = ob_get_clean();
 			}
 			return $item;
 		}

@@ -27,10 +27,10 @@ if ($plugin_disable) {
  */
 class _SimpleSpam {
 
-	var $name = 'simpleSpam';
-	var $wordsToDieOn = array('cialis', 'ebony', 'nude', 'porn', 'porno', 'pussy', 'upskirt', 'ringtones', 'phentermine', 'viagra', 'levitra'); /* the word black list */
-	var $patternsToDieOn = array('\[url=.*\]');
-	var $excessiveURLCount = 5;
+	public $name = 'simpleSpam';
+	public $wordsToDieOn = array('cialis', 'ebony', 'nude', 'porn', 'porno', 'pussy', 'upskirt', 'ringtones', 'phentermine', 'viagra', 'levitra'); /* the word black list */
+	public $patternsToDieOn = array('\[url=.*\]');
+	public $excessiveURLCount = 5;
 
 	/**
 	 * The SpamFilter class instantiation function.

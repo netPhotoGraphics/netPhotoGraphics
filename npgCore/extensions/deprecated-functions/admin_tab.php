@@ -73,7 +73,7 @@ echo "\n</head>";
 										<?php
 										ksort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
 										foreach ($plugins as $plugin => $functions) {
-											natcasesort($functions);
+											localeSort($functions);
 											if (empty($plugin) || $plugin == 'core')
 												$plugin = "<em>core</em>";
 											?>

@@ -28,8 +28,8 @@ class CMS {
 	// page defaults
 	protected $page_sortorder = 'sort_order';
 	protected $page_sortdirection = false;
-	var $news_enabled = NULL;
-	var $pages_enabled = NULL;
+	public $news_enabled = NULL;
+	public $pages_enabled = NULL;
 
 	/**
 	 * Class instantiator
@@ -646,7 +646,7 @@ class CMS {
 	 * @return string
 	 */
 	public function __toString() {
-		return 'Zenpage';
+		return 'CMS Object';
 	}
 
 	function getSortDirection($what = 'news') {
@@ -729,6 +729,19 @@ class CMSRoot extends ThemeObject {
 	protected $sortorder;
 	protected $sortdirection;
 	protected $sortSticky = true;
+
+	/**
+	 *
+	 * "Magic" function to return a string identifying the object when it is treated as a string
+	 * @return string
+	 */
+	public function __toString() {
+		if ($this->table) {
+			return $this->table . " (" . $this->getTitlelink() . ")";
+		} else {
+			return get_class($this) . ' ' . gettext('Object');
+		}
+	}
 
 	/**
 	 * Returns the perma link status (only used on admin)

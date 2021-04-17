@@ -14,10 +14,13 @@ $_options = array();
 if (!isset($_SERVER['HTTP_HOST']))
 	die();
 
+$v = explode("\n", file_get_contents(__DIR__ . '/version.php'));
+eval($v[2]); // Include the version info avoiding captured PHP script.
+
 if (!function_exists("gettext")) {
 	require_once(__DIR__ . '/php-gettext/gettext.inc');
 }
-require_once(__DIR__ . '/version.php'); // Include the version info.
+
 $v = explode('-', NETPHOTOGRAPHICS_VERSION);
 define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
 unset($v);

@@ -80,7 +80,7 @@ class static_html_cache_options {
 
 class static_html_cache {
 
-	var $enabled = true; // manual disable caching a page
+	public $enabled = true; // manual disable caching a page
 	private $pageCachePath = NULL;
 	private $dirty;
 
@@ -177,27 +177,29 @@ class static_html_cache {
 			$cachefilepath = $this->createCacheFilepath($accessType);
 			if (!empty($cachefilepath)) {
 				$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachefilepath;
-				if (file_exists($cachefilepath)) {
-					$lastmodified = filemtime($cachefilepath);
+				if (file_exists($cachefilepath) && $lastmodified = @filemtime($cachefilepath)) {
 					// don't use cache if comment is posted or cache has expired
 					if (time() - $lastmodified < getOption("static_cache_expire")) {
-						//send the headers!
-						header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
-						header("HTTP/1.0 200 OK");
-						header("Status: 200 OK");
-						header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastmodified) . ' GMT');
+						if ($content = @file_get_contents($cachefilepath)) {
 
-						echo file_get_contents($cachefilepath);
+							//send the headers!
+							header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
+							header("HTTP/1.0 200 OK");
+							header("Status: 200 OK");
+							header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastmodified) . ' GMT');
 
-						// cache statistics
-						list($usec, $sec) = explode(' ', $_themeScript_timer['start']);
-						$start = (float) $usec + (float) $sec;
-						list($usec, $sec) = explode(' ', $_themeScript_timer['static cache start']);
-						$start_cache = (float) $usec + (float) $sec;
-						list($usec, $sec) = explode(' ', microtime());
-						$end = (float) $usec + (float) $sec;
-						echo "<!-- " . sprintf(gettext('Cached content of %3$s served by static_html_cache in %1$.4f seconds plus %2$.4f seconds unavoidable overhead.'), $end - $start_cache, $start_cache - $start, date('D, d M Y H:i:s', filemtime($cachefilepath))) . " -->\n";
-						exit();
+							echo $content;
+
+							// cache statistics
+							list($usec, $sec) = explode(' ', $_themeScript_timer['start']);
+							$start = (float) $usec + (float) $sec;
+							list($usec, $sec) = explode(' ', $_themeScript_timer['static cache start']);
+							$start_cache = (float) $usec + (float) $sec;
+							list($usec, $sec) = explode(' ', microtime());
+							$end = (float) $usec + (float) $sec;
+							echo "<!-- " . sprintf(gettext('Cached content of %3$s served by static_html_cache in %1$.4f seconds plus %2$.4f seconds unavoidable overhead.'), $end - $start_cache, $start_cache - $start, date('D, d M Y H:i:s', filemtime($cachefilepath))) . " -->\n";
+							exit();
+						}
 					}
 					$this->deletestatic_html_cacheFile($cachefilepath);
 				}
@@ -217,8 +219,7 @@ class static_html_cache {
 		global $_themeScript_timer, $_image_need_cache;
 		$cachefilepath = $this->pageCachePath;
 		if (!empty($cachefilepath)) {
-			$pagecontent = ob_get_contents();
-			ob_end_clean();
+			$pagecontent = ob_get_clean();
 			if ($this->enabled && $fh = fopen($cachefilepath, "w")) {
 				fputs($fh, $pagecontent);
 				fclose($fh);
@@ -261,9 +262,9 @@ class static_html_cache {
 		if (!empty($this->pageCachePath)) {
 			$this->pageCachePath = NULL;
 			if ($flush) {
-				ob_end_flush();
+				@ob_end_flush();
 			} else {
-				ob_end_clean();
+				@ob_end_clean();
 			}
 		}
 	}

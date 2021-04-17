@@ -77,25 +77,25 @@ function isImageClass($image) {
  */
 class Image extends MediaObject {
 
-	var $filename; // true filename of the image.
-	var $exists = true; // Does the image exist?
-	var $webpath; // The full URL path to the original image.
-	var $localpath; // Latin1 full SERVER path to the original image.
-	var $displayname; // $filename with the extension stripped off.
-	var $album; // An album object for the album containing this image.
-	var $albumname; // The name of the album for which this image was instantiated. (MAY NOT be $this->album->name!!!!).
-	var $albumnamealbum; //	An album object representing the above;
-	var $albumlink; // "rewrite" verwion of the album name, eg. may not have the .alb
-	var $imagefolder; // The album folder containing the image (May be different from the albumname!!!!)
+	public $filename; // true filename of the image.
+	public $exists = true; // Does the image exist?
+	public $webpath; // The full URL path to the original image.
+	public $localpath; // Latin1 full SERVER path to the original image.
+	public $displayname; // $filename with the extension stripped off.
+	public $album; // An album object for the album containing this image.
+	public $albumname; // The name of the album for which this image was instantiated. (MAY NOT be $this->album->name!!!!).
+	public $albumnamealbum; //	An album object representing the above;
+	public $albumlink; // "rewrite" verwion of the album name, eg. may not have the .alb
+	public $imagefolder; // The album folder containing the image (May be different from the albumname!!!!)
 	protected $index; // The index of the current image in the album array.
 	protected $sortorder; // The position that this image should be shown in the album
-	var $filemtime; // Last modified time of this image
-	var $sidecars = array(); // keeps the list of suffixes associated with this image
-	var $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
-	var $manage_some_rights = ALBUM_RIGHTS;
-	var $access_rights = ALL_ALBUMS_RIGHTS;
+	public $filemtime; // Last modified time of this image
+	public $sidecars = array(); // keeps the list of suffixes associated with this image
+	public $manage_rights = MANAGE_ALL_ALBUM_RIGHTS;
+	public $manage_some_rights = ALBUM_RIGHTS;
+	public $access_rights = ALL_ALBUMS_RIGHTS;
 	// Plugin handler support
-	var $objectsThumb = NULL; // Thumbnail image for the object
+	public $objectsThumb = NULL; // Thumbnail image for the object
 
 	/**
 	 * Constructor for class-image
@@ -151,7 +151,7 @@ class Image extends MediaObject {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->imagefolder . '/' . $this->filename;
+		return $this->table . '(' . $this->imagefolder . '/' . $this->filename . ')';
 	}
 
 	/**
@@ -200,12 +200,12 @@ class Image extends MediaObject {
 				'IPTCImageHeadline' => array('IPTC', 'ImageHeadline', gettext('Image Headline'), false, 256, true, 'string', false),
 				'IPTCImageCaption' => array('IPTC', 'ImageCaption', gettext('Image Caption'), false, 2000, true, 'string', false),
 				'IPTCImageCaptionWriter' => array('IPTC', 'ImageCaptionWriter', gettext('Image Caption Writer'), false, 32, true, 'string', false),
-				'EXIFDateTime' => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'time', false),
-				'EXIFDateTimeOriginal' => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'time', false),
-				'EXIFDateTimeDigitized' => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'time', false),
-				'IPTCDateCreated' => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'time', false),
+				'EXIFDateTime' => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'datetime', false),
+				'EXIFDateTimeOriginal' => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
+				'EXIFDateTimeDigitized' => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'datetime', false),
+				'IPTCDateCreated' => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'date', false),
 				'IPTCTimeCreated' => array('IPTC', 'TimeCreated', gettext('Time Created'), false, 11, true, 'time', false),
-				'IPTCDigitizeDate' => array('IPTC', 'DigitizeDate', gettext('Digital Creation Date'), false, 8, true, 'time', false),
+				'IPTCDigitizeDate' => array('IPTC', 'DigitizeDate', gettext('Digital Creation Date'), false, 8, true, 'date', false),
 				'IPTCDigitizeTime' => array('IPTC', 'DigitizeTime', gettext('Digital Creation Time'), false, 11, true, 'time', false),
 				'EXIFArtist' => array('IFD0', 'Artist', gettext('Artist'), false, 52, true, 'string', false),
 				'IPTCImageCredit' => array('IPTC', 'ImageCredit', gettext('Image Credit'), false, 32, true, 'string', false),
@@ -252,7 +252,6 @@ class Image extends MediaObject {
 				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program'), false, 32, true, 'string', false),
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
-		ksort($fields, SORT_NATURAL | SORT_FLAG_CASE);
 		return $fields;
 	}
 
@@ -376,14 +375,16 @@ class Image extends MediaObject {
 	}
 
 	function getGPSLatitude() {
-		if ($coord = $this->get('GPSLatitude')) {
+		$coord = $this->get('GPSLatitude');
+		if (!is_null($coord)) {
 			return self::floatGPS($coord);
 		}
 		return NULL;
 	}
 
 	function getGPSLongitude() {
-		if ($coord = $this->get('GPSLongitude')) {
+		$coord = $this->get('GPSLongitude');
+		if (!is_null($coord)) {
 			return self::floatGPS($coord);
 		}
 		return NULL;
@@ -463,12 +464,6 @@ class Image extends MediaObject {
 					'LangID' => '2#135', //	Language ID												Size:3
 					'Subfile' => '8#010' //	Subfile														Size:2
 			);
-			$timevalues = array(//these need to be formatted for the database
-					'IPTCReleaseTime',
-					'IPTCExpireTime',
-					'IPTCTimeCreated',
-					'IPTCDigitizeTime'
-			);
 
 			$this->set('hasMetadata', 0);
 			foreach ($_exifvars as $field => $exifvar) {
@@ -520,8 +515,15 @@ class Image extends MediaObject {
 							if ($exifvar[EXIF_SOURCE] == 'IPTC') {
 								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
 								$value = $this->prepIPTCString($datum, $characterset);
-								if (in_array($field, $timevalues)) {
-									$value = '0000-00-00 ' . substr($value, 0, 2) . ':' . substr($value, 2, 2) . ':' . substr($value, 4, 2);
+								switch ($exifvar[EXIF_FIELD_TYPE]) {
+									case 'time':
+										$value = substr($value, 0, 6); //	strip off any timezone indicator
+									case 'date':
+									case 'datetime':
+										if (!$value) {
+											$value = NULL;
+										}
+										break;
 								}
 								$this->set($field, $value);
 							}

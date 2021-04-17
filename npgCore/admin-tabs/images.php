@@ -405,7 +405,7 @@ echo "\n</head>";
 				} else {
 					$link = '';
 				}
-				$alb = removeParentAlbumNames($album);
+				$alb = basename($album->name);
 				npgFilters::apply('admin_note', 'albums', $subtab);
 				?>
 				<h1><?php printf(gettext('Album: <em>%1$s%2$s</em>'), $link, $alb); ?></h1>

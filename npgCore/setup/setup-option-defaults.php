@@ -10,7 +10,11 @@
  */
 setupLog(gettext('Set default options'), true);
 require_once(CORE_SERVERPATH . 'admin-globals.php');
-
+?>
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
+<?php
 list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
 $setOptions = getOptionList();
@@ -49,13 +53,13 @@ enableExtension('slideshow2', 0);
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
-// setup a hash seed
+	// setup a hash seed
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('extra_auth_hash_text', $auth_extratext);
+	setOption('extra_auth_hash_text', $auth_extratext);
 }
 if (!isset($setOptions['secret_key_text'])) {
 	$auth_extratext = "";
@@ -63,7 +67,7 @@ if (!isset($setOptions['secret_key_text'])) {
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('secret_key_text', $auth_extratext);
+	setOption('secret_key_text', $auth_extratext);
 }
 if (!isset($setOptions['secret_init_vector'])) {
 	$auth_extratext = "";
@@ -71,7 +75,7 @@ if (!isset($setOptions['secret_init_vector'])) {
 	for ($i = 0; $i < 30; $i++) {
 		$auth_extratext = $auth_extratext . $salt[$list[$i]];
 	}
-	setOptionDefault('secret_init_vector', $auth_extratext);
+	setOption('secret_init_vector', $auth_extratext);
 }
 purgeOption('adminTagsTab');
 
@@ -332,8 +336,7 @@ if (empty($admins)) { //	empty administrators table
 			if (empty($oldv)) {
 				//	The password hash of these old versions did not have the extra text.
 				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
-				purgeOption('extra_auth_hash_text');
-				setOptionDefault('extra_auth_hash_text', '');
+				setOption('extra_auth_hash_text', '');
 			} else {
 				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, npg_Authority::$preferred_version);
 				if (!$_authority->migrateAuth(npg_Authority::$preferred_version)) {
@@ -343,7 +346,6 @@ if (empty($admins)) { //	empty administrators table
 				setupLog($msg, true);
 			}
 		}
-		purgeOption('extra_auth_hash_text');
 	}
 } else {
 	$groupsdefined = getSerializedArray(getOption('defined_groups'));
@@ -395,9 +397,6 @@ setOptionDefault('dirtyform_enable', 2);
 		});
 	});
 </script>
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
 <?php
 purgeOption('mod_rewrite_detected');
 
@@ -565,7 +564,10 @@ if (!$GDPR_cookie || strpos(' ', $GDPR_cookie) !== FALSE) {
 }
 
 setOptionDefault('full_image_quality', 75);
-setOptionDefault('protect_full_image', 'Protected view');
+if (getOption('protect_full_image') == 'Protected view') {
+	purgeOption('protext_full_image');
+}
+setOptionDefault('protect_full_image', 'Protected');
 
 setOptionDefault('locale', '');
 setOptionDefault('date_format', '%x');
@@ -720,7 +722,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	<?php
 	setOption('known_themes', serialize(array())); //	reset known themes
 	$themes = array_keys($_gallery->getThemes());
-	natcasesort($themes);
+	localeSort($themes);
 	echo gettext('Theme setup:') . '<br />';
 
 	foreach ($themes as $key => $theme) {
@@ -754,9 +756,7 @@ if (!file_exists(SERVERPATH . '/favicon.ico')) {
 	}
 }
 
-setOptionDefault('default_copyright', sprintf(gettext('Copyright %1$u  : %2$s '), date('Y'), $_SERVER["HTTP_HOST"]));
 setOptionDefault('fullsizeimage_watermark', getOption('fullimage_watermark'));
-
 
 $data = getOption('gallery_data');
 if ($data) {
@@ -802,6 +802,19 @@ if (!isset($data['gallery_user']))
 	$data['gallery_user'] = getOption('gallery_user');
 if (!isset($data['gallery_hint']))
 	$data['gallery_hint'] = getOption('gallery_hint');
+if (!isset($data['copyright']) || empty($data['copyright'])) {
+	$text = getOption('default_copyright');
+	if (empty($text)) {
+		$admin = $_authority->getMasterUser();
+		if (!$author = $admin->getName()) {
+			$author = $admin->getUser();
+		}
+		$text = sprintf(gettext('© %1$u : %2$s - %3$s'), date('Y'), FULLHOSTPATH, $author);
+	} else {
+		purgeOption('default_copyright');
+	}
+	$data['copyright'] = $text;
+}
 if (!isset($data['hitcounter'])) {
 	$data['hitcounter'] = $result = getOption('Page-Hitcounter-index');
 	purgeOption('Page-Hitcounter-index');
@@ -974,7 +987,7 @@ $plugins = array_keys($plugins);
 	}
 
 	$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
-	natcasesort($plugins);
+	localeSort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
 	foreach ($plugins as $key => $extension) {
 		$class = 0;

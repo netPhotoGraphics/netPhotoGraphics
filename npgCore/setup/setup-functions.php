@@ -71,7 +71,7 @@ function primeMark($text) {
 
 function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 	global $warn, $moreid, $primeid, $clearedid, $autorun, $displayLimited;
-	$classes = array('fail' => gettext('Fail: '), 'warn' => gettext('Warn: '), 'pass' => gettext('Pass: '));
+	$classes = array('fail' => gettext('Fail: '), 'warn' => gettext('Warn: '), 'pass' => gettext('Pass: '), 'note' => gettext('Note: '));
 
 	$display = '';
 	if ($primeid != $clearedid) {
@@ -89,6 +89,7 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 		$check = 1;
 	}
 
+	$cls = "pass";
 	switch ($check) {
 		case 0:
 			$cls = "fail";
@@ -107,12 +108,13 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 				$anyway = 1;
 			}
 			break;
-		case 1:
 		case -2:
+			$cls = "note";
+			$anyway = 1;
+		case 1:
 			if ($displayLimited) {
 				$display = ' style="display:none;"';
 			}
-			$cls = "pass";
 			$ico = CHECKMARK_GREEN;
 			break;
 	}
@@ -139,7 +141,6 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 						<?php
 						break;
 					case -1:
-						$anyway = 1;
 						?>
 						<div class="warning">
 							<h1><?php echo gettext('Warning!'); ?></h1>
@@ -147,6 +148,7 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 						</div>
 						<?php
 						break;
+					case -2:
 					default:
 						$moreid++;
 						?>
@@ -158,24 +160,24 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 							</a>
 							<div class="warning" id="more<?php echo $moreid; ?>" style="display: none">
 								<h1><?php echo gettext('Warning!'); ?></h1>
-								<?php
-							} else {
-								?>
-								<a onclick="toggle_visibility('more<?php echo $moreid; ?>');">
-									<?php echo gettext('<strong>Notice!</strong> click for details'); ?>
-								</a>
-								<div class="notice" id="more<?php echo $moreid; ?>" style="display: none">
-									<h1><?php echo gettext('Notice!'); ?></h1>
-									<?php
-								}
-								?>
 								<p><?php echo $msg; ?></p>
 							</div>
 							<?php
-							break;
-					}
+						} else {
+							?>
+							<a onclick="toggle_visibility('more<?php echo $moreid; ?>');">
+								<?php echo gettext('<strong>Notice!</strong> click for details'); ?>
+							</a>
+							<div class="notice" id="more<?php echo $moreid; ?>" style="display: none">
+								<h1><?php echo gettext('Notice!'); ?></h1>
+								<p><?php echo $msg; ?></p>
+							</div>
+							<?php
+						}
+						break;
 				}
-				?>
+			}
+			?>
 		</li>
 		<?php
 	} else {
@@ -191,9 +193,8 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 	} else {
 		$stopped = '';
 	}
-	$msg = preg_replace('~<form.*\/form>~iU', '', $msg);
-	$msg = preg_replace('~<p>".*<\/p>~iU', '', $msg);
 	$head = $classes[$cls] . $stopped . $dsp;
+	$msg = '<div class="logAddl">' . $msg . '</div>';
 
 	switch ($cls) {
 		case 'warn':
@@ -201,6 +202,9 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 			break;
 		case 'fail':
 			$log = '<span class="logerror">' . $head . '</span><br />' . $msg;
+			break;
+		case 'note':
+			$log = '<span class="lognotice">' . $head . '</span><br />' . $msg;
 			break;
 		default:
 			$log = $head;
@@ -374,6 +378,8 @@ function permissionsSelector($permission_names, $select) {
 
 function setupLog($message, $anyway = false, $reset = false) {
 	global $debug, $_mutex, $chmod, $_adminCript;
+
+	$message = preg_replace('~<form.*</form>~is', '', $message);
 	if (getOption('setup_log_encryption')) {
 		$_logCript = $_adminCript;
 	} else {
@@ -747,4 +753,21 @@ function updateRootIndexFile() {
 		rename($index . '.bak', $index);
 	}
 	return $rootupdate;
+}
+
+/**
+ * Use to migrate options. If option $newKey exists simply purge the old option
+ * else if option $oldKey exists set the option to its value
+ *
+ * @param string $oldKey
+ * @param string $newKey
+ */
+function renameOption($oldKey, $newKey) {
+	$existing = getOptionList();
+	if (!array_key_exists($newKey, $existing)) {
+		if (isset($existing[$oldKey])) {
+			setOption($newKey, $existing[$oldKey]);
+		}
+	}
+	purgeOption($oldKey);
 }
