@@ -74,11 +74,15 @@ if ($plugin_disable) {
 			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
-						$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
-						if (empty($path)) {
-							$valid = FALSE;
+						if (is_dir($row['aux'] . '/' . CORE_FOLDER)) {
+							$path = str_replace('\\', '/', @readlink($row['aux'] . '/' . CORE_FOLDER));
+							if (empty($path)) {
+								$valid = FALSE;
+							} else {
+								$valid = $path == SERVERPATH . '/' . CORE_FOLDER;
+							}
 						} else {
-							$valid = $path == SERVERPATH . '/' . CORE_FOLDER;
+							$valid = FALSE;
 						}
 					} else { //	best guess if the clone has been changed
 						$clonesig = file_get_contents($row['aux'] . '/' . CORE_FOLDER . '/version.php');
@@ -86,7 +90,7 @@ if ($plugin_disable) {
 					}
 					$link = mb_parse_url($row['data']);
 					if ($link['host'] != $_SERVER['HTTP_HOST']) {
-						$valid = false;
+						$valid = FALSE;
 					}
 					if ($valid || !$only_valid) {
 						$clones[$row['aux']] = array('url' => $row['data'] . '/', 'valid' => $valid);
