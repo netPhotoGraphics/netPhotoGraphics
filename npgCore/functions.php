@@ -2257,13 +2257,8 @@ function js_encode($this_string) {
 function getXSRFToken($action, $modifier = NULL) {
 	global $_current_admin_obj;
 	if (is_object($_current_admin_obj)) {
-		$data = $_current_admin_obj->getData();
-		unset($data['lastaccess']);
-		$modifier .= serialize($data);
-	} else {
-		$modifier = microtime();
+		$modifier .= $_current_admin_obj->getPass() . $_current_admin_obj->get('passupdate') . $_current_admin_obj->getLastLogon();
 	}
-
 	$token = sha1($action . $modifier . session_id());
 	return $token;
 }
@@ -2327,14 +2322,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
-				$.ajax({
-					type: 'POST',
-					cache: false,
-					data: '<?php echo $paramlist; ?>',
-					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-				});
-				// ]]> -->
+						// <!-- <![CDATA[
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							data: '<?php echo $paramlist; ?>',
+							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+						});
+						// ]]> -->
 			</script>
 			<?php
 		}
