@@ -174,11 +174,17 @@ function _check_locale_and_function($function = false) {
  */
 function _get_codeset($domain = null) {
 	global $text_domains, $default_domain, $LC_CATEGORIES;
-	if (!isset($domain))
+	if (!isset($domain)) {
 		$domain = $default_domain;
-	return (isset($text_domains[$domain]->codeset)) ? $text_domains[$domain]->codeset :
-					(function_exists('mb_internal_encoding') ? mb_internal_encoding() :
-					'UTF8');
+	}
+	if (isset($text_domains[$domain]->codeset) && $text_domains[$domain]->codeset) {
+		$codeset = $text_domains[$domain]->codeset;
+	} else if (function_exists('mb_internal_encoding') && mb_internal_encoding()) {
+		$codeset = mb_internal_encoding();
+	} else {
+		$codeset = 'UTF-8';
+	}
+	return $codeset;
 }
 
 /**
@@ -186,7 +192,7 @@ function _get_codeset($domain = null) {
  */
 function _encode($text) {
 	$target_encoding = _get_codeset();
-	if (function_exists("mb_detect_encoding")) {
+	if ($target_encoding && function_exists("mb_detect_encoding")) {
 		$source_encoding = mb_detect_encoding($text);
 		if ($target_encoding && $source_encoding != $target_encoding)
 			$text = mb_convert_encoding($text, $target_encoding, $source_encoding);
