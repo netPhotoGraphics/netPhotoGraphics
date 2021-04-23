@@ -467,7 +467,7 @@ $buttonlist = array();
 						$buttonlist[] = array(
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Updates'),
-								'enable' => 4,
+								'enable' => version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION, '>') ? 4 : 2,
 								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
 								'formname' => 'download_update',
 								'action' => getAdminLink('admin.php') . '?action=download_update',
