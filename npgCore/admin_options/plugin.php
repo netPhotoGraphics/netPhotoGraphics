@@ -4,6 +4,18 @@
  */
 $optionRights = ADMIN_RIGHTS;
 
+define('PLUGINS_STEP', 20);
+if (isset($_GET['selection'])) {
+	define('PLUGINS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+	setNPGCookie('pluginsTab_pluginCount', PLUGINS_PER_PAGE, 3600 * 24 * 365 * 10);
+} else {
+	if ($s = sanitize_numeric(getNPGCookie('pluginsTab_pluginCount'))) {
+		define('PLUGINS_PER_PAGE', $s);
+	} else {
+		define('PLUGINS_PER_PAGE', 10);
+	}
+}
+
 function saveOptions() {
 	global $_gallery;
 
@@ -15,7 +27,7 @@ function saveOptions() {
 	}
 
 	if (!isset($_POST['checkForPostTruncation'])) {
-		// all plugin options are handled by the custom option code.
+// all plugin options are handled by the custom option code.
 		$notify = '?post_error';
 	}
 
@@ -23,7 +35,7 @@ function saveOptions() {
 }
 
 function getOptionContent() {
-	global $_gallery;
+	global $_gallery, $pluginlist;
 
 	if (isset($_GET['subpage'])) {
 		$subpage = sanitize_numeric($_GET['subpage']);
@@ -82,6 +94,21 @@ function getOptionContent() {
 				var optionholder = new Array();
 				// ]]> -->
 			</script>
+
+			<?php
+			$allplugincount = count($pluginlist);
+			$numsteps = ceil(min(100, $allplugincount) / PLUGINS_STEP);
+			if ($numsteps) {
+				?>
+				<?php
+				$steps = array();
+				for ($i = 1; $i <= $numsteps; $i++) {
+					$steps[] = $i * PLUGINS_STEP;
+				}
+				printEditDropdown('pluginOptionInfo', $steps, PLUGINS_PER_PAGE, '&amp;tab=plugin');
+			}
+			?>
+
 			<form class="dirtylistening" onReset="setClean('form_options');" id="form_options" action="?action=saveoptions<?php if (isset($_GET['single'])) echo '&amp;single=' . $showExtension; ?>" method="post" autocomplete="off" >
 				<?php XSRFToken('saveoptions'); ?>
 				<input type="hidden" name="saveoptions" value="plugin" />
@@ -96,7 +123,9 @@ function getOptionContent() {
 							<th style="text-align:right; padding-right: 10px;">
 								<?php printPageSelector($subpage, $rangeset, 'admin-tabs/options.php', array('page' => 'options', 'tab' => 'plugin')); ?>
 							</th>
-							<th></th>
+							<th>
+
+							</th>
 						</tr>
 						<?php
 					}

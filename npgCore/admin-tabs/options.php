@@ -26,7 +26,6 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	require_once(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php');
 
 	admin_securityChecks($optionRights, currentRelativeURL());
-	define('PLUGINS_PER_PAGE', max(1, getOption('plugins_per_page')));
 
 	/* handle posts */
 	if (isset($_GET['action'])) {
