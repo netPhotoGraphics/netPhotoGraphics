@@ -18,13 +18,13 @@ define('SETUPLOG', SERVERPATH . '/' . DATA_FOLDER . '/setup.log');
  * @return bool
  */
 function caseInsensitiveOS() {
-	switch (TRUE) {
-		case stristr(PHP_OS, 'DAR'):
-		case stristr(PHP_OS, 'WIN'):
-			return TRUE;
-		default:
-			return FALSE;
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/case.tst', '');
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/CASE.tst', '');
+	$test = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/*.tst');
+	foreach ($test as $try) {
+		unlink($try);
 	}
+	return count($test) == 1;
 }
 
 /**
@@ -249,13 +249,6 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 				}
 			}
 
-			if (stristr(PHP_OS, 'WIN')) {
-				$perms = fileperms($path) & 0700;
-				$check = $chmod & 0700;
-			} else {
-				$perms = fileperms($path) & 0777;
-				$check = $chmod;
-			}
 			if (setupUserAuthorized() && $updatechmod) {
 				chmod($path, $chmod);
 				clearstatcache();

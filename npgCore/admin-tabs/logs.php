@@ -7,6 +7,7 @@
  * @package admin
  */
 define('OFFSET_PATH', 1);
+
 require_once(dirname(__DIR__) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
@@ -167,7 +168,7 @@ echo "\n</head>";
 												foreach ($fields as $field) {
 													?>
 													<th>
-														<span class="nowrap"><?php echo $field; ?></span>
+														<span class="nowrap"><?php echo gettext($field); ?></span>
 													</th>
 													<?php
 												}

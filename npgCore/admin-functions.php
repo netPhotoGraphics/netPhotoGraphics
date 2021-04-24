@@ -4675,6 +4675,10 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 			$page = getAdminLink('admin-tabs/plugins.php');
 			$link = '?page=plugins&amp;selection=';
 			break;
+		case 'pluginOptionInfo':
+			$page = getAdminLink('admin-tabs/options.php');
+			$link = '?page=options&amp;selection=';
+			break;
 		case 'groupinfo':
 			$page = getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php');
 			$link = '?page=admin&amp;selection=';
@@ -4704,6 +4708,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 					case 'userinfo':
 						printf(ngettext('%u user per page', '%u users per page', $level), $level);
 						break;
+					case 'pluginOptionInfo':
 					case 'plugininfo':
 						printf(ngettext('%u plugin per page', '%u plugins per page', $level), $level);
 						break;

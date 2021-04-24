@@ -111,6 +111,20 @@ class security_logger {
 		return $_securityLoggerLogging[$where] = getOption($where) || is_null(getOption($where));
 	}
 
+	static function getFields() {
+		$fields = array(
+				'date' => gettext('date'),
+				'requestor’s IP' => gettext('requestor’s IP'),
+				'type' => gettext('type'),
+				'user ID' => gettext('user ID'),
+				'user name' => gettext('user name'),
+				'outcome' => gettext('outcome'),
+				'authority' => gettext('authority'),
+				'additional information' => gettext('additional information')
+		);
+		return $fields;
+	}
+
 	/**
 	 * Does the log handling
 	 *
@@ -205,9 +219,12 @@ class security_logger {
 		$f = fopen($file, 'a');
 		if ($f) {
 			if (!$preexists) { // add a header
+				$message = '';
 				chmod($file, LOG_MOD);
-				$message = gettext('date' . "\t" . 'requestor’s IP' . "\t" . 'type' . "\t" . 'user ID' . "\t" . 'user name' . "\t" . 'outcome' . "\t" . 'authority' . "\tadditional information");
-				fwrite($f, $message . NEWLINE);
+				foreach (self::getFields() as $field => $text) {
+					$message .= $field . "\t";
+				}
+				fwrite($f, trim($message, "\t") . NEWLINE);
 			}
 			$message = date('Y-m-d H:i:s') . "\t";
 			$message .= $ip . "\t";
