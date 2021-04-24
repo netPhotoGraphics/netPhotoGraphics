@@ -9,6 +9,7 @@
 // force UTF-8 Ø
 
 ini_set('session.use_strict_mode', 1);
+ob_implicit_flush(true);
 
 define('OFFSET_PATH', 2);
 
