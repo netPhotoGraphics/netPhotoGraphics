@@ -1665,6 +1665,20 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
 
 							primeMark(gettext('Database update'));
+							if (@$_conf_vars['UTF-8'] != 'utf8mb4') {
+								$sql = 'SELECT COLLATION_NAME FROM information_schema.columns ' .
+												'WHERE TABLE_SCHEMA = "' . $_conf_vars['mysql_database'] . '" ' .
+												'AND TABLE_NAME = "' . trim(prefix('albums'), '`') . '" ' .
+												'AND COLUMN_NAME = "title"';
+								$result = query_single_row($sql);
+								if (array_pop($result) == 'utf8mb4_unicode_ci') {
+									$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+									$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
+									configFile::store($_config_contents);
+								}
+							}
+
+
 							require_once(CORE_SERVERPATH . 'setup/database.php');
 							unset($_tableFields);
 							if ($updateErrors) {
