@@ -780,7 +780,7 @@ class ThemeObject extends PersistentObject {
 	 * @return array
 	 */
 	function getComments($moderated = false, $private = false, $desc = false) {
-		$sql = "SELECT * FROM " . prefix("comments") .
+		$sql = "SELECT * FROM " . prefix('comments') .
 						" WHERE `type`='" . $this->table . "' AND `ownerid`='" . $this->getID() . "'";
 		if (!$moderated) {
 			$sql .= " AND `inmoderation`=0";
