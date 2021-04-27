@@ -132,7 +132,7 @@ class Image extends MediaObject {
 				if ($_current_admin_obj) {
 					$this->setOwner($_current_admin_obj->getUser());
 				}
-				$this->setSortOrder(999);
+				$this->setDefaultSortOrder();
 				setOption('last_admin_action', time());
 			}
 			$this->updateMetaData(); // extract info from image

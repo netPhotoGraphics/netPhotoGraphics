@@ -941,6 +941,19 @@ class ThemeObject extends PersistentObject {
 		return parent::move($new_unique_set);
 	}
 
+	/**
+	 * determines what the next sort order should be for new items.
+	 *
+	 * @param type $qualifier
+	 * @return type
+	 */
+	protected function setDefaultSortOrder($qualifier = NULL) {
+		$sql = 'SELECT * FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC LIMIT 1';
+		$result = query_single_row($sql);
+		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, substr($result['sort_order'], 0, 3) + 1)) : '000';
+		$this->setSortOrder($new);
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////

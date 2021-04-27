@@ -649,6 +649,16 @@ class AlbumBase extends MediaObject {
 		return $success;
 	}
 
+	protected function setDefaultSortOrder($qualifier = NULL) {
+		$qualifier = ' WHERE parentid';
+		if ($parent = $this->getParent()) {
+			$qualifier .= '=' . $parent->getID();
+		} else {
+			$qualifier .= ' IS NULL';
+		}
+		parent::setDefaultSortOrder($qualifier);
+	}
+
 	/**
 	 * common album move code
 	 * @param type $newfolder
@@ -1244,7 +1254,7 @@ class Album extends AlbumBase {
 			if ($_current_admin_obj) {
 				$this->setOwner($_current_admin_obj->getUser());
 			}
-			$this->setSortOrder(999);
+			$this->setDefaultSortOrder();
 			$this->save();
 			setOption('last_admin_action', time());
 			npgFilters::apply('new_album', $this);
@@ -1259,7 +1269,7 @@ class Album extends AlbumBase {
 	 */
 	protected function setDefaults() {
 		global $_gallery;
-// Set default data for a new Album (title and parent_id)
+		// Set default data for a new Album (title and parent_id)
 		parent::setDefaults();
 		$this->set('mtime', filemtime($this->localpath));
 		if (!$_gallery->getAlbumUseImagedate()) {
@@ -1678,7 +1688,7 @@ class dynamicAlbum extends AlbumBase {
 				$title = $this->get('title');
 				$this->set('title', stripSuffix($title)); // Strip the suffix
 				$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
-				$this->setSortOrder(999);
+				$this->setDefaultSortOrder();
 				$this->save();
 				setOption('last_admin_action', time());
 				npgFilters::apply('new_album', $this);
