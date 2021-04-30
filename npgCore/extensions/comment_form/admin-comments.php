@@ -449,15 +449,17 @@ printLogoAndLinks();
 									<td><?php echo $comment['IP']; ?></td>
 									<td>
 										<div>
-											<?php
-											if ($private) {
-												echo '<div class = "page-list_icon">'
-												. '<a title = "' . gettext("Private message") . '">'
-												. NO_ENTRY
-												. '</a>'
-												. '</div>';
-											}
-											?>
+											<div class="page-list_icon">
+												<?php
+												if ($private) {
+													echo '<a title = "' . gettext("Private message") . '">'
+													. NO_ENTRY
+													. '</a>';
+												} else {
+													echo PLACEHOLDER_ICON;
+												}
+												?>
+											</div>
 											<div class="page-list_icon">
 												<?php
 												if ($inmoderation) {
