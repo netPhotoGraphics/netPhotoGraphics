@@ -3111,9 +3111,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$myalbum = $_current_admin_obj->getAlbum();
 					$supress = !npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS) && $myalbum && $album->getID() == $myalbum->getID();
 					if (!$enableEdit || $supress) {
-						?>
 						echo PLACEHOLDER_ICON;
-						} else {
+					} else {
 						?>
 						<a class="delete" href="javascript:confirmDeleteAlbum('?page=edit&amp;action=deletealbum&amp;album=<?php echo pathurlencode($album->name); ?>&amp;return=<?php echo pathurlencode($owner); ?>&amp;XSRFToken=<?php echo getXSRFToken('delete') ?>');" title="<?php echo sprintf(gettext("Delete the album %s"), js_encode($album->name)); ?>">
 							<?php echo WASTEBASKET; ?>

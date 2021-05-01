@@ -350,8 +350,10 @@ class PersistentObject {
 		} else {
 			$updateUser = $_authority->getMasterUser();
 		}
-		if ($this->transient)
+
+		if ($this->transient) {
 			return 0; // If this object isn't supposed to be persisted, don't save it.
+		}
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
 			return 0;
@@ -360,8 +362,7 @@ class PersistentObject {
 			// filter aborted the save
 			return 0;
 		}
-
-		if (!$this->id) {
+		if ($this->id <= 0) {
 			//	prevent recursive save form default processing
 			$this->transient = TRUE;
 			$this->setDefaults();
@@ -780,7 +781,7 @@ class ThemeObject extends PersistentObject {
 	 * @return array
 	 */
 	function getComments($moderated = false, $private = false, $desc = false) {
-		$sql = "SELECT * FROM " . prefix("comments") .
+		$sql = "SELECT * FROM " . prefix('comments') .
 						" WHERE `type`='" . $this->table . "' AND `ownerid`='" . $this->getID() . "'";
 		if (!$moderated) {
 			$sql .= " AND `inmoderation`=0";
@@ -939,6 +940,19 @@ class ThemeObject extends PersistentObject {
 			SearchEngine::clearSearchCache($this);
 		}
 		return parent::move($new_unique_set);
+	}
+
+	/**
+	 * determines what the next sort order should be for new items.
+	 *
+	 * @param type $qualifier
+	 * @return type
+	 */
+	protected function setDefaultSortOrder($qualifier = NULL) {
+		$sql = 'SELECT * FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC LIMIT 1';
+		$result = query_single_row($sql);
+		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, substr($result['sort_order'], 0, 3) + 1)) : '000';
+		$this->setSortOrder($new);
 	}
 
 }
