@@ -350,8 +350,10 @@ class PersistentObject {
 		} else {
 			$updateUser = $_authority->getMasterUser();
 		}
-		if ($this->transient)
+
+		if ($this->transient) {
 			return 0; // If this object isn't supposed to be persisted, don't save it.
+		}
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
 			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
 			return 0;
@@ -360,8 +362,7 @@ class PersistentObject {
 			// filter aborted the save
 			return 0;
 		}
-
-		if (!$this->id) {
+		if ($this->id <= 0) {
 			//	prevent recursive save form default processing
 			$this->transient = TRUE;
 			$this->setDefaults();

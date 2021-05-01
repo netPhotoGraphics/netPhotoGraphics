@@ -95,7 +95,7 @@ class _Authority {
 
 	function getMasterUser() {
 		if (!is_object($this->master_userObj)) {
-			$this->master_userObj = new npg_Administrator($this->master_user, 1);
+			$this->master_userObj = new npg_Administrator($this->master_user, 1, FALSE);
 		}
 		return $this->master_userObj;
 	}
