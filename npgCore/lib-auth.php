@@ -94,8 +94,13 @@ class _Authority {
 	}
 
 	function getMasterUser() {
+		global $_current_admin_obj;
 		if (!is_object($this->master_userObj)) {
-			$this->master_userObj = new npg_Administrator($this->master_user, 1, FALSE);
+			if (is_object($_current_admin_obj) && $_current_admin_obj->master) {
+				$this->master_userObj = $_current_admin_obj;
+			} else {
+				$this->master_userObj = new npg_Administrator($this->master_user, 1, FALSE);
+			}
 		}
 		return $this->master_userObj;
 	}
@@ -1806,7 +1811,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
