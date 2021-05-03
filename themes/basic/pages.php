@@ -48,8 +48,9 @@ if (class_exists('CMS')) {
 				</div>
 
 				<?php
-				if (function_exists('printCommentForm')) printCommentForm();
-
+				if (function_exists('printCommentForm')) {
+					printCommentForm();
+				}
 				$pages = $_CMS_current_page->getPages(NULL, true); // top level only
 				if (!empty($pages)) {
 					?>
@@ -82,8 +83,8 @@ if (class_exists('CMS')) {
 				?>
 				<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 			</div>
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

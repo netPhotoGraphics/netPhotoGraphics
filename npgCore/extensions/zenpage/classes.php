@@ -80,9 +80,10 @@ class CMS {
 	 * @param int $number number of pages to get (NULL by default for all)
 	 * @param string $sorttype NULL for the standard order as sorted on the backend, "title", "date", "id", "popular", "mostrated", "toprated", "random"
 	 * @param bool $sortdirection false for ascenting, true for descending
+	 * @param object $pageObj page object from which to get the pages
 	 * @return array
 	 */
-	function getPages($published = NULL, $toplevel = false, $number = NULL, $sorttype = NULL, $sortdirection = NULL) {
+	function getPages($published = NULL, $toplevel = false, $number = NULL, $sorttype = NULL, $sortdirection = NULL, $pageObj = NULL) {
 		global $_loggedin;
 		if (is_null($sortdirection)) {
 			$sortdirection = $this->getSortDirection('pages');
@@ -97,18 +98,32 @@ class CMS {
 			$all = !$published;
 		}
 		$published = $published && !npg_loggedin(ZENPAGE_PAGES_RIGHTS);
-		$now = date('Y-m-d H:i:s');
 
-		$gettop = '';
 		if ($published) {
-			if ($toplevel)
-				$gettop = " AND parentid IS NULL";
-			$show = " WHERE `show`=1 AND date <= '" . $now . "'" . $gettop;
+			$show = '`show`=1';
 		} else {
-			if ($toplevel)
-				$gettop = " WHERE parentid IS NULL";
-			$show = $gettop;
+			$show = '';
 		}
+
+		if ($pageObj) {
+			if ($toplevel) {
+				$toplevel = ' `parentid` = ' . $pageObj->getID();
+			} else {
+				$toplevel = ' `sort_order` LIKE "' . $pageObj->getSortOrder() . '%"';
+			}
+		} else if ($toplevel) {
+			$toplevel = ' `parentid` IS NULL';
+		}
+
+		if ($toplevel) {
+			if ($show) {
+				$show .= ' AND ';
+			}
+			$show = ' WHERE ' . $show . $toplevel;
+		} else if ($show) {
+			$show = ' WHERE ' . $show;
+		}
+
 		if ($sortdirection) {
 			$sortdir = ' DESC';
 		} else {
@@ -200,7 +215,6 @@ class CMS {
 				$published = "published";
 			}
 		}
-		$now = date('Y-m-d H:i:s');
 		if ($category && $category->exists) {
 			$sortObj = $category;
 			$cat = $category->getTitlelink();

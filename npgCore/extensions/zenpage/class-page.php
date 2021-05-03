@@ -205,15 +205,7 @@ class Page extends CMSItems {
 	 */
 	function getPages($published = NULL, $toplevel = false, $number = NULL, $sorttype = NULL, $sortdirection = NULL) {
 		global $_CMS;
-		$subpages = array();
-		$sortorder = $this->getSortOrder();
-		$pages = $_CMS->getPages($published, false, $number, $sorttype, $sortdirection, $this);
-		foreach ($pages as $page) {
-			if ($page['parentid'] == $this->getID() && $page['sort_order'] != $sortorder) { // exclude the page itself!
-				array_push($subpages, $page);
-			}
-		}
-		return $subpages;
+		return $_CMS->getPages($published, $toplevel, $number, $sorttype, $sortdirection, $this);
 	}
 
 	/**
