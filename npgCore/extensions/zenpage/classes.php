@@ -109,7 +109,7 @@ class CMS {
 			if ($toplevel) {
 				$toplevel = ' `parentid` = ' . $pageObj->getID();
 			} else {
-				$toplevel = ' `sort_order` LIKE "' . $pageObj->getSortOrder() . '%"';
+				$toplevel = ' `sort_order` LIKE "' . $pageObj->getSortOrder() . '-%"';
 			}
 		} else if ($toplevel) {
 			$toplevel = ' `parentid` IS NULL';
