@@ -54,7 +54,7 @@ class tagsFromMetadata {
 		global $_exifvars;
 		$result = array();
 		foreach ($_exifvars as $key => $meta) {
-			if ($meta[5] && $key != 'IPTCKeywords') {
+			if ($meta[EXIF_FIELD_ENABLED] && $key != 'IPTCKeywords') {
 				if (getOption('tagsFromMetadata_tag_' . $key)) {
 					$result[] = $key;
 				}

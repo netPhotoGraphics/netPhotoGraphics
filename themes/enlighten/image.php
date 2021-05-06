@@ -83,7 +83,8 @@ if (!defined('WEBPATH'))
 					if (function_exists('printThumbNav')) {
 						printThumbNav(3, 6, 50, 50, 50, 50, FALSE);
 					} else {
-						if (function_exists('printPagedThumbsNav', 6, FALSE, gettext('« prev thumbs'), gettext('next thumbs »')) printPagedThumbsNav', 6, FALSE, gettext('« prev thumbs'), gettext('next thumbs »(), 40, 40);
+						if (function_exists('printPagedThumbsNav'))
+							printPagedThumbsNav(6, FALSE, gettext('« prev thumbs'), gettext('next thumbs »'), 40, 40);
 					}
 					?>
 
@@ -130,7 +131,7 @@ if (!defined('WEBPATH'))
 						?>
 						<?php
 						if (function_exists('printSlideShowLink') && isImagePhoto()) {
-							echo '<span id="slideshowlink">';
+							echo '<span id = "slideshowlink">';
 							printSlideShowLink(gettext('View Slideshow'));
 							echo '</span>';
 						}
@@ -151,22 +152,22 @@ if (!defined('WEBPATH'))
 							printRating();
 						}
 						?>
-						<?php simpleMap::printMap(); ?>
+					<?php simpleMap::printMap(); ?>
 					</div>
-					<?php if (function_exists('printCommentForm')) { ?>
+						<?php if (function_exists('printCommentForm')) { ?>
 						<div id="comments">
-							<?php printCommentForm(); ?>
+						<?php printCommentForm(); ?>
 						</div>
-					<?php } ?>
+<?php } ?>
 
 				</div><!-- content-left -->
 
 				<div id="sidebar">
-					<?php include("sidebar.php"); ?>
+<?php include("sidebar.php"); ?>
 				</div>
 
 				<div id="footer">
-					<?php include("footer.php"); ?>
+<?php include("footer.php"); ?>
 				</div>
 
 
@@ -174,5 +175,5 @@ if (!defined('WEBPATH'))
 
 		</div><!-- main -->
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>
