@@ -342,7 +342,7 @@ function adminToolbox() {
 						}
 						$redirect = npgFilters::apply('admin_toolbox_pages', $redirect);
 						break;
-					case'news.php':
+					case 'news.php':
 						$redirect = "&amp;p=news";
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
@@ -1821,7 +1821,6 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
 
-
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
 	}
@@ -2562,11 +2561,13 @@ function getImageMetaData($image = NULL, $displayonly = true) {
  * @param string $class style class
  * @author Ozh
  */
-function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata', $class = null, $span = NULL) {
+function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata', $class = null, $span = NULL) {
 	global $_exifvars, $_current_image;
 	if (false === ($exif = getImageMetaData($_current_image, true))) {
 		return;
 	}
+
+
 	if (is_null($title)) {
 		$title = gettext('Image Info');
 	}
@@ -2581,7 +2582,7 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 		$id = ' id = "' . $id . '"';
 	}
 	$refh = $refa = $style = '';
-	if ($toggle == 'colorbox' && npgFilters::has_filter('theme_head', 'colorbox::css')) {
+	if ($toggle === 'colorbox' && npgFilters::has_filter('theme_head', 'colorbox::css')) {
 		$refh = '<a href = "#" class = "colorbox" title = "' . $title . '">';
 		$refa = '</a>';
 		$style = ' style = "display:none"';

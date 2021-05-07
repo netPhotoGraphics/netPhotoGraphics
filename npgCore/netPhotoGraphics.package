@@ -718,6 +718,7 @@ plugins/utf8mb4Migration/migrate.php
 plugins/utf8mb4Migration.php
 plugins/zenphotoCompatibilityPack/
 plugins/zenphotoCompatibilityPack/legacyConverter.php
+plugins/zenphotoCompatibilityPack/legacyFunctions.php
 plugins/zenphotoCompatibilityPack/logo.png
 plugins/zenphotoCompatibilityPack.php
 %core%
@@ -8089,4 +8090,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8091
+8092

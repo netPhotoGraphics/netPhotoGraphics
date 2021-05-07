@@ -126,7 +126,8 @@ $legacyReplacements = array(
 		'gettext_th' => 'gettext',
 		'ngettext_th' => 'ngettext;',
 		'gettext_pl' => 'gettext;',
-		'ngettext_pl' => 'ngettext'
+		'ngettext_pl' => 'ngettext',
+		'printLangAttribute\(' => 'i18n::htmlLanguageCode('
 );
 
 class zenPhotoCompatibilityPack {
@@ -155,7 +156,6 @@ class zenPhotoCompatibilityPack {
 		$_zp_page = $_current_page;
 		$_zp_gallery_page = $_gallery_page;
 		$_zp_themeroot = $_themeroot;
-
 
 		return $param;
 	}
@@ -215,6 +215,8 @@ class zenPhotoCompatibilityPack {
 	}
 
 }
+
+require_once(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyFunctions.php');
 
 switch (OFFSET_PATH) {
 	case 2:
