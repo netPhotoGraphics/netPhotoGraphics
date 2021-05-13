@@ -41,6 +41,7 @@ if (!empty($requirePath)) {
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js.php');
 	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 
+	ob_start(); //	Just in case the themeOptions emits output!
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php');
 	/* prime the default theme options */
 	if (!$_current_admin_obj) {
@@ -49,6 +50,7 @@ if (!empty($requirePath)) {
 	}
 	$optionHandler = new ThemeOptions(true);
 	setThemeOption('constructed', 1, NULL, $theme); //	mark the theme "constructed"
+	@ob_end_clean(); //	Flush any unwanted output
 
 	setupLog(sprintf(gettext('Theme:%s option interface instantiated'), $theme), $fullLog);
 }
