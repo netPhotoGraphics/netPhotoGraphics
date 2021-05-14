@@ -1411,7 +1411,7 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 		$field = array($field);
 	}
 
-	uasort($data, function($a, $b) use($field, $nat, $case) {
+	uasort($data, function ($a, $b) use ($field, $nat, $case) {
 		global $coll;
 		$retval = 0;
 		foreach ($field as $fieldname) {
@@ -2207,21 +2207,21 @@ function load_jQuery_CSS() {
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		case 0: //	no migration script
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.0.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.3.2.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.4.1.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.0.1.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.3.2.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>

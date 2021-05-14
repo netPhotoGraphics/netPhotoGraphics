@@ -7910,10 +7910,10 @@ plugins/zenphotoCompatibilityPack.php
 %core%/js/Jcrop/jquery.Jcrop.js
 %core%/js/jQuery
 %core%/js/jQuery/jquery-1.12.4.min.js
-%core%/js/jQuery/jquery-3.4.1.min.js
+%core%/js/jQuery/jquery-3.6.0.min.js
 %core%/js/jQuery/jquery-migrate-1.4.1.js
-%core%/js/jQuery/jquery-migrate-3.0.1.js
-%core%/js/jQuery/jquery-migrate-3.0.1.min.js
+%core%/js/jQuery/jquery-migrate-3.3.2.js
+%core%/js/jQuery/jquery-migrate-3.3.2.min.js
 %core%/js/jQueryui
 %core%/js/jQueryui/base-1.12.min.css
 %core%/js/jQueryui/jquery-ui-1.12.1.min.js
