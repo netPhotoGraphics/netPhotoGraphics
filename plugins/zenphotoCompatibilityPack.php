@@ -127,7 +127,8 @@ $legacyReplacements = array(
 		'ngettext_th' => 'ngettext;',
 		'gettext_pl' => 'gettext;',
 		'ngettext_pl' => 'ngettext',
-		'printLangAttribute\(' => 'i18n::htmlLanguageCode('
+		'printLangAttribute\(' => 'i18n::htmlLanguageCode(',
+		'isSubNewsCategoryOf\(' => 'isSubCategoryOf('
 );
 
 class zenPhotoCompatibilityPack {
@@ -238,6 +239,10 @@ switch (OFFSET_PATH) {
 			}
 
 			class ZenpageCategory extends Category {
+
+				function isSubNewsCategoryOf($catlink) {
+					return $this->isSubCategoryOf($catlink);
+				}
 
 			}
 

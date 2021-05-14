@@ -232,7 +232,7 @@ class Category extends CMSRoot {
 	 *
 	 * @return bool
 	 */
-	function isSubNewsCategoryOf($catlink) {
+	function isSubCategoryOf($catlink) {
 		if (!empty($catlink)) {
 			$parentid = $this->getParentID();
 			$categories = $this->getParents();
@@ -399,6 +399,36 @@ class Category extends CMSRoot {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * returns sub categories
+	 *
+	 * @global type $_CMS
+	 * @param type $published set true to exclude unpublished categories
+	 * @param type $toplevel set true to return only direct offspring
+	 *
+	 * @return array
+	 */
+	function getCategories($published = NULL, $toplevel = FALSE) {
+		global $_CMS;
+		$structure = $$_CMS->getCategoryStructure();
+		$categories = array();
+		$sortOrder = $this->getSortOrder() . '-';
+		if ($toplevel) {
+			$toplevel = $this->getParentID();
+		}
+		foreach ($structure as $cat) {
+			if (strpos($cat['sort_order'], $sortOrder) === 0) {
+				if ((!$published || $cat['show'])) {
+					if ($toplevel && $cat['parentid'] != $toplevel) {
+						continue;
+					}
+					$categories[] = $cat;
+				}
+			}
+		}
+		return $categories;
 	}
 
 	/**
