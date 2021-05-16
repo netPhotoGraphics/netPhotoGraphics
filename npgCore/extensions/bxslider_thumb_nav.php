@@ -122,7 +122,7 @@ class bxslider {
 		global $_bxslider_scripts;
 		$theme = getCurrentTheme();
 		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme());
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '//bxslider_thumb_nav/jquery.bxslider.min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/bxslider_thumb_nav/jquery.bxslider.min.js');
 		scriptLoader($_bxslider_scripts);
 	}
 
