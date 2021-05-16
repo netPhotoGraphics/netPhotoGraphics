@@ -7606,6 +7606,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/langs/vi.js
 %extensions%/tinymce/langs/zh_CN.js
 %extensions%/tinymce/langs/zh_TW.js
+%extensions%/tinymce/pasteobj
+%extensions%/tinymce/pasteobj/pasteobj.php
+%extensions%/tinymce/pasteobj/pasteobj_popup.js
+%extensions%/tinymce/pasteobj/plugin.js
 %extensions%/tinymce/plugins
 %extensions%/tinymce/plugins/advlist
 %extensions%/tinymce/plugins/advlist/plugin.min.js
@@ -7917,7 +7921,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/js/jquery.scrollTo.min.js
 %core%/js/jquery.stickytableheaders.min.js
 %core%/js/jquery.ui.touch-punch.min.js
-%core%/js/searchform.js
 %core%/js/sprintf.js
 %core%/js/dirtyforms
 %core%/js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js
@@ -8108,4 +8111,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8110
+8113
