@@ -129,7 +129,7 @@ function getCustomDailySummaryThumb($args, $suffix = NULL) {
 			unset($args['suffix']);
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;

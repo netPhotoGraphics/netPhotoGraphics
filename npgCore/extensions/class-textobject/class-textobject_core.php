@@ -187,7 +187,7 @@ class TextObject_core extends Image {
 				unset($args['suffix']);
 			}
 
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+			require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 			deprecated_functions::notify_call('TextObject::getCustomImage', gettext('The function should be called with an image arguments array.'));
 		}
 		if (!isset($args['thumb'])) {

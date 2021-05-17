@@ -137,7 +137,7 @@ datepickerJS();
 	}
 </script>
 <?php
-scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/publishContent/publishContent.css');
+scriptLoader(CORE_PLUGIN_SERVERPATH . 'publishContent/publishContent.css');
 echo "</head>\n";
 ?>
 <body>

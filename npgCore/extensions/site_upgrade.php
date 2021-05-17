@@ -221,13 +221,13 @@ class site_upgrade {
 		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
 			switch ($source) {
 				case '*':
-					$data = file_get_contents(CORE_SERVERPATH . PLUGIN_FOLDER . '/site_upgrade/' . $name);
+					$data = file_get_contents(CORE_PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
 					$data = str_replace('SITEINDEX', FULLWEBPATH . "/index.php", $data);
 					$data = str_replace('CORE_FOLDER', CORE_FOLDER, $data);
 					$data = str_replace('CONFIGFILE', CONFIGFILE, $data);
 					break;
 				case '+':
-					$data = file_get_contents(CORE_SERVERPATH . PLUGIN_FOLDER . '/site_upgrade/' . $name);
+					$data = file_get_contents(CORE_PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
 					$data = sprintf($data, sprintf(gettext('%s upgrade'), $_gallery->getTitle()), FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/site_upgrade/closed.png', sprintf(gettext('<strong><em>%s</em></strong> is undergoing an upgrade'), $_gallery->getTitle()), '<a href="' . FULLWEBPATH . '/index.php">' . gettext('Please return later') . '</a>', FULLWEBPATH . '/index.php');
 					break;
 				default:

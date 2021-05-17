@@ -33,7 +33,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 
 if (extensionEnabled('rating') && isset($_POST['id']) && isset($_POST['table'])) {
 	require_once(CORE_SERVERPATH . 'template-functions.php');
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/rating.php');
+	require_once(CORE_PLUGIN_SERVERPATH . 'rating.php');
 	$id = sanitize_numeric($_POST['id']);
 	$table = sanitize($_POST['table'], 3);
 	$dbtable = prefix($table);

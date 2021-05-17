@@ -344,7 +344,7 @@
 
 		<!-- css -->
 		<?php
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.css');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/bootstrap/bootstrap.min.css');
 		scriptLoader($_themeroot . '/css/site.css');
 		scriptLoader($_themeroot . '/css/icons.css');
 		scriptLoader($_themeroot . '/css/slimbox2.css');
@@ -357,7 +357,7 @@
 
 		<!-- js -->
 		<?php
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/bootstrap/bootstrap.min.js');
 		scriptLoader($_themeroot . '/js/slimbox2-ar.js');
 		?>
 

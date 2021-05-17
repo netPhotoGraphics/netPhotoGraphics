@@ -7586,7 +7586,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/langs/pl.js
 %extensions%/tinymce/langs/pt_BR.js
 %extensions%/tinymce/langs/pt_PT.js
-%extensions%/tinymce/langs/README.md
 %extensions%/tinymce/langs/ro.js
 %extensions%/tinymce/langs/ro_RO.js
 %extensions%/tinymce/langs/ru.js
@@ -8111,4 +8110,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8113
+8112

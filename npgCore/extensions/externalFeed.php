@@ -235,7 +235,7 @@ class ExternalFeed extends feed {
 
 				$this->channel_title = html_encode($this->channel_title . ' ' . getBare($albumname));
 				$this->imagesize = $this->getImageSize();
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once(CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
 				break;
 
 			case 'news': //Zenpage News
@@ -261,8 +261,8 @@ class ExternalFeed extends feed {
 				$this->channel_title = html_encode($this->channel_title . $this->cattitle . $titleappendix);
 				$this->imagesize = $this->getImageSize();
 				$this->itemnumber = getOption("externalFeed_zenpage_items"); // # of Items displayed on the feed
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
+				require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 
 				break;
 
@@ -288,7 +288,7 @@ class ExternalFeed extends feed {
 						break;
 				}
 				$this->channel_title = html_encode($this->channel_title . $titleappendix);
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+				require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 				break;
 
 			case 'comments': //Comments
@@ -325,7 +325,7 @@ class ExternalFeed extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
 				if (class_exists('CMS')) {
-					require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+					require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 				}
 				break;
 

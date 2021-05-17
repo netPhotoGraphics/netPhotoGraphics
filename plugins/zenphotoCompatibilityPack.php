@@ -113,6 +113,7 @@ $legacyReplacements = array(
 		'zp_register_filter\(' => 'npgFilters::register(',
 		'zp_apply_filter\(' => 'npgFilters::apply(',
 		'zp_remove_filter\(' => 'npgFilters::remove(',
+		'zp_has_filter\(' => 'npgFilters::has_filter(',
 		'getDataUsageNotice\(\)' => "array('url'=>NULL, 'linktext'=>NULL, 'linktext'=>NULL)/* TODO:replaced getDataUsageNotice Use the GDPR_required plugin instead */",
 		'zp_loggedin\(' => 'npg_loggedin(',
 		'\$_zp_loggedin' => '$_loggedin',
@@ -257,6 +258,8 @@ switch (OFFSET_PATH) {
 		class zpFunctions extends npgFunctions {
 
 		}
+
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 
 		$_zp_captcha = clone $_captcha;
 		$_zp_gallery = clone $_gallery;

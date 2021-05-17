@@ -1,7 +1,7 @@
 <?php
 //	Required plugins:
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/print_album_menu.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'print_album_menu.php');
 
 /**
  * Prints the scripts needed for the header

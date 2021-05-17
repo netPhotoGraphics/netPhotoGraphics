@@ -90,7 +90,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'jplayer';
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'class-video.php');
 
 Gallery::addImageHandler('flv', 'Video');
 Gallery::addImageHandler('fla', 'Video');
@@ -145,7 +145,7 @@ class jPlayer extends html5Player {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = current($skins);
 		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+			$skin = CORE_PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
 		}
 		$skinCSS = file_get_contents($skin);
 		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
@@ -173,7 +173,7 @@ class jPlayer extends html5Player {
 		$skin = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = current($skin);
 		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+			$skin = CORE_PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
 		}
 		$skinCSS = file_get_contents($skin);
 		preg_match_all('~\.(jp-video-(\d+)p)\s*\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
@@ -232,17 +232,17 @@ class jPlayer extends html5Player {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
 		$skin = array_shift($skins);
 		if (!file_exists($skin)) {
-			$skin = CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/skin/light/jplayer.light.css';
+			$skin = CORE_PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
 		}
 		scriptLoader($skin);
 	}
 
 	static function JS() {
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jquery.jplayer.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'jPlayer/js/jquery.jplayer.min.js');
 	}
 
 	static function playlistJS() {
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/jPlayer/js/jplayer.playlist.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'jPlayer/js/jplayer.playlist.min.js');
 	}
 
 	/**

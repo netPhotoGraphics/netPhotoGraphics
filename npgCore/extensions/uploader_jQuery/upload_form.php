@@ -15,10 +15,10 @@ function upload_head() {
 	</script>
 
 	<?php
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/css/uploader_bootstrap.css');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/css/blueimp-gallery.min.css');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload.css');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/css/jquery.fileupload-ui.css');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/css/uploader_bootstrap.css');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/css/blueimp-gallery.min.css');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/css/jquery.fileupload.css');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/css/jquery.fileupload-ui.css');
 
 	return getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/uploader.php');
 }
@@ -174,25 +174,25 @@ function upload_extra($uploadlimit, $passedalbum) {
 		{% } %}
 	</script>
 	<?php
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/bootstrap/bootstrap.min.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/tmpl.min.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/load-image.all.min.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/canvas-to-blob.min.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.blueimp-gallery.min.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.iframe-transport.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-process.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-image.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-audio.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-video.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-validate.js');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/jquery.fileupload-ui.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/bootstrap/bootstrap.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/tmpl.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/load-image.all.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/canvas-to-blob.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.blueimp-gallery.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.iframe-transport.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-process.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-image.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-audio.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-video.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-validate.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-ui.js');
 	//NOTE: has some self relative references, so cannot be served inline
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/main.js', false);
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/main.js', false);
 	?>
 	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 	<!--[if (gte IE 8)&(lt IE 10)]>
-	<?php scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/uploader_jQuery/js/cors/jquery.xdr-transport.js'); ?>
+	<?php scriptLoader(CORE_PLUGIN_SERVERPATH . 'uploader_jQuery/js/cors/jquery.xdr-transport.js'); ?>
 	<![endif]-->
 
 	<?php

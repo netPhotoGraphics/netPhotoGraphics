@@ -47,8 +47,8 @@ class tag_suggest {
 
 	static function JS() {
 		// the scripts needed
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest/encoder.min.js');
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest/tag.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'tag_suggest/encoder.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'tag_suggest/tag.min.js');
 		$taglist = getAllTagsUnique(OFFSET_PATH ? false : NULL, OFFSET_PATH ? 0 : getOption('tag_suggest_threshold'));
 		$tags = array();
 		foreach ($taglist as $tag) {

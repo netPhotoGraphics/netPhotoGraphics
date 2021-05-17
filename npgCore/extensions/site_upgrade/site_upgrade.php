@@ -61,7 +61,7 @@ function setSiteState($state, $folder = NULL) {
 }
 
 function updateClones($state) {
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone.php');
+	require_once(CORE_PLUGIN_SERVERPATH . 'clone.php');
 	if (class_exists('npgClone')) {
 		$clones = npgClone::clones();
 		foreach ($clones as $clone => $data) {

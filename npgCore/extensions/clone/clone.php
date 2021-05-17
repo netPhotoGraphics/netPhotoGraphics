@@ -216,5 +216,5 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Clone to <code>%s</code> failed'), $folder) . '</h2>');
 	}
 }
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/clone/cloneTab.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'clone/cloneTab.php');
 ?>

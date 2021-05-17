@@ -1767,7 +1767,7 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 			unset($args['suffix']);
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;
@@ -1802,17 +1802,23 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 		if (isset($args['class'])) {
 			$class = $args['class'];
 			unset($args['class']);
+		} else {
+			$class = NULL;
 		}
 		if (isset($args['id'])) {
 			$id = $args['id'];
 			unset($args['id']);
+		} else {
+			$id = NULL;
 		}
 		if (isset($args['title'])) {
 			$title = $args['title'];
 			unset($args['title']);
+		} else {
+			$title = NULL;
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
 	}
 
@@ -1855,11 +1861,15 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 	} else {
 		$sizing = $sizing . ' height = "' . $height . '"';
 	}
+
 	if ($id) {
 		$id = ' id = "' . $id . '"';
 	}
 	if ($class) {
 		$class = ' class = "' . $class . '"';
+	}
+	if (empty($title)) {
+		$title = $alt;
 	}
 	if ($title) {
 		if ($title === TRUE) {
@@ -2637,7 +2647,7 @@ function getSizeCustomImage($args, $image = NULL) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
 		}
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -3121,7 +3131,7 @@ function getCustomImageURL($args, $suffix = NULL) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
 		}
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
@@ -3172,7 +3182,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 			unset($args['title']);
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -4612,7 +4622,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4644,7 +4654,7 @@ function recordPolicyACK($user = NULL) {
 			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());
 		}
 		if (extensionEnabled('security-logger')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
+			require_once(CORE_PLUGIN_SERVERPATH . 'security-logger.php');
 			npgFilters::apply('policy_ack', true, 'PolicyACK', 1, $what);
 		}
 	}
@@ -4837,8 +4847,8 @@ function print404status() {
 }
 
 function loadJqueryMobile() {
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.js');
 }
 
 /**

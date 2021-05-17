@@ -31,7 +31,7 @@ $plugin_description = gettext("Provides a means for users to login/out from your
 
 $option_interface = 'user_logout_options';
 if (isset($_gallery_page) && getOption('user_logout_login_form') > 1) {
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js.php');
+	require_once(CORE_PLUGIN_SERVERPATH . 'colorbox_js.php');
 	if (!npgFilters::has_filter('theme_head', 'colorbox::css')) {
 		npgFilters::register('theme_head', 'colorbox::css');
 	}

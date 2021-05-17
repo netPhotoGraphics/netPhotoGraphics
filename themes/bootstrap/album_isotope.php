@@ -1,6 +1,6 @@
 <?php
 include('inc_header.php');
-require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_extras.php');
+require_once (CORE_PLUGIN_SERVERPATH . 'tag_extras.php');
 ?>
 
 <!-- .container main -->

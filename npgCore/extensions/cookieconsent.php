@@ -212,7 +212,7 @@ class cookieConsent {
 		} else {
 			$consentrevokable = 'false';
 		}
-		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/cookieconsent/cookieconsent.min.js');
+		scriptLoader(CORE_PLUGIN_SERVERPATH . 'cookieconsent/cookieconsent.min.js');
 		?>
 		<script>
 			window.addEventListener("load", function () {

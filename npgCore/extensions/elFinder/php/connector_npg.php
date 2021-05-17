@@ -5,10 +5,10 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/admin-globals.php');
 XSRFdefender('elFinder');
 
-include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderConnector.class.php';
-include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinder.class.php';
-include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeDriver.class.php';
-include_once CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/php/elFinderVolumeLocalFileSystem.class.php';
+include_once CORE_PLUGIN_SERVERPATH . 'elFinder/php/elFinderConnector.class.php';
+include_once CORE_PLUGIN_SERVERPATH . 'elFinder/php/elFinder.class.php';
+include_once CORE_PLUGIN_SERVERPATH . 'elFinder/php/elFinderVolumeDriver.class.php';
+include_once CORE_PLUGIN_SERVERPATH . 'elFinder/php/elFinderVolumeLocalFileSystem.class.php';
 // Required for MySQL storage connector
 // include_once CORE_SERVERPATH .  PLUGIN_FOLDER.'/elFinder/php/elFinderVolumeMySQL.class.php';
 // Required for FTP connector support

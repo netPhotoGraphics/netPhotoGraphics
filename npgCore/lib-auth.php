@@ -435,7 +435,7 @@ class _Authority {
 					$index = PASSWORD_FUNCTION_DEFAULT;
 				}
 				$name = array_search($index, self::$hashList);
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+				require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 				if (!empty($userdata['pass'])) {
 					deprecated_functions::deprecationMessage(sprintf(gettext('The password for user %1$s is using the deprecated %2$s hashing method.'), $userdata['user'], $name));
 				}

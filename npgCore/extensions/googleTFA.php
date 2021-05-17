@@ -35,9 +35,9 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'googleTFA';
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
-require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/Secret.php');
-require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/googleTFA/SecretFactory.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'common/fieldExtender.php');
+require_once (CORE_PLUGIN_SERVERPATH . 'googleTFA/Secret.php');
+require_once (CORE_PLUGIN_SERVERPATH . 'googleTFA/SecretFactory.php');
 
 npgFilters::register('admin_login_attempt', 'googleTFA::check');
 npgFilters::register('save_admin_data', 'googleTFA::save');

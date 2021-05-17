@@ -28,7 +28,7 @@ if (extensionEnabled('class-video')) {
 }
 $option_interface = 'VideoObject_Options';
 
-define('GETID3_INCLUDEPATH', CORE_SERVERPATH . PLUGIN_FOLDER . '/class-video/getid3/');
+define('GETID3_INCLUDEPATH', CORE_PLUGIN_SERVERPATH . 'class-video/getid3/');
 require_once(GETID3_INCLUDEPATH . 'getid3.php');
 
 /**
@@ -272,7 +272,7 @@ class Video extends Image {
 				unset($args['suffix']);
 			}
 
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+			require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
 			deprecated_functions::notify_call('Video::getCustomImage', gettext('The function should be called with an image arguments array.'));
 		}
 		if (!isset($args['thumb'])) {

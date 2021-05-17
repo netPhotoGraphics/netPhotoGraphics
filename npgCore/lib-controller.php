@@ -516,7 +516,6 @@ class Controller {
 					case 'functions':
 					case 'themeoptions':
 					case 'theme_description':
-					case 'index':
 						return false; //	disallowed as theme pages
 				}
 			}

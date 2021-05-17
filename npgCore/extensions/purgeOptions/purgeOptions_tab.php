@@ -12,7 +12,7 @@
 
 define('OFFSET_PATH', 1);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions.php');
+require_once(CORE_PLUGIN_SERVERPATH . 'purgeOptions.php');
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
@@ -78,7 +78,7 @@ if (isset($_POST['purge'])) {
 
 printAdminHeader('options', '');
 $orphaned = array();
-scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/purgeOptions/purgeOptions.css');
+scriptLoader(CORE_PLUGIN_SERVERPATH . 'purgeOptions/purgeOptions.css');
 ?>
 </head>
 <body>
