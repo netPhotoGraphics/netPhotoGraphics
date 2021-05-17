@@ -571,26 +571,26 @@ class openStreetMap {
 	 * Assigns the needed JS and CSS
 	 */
 	static function scripts() {
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/leaflet.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/MarkerCluster.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/MarkerCluster.Default.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/openstreetmap.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/leaflet.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/MarkerCluster.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/MarkerCluster.Default.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/openstreetmap.css');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/L.Control.MousePosition.css');
+			scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/L.Control.MousePosition.css');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/Control.MiniMap.min.css');
+			scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/Control.MiniMap.min.css');
 		}
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/leaflet.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/leaflet.markercluster.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/leaflet-providers.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/leaflet.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/leaflet.markercluster.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/leaflet-providers.js');
 
 		if (getOption('osmap_showcursorpos')) {
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/L.Control.MousePosition.js');
+			scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/L.Control.MousePosition.js');
 		}
 		if (getOption('osmap_showminimap')) {
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'openstreetmap/Control.MiniMap.min.js');
+			scriptLoader(PLUGIN_SERVERPATH . 'openstreetmap/Control.MiniMap.min.js');
 		}
 	}
 

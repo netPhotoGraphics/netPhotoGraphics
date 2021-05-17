@@ -36,10 +36,10 @@ setupLog(sprintf(gettext('Theme:%s setup started'), $theme), $fullLog);
 $requirePath = getPlugin('themeoptions.php', $theme);
 if (!empty($requirePath)) {
 	//	load some theme support plugins that have option interedependencies
-	require_once(CORE_PLUGIN_SERVERPATH . 'cacheManager.php');
-	require_once(CORE_PLUGIN_SERVERPATH . 'menu_manager.php');
-	require_once(CORE_PLUGIN_SERVERPATH . 'colorbox_js.php');
-	require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+	require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
+	require_once(PLUGIN_SERVERPATH . 'menu_manager.php');
+	require_once(PLUGIN_SERVERPATH . 'colorbox_js.php');
+	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 
 	ob_start(); //	Just in case the themeOptions emits output!
 	require_once(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php');

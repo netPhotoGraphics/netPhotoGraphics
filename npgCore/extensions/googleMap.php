@@ -158,9 +158,9 @@ class GoogleMap {
 		?>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
 		<?php
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'googleMap/markerClustererPlus/markerclusterer.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'googleMap/overlappingMarkerSpiderfier/oms.min.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'googleMap/googleMap.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'googleMap/markerClustererPlus/markerclusterer.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'googleMap/overlappingMarkerSpiderfier/oms.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'googleMap/googleMap.css');
 	}
 
 	/**

@@ -41,7 +41,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 
 $option_interface = 'VideoJS';
 
-require_once(CORE_PLUGIN_SERVERPATH . 'class-video.php');
+require_once(PLUGIN_SERVERPATH . 'class-video.php');
 
 Gallery::addImageHandler('flv', 'Video');
 Gallery::addImageHandler('fla', 'Video');
@@ -141,11 +141,11 @@ class VideoJS extends html5Player {
 	}
 
 	static function head() {
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'VideoJS/video-js.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'VideoJS/videojs-resolution-switcher.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'VideoJS/ie8/videojs-ie8.min.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'VideoJS/video.min.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'VideoJS/videojs-resolution-switcher.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'VideoJS/video-js.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'VideoJS/videojs-resolution-switcher.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'VideoJS/ie8/videojs-ie8.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'VideoJS/video.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'VideoJS/videojs-resolution-switcher.js');
 		echo '<style type="text/css"> .video-js {margin-left: auto; margin-right: auto} </style>';
 	}
 

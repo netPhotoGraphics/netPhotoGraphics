@@ -12,7 +12,7 @@
 define('OFFSET_PATH', 1);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-require_once(CORE_PLUGIN_SERVERPATH . 'tag_suggest.php');
+require_once(PLUGIN_SERVERPATH . 'tag_suggest.php');
 
 admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 updatePublished('albums');

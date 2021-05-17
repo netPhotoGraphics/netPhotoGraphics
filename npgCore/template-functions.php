@@ -1767,7 +1767,7 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 			unset($args['suffix']);
 		}
 
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;
@@ -1818,7 +1818,7 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 			$title = NULL;
 		}
 
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
 	}
 
@@ -2647,7 +2647,7 @@ function getSizeCustomImage($args, $image = NULL) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
 		}
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -3131,7 +3131,7 @@ function getCustomImageURL($args, $suffix = NULL) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
 		}
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
@@ -3182,7 +3182,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 			unset($args['title']);
 		}
 
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -4654,7 +4654,7 @@ function recordPolicyACK($user = NULL) {
 			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());
 		}
 		if (extensionEnabled('security-logger')) {
-			require_once(CORE_PLUGIN_SERVERPATH . 'security-logger.php');
+			require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 			npgFilters::apply('policy_ack', true, 'PolicyACK', 1, $what);
 		}
 	}
@@ -4847,8 +4847,8 @@ function print404status() {
 }
 
 function loadJqueryMobile() {
-	scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.css');
-	scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.js');
+	scriptLoader(PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.js');
 }
 
 /**

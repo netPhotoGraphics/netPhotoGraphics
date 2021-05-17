@@ -1745,7 +1745,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$autorun = false;
 							}
 
-							require_once(CORE_PLUGIN_SERVERPATH . 'clone.php');
+							require_once(PLUGIN_SERVERPATH . 'clone.php');
 							if (class_exists('npgClone')) {
 								foreach (npgClone::clones() as $clone => $data) {
 									$url = $data['url'];

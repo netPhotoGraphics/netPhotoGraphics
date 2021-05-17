@@ -208,9 +208,9 @@ if (!defined('OFFSET_PATH')) {
 	$pluginType = isset($_GET['type']) ? $_GET['type'] : NULL;
 	if ($pluginType) {
 		$pluginToBeDocPath = USER_PLUGIN_SERVERPATH . $extension . '.php';
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php'); //	just incase
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php'); //	just incase
 	} else {
-		$pluginToBeDocPath = CORE_PLUGIN_SERVERPATH . '' . $extension . '.php';
+		$pluginToBeDocPath = PLUGIN_SERVERPATH . '' . $extension . '.php';
 	}
 	$plugin_description = '';
 	$plugin_notice = '';
@@ -241,7 +241,7 @@ if (!defined('OFFSET_PATH')) {
 		$albumbuttons = NULL;
 	}
 
-	require_once(CORE_PLUGIN_SERVERPATH . 'macroList.php');
+	require_once(PLUGIN_SERVERPATH . 'macroList.php');
 	list($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink) = $macro_params;
 	$content_macros = getMacros();
 	krsort($content_macros);

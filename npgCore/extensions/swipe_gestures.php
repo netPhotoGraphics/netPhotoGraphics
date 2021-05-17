@@ -105,7 +105,7 @@ class swipeGestures {
 				break;
 		}
 		if (!empty($prevurl) || !empty($nexturl)) {
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'swipe_gestures/jquery.touchSwipe.min.js');
+			scriptLoader(PLUGIN_SERVERPATH . 'swipe_gestures/jquery.touchSwipe.min.js');
 			?>
 			<script type="text/javascript">
 				$('html').swipe({

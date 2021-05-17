@@ -3,8 +3,8 @@
  * presents a form to get the user's googleAuthenticator authorization code.
  */
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
-require_once (CORE_PLUGIN_SERVERPATH . 'googleTFA/Secret.php');
-require_once (CORE_PLUGIN_SERVERPATH . 'googleTFA/SecretFactory.php');
+require_once (PLUGIN_SERVERPATH . 'googleTFA/Secret.php');
+require_once (PLUGIN_SERVERPATH . 'googleTFA/SecretFactory.php');
 
 if (isset($_SESSION['OTA'])) {
 	$user = $_SESSION['OTA']['user'];
@@ -13,8 +13,8 @@ if (isset($_SESSION['OTA'])) {
 	if ($userobj && $userobj->getOTAsecret()) {
 
 		if (isset($_POST['authenticate'])) {
-			require_once (CORE_PLUGIN_SERVERPATH . 'common/Base32.php');
-			require_once (CORE_PLUGIN_SERVERPATH . 'googleTFA/GoogleAuthenticator.php');
+			require_once (PLUGIN_SERVERPATH . 'common/Base32.php');
+			require_once (PLUGIN_SERVERPATH . 'googleTFA/GoogleAuthenticator.php');
 			$link = $_SESSION['OTA']['redirect'];
 			unset($_SESSION['OTA']); // kill the possibility of a replay
 			$secret = $userobj->getOTAsecret();

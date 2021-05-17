@@ -20,7 +20,7 @@
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext('Provides a means to purge options for Themes and Plugins.');
 
-require_once(CORE_PLUGIN_SERVERPATH . 'favoritesHandler/class-favorites.php');
+require_once(PLUGIN_SERVERPATH . 'favoritesHandler/class-favorites.php');
 
 npgFilters::register('admin_tabs', 'purgeOptions_admin_tabs');
 

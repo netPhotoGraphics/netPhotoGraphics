@@ -23,7 +23,7 @@ list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-require_once(CORE_PLUGIN_SERVERPATH . 'cacheManager.php');
+require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 

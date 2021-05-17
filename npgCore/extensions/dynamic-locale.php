@@ -248,7 +248,7 @@ class dynamic_locale {
 	}
 
 	static function dynamic_localeCSS() {
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'dynamic-locale/locale.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'dynamic-locale/locale.css');
 	}
 
 	static function fullHostPath($lang) {

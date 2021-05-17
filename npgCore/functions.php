@@ -515,7 +515,7 @@ function getPluginFiles($pattern, $folder = '', $stripsuffix = true, $flags = 0)
 		$folder .= '/';
 	$list = array();
 	$curdir = getcwd();
-	$sources = array(CORE_PLUGIN_SERVERPATH . '' . $folder, USER_PLUGIN_SERVERPATH . $folder);
+	$sources = array(PLUGIN_SERVERPATH . '' . $folder, USER_PLUGIN_SERVERPATH . $folder);
 
 	foreach ($sources as $basepath) {
 		if (is_dir($basepath)) {

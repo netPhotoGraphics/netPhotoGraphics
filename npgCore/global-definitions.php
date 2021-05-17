@@ -158,7 +158,7 @@ if (!defined('SERVERPATH')) {
 	define('SERVERPATH', $const_serverpath);
 }
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
-define('CORE_PLUGIN_SERVERPATH', CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/');
+define('PLUGIN_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/');
 define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 
 if (!defined('WEBPATH')) {

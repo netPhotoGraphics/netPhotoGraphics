@@ -389,7 +389,7 @@ function printRegistrationForm($thanks = NULL) {
 				} else {
 					$_SERVER['REQUEST_URI'] = $_link . '&login=true';
 				}
-				require_once(CORE_PLUGIN_SERVERPATH . 'user_login-out.php');
+				require_once(PLUGIN_SERVERPATH . 'user_login-out.php');
 				printPasswordForm(NULL, true, false, FULLWEBPATH);
 				$_notify = 'success';
 				break;

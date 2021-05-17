@@ -4,7 +4,7 @@
  * @package plugins/uploader_http
  */
 function upload_head() {
-	$myfolder = CORE_PLUGIN_SERVERPATH . 'uploader_http';
+	$myfolder = PLUGIN_SERVERPATH . 'uploader_http';
 	scriptLoader($myfolder . '/httpupload.css');
 	scriptLoader($myfolder . '/httpupload.js');
 	return getAdminLink(PLUGIN_FOLDER . '/uploader_http/uploader.php');

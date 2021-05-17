@@ -22,14 +22,14 @@ if (empty($locale))
 		<?php
 		load_jQuery_CSS();
 		load_jQuery_scripts('admin');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'elFinder/css/elfinder.min.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'elFinder/css/theme.css');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'elFinder/js/elfinder.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/elfinder.min.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/theme.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'elFinder/js/elfinder.min.js');
 		if ($locale != 'en') {
 			?>
 			<!-- elFinder translation (OPTIONAL) -->
 			<?php
-			scriptLoader(CORE_PLUGIN_SERVERPATH . 'elFinder/js/i18n/elfinder' . $locale . '.js');
+			scriptLoader(PLUGIN_SERVERPATH . 'elFinder/js/i18n/elfinder' . $locale . '.js');
 		}
 		?>
 

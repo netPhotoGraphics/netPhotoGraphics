@@ -428,7 +428,7 @@ class RSS extends feed {
 				$albumname = $this->getChannelTitleExtra();
 
 				$this->channel_title = html_encode($this->channel_title . ' ' . getBare($albumname));
-				require_once(CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
+				require_once(PLUGIN_SERVERPATH . 'image_album_statistics.php');
 				break;
 
 			case 'news': //Zenpage News RSS
@@ -474,8 +474,8 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $cattitle . $titleappendix);
 				$this->itemnumber = getOption("RSS_zenpage_items"); // # of Items displayed on the feed
-				require_once(CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
-				require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
+				require_once(PLUGIN_SERVERPATH . 'image_album_statistics.php');
+				require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 
 				break;
 
@@ -501,7 +501,7 @@ class RSS extends feed {
 						break;
 				}
 				$this->channel_title = html_encode($this->channel_title . $titleappendix);
-				require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
+				require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 				break;
 
 			case 'comments': //Comments RSS
@@ -522,7 +522,7 @@ class RSS extends feed {
 				}
 				$this->channel_title = html_encode($this->channel_title . $title . gettext(' (latest comments)'));
 				if (class_exists('CMS')) {
-					require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
+					require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 				}
 				break;
 
@@ -701,7 +701,7 @@ class RSS extends feed {
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache(CORE_PLUGIN_SERVERPATH . 'rss/rss.css');
+			$this->startCache(PLUGIN_SERVERPATH . 'rss/rss.css');
 			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">

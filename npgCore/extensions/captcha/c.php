@@ -69,7 +69,7 @@ for ($i = 0; $i < $len; $i++) {
 
 $w = $w + 5;
 $image = gl_createImage($w, $h);
-$background = gl_imageGet(CORE_PLUGIN_SERVERPATH . 'captcha/captcha_background.png');
+$background = gl_imageGet(PLUGIN_SERVERPATH . 'captcha/captcha_background.png');
 gl_copyCanvas($image, $background, 0, 0, rand(0, 9), rand(0, 9), $w, $h);
 
 $l = $kern[0] - $kernOffset;

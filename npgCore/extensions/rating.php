@@ -162,8 +162,8 @@ class jquery_rating {
 
 	static function ratingJS() {
 		$ME = substr(basename(__FILE__), 0, -4);
-		scriptLoader(CORE_PLUGIN_SERVERPATH . '' . $ME . '/jquery.MetaData.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . '' . $ME . '/jquery.rating.js');
+		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.MetaData.js');
+		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.rating.js');
 		?>
 		<script type="text/javascript">
 			// <!-- <![CDATA[

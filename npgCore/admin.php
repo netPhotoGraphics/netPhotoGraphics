@@ -31,7 +31,7 @@ if (npg_loggedin() && !empty($_admin_menu)) {
 	}
 }
 
-require_once(CORE_PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
+require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
@@ -52,7 +52,7 @@ if (npg_loggedin(ADMIN_RIGHTS)) {
 		$msg = '';
 	}
 	if (class_exists('CMS')) {
-		require_once(CORE_PLUGIN_SERVERPATH . 'zenpage/admin-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'zenpage/admin-functions.php');
 	}
 
 	if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
@@ -112,7 +112,7 @@ if (npg_loggedin(ADMIN_RIGHTS)) {
 					/** clear the HTMLcache ****************************************************** */
 					case 'clear_html_cache':
 						XSRFdefender('ClearHTMLCache');
-						require_once(CORE_PLUGIN_SERVERPATH . 'static_html_cache.php');
+						require_once(PLUGIN_SERVERPATH . 'static_html_cache.php');
 						static_html_cache::clearHTMLCache();
 						$class = 'messagebox fade-message';
 						$msg = gettext('HTML cache cleared.');
@@ -314,7 +314,7 @@ if (npg_loggedin() && $_admin_menu) {
 
 // Print our header
 printAdminHeader('overview');
-scriptLoader(CORE_PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
+scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
 ?>
 <script type="text/javascript">
 	// <!-- <![CDATA[

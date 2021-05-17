@@ -71,12 +71,12 @@ class panorama {
 	}
 
 	static function head() {
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'panorama/paver.css');
+		scriptLoader(PLUGIN_SERVERPATH . 'panorama/paver.css');
 	}
 
 	static function close() {
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'panorama/jquery.paver.min.js');
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'panorama/jquery.ba-throttle-debounce.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'panorama/jquery.paver.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'panorama/jquery.ba-throttle-debounce.min.js');
 		?>
 		<style>
 			.nPG_panorama {

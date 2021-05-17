@@ -18,7 +18,7 @@ admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('tagURLs');
 
-require_once(CORE_PLUGIN_SERVERPATH . 'zenpage.php');
+require_once(PLUGIN_SERVERPATH . 'zenpage.php');
 
 $_gallery->setTitle($_gallery->getTitle('all'));
 $_gallery->setDesc($_gallery->getDesc('all'));

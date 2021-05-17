@@ -114,7 +114,7 @@ class bxslider {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -122,7 +122,7 @@ class bxslider {
 		global $_bxslider_scripts;
 		$theme = getCurrentTheme();
 		$_bxslider_scripts = getPlugin('bxslider_thumb_nav/jquery.bxslider.min.css', getCurrentTheme());
-		scriptLoader(CORE_PLUGIN_SERVERPATH . 'bxslider_thumb_nav/jquery.bxslider.min.js');
+		scriptLoader(PLUGIN_SERVERPATH . 'bxslider_thumb_nav/jquery.bxslider.min.js');
 		scriptLoader($_bxslider_scripts);
 	}
 

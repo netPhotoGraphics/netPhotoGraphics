@@ -259,7 +259,7 @@ switch (OFFSET_PATH) {
 
 		}
 
-		require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 
 		$_zp_captcha = clone $_captcha;
 		$_zp_gallery = clone $_gallery;

@@ -228,7 +228,7 @@ if ($pasteobj) {
 	<?php
 }
 scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.css');
-scriptLoader(CORE_PLUGIN_SERVERPATH . 'crop_image/crop_image.css');
+scriptLoader(PLUGIN_SERVERPATH . 'crop_image/crop_image.css');
 scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 scriptLoader(CORE_SERVERPATH . 'js/htmlencoder.js');
 ?>

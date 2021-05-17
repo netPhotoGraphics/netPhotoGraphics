@@ -1,6 +1,6 @@
 <?php
 // force UTF-8 Ø
-require_once (CORE_PLUGIN_SERVERPATH . 'image_album_statistics.php');
+require_once (PLUGIN_SERVERPATH . 'image_album_statistics.php');
 npgFilters::register('themeSwitcher_head', 'switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'switcher_controllink');
 

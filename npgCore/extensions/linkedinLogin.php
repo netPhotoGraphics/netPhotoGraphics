@@ -34,7 +34,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(PHP_VERSION, '5.6.0', '<'), gettext('PHP version 5.6 or greater is required.')), array(!extension_loaded('curl'), gettext('The PHP Curl is required.'))));
 }
 
-require_once(CORE_PLUGIN_SERVERPATH . 'common/oAuth/oAuthLogin.php');
+require_once(PLUGIN_SERVERPATH . 'common/oAuth/oAuthLogin.php');
 
 $option_interface = 'linkedinLogin';
 

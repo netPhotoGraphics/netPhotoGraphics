@@ -1379,7 +1379,7 @@ function printCategoriesStatistic() {
  *
  */
 function zenpageJSCSS() {
-	scriptLoader(CORE_PLUGIN_SERVERPATH . 'zenpage/zenpage.css');
+	scriptLoader(PLUGIN_SERVERPATH . 'zenpage/zenpage.css');
 }
 
 function printZenpageIconLegend() {

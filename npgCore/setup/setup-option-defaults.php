@@ -963,7 +963,7 @@ $plugins = array_keys($plugins);
 			list($usec, $sec) = explode(" ", microtime());
 			$start = (float) $usec + (float) $sec;
 			setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
-			require_once(CORE_PLUGIN_SERVERPATH . '' . $extension . '.php');
+			require_once(PLUGIN_SERVERPATH . '' . $extension . '.php');
 			$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 			if ($plugin_is_filter & CLASS_PLUGIN) {
 				$priority .= ' | CLASS_PLUGIN';
@@ -1046,7 +1046,7 @@ $plugins = array_keys($plugins);
 <?php
 if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
 	//	There are either not distributed themes or ot distributed plugins present
-	require_once(CORE_PLUGIN_SERVERPATH . 'deprecated-functions.php');
+	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 	$deprecated = new deprecated_functions();
 	$listed = sha1(serialize($deprecated->listed_functions));
 	if ($listed != getOption('deprecated_functions_signature')) {

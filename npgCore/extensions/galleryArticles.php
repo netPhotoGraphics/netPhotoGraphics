@@ -116,7 +116,7 @@ class galleryArticles {
 
 	function handleOptionSave($themename, $themealbum) {
 		if (getOption('galleryArticles_import')) {
-			require_once(CORE_PLUGIN_SERVERPATH . 'galleryArticles/combiNews.php');
+			require_once(PLUGIN_SERVERPATH . 'galleryArticles/combiNews.php');
 			purgeOption('galleryArticles_import');
 		}
 		return false;
