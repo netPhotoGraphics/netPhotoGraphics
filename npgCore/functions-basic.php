@@ -437,7 +437,7 @@ function html_decode($string) {
 	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
 	// Replace numeric entities because html_entity_decode doesn't do it for us.
 	if (function_exists('mb_convert_encoding')) {
-		$string = preg_replace_callback("/(&#[0-9]+;)/", function($m) {
+		$string = preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
 			return mb_convert_encoding($m[1], LOCAL_CHARSET, "HTML-ENTITIES");
 		}, $string);
 	}
@@ -738,8 +738,6 @@ function npg_session_start() {
 		$result = session_start();
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
 
-
-
 		return $result;
 	}
 }
@@ -835,11 +833,11 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
 
 	$options = array_merge(
 					array(
-			'expires' => (int) $t,
-			'path' => rtrim($path, '/') . '/',
-			'domain' => '',
-			'httponly' => TRUE,
-			'samesite' => 'Lax'
+							'expires' => (int) $t,
+							'path' => rtrim($path, '/') . '/',
+							'domain' => '',
+							'httponly' => TRUE,
+							'samesite' => 'Lax'
 					), $options);
 
 	if (DEBUG_LOGIN) {
@@ -1483,7 +1481,7 @@ function getImageParameters($args, $album = NULL) {
 }
 
 /**
- * gemerates the image processor protection check code
+ * generates the image processor protection check code
  *
  * @param array $args
  * @return string

@@ -270,6 +270,8 @@ class Video extends Image {
 			if (isset($args['suffix'])) {
 				$suffix = $args['suffix'];
 				unset($args['suffix']);
+			} else {
+				$suffix = NULL;
 			}
 
 			require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');

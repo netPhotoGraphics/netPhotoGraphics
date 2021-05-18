@@ -108,7 +108,6 @@ class Image extends MediaObject {
 	 * @param sting $filename the filename of the image
 	 * @return Image
 	 */
-
 	function __construct($album, $filename, $quiet = false) {
 		global $_current_admin_obj;
 		// $album is an Album object; it should already be created.
@@ -1211,6 +1210,8 @@ class Image extends MediaObject {
 			if (isset($args['suffix'])) {
 				$suffix = $args['suffix'];
 				unset($args['suffix']);
+			} else {
+				$suffix = NULL;
 			}
 
 			require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
@@ -1380,12 +1381,12 @@ class Image extends MediaObject {
 				} else {
 					$images = $_current_search->getImages(0);
 				}
-				$target = array_keys(array_filter($images, function($item) use($filename, $imagefolder) {
+				$target = array_keys(array_filter($images, function ($item) use ($filename, $imagefolder) {
 									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
 								}));
 			} else {
 				$images = $this->album->getImages(0);
-				$target = array_keys(array_filter($images, function($item) use ($filename) {
+				$target = array_keys(array_filter($images, function ($item) use ($filename) {
 									return $item == $filename;
 								}));
 			}

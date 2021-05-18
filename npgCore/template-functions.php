@@ -1765,6 +1765,8 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
@@ -2642,10 +2644,14 @@ function getSizeCustomImage($args, $image = NULL) {
 		if (isset($args['image'])) {
 			$image = $args['image'];
 			unset($args['image']);
+		} else {
+			$image = NULL;
 		}
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
@@ -3130,6 +3136,8 @@ function getCustomImageURL($args, $suffix = NULL) {
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
@@ -3172,14 +3180,20 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		if (isset($args['class'])) {
 			$class = $args['class'];
 			unset($args['class']);
+		} else {
+			$class = NULL;
 		}
 		if (isset($args['id'])) {
 			$id = $args['id'];
 			unset($args['id']);
+		} else {
+			$id = NULL;
 		}
 		if (isset($args['title'])) {
 			$title = $args['title'];
 			unset($args['title']);
+		} else {
+			$title = NULL;
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
