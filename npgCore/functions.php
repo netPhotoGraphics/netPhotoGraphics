@@ -2162,22 +2162,14 @@ function scriptLoader($script, $inline = 1) {
 				$content = preg_replace('~[^\S\r\n]+~', ' ', $content) . "\n";
 				$content = preg_replace('~[\r\n]+~', "\n", $content);
 				if (getSuffix($scriptFS) == 'css') {
-					?>
-					<style type="text/css">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
-					<?php
+					echo "\n" . '<style type="text/css">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
 					$content = str_replace(': ', ':', $content);
 					echo $content;
-					?>
-					</style>
-					<?php
+					echo "</style>\n";
 				} else {
-					?>
-					<script type="text/javascript">/* src="<?php echo str_replace(SERVERPATH . '/', '', $script); ?>" */
-					<?php
+					echo "\n" . '<style type="text/javascript">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
 					echo $content;
-					?>
-					</script>
-					<?php
+					echo "</style>\n";
 				}
 				return;
 			}
@@ -2189,13 +2181,9 @@ function scriptLoader($script, $inline = 1) {
 		$version .= '.' . time();
 	}
 	if (getSuffix($script) == 'css') {
-		?>
-		<link rel="stylesheet" href="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/css" />
-		<?php
+		echo '<link rel="stylesheet" href="' . pathurlencode($script) . '?npg' . $version . '" type="text/css" />' . "\n";
 	} else {
-		?>
-		<script src="<?php echo pathurlencode($script); ?>?npg<?PHP echo $version; ?>" type="text/javascript"></script>
-		<?php
+		echo '<script src="' . pathurlencode($script) . '?npg' . $version . '" type="text/javascript"></script>' . "\n";
 	}
 }
 
@@ -2322,14 +2310,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript">
-						// <!-- <![CDATA[
-						$.ajax({
-							type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-						});
-						// ]]> -->
+				// <!-- <![CDATA[
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
+				// ]]> -->
 			</script>
 			<?php
 		}

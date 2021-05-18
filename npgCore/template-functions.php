@@ -36,13 +36,13 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
-	load_jQuery_CSS();
-	load_jQuery_scripts('theme');
 	scriptLoader(CORE_SERVERPATH . 'button.css');
 	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	if (npg_loggedin()) {
 		scriptLoader(getPlugin('toolbox.css', true));
 	}
+	load_jQuery_CSS();
+	load_jQuery_scripts('theme');
 }
 
 /**
@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-					if ($current == 1)
-						echo 'current';
-					else
-						echo 'first';
+			if ($current == 1)
+				echo 'current';
+			else
+				echo 'first';
 					?>">
-								<?php
+							<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
