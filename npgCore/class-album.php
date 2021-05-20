@@ -640,12 +640,14 @@ class AlbumBase extends MediaObject {
 	protected function _removeCache($folder) {
 		$folder = trim($folder, '/');
 		$success = true;
-		$filestoremove = safe_glob(SERVERCACHE . '/' . $folder . '/*');
-		foreach ($filestoremove as $file) {
-			chmod($file, 0777);
-			$success = $success && unlink($file);
+		if (file_exists(SERVERCACHE . '/' . $folder)) {
+			$filestoremove = safe_glob(SERVERCACHE . '/' . $folder . '/*');
+			foreach ($filestoremove as $file) {
+				chmod($file, 0777);
+				$success = $success && unlink($file);
+			}
+			rmdir(SERVERCACHE . '/' . $folder);
 		}
-		rmdir(SERVERCACHE . '/' . $folder);
 		return $success;
 	}
 

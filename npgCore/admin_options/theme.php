@@ -242,7 +242,7 @@ function getOptionContent() {
 							<?php echo gettext('<strong>Note:</strong> These are <em>recommendations</em> as themes may choose to override them for design reasons.'); ?>
 						</p>
 					</div>
-					<table id="npgOptions">
+					<table id="npgOptions" class="colwidth">
 						<tr>
 							<td class="option_name"><?php echo gettext("Albums"); ?></td>
 							<td class="option_value">
@@ -542,7 +542,7 @@ function getOptionContent() {
 								<em><?php printf(gettext('The following are options specifically implemented by %s.'), $theme['name']); ?></em>
 							</p>
 						</div>
-						<table id="customOptions">
+						<table id="customOptions" class="colwidth">
 							<?php
 							customOptions($optionHandler, '', $album, false, $supportedOptions, $themename);
 							?>

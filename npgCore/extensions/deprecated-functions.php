@@ -34,7 +34,7 @@ npgFilters::register('admin_tabs', 'deprecated_functions::tabs', -308);
 
 //Load the deprecated function scripts
 require_once(stripSuffix(__FILE__) . '/deprecated-functions.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions/class.php');
+require_once(PLUGIN_SERVERPATH . 'deprecated-functions/class.php');
 foreach (getPluginFiles('*.php') as $ext => $plugin) {
 	$deprecated = stripSuffix($plugin) . '/deprecated-functions.php';
 	if (file_exists($deprecated)) {

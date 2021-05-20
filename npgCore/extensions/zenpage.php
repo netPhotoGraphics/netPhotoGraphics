@@ -74,10 +74,10 @@ npgFilters::register('themeSwitcher_head', 'cmsFilters::switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
 npgFilters::register('load_theme_script', 'cmsFilters::switcher_setup', 99);
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/classes.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-news.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-page.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/class-category.php');
+require_once(PLUGIN_SERVERPATH . 'zenpage/classes.php');
+require_once(PLUGIN_SERVERPATH . 'zenpage/class-news.php');
+require_once(PLUGIN_SERVERPATH . 'zenpage/class-page.php');
+require_once(PLUGIN_SERVERPATH . 'zenpage/class-category.php');
 
 $_CMS = new CMS();
 
@@ -197,7 +197,7 @@ class cmsFilters {
 			}
 		}
 		if (class_exists('CMS')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/zenpage/template-functions.php');
+			require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 		} else {
 			unset($GLOBALS['_CMS']);
 		}

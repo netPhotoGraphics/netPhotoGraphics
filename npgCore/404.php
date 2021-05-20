@@ -9,7 +9,7 @@ if ($image) { //	maybe we can find it
 			case CACHEFOLDER:
 				// a failed reference to a cached image?
 				require_once(CORE_SERVERPATH . 'admin-functions.php');
-				require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager/functions.php');
+				require_once(PLUGIN_SERVERPATH . 'cacheManager/functions.php');
 				unset($folders[0]);
 				$folders[] = $image;
 				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders), getWatermarks());

@@ -365,7 +365,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
  */
 function restoreSetupScrpts($reason) {
 	//log setup file restore no matter what!
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
+	require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 
 	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
 

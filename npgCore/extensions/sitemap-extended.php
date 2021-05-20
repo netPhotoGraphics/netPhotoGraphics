@@ -32,7 +32,6 @@ $option_interface = 'sitemap';
 
 npgFilters::register('admin_tabs', 'sitemap::admin_tabs');
 
-
 $sitemapfolder = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/sitemap';
 if (!file_exists($sitemapfolder)) {
 	if (!mkdir_recursive($sitemapfolder, FOLDER_MOD)) {
@@ -175,7 +174,7 @@ class sitemap {
 						'desc' => gettext('If checked, the original full image is referenced instead of the sized images in the cache. For image formats only.')),
 				gettext('Google - URL to image license') => array('key' => 'sitemap_license', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 12,
-						'multilingual' => true,
+						'multilingual' => FALSE,
 						'desc' => gettext('Optional. Used only if the Google extension is checked. Must be an absolute URL address of the form: ' . FULLWEBPATH . '/license.html.')),
 				gettext('Sitemap processing chunk') => array('key' => 'sitemap_processing_chunk', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 13,

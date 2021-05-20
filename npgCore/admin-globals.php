@@ -73,7 +73,7 @@ if (abs(OFFSET_PATH) != 2) {
 
 	//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/dynamic-locale.php');
+	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 }
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
@@ -307,7 +307,7 @@ if (isset($_loggedin) && $_loggedin) {
 
 		//	so as to make it generally available as we make much use of it
 		if (OFFSET_PATH != 2) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js.php');
+			require_once(PLUGIN_SERVERPATH . 'colorbox_js.php');
 		}
 	}
 	loadLocalOptions(0, $_gallery->getCurrentTheme());
@@ -318,7 +318,7 @@ if (defined('MOD_REWRITE') && MOD_REWRITE && OFFSET_PATH != 2) {
 	$parts = mb_parse_url($uri);
 	if (strpos($parts['path'], 'zp-core') !== FALSE) {
 		//	deprecated use of zp-core in URL
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions/class.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions/class.php');
 		deprecated_functions::logZPCore($uri, '');
 	}
 }

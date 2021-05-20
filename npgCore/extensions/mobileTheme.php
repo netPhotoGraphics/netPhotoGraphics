@@ -208,7 +208,7 @@ class mobileTheme {
 
 }
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
+require_once(PLUGIN_SERVERPATH . 'mobileTheme/Mobile_Detect.php');
 
 class mobile extends Mobile_Detect {
 

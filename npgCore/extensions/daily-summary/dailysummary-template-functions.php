@@ -127,9 +127,11 @@ function getCustomDailySummaryThumb($args, $suffix = NULL) {
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;

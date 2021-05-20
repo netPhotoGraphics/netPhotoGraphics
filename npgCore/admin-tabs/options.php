@@ -11,7 +11,7 @@
 define('OFFSET_PATH', 1);
 require_once(dirname(__DIR__) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'lib-config.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(PLUGIN_SERVERPATH . 'tag_suggest.php');
 
 if (isset($_GET['tab'])) {
 	$_admin_subtab = sanitize($_GET['tab'], 3);
@@ -107,7 +107,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 		});
 
 		window.addEventListener('load', function () {
-			table = $('#npgOptions').width();
+			table = Math.round($('#npgOptions').width());
 			$('.colwidth').width(table);
 			setColumns();
 		}, false);

@@ -53,7 +53,7 @@ class deprecated_functions {
 							'plugin' => $plugin,
 							'function' => $function,
 							'class' => trim($functions[1][$key]),
-							'since' => isset($versions[1]) ? $versions[1][$key] : NULL,
+							'since' => isset($versions[1][$key]) ? $versions[1][$key] : NULL,
 							'option' => $option,
 							'multiple' => array_key_exists($function, $this->unique_functions));
 				}

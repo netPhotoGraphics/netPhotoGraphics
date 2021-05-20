@@ -20,14 +20,14 @@ if (isset($_REQUEST['themeEdit'])) {
 	$theme = false;
 	$title = gettext('File Manager');
 }
-scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/css/elfinder.min.css');
-scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/css/theme.css');
-scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/js/elfinder.min.js');
+scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/elfinder.min.css');
+scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/theme.css');
+scriptLoader(PLUGIN_SERVERPATH . 'elFinder/js/elfinder.min.js');
 if ($locale != 'en') {
 	?>
 	<!-- elFinder translation (OPTIONAL) -->
 	<?php
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/elFinder/js/i18n/elfinder' . $locale . '.js');
+	scriptLoader(PLUGIN_SERVERPATH . 'elFinder/js/i18n/elfinder' . $locale . '.js');
 }
 
 echo "\n</head>";

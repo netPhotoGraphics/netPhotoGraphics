@@ -36,13 +36,13 @@ function printThemeHeadItems() {
 	?>
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
-	load_jQuery_CSS();
-	load_jQuery_scripts('theme');
 	scriptLoader(CORE_SERVERPATH . 'button.css');
 	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	if (npg_loggedin()) {
 		scriptLoader(getPlugin('toolbox.css', true));
 	}
+	load_jQuery_CSS();
+	load_jQuery_scripts('theme');
 }
 
 /**
@@ -342,7 +342,7 @@ function adminToolbox() {
 						}
 						$redirect = npgFilters::apply('admin_toolbox_pages', $redirect);
 						break;
-					case'news.php':
+					case 'news.php':
 						$redirect = "&amp;p=news";
 						if ($page > 1) {
 							$redirect .= "&amp;page=$page";
@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-					if ($current == 1)
-						echo 'current';
-					else
-						echo 'first';
+			if ($current == 1)
+				echo 'current';
+			else
+				echo 'first';
 					?>">
-								<?php
+							<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -1765,9 +1765,11 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
 	}
 	$args['thumb'] = TRUE;
@@ -1802,17 +1804,23 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 		if (isset($args['class'])) {
 			$class = $args['class'];
 			unset($args['class']);
+		} else {
+			$class = NULL;
 		}
 		if (isset($args['id'])) {
 			$id = $args['id'];
 			unset($args['id']);
+		} else {
+			$id = NULL;
 		}
 		if (isset($args['title'])) {
 			$title = $args['title'];
 			unset($args['title']);
+		} else {
+			$title = NULL;
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
 	}
 
@@ -1820,7 +1828,6 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
-
 
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
@@ -1856,11 +1863,15 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 	} else {
 		$sizing = $sizing . ' height = "' . $height . '"';
 	}
+
 	if ($id) {
 		$id = ' id = "' . $id . '"';
 	}
 	if ($class) {
 		$class = ' class = "' . $class . '"';
+	}
+	if (empty($title)) {
+		$title = $alt;
 	}
 	if ($title) {
 		if ($title === TRUE) {
@@ -2562,11 +2573,13 @@ function getImageMetaData($image = NULL, $displayonly = true) {
  * @param string $class style class
  * @author Ozh
  */
-function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata', $class = null, $span = NULL) {
+function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata', $class = null, $span = NULL) {
 	global $_exifvars, $_current_image;
 	if (false === ($exif = getImageMetaData($_current_image, true))) {
 		return;
 	}
+
+
 	if (is_null($title)) {
 		$title = gettext('Image Info');
 	}
@@ -2581,7 +2594,7 @@ function printImageMetadata($title = NULL, $toggle = true, $id = 'imagemetadata'
 		$id = ' id = "' . $id . '"';
 	}
 	$refh = $refa = $style = '';
-	if ($toggle == 'colorbox' && npgFilters::has_filter('theme_head', 'colorbox::css')) {
+	if ($toggle === 'colorbox' && npgFilters::has_filter('theme_head', 'colorbox::css')) {
 		$refh = '<a href = "#" class = "colorbox" title = "' . $title . '">';
 		$refa = '</a>';
 		$style = ' style = "display:none"';
@@ -2631,12 +2644,16 @@ function getSizeCustomImage($args, $image = NULL) {
 		if (isset($args['image'])) {
 			$image = $args['image'];
 			unset($args['image']);
+		} else {
+			$image = NULL;
 		}
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -3119,8 +3136,10 @@ function getCustomImageURL($args, $suffix = NULL) {
 		if (isset($args['suffix'])) {
 			$suffix = $args['suffix'];
 			unset($args['suffix']);
+		} else {
+			$suffix = NULL;
 		}
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
@@ -3161,17 +3180,23 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		if (isset($args['class'])) {
 			$class = $args['class'];
 			unset($args['class']);
+		} else {
+			$class = NULL;
 		}
 		if (isset($args['id'])) {
 			$id = $args['id'];
 			unset($args['id']);
+		} else {
+			$id = NULL;
 		}
 		if (isset($args['title'])) {
 			$title = $args['title'];
 			unset($args['title']);
+		} else {
+			$title = NULL;
 		}
 
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
@@ -4611,7 +4636,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4643,7 +4668,7 @@ function recordPolicyACK($user = NULL) {
 			$what = sprintf(gettext('%1$s policyACK cookie'), $browser->getBrowser());
 		}
 		if (extensionEnabled('security-logger')) {
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
+			require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 			npgFilters::apply('policy_ack', true, 'PolicyACK', 1, $what);
 		}
 	}
@@ -4836,8 +4861,8 @@ function print404status() {
 }
 
 function loadJqueryMobile() {
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
-	scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+	scriptLoader(PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(PLUGIN_SERVERPATH . 'common/jquerymobile/jquery.mobile-1.4.5.min.js');
 }
 
 /**

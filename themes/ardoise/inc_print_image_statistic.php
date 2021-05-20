@@ -27,7 +27,7 @@
 		?>
 	</h4>
 	<?php
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
+	require_once(PLUGIN_SERVERPATH . 'image_album_statistics.php');
 	if (getOption('use_galleriffic')) {
 		$number = 8; // displays 8 thumbnails with default size (85*85) with galleriffic script
 	} else {

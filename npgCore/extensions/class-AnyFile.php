@@ -57,7 +57,7 @@ class AnyFile extends TextObject_core {
 				}
 				foreach ($supported as $suffix) {
 					if ($suffix && !file_exists(USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png')) {
-						copy(CORE_SERVERPATH . PLUGIN_FOLDER . '/class-AnyFile/Default.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
+						copy(PLUGIN_SERVERPATH . 'class-AnyFile/Default.png', USER_PLUGIN_SERVERPATH . 'class-AnyFile/' . $suffix . 'Default.png');
 					}
 				}
 				purgeOption('AnyFileSuffixList');

@@ -8,7 +8,7 @@
 define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once("admin-functions.php");
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/tag_suggest.php');
+require_once(PLUGIN_SERVERPATH . 'tag_suggest.php');
 
 if (is_AdminEditPage('page')) {
 	$rights = ZENPAGE_PAGES_RIGHTS;

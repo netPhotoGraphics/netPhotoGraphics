@@ -27,8 +27,8 @@ npgFilters::register('bulk_album_actions', 'comment_form::bulkActions');
 npgFilters::register('bulk_article_actions', 'comment_form::bulkActions');
 npgFilters::register('bulk_page_actions', 'comment_form::bulkActions');
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/class-comment.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/functions.php');
+require_once(PLUGIN_SERVERPATH . 'comment_form/class-comment.php');
+require_once(PLUGIN_SERVERPATH . 'comment_form/functions.php');
 
 if (OFFSET_PATH) {
 	npgFilters::register('admin_overview', 'comment_form_print10Most');

@@ -30,7 +30,7 @@ if (isset($_GET['selection'])) {
 	if ($s = sanitize_numeric(getNPGCookie('pluginsTab_pluginCount'))) {
 		define('PLUGINS_PER_PAGE', $s);
 	} else {
-		define('PLUGINS_PER_PAGE', 10);
+		define('PLUGINS_PER_PAGE', PLUGINS_STEP);
 	}
 }
 

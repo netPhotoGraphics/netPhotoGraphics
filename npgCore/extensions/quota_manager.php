@@ -34,7 +34,7 @@ $plugin_disable = (npgFilters::has_filter('get_upload_header_text') && !extensio
 
 $option_interface = 'quota_manager';
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/fieldExtender.php');
+require_once(PLUGIN_SERVERPATH . 'common/fieldExtender.php');
 
 if ($plugin_disable) {
 	enableExtension('quota_manager', 0);

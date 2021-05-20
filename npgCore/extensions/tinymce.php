@@ -25,7 +25,7 @@ $option_interface = 'tinymce';
 if (!defined('EDITOR_SANITIZE_LEVEL'))
 	define('EDITOR_SANITIZE_LEVEL', 4);
 if (!defined('TINYMCE')) {
-	define('TINYMCE', CORE_SERVERPATH . PLUGIN_FOLDER . '/tinymce');
+	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce');
 }
 npgFilters::register('texteditor_config', 'tinymce::configJS');
 

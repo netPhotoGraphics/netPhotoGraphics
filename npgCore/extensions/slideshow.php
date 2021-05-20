@@ -163,7 +163,7 @@ class slideshow {
 	 * @deprecated
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 

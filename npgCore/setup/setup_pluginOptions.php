@@ -23,7 +23,7 @@ list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/cacheManager.php');
+require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
@@ -69,6 +69,8 @@ if (extensionEnabled($extension)) {
 
 $_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
 unset($plugin_disable);
+
+ob_start(); //	Just in case the plugin emits output
 require_once($path); //	If it faults the shutdown functioin will disable it
 if (isset($plugin_disable) && $plugin_disable) {
 	enableExtension($extension, 0);
@@ -89,9 +91,8 @@ if ($str = isolate('$option_interface', $p)) {
 			$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
 			$_loggedin = $_current_admin_obj->getRights();
 		}
-		ob_start(); //	some plugins emit output from the getOptionsSupported() method
+
 		$options = $option_interface->getOptionsSupported();
-		@ob_end_clean();
 		$owner = replaceScriptPath($path);
 		foreach ($options as $option) {
 			if (isset($option['key'])) {
@@ -100,6 +101,7 @@ if ($str = isolate('$option_interface', $p)) {
 		}
 	}
 }
+@ob_end_clean(); //	Flush any unwanted output
 
 sendImage($icon, 'plugin_' . $extension);
 

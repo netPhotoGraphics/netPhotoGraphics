@@ -27,7 +27,7 @@ unset($_ous);
 
 require_once(CORE_SERVERPATH . 'lib-auth.php');
 if (extensionEnabled('user_groups')) {
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/user_groups.php');
+	require_once(PLUGIN_SERVERPATH . 'user_groups.php');
 }
 
 class npg_Authority extends _Authority {

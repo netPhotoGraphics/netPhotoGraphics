@@ -113,6 +113,7 @@ $legacyReplacements = array(
 		'zp_register_filter\(' => 'npgFilters::register(',
 		'zp_apply_filter\(' => 'npgFilters::apply(',
 		'zp_remove_filter\(' => 'npgFilters::remove(',
+		'zp_has_filter\(' => 'npgFilters::has_filter(',
 		'getDataUsageNotice\(\)' => "array('url'=>NULL, 'linktext'=>NULL, 'linktext'=>NULL)/* TODO:replaced getDataUsageNotice Use the GDPR_required plugin instead */",
 		'zp_loggedin\(' => 'npg_loggedin(',
 		'\$_zp_loggedin' => '$_loggedin',
@@ -126,7 +127,9 @@ $legacyReplacements = array(
 		'gettext_th' => 'gettext',
 		'ngettext_th' => 'ngettext;',
 		'gettext_pl' => 'gettext;',
-		'ngettext_pl' => 'ngettext'
+		'ngettext_pl' => 'ngettext',
+		'printLangAttribute\(' => 'i18n::htmlLanguageCode(',
+		'isSubNewsCategoryOf\(' => 'isSubCategoryOf('
 );
 
 class zenPhotoCompatibilityPack {
@@ -155,7 +158,6 @@ class zenPhotoCompatibilityPack {
 		$_zp_page = $_current_page;
 		$_zp_gallery_page = $_gallery_page;
 		$_zp_themeroot = $_themeroot;
-
 
 		return $param;
 	}
@@ -216,6 +218,8 @@ class zenPhotoCompatibilityPack {
 
 }
 
+require_once(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyFunctions.php');
+
 switch (OFFSET_PATH) {
 	case 2:
 		break;
@@ -237,6 +241,10 @@ switch (OFFSET_PATH) {
 
 			class ZenpageCategory extends Category {
 
+				function isSubNewsCategoryOf($catlink) {
+					return $this->isSubCategoryOf($catlink);
+				}
+
 			}
 
 			$_zp_zenpage = clone $_CMS;
@@ -250,6 +258,8 @@ switch (OFFSET_PATH) {
 		class zpFunctions extends npgFunctions {
 
 		}
+
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 
 		$_zp_captcha = clone $_captcha;
 		$_zp_gallery = clone $_gallery;

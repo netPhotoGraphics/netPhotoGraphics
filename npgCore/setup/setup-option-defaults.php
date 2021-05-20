@@ -404,7 +404,6 @@ purgeOption('mod_rewrite_detected');
 //	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
 $rootupdate = updateRootIndexFile();
 
-
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
@@ -500,7 +499,8 @@ $style_tags = "abbr=>(class=>() id=>() title=>() lang=>())\n" .
 				"strike=>(class=>() id=>() lang=>())\n" .
 				"strong=>(class=>() id=>() lang=>())\n" .
 				"sup=>(class=>() id=>() lang=>())\n" .
-				"sub=>(class=>() id=>() lang=>())\n"
+				"sub=>(class=>() id=>() lang=>())\n" .
+				"del => (class=>() id=>() lang=>())\n"
 ;
 $a = parseAllowedTags($style_tags);
 if (!is_array($a)) {
@@ -511,6 +511,9 @@ $general_tags = "a=>(href=>() title=>() target=>() class=>() id=>() rel=>() lang
 				"ul=>(class=>() id=>() lang=>())\n" .
 				"ol=>(class=>() id=>() lang=>())\n" .
 				"li=>(class=>() id=>() lang=>())\n" .
+				"dl =>(class=>() id=>() lang=>())\n" .
+				"dt =>(class=>() id=>() lang=>())\n" .
+				"dd =>(class=>() id=>() lang=>())\n" .
 				"p=>(class=>() id=>() style=>() lang=>())\n" .
 				"h1=>(class=>() id=>() style=>() lang=>())\n" .
 				"h2=>(class=>() id=>() style=>() lang=>())\n" .
@@ -960,7 +963,7 @@ $plugins = array_keys($plugins);
 			list($usec, $sec) = explode(" ", microtime());
 			$start = (float) $usec + (float) $sec;
 			setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
-			require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/' . $extension . '.php');
+			require_once(PLUGIN_SERVERPATH . '' . $extension . '.php');
 			$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 			if ($plugin_is_filter & CLASS_PLUGIN) {
 				$priority .= ' | CLASS_PLUGIN';
@@ -1043,7 +1046,7 @@ $plugins = array_keys($plugins);
 <?php
 if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
 	//	There are either not distributed themes or ot distributed plugins present
-	require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
+	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 	$deprecated = new deprecated_functions();
 	$listed = sha1(serialize($deprecated->listed_functions));
 	if ($listed != getOption('deprecated_functions_signature')) {

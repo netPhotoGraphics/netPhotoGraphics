@@ -33,7 +33,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Publish <em>favorites</em> into albums that others can view.');
 }
 
-require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/class-favorites.php');
+require_once(PLUGIN_SERVERPATH . 'favoritesHandler/class-favorites.php');
 define("FAVORITESALBUM_FOLDER", CORE_FOLDER . '/' . PLUGIN_FOLDER . '/favoritesAlbums/');
 
 class favoritesAlbum extends favorites {

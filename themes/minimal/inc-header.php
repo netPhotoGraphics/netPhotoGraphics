@@ -28,7 +28,7 @@ if (function_exists('printAddThis')) {
 		$zpmin_metadesc = truncate_string(getBareGalleryDesc(), 150, '...');
 		switch ($_gallery_page) {
 			case 'index.php':
-				require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/image_album_statistics.php');
+				require_once (PLUGIN_SERVERPATH . 'image_album_statistics.php');
 				$showsearch = false;
 				$zpmin_social = false;
 				break;
@@ -201,7 +201,7 @@ if (function_exists('printAddThis')) {
 		<?php } ?>
 		<?php if ((($zpmin_colorbox) || (($zpmin_finallink) == 'colorbox')) && ($cbscript)) { ?>
 			<?php
-			scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+			scriptLoader(PLUGIN_SERVERPATH . 'colorbox_js/jquery.colorbox-min.js');
 			scriptLoader($_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
 			?>
 			<script type="text/javascript">

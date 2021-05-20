@@ -75,7 +75,6 @@ define('EXIF_FIELD_ENABLED', 5);
 define('EXIF_FIELD_TYPE', 6);
 define('EXIF_FIELD_LINKED', 7);
 
-
 define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(strtoupper(__FILE__)));
 
@@ -159,7 +158,9 @@ if (!defined('SERVERPATH')) {
 	define('SERVERPATH', $const_serverpath);
 }
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
+define('PLUGIN_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/');
 define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
+
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
