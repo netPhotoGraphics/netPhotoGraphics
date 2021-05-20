@@ -107,7 +107,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 		});
 
 		window.addEventListener('load', function () {
-			table = $('#npgOptions').width();
+			table = Math.round($('#npgOptions').width());
 			$('.colwidth').width(table);
 			setColumns();
 		}, false);

@@ -75,7 +75,7 @@ class themeSwitcher {
 		if (!empty($unknown)) {
 			$options['note'] = array('key' => 'themeswitcher_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 4,
-					'desc' => '<span class="notebox">' . gettext('These themes are enabled but have not got their default options set:') . ' <em>' . implode('</em>, <em>', $unknown) . '</em></span>');
+					'desc' => '<div class="notebox">' . gettext('These themes are enabled but have not got their default options set:') . ' <em>' . implode('</em>, <em>', $unknown) . '</em></div>');
 		}
 
 		return $options;
@@ -231,7 +231,6 @@ foreach ($_gallery->getThemes() as $__key => $__theme) {
 unset($__enabled);
 unset($__key);
 unset($__theme);
-
 
 if (isset($_GET['themeSwitcher'])) {
 	setNPGCookie('themeSwitcher_theme', sanitize($_GET['themeSwitcher']), FALSE);
