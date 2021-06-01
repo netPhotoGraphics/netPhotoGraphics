@@ -2167,9 +2167,9 @@ function scriptLoader($script, $inline = 1) {
 					echo $content;
 					echo "</style>\n";
 				} else {
-					echo "\n" . '<style type="text/javascript">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
+					echo "\n" . '<script type="text/javascript">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
 					echo $content;
-					echo "</style>\n";
+					echo "</script>\n";
 				}
 				return;
 			}
