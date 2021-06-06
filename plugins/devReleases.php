@@ -56,6 +56,8 @@ if (isset($_GET['action'])) {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
 		purgeOption('getUpdates_lastCheck');
+		header("HTTP/1.0 302 Found");
+		header("Status: 302 Found");
 		header('location: ' . getAdminLink('admin.php') . '?update_check');
 		exit();
 	}
