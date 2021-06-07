@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-			if ($current == 1)
-				echo 'current';
-			else
-				echo 'first';
+					if ($current == 1)
+						echo 'current';
+					else
+						echo 'first';
 					?>">
-							<?php
+								<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -3236,12 +3236,12 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		$title = ' title="' . html_encode($title) . '"';
 	}
 	if (isImagePhoto() || $thumb) {
-		$html = '<img src="' . html_encode(getCustomImageURL($args)) . '"' .
+		$html = '<img src="' . html_encode($_current_image->getCustomImage($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
 		$html = npgFilters::apply('custom_image_html', $html, $thumb);
 		if (ENCODING_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomImageURL($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+			$html = "<picture>\n<source srcset=\"" . html_encode($_current_image->getCustomImage($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 	} else { // better be a plugin
