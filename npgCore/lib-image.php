@@ -395,7 +395,7 @@ class imageProcessing {
 			} else {
 				if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
 					// we can just use the original!
-					if (SYMLINK && symlink($imgfile, $newfile)) {
+					if (SYMLINK && @symlink($imgfile, $newfile)) {
 						if (DEBUG_IMAGE)
 							debugLog("imageProcessing::cache:symlink original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 						clearstatcache();
@@ -435,7 +435,6 @@ class imageProcessing {
 			}
 
 			// Create the cached file (with lots of compatibility)...
-
 
 			if (file_exists($newfile)) {
 				chmod($newfile, 0777);
