@@ -1613,16 +1613,19 @@ function printAlbumData($field, $label = '') {
 /**
  * Returns the album page number of the current image
  *
- * @param object $album optional album object
+ * @param object $use_album optional album object
  * @return integer
  */
-function getAlbumPage($album = NULL) {
+function getAlbumPage($use_album = NULL) {
 	global $_current_album, $_current_image, $_current_search, $_firstPageImages;
-	if (is_null($album)) {
+	if ($use_album && $use_album != $_current_album) {
+		$album = $use_album;
+	} else {
 		$album = $_current_album;
+		$use_album = null;
 	}
 	if (in_context(NPG_IMAGE) && !in_context(NPG_SEARCH)) {
-		$imageindex = $_current_image->getIndex();
+		$imageindex = $_current_image->getIndex($use_album);
 		$numalbums = $album->getNumAlbums();
 		$imagepage = floor(($imageindex - $_firstPageImages) / max(1, getOption('images_per_page'))) + 1;
 		$albumpages = ceil($numalbums / max(1, getOption('albums_per_page')));
@@ -1644,8 +1647,9 @@ function getAlbumPage($album = NULL) {
  */
 function getAlbumURL($album = NULL) {
 	global $_current_album;
-	if (is_null($album))
+	if (is_null($album)) {
 		$album = $_current_album;
+	}
 	if (in_context(NPG_IMAGE)) {
 		$page = getAlbumPage($album);
 		if ($page <= 1)
@@ -4636,7 +4640,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

@@ -1367,12 +1367,17 @@ class Image extends MediaObject {
 	/**
 	 * Get the index of this image in the album, taking sorting into account.
 	 *
+	 * @param object $use_album optional album to override if image is within a dynamic album
 	 * @return int
 	 */
-	function getIndex() {
+	function getIndex($use_album = null) {
 		global $_current_search;
-		if ($this->index == NULL) {
-			$album = $this->albumnamealbum;
+		if ($this->index == NULL || $use_album) {
+			if ($use_album) {
+				$album = $use_album;
+			} else {
+				$album = $this->albumnamealbum;
+			}
 			$filename = $this->filename;
 			if (!is_null($_current_search) && !in_context(ALBUM_LINKED) || $album->isDynamic()) {
 				$imagefolder = $this->imagefolder;
@@ -1391,10 +1396,15 @@ class Image extends MediaObject {
 								}));
 			}
 			if (isset($target[0])) {
-				$this->index = $target[0];
+				$index = $target[0];
 			} else {
-				$this->index = NULL;
+				$index = NULL;
 			}
+			if ($use_album) {
+				//	don't set the property of the album isn't the same as the instantiation album
+				return $index;
+			}
+			$this->index = $index;
 		}
 		return $this->index;
 	}
