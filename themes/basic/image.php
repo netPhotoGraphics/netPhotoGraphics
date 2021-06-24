@@ -13,7 +13,7 @@ if (!defined('WEBPATH'))
 
 		scriptLoader($basic_CSS);
 		scriptLoader(dirname(dirname($basic_CSS)) . '/common.css');
-		if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
+		if (npgFilters::has_filter('theme_head', 'colorbox::css') && getOption('protect_full_image') != 'Download') {
 			?>
 			<script type="text/javascript">
 				// <!-- <![CDATA[
