@@ -171,6 +171,7 @@ function getField($field, $level = 3) {
  */
 function printContactForm($subject_override = '') {
 	global $_captcha, $_processing_post, $_current_admin_obj, $_HTML_cache;
+	eval(npgFilters::apply('zenphotoCompatibility', ''));
 	$_HTML_cache->abortHTMLCache(true); //	never cache pages with a contact form on them
 	$error = array();
 	if (isset($_POST['sendmail'])) {
