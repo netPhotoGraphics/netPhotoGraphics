@@ -209,6 +209,7 @@ class comment_form {
  */
 function printCommentForm($showcomments = true, $addcommenttext = NULL, $addheader = true, $comment_commententry_mod = '', $desc_order = false) {
 	global $_gallery_page, $_current_admin_obj, $_current_comment, $_captcha, $_authority, $_HTML_cache, $_current_image, $_current_album, $_CMS_current_page, $_CMS_current_article;
+	eval(npgFilters::apply('zenphotoCompatibility', ''));
 
 	if (getOption('email_new_comments')) {
 		$email_list = $_authority->getAdminEmail();

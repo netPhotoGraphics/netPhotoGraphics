@@ -542,7 +542,7 @@ function localeSort(&$strings, $case = TRUE) {
 	global $Collator;
 	if (isset($Collator)) {
 		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
-		return $Collator->asort($strings);
+		return $Collator->asort($strings, Collator::SORT_STRING);
 	} else {
 		if ($case) {
 			return natcasesort($strings);

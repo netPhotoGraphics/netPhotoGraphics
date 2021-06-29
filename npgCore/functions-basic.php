@@ -707,6 +707,7 @@ function secureServer() {
  * Starts a session (perhaps a secure one)
  */
 function npg_session_start() {
+	global $_conf_vars;
 	$result = session_id();
 	if ($result) {
 		return $result;

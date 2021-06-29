@@ -983,12 +983,12 @@ function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nex
 				if ($firstlast) {
 					?>
 					<li class="<?php
-			if ($current == 1)
-				echo 'current';
-			else
-				echo 'first';
+					if ($current == 1)
+						echo 'current';
+					else
+						echo 'first';
 					?>">
-							<?php
+								<?php
 								if ($current == 1) {
 									echo '1';
 								} else {
@@ -1613,16 +1613,19 @@ function printAlbumData($field, $label = '') {
 /**
  * Returns the album page number of the current image
  *
- * @param object $album optional album object
+ * @param object $use_album optional album object
  * @return integer
  */
-function getAlbumPage($album = NULL) {
+function getAlbumPage($use_album = NULL) {
 	global $_current_album, $_current_image, $_current_search, $_firstPageImages;
-	if (is_null($album)) {
+	if ($use_album && $use_album != $_current_album) {
+		$album = $use_album;
+	} else {
 		$album = $_current_album;
+		$use_album = null;
 	}
 	if (in_context(NPG_IMAGE) && !in_context(NPG_SEARCH)) {
-		$imageindex = $_current_image->getIndex();
+		$imageindex = $_current_image->getIndex($use_album);
 		$numalbums = $album->getNumAlbums();
 		$imagepage = floor(($imageindex - $_firstPageImages) / max(1, getOption('images_per_page'))) + 1;
 		$albumpages = ceil($numalbums / max(1, getOption('albums_per_page')));
@@ -1644,8 +1647,9 @@ function getAlbumPage($album = NULL) {
  */
 function getAlbumURL($album = NULL) {
 	global $_current_album;
-	if (is_null($album))
+	if (is_null($album)) {
 		$album = $_current_album;
+	}
 	if (in_context(NPG_IMAGE)) {
 		$page = getAlbumPage($album);
 		if ($page <= 1)
@@ -3236,12 +3240,12 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		$title = ' title="' . html_encode($title) . '"';
 	}
 	if (isImagePhoto() || $thumb) {
-		$html = '<img src="' . html_encode(getCustomImageURL($args)) . '"' .
+		$html = '<img src="' . html_encode($_current_image->getCustomImage($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
 		$html = npgFilters::apply('custom_image_html', $html, $thumb);
 		if (ENCODING_FALLBACK) {
-			$html = "<picture>\n<source srcset=\"" . html_encode(getCustomImageURL($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
+			$html = "<picture>\n<source srcset=\"" . html_encode($_current_image->getCustomImage($args, FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 		}
 		echo $html;
 	} else { // better be a plugin
@@ -4812,7 +4816,7 @@ function print404status() {
 	global $_404_data;
 	list($album, $image, $galleryPage, $theme, $page) = $_404_data;
 
-	$log = npgFilters::apply('log_404', DEBUG_404 && !preg_match('~\.(css|js)\.map$~i', $album), $_404_data); //	don't log these
+	$log = npgFilters::apply('log_404', DEBUG_404 && !preg_match('~\.(css|js|min)\.map$~i', $album), $_404_data); //	don't log these
 	if ($log) {
 		$list = explode('/', $album);
 		if (array_shift($list) != 'cache') {
