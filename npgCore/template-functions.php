@@ -1385,8 +1385,10 @@ function getParentBreadcrumb() {
 			}
 		}
 
+
+
 		if (!empty($dynamic_album)) {
-// remove parent links that are not in the search path
+			// remove parent links that are not in the search path
 			foreach ($parents as $key => $analbum) {
 				$target = $analbum->name;
 				if ($target !== $dynamic_album->name && !in_array($target, $search_album_list)) {
@@ -1400,12 +1402,12 @@ function getParentBreadcrumb() {
 
 	$n = count($parents);
 	if ($n > 0) {
-//the following loop code is @Copyright 2016 by Stephen L Billard for use in netPhotoGraphics and derivitoves
+		//the following loop code is @Copyright 2016 by Stephen L Billard for use in netPhotoGraphics and derivitives
 		array_push($parents, $_current_album);
 		$parent = array_shift($parents);
 		while ($parent != $_current_album) {
 			$fromAlbum = array_shift($parents);
-//cleanup things in description for use as attribute tag
+			//cleanup things in description for use as attribute tag
 			$desc = getBare(preg_replace('|</p\s*>|i', '</p> ', preg_replace('|<br\s*/>|i', ' ', $parent->getDesc())));
 			$output[] = array('link' => html_encode($parent->getLink($fromAlbum->getGalleryPage())), 'title' => $desc, 'text' => $parent->getTitle());
 			$parent = $fromAlbum;
@@ -1611,22 +1613,29 @@ function printAlbumData($field, $label = '') {
 }
 
 /**
+ * Returns the album link url of the album.
+ *
+ * @param object $album optional album object
+ * @return string
+ */
+function getAlbumURL($album = NULL) {
+	global $_current_album;
+	if (is_null($album)) {
+		$album = $_current_album;
+	}
+	return $album->getLink(0);
+}
+
+/**
  * Returns the album page number of the current image
  *
- * @param object $use_album optional album object
  * @return integer
  */
-function getAlbumPage($use_album = NULL) {
+function getAlbumPage() {
 	global $_current_album, $_current_image, $_current_search, $_firstPageImages;
-	if ($use_album && $use_album != $_current_album) {
-		$album = $use_album;
-	} else {
-		$album = $_current_album;
-		$use_album = null;
-	}
 	if (in_context(NPG_IMAGE) && !in_context(NPG_SEARCH)) {
-		$imageindex = $_current_image->getIndex($use_album);
-		$numalbums = $album->getNumAlbums();
+		$imageindex = $_current_image->getIndex();
+		$numalbums = $_current_album->getNumAlbums();
 		$imagepage = floor(($imageindex - $_firstPageImages) / max(1, getOption('images_per_page'))) + 1;
 		$albumpages = ceil($numalbums / max(1, getOption('albums_per_page')));
 		if ($albumpages == 0 && $_firstPageImages > 0) {
@@ -1637,27 +1646,6 @@ function getAlbumPage($use_album = NULL) {
 		$page = 0;
 	}
 	return $page;
-}
-
-/**
- * Returns the album link url of the current album.
- *
- * @param object $album optional album object
- * @return string
- */
-function getAlbumURL($album = NULL) {
-	global $_current_album;
-	if (is_null($album)) {
-		$album = $_current_album;
-	}
-	if (in_context(NPG_IMAGE)) {
-		$page = getAlbumPage($album);
-		if ($page <= 1)
-			$page = 0;
-	} else {
-		$page = 0;
-	}
-	return $album->getLink($page);
 }
 
 /**
@@ -2515,9 +2503,9 @@ function getNextImageThumb($suffix = NULL) {
  * @return string
  */
 function getImageURL() {
+	global $_current_image;
 	if (!in_context(NPG_IMAGE))
 		return false;
-	global $_current_image;
 	if (is_null($_current_image))
 		return false;
 	return $_current_image->getLink();
@@ -4640,7 +4628,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
