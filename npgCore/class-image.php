@@ -1119,7 +1119,7 @@ class Image extends MediaObject {
 	/*	 * ** Image Methods *** */
 
 	/**
-	 * Returns a path urlencoded image page link for the image
+	 * Returns a pathurlencoded image page link for the image
 	 *
 	 * @return string
 	 */
@@ -1132,24 +1132,10 @@ class Image extends MediaObject {
 			$image = $this->filename;
 		}
 		$album = $this->albumnamealbum->linkname;
-		$addl = $addl_plain = NULL;
-		if ($this->albumnamealbum->isDynamic()) {
-			$this->albumnamealbum->getImages();
-			$matches = array_keys($this->albumnamealbum->imageNames, $image);
-			if (count($matches) > 1) {
-				if ($c = array_search($this->album->name . '/' . $image, $matches)) {
-					$c++;
-					$addl = '/' . _PAGE_ . '/' . $c;
-					$addl_plain = '&page=' . $c;
-				}
-			}
-		}
-
 		if (UNIQUE_IMAGE) {
 			$image = stripSuffix($image);
 		}
-
-		return npgFilters::apply('getLink', rewrite_path(pathurlencode($album) . '/' . urlencode($image) . RW_SUFFIX . $addl, '/index.php?album=' . pathurlencode($albumq) . '&image=' . urlencode($image) . $addl_plain), $this, NULL);
+		return npgFilters::apply('getLink', rewrite_path(pathurlencode($album) . '/' . urlencode($image) . RW_SUFFIX, '/index.php?album=' . pathurlencode($albumq) . '&image=' . urlencode($image)), $this, NULL);
 	}
 
 	/**
