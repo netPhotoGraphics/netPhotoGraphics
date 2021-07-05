@@ -1266,7 +1266,7 @@ function getAlbumBreadcrumb($title = NULL) {
 				$title = gettext('Album Thumbnails');
 			}
 		}
-		return array('link' => $album->getLink(), 'text' => $title, 'title' => truncate_string(getBare($album->getDesc()), 100));
+		return array('link' => $album->getLink(getAlbumPage()), 'text' => $title, 'title' => truncate_string(getBare($album->getDesc()), 100));
 	}
 	return false;
 }
@@ -1618,12 +1618,12 @@ function printAlbumData($field, $label = '') {
  * @param object $album optional album object
  * @return string
  */
-function getAlbumURL($album = NULL) {
+function getAlbumURL($album = NULL, $page = 0) {
 	global $_current_album;
 	if (is_null($album)) {
 		$album = $_current_album;
 	}
-	return $album->getLink(0);
+	return $album->getLink($page);
 }
 
 /**
