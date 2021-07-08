@@ -394,6 +394,7 @@ setOptionDefault('dirtyform_enable', 2);
 			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
 			imageErr = true;
 			$('#setupErrors').val(1);
+			$('#errornote').show();
 		});
 	});
 </script>
@@ -720,11 +721,12 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	}
 	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
 }
+$thirdParty = $deprecated = false;
 ?>
 <p>
 	<?php
 	setOption('known_themes', serialize(array())); //	reset known themes
-	$themes = array_keys($_gallery->getThemes());
+	$themes = array_keys($info = $_gallery->getThemes());
 	localeSort($themes);
 	echo gettext('Theme setup:') . '<br />';
 
@@ -734,6 +736,11 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 			unset($themes[$key]);
 		} else {
 			$class = 1;
+			$thirdParty = true;
+		}
+		if (isset($info[$theme]['deprecated'])) {
+			$class = 2;
+			$deprecated = true;
 		}
 		?>
 		<span>
@@ -952,7 +959,7 @@ $plugins = array_keys($plugins);
 	<?php
 	setOptionDefault('deprecated_functions_signature', NULL);
 
-	//clean up plugins needed for themes and other plugins
+//clean up plugins needed for themes and other plugins
 	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
 
 	foreach ($dependentExtensions as $class => $extension) {
@@ -1000,6 +1007,7 @@ $plugins = array_keys($plugins);
 				unset($plugins[$key]);
 			} else {
 				$class = 1;
+				$thirdParty = true;
 			}
 		} else {
 			unset($plugins[$key]);
@@ -1021,6 +1029,7 @@ $plugins = array_keys($plugins);
 				}
 			}
 			$class = 2;
+			$deprecated = true;
 			$addl = ' (' . gettext('deprecated') . ')';
 		} else {
 			$addl = '';
@@ -1035,11 +1044,23 @@ $plugins = array_keys($plugins);
 	?>
 </p>
 <p>
-	<span class="floatright">
-		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php echo gettext('Successful initialization'); ?>
-		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php echo gettext('Successful initialization (third party item)'); ?>
-		<?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?>
-		<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" alt="<?php echo gettext('deprecated'); ?>" height="16px" width="16px" /> <?php echo gettext('Deprecated'); ?>
+	<span class = "floatright delayshow" style = "display:none">
+		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
+		echo gettext('Successful initialization');
+		if ($thirdParty) {
+			?>
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
+			echo gettext('Successful initialization (third party item)');
+		}
+		?>
+		<span id="errornote" style="display:none;"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
+		<?php
+		if ($deprecated) {
+			?>
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" alt="<?php echo gettext('deprecated'); ?>" height="16px" width="16px" /> <?php echo gettext('Deprecated'); ?>
+			<?php
+		}
+		?>
 	</span>
 </p>
 <br clear="all">
