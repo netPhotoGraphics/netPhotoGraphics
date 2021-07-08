@@ -1613,17 +1613,14 @@ function printAlbumData($field, $label = '') {
 }
 
 /**
- * Returns the album link url of the album.
+ * Returns the album link url of the current album. If on an image page the link will
+ * be to the page of the album that contains the image
  *
- * @param object $album optional album object
  * @return string
  */
-function getAlbumURL($album = NULL, $page = 0) {
+function getAlbumURL() {
 	global $_current_album;
-	if (is_null($album)) {
-		$album = $_current_album;
-	}
-	return $album->getLink($page);
+	return $_current_album->getLink(getAlbumPage());
 }
 
 /**
