@@ -5823,7 +5823,7 @@ function getPluginTabs() {
 
 	$Xlate = array_merge($classXlate, $pluginCategoryNames);
 
-	if (isset($_GET['tab']) && isset($classXlate[$cat = sanitize($_GET['tab'])])) {
+	if (isset($_GET['tab']) && isset($Xlate[$cat = sanitize($_GET['tab'])])) {
 		$default = $cat;
 	} else {
 		$default = 'all';
