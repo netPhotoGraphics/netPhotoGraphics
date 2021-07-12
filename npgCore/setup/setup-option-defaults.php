@@ -1090,10 +1090,10 @@ if (!empty($newPlugins) || !empty($newThemes)) {
 		enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
 		setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
 		if (!empty($themeChange)) {
-			setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', $fullLog);
+			setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', true);
 		}
 		if (!empty($pluginChange)) {
-			setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', $fullLog);
+			setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', true);
 		}
 	}
 }
