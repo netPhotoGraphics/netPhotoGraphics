@@ -490,6 +490,7 @@ class sitemap {
 				$albumobj = newAlbum($album['folder']);
 				set_context(NPG_ALBUM);
 				makeAlbumCurrent($albumobj);
+				setThemeColumns();
 				$pageCount = getTotalPages();
 				//$imageCount = getNumImages();
 				//$images = $albumobj->getImages();

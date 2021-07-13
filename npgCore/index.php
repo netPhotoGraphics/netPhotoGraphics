@@ -111,7 +111,9 @@ if ($_requested_object) {
 	$_HTML_cache->startHTMLCache();
 }
 
-setThemeColumns();
+if (in_context(NPG_ALBUM | NPG_SEARCH)) {
+	setThemeColumns();
+}
 
 //check for valid page number (may be theme dependent!)
 if ($_current_page < 0) {
