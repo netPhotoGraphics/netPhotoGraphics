@@ -487,9 +487,12 @@ class sitemap {
 			$data .= self::echonl('<?xml version="1.0" encoding="UTF-8"?>');
 			$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 			foreach ($albums as $album) {
+				//	set theme environment for album so that pagination is correct
 				$albumobj = newAlbum($album['folder']);
 				set_context(NPG_ALBUM);
 				makeAlbumCurrent($albumobj);
+				setupTheme($albumobj);
+				setThemeColumns();
 				$pageCount = getTotalPages();
 				//$imageCount = getNumImages();
 				//$images = $albumobj->getImages();

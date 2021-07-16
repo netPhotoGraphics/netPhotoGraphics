@@ -10,7 +10,6 @@ define('OFFSET_PATH', 4);
 require_once(dirname(__DIR__) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-
 printAdminHeader('overview', 'Installation');
 
 echo '</head>';
@@ -130,7 +129,14 @@ echo '</head>';
 								?>
 							</li>
 							<li>
-								<?php echo gettext('WEB path:') . ' <strong>' . WEBPATH . '</strong>'; ?>
+								<?php
+								echo gettext('WEB path:') . ' <strong>' . WEBPATH . '</strong>';
+								if (isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
+									echo ' (' . gettext('HTTPS connection required') . ')';
+								} elseif (getNPGCookie('ssl_state')) {
+									echo ' (' . gettext('HTTPS connection') . ')';
+								}
+								?>
 							</li>
 							<li>
 								<?php
@@ -472,8 +478,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php
