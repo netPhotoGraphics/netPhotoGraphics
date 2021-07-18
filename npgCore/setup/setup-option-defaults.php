@@ -251,7 +251,7 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 			$p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
 			if (is_link($p)) {
 				if (!is_dir(readlink($p))) { //	theme removed from master install
-					if (!rmdir($p)) {
+					if (!@rmdir($p)) {
 						unlink($p);
 					}
 				}
