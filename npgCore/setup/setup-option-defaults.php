@@ -1065,15 +1065,24 @@ $plugins = array_keys($plugins);
 </p>
 <br clear="all">
 <?php
-if (!empty($themes) || !empty(array_diff($plugins, $_npg_plugins))) {
-	//	There are either not distributed themes or ot distributed plugins present
+$userPlugins = array_diff($plugins, $_npg_plugins);
+if (!empty($themes) || !empty($userPlugins)) {
+	//	There are either un-distributed themes or un-distributed plugins present
 	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 	$deprecated = new deprecated_functions();
-	$listed = sha1(serialize($deprecated->listed_functions));
-	if ($listed != getOption('deprecated_functions_signature')) {
-		setOption('deprecated_functions_signature', $listed);
-		enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
-		setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation. The deprecated-functions plugin has been enabled.') . '</span>', true);
+	$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
+	$prior = getSerializedArray(getOption('deprecated_functions_signature'));
+	if (!array_key_exists('signature', $prior)) {
+		$prior = array('signature' => array_shift($prior), 'themes' => array(), 'plugins' => array());
+	}
+	if ($current != $prior) {
+		$newThemes = array_diff($themes, $prior['themes']);
+		$newPlugins = array_diff($userPlugins, $prior['plugins']);
+		if ($current['signature'] != $prior['signature'] || !empty($newThemes) | !empty($newPlugins)) {
+			setOption('deprecated_functions_signature', serialize($current));
+			enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
+			setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
+		}
 	}
 }
 
