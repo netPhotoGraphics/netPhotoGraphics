@@ -113,7 +113,7 @@ $legacyReplacements = array(
 		'zp_apply_filter\(' => 'npgFilters::apply(',
 		'zp_remove_filter\(' => 'npgFilters::remove(',
 		'zp_has_filter\(' => 'npgFilters::has_filter(',
-		'getDataUsageNotice\(\)' => "array('url'=>NULL, 'linktext'=>NULL, 'linktext'=>NULL)/* TODO:replaced getDataUsageNotice Use the GDPR_required plugin instead */",
+		'getDataUsageNotice\(\)' => "array('url'=>NULL, 'linktext'=>NULL, 'notice'=>NULL)/* TODO:replaced getDataUsageNotice Use the GDPR_required plugin instead */",
 		'zp_loggedin\(' => 'npg_loggedin(',
 		'\$_zp_loggedin' => '$_loggedin',
 		'zp_setCookie\(' => 'setNPGCookie(',
@@ -128,7 +128,13 @@ $legacyReplacements = array(
 		'gettext_pl' => 'gettext;',
 		'ngettext_pl' => 'ngettext',
 		'printLangAttribute\(' => 'i18n::htmlLanguageCode(',
-		'isSubNewsCategoryOf\(' => 'isSubCategoryOf('
+		'isSubNewsCategoryOf\(' => 'isSubCategoryOf(',
+		'AlbumBase::newAlbum' => 'newAlbum',
+		'AlbumBase::isAlbumClass' => 'isAlbumClass',
+		'Image::newImage' => 'newImage',
+		'Image::isImageClass' => 'isImageClass',
+		'tidyHTML' => 'cleanHTML',
+		'AlbumBase::getNumAllImages(' => 'getTotalImagesIn'
 );
 
 class zenPhotoCompatibilityPack {
