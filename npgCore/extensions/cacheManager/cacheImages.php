@@ -10,7 +10,6 @@ define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
 require_once(CORE_SERVERPATH . 'template-functions.php');
 
-
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;
 } else {
@@ -33,7 +32,7 @@ function loadAlbum($album) {
 	}
 	$theme = $_gallery->getCurrentTheme();
 	$id = 0;
-	$parent = getUrAlbum($album);
+	$parent = $album->getUrAlbum();
 	$albumtheme = $parent->getAlbumTheme();
 	if (!empty($albumtheme)) {
 		$theme = $albumtheme;
@@ -44,7 +43,7 @@ function loadAlbum($album) {
 	if ($album->getNumImages() > 0) {
 		echo "<br />" . $album->name . ' ';
 		while (next_image(true)) {
-			if (isImagePhoto($_current_image)) {
+			if ($_current_image->isPhoto()) {
 				$countit = 0;
 				if ($fullImage) {
 					$uri = getFullImageURL(NULL, 'Protected');

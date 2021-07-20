@@ -80,7 +80,7 @@ if (!defined('WEBPATH'))
 									<?php printCodeblock(1); ?>
 									<div id="image_container">
 										<?php
-										if (isImagePhoto()) {
+										if ($_current_image->isPhoto()) {
 											$fullimage = getFullImageURL();
 										} else {
 											$fullimage = NULL;

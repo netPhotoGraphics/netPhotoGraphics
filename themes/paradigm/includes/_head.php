@@ -193,14 +193,14 @@
 		<meta property="og:type" content="article" />
 		<meta property="og:url" content="<?php echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"]); ?>" />
 		<?php
-		if ($_gallery_page == 'image.php' && isImagePhoto()) {
+		if ($_gallery_page == 'image.php' && $_current_image->isPhoto()) {
 			echo '<meta property="og:image" content="';
 			echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
 			echo (getDefaultSizedImage());
 			echo '" />
 ';
 		}
-		if ($_gallery_page == 'image.php' && !isImagePhoto()) {
+		if ($_gallery_page == 'image.php' && !$_current_image->isPhoto()) {
 			echo '<meta property="og:image" content="';
 			echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
 			echo (getImageThumb());
@@ -258,7 +258,7 @@
 			?>"  />
 			<meta name="twitter:url" content="<?php echo (PROTOCOL . "://" . $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"]); ?>" />
 		<?php } ?>
-		<?php if (($_gallery_page == 'image.php') && isImagePhoto()) { ?>
+		<?php if (($_gallery_page == 'image.php') && $_current_image->isPhoto()) { ?>
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:site" content="<?php
 			if (getOption('twitter_profile') != '') {
@@ -280,7 +280,7 @@
 			echo (getDefaultSizedImage());
 			?>" />
 					<?php } ?>
-					<?php if (($_gallery_page == 'image.php') && !isImagePhoto()) { ?>
+					<?php if (($_gallery_page == 'image.php') && !$_current_image->isPhoto()) { ?>
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:site" content="<?php
 			if (getOption('twitter_profile') != '') {

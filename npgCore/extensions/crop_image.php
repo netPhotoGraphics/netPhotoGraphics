@@ -34,7 +34,7 @@ class crop_image {
 		$album = newAlbum($albumname);
 		if ($album->isMyItem(ALBUM_RIGHTS)) {
 			$image = newimage($album, $imagename);
-			if (isImagePhoto($image)) {
+			if ($image->isPhoto()) {
 				?>
 				<li>
 					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>?a=<?php echo pathurlencode($albumname); ?>						 &amp;i=<?php echo urlencode($imagename); ?>&amp;performcrop=frontend "><?php echo gettext("Crop image"); ?></a>
@@ -45,7 +45,7 @@ class crop_image {
 	}
 
 	static function edit($output, $image, $prefix, $subpage, $tagsort, $singleimage) {
-		if (isImagePhoto($image)) {
+		if ($image->isPhoto()) {
 			if (is_array($image->filename)) {
 				$albumname = dirname($image->filename['source']);
 				$imagename = basename($image->filename['source']);
@@ -84,7 +84,7 @@ $use_side = getOption('image_use_side');
 $albumobj = newAlbum($albumname);
 $imageobj = newImage($albumobj, $imagename, true);
 
-if (isImagePhoto($imageobj)) {
+if ($imageobj->isPhoto()) {
 	$imgpath = $imageobj->localpath;
 	$imagepart = basename($imgpath);
 	$timg = gl_imageGet($imgpath);

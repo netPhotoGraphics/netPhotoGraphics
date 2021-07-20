@@ -239,7 +239,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 							$folder = implode('/', $pieces);
 							$albumx = newAlbum($folder);
 							$image = newImage($albumx, $filename);
-							if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
+							if ($image->isPhoto() || !is_null($image->objectsThumb)) {
 								echo "\n<option class=\"thumboption\"";
 								if ($showThumb) {
 									echo " style=\"background-image: url(" . html_encode($image->getSizedImage(ADMIN_THUMB_MEDIUM)) .

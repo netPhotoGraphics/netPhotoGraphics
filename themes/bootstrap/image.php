@@ -30,7 +30,7 @@
 </nav>
 
 <?php
-if (isImagePhoto() || isImageVideo()) {
+if ($_current_image->isPhoto() || $_current_image->isVideo()) {
 	$frame = 'img-responsive';
 } else {
 	$frame = 'hundered_percent';

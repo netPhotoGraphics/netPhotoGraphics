@@ -256,7 +256,7 @@ function getIPSizedImage($size, $image) {
 						</label>
 						<?php
 						if ($imagef) {
-							if (isImagePhoto($obj)) {
+							if ($obj->isPhoto()) {
 								?>
 								<label class="nowrap">
 									<input type="radio" name="link" value="thumblinkfull" id="link_thumb_full" onchange="pasteobjchange();" />
@@ -277,7 +277,7 @@ function getIPSizedImage($size, $image) {
 						<br />
 						<?php
 					}
-					if (isImagePhoto($obj)) {
+					if ($obj->isPhoto()) {
 						?>
 						<label class="nowrap">
 							<input type="radio" name="link" value="image" id="link_image_none" onchange="pasteobjchange();" />
@@ -306,7 +306,7 @@ function getIPSizedImage($size, $image) {
 							</label>
 							<?php
 						}
-					} elseif (isImageVideo($obj)) {
+					} elseif ($obj->isVideo()) {
 						$content_macros = getMacros();
 						if (array_key_exists('MEDIAPLAYER', $content_macros)) {
 							?>
@@ -363,7 +363,7 @@ function getIPSizedImage($size, $image) {
 
 			<div id="content"></div>
 			<?php
-			if ($image && !$picture && isImagePhoto($obj)) {
+			if ($image && !$picture && $obj->isPhoto()) {
 				?>
 				<a href="javascript:launchScript('<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>" style="text-decoration: none;">
 					<?php echo SHAPE_HANDLES; ?>

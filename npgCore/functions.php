@@ -303,25 +303,6 @@ function rewrite_path($rewrite, $plain, $webpath = NULL) {
 }
 
 /**
- * Returns the oldest ancestor of an album (or an image's album);
- *
- * @param string $album an album object
- * @return object
- */
-function getUrAlbum($album) {
-	if (is_object($album)) {
-		while ($album) {
-			$parent = $album->getParent();
-			if (is_null($parent)) {
-				return $album;
-			}
-			$album = $parent;
-		}
-	}
-	return NULL;
-}
-
-/**
  * Returns a sort field part for querying
  * Note: $sorttype may be a comma separated list of field names. If so,
  *       these are peckmarked and returned otherwise unchanged.
@@ -913,7 +894,7 @@ function setupTheme($album = NULL) {
 	$theme = $_gallery->getCurrentTheme();
 	$id = 0;
 	if (!is_null($album)) {
-		$parent = getUrAlbum($album);
+		$parent = $album->getUrAlbum();
 		$albumtheme = $parent->getAlbumTheme();
 		if (!empty($albumtheme)) {
 			if (is_dir(SERVERPATH . "/" . THEMEFOLDER . "/$albumtheme")) {
@@ -1564,40 +1545,6 @@ function getWatermarkParam($image, $use) {
 		return $watermark_use_image;
 	}
 	return NO_WATERMARK; //	apply no watermark
-}
-
-/**
-
- * Returns video argument of the current Image.
- *
- * @param object $image optional image object
- * @return bool
- */
-function isImageVideo($image = NULL) {
-	if (is_null($image)) {
-		if (!in_context(NPG_IMAGE))
-			return false;
-		global $_current_image;
-		$image = $_current_image;
-	}
-	return strtolower(get_class($image)) == 'video';
-}
-
-/**
- * Returns true if the image is a standard photo type
- *
- * @param object $image optional image object
- * @return bool
- */
-function isImagePhoto($image = NULL) {
-	global $_current_image;
-	if (is_null($image)) {
-		if (!in_context(NPG_IMAGE))
-			return false;
-		$image = $_current_image;
-	}
-	$class = strtolower(get_class($image));
-	return $class == 'image' || $class == 'transientimage';
 }
 
 /**

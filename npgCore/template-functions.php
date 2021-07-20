@@ -1893,7 +1893,7 @@ function getMaxSpaceContainer(&$width, &$height, $image, $thumb = false) {
 	global $_gallery;
 	$upscale = getOption('image_allow_upscale');
 	$imagename = $image->filename;
-	if (!isImagePhoto($image) & $thumb) {
+	if (!$image->isPhoto() & $thumb) {
 		$imgfile = $image->getThumbImageFile();
 		$image = gl_imageGet($imgfile);
 		$s_width = gl_imageWidth($image);
@@ -2656,7 +2656,7 @@ function getSizeCustomImage($args, $image = NULL) {
 
 	$h = $image->getHeight();
 	$w = $image->getWidth();
-	if (isImageVideo($image)) { // size is determined by the player
+	if ($image->isVideo()) { // size is determined by the player
 		return array($w, $h);
 	}
 
@@ -3224,7 +3224,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		}
 		$title = ' title="' . html_encode($title) . '"';
 	}
-	if (isImagePhoto() || $thumb) {
+	if ($_current_image->isPhoto() || $thumb) {
 		$html = '<img src="' . html_encode($_current_image->getCustomImage($args)) . '"' .
 						' alt="' . html_encode($alt) . '"' .
 						$id . $class . $sizing . $title . ' />';
@@ -3338,7 +3338,7 @@ function filterImageQueryList($result, $source, $limit = 1, $photo = true) {
 			if ($image && $image->exists) {
 				$album = $image->album;
 				if ($album->name == $source || $album->checkAccess()) {
-					if (!$photo || isImagePhoto($image)) {
+					if (!$photo || $image->isPhoto()) {
 						if ($image->checkAccess()) {
 							$list[] = $image;
 							$limit--;
@@ -3645,7 +3645,7 @@ function printTags($option = 'links', $preText = NULL, $class = NULL, $separator
 				$separator = "";
 			}
 			if ($option === "links") {
-				$links1 = "<a href=\"" . html_encode(getSearchURL(search_quote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\">";
+				$links1 = "<a href=\"" . html_encode(getSearchURL(SearchEngine::searchQuote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\">";
 				$links2 = "</a>";
 			} else {
 				$links1 = $links2 = '';
@@ -3729,7 +3729,7 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 					} else {
 						$albumlist = NULL;
 					}
-					$link = getSearchURL(search_quote($key), '', 'tags', 0, array('albums' => $albumlist));
+					$link = getSearchURL(SearchEngine::searchQuote($key), '', 'tags', 0, array('albums' => $albumlist));
 					?>
 					<li>
 						<a href="<?php echo html_encode($link); ?>" rel="nofollow"<?php echo $size; ?>><?php echo str_replace(' ', '&nbsp;', html_encode($key)) . $counter; ?></a>
@@ -3889,7 +3889,7 @@ function getCustomPageURL($page, $q = '', $pageno = NULL) {
 	$result = "index.php?p=$page";
 
 	if (is_null($pageno) && in_context(NPG_ALBUM) && $_gallery_page != $page . '.php') {
-		$album = getUrAlbum($_current_album);
+		$album = $_current_album->getUrAlbum();
 		$pageno = $album->getGalleryPage();
 	}
 	if ($pageno > 1) {
@@ -3969,7 +3969,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
 	if ($words) {
 		if (is_array($words)) {
 			foreach ($words as $key => $word) {
-				$words[$key] = search_quote($word);
+				$words[$key] = SearchEngine::searchQuote($word);
 			}
 			$words = implode(',', $words);
 		}
@@ -4625,7 +4625,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

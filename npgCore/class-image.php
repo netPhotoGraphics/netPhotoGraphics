@@ -1541,6 +1541,14 @@ class Image extends MediaObject {
 		return FALSE;
 	}
 
+	function isPhoto() {
+		return TRUE;
+	}
+
+	function isVideo() {
+		return FALSE;
+	}
+
 	/**
 	 * Returns the filesize in bytes of the full image
 	 *

@@ -76,12 +76,12 @@ if (!defined('WEBPATH'))
 
 					<div id="image">
 						<?php
-						if (getOption("Use_thickbox") && !isImageVideo()) {
+						if (getOption("Use_thickbox") && !$_current_image->isVideo()) {
 							$boxclass = " class=\"thickbox\"";
 						} else {
 							$boxclass = "";
 						}
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							$tburl = getFullImageURL();
 						} else {
 							$tburl = NULL;
@@ -110,7 +110,7 @@ if (!defined('WEBPATH'))
 						?>
 						<br style="clear:both;" /><br />
 						<?php
-						if (function_exists('printSlideShowLink') && isImagePhoto()) {
+						if (function_exists('printSlideShowLink') && $_current_image->isPhoto()) {
 							echo '<span id="slideshowlink">';
 							printSlideShowLink();
 							echo '</span>';

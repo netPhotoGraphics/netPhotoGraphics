@@ -42,7 +42,7 @@ $cropheight = getOption("thumb_crop_height");
 $imagepart = $imagename;
 
 
-if (isImagePhoto($imageobj)) {
+if ($imageobj->isPhoto()) {
 	$width = $imageobj->getWidth();
 	$height = $imageobj->getHeight();
 } else {
@@ -56,7 +56,7 @@ if (getOption('thumb_crop')) {
 	$thumbcropwidth = $cropwidth;
 	$thumbcropheight = $cropheight;
 } else {
-	if (isImagePhoto($imageobj)) {
+	if ($imageobj->isPhoto()) {
 		$thumbcropwidth = $imageobj->getWidth();
 		$thumbcropheight = $imageobj->getHeight();
 	} else {

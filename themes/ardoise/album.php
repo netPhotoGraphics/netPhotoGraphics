@@ -38,7 +38,7 @@
 				<ul class="thumbs">
 					<?php while (next_image(true)) { ?>
 						<li>
-							<?php if (isImageVideo()) { ?>
+							<?php if ($_current_image->isVideo()) { ?>
 								<a class="thumb" href="<?php echo $_themeroot; ?>/images/video-placeholder.jpg" title="<?php echo html_encode(getBareImageTitle()); ?>">
 								<?php } else { ?>
 									<a class="thumb" href="<?php echo html_encode(getDefaultSizedImage()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">

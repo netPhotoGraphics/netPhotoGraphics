@@ -235,7 +235,7 @@ function printAlbumStatisticItem($album, $option, $showtitle = false, $showdate 
 			$html = '<img src="' . html_encode($albumthumb->getCustomImage(array('size' => $width, 'thumb' => TRUE))) . '" width="' . $sizes[0] . '" height="' . $sizes[1] . '" alt="' . html_encode($albumthumb->getTitle()) . '" />';
 			break;
 		case 1;
-			if (isImagePhoto($albumthumb)) {
+			if ($albumthumb->isPhoto()) {
 				$sizes = getSizeCustomImage(array('width' => $width, 'height' => $height, 'cw' => $width, 'ch' => $height), $albumthumb);
 			} else {
 				$sizes = array($width, $height);

@@ -486,6 +486,21 @@ class PersistentObject {
 		trigger_error($msg);
 	}
 
+	public static function __callStatic($name, $arguments) {
+		//	zenphoto has moved some general functions to static class methods. There was really no need to do so
+		//	but this will catch the calls and revert them to the originals.
+		if (function_exists($name)) {
+			return call_user_func_array($name, $arguments);
+		}
+		$caller = debug_backtrace();
+		$call = array_shift($caller);
+		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
+			$call = array_shift($caller);
+		}
+		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
+		trigger_error($msg);
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -120,7 +120,7 @@ if (!defined('WEBPATH'))
 				?>
 				<div id="image" <?php echo $wide . $high; ?>>
 					<?php
-					if (isImagePhoto()) {
+					if ($_current_image->isPhoto()) {
 						$fullimage = getFullImageURL();
 						$imgclass = 'photo';
 					} else {
@@ -130,7 +130,7 @@ if (!defined('WEBPATH'))
 					?>
 					<div id="image_container" class="<?php echo $imgclass; ?>">
 						<?php
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							$fullimage = getFullImageURL();
 						} else {
 							$fullimage = NULL;
