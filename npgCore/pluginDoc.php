@@ -175,7 +175,8 @@ function processCommentBlock($commentBlock) {
 						}
 					}
 				}
-				$doc .= strtr(html_encodeTagged($line), array_merge($tags, $markup)) . ' ';
+				$linie = strtr(html_encodeTagged($line), array_merge($tags, $markup));
+				$doc .= $line . " \n";
 				$empty = false;
 			}
 		}
@@ -354,7 +355,7 @@ if (!defined('OFFSET_PATH')) {
 					}
 					dd {
 						width: 90%;
-						margin-left: 3em;
+						padding-left: 3em;
 					}
 					ul {
 						list-style: bullet;
