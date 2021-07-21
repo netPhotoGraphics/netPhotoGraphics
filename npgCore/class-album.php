@@ -39,6 +39,35 @@ function isAlbumClass($album) {
 	return is_object($album) && ($album->table == 'albums');
 }
 
+/**
+ * generates a nested list of albums for the album tab sorting
+ * Returns an array of "albums" each element contains:
+ * 								'name' which is the folder name
+ * 								'sort_order' which is an array of the sort order set
+ *
+ * @param $subalbum root level album or Gallery object
+ * @param $maxlevel how far to nest
+ * @param $level internal for keeping the sort order elements
+ * @return array
+ */
+function getNestedAlbumList($subalbum, $maxlevel, $level = array()) {
+	$cur = count($level);
+	$albums = $subalbum->getAlbums();
+
+	$list = array();
+	foreach ($albums as $analbum) {
+		$albumobj = newAlbum($analbum);
+		if (!OFFSET_PATH || (!is_null($subalbum) || $albumobj->isMyItem(ALBUM_RIGHTS))) {
+			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
+			$list[] = array('name' => $analbum, 'sort_order' => $level);
+			if ($cur + 1 < $maxlevel && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
+				$list = array_merge($list, getNestedAlbumList($albumobj, $maxlevel, $level));
+			}
+		}
+	}
+	return $list;
+}
+
 class AlbumBase extends MediaObject {
 
 	public $name; // Folder name of the album (full path from the albums folder)
