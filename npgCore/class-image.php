@@ -1542,11 +1542,18 @@ class Image extends MediaObject {
 	}
 
 	function isPhoto() {
+		switch (get_class($this)) {
+			case'Image':
+			case 'Transientimage':
+				return true;
+			default:
+				return false;
+		}
 		return TRUE;
 	}
 
 	function isVideo() {
-		return FALSE;
+		return get_class($this) == 'Video';
 	}
 
 	/**

@@ -278,14 +278,6 @@ class TextObject_core extends Image {
 		}
 	}
 
-	function isPhoto() {
-		return FALSE;
-	}
-
-	function isVideo() {
-		return FALSE;
-	}
-
 }
 
 ?>
