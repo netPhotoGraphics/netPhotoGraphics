@@ -1901,15 +1901,17 @@ function instrument($point) {
  *  @return array
  */
 function getAlbumArray($albumstring, $includepaths = false) {
+	$albums = explode('/', $albumstring);
 	if ($includepaths) {
-		$array = array($albumstring);
-		while ($slashpos = strrpos($albumstring, '/')) {
-			$albumstring = substr($albumstring, 0, $slashpos);
-			array_unshift($array, $albumstring);
+		$albumPaths = array();
+		$next = '';
+		foreach ($albums as $album) {
+			$albumPaths[] = $next . $album;
+			$next = $next . $album . '/';
 		}
-		return $array;
+		return $albumPaths;
 	} else {
-		return explode('/', $albumstring);
+		return $albums;
 	}
 }
 
