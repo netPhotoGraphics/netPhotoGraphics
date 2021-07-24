@@ -966,7 +966,7 @@ class ThemeObject extends PersistentObject {
 	protected function setDefaultSortOrder($qualifier = NULL) {
 		$sql = 'SELECT * FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC LIMIT 1';
 		$result = query_single_row($sql);
-		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, substr($result['sort_order'], 0, 3) + 1)) : '000';
+		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
 		$this->setSortOrder($new);
 	}
 
