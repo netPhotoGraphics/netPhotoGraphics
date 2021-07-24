@@ -300,6 +300,7 @@ class Gallery {
 			$albumnames = $this->loadAlbumNames();
 			$key = $this->getAlbumSortKey($sorttype);
 			$albums = $this->sortAlbumArray(NULL, $albumnames, $key, $sortdirection, $mine);
+
 			// Store the values
 			$this->albums = $albums;
 			$this->lastalbumsort = $sorttype . $sortdirection;
@@ -664,44 +665,42 @@ class Gallery {
 						if (($mtime = filemtime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($analbum['folder']))) > $analbum['mtime']) {
 							// refresh
 							$album = newAlbum($analbum['folder'], false, true);
-							if ($album->exists) { //	Guard against instantiation failure
-								$album->set('mtime', $mtime);
-								if ($this->getAlbumUseImagedate()) {
-									$album->setDateTime(NULL);
-								}
-								if ($album->isDynamic()) {
-									$data = file_get_contents($album->localpath);
-									$thumb = getOption('AlbumThumbSelect');
-									$words = $fields = '';
-									while (!empty($data)) {
-										$data1 = trim(substr($data, 0, $i = strpos($data, "\n")));
-										if ($i === false) {
-											$data1 = $data;
-											$data = '';
-										} else {
-											$data = substr($data, $i + 1);
-										}
-										if (strpos($data1, 'WORDS=') !== false) {
-											$words = "words=" . urlencode(substr($data1, 6));
-										}
-										if (strpos($data1, 'THUMB=') !== false) {
-											$thumb = trim(substr($data1, 6));
-										}
-										if (strpos($data1, 'FIELDS=') !== false) {
-											$fields = "&searchfields=" . trim(substr($data1, 7));
-										}
-									}
-									if (!empty($words)) {
-										if (empty($fields)) {
-											$fields = '&searchfields=tags';
-										}
-									}
-									$album->set('search_params', $words . $fields);
-									$album->set('thumb', $thumb);
-								}
-								$album->save();
-								npgFilters::apply('album_refresh', $album);
+							$album->set('mtime', $mtime);
+							if ($this->getAlbumUseImagedate()) {
+								$album->setDateTime(NULL);
 							}
+							if ($album->isDynamic()) {
+								$data = file_get_contents($album->localpath);
+								$thumb = getOption('AlbumThumbSelect');
+								$words = $fields = '';
+								while (!empty($data)) {
+									$data1 = trim(substr($data, 0, $i = strpos($data, "\n")));
+									if ($i === false) {
+										$data1 = $data;
+										$data = '';
+									} else {
+										$data = substr($data, $i + 1);
+									}
+									if (strpos($data1, 'WORDS=') !== false) {
+										$words = "words=" . urlencode(substr($data1, 6));
+									}
+									if (strpos($data1, 'THUMB=') !== false) {
+										$thumb = trim(substr($data1, 6));
+									}
+									if (strpos($data1, 'FIELDS=') !== false) {
+										$fields = "&searchfields=" . trim(substr($data1, 7));
+									}
+								}
+								if (!empty($words)) {
+									if (empty($fields)) {
+										$fields = '&searchfields=tags';
+									}
+								}
+								$album->set('search_params', $words . $fields);
+								$album->set('thumb', $thumb);
+							}
+							$album->save();
+							npgFilters::apply('album_refresh', $album);
 						}
 					}
 					db_free_result($albumids);
@@ -859,7 +858,7 @@ class Gallery {
 	 * @author Todd Papaioannou (lucky@luckyspin.org)
 	 * @since  1.0.0
 	 */
-	function sortAlbumArray($parentalbum, $albums, $sortkey = 'sort_order', $sortdirection = NULL, $mine = NULL) {
+	function sortAlbumArray($parentalbum, $albums, $sortkey, $sortdirection, $mine) {
 		if (count($albums) == 0) {
 			return array();
 		}
@@ -906,9 +905,7 @@ class Gallery {
 		db_free_result($result);
 		foreach ($albums as $folder) { // these albums are not in the database
 			$albumobj = newAlbum($folder);
-			if ($albumobj->exists) { // fail to instantiate?
-				$results[$folder] = $albumobj->getData();
-			}
+			$results[$folder] = $albumobj->getData();
 		}
 		//	now put the results in the right order
 		$results = sortByKey($results, $sortkey, $order);
@@ -917,15 +914,13 @@ class Gallery {
 		$albums_ordered = array();
 		foreach ($results as $folder => $row) { // check for visible
 			$album = newAlbum($folder, true, true);
-			if ($album->exists) { // fail to instantiate?
-				$subrights = $album->subrights();
-				if ($mine ||
-								($album->getShow() || $viewUnpublished) // published or overridden by parameter
-								|| $subrights && is_null($album->getParent()) // is the user's managed album
-								|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and user has unpublished rights
-				) {
-					$albums_ordered[] = $folder;
-				}
+			$subrights = $album->subrights();
+			if ($mine ||
+							($album->getShow() || $viewUnpublished) // published or overridden by parameter
+							|| $subrights && is_null($album->getParent()) // is the user's managed album
+							|| $subrights && ($subrights & MANAGED_OBJECT_RIGHTS_VIEW ) //	managed subalbum and user has unpublished rights
+			) {
+				$albums_ordered[] = $folder;
 			}
 		}
 		return $albums_ordered;
