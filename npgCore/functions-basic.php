@@ -217,7 +217,7 @@ function stripSuffix($filename) {
  */
 function sanitize_path($filename) {
 	$filename = strip_tags(str_replace('\\', '/', $filename));
-	$filename = preg_replace(array('/\0/', '/\/\/+/', '/\/\.\./', '/\/\./', '/:/', '/</', '/>/', '/\?/', '/\*/', '/\"/', '/\|/', '/\/+$/', '/^\/+/'), '', $filename);
+	$filename = preg_replace(array('/[[:cntrl:]]/', '/\/\/+/', '/\/\.\./', '/\/\./', '/:/', '/</', '/>/', '/\?/', '/\*/', '/\"/', '/\|/', '/\/+$/', '/^\/+/'), '', $filename);
 	return $filename;
 }
 
