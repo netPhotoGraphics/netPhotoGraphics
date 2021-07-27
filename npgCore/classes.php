@@ -298,16 +298,18 @@ class PersistentObject {
 
 		// If we don't have an entry yet, this is a new record. Create it.
 		if (empty($entry)) {
-			if ($this->transient || !$allowCreate) { // no don't save it in the DB!
-				//	populate $this->data so that the set method will work correctly
-				$result = db_list_fields($this->table);
-				if ($result) {
-					foreach ($result as $row) {
-						$this->data[strtolower($row['Field'])] = NULL;
-					}
+			//	populate $this->data so that the set method will work correctly
+			$result = db_list_fields($this->table);
+			if ($result) {
+				foreach ($result as $row) {
+					$this->data[strtolower($row['Field'])] = NULL;
 				}
+			}
+			$this->data = array_merge($this->data, $this->unique_set);
+
+			if ($this->transient || !$allowCreate) { // don't save it in the DB!
 				if ($allowCreate) {
-					$entry = array_merge($this->data, $this->unique_set);
+					$entry = $this->data;
 					$entry['id'] = 0;
 					$this->addToCache($entry);
 				} else {
@@ -319,13 +321,6 @@ class PersistentObject {
 				$entry = query_single_row($sql);
 				// If we still don't have an entry, something went wrong...
 				if (!$entry) {
-					//	populate $this->data so that the set method will work correctly
-					$result = db_list_fields($this->table);
-					if ($result) {
-						foreach ($result as $row) {
-							$this->data[strtolower($row['Field'])] = NULL;
-						}
-					}
 					return NULL;
 				}
 				// Save this new entry into the cache so we get a hit next time.
