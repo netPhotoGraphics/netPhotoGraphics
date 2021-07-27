@@ -1066,25 +1066,25 @@ $plugins = array_keys($plugins);
 <br clear="all">
 <?php
 $userPlugins = array_diff($plugins, $_npg_plugins);
-require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-$deprecated = new deprecated_functions();
-$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
-$prior = getSerializedArray(getOption('deprecated_functions_signature'));
-if (!array_key_exists('signature', $prior)) {
-	$prior = array('signature' => array_shift($prior), 'themes' => array(), 'plugins' => array());
-}
-if ($current != $prior) {
-	$newThemes = array_diff($themes, $prior['themes']);
-	$newPlugins = array_diff($userPlugins, $prior['plugins']);
-	if ($current['signature'] != $prior['signature']) {
-		setOption('deprecated_functions_signature', serialize($current));
-		if (!empty($newThemes) | !empty($newPlugins)) { //	only need to do this if there are third party items
+if (!empty($themes) || !empty($userPlugins)) {
+	//	There are either un-distributed themes or un-distributed plugins present
+	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
+	$deprecated = new deprecated_functions();
+	$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
+	$prior = getSerializedArray(getOption('deprecated_functions_signature'));
+	if (!array_key_exists('signature', $prior)) {
+		$prior = array('signature' => array_shift($prior), 'themes' => array(), 'plugins' => array());
+	}
+	if ($current != $prior) {
+		$newThemes = array_diff($themes, $prior['themes']);
+		$newPlugins = array_diff($userPlugins, $prior['plugins']);
+		if ($current['signature'] != $prior['signature'] || !empty($newThemes) | !empty($newPlugins)) {
+			setOption('deprecated_functions_signature', serialize($current));
 			enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
 			setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
 		}
 	}
 }
-
 
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
 $compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), getSerializedArray(getOption('zenphotoCompatibilityPack_signature')));
