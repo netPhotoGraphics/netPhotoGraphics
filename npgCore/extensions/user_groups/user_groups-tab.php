@@ -9,7 +9,6 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
-
 switch (isset($_GET['tab']) ? $_GET['tab'] : NULL) {
 	case 'assignment':
 		if (isset($_GET['selection'])) {
@@ -48,8 +47,6 @@ switch (isset($_GET['tab']) ? $_GET['tab'] : NULL) {
 }
 define('GROUP_STEP', 5);
 
-
-
 if (isset($_GET['subpage'])) {
 	$subpage = sanitize_numeric($_GET['subpage']);
 } else {
@@ -75,7 +72,7 @@ if (isset($_GET['action'])) {
 	switch ($action) {
 		case 'deletegroup':
 			XSRFdefender('deletegroup');
-			$groupname = trim(sanitize($_GET['group']));
+			$groupname = trim(sanitize($_GET['groupname']));
 			$groupobj = npg_Authority::newAdministrator($groupname, 0);
 			$groupobj->remove();
 			// clear out existing user assignments
@@ -89,7 +86,7 @@ if (isset($_GET['action'])) {
 				$newgroupid = isset($_POST['newgroup']) ? $_POST['newgroup'] : NULL;
 				$grouplist = $_POST['user'];
 				foreach ($grouplist as $i => $groupelement) {
-					$groupname = trim(sanitize($groupelement['group']));
+					$groupname = trim(sanitize($groupelement['groupname']));
 					if (!empty($groupname)) {
 						$rights = 0;
 						$group = npg_Authority::newAdministrator($groupname, 0);
@@ -346,7 +343,7 @@ echo '</head>' . "\n";
 												if (!isset($user_count[$group])) {
 													$user_count[$group] = 1;
 												} else {
-													$user_count[$group] ++;
+													$user_count[$group]++;
 												}
 											}
 										} else {
@@ -395,7 +392,7 @@ echo '</head>' . "\n";
 														<?php echo gettext('New'); ?>
 													</em>
 													<br />
-													<input type="text" size="35" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][group]" value=""
+													<input type="text" size="35" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][groupname]" value=""
 																 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', true);" />
 																 <?php
 															 } else {
@@ -412,7 +409,7 @@ echo '</head>' . "\n";
 															<strong><?php echo $groupname; ?></strong> <?php echo $count; ?>
 														</a>
 													</span>
-													<input type="hidden" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][group]" value="<?php echo html_encode($groupname); ?>" />
+													<input type="hidden" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][groupname]" value="<?php echo html_encode($groupname); ?>" />
 													<input type="hidden" name="user[<?php echo $id ?>][type]" value="<?php echo html_encode($grouptype); ?>" />
 													<?php
 												}
@@ -424,7 +421,7 @@ echo '</head>' . "\n";
 												if (!empty($groupname)) {
 													$msg = gettext('Are you sure you want to delete this group?');
 													?>
-													<a href="javascript:if(confirm(<?php echo "'" . $msg . "'"; ?>)) { launchScript('',['tab=<?php echo $subtab; ?>', 'action=deletegroup','group=<?php echo addslashes($groupname); ?>','XSRFToken=<?php echo getXSRFToken('deletegroup') ?>']); }"
+													<a href="javascript:if(confirm(<?php echo "'" . $msg . "'"; ?>)) { launchScript('',['tab=<?php echo $subtab; ?>', 'action=deletegroup','groupname=<?php echo addslashes($groupname); ?>','XSRFToken=<?php echo getXSRFToken('deletegroup') ?>']); }"
 														 title="<?php echo gettext('Delete this group.'); ?>" style="color: #c33;">
 															 <?php echo WASTEBASKET; ?>
 													</a>
@@ -665,7 +662,6 @@ echo '</head>' . "\n";
 								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
 								?>
 							</div>
-
 
 							<table class="bordered">
 								<?php

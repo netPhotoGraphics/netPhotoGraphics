@@ -17,7 +17,6 @@
 $plugin_is_filter = 10 | ADMIN_PLUGIN;
 $plugin_description = gettext("Provides rudimentary user groups.");
 
-
 npgFilters::register('admin_tabs', 'user_groups::admin_tabs', 2000);
 npgFilters::register('admin_alterrights', 'user_groups::admin_alterrights');
 npgFilters::register('save_admin_data', 'user_groups::save_admin');
