@@ -92,7 +92,7 @@ if (!defined('WEBPATH'))
 						<?php
 						$tburl = "";
 						$boxclass = "";
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							if (getOption("Use_thickbox")) {
 								$boxclass = " class=\"thickbox\"";
 								$tburl = getUnprotectedImageURL();
@@ -130,7 +130,7 @@ if (!defined('WEBPATH'))
 						}
 						?>
 						<?php
-						if (function_exists('printSlideShowLink') && isImagePhoto()) {
+						if (function_exists('printSlideShowLink') && $_current_image->isPhoto()) {
 							echo '<span id = "slideshowlink">';
 							printSlideShowLink(gettext('View Slideshow'));
 							echo '</span>';

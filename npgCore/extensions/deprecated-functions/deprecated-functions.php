@@ -340,3 +340,58 @@ function ngettext_pl($msgid1, $msgid2, $n, $plugin) {
 	i18n::setupDomain();
 	return $translation;
 }
+
+/**
+ * @deprecated since version 2.00.11
+ *
+ * Returns video argument of the current Image.
+ *
+ * @param object $image optional image object
+ * @return bool
+ */
+function isImageVideo($image = NULL) {
+	global $_current_image;
+	deprecated_functions::notify(gettext('Use <code>isVideo()</code> object method instead.'));
+	if (is_null($image)) {
+		if (!in_context(NPG_IMAGE)) {
+			return false;
+		}
+		$image = $_current_image;
+	}
+	return $image->isVideo();
+}
+
+/**
+ * @deprecated since version 2.00.11
+ *
+ * Returns true if the image is a standard photo type
+ *
+ * @param object $image optional image object
+ * @return bool
+ */
+function isImagePhoto($image = NULL) {
+	global $_current_image;
+	deprecated_functions::notify(gettext('Use <code>isPhoto()</code> object method instead.'));
+	if (is_null($image)) {
+		if (!in_context(NPG_IMAGE))
+			return false;
+		$image = $_current_image;
+	}
+	return $image->isPhoto();
+}
+
+/**
+ * @deprecated since version 2.00.11
+ *
+ * Returns the oldest ancestor of an album (or an image's album);
+ *
+ * @param string $album an album object
+ * @return object
+ */
+function getUrAlbum($album) {
+	deprecated_functions::notify(gettext('Use <code>getUrALbum()</code> object method instead.'));
+	if (is_object($album)) {
+		return $album->getUrALbum();
+	}
+	return NULL;
+}

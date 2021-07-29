@@ -42,7 +42,7 @@ if (!defined('WEBPATH'))
 					<div id="image">
 
 						<?php
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							$html = '<img src="' . html_encode(getDefaultSizedImage()) . '" alt="' . printBareImageTitle() . '" style="max-width:' . getDefaultWidth() . 'px"/>';
 							$html = npgFilters::apply('standard_image_html', $html, FALSE);
 							if (ENCODING_FALLBACK) {
@@ -52,7 +52,7 @@ if (!defined('WEBPATH'))
 						} else {
 							printDefaultSizedImage(getImageTitle());
 						}
-						if (isImageVideo() && getOption('zpmobile_mediadirectlink')) {
+						if ($_current_image->isVideo() && getOption('zpmobile_mediadirectlink')) {
 							?>
 							<p><a href="<?php echo html_encode(getUnprotectedImageURL()); ?>" title="<?php echo gettext('Direct link'); ?>" rel="external"><?php echo gettext('Direct link'); ?></a></p>
 							<?php
@@ -80,7 +80,7 @@ if (!defined('WEBPATH'))
 					?>
 					<br style="clear:both" />
 					<?php
-					if (function_exists('printSlideShowLink') && isImagePhoto()) {
+					if (function_exists('printSlideShowLink') && $_current_image->isPhoto()) {
 						echo '<span id="slideshowlink">';
 						printSlideShowLink();
 						echo '</span>';

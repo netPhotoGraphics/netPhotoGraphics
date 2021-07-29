@@ -303,25 +303,6 @@ function rewrite_path($rewrite, $plain, $webpath = NULL) {
 }
 
 /**
- * Returns the oldest ancestor of an album (or an image's album);
- *
- * @param string $album an album object
- * @return object
- */
-function getUrAlbum($album) {
-	if (is_object($album)) {
-		while ($album) {
-			$parent = $album->getParent();
-			if (is_null($parent)) {
-				return $album;
-			}
-			$album = $parent;
-		}
-	}
-	return NULL;
-}
-
-/**
  * Returns a sort field part for querying
  * Note: $sorttype may be a comma separated list of field names. If so,
  *       these are peckmarked and returned otherwise unchanged.
@@ -854,7 +835,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
  * @param string $table the database table
  */
 function updatePublished($table) {
-//publish items that have matured
+	//publish items that have matured
 	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=0 AND `publishdate`IS NOT NULL AND `publishdate`<=' . db_quote(date('Y-m-d H:i:s'));
 	$result = query($sql);
 	if ($result) {
@@ -867,7 +848,7 @@ function updatePublished($table) {
 		}
 	}
 
-//unpublish items that have expired or are not yet published
+	//unpublish items that have expired or are not yet published
 	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=1 AND (`expiredate` IS NOT NULL AND `expiredate`<' . db_quote(date('Y-m-d H:i:s')) . ' OR `publishdate`>' . db_quote(date('Y-m-d H:i:s')) . ')';
 	$result = query($sql);
 	if ($result) {
@@ -913,7 +894,7 @@ function setupTheme($album = NULL) {
 	$theme = $_gallery->getCurrentTheme();
 	$id = 0;
 	if (!is_null($album)) {
-		$parent = getUrAlbum($album);
+		$parent = $album->getUrAlbum();
 		$albumtheme = $parent->getAlbumTheme();
 		if (!empty($albumtheme)) {
 			if (is_dir(SERVERPATH . "/" . THEMEFOLDER . "/$albumtheme")) {
@@ -1564,40 +1545,6 @@ function getWatermarkParam($image, $use) {
 		return $watermark_use_image;
 	}
 	return NO_WATERMARK; //	apply no watermark
-}
-
-/**
-
- * Returns video argument of the current Image.
- *
- * @param object $image optional image object
- * @return bool
- */
-function isImageVideo($image = NULL) {
-	if (is_null($image)) {
-		if (!in_context(NPG_IMAGE))
-			return false;
-		global $_current_image;
-		$image = $_current_image;
-	}
-	return strtolower(get_class($image)) == 'video';
-}
-
-/**
- * Returns true if the image is a standard photo type
- *
- * @param object $image optional image object
- * @return bool
- */
-function isImagePhoto($image = NULL) {
-	global $_current_image;
-	if (is_null($image)) {
-		if (!in_context(NPG_IMAGE))
-			return false;
-		$image = $_current_image;
-	}
-	$class = strtolower(get_class($image));
-	return $class == 'image' || $class == 'transientimage';
 }
 
 /**
@@ -2591,35 +2538,6 @@ function getMacros() {
 		$_content_macros = npgFilters::apply('content_macro', array());
 	}
 	return $_content_macros;
-}
-
-/**
- * generates a nested list of albums for the album tab sorting
- * Returns an array of "albums" each element contains:
- * 								'name' which is the folder name
- * 								'sort_order' which is an array of the sort order set
- *
- * @param $subalbum root level album or Gallery object
- * @param $maxlevel how far to nest
- * @param $level internal for keeping the sort order elements
- * @return array
- */
-function getNestedAlbumList($subalbum, $maxlevel, $level = array()) {
-	$cur = count($level);
-	$albums = $subalbum->getAlbums();
-
-	$list = array();
-	foreach ($albums as $analbum) {
-		$albumobj = newAlbum($analbum);
-		if (!OFFSET_PATH || (!is_null($subalbum) || $albumobj->isMyItem(ALBUM_RIGHTS))) {
-			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
-			$list[] = array('name' => $analbum, 'sort_order' => $level);
-			if ($cur + 1 < $maxlevel && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
-				$list = array_merge($list, getNestedAlbumList($albumobj, $maxlevel, $level));
-			}
-		}
-	}
-	return $list;
 }
 
 class npgFunctions {

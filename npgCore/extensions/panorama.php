@@ -107,7 +107,7 @@ class panorama {
 		if (is_null($image)) {
 			return false;
 		}
-		if (isImagePhoto($image)) {
+		if ($image->isPhoto()) {
 			if (empty($title)) {
 				$title = $image->getTitle();
 			}

@@ -184,7 +184,7 @@ echo "\n</head>";
 											<?php echo PENCIL_ICON; ?>
 										</a>
 										<?php
-										if (isImagePhoto($image)) {
+										if ($image->isPhoto()) {
 											?>
 											<a href="<?php echo html_encode($image->getFullImageURL()); ?>" class="colorbox" title="zoom">
 												<?php echo MAGNIFY; ?>

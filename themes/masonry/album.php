@@ -79,7 +79,7 @@
 									$show = '';
 								}
 								?>
-								<?php if (!isImageVideo()) { ?>
+								<?php if (!$_current_image->isVideo()) { ?>
 									<a rel="slideshow"<?php echo $show; ?> href="<?php
 									if ($zpmas_cbtarget) {
 										echo htmlspecialchars(getDefaultSizedImage());
@@ -142,7 +142,7 @@
 					<div class="back">
 						<a class="thumb-link" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>"><?php printCustomSizedImage(getAnnotatedImageTitle(), array('width' => $zpmas_image_size, 'height' => $zpmas_image_size, 'cw' => $zpmas_image_size, 'ch' => $zpmas_image_size, 'thumb' => TRUE)); ?></a>
 					</div>
-					<?php if (!isImageVideo()) { ?>
+					<?php if (!$_current_image->isVideo()) { ?>
 						<div class="overlay">
 							<a class="zpmas-cb" href="<?php
 							if ($zpmas_cbtarget) {

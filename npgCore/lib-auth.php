@@ -1892,12 +1892,11 @@ class _Administrator extends PersistentObject {
 	 * @param int $valid used to signal kind of admin object
 	 * @return Administrator
 	 */
-
 	function __construct($user, $valid, $create = true) {
 		global $_authority;
 		$this->instantiate('administrators', array('user' => $user, 'valid' => $valid), NULL, false, empty($user), $create);
 		$this->setUser($user);
-		$this->set('valid', $this->valid = 1);
+		$this->setValid($valid);
 
 		if (empty($user)) {
 			$this->set('id', $this->id = -1);

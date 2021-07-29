@@ -173,7 +173,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 							<div class="floatleft leftdeatil">
 								<div class="edit_thumb_container">
 									<?php
-									if ($zoom = isImagePhoto($image)) {
+									if ($zoom = $image->isPhoto()) {
 										?>
 										<a href="<?php echo html_encode(pathurlencode($image->getFullImageURL())); ?>" class="colorbox fullimagelink" title="<?php echo gettext('zoom'); ?>" >
 											<?php
@@ -527,7 +527,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<div class="clearall" ></div>
 
 									<?php
-									if (isImagePhoto($image)) {
+									if ($image->isPhoto()) {
 										?>
 										<hr />
 										<?php echo gettext("Rotation:"); ?>
@@ -590,7 +590,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<hr />
 									<?php
 									npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext("Refresh Metadata"), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=refresh&amp;album=' . pathurlencode($album->name) . '&amp;image=' . urlencode($image->filename) . '&amp;subpage=' . $pagenum . $singleimagelink . '&amp;tagsort=' . html_encode($tagsort) . '&amp;XSRFToken=' . getXSRFToken('imagemetadata'), 'buttonClass' => 'fixedwidth'));
-									if (isImagePhoto($image) || !is_null($image->objectsThumb)) {
+									if ($image->isPhoto() || !is_null($image->objectsThumb)) {
 										npgButton('button', SHAPE_HANDLES . ' ' . gettext("Crop thumbnail"), array('buttonLink' => getAdminLink('admin-tabs/thumbcrop.php') . '?a=' . pathurlencode($album->name) . '&amp;i=' . urlencode($image->filename) . '&amp;subpage=' . $pagenum . $singleimagelink . '&amp;tagsort=' . html_encode($tagsort), 'buttonClass' => 'fixedwidth'));
 									}
 									echo npgFilters::apply('edit_image_utilities', '<!--image-->', $image, $currentimage, $pagenum, $tagsort, $singleimage); //pass space as HTML because there is already a button shown for cropimage

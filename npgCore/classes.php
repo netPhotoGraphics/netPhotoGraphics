@@ -298,16 +298,18 @@ class PersistentObject {
 
 		// If we don't have an entry yet, this is a new record. Create it.
 		if (empty($entry)) {
-			if ($this->transient || !$allowCreate) { // no don't save it in the DB!
-				//	populate $this->data so that the set method will work correctly
-				$result = db_list_fields($this->table);
-				if ($result) {
-					foreach ($result as $row) {
-						$this->data[strtolower($row['Field'])] = NULL;
-					}
+			//	populate $this->data so that the set method will work correctly
+			$result = db_list_fields($this->table);
+			if ($result) {
+				foreach ($result as $row) {
+					$this->data[strtolower($row['Field'])] = NULL;
 				}
+			}
+			$this->data = array_merge($this->data, $this->unique_set);
+
+			if ($this->transient || !$allowCreate) { // don't save it in the DB!
 				if ($allowCreate) {
-					$entry = array_merge($this->data, $this->unique_set);
+					$entry = $this->data;
 					$entry['id'] = 0;
 					$this->addToCache($entry);
 				} else {
@@ -319,13 +321,6 @@ class PersistentObject {
 				$entry = query_single_row($sql);
 				// If we still don't have an entry, something went wrong...
 				if (!$entry) {
-					//	populate $this->data so that the set method will work correctly
-					$result = db_list_fields($this->table);
-					if ($result) {
-						foreach ($result as $row) {
-							$this->data[strtolower($row['Field'])] = NULL;
-						}
-					}
 					return NULL;
 				}
 				// Save this new entry into the cache so we get a hit next time.
@@ -477,6 +472,21 @@ class PersistentObject {
 				return $this->set($what, $arg);
 		}
 
+		$caller = debug_backtrace();
+		$call = array_shift($caller);
+		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
+			$call = array_shift($caller);
+		}
+		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
+		trigger_error($msg);
+	}
+
+	public static function __callStatic($name, $arguments) {
+		//	zenphoto has moved some general functions to static class methods. There was really no need to do so
+		//	but this will catch the calls and revert them to the originals.
+		if (function_exists($name)) {
+			return call_user_func_array($name, $arguments);
+		}
 		$caller = debug_backtrace();
 		$call = array_shift($caller);
 		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
@@ -951,7 +961,7 @@ class ThemeObject extends PersistentObject {
 	protected function setDefaultSortOrder($qualifier = NULL) {
 		$sql = 'SELECT * FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC LIMIT 1';
 		$result = query_single_row($sql);
-		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, substr($result['sort_order'], 0, 3) + 1)) : '000';
+		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
 		$this->setSortOrder($new);
 	}
 

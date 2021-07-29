@@ -300,6 +300,7 @@ class Gallery {
 			$albumnames = $this->loadAlbumNames();
 			$key = $this->getAlbumSortKey($sorttype);
 			$albums = $this->sortAlbumArray(NULL, $albumnames, $key, $sortdirection, $mine);
+
 			// Store the values
 			$this->albums = $albums;
 			$this->lastalbumsort = $sorttype . $sortdirection;
@@ -663,7 +664,7 @@ class Gallery {
 					while ($analbum = db_fetch_assoc($albumids)) {
 						if (($mtime = filemtime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($analbum['folder']))) > $analbum['mtime']) {
 							// refresh
-							$album = newAlbum($analbum['folder']);
+							$album = newAlbum($analbum['folder'], false, true);
 							$album->set('mtime', $mtime);
 							if ($this->getAlbumUseImagedate()) {
 								$album->setDateTime(NULL);
@@ -857,7 +858,7 @@ class Gallery {
 	 * @author Todd Papaioannou (lucky@luckyspin.org)
 	 * @since  1.0.0
 	 */
-	function sortAlbumArray($parentalbum, $albums, $sortkey = 'sort_order', $sortdirection = NULL, $mine = NULL) {
+	function sortAlbumArray($parentalbum, $albums, $sortkey, $sortdirection, $mine) {
 		if (count($albums) == 0) {
 			return array();
 		}
@@ -904,9 +905,7 @@ class Gallery {
 		db_free_result($result);
 		foreach ($albums as $folder) { // these albums are not in the database
 			$albumobj = newAlbum($folder);
-			if ($albumobj->exists) { // fail to instantiate?
-				$results[$folder] = $albumobj->getData();
-			}
+			$results[$folder] = $albumobj->getData();
 		}
 		//	now put the results in the right order
 		$results = sortByKey($results, $sortkey, $order);
@@ -914,7 +913,7 @@ class Gallery {
 		//	albums are now in the correct order
 		$albums_ordered = array();
 		foreach ($results as $folder => $row) { // check for visible
-			$album = newAlbum($folder);
+			$album = newAlbum($folder, true, true);
 			$subrights = $album->subrights();
 			if ($mine ||
 							($album->getShow() || $viewUnpublished) // published or overridden by parameter

@@ -10,9 +10,9 @@
  * so that the install is switched between a <i>normal</i> install and a debugging one.
  * Options are provided that control which debugging options are enabled.
  *
- * <b>Debugging aids tabs:</b>
+ * <b>Debugging aid tabs:</b>
  *
- * Adds <i>Debug</i> tab with subtabs for:
+ * Adds <i>Development</i> subtabs for:
  * <dl>
  * 	<dt><var>PHP info</var></dt><dd>displays the output from the PHP <var>php phpinfo()</var> function.</dd>
  * 	<dt><var>Locales</var></dt><dd>displays information about server supported <i>locales</i>.</dd>

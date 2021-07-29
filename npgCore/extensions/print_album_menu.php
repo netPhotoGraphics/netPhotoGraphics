@@ -237,7 +237,7 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 			}
 			if ($keeptopactive) {
 				if (isset($_current_album) && is_object($_current_album)) {
-					$currenturalbum = getUrAlbum($_current_album);
+					$currenturalbum = $_current_album->getUrAlbum();
 					$currenturalbumname = $currenturalbum->name;
 				}
 			}

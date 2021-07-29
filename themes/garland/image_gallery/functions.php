@@ -115,7 +115,7 @@ class imagegallery {
 												$points[] = $coord;
 											}
 										}
-										if (isImagePhoto()) {
+										if ($_current_image->isPhoto()) {
 											// does not do video
 											if (is_null($firstImage)) {
 												$lastImage = imageNumber();

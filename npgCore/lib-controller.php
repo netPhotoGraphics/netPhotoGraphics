@@ -573,7 +573,7 @@ class Controller {
 		$theme = setupTheme();
 		$_gallery_page = basename($_themeScript = THEMEFOLDER . "/$theme/image.php");
 		// re-initialize video dimensions if needed
-		if (isImageVideo()) {
+		if ($_current_image->isVideo()) {
 			$_current_image->updateDimensions();
 		}
 		return $theme;
@@ -597,7 +597,7 @@ class Controller {
 					foreach ($searchalbums as $analbum) {
 						$album = newAlbum($analbum, true, true);
 						if (is_object($album) && $album->exists) {
-							$parent = getUrAlbum($album);
+							$parent = $album->getUrAlbum();
 							$albums[$parent->getID()] = $parent;
 						}
 					}

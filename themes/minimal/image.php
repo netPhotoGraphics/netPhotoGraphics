@@ -52,7 +52,7 @@
 				<?php if (!$zpmin_disablemeta) { ?>
 					<?php if ((getImageMetaData()) || (npg_loggedin())) { ?><div class="sidebar-section"><?php printImageMetadata('', false, null, 'full-image-meta', true); ?></div><?php } ?>
 				<?php } ?>
-				<?php if (function_exists('printSlideShowLink' && isImagePhoto())) { ?><div class="sidebar-section"><div class="slideshow-link"><?php printSlideShowLink(gettext('View Slideshow')); ?></div></div><?php } ?>
+				<?php if (function_exists('printSlideShowLink' && $_current_image->isPhoto())) { ?><div class="sidebar-section"><div class="slideshow-link"><?php printSlideShowLink(gettext('View Slideshow')); ?></div></div><?php } ?>
 			</div>
 		</div>
 		<?php include ("inc-sidemenu.php"); ?>

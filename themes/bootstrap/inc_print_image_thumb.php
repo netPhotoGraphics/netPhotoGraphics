@@ -2,8 +2,8 @@
 	<?php while (next_image()) { ?>
 		<?php
 		$fullimage = getFullImageURL();
-		$isImagePhoto = isImagePhoto($_current_image);
-		$isImageVideo = isImageVideo($_current_image);
+		$isImagePhoto = $_current_image->isPhoto();
+		$isImageVideo = $_current_image->isVideo();
 		$isAudio = false;
 		if ($isImageVideo) {
 			$suffix = strtolower(getSuffix($_current_image->getFileName()));

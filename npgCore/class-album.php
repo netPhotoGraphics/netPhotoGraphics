@@ -13,9 +13,9 @@ Gallery::addAlbumHandler('alb', 'dynamicAlbum');
 
 /**
  * Wrapper instantiation function for albums. Do not instantiate directly
- * @param string $folder8 the name of the folder (inernal character set)
+ * @param string $folder8 the name of the folder (internal character set)
  * @param bool $cache true if the album should be fetched from the cache
- * @param bool $quiet true to supress error messages
+ * @param bool $quiet true to suppress error messages
  * @return Album
  */
 function newAlbum($folder8, $cache = true, $quiet = false) {
@@ -37,6 +37,35 @@ function newAlbum($folder8, $cache = true, $quiet = false) {
  */
 function isAlbumClass($album) {
 	return is_object($album) && ($album->table == 'albums');
+}
+
+/**
+ * generates a nested list of albums for the album tab sorting
+ * Returns an array of "albums" each element contains:
+ * 								'name' which is the folder name
+ * 								'sort_order' which is an array of the sort order set
+ *
+ * @param $subalbum root level album or Gallery object
+ * @param $maxlevel how far to nest
+ * @param $level internal for keeping the sort order elements
+ * @return array
+ */
+function getNestedAlbumList($subalbum, $maxlevel, $level = array()) {
+	$cur = count($level);
+	$albums = $subalbum->getAlbums();
+
+	$list = array();
+	foreach ($albums as $analbum) {
+		$albumobj = newAlbum($analbum);
+		if (!OFFSET_PATH || (!is_null($subalbum) || $albumobj->isMyItem(ALBUM_RIGHTS))) {
+			$level[$cur] = sprintf('%03u', $albumobj->getSortOrder());
+			$list[] = array('name' => $analbum, 'sort_order' => $level);
+			if ($cur + 1 < $maxlevel && ($albumobj->getNumAlbums()) && !$albumobj->isDynamic()) {
+				$list = array_merge($list, getNestedAlbumList($albumobj, $maxlevel, $level));
+			}
+		}
+	}
+	return $list;
 }
 
 class AlbumBase extends MediaObject {
@@ -154,6 +183,23 @@ class AlbumBase extends MediaObject {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Returns the oldest ancestor of an album (or an image's album);
+	 *
+	 * @return object
+	 */
+	function getUrAlbum() {
+		$album = $this;
+		while ($album) {
+			$parent = $album->getParent();
+			if (is_null($parent)) {
+				return $album;
+			}
+			$album = $parent;
+		}
+		return NULL;
 	}
 
 	/**
@@ -505,7 +551,7 @@ class AlbumBase extends MediaObject {
 				$thumb = array_shift($thumbs);
 				$thumb = newImage($this, $thumb);
 				if ($mine || $thumb->getShow()) {
-					if (isImagePhoto($thumb)) {
+					if ($thumb->isPhoto()) {
 						// legitimate image
 						$this->albumthumbnail = $thumb;
 						return $this->albumthumbnail;
@@ -556,7 +602,7 @@ class AlbumBase extends MediaObject {
 		$nullimage = CORE_SERVERPATH . 'images/imageDefault.png';
 		// check for theme imageDefault.png
 		$theme = '';
-		$uralbum = getUralbum($this);
+		$uralbum = $this->getUralbum();
 		$albumtheme = $uralbum->getAlbumTheme();
 		if (!empty($albumtheme)) {
 			$theme = $albumtheme;
@@ -1043,7 +1089,7 @@ class AlbumBase extends MediaObject {
 			}
 			getManagedAlbumList();
 			if (count($_admin_owner_list) > 0) {
-				$uralbum = getUrAlbum($this);
+				$uralbum = $this->getUrAlbum();
 				if ($uralbum->name == $this->name) {
 					if (isset($_admin_owner_list[$uralbum->name])) {
 						$this->subrights = $_admin_owner_list[$uralbum->name] | MANAGED_OBJECT_MEMBER;

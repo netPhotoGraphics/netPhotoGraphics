@@ -70,7 +70,7 @@ if (!defined('WEBPATH'))
 			<!-- The Image -->
 			<div id="image">
 				<?php
-				if (function_exists('printZoomImage') && isImagePhoto()) {
+				if (function_exists('printZoomImage') && $_current_image->isPhoto()) {
 					$size = getOption('image_size') / 5;
 					$zoom = floor($size * 3);
 					printZoomImage(floor($size * 2), NULL, NULL, 'zoom_window');
@@ -83,7 +83,7 @@ if (!defined('WEBPATH'))
 					?>
 					<strong>
 						<?php
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							$fullimage = getFullImageURL();
 						} else {
 							$fullimage = NULL;
@@ -93,9 +93,9 @@ if (!defined('WEBPATH'))
 							<a href="<?php echo html_encode($fullimage); ?>" title="<?php printBareImageTitle(); ?>" class="fullimage">
 								<?php
 							}
-							if (class_exists('panorama') && isImagePhoto()) {
+							if (class_exists('panorama') && $_current_image->isPhoto()) {
 								panorama::image();
-							} else if (function_exists('printUserSizeImage') && isImagePhoto()) {
+							} else if (function_exists('printUserSizeImage') && $_current_image->isPhoto()) {
 								printUserSizeImage(getImageTitle());
 							} else {
 								printDefaultSizedImage(getImageTitle());
@@ -108,7 +108,7 @@ if (!defined('WEBPATH'))
 						?>
 					</strong>
 					<?php
-					if (isImagePhoto()) {
+					if ($_current_image->isPhoto()) {
 						if (function_exists('printUserSizeSelector')) printUserSizeSelector();
 					}
 				}
@@ -135,7 +135,7 @@ if (!defined('WEBPATH'))
 					&nbsp;&nbsp;
 					<?php
 				}
-				If (function_exists('printSlideShowLink') && isImagePhoto()) {
+				If (function_exists('printSlideShowLink') && $_current_image->isPhoto()) {
 					printSlideShowLink(NULL, NULL, '&nbsp;&nbsp;');
 				}
 

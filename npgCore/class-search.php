@@ -218,6 +218,18 @@ class SearchEngine {
 	}
 
 	/**
+	 * encloses search word in quotes if needed
+	 * @param string $word
+	 * @return string
+	 */
+	static function searchQuote($word) {
+		if (is_numeric($word) || preg_match("/[ &|!'\"`,()]/", $word)) {
+			$word = '"' . str_replace("\\'", "'", addslashes($word)) . '"';
+		}
+		return $word;
+	}
+
+	/**
 	 * encodes search words so that they can get past browser/server stuff
 	 *
 	 * @param string $words
@@ -840,7 +852,7 @@ class SearchEngine {
 						$sanitizedwords .= $singlesearchstring;
 						break;
 					default:
-						$sanitizedwords .= search_quote($singlesearchstring);
+						$sanitizedwords .= self::searchQuote($singlesearchstring);
 						break;
 				}
 			}
@@ -1570,7 +1582,7 @@ class SearchEngine {
 						if ($albumname != $this->dynalbumname) {
 							if (file_exists(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumname))) {
 								$album = newAlbum($albumname);
-								$uralbum = getUrAlbum($album);
+								$uralbum = $album->getUrAlbum();
 								$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 								if ($mine || (is_null($mine) && $album->isMyItem(LIST_RIGHTS)) || checkAlbumPassword($albumname) && ($viewUnpublished || $album->isPublished())) {
 									if (empty($this->album_list) || in_array($albumname, $this->album_list)) {
@@ -1724,7 +1736,7 @@ class SearchEngine {
 				while ($row = db_fetch_assoc($search_result)) {
 					if ($image = getItemByID('images', $row['id'])) {
 						$album = $image->album;
-						$uralbum = getUrAlbum($album);
+						$uralbum = $album->getUrAlbum();
 						$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));
 						if ($mine || is_null($mine) && ($album->isMyItem(LIST_RIGHTS) || checkAlbumPassword($image->albumname) && ($viewUnpublished || $image->isPublished()))) {
 							$row['folder'] = $album->name;
@@ -1793,7 +1805,7 @@ class SearchEngine {
 	 */
 	function getImageIndex($album, $filename) {
 		$images = $this->getImages();
-		$target = array_keys(array_filter($images, function($item) use($album, $filename) {
+		$target = array_keys(array_filter($images, function ($item) use ($album, $filename) {
 							return $item['filename'] == $filename && $item['folder'] == $album;
 						}));
 		if (isset($target[0])) {
@@ -2118,20 +2130,3 @@ class SearchEngine {
 	}
 
 }
-
-// search class end
-
-/**
- *
- * encloses search word in quotes if needed
- * @param string $word
- * @return string
- */
-function search_quote($word) {
-	if (is_numeric($word) || preg_match("/[ &|!'\"`,()]/", $word)) {
-		$word = '"' . str_replace("\\'", "'", addslashes($word)) . '"';
-	}
-	return $word;
-}
-
-?>

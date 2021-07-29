@@ -62,7 +62,7 @@ class ga_colorbox {
 				<div class="image">
 					<div class="imagethumb">
 						<?php
-						if (isImagePhoto()) {
+						if ($_current_image->isPhoto()) {
 							// colorbox is only for real images
 							$link = html_encode(getDefaultSizedImage()) . '" class="thickbox"';
 						} else {

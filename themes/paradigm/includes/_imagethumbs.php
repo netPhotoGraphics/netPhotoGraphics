@@ -7,7 +7,7 @@
 		echo 'px';
 		?>" itemscope itemtype="http://schema.org/ImageObject">
 			<div class="thumbnail"  itemprop="thumbnail">
-				<?php if (isImagePhoto()) { ?>
+				<?php if ($_current_image->isPhoto()) { ?>
 					<a href="<?php echo html_encode(getDefaultSizedImage()); ?>" rel="lightbox-<?php echo $_current_album->getID(); ?>" title="<?php printBareImageTitle(); ?>"><?php printImageThumb(getBareImageTitle()); ?></a>
 					<?php
 				} else {

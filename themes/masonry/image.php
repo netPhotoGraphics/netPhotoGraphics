@@ -37,7 +37,7 @@
 						<?php if ((strlen($tagstring) > 0) || (npg_loggedin())) { ?><li class="tags"><?php printTags('links', ' ', 'taglist', ', '); ?></li><?php } ?>
 					</ul>
 				</div>
-				<?php if ($useGslideshow && isImagePhoto()) { ?>
+				<?php if ($useGslideshow && $_current_image->isPhoto()) { ?>
 					<div id="slideshowlink" class="sidebar-divide gslideshowlink"><?php printSlideShowLink(gettext('Start Slideshow')); ?></div>
 				<?php } ?>
 

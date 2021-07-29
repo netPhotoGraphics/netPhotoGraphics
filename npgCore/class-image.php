@@ -1541,6 +1541,21 @@ class Image extends MediaObject {
 		return FALSE;
 	}
 
+	function isPhoto() {
+		switch (get_class($this)) {
+			case'Image':
+			case 'Transientimage':
+				return true;
+			default:
+				return false;
+		}
+		return TRUE;
+	}
+
+	function isVideo() {
+		return get_class($this) == 'Video';
+	}
+
 	/**
 	 * Returns the filesize in bytes of the full image
 	 *

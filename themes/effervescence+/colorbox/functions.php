@@ -71,7 +71,7 @@ class ef_colorbox {
 									}
 								}
 								$annotate = annotateImage();
-								if (isImagePhoto()) {
+								if ($_current_image->isPhoto()) {
 									// colorbox is only for real images
 									echo '<a href="' . html_encode(getDefaultSizedImage()) . '" class="thickbox"';
 								} else {
