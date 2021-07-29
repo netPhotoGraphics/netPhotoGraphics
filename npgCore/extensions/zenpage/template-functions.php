@@ -866,8 +866,13 @@ function getNextNewsPageURL() {
  * @return bool
  */
 function hasNextNewsPage() {
-	global $_CMS, $_current_page;
-	$total = ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
+	global $_CMS, $_current_page, $_CMS_current_category;
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
+		$total = $_CMS_current_category->getTotalArticles();
+	} else {
+		$total = $_CMS->getTotalArticles();
+	}
+	$total = ceil($total / ARTICLES_PER_PAGE);
 	return $_current_page < $total;
 }
 
@@ -912,8 +917,14 @@ function printNewsPageList($class = 'pagelist') {
  * @return string
  */
 function printNewsPageListWithNav($next, $prev, $nextprev = true, $class = 'pagelist', $firstlast = true, $navlen = 9) {
-	global $_CMS, $_current_page;
-	$total = ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
+	global $_CMS, $_current_page, $_CMS_current_category;
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
+		$total = $_CMS_current_category->getTotalArticles();
+	} else {
+		$total = $_CMS->getTotalArticles();
+	}
+	$total = ceil($total / ARTICLES_PER_PAGE);
+
 	if ($total > 1) {
 		if ($navlen == 0)
 			$navlen = $total;
@@ -980,8 +991,13 @@ function printNewsPageListWithNav($next, $prev, $nextprev = true, $class = 'page
 }
 
 function getTotalNewsPages() {
-	global $_CMS;
-	return ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
+	global $_CMS, $_CMS_current_category;
+	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
+		$total = $_CMS_current_category->getTotalArticles();
+	} else {
+		$total = $_CMS->getTotalArticles();
+	}
+	return ceil($total / ARTICLES_PER_PAGE);
 }
 
 /* * ********************************************************************* */
@@ -1497,7 +1513,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 					$parents[$indent] = NULL;
 					while ($indent > $level) {
 						if ($open[$indent]) {
-							$open[$indent] --;
+							$open[$indent]--;
 							echo "</li>\n";
 						}
 						$indent--;
@@ -1506,17 +1522,17 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				} else { // level == indent, have not changed
 					if ($open[$indent]) { // level = indent
 						echo str_pad("\t", $indent, "\t") . "</li>\n";
-						$open[$indent] --;
+						$open[$indent]--;
 					} else {
 						echo "\n";
 					}
 				}
 				if ($open[$indent]) { // close an open LI if it exists
 					echo "</li>\n";
-					$open[$indent] --;
+					$open[$indent]--;
 				}
 				echo str_pad("\t", $indent - 1, "\t");
-				$open[$indent] ++;
+				$open[$indent]++;
 				$parents[$indent] = $itemid;
 				if ($level == 1) { // top level
 					$class = $css_class_topactive . $password_class;
@@ -1565,14 +1581,14 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	while ($indent > 1) {
 		if ($open[$indent]) {
 			echo "</li>\n";
-			$open[$indent] --;
+			$open[$indent]--;
 		}
 		$indent--;
 		echo str_pad("\t", $indent, "\t") . "</ul>";
 	}
 	if ($open[$indent]) {
 		echo "</li>\n";
-		$open[$indent] --;
+		$open[$indent]--;
 	} else {
 		echo "\n";
 	}

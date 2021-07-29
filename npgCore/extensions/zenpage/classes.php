@@ -489,18 +489,7 @@ class CMS {
 	 *
 	 */
 	function getTotalArticles() {
-		global $_CMS_current_category;
-		if (empty($_CMS_current_category)) {
-			if (isset($_GET['category'])) {
-				$cat = sanitize($_GET['category']);
-				$catobj = newCategory($cat);
-			} else {
-				return count($this->getArticles(0));
-			}
-		} else {
-			$catobj = $_CMS_current_category;
-		}
-		return count($catobj->getArticles());
+		return count($this->getArticles(0));
 	}
 
 	/**
@@ -807,7 +796,6 @@ class CMSItems extends CMSRoot {
 	/**
 	 * Class instantiator
 	 */
-
 	function __construct() {
 		// no action required
 	}
