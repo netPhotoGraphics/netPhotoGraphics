@@ -787,8 +787,7 @@ class sitemap {
 					Break;
 			}
 			// getting pages for the main news loop
-			$CMS_articles_per_page = ARTICLES_PER_PAGE;
-			$newspages = ceil($_CMS->getTotalArticles() / $CMS_articles_per_page);
+			$newspages = ceil($_CMS->getTotalArticles() / ARTICLES_PER_PAGE);
 			if ($newspages > 1) {
 				for ($x = 2; $x <= $newspages; $x++) {
 					switch (SITEMAP_LOCALE_TYPE) {
@@ -909,9 +908,8 @@ class sitemap {
 
 						// getting pages for the categories
 
-						$CMS_articles_per_page = ARTICLES_PER_PAGE;
 						$articlecount = count($catobj->getArticles());
-						$catpages = ceil($articlecount / $CMS_articles_per_page);
+						$catpages = ceil($articlecount / ARTICLES_PER_PAGE);
 						if ($catpages > 1) {
 							for ($x = 2; $x <= $catpages; $x++) {
 								$base = $catobj->getLink($x);
