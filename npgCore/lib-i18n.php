@@ -113,9 +113,11 @@ class i18n {
 		$try['NULL'] = NULL;
 		$rslt = setlocale(LC_ALL, $try);
 
-		putenv("LC_ALL=$locale");
-		putenv("LANG=$locale");
-		putenv("LANGUAGE=$locale");
+		if (function_exists('putenv')) {
+			putenv("LC_ALL=$locale");
+			putenv("LANG=$locale");
+			putenv("LANGUAGE=$locale");
+		}
 
 		if (function_exists('T_setlocale')) { //	using php-gettext
 			T_setlocale(LC_ALL, $locale);
