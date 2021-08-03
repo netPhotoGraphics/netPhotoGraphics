@@ -31,16 +31,6 @@ lazyLoader::register();
 
 class lazyLoader {
 
-	private static $imageFilters = array(
-			'standard_image_html',
-			'custom_image_html'
-	);
-	private static $thumbFilters = array(
-			'standard_album_thumb_html',
-			'custom_album_thumb_html',
-			'standard_image_thumb_html'
-	);
-
 	function __construct() {
 		if (OFFSET_PATH == 2) {
 			setOptionDefault('lazyLoader_Thumbnails', 0);
@@ -77,14 +67,13 @@ class lazyLoader {
 			npgFilters::register('standard_video_html', 'lazyLoader::videoHtml');
 		}
 		if (getoption('lazyLoader_Images')) {
-			foreach (self::$imageFilters as $filter) {
-				npgFilters::register($filter, 'lazyLoader::imageHtml');
-			}
+			npgFilters::register('standard_image_html', 'lazyLoader::imageHtml');
+			npgFilters::register('custom_image_html', 'lazyLoader::imageHtml');
 		}
 		if (getoption('lazyLoader_Thumbnails')) {
-			foreach (self::$thumbFilters as $filter) {
-				npgFilters::register($filter, 'lazyLoader::thumbHtml');
-			}
+			npgFilters::register('standard_album_thumb_html', 'lazyLoader::thumbHtml');
+			npgFilters::register('custom_album_thumb_html', 'lazyLoader::thumbHtml');
+			npgFilters::register('standard_image_thumb_html', 'lazyLoader::thumbHtml');
 		}
 	}
 
