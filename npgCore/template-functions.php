@@ -734,18 +734,17 @@ function getTotalPages($_oneImagePage = false) {
 	} else if (get_context() == NPG_INDEX) {
 		if (galleryAlbumsPerPage() != 0) {
 			return (int) ceil($_gallery->getNumAlbums() / galleryAlbumsPerPage());
-		} else {
-			return NULL;
 		}
 		return NULL;
 	} else if (isset($_CMS)) {
 		if (in_context(ZENPAGE_NEWS_CATEGORY)) {
-			$cat = $_CMS_current_category;
+			$total = count($_CMS_current_category->getArticles(0));
 		} else {
-			$cat = NULL;
+			$total = count($_CMS->getArticles(0));
 		}
-		return (int) ceil(count($_CMS->getArticles(0, NULL, true, NULL, NULL, NULL, $cat)) / ARTICLES_PER_PAGE);
+		return (int) ceil($total / ARTICLES_PER_PAGE);
 	}
+	return NULL;
 }
 
 /**
@@ -4625,7 +4624,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

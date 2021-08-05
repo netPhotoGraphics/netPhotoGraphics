@@ -457,6 +457,14 @@ class Category extends CMSRoot {
 	}
 
 	/**
+	 * Returns the articles count
+	 *
+	 */
+	function getTotalArticles() {
+		return count($this->getArticles(0));
+	}
+
+	/**
 	 * Returns an article from the album based on the index passed.
 	 *
 	 * @param int $index

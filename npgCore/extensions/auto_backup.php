@@ -103,10 +103,12 @@ class auto_backup {
 			$keep = getOption('backups_to_keep');
 			while (!empty($list) && count($list) >= $keep) {
 				$file = array_shift($list);
-				chmod(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file, 0777);
-				unlink(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file);
+				if (file_exists(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file)) {
+					chmod(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file, 0777);
+					unlink(SERVERPATH . "/" . BACKUPFOLDER . '/' . $file);
+				}
 			}
-			cron_starter(CORE_SERVERPATH .  UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
+			cron_starter(CORE_SERVERPATH . UTILITIES_FOLDER . '/backup_restore.php', array('action' => 'backup', 'autobackup' => 1, 'compress' => sprintf('%u', getOption('backup_compression')), 'XSRFTag' => 'backup'), 3);
 			setOption('last_backup_run', time());
 		}
 		$_backupMutex->unlock();
