@@ -144,7 +144,7 @@ switch ($suffix) {
 	default:
 		if ($disposal == 'Download') {
 			require_once(__DIR__ . '/lib-MimeTypes.php');
-			$mimetype = getMimeString($suffix);
+			$mimetype = mimeTypes::getType($suffix);
 			header('Content-Disposition: attachment; filename="' . $image . '"'); // enable this to make the image a download
 			$fp = fopen($image_path, 'rb');
 			// send the right headers
@@ -261,7 +261,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 if (!is_null($cache_path)) {
 	if ($disposal == 'Download' || !OPEN_IMAGE_CACHE) {
 		require_once(__DIR__ . '/lib-MimeTypes.php');
-		$mimetype = getMimeString($suffix);
+		$mimetype = mimeTypes::getType($suffix);
 		$fp = fopen($cache_path, 'rb');
 		// send the right headers
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
