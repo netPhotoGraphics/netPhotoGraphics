@@ -395,3 +395,14 @@ function getUrAlbum($album) {
 	}
 	return NULL;
 }
+
+/**
+ * @deprecated since version 2.00.11
+ * 
+ * @param type $suffix
+ * @return type
+ */
+function getMimeString($suffix) {
+	deprecated_functions::notify(gettext('Use <code>mimeTypes"::getType()</code> method instead.'));
+	return mimeTypes::getType($suffix);
+}

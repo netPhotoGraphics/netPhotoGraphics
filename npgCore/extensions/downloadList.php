@@ -716,7 +716,7 @@ if (isset($_GET['download'])) {
 				require_once(CORE_SERVERPATH . 'lib-MimeTypes.php');
 				DownloadList::updateListItemCount($_downloadFile);
 				$ext = getSuffix($_downloadFile);
-				$mimetype = getMimeString($ext);
+				$mimetype = mimeTypes::getType($ext);
 				header('Content-Description: File Transfer');
 				header('Content-Type: ' . $mimetype);
 				header('Content-Disposition: attachment; filename=' . basename(urldecode($_downloadFile)));
