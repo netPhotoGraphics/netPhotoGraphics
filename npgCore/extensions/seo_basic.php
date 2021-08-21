@@ -1045,7 +1045,7 @@ class seo_basic {
 	 * @return string
 	 */
 	static function filter($string) {
-		$string = str_replace(array_keys(self::$specialchars), self::$specialchars, $string);
+		$string = strtr($string, self::$specialchars);
 		if (getOption('seo_basic_lowercase')) {
 			$string = strtolower($string);
 		}
@@ -1056,18 +1056,19 @@ class seo_basic {
 	}
 
 	static function js($js) {
-		$xlate = array();
+		$c = 1;
+		$js .= "fold = {\n";
 		foreach (self::$specialchars as $from => $to) {
-			if (array_key_exists($to, $xlate)) {
-				$xlate[$to] .= $from;
-			} else {
-				$xlate[$to] = $from;
+			$js .= '"' . $from . '" : "' . $to . '", ';
+			if ($c++ > 10) {
+				$c = 1;
+				$js .= "\n";
 			}
-		} foreach ($xlate as $to => $from) {
-			$js .= "fname = fname.replace(/[" . $from . "]/g, '" . $to . "');\n";
 		}
+		$js .= "\n};\n";
+		$js .= "fname = strtr(fname, fold);\n";
 
-		if (getOption('seo_basaic_lowercase')) {
+		if (getOption('seo_basic_lowercase')) {
 			$js .= "fname = fname.toLowerCase();\n";
 		}
 
@@ -1075,5 +1076,4 @@ class seo_basic {
 	}
 
 }
-
 ?>

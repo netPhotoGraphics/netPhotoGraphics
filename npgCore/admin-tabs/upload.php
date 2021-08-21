@@ -156,10 +156,11 @@ foreach ($albumlist as $key => $value) {
 				} else {
 					$checked = '';
 				}
+
+				seoFriendlyJS();
 				?>
 				<script type="text/javascript">
 					// <!-- <![CDATA[
-	<?php seoFriendlyJS(); ?>
 					function buttonstate(good) {
 						$('#albumtitleslot').val($('#albumtitle').val());
 						$('#publishalbumslot').val($('#publishalbum').prop('checked'));

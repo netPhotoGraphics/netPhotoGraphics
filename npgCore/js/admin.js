@@ -409,3 +409,20 @@ function setCookie(cname, cvalue, exdays, path) {
 	var expires = "expires=" + d.toUTCString();
 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=" + path;
 }
+
+function strtr(s, p, r) {
+	return !!s && {
+		2: function () {
+			for (var i in p) {
+				s = strtr(s, i, p[i]);
+			}
+			return s;
+		},
+		3: function () {
+			return s.replace(RegExp(p, 'g'), r);
+		},
+		0: function () {
+			return;
+		}
+	}[arguments.length]();
+}
