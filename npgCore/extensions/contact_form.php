@@ -128,6 +128,7 @@ class contactformOptions {
 						'order' => 8,
 						'desc' => sprintf($mailfieldinstruction, gettext("Website"))),
 				gettext('CAPTCHA') => array('key' => 'contactform_captcha', 'type' => OPTION_TYPE_CHECKBOX,
+						'disabled' => !($_captcha->name),
 						'order' => 10,
 						'desc' => ($_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
 				gettext('Phone') => array('key' => 'contactform_phone', 'type' => OPTION_TYPE_RADIO, 'buttons' => $list,

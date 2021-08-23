@@ -2210,7 +2210,7 @@ function getXSRFToken($action, $modifier = NULL) {
  */
 function XSRFToken($action, $modifier = NULL) {
 	?>
-	< input type = "hidden" name = "XSRFToken" class = "XSRFToken" value = "<?php echo getXSRFToken($action, $modifier); ?>" / >
+	<input type="hidden" name="XSRFToken" class="XSRFToken" value="<?php echo getXSRFToken($action, $modifier); ?>" />
 	<?php
 }
 
@@ -2260,14 +2260,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$paramlist .= '&auth=' . $auth . '&offsetPath=' . $offsetPath;
 			$_HTML_cache->abortHTMLCache(true);
 			?>
-			< script type = "text/javascript" >
+			<script type="text/javascript" >
 			// <!-- <![CDATA[
-			$.ajax({
-			type: 'POST',
-							cache: false,
-							data: '<?php echo $paramlist; ?>',
-							url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
-			});
+				$.ajax({
+					type: 'POST',
+					cache: false,
+					data: '<?php echo $paramlist; ?>',
+					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
+				});
 			// ]]> -->
 			</script>
 			<?php
