@@ -96,16 +96,18 @@ function getOptionContent() {
 			</script>
 
 			<?php
-			$allplugincount = count($pluginlist);
-			$numsteps = ceil(min(100, $allplugincount) / PLUGINS_STEP);
-			if ($numsteps) {
-				?>
-				<?php
-				$steps = array();
-				for ($i = 1; $i <= $numsteps; $i++) {
-					$steps[] = $i * PLUGINS_STEP;
+			if (!$showExtension) {
+				$allplugincount = count($pluginlist);
+				$numsteps = ceil(min(100, $allplugincount) / PLUGINS_STEP);
+				if ($numsteps) {
+					?>
+					<?php
+					$steps = array();
+					for ($i = 1; $i <= $numsteps; $i++) {
+						$steps[] = $i * PLUGINS_STEP;
+					}
+					printEditDropdown('pluginOptionInfo', $steps, PLUGINS_PER_PAGE, '&amp;tab=plugin');
 				}
-				printEditDropdown('pluginOptionInfo', $steps, PLUGINS_PER_PAGE, '&amp;tab=plugin');
 			}
 			?>
 
