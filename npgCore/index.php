@@ -12,7 +12,7 @@ if (!defined('OFFSET_PATH'))
 $_themeScript_timer['start'] = microtime();
 require_once(__DIR__ . '/functions.php');
 
-if (GALLERY_SESSION || npg_loggedin(UPLOAD_RIGHTS | ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
+if (GALLERY_SESSION || npg_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS | ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS)) {
 	npg_session_start();
 }
 if (function_exists('openssl_encrypt')) {

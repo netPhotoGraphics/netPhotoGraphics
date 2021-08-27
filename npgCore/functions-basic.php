@@ -342,7 +342,7 @@ function sanitize_string($input, $sanitize_level) {
 	return $input;
 }
 
-///// database helper functions
+// database helper functions
 
 /**
  * Prefix a table name with a user-defined string to avoid conflicts.
@@ -629,7 +629,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-// Get a backtrace.
+	// Get a backtrace.
 	$bt = debug_backtrace();
 	while ($omit >= 0) {
 		array_shift($bt); // Get rid of debug_backtrace, callers in the backtrace.

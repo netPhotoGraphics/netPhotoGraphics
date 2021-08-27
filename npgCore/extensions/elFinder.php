@@ -78,7 +78,7 @@ if (getOption('elFinder_tinymce')) {
 }
 
 function elFinder_admin_tabs($tabs) {
-	if (npg_loggedin(UPLOAD_RIGHTS)) {
+	if (npg_loggedin(FILES_RIGHTS | UPLOAD_RIGHTS)) {
 		$me = sprintf(gettext('files (%s)'), 'elFinder');
 		if (is_null($tabs['upload'])) {
 			$tabs['upload'] = array('text' => gettext("upload"),
@@ -88,7 +88,6 @@ function elFinder_admin_tabs($tabs) {
 			);
 		}
 		$tabs['upload']['subtabs'][$me] = PLUGIN_FOLDER . '/' . 'elFinder/filemanager.php?page=upload&tab=elFinder&type=' . gettext('files');
-		;
 	}
 	return $tabs;
 }

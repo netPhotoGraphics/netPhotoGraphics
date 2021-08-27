@@ -76,6 +76,7 @@ class register_user {
 						'desc' => gettext('If checked, The use’s e-mail address will be used as his User ID.')),
 				gettext('CAPTCHA') => array('key' => 'register_user_captcha', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
+						'disabled' => !($_captcha->name),
 						'desc' => ($_captcha->name) ? gettext('If checked, the form will include a Captcha verification.') : '<span class="notebox">' . gettext('No captcha handler is enabled.') . '</span>'),
 		);
 		if (extensionEnabled('userAddressFields')) {

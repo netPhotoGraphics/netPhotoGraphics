@@ -123,6 +123,18 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 				/* Page code */
 				$subtab = getCurrentTab();
 				$name = getTabName('options', $subtab);
+				switch ($subtab) {
+					case 'plugin':
+						if (isset($_GET['single'])) {
+							$name = '<i>' . $_GET['single'] . '</i> ';
+						}
+						break;
+					case 'theme':
+						if (isset($_GET['optiontheme'])) {
+							$name = '<i>' . $_GET['optiontheme'] . '</i> ';
+						}
+						break;
+				}
 				npgFilters::apply('admin_note', 'options', $subtab);
 				?>
 				<h1>

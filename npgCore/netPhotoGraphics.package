@@ -7143,6 +7143,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/php/elFinderVolumeLocalFileSystem.class.php
 %extensions%/elFinder/php/elFinderVolumeMySQL.class.php
 %extensions%/elFinder/php/elFinderVolumeOneDrive.class.php
+%extensions%/elFinder/php/elFinderVolumeSFTPphpseclib.class.php
 %extensions%/elFinder/php/elFinderVolumeTrash.class.php
 %extensions%/elFinder/php/elFinderVolumeTrashMySQL.class.php
 %extensions%/elFinder/php/mime.types
@@ -8040,4 +8041,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8042
+8043

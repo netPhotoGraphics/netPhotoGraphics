@@ -2044,22 +2044,26 @@ function seoFriendly($string) {
  */
 function seoFriendlyJS() {
 	?>
-	function seoFriendlyJS(fname) {
-	fname = fname.trim();
-	fname = fname.replace(/\s+\.\s*/,'.');
+	<script type="text/javascript">
+		function seoFriendlyJS(fname) {
+			fname = fname.trim();
+			fname = fname.replace(/\s+\.\s*/, '.');
 	<?php
 	if (npgFilters::has_filter('seoFriendly_js')) {
+		?>
+		<?php
 		echo npgFilters::apply('seoFriendly_js', '');
 	} else { // no filter, do basic cleanup
 		?>
-		fname = fname.replace(/[^a-zA-Z0-9_.-]/g, '-');
+				fname = fname.replace(/[^a-zA-Z0-9_.-]/g, '-');
 		<?php
 	}
 	?>
-	fname = fname.replace(/\s+/g, '-');
-	fname = fname.replace(/--+/g, '-');
-	return fname;
-	}
+			fname = fname.replace(/\s+/g, '-');
+			fname = fname.replace(/--+/g, '-');
+			return fname;
+		}
+	</script>
 	<?php
 }
 
@@ -2217,7 +2221,7 @@ function XSRFToken($action, $modifier = NULL) {
 function httpsRedirect() {
 	global $_conf_vars;
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
-		// force https
+// force https
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
@@ -2256,15 +2260,15 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$paramlist .= '&auth=' . $auth . '&offsetPath=' . $offsetPath;
 			$_HTML_cache->abortHTMLCache(true);
 			?>
-			<script type="text/javascript">
-				// <!-- <![CDATA[
+			<script type="text/javascript" >
+			// <!-- <![CDATA[
 				$.ajax({
 					type: 'POST',
 					cache: false,
 					data: '<?php echo $paramlist; ?>',
 					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
 				});
-				// ]]> -->
+			// ]]> -->
 			</script>
 			<?php
 		}

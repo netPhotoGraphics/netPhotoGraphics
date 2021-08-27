@@ -11,7 +11,7 @@
 define('OFFSET_PATH', 1);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-admin_securityChecks(UPLOAD_RIGHTS | FILES_RIGHTS, $return = currentRelativeURL());
+admin_securityChecks(UPLOAD_RIGHTS, $return = currentRelativeURL());
 
 if (isset($_GET['page'])) {
 	$page = sanitize($_GET['page']);
@@ -33,22 +33,12 @@ if (isset($_GET['tab'])) {
 	$_GET['tab'] = $uploadtype;
 }
 $handlers = array_keys($uploadHandlers = npgFilters::apply('upload_handlers', array()));
-if (!npg_loggedin(UPLOAD_RIGHTS) || empty($handlers)) {
-	//	redirect to the files page if present
-	if (isset($_admin_menu['upload']['subtabs'])) {
-		header('location: ' . array_shift($_admin_menu['upload']['subtabs']));
-		exit();
-	}
-	$handlers = array();
-}
-
 if (count($handlers) > 0) {
 	if (!isset($uploadHandlers[$uploadtype]) || !file_exists($uploadHandlers[$uploadtype] . '/upload_form.php')) {
 		$uploadtype = array_shift($handlers);
 	}
 	require_once($uploadHandlers[$uploadtype] . '/upload_form.php');
 } else {
-
 	require_once(CORE_SERVERPATH . 'no_uploader.php');
 	exit();
 }
@@ -166,10 +156,11 @@ foreach ($albumlist as $key => $value) {
 				} else {
 					$checked = '';
 				}
+
+				seoFriendlyJS();
 				?>
 				<script type="text/javascript">
 					// <!-- <![CDATA[
-	<?php seoFriendlyJS(); ?>
 					function buttonstate(good) {
 						$('#albumtitleslot').val($('#albumtitle').val());
 						$('#publishalbumslot').val($('#publishalbum').prop('checked'));
