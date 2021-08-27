@@ -1466,8 +1466,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param int $albumid zero or the album "owning" the theme
 	 */
 	function standardThemeOptions($theme, $album) {
-		setThemeOption('albums_per_page', 6, $album, $theme, true);
-		setThemeOption('albums_per_row', 3, $album, $theme, true);
+		setThemeOption('albums_per_page', 8, $album, $theme, true);
 		setThemeOption('images_per_page', 20, $album, $theme, true);
 		setThemeOption('images_per_row', 5, $album, $theme, true);
 		setThemeOption('image_size', 595, $album, $theme, true);
@@ -2258,7 +2257,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										<input type="checkbox" name="<?php echo $prefix; ?>album_sortdirection" value="1" <?php
 										if ($album->getSortDirection('album')) {
 											echo ' checked="checked"';
-										};
+										}
 										?> />
 									</label>
 								</span>

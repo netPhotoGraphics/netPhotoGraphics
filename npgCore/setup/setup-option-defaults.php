@@ -697,7 +697,7 @@ purgeOption('spam_filter');
 purgeOption('site_upgrade_state');
 purgeOption('last_update_check');
 
-foreach (array('albums_per_page', 'albums_per_row', 'images_per_page', 'images_per_row', 'image_size', 'image_use_side', 'thumb_size', 'thumb_crop_width', 'thumb_crop_height', 'thumb_crop', 'thumb_transition') as $option) {
+foreach (array('images_per_page', 'albums_per_page', 'image_size', 'image_use_side', 'thumb_size', 'thumb_crop_width', 'thumb_crop_height', 'thumb_crop', 'thumb_transition') as $option) {
 	$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `name`=' . db_quote($option) . ' AND `theme`=""';
 	query($sql);
 }

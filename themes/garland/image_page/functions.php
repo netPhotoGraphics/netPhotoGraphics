@@ -11,10 +11,6 @@ class image_page {
 
 	}
 
-	function onePage() {
-		return false;
-	}
-
 	function theme_head($_themeroot) {
 
 	}
@@ -47,7 +43,8 @@ class image_page {
 		</div>
 		<br class="clearall" />
 		<?php
-		if (function_exists('printSlideShowLink')) printSlideShowLink();
+		if (function_exists('printSlideShowLink'))
+			printSlideShowLink();
 	}
 
 }

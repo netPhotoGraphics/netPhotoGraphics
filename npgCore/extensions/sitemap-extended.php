@@ -341,7 +341,7 @@ class sitemap {
 		$data = '';
 		if ($_sitemap_number < 2) {
 			set_context(NPG_INDEX);
-			$albums_per_page = getOption('albums_per_page');
+			$albums_per_page = galleryAlbumsPerPage();
 			if (sitemap::galleryIndex()) {
 				$galleryindex_mod = ltrim(getCustomPageRewrite('gallery'), '/');
 				$galleryindex_nomod = 'index.php?p=gallery&amp;page=';
@@ -471,7 +471,7 @@ class sitemap {
 	 * @return string
 	 */
 	static function getAlbums() {
-		global $_gallery, $_sitemap_number;
+		global $_gallery, $_sitemap_number, $_transitionImageCount;
 		$data = '';
 		$sitemap_locales = i18n::generateLanguageList();
 		$albumchangefreq = getOption('sitemap_changefreq_albums');
@@ -492,7 +492,7 @@ class sitemap {
 				set_context(NPG_ALBUM);
 				makeAlbumCurrent($albumobj);
 				setupTheme($albumobj);
-				setThemeColumns();
+				$_transitionImageCount = getTransitionImageCount();
 				$pageCount = getTotalPages();
 				//$imageCount = getNumImages();
 				//$images = $albumobj->getImages();
@@ -634,11 +634,12 @@ class sitemap {
 	static function getGoogleLoopIndex($imageCount, $pageCount) {
 		if (GOOGLE_SITEMAP) {
 			$loop_index = array();
+			$imagesPerPage = max(1, galleryImagesPerPage());
 			for ($x = 1; $x <= $pageCount; $x++) {
-				if ($imageCount < ($x * getOption('images_per_page'))) {
-					$val = $imageCount - (($x - 1) * getOption('images_per_page'));
+				if ($imageCount < ($x * $imagesPerPage)) {
+					$val = $imageCount - (($x - 1) * $imagesPerPage);
 				} else {
-					$val = getOption('images_per_page');
+					$val = $imagesPerPage;
 				}
 				array_push($loop_index, $val);
 			}

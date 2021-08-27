@@ -299,9 +299,7 @@ $backgroundImagePath = "";
 
 			<div id="pagenumbers">
 				<?php
-				if ((getNumAlbums() != 0) || !$_oneImagePage) {
-					printPageListWithNav("« " . gettext('prev'), gettext('next') . " »", $_oneImagePage);
-				}
+				printPageListWithNav("« " . gettext('prev'), gettext('next') . " »");
 				?>
 			</div> <!-- pagenumbers -->
 		</div> <!-- subcontent -->

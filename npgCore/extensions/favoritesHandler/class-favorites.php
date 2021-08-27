@@ -295,20 +295,16 @@ class favorites extends AlbumBase {
 	}
 
 	static function pageCount($count, $gallery_page, $page) {
-		global $_firstPageImages, $_oneImagePage;
+		global $_transitionImageCount;
 		if (stripSuffix($gallery_page) == 'favorites') {
-			$albums_per_page = max(1, getOption('albums_per_page'));
+			$albums_per_page = galleryAlbumsPerPage();
 			$pageCount = (int) ceil(getNumAlbums() / $albums_per_page);
 			$imageCount = getNumImages();
-			if ($_oneImagePage) {
-				if ($_oneImagePage === true) {
-					$imageCount = min(1, $imageCount);
-				} else {
-					$imageCount = 0;
-				}
+			if (!galleryImagesPerPage()) {
+				$imageCount = min(1, $imageCount);
 			}
-			$images_per_page = max(1, getOption('images_per_page'));
-			$count = ($pageCount + (int) ceil(($imageCount - $_firstPageImages) / $images_per_page));
+
+			$count = ($pageCount + (int) ceil(($imageCount - $_transitionImageCount) / $images_per_page));
 			if ($count < $page && isset($_POST['addToFavorites']) && !$_POST['addToFavorites']) {
 				//We've deleted last item on page, need a place to land when we return
 				global $_current_page;

@@ -19,11 +19,10 @@ class ThemeOptions {
 
 		// set core theme option defaults
 		setThemeOptionDefault('image_size', 1200);
-		setThemeOptionDefault('albums_per_row', 6);
 		setThemeOptionDefault('images_per_row', 9);
 		setThemeOptionDefault('albums_per_page', 16);
 		setThemeOptionDefault('images_per_page', 32);
-		setThemeOptionDefault('thumb_transition', 2);
+		setThemeOptionDefault('thumb_transition', true);
 
 		// set theme option defaults
 		setThemeOptionDefault('zpmas_usenews', true);

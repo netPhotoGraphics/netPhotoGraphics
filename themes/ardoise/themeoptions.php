@@ -11,7 +11,6 @@ require_once(CORE_SERVERPATH . 'admin-functions.php');
 class ThemeOptions {
 
 	function __construct() {
-		setThemeOptionDefault('albums_per_row', 3);
 		setThemeOptionDefault('albums_per_page', 9);
 		setThemeOptionDefault('images_per_row', 5);
 		setThemeOptionDefault('images_per_page', 20);

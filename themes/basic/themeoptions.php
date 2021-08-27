@@ -18,7 +18,6 @@ class ThemeOptions {
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Theme_colors', 'light');
 		setThemeOptionDefault('albums_per_page', 6);
-		setThemeOptionDefault('albums_per_row', 2);
 		setThemeOptionDefault('images_per_page', 20);
 		setThemeOptionDefault('images_per_row', 5);
 		setThemeOptionDefault('image_size', 595);
@@ -27,7 +26,7 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop_width', 100);
 		setThemeOptionDefault('thumb_crop_height', 100);
 		setThemeOptionDefault('thumb_crop', 1);
-		setThemeOptionDefault('thumb_transition', 1);
+		setThemeOptionDefault('thumb_transition', true);
 
 		if (class_exists('cacheManager')) {
 			$me = basename(__DIR__);

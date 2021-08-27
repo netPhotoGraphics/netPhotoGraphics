@@ -112,7 +112,7 @@ if ($_requested_object) {
 }
 
 if (in_context(NPG_ALBUM | NPG_SEARCH)) {
-	setThemeColumns();
+	$_transitionImageCount = getTransitionImageCount();
 }
 
 //check for valid page number (may be theme dependent!)

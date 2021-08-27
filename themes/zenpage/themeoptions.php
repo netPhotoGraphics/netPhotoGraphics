@@ -21,7 +21,6 @@ class ThemeOptions {
 		setThemeOptionDefault('zenpage_contactpage', true);
 		setThemeOptionDefault('zenpage_custommenu', false);
 		setThemeOptionDefault('albums_per_page', 6);
-		setThemeOptionDefault('albums_per_row', 2);
 		setThemeOptionDefault('images_per_page', 20);
 		setThemeOptionDefault('images_per_row', 5);
 		setThemeOption('image_size', 580, NULL);
@@ -30,7 +29,7 @@ class ThemeOptions {
 		setThemeOptionDefault('thumb_crop_width', 95);
 		setThemeOptionDefault('thumb_crop_height', 95);
 		setThemeOptionDefault('thumb_crop', 1);
-		setThemeOptionDefault('thumb_transition', 1);
+		setThemeOptionDefault('thumb_transition', true);
 
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes($me);
