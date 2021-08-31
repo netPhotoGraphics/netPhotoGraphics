@@ -12,7 +12,6 @@
 //*SEARCH ENGINE CLASS *******************************
 //*************************************************************
 
-define('EXACT_TAG_MATCH', getOption('exact_tag_match'));
 define('SEARCH_DURATION', 3000);
 define('SEARCH_CACHE_DURATION', getOption('search_cache_duration'));
 
@@ -68,35 +67,6 @@ class SearchEngine {
 			$this->language = substr($_current_locale, 0, 2);
 		} else {
 			$this->language = $_current_locale;
-		}
-		switch ((int) getOption('exact_tag_match')) {
-			case 0:
-				// partial
-				$this->tagPattern = array('type' => 'like', 'open' => '%', 'close' => '%');
-				break;
-			case 1:
-				// exact
-				$this->tagPattern = array('type' => '=', 'open' => '', 'close' => '');
-				break;
-			case 2:
-				//word
-				$this->tagPattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
-				break;
-		}
-
-		switch ((int) getOption('exact_string_match')) {
-			case 0:
-				// pattern
-				$this->pattern = array('type' => 'like', 'open' => '%', 'close' => '%');
-				break;
-			case 1:
-				// partial start
-				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '');
-				break;
-			case 2:
-				//word
-				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
-				break;
 		}
 
 		$this->search_instance = uniqid();
@@ -539,6 +509,12 @@ class SearchEngine {
 						}
 						$this->album_list = $list;
 					}
+					break;
+				case 'exact_tag_match':
+				case 'exact_string_match':
+				case 'search_space_is':
+				case 'languageTagSearch':
+					setOption($p, $v, false);
 					break;
 				case 'unpublished':
 					$this->search_unpublished = (bool) $v;
@@ -1214,7 +1190,37 @@ class SearchEngine {
 		global $_gallery;
 		$weights = $idlist = array();
 		$sql = $allIDs = NULL;
-		$tagPattern = $this->tagPattern;
+
+		switch ((int) getOption('exact_tag_match')) {
+			case 0:
+				// partial
+				$this->tagPattern = array('type' => 'like', 'open' => '%', 'close' => '%');
+				break;
+			case 1:
+				// exact
+				$this->tagPattern = array('type' => '=', 'open' => '', 'close' => '');
+				break;
+			case 2:
+				//word
+				$this->tagPattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
+				break;
+		}
+
+		switch ((int) getOption('exact_string_match')) {
+			case 0:
+				// pattern
+				$this->pattern = array('type' => 'like', 'open' => '%', 'close' => '%');
+				break;
+			case 1:
+				// partial start
+				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '');
+				break;
+			case 2:
+				//word
+				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
+				break;
+		}
+
 		// create an array of [tag, objectid] pairs for tags
 		$tag_objects = array();
 		$fields = $this->fieldList;
@@ -1254,10 +1260,10 @@ class SearchEngine {
 					}
 					break;
 				case 'tags_exact':
-					$tagPattern = array('type' => '=', 'open' => '', 'close' => '');
+					$this->tagPattern = array('type' => '=', 'open' => '', 'close' => '');
 				case 'tags':
 					unset($fields[$key]);
-					$result = query($this->getTagSQL($searchstring, $tbl, $tagPattern), false);
+					$result = query($this->getTagSQL($searchstring, $tbl, $this->tagPattern), false);
 					if ($result) {
 						while ($row = db_fetch_assoc($result)) {
 							$tag_objects[] = array('name' => $row['name'], 'field' => 'tags', 'objectid' => $row['objectid']);
@@ -1322,7 +1328,7 @@ class SearchEngine {
 		}
 
 		// now do the boolean logic of the search string
-		$exact = $tagPattern['type'] == '=';
+		$exact = $this->tagPattern['type'] == '=';
 		$objects = array_merge($tag_objects, $field_objects);
 		if (count($objects) != 0) {
 			$tagid = '';

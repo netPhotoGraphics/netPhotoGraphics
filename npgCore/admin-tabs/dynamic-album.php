@@ -103,6 +103,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 			}
 
 			$constraints = "\nCONSTRAINTS=" . 'inalbums=' . $inalbums . '&inimages=' . ((int) (isset($_POST['return_images']))) . '&unpublished=' . ((int) (isset($_POST['return_unpublished'])));
+
+			$constraints .= '&exact_tag_match=' . sanitize($_POST['tag_match']) . '&exact_string_match=' . sanitize($_POST['string_match']) . '&search_space_is=' . sanitize($_POST['search_space_is']) . '&languageTagSearch=' . sanitize($_POST['languageTagSearch']);
+
 			$redirect = $album . '/' . $albumname . '.alb';
 
 			if (!empty($albumname)) {
@@ -259,6 +262,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 				<td class="nowrap"><?php echo gettext("Search criteria:"); ?></td>
 				<td>
 					<input type="text" size="60" name="words" value="<?php echo html_encode($words); ?>" />
+					<br />
 					<label>
 						<input type="checkbox" name="return_albums" value="1"<?php if (!getOption('search_no_albums')) echo ' checked="checked"' ?> />
 						<?php echo gettext('Return albums found') ?>
@@ -271,6 +275,33 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 						<input type="checkbox" name="return_unpublished" value="1" />
 						<?php echo gettext('Return unpublished items') ?>
 					</label>
+					<br />
+
+					<?php
+					echo gettext('string matching');
+					generateRadiobuttonsFromArray((int) getOption('exact_string_match'), array(gettext('<em>pattern</em>') => 0, gettext('<em>partial word</em>') => 1, gettext('<em>word</em>') => 2), 'string_match', 'string_match', false, false);
+					?>
+					<br />
+					<?php
+					echo gettext('tag matching');
+					generateRadiobuttonsFromArray((int) getOption('exact_tag_match'), array(gettext('<em>partial</em>') => 0, gettext('<em>word</em>') => 2, gettext('<em>exact</em>') => 1), 'tag_match', 'tag_match', false, false);
+					?>
+					<br />
+					<?php echo gettext('language specific tags'); ?>
+					<label>
+						<input type="radio" name="languageTagSearch"  value="" <?php if (getOption('languageTagSearch') == 0) echo ' checked="checked"'; ?> /><?php echo gettext('off'); ?>
+					</label>
+					<label>
+						<input type="radio" name="languageTagSearch"  value="1" <?php if (getOption('languageTagSearch') == 1) echo ' checked="checked"'; ?> /><?php echo gettext('generic'); ?>
+					</label>
+					<label>
+						<input type="radio" name="languageTagSearch"  value="2" <?php if (getOption('languageTagSearch') == 2) echo ' checked="checked"'; ?> /><?php echo gettext('specific'); ?>
+					</label>
+					<br />
+					<?php
+					echo gettext('treat spaces as');
+					generateRadiobuttonsFromArray(getOption('search_space_is'), array(gettext('<em>space</em>') => '', gettext('<em>OR</em>') => 'OR', gettext('<em>AND</em>') => 'AND'), 'search_space_is', 'search_space_is', false, false);
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -305,10 +336,10 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 						<input type="radio" name="create_tagged" value="static" onchange="setTagged(true)"/>
 						<?php echo gettext('tagged'); ?>
 					</label>
+					&nbsp;
 				</td>
 				<td>
-					<br />
-					<?php echo gettext('Select <em>tagged</em> statically define the search results as the album contents.'); ?>
+					<?php echo gettext('Select <em>tagged</em> to statically define the search results as the album contents.'); ?>
 				</td>
 			</tr>
 			<tr id="album_tag" style="display: none">

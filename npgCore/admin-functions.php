@@ -2090,7 +2090,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<?php
 									switch ($album->isDynamic()) {
 										case 'alb':
-											echo html_encode(str_replace(',', ', ', urldecode($album->getSearchParams())));
+											echo html_encode(strtr(urldecode($album->getSearchParams()), array(',' => ', ', '&' => ' & ')));
 											break;
 										case'fav':
 											echo html_encode($album->owner);
