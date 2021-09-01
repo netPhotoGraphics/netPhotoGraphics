@@ -378,9 +378,8 @@ setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 setOptionDefault('time_zone', date('T'));
 purgeOption('mod_rewrite');
 $sfx = getOption('mod_rewrite_image_suffix');
-if ($sfx) {
-	purgeOption('mod_rewrite_image_suffix');
-} else {
+purgeOption('mod_rewrite_image_suffix');
+if (!$sfx) {
 	$sfx = '.htm';
 }
 setOptionDefault('mod_rewrite_suffix', $sfx);
@@ -404,13 +403,13 @@ purgeOption('mod_rewrite_detected');
 //	Update the root index.php file so admin mod_rewrite works
 //	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
 $rootupdate = updateRootIndexFile();
-
 if (isset($_GET['mod_rewrite'])) {
+	$link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix');
 	?>
 	<p>
 		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-			<img id="MODREWRITE" src="<?php echo getAdminLink('setup/setup_set-mod_rewrite.php'); ?>"   height="16px" width="16px" />
+			<img id="MODREWRITE" src="<?php echo $link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
 		</span>
 	</p>
 
