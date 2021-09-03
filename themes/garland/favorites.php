@@ -90,9 +90,7 @@ if (class_exists('favorites')) {
 										<br class="clearall" />
 										<?php if (function_exists('printSlideShowLink')) printSlideShowLink(); ?>
 										<?php
-										if ((getNumAlbums() != 0) || !$_oneImagePage) {
-											printPageListWithNav(gettext("« prev"), gettext("next »"), $_oneImagePage);
-										}
+										printPageListWithNav(gettext("« prev"), gettext("next »"));
 										?>
 										<?php
 										printCodeblock(2);

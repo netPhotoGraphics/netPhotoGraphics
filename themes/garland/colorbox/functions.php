@@ -16,10 +16,6 @@ class ga_colorbox {
 
 	}
 
-	function onePage() {
-		return false;
-	}
-
 	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
@@ -79,7 +75,8 @@ class ga_colorbox {
 		</div>
 		<br class="clearall" />
 		<?php
-		if (function_exists('printSlideShowLink')) printSlideShowLink();
+		if (function_exists('printSlideShowLink'))
+			printSlideShowLink();
 	}
 
 }

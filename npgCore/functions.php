@@ -872,6 +872,15 @@ function galleryAlbumsPerPage() {
 }
 
 /**
+ * Returns the number of image thumbs that go on a gallery page
+ *
+ * @return int
+ */
+function galleryImagesPerPage() {
+	return getOption('images_per_page');
+}
+
+/**
  * Returns the theme folder
  * If there is an album theme, loads the theme options.
  *
@@ -2261,14 +2270,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript" >
-			// <!-- <![CDATA[
+				// <!-- <![CDATA[
 				$.ajax({
 					type: 'POST',
 					cache: false,
 					data: '<?php echo $paramlist; ?>',
 					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
 				});
-			// ]]> -->
+				// ]]> -->
 			</script>
 			<?php
 		}

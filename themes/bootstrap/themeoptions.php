@@ -13,7 +13,6 @@ class ThemeOptions {
 	function __construct() {
 
 		$me = basename(__DIR__);
-		setThemeOptionDefault('albums_per_row', 3);
 		setThemeOptionDefault('albums_per_page', 12);
 		setThemeOptionDefault('images_per_row', 4);
 		setThemeOptionDefault('images_per_page', 16);

@@ -280,7 +280,7 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
 				$filesmask = 'image';
 			} else {
 				$filesmask = 'album';
-			};
+			}
 			$child = $obj->getParentID();
 			$defaulttext = gettext('inherited');
 			break;

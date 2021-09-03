@@ -57,6 +57,11 @@ if (!empty($requirePath)) {
 /* then set any "standard" options that may not have been covered by the theme */
 standardThemeOptions($theme, NULL);
 
+if (protectedTheme($theme)) {
+	//	purge obsolete theme options
+	purgeOption('albums_per_row', $theme);
+}
+
 sendImage($_GET['class'], 'theme_' . $theme);
 
 list($usec, $sec) = explode(" ", microtime());

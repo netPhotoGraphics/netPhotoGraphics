@@ -11,10 +11,6 @@ class image_page {
 
 	}
 
-	function onePage() {
-		return false;
-	}
-
 	function theme_head($_themeroot) {
 		return false;
 	}
@@ -74,10 +70,10 @@ class image_page {
 					?>
 				</div><!-- images -->
 				<?php if (function_exists('printAddToFavorites')) printAddToFavorites($_current_album); ?>
-		<?php if (function_exists('printRating')) printRating(); ?>
+				<?php if (function_exists('printRating')) printRating(); ?>
 			</div> <!-- main -->
 			<div class="clearage"></div>
-		<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
+			<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
 		</div> <!-- content -->
 		<?php
 	}

@@ -15,7 +15,6 @@ class ThemeOptions {
 		$me = basename(__DIR__);
 
 		setThemeOption('gallery_index', TRUE);
-		setThemeOptionDefault('albums_per_row', 4);
 		setThemeOptionDefault('albums_per_page', 12);
 		setThemeOptionDefault('images_per_row', 5);
 		setThemeOptionDefault('images_per_page', 20);

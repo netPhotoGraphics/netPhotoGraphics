@@ -49,7 +49,7 @@ $plugin_description = gettext('Support for <em>favorites</em> handling.');
 
 $option_interface = 'favoritesHandler';
 
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/favoritesHandler/class-favorites.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/favoritesHandler/class-favorites.php');
 
 class favoritesHandler {
 
@@ -173,7 +173,7 @@ class favoritesHandler {
 						<input type="checkbox" name="album_sortdirection" value="1"<?php
 						if (getOption('favorites_album_sort_direction')) {
 							echo ' checked = "checked"';
-						};
+						}
 						?> />
 					</label>
 				</span>

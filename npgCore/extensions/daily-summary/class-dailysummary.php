@@ -72,7 +72,7 @@ class DailySummary extends Gallery {
 	}
 
 	static function pageCount($count, $gallery_page, $page) {
-		global $_firstPageImages, $_current_DailySummary;
+		global $_transitionImageCount, $_current_DailySummary;
 		$items_per_page = max(1, getOption('DailySummaryItemsPage'));
 		return (int) ceil($_current_DailySummary->getTotalItems() / $items_per_page);
 	}

@@ -118,20 +118,17 @@ function saveOptions() {
 				}
 				setThemeOption('thumb_crop_height', $nch, $_set_theme_album, $themename);
 			}
-			if (isset($_POST['albums_per_page']) && isset($_POST['albums_per_row'])) {
-				$albums_per_page = sanitize_numeric($_POST['albums_per_page']);
-				$albums_per_row = max(1, sanitize_numeric($_POST['albums_per_row']));
-				$albums_per_page = ceil($albums_per_page / $albums_per_row) * $albums_per_row;
-				setThemeOption('albums_per_page', $albums_per_page, $_set_theme_album, $themename);
-				setThemeOption('albums_per_row', $albums_per_row, $_set_theme_album, $themename);
+
+			if (isset($_POST['albums_per_page'])) {
+				setThemeOption('albums_per_page', $_POST['albums_per_page'], $_set_theme_album, $themename);
 			}
-			if (isset($_POST['images_per_page']) && isset($_POST['images_per_row'])) {
-				$images_per_page = sanitize_numeric($_POST['images_per_page']);
-				$images_per_row = max(1, sanitize_numeric($_POST['images_per_row']));
-				$images_per_page = ceil($images_per_page / $images_per_row) * $images_per_row;
-				setThemeOption('images_per_page', $images_per_page, $_set_theme_album, $themename);
-				setThemeOption('images_per_row', $images_per_row, $_set_theme_album, $themename);
+			if (isset($_POST['images_per_page'])) {
+				setThemeOption('images_per_page', $_POST['images_per_page'], $_set_theme_album, $themename);
 			}
+			if (isset($_POST['images_per_row'])) {
+				setThemeOption('images_per_row', $_POST['images_per_row'], $_set_theme_album, $themename);
+			}
+
 			if (isset($_POST['theme_head_separator'])) {
 				setThemeOption('theme_head_separator', sanitize($_POST['theme_head_separator']), $_set_theme_album, $themename);
 			}
@@ -247,15 +244,6 @@ function getOptionContent() {
 							<td class="option_name"><?php echo gettext("Albums"); ?></td>
 							<td class="option_value">
 								<?php
-								if (in_array('albums_per_row', $unsupportedOptions)) {
-									$disable = ' disabled="disabled"';
-								} else {
-									$disable = '';
-								}
-								?>
-								<input type="text" size="3" name="albums_per_row" value="<?php echo getThemeOption('albums_per_row', $album, $themename); ?>"<?php echo $disable; ?> /> <?php echo gettext('thumbnails per row'); ?>
-								<br />
-								<?php
 								if (in_array('albums_per_page', $unsupportedOptions)) {
 									$disable = ' disabled="disabled"';
 								} else {
@@ -269,17 +257,7 @@ function getOptionContent() {
 									<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
 										<?php
-										echo gettext('These specify the Theme <a title="Look at your album page and count the number of album thumbnails that show up in one row. This is the value you should set for the option.">CSS determined number</a> of album thumbnails that will fit in a "row" and the number of albums thumbnails you wish per page.');
-										if (getThemeOption('albums_per_row', $album, $themename) > 1) {
-											?>
-											<p class="notebox">
-												<?php
-												echo gettext('<strong>Note:</strong> If <em>thumbnails per row</em> is greater than 1, The actual number of thumbnails that are displayed on a page will be rounded up to  the next multiple of it.') . ' ';
-												printf(gettext('For album pages there will be %1$u rows of thumbnails.'), ceil(getThemeOption('albums_per_page', $album, $themename) / getThemeOption('albums_per_row', $album, $themename)));
-												?>
-											</p>
-											<?php
-										}
+										echo gettext('This is the number of albums thumbnails you wish per page.');
 										?>
 									</div>
 								</span>
@@ -288,15 +266,6 @@ function getOptionContent() {
 						<tr>
 							<td class="option_name"><?php echo gettext("Images"); ?></td>
 							<td class="option_value">
-								<?php
-								if (in_array('images_per_row', $unsupportedOptions)) {
-									$disable = ' disabled="disabled"';
-								} else {
-									$disable = '';
-								}
-								?>
-								<input type="text" size="3" name="images_per_row" value="<?php echo getThemeOption('images_per_row', $album, $themename); ?>"<?php echo $disable; ?> /> <?php echo gettext('thumbnails per row'); ?>
-								<br />
 								<?php
 								if (in_array('images_per_page', $unsupportedOptions)) {
 									$disable = ' disabled="disabled"';
@@ -311,17 +280,7 @@ function getOptionContent() {
 									<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
 										<?php
-										echo gettext('These specify the Theme <a title="Look at your album page and count the number of image thumbnails that show up in one row. This is the value you should set for the option.">CSS determined number</a> of image thumbnails that will fit in a "row" and the number of image thumbnails you wish per page.');
-										if (getThemeOption('images_per_row', $album, $themename) > 1) {
-											?>
-											<p class="notebox">
-												<?php
-												echo gettext('<strong>Note:</strong> If <em>thumbnails per row</em> is greater than 1, The actual number of thumbnails that are displayed on a page will be rounded up to  the next multiple of it.') . ' ';
-												printf(gettext('For pages containing images there will be %1$u rows of thumbnails.'), ceil(getThemeOption('images_per_page', $album, $themename) / getThemeOption('images_per_row', $album, $themename)));
-												?>
-											</p>
-											<?php
-										}
+										echo gettext('This is the number of image thumbnails that you wish per page. Leave empty if you wish all the images to be on one page–­e.g. if the images are shown as a slide show.');
 										?>
 									</div>
 								</span>
@@ -339,15 +298,14 @@ function getOptionContent() {
 							<td class="option_value">
 								<span class="nowrap">
 									<?php
-									if (!$disable && (getThemeOption('albums_per_row', $album, $themename) > 1) && (getThemeOption('images_per_row', $album, $themename) > 1)) {
-										if (getThemeOption('thumb_transition', $album, $themename)) {
-											$separate = '';
-											$combined = ' checked="checked"';
-										} else {
-											$separate = ' checked="checked"';
-											$combined = '';
-										}
+									if (getThemeOption('thumb_transition', $album, $themename)) {
+										$separate = '';
+										$combined = ' checked="checked"';
 									} else {
+										$separate = ' checked="checked"';
+										$combined = '';
+									}
+									if ($disable) {
 										$combined = $separate = ' disabled="disabled"';
 									}
 									?>
@@ -365,11 +323,32 @@ function getOptionContent() {
 								<span class="option_info">
 									<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
-										<?php echo gettext('if both album and image <em>thumbnails per row</em> are greater than 1 you can choose if album thumbnails and image thumbnails are placed together on the page that transitions from only album thumbnails to only image thumbnails.'); ?></div>
+										<?php echo gettext('Choose if album thumbnails and image thumbnails are placed together on the page that transitions from only album thumbnails to only image thumbnails.'); ?>
+									</div>
 								</span>
 							</td>
-
 						</tr>
+
+						<tr>
+							<td class="option_name"></td>
+							<td class="option_value">
+								<span class="nowrap">
+									<label>
+										<?php echo gettext('image thumbnail multiple'); ?>
+										<input type="text" size="3" name="images_per_row" value="<?php echo getThemeOption('images_per_row', $album, $themename); ?>" <?php echo $combined; ?> />
+									</label>
+								</span>
+							</td>
+							<td class="option_desc">
+								<span class="option_info">
+									<?php echo INFORMATION_BLUE; ?>
+									<div class="option_desc_hidden">
+										<?php echo gettext('If this option is set, the image thumbnails on the transition page will be an even multiple of the value.'); ?>
+									</div>
+								</span>
+							</td>
+						</tr>
+
 						<?php
 						if (in_array('thumb_size', $unsupportedOptions)) {
 							$disable = ' disabled="disabled"';

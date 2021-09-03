@@ -63,7 +63,6 @@ if (($_ef_menu = getOption('effervescence_menu')) == 'effervescence' || $_ef_men
 	enableExtension('print_album_menu', 1 | THEME_PLUGIN, false);
 }
 require_once(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/' . $personality . '/functions.php');
-$_oneImagePage = $handler->onePage();
 $_current_page_check = 'my_checkPageValidity';
 
 define('_IMAGE_PATH', WEBPATH . '/' . THEMEFOLDER . '/effervescence+/images/');
@@ -476,7 +475,7 @@ function printFooter($admin = true) {
 		}
 		?>
 		<?php if (function_exists('mobileTheme::controlLink')) mobileTheme::controlLink(); ?>
-	<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
+		<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>
 		<br class="clearall" />
 	</div>
 	<!-- Administration Toolbox -->
@@ -519,7 +518,7 @@ function commonNewsLoop($paged) {
 			<br clear="all">
 			<?php printCodeblock(1); ?>
 			<?php printNewsContent(); ?>
-		<?php printCodeblock(2); ?>
+			<?php printCodeblock(2); ?>
 			<br class="clearall" />
 		</div>
 		<?php

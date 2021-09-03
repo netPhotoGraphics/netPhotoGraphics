@@ -34,7 +34,6 @@ if (!OFFSET_PATH) {
 		$personality = array_shift($persona);
 	}
 	require_once(__DIR__ . '/' . $personality . '/functions.php');
-	$_oneImagePage = $handler->onePage();
 	$_current_page_check = 'my_checkPageValidity';
 }
 

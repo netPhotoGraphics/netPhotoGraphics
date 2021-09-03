@@ -707,35 +707,33 @@ function getAllAlbums($album = NULL) {
 	return $list;
 }
 
+function getAlbumPageCount() {
+	global $_gallery, $_current_album;
+	if (in_context(NPG_ALBUM | NPG_SEARCH)) {
+		$pageCount = ceil(getNumAlbums() / galleryAlbumsPerPage());
+		return (int) $pageCount;
+	}
+	return 0;
+}
+
 /**
  * Returns the number of pages for the current object
  *
- * @param bool $_oneImagePage set to true if your theme collapses all image thumbs
- * or their equivalent to one page. This is typical with flash viewer themes
- *
  * @return int
  */
-function getTotalPages($_oneImagePage = false) {
-	global $_gallery, $_current_album, $_firstPageImages, $_CMS, $_CMS_current_category;
+function getTotalPages() {
+	global $_gallery, $_current_album, $_transitionImageCount, $_CMS, $_CMS_current_category;
 	if (in_context(NPG_ALBUM | NPG_SEARCH)) {
-		$albums_per_page = max(1, getOption('albums_per_page'));
-		$pageCount = (int) ceil(getNumAlbums() / $albums_per_page);
+		$pageCount = getAlbumPageCount();
 		$imageCount = getNumImages();
-		if ($_oneImagePage) {
-			if ($_oneImagePage === true) {
-				$imageCount = min(1, $imageCount);
-			} else {
-				$imageCount = 0;
-			}
+		if (!galleryImagesPerPage()) {
+			$imageCount = min(1, $imageCount);
 		}
-		$images_per_page = max(1, getOption('images_per_page'));
-		$pageCount = ($pageCount + ceil(($imageCount - $_firstPageImages) / $images_per_page));
+		$images_per_page = max(1, galleryImagesPerPage());
+		$pageCount = ($pageCount + ceil(($imageCount - $_transitionImageCount) / $images_per_page));
 		return $pageCount;
 	} else if (get_context() == NPG_INDEX) {
-		if (galleryAlbumsPerPage() != 0) {
-			return (int) ceil($_gallery->getNumAlbums() / galleryAlbumsPerPage());
-		}
-		return NULL;
+		return (int) ceil($_gallery->getNumAlbums() / max(1, galleryAlbumsPerPage()));
 	} else if (isset($_CMS)) {
 		if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 			$total = count($_CMS_current_category->getArticles(0));
@@ -893,14 +891,13 @@ function printPageList($class = 'pagelist', $id = NULL, $navlen = 9) {
 /**
  * returns a page nav list.
  *
- * @param bool $_oneImagePage set to true if there is only one image page as, for instance, in flash themes
  * @param int $navlen Number of navigation links to show (0 for all pages). Works best if the number is odd.
  * @param bool $firstlast Add links to the first and last pages of you gallery
  * @param int $current the current page
  * @param int $total total number of pages
  *
  */
-function getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total) {
+function getPageNavList($navlen, $firstlast, $current, $total) {
 	$result = array();
 	if (hasPrevPage()) {
 		$result['prev'] = getPrevPageURL();
@@ -943,18 +940,18 @@ function getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total) {
  *
  * @param string $prevtext Insert here the linktext like 'previous page'
  * @param string $nexttext Insert here the linktext like 'next page'
- * @param bool $_oneImagePage set to true if there is only one image page as, for instance, in flash themes
+ * @param bool $deprecated set to true if there is only one image page as, for instance, in flash themes
  * @param string $nextprev set to true to get the 'next' and 'prev' links printed
  * @param string $class Insert here the CSS-class name you want to style the link with (default is "pagelist")
  * @param string $id Insert here the CSS-ID name if you want to style the link with this
  * @param bool $firstlast Add links to the first and last pages of you gallery
  * @param int $navlen Number of navigation links to show (0 for all pages). Works best if the number is odd.
  */
-function printPageListWithNav($prevtext, $nexttext, $_oneImagePage = false, $nextprev = true, $class = 'pagelist', $id = NULL, $firstlast = true, $navlen = 9) {
-	$total = max(1, getTotalPages($_oneImagePage));
+function printPageListWithNav($prevtext, $nexttext, $deprecated = NULL, $nextprev = true, $class = 'pagelist', $id = NULL, $firstlast = true, $navlen = 9) {
+	$total = max(1, getTotalPages());
 	if ($total > 1) {
 		$current = getCurrentPage();
-		$nav = getPageNavList($_oneImagePage, $navlen, $firstlast, $current, $total);
+		$nav = getPageNavList($navlen, $firstlast, $current, $total);
 		?>
 		<div <?php if ($id) echo ' id="' . $id . '"'; ?> class="<?php echo $class; ?>">
 			<ul class="<?php echo $class; ?>">
@@ -1628,13 +1625,14 @@ function getAlbumURL() {
  * @return integer
  */
 function getAlbumPage() {
-	global $_current_album, $_current_image, $_current_search, $_firstPageImages;
+	global $_current_album, $_current_image, $_current_search, $_transitionImageCount;
 	if (in_context(NPG_IMAGE) && !in_context(NPG_SEARCH)) {
 		$imageindex = $_current_image->getIndex();
 		$numalbums = $_current_album->getNumAlbums();
-		$imagepage = floor(($imageindex - $_firstPageImages) / max(1, getOption('images_per_page'))) + 1;
-		$albumpages = ceil($numalbums / max(1, getOption('albums_per_page')));
-		if ($albumpages == 0 && $_firstPageImages > 0) {
+		$albums_per_page = galleryAlbumsPerPage();
+		$imagepage = floor(($imageindex - $_transitionImageCount) / max(1, galleryImagesPerPage())) + 1;
+		$albumpages = ceil($numalbums / $albums_per_page);
+		if ($albumpages == 0 && $_transitionImageCount > 0) {
 			$imagepage++;
 		}
 		$page = $albumpages + $imagepage;
@@ -2026,14 +2024,9 @@ function getPrevAlbumURL() {
  * @return bool
  */
 function isImagePage() {
-	if (getNumImages()) {
-		global $_current_page, $_firstPageImages;
-		$imagestart = getTotalPages(2); // # of album pages
-		if (!$_firstPageImages)
-			$imagestart++; // then images start on the last album page.
-		return $_current_page >= $imagestart;
-	}
-	return false;
+	global $_current_page, $_transitionImageCount;
+	$pageCount = (int) Ceil(getNumAlbums() / galleryAlbumsPerPage());
+	return getNumImages() && ($_current_page > $pageCount || $_current_page == $pageCount && $_transitionImageCount);
 }
 
 /**
@@ -2043,7 +2036,7 @@ function isImagePage() {
  */
 function isAlbumPage() {
 	global $_current_page;
-	$pageCount = Ceil(max(1, getNumAlbums()) / max(1, getOption('albums_per_page')));
+	$pageCount = Ceil(max(1, getNumAlbums()) / galleryAlbumsPerPage());
 	return ($_current_page <= $pageCount);
 }
 
@@ -2098,18 +2091,19 @@ function getTotalImagesIn($album) {
  * @return bool
  */
 function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
-	global $__images, $_current_image, $_current_album, $_current_page, $_current_image_restore, $_current_search, $_gallery, $_firstPageImages, $_imagePageOffset;
+	global $__images, $_current_image, $_current_album, $_current_page, $_current_image_restore, $_current_search, $_gallery, $_transitionImageCount, $_imagePageOffset;
+
 	if (is_null($firstPageCount)) {
-		$firstPageCount = $_firstPageImages;
+		$firstPageCount = $_transitionImageCount;
 	}
 	if (is_null($_imagePageOffset)) {
-		$_imagePageOffset = getTotalPages(2); /* gives us the count of pages for album thumbs */
+		$_imagePageOffset = getAlbumPageCount();
 	}
 	if ($all) {
 		$imagePage = 1;
 		$firstPageCount = 0;
 	} else {
-		$_firstPageImages = $firstPageCount; /* save this so pagination can see it */
+		$_transitionImageCount = $firstPageCount; /* save this so pagination can see it */
 		$imagePage = $_current_page - $_imagePageOffset;
 	}
 	if ($firstPageCount > 0 && $_imagePageOffset > 0) {
@@ -4319,7 +4313,7 @@ function getSearchDate($format = '%B %Y') {
 		}
 		if ($date == '0000-00') {
 			return gettext("no date");
-		};
+		}
 		$dt = strtotime($date . "-01");
 		return formattedDate($format, $dt);
 	}
@@ -4329,44 +4323,32 @@ function getSearchDate($format = '%B %Y') {
 /**
  * controls the thumbnail layout of themes.
  *
- * Uses the theme options:
- * 	albums_per_row
- * 	albums_per_page
- * 	images_per_row
- * 	images_per_page
- *
  * Computes a normalized images/albums per page and computes the number of
  * images that will fit on the "transitional" page between album thumbs and
  * image thumbs. This function is "internal" and is called from the root
  * index.php script before the theme script is loaded.
  */
-function setThemeColumns() {
-	global $_current_album, $_firstPageImages, $_oneImagePage;
-	$_firstPageImages = false;
-	if (($albumColumns = getOption('albums_per_row')) <= 1)
-		$albumColumns = false;
-	if (($imageColumns = getOption('images_per_row')) <= 1)
-		$imageColumns = false;
-	$albcount = max(1, getOption('albums_per_page'));
-	if (($albumColumns) && (($albcount % $albumColumns) != 0)) {
-		setOption('albums_per_page', $albcount = ((floor($albcount / $albumColumns) + 1) * $albumColumns), false);
-	}
-	$imgcount = max(1, getOption('images_per_page'));
-	if (($imageColumns) && (($imgcount % $imageColumns) != 0)) {
-		setOption('images_per_page', $imgcount = ((floor($imgcount / $imageColumns) + 1) * $imageColumns), false);
-	}
-	if ((getOption('thumb_transition') && !$_oneImagePage) && in_context(NPG_ALBUM | NPG_SEARCH) && $albumColumns && $imageColumns) {
-		$count = getNumAlbums();
-		if ($count == 0) {
-			$_firstPageImages = 0;
-		}
-		$rowssused = ceil(($count % $albcount) / $albumColumns); /* number of album rows unused */
-		$leftover = floor(max(1, getOption('images_per_page')) / $imageColumns) - $rowssused;
-		$_firstPageImages = max(0, $leftover * $imageColumns); /* number of images that fill the leftover rows */
-		if ($_firstPageImages == $imgcount) {
-			$_firstPageImages = 0;
+function getTransitionImageCount() {
+	$transitionImages = false;
+	if (getOption('thumb_transition') && in_context(NPG_ALBUM | NPG_SEARCH)) {
+		if ($imagesPerPage = galleryImagesPerPage()) {
+			$count = getNumAlbums();
+			if ($count > 0) {
+				$albums_per_page = galleryAlbumsPerPage();
+				$orphans = $count % $albums_per_page;
+				if ($orphans > 0) {
+					$available = 1 - $orphans / $albums_per_page;
+					$transitionImages = round($available * $imagesPerPage);
+					if ($imageMulltiple = getOption('images_per_row')) {
+						$transitionImages = floor($transitionImages / $imageMulltiple) * $imageMulltiple;
+					}
+				}
+			}
+		} else {
+			$transitionImages = getNumImages();
 		}
 	}
+	return (int) $transitionImages;
 }
 
 //************************************************************************************************
@@ -4624,7 +4606,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4753,24 +4735,22 @@ function printCodeblock($number = 1, $what = NULL) {
  * @return boolean will be true if all is well, false if a 404 error should occur
  */
 function checkPageValidity($request, $gallery_page, $page) {
-	global $_gallery, $_firstPageImages, $_oneImagePage, $_CMS, $_CMS_current_category;
+	global $_gallery, $_transitionImageCount, $_CMS, $_CMS_current_category;
 	$count = NULL;
 	switch ($gallery_page) {
 		case 'album.php':
 		case 'favorites.php';
 		case 'search.php':
-			$albums_per_page = max(1, getOption('albums_per_page'));
+			$albums_per_page = galleryAlbumsPerPage();
 			$pageCount = (int) ceil(getNumAlbums() / $albums_per_page);
 			$imageCount = getNumImages();
-			if ($_oneImagePage) {
-				if ($_oneImagePage === true) {
-					$imageCount = min(1, $imageCount);
-				} else {
-					$imageCount = 0;
-				}
+			$images_per_page = galleryImagesPerPage();
+			if (!$images_per_page) {
+				$imageCount = min(1, $imageCount);
+				$images_per_page = 1;
 			}
-			$images_per_page = max(1, getOption('images_per_page'));
-			$count = ($pageCount + (int) ceil(($imageCount - $_firstPageImages) / $images_per_page));
+
+			$count = ($pageCount + (int) ceil(($imageCount - $_transitionImageCount) / $images_per_page));
 			break;
 		case 'index.php':
 			if (galleryAlbumsPerPage() != 0) {

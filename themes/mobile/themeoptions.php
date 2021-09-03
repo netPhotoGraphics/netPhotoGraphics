@@ -14,15 +14,13 @@ class ThemeOptions {
 	function __construct() {
 		$me = basename(__DIR__);
 		setThemeOptionDefault('Allow_search', true);
-		setThemeOptionDefault('thumb_transition', 1);
+		setThemeOptionDefault('thumb_transition', true);
 		setThemeOption('thumb_size', 79, NULL);
 		setThemeOptionDefault('thumb_crop_width', 79);
 		setThemeOptionDefault('thumb_crop_height', 79);
 		setThemeOptionDefault('thumb_crop', 1);
 		setThemeOptionDefault('albums_per_page', 6);
-		setThemeOptionDefault('albums_per_row', 1);
 		setThemeOptionDefault('images_per_page', 24);
-		setThemeOptionDefault('images_per_row', 6);
 
 		if (class_exists('cacheManager')) {
 			cacheManager::deleteCacheSizes('zpMobile');

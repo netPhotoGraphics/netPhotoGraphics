@@ -390,7 +390,7 @@ class AlbumBase extends MediaObject {
 		if ($page == 0) {
 			return $this->subalbums;
 		} else {
-			$albums_per_page = max(1, getOption('albums_per_page'));
+			$albums_per_page = galleryAlbumsPerPage();
 			return array_slice($this->subalbums, $albums_per_page * ($page - 1), $albums_per_page);
 		}
 	}
@@ -442,7 +442,8 @@ class AlbumBase extends MediaObject {
 	 */
 	function getImages($page = 0, $firstPageCount = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
 		// Return the cut of images based on $page. Page 0 means show all.
-		if ($page == 0) {
+		$images_per_page = galleryImagesPerPage();
+		if ($page == 0 || !$images_per_page) {
 			return $this->images;
 		} else {
 			// Only return $firstPageCount images if we are on the first page and $firstPageCount > 0
@@ -455,7 +456,6 @@ class AlbumBase extends MediaObject {
 				} else {
 					$fetchPage = $page - 1;
 				}
-				$images_per_page = max(1, getOption('images_per_page'));
 				$pageStart = (int) ($firstPageCount + $images_per_page * $fetchPage);
 			}
 			return array_slice($this->images, $pageStart, $images_per_page);

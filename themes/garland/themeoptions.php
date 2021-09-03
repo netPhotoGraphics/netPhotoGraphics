@@ -10,12 +10,11 @@ class ThemeOptions {
 		setThemeOptionDefault('Allow_search', true);
 		setThemeOptionDefault('Allow_cloud', true);
 		setThemeOptionDefault('albums_per_page', 6);
-		setThemeOptionDefault('albums_per_row', 2);
 		setThemeOptionDefault('images_per_page', 20);
 		setThemeOptionDefault('images_per_row', 5);
 		setThemeOption('image_size', 520, NULL);
 		setThemeOption('image_use_side', 'longest', NULL);
-		setThemeOptionDefault('thumb_transition', 1);
+		setThemeOptionDefault('thumb_transition', true);
 		setThemeOption('thumb_size', 85, NULL);
 		setThemeOptionDefault('thumb_crop_width', 85);
 		setThemeOptionDefault('thumb_crop_height', 85);

@@ -16,10 +16,6 @@ class ef_colorbox {
 
 	}
 
-	function onePage() {
-		return false;
-	}
-
 	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
@@ -97,10 +93,10 @@ class ef_colorbox {
 						printSlideShowLink(NULL, 'text-align:center;');
 					?>
 				</div><!-- images -->
-		<?php if (function_exists('printRating')) printRating(); ?>
+				<?php if (function_exists('printRating')) printRating(); ?>
 			</div><!-- main -->
 			<div class="clearage"></div>
-		<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
+			<?php if (isset($firstImage)) printNofM('Photo', $firstImage, $lastImage, getNumImages()); ?>
 		</div><!-- content -->
 		<?php
 	}
