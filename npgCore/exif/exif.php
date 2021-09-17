@@ -1275,6 +1275,10 @@ function read_exif_data_raw($path, $verbose) {
 		$unknown = fread($in, hexdec($offset) - 8); // fixed this bug in 1.3
 
 
+
+
+
+
 // add 12 to the offset to account for TIFF header
 	if ($result['ValidJpeg'] == 1) {
 		$globalOffset += 12;
@@ -1422,14 +1426,14 @@ function read_exif_data_raw($path, $verbose) {
 /**
  * Converts a floating point number into a simple fraction.
  *
- * This function has been ammended to work better with actual
- * camera data. In particular, the tolarance computation is
+ * This function has been amended to work better with actual
+ * camera data. In particular, the tolerance computation is
  * completely changed.
  *
  * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function convertToFraction($v) {
-	if ($v == 0) {
+	if (($v = floatval($v)) == 0) {
 		return "0";
 	} else if ($v > 1) {
 		for ($n = 0; $n < 5; $n++) {
