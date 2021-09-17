@@ -975,10 +975,11 @@ function formatData($type, $tag, $intel, $data) {
  */
 function formatExposure($data) {
 	if (strpos($data, '/') === false) {
+		$data = str_replace(',', '.', $data); // deal with European decimal separator
 		if ($data >= 1) {
 			return round($data, 2) . ' ' . '!sec!';
 		} else {
-			return convertToFraction($data) . ' !sec!';
+			return convertToFraction(floatval($data)) . ' !sec!';
 		}
 	} else {
 		return '!bulb!';
@@ -1279,6 +1280,10 @@ function read_exif_data_raw($path, $verbose) {
 
 
 
+
+
+
+
 // add 12 to the offset to account for TIFF header
 	if ($result['ValidJpeg'] == 1) {
 		$globalOffset += 12;
@@ -1431,9 +1436,12 @@ function read_exif_data_raw($path, $verbose) {
  * completely changed.
  *
  * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ *
+ * @param float $v	NOTE: this must not be a string with European decimal separators
+ * @return string fractional representation of $v
  */
 function convertToFraction($v) {
-	if (($v = floatval($v)) == 0) {
+	if ($v == 0) {
 		return "0";
 	} else if ($v > 1) {
 		for ($n = 0; $n < 5; $n++) {
