@@ -98,7 +98,7 @@ class ThemeOptions {
 				gettext('Random pictures for homepage slider') => array(
 						'order' => 4,
 						'key' => 'zpB_homepage_random_pictures',
-						'type' => OPTION_TYPE_TEXTBOX,
+						'type' => OPTION_TYPE_NUMBER,
 						'multilingual' => 0,
 						'desc' => gettext('Number of random pictures to use for the homepage slider.')
 				),
@@ -144,7 +144,7 @@ class ThemeOptions {
 				gettext('Excerpt length') => array(
 						'order' => 11,
 						'key' => 'zpB_exerpt_length',
-						'type' => OPTION_TYPE_TEXTBOX,
+						'type' => OPTION_TYPE_NUMBER,
 						'desc' => gettext('Excerpt length for news and pages lists in search page')
 				),
 				gettext('Archive View') => array(
