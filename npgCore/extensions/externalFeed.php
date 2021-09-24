@@ -29,7 +29,7 @@
  * 			<li>&titlelink[]=<i>article</i>&titlelink[]=<i>article</i>... for a list of articles</li>
  * 		</ol>
  * 	</li>
- * 	<li>?external=news
+ * 	<li>?external=pages
  * 		<ol>
  * 			<li>&titlelink=<i>page</i> for a page</li>
  * 			<li>&titlelink[]=<i>page</i>&titlelink[]=<i>page</i>... for a list of pages</li>
@@ -178,7 +178,6 @@ class ExternalFeed extends feed {
 		$this->feedtype = $options['externalfeed'];
 		$this->key = isset($options['accesskey']) ? $options['accesskey'] : NULL;
 		parent::__construct($options);
-
 
 		if ($this->key) {
 			$result = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" AND `data`=' . db_quote($this->key));
