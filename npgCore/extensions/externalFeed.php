@@ -2,7 +2,7 @@
 /**
  * This plugin handles <i>External</i> feeds:
  *
- * url: <i>site</i>/index.php?external=<i>type</i>&accesskey=<i>key</i>+feed selections
+ * url: <i>site</i>/index.php?externalfeed=<i>type</i>&accesskey=<i>key</i>+feed selections
  *
  * The accesskey is obtained from the plugin options. Each request changes the key
  * for the next. That next key is provided in the feed. If the wrong key is provided
@@ -15,7 +15,7 @@
  * 	<li>?external=gallery
  * 		<ol>
  * 			<li>&album=<i>album</i> for an album</li>
- * 			<li>&album[]=<i>album</i>&album[]=>i>album</i>... for a list of albums</li>
+ * 			<li>&album[]=<i>album</i>&album[]=<i>album</i>... for a list of albums</li>
  * 			<li>&album=<i>album</i>&image=<i>image</i> for an image</li>
  * 			<li>&album=<i>album</i>&image[]=<i>image</i>&image[]=<i>image</i>... for a list of images</li>
  *
@@ -123,7 +123,6 @@ class externalFeed_options {
 		$count = 0;
 		$result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" ORDER BY `aux`');
 		if ($result) {
-			$list = array();
 			while ($row = db_fetch_assoc($result)) {
 				$count++;
 				$key = $row['data'];
@@ -171,10 +170,11 @@ class ExternalFeed extends feed {
 	 *
 	 */
 	function __construct($options = NULL) {
-		global $_gallery, $_current_admin_obj, $_loggedin, $_gallery_page;
+		global $_gallery, $_gallery_page;
 		$_gallery_page = 'externalFeed.php';
-		if (empty($options))
+		if (empty($options)) {
 			self::feed404();
+		}
 		$this->feedtype = $options['externalfeed'];
 		$this->key = isset($options['accesskey']) ? $options['accesskey'] : NULL;
 		parent::__construct($options);
