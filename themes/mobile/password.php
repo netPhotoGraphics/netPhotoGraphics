@@ -93,7 +93,7 @@ if (!defined('WEBPATH'))
 
 					<div id="content-error">
 						<div class="errorbox">
-							<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
+							<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?>
 						</div>
 						<?php
 						if (!npg_loggedin() && function_exists('printRegisterURL') && $_gallery->isUnprotectedPage('register')) {

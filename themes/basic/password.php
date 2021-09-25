@@ -33,7 +33,7 @@ if (!defined('WEBPATH'))
 				</h2>
 			</div>
 			<div id="padbox">
-				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
+				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?>
 			</div>
 		</div>
 		<div id="credit">

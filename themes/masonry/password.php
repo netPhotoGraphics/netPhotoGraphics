@@ -15,7 +15,7 @@
 		<div class="post">
 			<?php if (!npg_loggedin()) { ?>
 				<div class="error"><?php echo gettext("Please Login"); ?></div>
-				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
+				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?>
 			<?php } else { ?>
 				<div class="errorbox">
 					<p><?php echo gettext('You are logged in...'); ?></p>

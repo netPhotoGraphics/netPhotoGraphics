@@ -4427,8 +4427,11 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 function checkAccess(&$hint = NULL, &$show = NULL) {
 	global $_current_album, $_current_search, $_gallery, $_gallery_page,
 	$_CMS_current_page, $_CMS_current_article;
-	if (GALLERY_SECURITY != 'public') // only registered users allowed
+	if (GALLERY_SECURITY != 'public') { // only registered users allowed
 		$show = true; //	therefore they will need to supply their user id if something fails below
+	} else if (is_null($show)) {
+		$show = $_gallery->getUserLogonField();
+	}
 	if ($_gallery->isUnprotectedPage(stripSuffix($_gallery_page)))
 		return true;
 	if (npg_loggedin()) {
@@ -4486,7 +4489,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 		}
 		$query['userlog'] = 1;
 		if (isset($_GET['p']) && $_GET['p'] == 'password') {
-// redirecting here would be terribly confusing
+			// redirecting here would be terribly confusing
 			unset($query['p']);
 			$parts['path'] = SEO_WEBPATH;
 		}

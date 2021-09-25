@@ -286,7 +286,6 @@ class feed {
 	 * @return string
 	 */
 	protected function getCommentFeedType() {
-		$valid = false;
 		if (isset($this->options['type'])) {
 			if (in_array($this->options['type'], array('image', 'album', 'pages'))) {
 				$this->options['type'] = $this->options['type'] . 's'; //	some old feeds have the singular

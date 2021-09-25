@@ -46,7 +46,7 @@ if (!defined('WEBPATH'))
 		<div id="content">
 			<small>&nbsp;</small>
 			<div id="main">
-				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?>
+				<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?>
 			</div>
 		</div>
 
