@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		?>
 	</head>
 	<body class="sidebars">
-<?php npgFilters::apply('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<div id="navigation"></div>
 		<div id="wrapper">
 			<div id="container">
@@ -52,7 +52,7 @@ if (!defined('WEBPATH'))
 										<h3><?php echo gettext('A password is required to access this page.') ?></h3>
 										<?php
 									}
-									printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL);
+									printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false);
 									footer();
 									?>
 									<p style="clear: both;"></p>

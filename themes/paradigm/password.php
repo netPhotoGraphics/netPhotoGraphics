@@ -25,7 +25,7 @@ if (!defined('WEBPATH'))
 					<?php
 				}
 				?>
-				<p><?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false, isset($hint) ? WEBPATH : NULL); ?></p>
+				<p><?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?></p>
 
 				<?php
 				if (!npg_loggedin() && function_exists('printRegisterURL') && $_gallery->isUnprotectedPage('register')) {
