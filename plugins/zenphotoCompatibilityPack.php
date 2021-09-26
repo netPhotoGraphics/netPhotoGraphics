@@ -134,7 +134,8 @@ $legacyReplacements = array(
 		'Image::newImage' => 'newImage',
 		'Image::isImageClass' => 'isImageClass',
 		'tidyHTML' => 'cleanHTML',
-		'AlbumBase::getNumAllImages\(' => 'getTotalImagesIn('
+		'AlbumBase::getNumAllImages\(' => 'getTotalImagesIn(',
+		'@subpackage' => '@pluginCategory'
 );
 
 class zenPhotoCompatibilityPack {
