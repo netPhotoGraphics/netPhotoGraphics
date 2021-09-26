@@ -36,7 +36,7 @@
 global $_CMS;
 
 function processCommentBlock($commentBlock) {
-	global $plugin_author, $plugin_copyright, $subpackage, $plugin_deprecated;
+	global $plugin_author, $plugin_copyright, $plugin_repository, $subpackage, $plugin_deprecated;
 	$markup = array(
 			'&amp;gt;' => '>',
 			'&amp;lt;' => '<',
@@ -108,13 +108,14 @@ function processCommentBlock($commentBlock) {
 			if (strpos($line, '@') === 0) {
 				preg_match('/@(.*?)\s/', $line, $matches);
 				if (!empty($matches)) {
-					switch (strtolower($matches[1])) {
+					switch ($case = strtolower($matches[1])) {
 						case 'author':
 							$plugin_author = trim(substr($line, 8));
 							break;
+						case 'repository':
 						case 'copyright':
-							$plugin_copyright = trim(substr($line, 10));
-							preg_match('~{@link(.*)}~', $plugin_copyright, $matches);
+							$result = trim(substr($line, strlen($case) + 1));
+							preg_match('~{@link(.*)}~', $result, $matches);
 							if (!empty($matches)) {
 								$line = trim($matches[1]);
 								$l = strpos($line, ' ');
@@ -124,8 +125,10 @@ function processCommentBlock($commentBlock) {
 									$text = substr($line, $l + 1);
 									$line = substr($line, 0, $l);
 								}
-								$plugin_copyright = str_replace($matches[0], '<a href="' . $line . '">' . $text . '</a>', $plugin_copyright);
+								$result = str_replace($matches[0], '<a href="' . $line . '">' . $text . '</a>', $result);
 							}
+							$case = 'plugin_' . $case;
+							$$case = $result;
 							break;
 						case 'subpackage':
 							$subpackage = trim(substr($line, 11));
@@ -175,7 +178,7 @@ function processCommentBlock($commentBlock) {
 						}
 					}
 				}
-				$linie = strtr(html_encodeTagged($line), array_merge($tags, $markup));
+				$line = strtr(html_encodeTagged($line), array_merge($tags, $markup));
 				$doc .= $line . " \n";
 				$empty = false;
 			}
@@ -218,6 +221,7 @@ if (!defined('OFFSET_PATH')) {
 	$plugin_disable = '';
 	$plugin_author = '';
 	$plugin_copyright = '';
+	$plugin_repository = '';
 	$plugin_version = '';
 	$plugin_is_filter = '';
 	$plugin_URL = '';
@@ -252,7 +256,7 @@ if (!defined('OFFSET_PATH')) {
 		}
 	}
 
-	$pluginStream = str_replace('/* LegacyConverter was here */', '', file_get_contents($pluginToBeDocPath));
+	$pluginStream = preg_replace("~/\* LegacyConverter (.*) was here \*/~", '', file_get_contents($pluginToBeDocPath));
 	$i = strpos($pluginStream, '/*');
 	$j = strpos($pluginStream, '*/');
 
@@ -429,6 +433,11 @@ if (!defined('OFFSET_PATH')) {
 						if ($plugin_copyright) {
 							?>
 							<h3><?php echo '© ' . html_encodeTagged($plugin_copyright); ?></h3>
+							<?php
+						}
+						if ($plugin_repository) {
+							?>
+							<h3><?php echo 'Repository: ' . html_encodeTagged($plugin_repository); ?></h3>
 							<?php
 						}
 						?>
