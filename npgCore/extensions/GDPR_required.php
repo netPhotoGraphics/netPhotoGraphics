@@ -12,8 +12,8 @@
  *
  * <ul>
  * 	<li>
- * 		Create a <em>zenpage page</em> or a custom theme script that states your site usage policy. For guidelines visit
- * 		{@link https://www.itgovernance.co.uk/blog/how-to-write-a-gdpr-privacy-notice-with-documentation-template-example/* How to write a GDPR privacy notice}.
+ * 		Create a <em>zenpage page</em> or a custom theme script that states your site usage policy.For guidelines visit
+ * {@link https://www.itgovernance.co.uk/blog/how-to-write-a-gdpr-privacy-notice-with-documentation-template-example How to write a GDPR privacy notice}.
  * </li>
  * 	<li>
  * 		Place the following <i>macro</i> in your page content or in one of the <i>codeblocks</i> for the page:
