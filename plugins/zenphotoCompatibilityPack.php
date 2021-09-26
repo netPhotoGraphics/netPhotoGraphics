@@ -124,8 +124,8 @@ $legacyReplacements = array(
 		'\$_zp_current_DailySummary' => '$_current_DailySummary',
 		'purgeThemeOption\((.*?)\);' => 'purgeOption($1, basename(__DIR__));',
 		'gettext_th' => 'gettext',
-		'ngettext_th' => 'ngettext;',
-		'gettext_pl' => 'gettext;',
+		'ngettext_th' => 'ngettext',
+		'gettext_pl' => 'gettext',
 		'ngettext_pl' => 'ngettext',
 		'printLangAttribute\(' => 'i18n::htmlLanguageCode(',
 		'isSubNewsCategoryOf\(' => 'isSubCategoryOf(',
@@ -134,7 +134,7 @@ $legacyReplacements = array(
 		'Image::newImage' => 'newImage',
 		'Image::isImageClass' => 'isImageClass',
 		'tidyHTML' => 'cleanHTML',
-		'AlbumBase::getNumAllImages(' => 'getTotalImagesIn'
+		'AlbumBase::getNumAllImages\(' => 'getTotalImagesIn('
 );
 
 class zenPhotoCompatibilityPack {
