@@ -37,7 +37,7 @@ printAdminHeader('overview', 'http_header_inspector');
 						<h2><?php echo html_encode($check_header['headline']); ?></h2>
 						<ul>
 							<?php
-							if (is_array($check_header)) {
+							if (isset($check_header['headers'])) {
 								foreach ($check_header['headers'] as $header) {
 									echo '<li>' . $header . '</li>';
 								}
