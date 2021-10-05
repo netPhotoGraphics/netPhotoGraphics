@@ -178,7 +178,7 @@ function processCommentBlock($commentBlock) {
 						}
 					}
 				}
-				$line = strtr(html_encodeTagged($line), array_merge($tags, $markup));
+				$line = strtr(html_encode($line), array_merge($tags, $markup));
 				$doc .= $line . " \n";
 				$empty = false;
 			}
