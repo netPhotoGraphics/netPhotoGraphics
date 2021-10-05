@@ -17,7 +17,6 @@ printAdminHeader('overview', 'http_header_inspector');
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
-
 			<div class="tabbox">
 				<h1><?php echo (gettext('HTTP header inspector')); ?></h1>
 				<?php
@@ -37,7 +36,7 @@ printAdminHeader('overview', 'http_header_inspector');
 						<h2><?php echo html_encode($check_header['headline']); ?></h2>
 						<ul>
 							<?php
-							if (isset($check_header['headers'])) {
+							if ($check_header['headers']) {
 								foreach ($check_header['headers'] as $header) {
 									echo '<li>' . $header . '</li>';
 								}
