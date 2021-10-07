@@ -373,9 +373,7 @@ function addNewTag(id) {
 
 function confirmDeleteAlbum(url) {
 	if (confirm(deleteAlbum1)) {
-		if (confirm(deleteAlbum2)) {
-			window.location = url;
-		}
+		confirmDelete(url, deleteAlbum2);
 	}
 }
 

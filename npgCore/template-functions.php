@@ -252,7 +252,7 @@ function adminToolbox() {
 							?>
 							<script type="text/javascript">
 								// <!-- <![CDATA[
-								function confirmAlbumDelete(url) {
+								function confirmAlbumDelete() {
 									if (confirm("<?php echo gettext("Are you sure you want to delete this entire album?"); ?>")) {
 										if (confirm("<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>")) {
 											window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=deletealbum&album=<?php echo pathurlencode($albumname) ?>&XSRFToken=<?php echo getXSRFToken('delete'); ?>';
