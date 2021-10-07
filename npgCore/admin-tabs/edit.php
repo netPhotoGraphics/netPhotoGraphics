@@ -107,10 +107,12 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '';
 			}
+
 			$bulk_notify = processAlbumBulkActions();
 			if (!empty($bulk_notify)) {
 				$notify .= '&bulkmessage=' . $bulk_notify;
 			}
+
 			if (empty($notify)) {
 				$notify = '&noaction';
 			}
@@ -133,12 +135,12 @@ if (isset($_GET['action'])) {
 			} else {
 				$notify = '';
 			}
-			if ($_POST['checkallaction'] == 'noaction') {
-				$bulk_notify = processAlbumBulkActions();
-				if (!empty($bulk_notify)) {
-					$notify .= '&bulkmessage=' . $bulk_notify;
-				}
+
+			$bulk_notify = processAlbumBulkActions();
+			if (!empty($bulk_notify)) {
+				$notify .= '&bulkmessage=' . $bulk_notify;
 			}
+
 			if (!isset($notify) || empty($notify)) {
 				$notify = '&noaction';
 			}
@@ -587,14 +589,8 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 	}
 
 	function confirmAction() {
-		if ($('#checkallaction').val() == 'deleteall') {
+		if ($('#checkallaction').val() == 'deleteall' || $('#checkallaction').val() == 'deleteallalbum') {
 			return confirm('<?php echo js_encode(gettext("Are you sure you want to delete the checked items?")); ?>');
-		} else if ($('#checkallaction').val() == 'deleteallalbum') {
-			if (confirm(deleteAlbum1)) {
-				return confirm(deleteAlbum2);
-			} else {
-				return false;
-			}
 		} else {
 			return true;
 		}
@@ -652,9 +648,8 @@ echo "\n</head>";
 			if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 				$checkarray_images[gettext('Change owner')] = array('name' => 'changeowner', 'action' => 'mass_owner_data');
 			}
-			$checkarray_albums = array_merge($checkarray_images, array(
-					gettext('Delete') => 'deleteallalbum'
-							)
+			$checkarray_albums = array_merge($checkarray_images,
+							array(gettext('Delete') => 'deleteallalbum')
 			);
 			$checkarray_images = array_merge($checkarray_images, array(
 					gettext('Delete') => 'deleteall',
