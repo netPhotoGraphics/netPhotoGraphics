@@ -77,6 +77,7 @@ function rewriteHandler() {
 	$request = explode('?', getRequestURI());
 	//rewrite base
 	$requesturi = ltrim(substr($request[0], strlen(WEBPATH)), '/');
+
 	list($definitions, $rules) = getRules();
 
 	$skip = 0;
@@ -116,7 +117,7 @@ function rewriteHandler() {
 							if ($matches[2] == '-') {
 								$substitution = $subs[0];
 							} else {
-								$substitution = preg_replace('~' . $matches[1] . '~' . $i, $matches[2], $requesturi);
+								$substitution = preg_replace('~' . $matches[1] . '~' . $i, $matches[2], pathurlencode($requesturi));
 							}
 							preg_match('~(.*?)\?(.*)~', $substitution, $action);
 							if (empty($action)) {
