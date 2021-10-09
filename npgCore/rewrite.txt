@@ -13,6 +13,8 @@
 	RewriteRule ^admin/*$																	%CORE%/admin%RW_SUFFIX% [NC,L,QSA]
 	RewriteRule ^%CORE_FOLDER%/i\.\w+$										%CORE_FOLDER%/i.php [NC,L,QSA]
 
+	_SPECIAL_
+
 	#### Rewrite rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]
 	RewriteRule ^%ARCHIVE%/*$															index.php?p=archive [NC,L,QSA]
@@ -22,8 +24,6 @@
 	RewriteRule ^%TAGS%/(.+?)/*$ 													index.php?p=search&searchfields=tags&words=$1 [NC,L,QSA]
 	RewriteRule ^%SEARCH%/(.+?)/([0-9]+)/*$    						index.php?p=search&words=$1&page=$2 [NC,L,QSA]
 	RewriteRule ^%SEARCH%/(.+?)/*$     										index.php?p=search&words=$1 [NC,L,QSA]
-
-	_SPECIAL_
 
 	#### image, album, and custom page references
 	RewriteRule ^%PAGE%/([0-9]+)/*$												index.php?page=$1 [NC,L,QSA]
