@@ -55,11 +55,12 @@ $rules[] = array(
 		'rewrite' => '%GALLERY_PAGE%',
 		'rule' => '^%REWRITE%/*$		index.php?p=gallery [NC,L,QSA]'
 );
-$rules[] = array('comment' => "\t#### Rules from \"plugins\"");
-$primary = array_slice($_conf_vars['special_pages'], 0, 4, true);
-$secondary = array_slice($_conf_vars['special_pages'], 4, NULL, true);
 
-$_conf_vars['special_pages'] = array_merge($primary, $rules, $secondary);
+$primary = array_slice($_conf_vars['special_pages'], 0, 4, true); //	standard defines from config file
+$secondary = array_slice($_conf_vars['special_pages'], 4, NULL, true);
+array_unshift($secondary, array('comment' => "\t#### Rules from \"plugins\""));
+
+$_conf_vars['special_pages'] = array_merge($primary, $secondary, $rules);
 unset($rules);
 unset($primary);
 unset($secondary);

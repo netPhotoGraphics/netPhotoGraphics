@@ -290,9 +290,6 @@ if (!defined('OFFSET_PATH')) {
 				break;
 		}
 
-		if ($plugin_URL) {
-			$doclink = sprintf('See also the <a href="%1$s">%2$s</a>', $plugin_URL, $extension);
-		}
 		$pluginusage = gettext('Plugin usage information');
 		$pagetitle = sprintf(gettext('%1$s %2$s: %3$s'), html_encode($_gallery->getTitle()), gettext('admin'), html_encode($extension));
 		i18n::setupCurrentLocale('en_US');
@@ -494,13 +491,6 @@ if (!defined('OFFSET_PATH')) {
 									} else {
 										unset($options[$key]);
 									}
-								}
-								if ($doclink) {
-									?>
-									<p>
-										<?php echo $doclink; ?>
-									</p>
-									<?php
 								}
 								if (!empty($options)) {
 									?>

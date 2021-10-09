@@ -48,7 +48,7 @@ $_conf_vars['special_pages'][] = array('definition' => '%PAGES%', 'rewrite' => '
 $_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/*$',
 		'rule' => '%REWRITE% index.php?p=pages [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%PAGES%/(.+?)/*$',
-		'rule' => '%REWRITE% index.php?p=pages&title=$1 [L, QSA]');
+		'rule' => '%REWRITE% index.php?p=pages&title=$1 [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&category=$1&page=$2 [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%CATEGORY%/(.+?)/*$',
@@ -57,13 +57,12 @@ $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+)/([0-9]
 		'rule' => '%REWRITE% index.php?p=news&date=$1&page=$2 [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS_ARCHIVE%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&date=$1 [NC,L,QSA]');
+$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
+		'rule' => '%REWRITE% index.php?p=news [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=news&page=$1 [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&title=$1 [NC,L,QSA]');
-$_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/*$',
-		'rule' => '%REWRITE% index.php?p=news [NC,L,QSA]');
-
 
 npgFilters::register('checkForGuest', 'cmsFilters::checkForGuest');
 npgFilters::register('isMyItemToView', 'cmsFilters::isMyItemToView');
