@@ -130,6 +130,7 @@ function rewriteHandler() {
 							} else {
 								$gets = array();
 							}
+
 							//	handle query string(s)
 							if (array_key_exists('QSD', $flags) || (!empty($gets) && !array_key_exists('QSA', $flags))) {
 								//	clear the query parameters.
@@ -144,6 +145,7 @@ function rewriteHandler() {
 							if (array_key_exists('F', $flags)) {
 								$flags['R'] = 403;
 							}
+
 							if (array_key_exists('R', $flags) || array_key_exists('L', $flags)) {
 								//	we will execute the index.php script in due course. But if the rule
 								//	action takes us elsewhere we will have to re-direct to that script.
@@ -172,7 +174,7 @@ function rewriteHandler() {
 								//	fall through to index.php
 								break;
 							}
-							$requesturi = $action[1];
+							$requesturi = urldecode($action[1]);
 						} else {
 							$skip = (int) array_key_exists('C', $flags);
 						}
