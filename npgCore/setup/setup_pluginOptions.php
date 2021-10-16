@@ -23,15 +23,16 @@ list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
-
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
 $icon = $_GET['class'];
 $fullLog = isset($_GET['fullLog']) || $icon == 2;
 
 $extension = sanitize($_REQUEST['plugin']);
-$__script = 'Plugin:' . $extension;
+
+if ($extension != 'cacheManager') {
+	require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
+}
 
 if ($icon == 2) {
 	$name = '<span style="text-decoration: line-through;">' . $extension . '</span>';
@@ -40,6 +41,7 @@ if ($icon == 2) {
 }
 setupLog(sprintf(gettext('Plugin:%s setup started'), $name), $fullLog);
 
+$__script = 'Plugin:' . $extension;
 $path = getPlugin($extension . '.php');
 $p = file_get_contents($path);
 if (extensionEnabled($extension)) {

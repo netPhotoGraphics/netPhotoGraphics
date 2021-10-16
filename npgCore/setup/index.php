@@ -104,7 +104,6 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 }
 $_SESSION['save_session_path'] = session_save_path();
 
-
 $en_US = dirname(__DIR__) . '/locale/en_US/';
 if (!file_exists($en_US)) {
 	mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
@@ -440,6 +439,8 @@ if ($selected_database) {
 require_once(dirname(__DIR__) . '/admin-functions.php');
 require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/security-logger.php');
 
+$system_check = !$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized());
+
 header('Content-Type: text/html; charset=UTF-8');
 header("HTTP/1.0 200 OK");
 header("Status: 200 OK");
@@ -550,6 +551,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
 		<?php
+		if (!$system_check) {
+			require_once(CORE_SERVERPATH . 'setup/async_options.php');
+		}
 		scriptLoader(CORE_SERVERPATH . 'admin.css');
 		load_jQuery_CSS();
 		load_jQuery_scripts('theme');
@@ -582,7 +586,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				if ($connection && empty($_options)) {
 					primeOptions();
 				}
-				if (!$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized())) {
+				if ($system_check) {
 					if ($blindInstall = ($upgrade && $autorun) && !setupUserAuthorized()) {
 						ob_start(); //	hide output for auto-upgrade
 					}

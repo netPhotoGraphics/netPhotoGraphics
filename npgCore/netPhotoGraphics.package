@@ -8029,6 +8029,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/watermarks/watermark.png
 %core%/version.php:*
 %core%/setup:*
+%core%/setup/async_options.php:*
 %core%/setup/database.php:*
 %core%/setup/icon.php:*
 %core%/setup/index.php:*
@@ -8041,4 +8042,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8043
+8044

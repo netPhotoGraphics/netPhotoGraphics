@@ -10,25 +10,8 @@
  */
 setupLog(gettext('Set default options'), true);
 require_once(CORE_SERVERPATH . 'admin-globals.php');
-?>
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
-<?php
-list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
 $setOptions = getOptionList();
-
-if (isset($_GET['debug'])) {
-	$debug = '&debug';
-} else {
-	$debug = '';
-}
-if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
-	$fullLog = '&fullLog';
-} else {
-	$fullLog = false;
-}
 
 require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 
@@ -40,20 +23,10 @@ if (!file_exists($testFile)) {
 	file_put_contents($testFile, '');
 }
 
-foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
-	if (is_dir(USER_PLUGIN_SERVERPATH . $remove)) {
-		npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $remove);
-	}
-	if (file_exists(USER_PLUGIN_SERVERPATH . $remove . '.php')) {
-		unlink(USER_PLUGIN_SERVERPATH . $remove . '.php');
-	}
-}
-enableExtension('slideshow2', 0);
-
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
-	// setup a hash seed
+// setup a hash seed
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
@@ -109,7 +82,7 @@ $result = query($sql);
 while ($row = db_fetch_assoc($result)) {
 	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
 	if (!query($sql, false)) {
-		// the plugin has executed defaultExtension() which has set the _plugin_ option already
+// the plugin has executed defaultExtension() which has set the _plugin_ option already
 		$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
 		query($sql);
 	}
@@ -258,7 +231,7 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 			}
 		}
 	}
-	//	update symlinks
+//	update symlinks
 	$master = clonedFrom();
 	foreach ($migrate as $theme) {
 		$theme = lcfirst(substr($theme, 2));
@@ -279,13 +252,6 @@ if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/forms/mailForm.htm')) 
 setOption('last_admin_action', time());
 setOptionDefault('galleryToken_link', '_PAGE_/gallery');
 setOptionDefault('gallery_data', NULL);
-
-$old = getSerializedArray(getOption('netphotographics_install'));
-if (isset($old['NETPHOTOGRAPHICS'])) {
-	$from = preg_replace('/\[.*\]/', '', $old['NETPHOTOGRAPHICS']);
-} else {
-	$from = NULL;
-}
 
 purgeOption('netphotographics_install');
 setOption('netphotographics_install', serialize(installSignature()));
@@ -313,7 +279,7 @@ if (empty($admins)) { //	empty administrators table
 			$_GET['mod_rewrite'] = true;
 			setOption('mod_rewrite', 1);
 		}
-		//	replicate plugins state
+//	replicate plugins state
 		foreach ($clone['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
@@ -334,8 +300,8 @@ if (empty($admins)) { //	empty administrators table
 	} else {
 		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
-				//	The password hash of these old versions did not have the extra text.
-				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
+//	The password hash of these old versions did not have the extra text.
+//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				setOption('extra_auth_hash_text', '');
 			} else {
 				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, npg_Authority::$preferred_version);
@@ -376,14 +342,6 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
-purgeOption('mod_rewrite');
-$sfx = getOption('mod_rewrite_image_suffix');
-purgeOption('mod_rewrite_image_suffix');
-if (!$sfx) {
-	$sfx = '.htm';
-}
-setOptionDefault('mod_rewrite_suffix', $sfx);
-setOptionDefault('dirtyform_enable', 2);
 ?>
 <script type="text/javascript">
 	$(function () {
@@ -398,18 +356,12 @@ setOptionDefault('dirtyform_enable', 2);
 	});
 </script>
 <?php
-purgeOption('mod_rewrite_detected');
-
-//	Update the root index.php file so admin mod_rewrite works
-//	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
-$rootupdate = updateRootIndexFile();
 if (isset($_GET['mod_rewrite'])) {
-	$link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix');
 	?>
 	<p>
 		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-			<img id="MODREWRITE" src="<?php echo $link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
+			<img id="MODREWRITE" src="<?php echo $mod_rewrite_link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
 		</span>
 	</p>
 
@@ -720,7 +672,6 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	}
 	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
 }
-$thirdParty = $deprecated = false;
 ?>
 <p>
 	<?php
@@ -729,21 +680,10 @@ $thirdParty = $deprecated = false;
 	localeSort($themes);
 	echo gettext('Theme setup:') . '<br />';
 
-	foreach ($themes as $key => $theme) {
-		$class = 0;
-		if (protectedTheme($theme)) {
-			unset($themes[$key]);
-		} else {
-			$class = 1;
-			$thirdParty = true;
-		}
-		if (isset($info[$theme]['deprecated'])) {
-			$class = 2;
-			$deprecated = true;
-		}
+	foreach ($theme_links as $theme => $theme_link) {
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo $theme_link; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -949,93 +889,21 @@ foreach ($_languages as $language => $dirname) {
 setOption('locale_unsupported', serialize($unsupported));
 i18n::setupCurrentLocale($_setupCurrentLocale_result);
 
-//The following should be done LAST so it catches anything done above
-//set plugin default options by instantiating the options interface
-$plugins = getPluginFiles('*.php');
-$plugins = array_keys($plugins);
+localeSort($plugins);
+$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 ?>
 <p>
 	<?php
-	setOptionDefault('deprecated_functions_signature', NULL);
-
-//clean up plugins needed for themes and other plugins
-	$dependentExtensions = array('cacheManager' => 'cacheManager', 'colorbox' => 'colorbox_js');
-
-	foreach ($dependentExtensions as $class => $extension) {
-		$key = array_search($extension, $plugins);
-		if ($key !== false) {
-			$_GET['from'] = $from;
-			unset($plugins[$key]);
-			list($usec, $sec) = explode(" ", microtime());
-			$start = (float) $usec + (float) $sec;
-			setupLog(sprintf(gettext('Plugin:%s setup started'), $extension), $fullLog);
-			require_once(PLUGIN_SERVERPATH . '' . $extension . '.php');
-			$priority = $plugin_is_filter & PLUGIN_PRIORITY;
-			if ($plugin_is_filter & CLASS_PLUGIN) {
-				$priority .= ' | CLASS_PLUGIN';
-			}
-			if ($plugin_is_filter & ADMIN_PLUGIN) {
-				$priority .= ' | ADMIN_PLUGIN';
-			}
-			if ($plugin_is_filter & FEATURE_PLUGIN) {
-				$priority .= ' | FEATURE_PLUGIN';
-			}
-			if ($plugin_is_filter & THEME_PLUGIN) {
-				$priority .= ' | THEME_PLUGIN';
-			}
-			if (extensionEnabled($extension)) {
-				enableExtension($extension, $plugin_is_filter);
-			}
-			setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $extension, $priority), $fullLog);
-			new $class;
-			setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $extension, $option_interface), $fullLog);
-			list($usec, $sec) = explode(" ", microtime());
-			$last = (float) $usec + (float) $sec;
-			setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $extension, $last - $start), $fullLog);
-		}
-	}
-
-	$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
-	localeSort($plugins);
 	echo gettext('Plugin setup:') . '<br />';
-	foreach ($plugins as $key => $extension) {
-		$class = 0;
-		$path = getPlugin($extension . '.php');
-		if (strpos($path, USER_PLUGIN_SERVERPATH) === 0) {
-			if (distributedPlugin($plugin)) {
-				unset($plugins[$key]);
-			} else {
-				$class = 1;
-				$thirdParty = true;
-			}
-		} else {
-			unset($plugins[$key]);
-		}
-
+	foreach ($plugin_links as $extension => $plugin_link) {
 		if (isset($pluginDetails[$extension]['deprecated'])) {
-			// Was once a distributed plugin
-			$k = array_search($extension, $deprecatedDeleted);
-			if (is_numeric($k)) {
-				if (extensionEnabled($extension)) {
-					unset($deprecatedDeleted[$k]);
-				} else {
-					if (is_dir(USER_PLUGIN_SERVERPATH . $extension)) {
-						npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
-					}
-					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
-					unset($plugins[$key]);
-					continue;
-				}
-			}
-			$class = 2;
-			$deprecated = true;
 			$addl = ' (' . gettext('deprecated') . ')';
 		} else {
 			$addl = '';
 		}
 		?>
 		<span>
-			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug; ?>&class=<?php echo $class . $fullLog; ?>&from=<?php echo $from; ?>&unique=<?php echo time(); ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo $plugin_link; ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
