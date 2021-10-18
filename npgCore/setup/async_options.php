@@ -140,7 +140,7 @@ foreach ($themes as $key => $theme) {
 		$deprecated = true;
 	}
 	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug
-					. '&class=' . $class . $fullLog . '&from' . $from . '&unique=' . $unique;
+					. '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 	?>
 	<link rel="preload" as="image" href="<?php echo $theme_links[$theme]; ?>" />
 	<?php
