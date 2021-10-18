@@ -479,7 +479,7 @@ if ($setup_checked) {
 		setupLog(gettext('Setup cookie test successful'));
 		clearNPGCookie('setup_test_cookie');
 	} else {
-		setupLog(gettext('Setup cookie test unsuccessful'), true);
+		setupLog('<span class="logwarning">' . gettext('Setup cookie test unsuccessful') . '</span>', true);
 	}
 	if ($s = getOption('users_per_page')) {
 		setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
