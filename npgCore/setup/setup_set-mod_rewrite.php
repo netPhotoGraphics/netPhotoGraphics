@@ -15,7 +15,6 @@ $__script = 'Mod_rewrite';
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
 npg_session_start();
@@ -27,7 +26,7 @@ $fullLog = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRele
 
 setupLog(sprintf(gettext('Mod_rewrite setup started')), $fullLog);
 
-$mod_rewrite = MOD_REWRITE;
+$mod_rewrite = isset($_GET['rewrite']);
 if (is_null($mod_rewrite)) {
 	$msg = gettext('The option “mod_rewrite” will be set to “enabled”.');
 	setOption('mod_rewrite', 1);

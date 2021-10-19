@@ -49,8 +49,10 @@ purgeOption('mod_rewrite_detected');
 //	Update the root index.php file so admin mod_rewrite works
 //	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
 $rootupdate = updateRootIndexFile();
+
 if (isset($_GET['mod_rewrite'])) {
-	$mod_rewrite_link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix') . '?unique=' . $unique;
+	//	test mod_rewrite
+	$mod_rewrite_link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix') . '?rewrite=' . MOD_REWRITE . '&unique=' . $unique;
 	?>
 	<link rel="preload" as="image" href="<?php echo $mod_rewrite_link; ?>" />
 	<?php
@@ -114,11 +116,7 @@ foreach ($plugins as $key => $extension) {
 	} else {
 		$addl = '';
 	}
-	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . $debug
-					. '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
-	?>
-	<link rel="preload" as="image" href="<?php echo $plugin_links[$extension]; ?>" />
-	<?php
+	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
@@ -139,10 +137,31 @@ foreach ($themes as $key => $theme) {
 		$class = 2;
 		$deprecated = true;
 	}
-	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . $debug
-					. '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
-	?>
-	<link rel="preload" as="image" href="<?php echo $theme_links[$theme]; ?>" />
-	<?php
+	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
+if (function_exists('curl_init')) {
+	foreach ($plugin_links as $key => $link) {
+		$icon = curlRequest($link . '&curl');
+		if (is_numeric($icon) > 0) {
+			$plugin_links[$key] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
+		}
+	}
+	foreach ($theme_links as $key => $link) {
+		$icon = curlRequest($link . '&curl');
+		if (is_numeric($icon) > 0) {
+			$theme_links[$key] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
+		}
+	}
+} else {
+	foreach ($plugin_links as $link) {
+		?>
+		<link rel="preload" as="image" href="<?php echo $link; ?>" />
+		<?php
+	}
+	foreach ($theme_links as $link) {
+		?>
+		<link rel="preload" as="image" href="<?php echo $link; ?>" />
+		<?php
+	}
+}

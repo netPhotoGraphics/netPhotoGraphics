@@ -8,14 +8,17 @@
  * @package setup
  *
  */
-ini_set('display_errors', 1);
-
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
+
+if ($debug = isset($_GET['debug'])) {
+	ini_set('display_errors', 1);
+} else {
+	ini_set('display_errors', 0);
+}
 
 npg_session_start();
 
@@ -104,8 +107,11 @@ if ($str = isolate('$option_interface', $p)) {
 	}
 }
 @ob_end_clean(); //	Flush any unwanted output
-
-sendImage($icon, 'plugin_' . $extension);
+if (isset($_GET['curl'])) {
+	echo $icon;
+} else {
+	sendImage($icon, 'plugin_' . $extension);
+}
 
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;

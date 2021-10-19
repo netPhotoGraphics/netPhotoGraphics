@@ -8,14 +8,17 @@
  * @package setup
  *
  */
-ini_set('display_errors', 1);
-
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
+
+if ($debug = isset($_GET['debug'])) {
+	ini_set('display_errors', 1);
+} else {
+	ini_set('display_errors', 0);
+}
 
 npg_session_start();
 
@@ -26,6 +29,7 @@ require_once(dirname(__DIR__) . '/admin-globals.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
+$icon = $_GET['class'];
 $fullLog = isset($_GET['fullLog']);
 
 $theme = sanitize($_REQUEST['theme']);
@@ -62,7 +66,11 @@ if (protectedTheme($theme)) {
 	purgeOption('albums_per_row', $theme);
 }
 
-sendImage($_GET['class'], 'theme_' . $theme);
+if (isset($_GET['curl'])) {
+	echo $icon;
+} else {
+	sendImage($icon, 'plugin_' . $extension);
+}
 
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;

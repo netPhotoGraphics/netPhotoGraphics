@@ -342,20 +342,7 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
-?>
-<script type="text/javascript">
-	$(function () {
-		$('img').on("error", function () {
-			var link = $(this).attr('src');
-			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
-			imageErr = true;
-			$('#setupErrors').val(1);
-			$('#errornote').show();
-		});
-	});
-</script>
-<?php
+
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
@@ -367,6 +354,20 @@ if (isset($_GET['mod_rewrite'])) {
 
 	<?php
 }
+?>
+<script type="text/javascript">
+	$(function () {
+		$('img').on("error", function () {
+			var link = $(this).attr('src');
+			var title = $(this).attr('title');
+			$(this).parent().html('<a href="' + link + '&debug' + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+			imageErr = true;
+			$('#setupErrors').val(1);
+			$('#errornote').show();
+		});
+	});
+</script>
+<?php
 setOptionDefault('UTF8_image_URI_found', 'unknown');
 if (isset($_POST['setUTF8URI'])) {
 	setOption('UTF8_image_URI_found', sanitize($_POST['setUTF8URI']));
@@ -913,13 +914,13 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-		echo gettext('Successful initialization');
-		if ($thirdParty) {
-			?>
-			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
-			echo gettext('Successful initialization (third party item)');
-		}
+	echo gettext('Successful initialization');
+	if ($thirdParty) {
 		?>
+			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
+		echo gettext('Successful initialization (third party item)');
+	}
+	?>
 		<span id="errornote" style="display:none;"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {
