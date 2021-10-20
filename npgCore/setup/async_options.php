@@ -3,6 +3,8 @@
  * pre-processing for theme, plugin, and mod_rewrite option handling
  */
 
+define('USECURL', function_exists('curl_init'));
+
 if (isset($_GET['debug'])) {
 	$debug = '&debug';
 } else {
@@ -53,9 +55,8 @@ $rootupdate = updateRootIndexFile();
 if (isset($_GET['mod_rewrite'])) {
 	//	test mod_rewrite
 	$mod_rewrite_link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix') . '?rewrite=' . MOD_REWRITE . '&unique=' . $unique;
-	?>
-	<link rel="preload" as="image" href="<?php echo $mod_rewrite_link; ?>" />
-	<?php
+} else {
+	$mod_rewrite_link = false;
 }
 
 //effervescence_plus migration
@@ -140,20 +141,12 @@ foreach ($themes as $key => $theme) {
 	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
-if (function_exists('curl_init')) {
-	foreach ($plugin_links as $key => $link) {
-		$icon = curlRequest($link . '&curl');
-		if (is_numeric($icon) > 0) {
-			$plugin_links[$key] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
-		}
+if (!USECURL) {
+	if ($mod_rewrite_link) {
+		?>
+		<link rel="preload" as="image" href="<?php echo $mod_rewrite_link; ?>" />
+		<?php
 	}
-	foreach ($theme_links as $key => $link) {
-		$icon = curlRequest($link . '&curl');
-		if (is_numeric($icon) > 0) {
-			$theme_links[$key] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
-		}
-	}
-} else {
 	foreach ($plugin_links as $link) {
 		?>
 		<link rel="preload" as="image" href="<?php echo $link; ?>" />

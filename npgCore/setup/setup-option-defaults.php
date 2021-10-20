@@ -348,7 +348,7 @@ if (isset($_GET['mod_rewrite'])) {
 	<p>
 		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-			<img id="MODREWRITE" src="<?php echo $mod_rewrite_link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
+			<img id="MODREWRITE" src="<?php echo asyncRequest($mod_rewrite_link); ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
 		</span>
 	</p>
 
@@ -684,7 +684,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	foreach ($theme_links as $theme => $theme_link) {
 		?>
 		<span>
-			<img src="<?php echo $theme_link; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo asyncRequest($theme_link); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -904,7 +904,7 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 		}
 		?>
 		<span>
-			<img src="<?php echo $plugin_link; ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo asyncRequest($plugin_link); ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -914,13 +914,13 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-	echo gettext('Successful initialization');
-	if ($thirdParty) {
-		?>
+		echo gettext('Successful initialization');
+		if ($thirdParty) {
+			?>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
-		echo gettext('Successful initialization (third party item)');
-	}
-	?>
+			echo gettext('Successful initialization (third party item)');
+		}
+		?>
 		<span id="errornote" style="display:none;"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {

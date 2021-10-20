@@ -39,7 +39,11 @@ setOption('mod_rewrite_detected', 1);
 setOptionDefault('mod_rewrite', 1);
 setupLog('<span class="lognotice">' . gettext('Note: “Module mod_rewrite” is working.') . '</span><div class="logAddl">' . $msg . '</div>', $fullLog);
 
-sendImage(0, 'mod_rewrite');
+if (isset($_GET['curl'])) {
+	echo 0;
+} else {
+	sendImage(0, 'plugin_' . $extension);
+}
 
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;

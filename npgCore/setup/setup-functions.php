@@ -570,17 +570,18 @@ function sendImage($class, $which) {
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function shutDownFunction() {
-	global $__script;
+	global $__script, $nolog;
+
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_USER_ERROR, E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$msg = '<span class="error">' . sprintf(gettext('%1$s *ERROR* "%2$s" in %3$s on line %4$s'), $__script, $error['message'], $error['file'], $error['line']) . '</span>';
-		setupLog($msg, true);
+		setupLog($msg, !$nolog);
 		if (substr($__script, 0, 6) == 'Plugin') {
 			$extension = substr($__script, 7);
 			enableExtension($extension, 0);
-			setupLog(sprintf(gettext('%1$s disabled.'), $__script), true);
+			setupLog(sprintf(gettext('%1$s disabled.'), $__script), !$nolog);
 		}
-		setupLog(sprintf(gettext('%1$s setup failed.'), $__script), true);
+		setupLog(sprintf(gettext('%1$s setup failed.'), $__script), !$nolog);
 	}
 	error_reporting(0); //	bypass any further error handling
 	db_close();
@@ -763,4 +764,16 @@ function renameOption($oldKey, $newKey) {
 		}
 	}
 	purgeOption($oldKey);
+}
+
+function asyncRequest($link) {
+	if (USECURL) {
+		$icon = curlRequest($link . '&curl');
+		if (is_numeric($icon) > 0) {
+			$link = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
+		} else {
+			$link .= '&fail';
+		}
+	}
+	return $link;
 }

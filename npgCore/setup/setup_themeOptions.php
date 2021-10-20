@@ -14,7 +14,7 @@ register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
-if ($debug = isset($_GET['debug'])) {
+if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 	ini_set('display_errors', 1);
 } else {
 	ini_set('display_errors', 0);
@@ -30,7 +30,7 @@ require_once(dirname(__DIR__) . '/admin-globals.php');
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
 $icon = $_GET['class'];
-$fullLog = isset($_GET['fullLog']);
+$fullLog = !$nolog && (isset($_GET['fullLog']) || $icon == 2);
 
 $theme = sanitize($_REQUEST['theme']);
 $__script = 'Theme:' . $theme;
