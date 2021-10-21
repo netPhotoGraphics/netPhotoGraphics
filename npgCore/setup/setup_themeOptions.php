@@ -66,16 +66,15 @@ if (protectedTheme($theme)) {
 	purgeOption('albums_per_row', $theme);
 }
 
-if (isset($_GET['curl'])) {
-	echo $icon;
-} else {
-	sendImage($icon, 'plugin_' . $extension);
-}
-
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
 
+if (isset($_GET['curl'])) {
+	echo $icon + 1;
+} else {
+	sendImage($icon, 'plugin_' . $extension);
+}
 exit();
 ?>

@@ -279,7 +279,7 @@ if (empty($admins)) { //	empty administrators table
 			$_GET['mod_rewrite'] = true;
 			setOption('mod_rewrite', 1);
 		}
-//	replicate plugins state
+		//	replicate plugins state
 		foreach ($clone['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
@@ -300,8 +300,8 @@ if (empty($admins)) { //	empty administrators table
 	} else {
 		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
-//	The password hash of these old versions did not have the extra text.
-//	Note: if the administrators table is empty we will re-do this option with the good stuff.
+				//	The password hash of these old versions did not have the extra text.
+				//	Note: if the administrators table is empty we will re-do this option with the good stuff.
 				setOption('extra_auth_hash_text', '');
 			} else {
 				$msg = sprintf(gettext('Migrating lib-auth data version %1$s => version %2$s '), $oldv, npg_Authority::$preferred_version);
@@ -348,7 +348,7 @@ if (isset($_GET['mod_rewrite'])) {
 	<p>
 		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-			<img id="MODREWRITE" src="<?php echo asyncRequest($mod_rewrite_link); ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
+			<img id="MODREWRITE" src="<?php echo $mod_rewrite_link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
 		</span>
 	</p>
 
@@ -684,7 +684,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	foreach ($theme_links as $theme => $theme_link) {
 		?>
 		<span>
-			<img src="<?php echo asyncRequest($theme_link); ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
+			<img src="<?php echo $theme_link; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}
@@ -904,7 +904,7 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 		}
 		?>
 		<span>
-			<img src="<?php echo asyncRequest($plugin_link); ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
+			<img src="<?php echo $plugin_link; ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
 		</span>
 		<?php
 	}

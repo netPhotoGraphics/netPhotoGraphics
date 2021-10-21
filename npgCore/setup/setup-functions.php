@@ -765,15 +765,3 @@ function renameOption($oldKey, $newKey) {
 	}
 	purgeOption($oldKey);
 }
-
-function asyncRequest($link) {
-	if (USECURL) {
-		$icon = curlRequest($link . '&curl');
-		if (is_numeric($icon) > 0) {
-			$link = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . $icon;
-		} else {
-			$link .= '&fail';
-		}
-	}
-	return $link;
-}

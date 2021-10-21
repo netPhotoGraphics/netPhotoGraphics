@@ -3,8 +3,6 @@
  * pre-processing for theme, plugin, and mod_rewrite option handling
  */
 
-define('USECURL', function_exists('curl_init'));
-
 if (isset($_GET['debug'])) {
 	$debug = '&debug';
 } else {
@@ -141,20 +139,18 @@ foreach ($themes as $key => $theme) {
 	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
-if (!USECURL) {
-	if ($mod_rewrite_link) {
-		?>
-		<link rel="preload" as="image" href="<?php echo $mod_rewrite_link; ?>" />
-		<?php
-	}
-	foreach ($plugin_links as $link) {
-		?>
-		<link rel="preload" as="image" href="<?php echo $link; ?>" />
-		<?php
-	}
-	foreach ($theme_links as $link) {
-		?>
-		<link rel="preload" as="image" href="<?php echo $link; ?>" />
-		<?php
-	}
+if ($mod_rewrite_link) {
+	?>
+	<link rel="preload" as="image" href="<?php echo $mod_rewrite_link; ?>" />
+	<?php
+}
+foreach ($plugin_links as $link) {
+	?>
+	<link rel="preload" as="image" href="<?php echo $link; ?>" />
+	<?php
+}
+foreach ($theme_links as $link) {
+	?>
+	<link rel="preload" as="image" href="<?php echo $link; ?>" />
+	<?php
 }
