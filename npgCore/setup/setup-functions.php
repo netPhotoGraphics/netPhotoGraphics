@@ -581,7 +581,7 @@ function shutDownFunction() {
 			enableExtension($extension, 0);
 			setupLog(sprintf(gettext('%1$s disabled.'), $__script), !$nolog);
 		}
-		setupLog(sprintf(gettext('%1$s setup failed.'), $__script), !$nolog);
+		setupLog('<span class="error">' . sprintf(gettext('%1$s setup failed.'), $__script) . '</span>', !$nolog);
 	}
 	error_reporting(0); //	bypass any further error handling
 	db_close();
