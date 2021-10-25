@@ -118,5 +118,6 @@ if (isset($_GET['curl'])) {
 } else {
 	sendImage($icon, 'plugin_' . $extension);
 }
+db_close();
 exit();
 ?>

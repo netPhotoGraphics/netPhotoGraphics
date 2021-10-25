@@ -765,3 +765,47 @@ function renameOption($oldKey, $newKey) {
 	}
 	purgeOption($oldKey);
 }
+
+/**
+ * Emits the code for running plugins and themes to set their default options
+ *
+ * If the installation has the PHP CURL module configured CURL will be used
+ * to fetch blocks of imageProcessorConcurrency items in parallel.
+ *
+ * @param string $urls list of URLs to fetch
+ * @return boolean true if there was an error
+ */
+function optionCheck($urls) {
+	$errors = false;
+	if (CURL_ENABLED) {
+		foreach ($urls as $whom => $url) {
+			$urls[$whom] = $url . '&curl';
+		}
+		$sections = array_chunk($urls, getOption('imageProcessorConcurrency'), true);
+		foreach ($sections as $block) {
+			$checks = new ParallelCURL($block);
+			$rsp = $checks->getResults();
+			foreach ($block as $whom => $url) {
+				if (isset($rsp[$whom]) && is_numeric($rsp[$whom])) {
+					?>
+					<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rsp[$whom] - 1); ?>" title="<?php echo html_encode($whom); ?>" height = "16px" width = "16px">
+					<?php
+				} else {
+					?>
+					<a href="<?php echo str_replace('curl', 'debug', $url) ?>" target="_blank" title="<?php echo html_encode($whom); ?>"><?php echo CROSS_MARK_RED; ?></a>
+					<?php
+					$errors = true;
+				}
+			}
+		}
+	} else {
+		foreach ($urls as $whom => $link) {
+			?>
+			<span>
+				<img src="<?php echo $link; ?>" title="<?php echo html_encode($whom); ?>" height="16px" width="16px" />
+			</span>
+			<?php
+		}
+	}
+	return $errors;
+}

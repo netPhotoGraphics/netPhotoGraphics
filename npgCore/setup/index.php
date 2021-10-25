@@ -551,9 +551,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
 		<?php
-		if (!$system_check) {
-			require_once(CORE_SERVERPATH . 'setup/async_options.php');
-		}
 		scriptLoader(CORE_SERVERPATH . 'admin.css');
 		load_jQuery_CSS();
 		load_jQuery_scripts('theme');

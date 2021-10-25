@@ -10,6 +10,10 @@
  */
 setupLog(gettext('Set default options'), true);
 require_once(CORE_SERVERPATH . 'admin-globals.php');
+if (CURL_ENABLED) {
+	require (CORE_SERVERPATH . 'lib-CURL.php');
+}
+
 
 $setOptions = getOptionList();
 
@@ -22,6 +26,143 @@ if (!file_exists($testFile)) {
 	}
 	file_put_contents($testFile, '');
 }
+
+if (isset($_GET['debug'])) {
+	$debug = '&debug';
+} else {
+	$debug = '';
+}
+if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
+	$fullLog = '&fullLog';
+} else {
+	$fullLog = false;
+}
+
+//	preload for check images
+$unique = time();
+foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
+	if (is_dir(USER_PLUGIN_SERVERPATH . $remove)) {
+		npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $remove);
+	}
+	if (file_exists(USER_PLUGIN_SERVERPATH . $remove . '.php')) {
+		unlink(USER_PLUGIN_SERVERPATH . $remove . '.php');
+	}
+}
+enableExtension('slideshow2', 0);
+$old = getSerializedArray(getOption('netphotographics_install'));
+if (isset($old['NETPHOTOGRAPHICS'])) {
+	$from = preg_replace('/\[.*\]/', '', $old['NETPHOTOGRAPHICS']);
+} else {
+	$from = NULL;
+}
+?>
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
+<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
+<?php
+purgeOption('mod_rewrite');
+$sfx = getOption('mod_rewrite_image_suffix');
+purgeOption('mod_rewrite_image_suffix');
+if (!$sfx) {
+	$sfx = '.htm';
+}
+setOptionDefault('mod_rewrite_suffix', $sfx);
+setOptionDefault('dirtyform_enable', 2);
+purgeOption('mod_rewrite_detected');
+
+//	Update the root index.php file so admin mod_rewrite works
+//	Note: this must be done AFTER the mod_rewrite_suffix option is set and before we test if mod_rewrite works!
+$rootupdate = updateRootIndexFile();
+
+if (isset($_GET['mod_rewrite'])) {
+	//	test mod_rewrite
+	$mod_rewrite_link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix') . '?rewrite=' . MOD_REWRITE . '&unique=' . $unique;
+} else {
+	$mod_rewrite_link = false;
+}
+
+//effervescence_plus migration
+if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
+	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
+		$_gallery->setCurrentTheme('effervescence+');
+		$_gallery->save();
+	}
+	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
+	foreach ($options as $option) {
+		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
+	}
+	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
+}
+
+$thirdParty = $deprecated = false;
+setOptionDefault('deprecated_functions_signature', NULL);
+//set plugin default options by instantiating the options interface
+setOptionDefault('deprecated_functions_signature', NULL);
+$plugins = getPluginFiles('*.php');
+$plugins = array_keys($plugins);
+$plugin_links = array();
+$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
+localeSort($plugins);
+
+foreach ($plugins as $key => $extension) {
+	$class = 0;
+	$path = getPlugin($extension . '.php');
+	if (strpos($path, USER_PLUGIN_SERVERPATH) === 0) {
+		if (distributedPlugin($plugin)) {
+			unset($plugins[$key]);
+		} else {
+			$class = 1;
+			$thirdParty = true;
+		}
+	} else {
+		unset($plugins[$key]);
+	}
+
+	if (isset($pluginDetails[$extension]['deprecated'])) {
+		// Was once a distributed plugin
+		$k = array_search($extension, $deprecatedDeleted);
+		if (is_numeric($k)) {
+			if (extensionEnabled($extension)) {
+				unset($deprecatedDeleted[$k]);
+			} else {
+				if (is_dir(USER_PLUGIN_SERVERPATH . $extension)) {
+					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
+				}
+				unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
+				unset($plugins[$key]);
+				continue;
+			}
+		}
+		$class = 2;
+		$deprecated = true;
+		$addl = ' (' . gettext('deprecated') . ')';
+	} else {
+		$addl = '';
+	}
+	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
+}
+
+setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
+
+$theme_links = array();
+setOption('known_themes', serialize(array())); //	reset known themes
+$themes = array_keys($info = $_gallery->getThemes());
+localeSort($themes);
+foreach ($themes as $key => $theme) {
+	$class = 0;
+	if (protectedTheme($theme)) {
+		unset($themes[$key]);
+	} else {
+		$class = 1;
+		$thirdParty = true;
+	}
+	if (isset($info[$theme]['deprecated'])) {
+		$class = 2;
+		$deprecated = true;
+	}
+	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
+}
+
 
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
@@ -107,15 +248,6 @@ if ($result) {
 				$sql = 'UPDATE ' . prefix('obj_to_tag') . ' SET `tagid`=' . $row['id'] . ' WHERE `tagid`=' . $oldtag;
 			}
 		}
-	}
-}
-
-//migrate favorites data
-$all = query_full_array('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `subtype` IS NULL');
-foreach ($all as $aux) {
-	$instance = getSerializedArray($aux['aux']);
-	if (isset($instance[1])) {
-		query('UPDATE ' . prefix('plugin_storage') . ' SET `subtype`="named" WHERE `id`=' . $aux['id']);
 	}
 }
 
@@ -342,32 +474,51 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
-
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
 		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-			<img id="MODREWRITE" src="<?php echo $mod_rewrite_link; ?>" height="16px" width="16px" onerror="this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
+			<?php
+			if (CURL_ENABLED) {
+				$icon = curlRequest($mod_rewrite_link . '&curl');
+				if (is_numeric($icon)) {
+					?>
+					<img id = "MODREWRITE" src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" height = "16px" width = "16px">
+					<?php
+				} else {
+					?>
+					<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png" title="<?php echo gettext('Mod Rewrite is not working'); ?>" />
+					<?php
+				}
+			} else {
+				?>
+				<img id = "MODREWRITE" src = "<?php echo $mod_rewrite_link; ?>" height = "16px" width = "16px" onerror = "this.onerror=null;this.src='<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png';this.title='<?php echo gettext('Mod Rewrite is not working'); ?>'" />
+				<?php
+			}
+			?>
 		</span>
 	</p>
-
 	<?php
 }
-?>
-<script type="text/javascript">
-	$(function () {
-		$('img').on("error", function () {
-			var link = $(this).attr('src');
-			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '&debug' + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
-			imageErr = true;
-			$('#setupErrors').val(1);
-			$('#errornote').show();
+
+if (!CURL_ENABLED) {
+	?>
+	<script type="text/javascript">
+		$(function () {
+			$('img').on("error", function () {
+				var link = $(this).attr('src');
+				var title = $(this).attr('title');
+				$(this).parent().html('<a href="' + link + '&debug' + '" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+				imageErr = true;
+				$('#setupErrors').val(1);
+				$('#errornote').show();
+			});
 		});
-	});
-</script>
-<?php
+	</script>
+	<?php
+}
+
 setOptionDefault('UTF8_image_URI_found', 'unknown');
 if (isset($_POST['setUTF8URI'])) {
 	setOption('UTF8_image_URI_found', sanitize($_POST['setUTF8URI']));
@@ -541,9 +692,6 @@ setOptionDefault('sharpen_amount', 40);
 setOptionDefault('sharpen_radius', 0.5);
 setOptionDefault('sharpen_threshold', 3);
 
-setOptionDefault('search_space_is_or', 0);
-setOptionDefault('search_no_albums', 0);
-
 // default groups
 if (!is_array($groupsdefined)) {
 	$groupsdefined = array();
@@ -673,25 +821,17 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	}
 	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
 }
-?>
-<p>
-	<?php
-	setOption('known_themes', serialize(array())); //	reset known themes
-	$themes = array_keys($info = $_gallery->getThemes());
-	localeSort($themes);
-	echo gettext('Theme setup:') . '<br />';
+$displayErrors = false;
 
-	foreach ($theme_links as $theme => $theme_link) {
-		?>
-		<span>
-			<img src="<?php echo $theme_link; ?>" title="<?php echo $theme; ?>" alt="<?php echo $theme; ?>" height="16px" width="16px" />
-		</span>
-		<?php
+//migrate favorites data
+$all = query_full_array('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `subtype` IS NULL');
+foreach ($all as $aux) {
+	$instance = getSerializedArray($aux['aux']);
+	if (isset($instance[1])) {
+		query('UPDATE ' . prefix('plugin_storage') . ' SET `subtype`="named" WHERE `id`=' . $aux['id']);
 	}
-	?>
-</p>
+}
 
-<?php
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
 if (!file_exists(SERVERPATH . '/favicon.ico')) {
@@ -889,26 +1029,25 @@ foreach ($_languages as $language => $dirname) {
 }
 setOption('locale_unsupported', serialize($unsupported));
 i18n::setupCurrentLocale($_setupCurrentLocale_result);
+?>
+<p>
+	<?php
+	setOption('known_themes', serialize(array())); //	reset known themes
+	$themes = array_keys($info = $_gallery->getThemes());
+	localeSort($themes);
+	echo gettext('Theme setup:') . '<br />';
+	$displayErrors = $displayErrors || optionCheck($theme_links);
+	?>
+</p>
 
+<?php
 localeSort($plugins);
 $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 ?>
 <p>
 	<?php
 	echo gettext('Plugin setup:') . '<br />';
-	foreach ($plugin_links as $extension => $plugin_link) {
-		if (isset($pluginDetails[$extension]['deprecated'])) {
-			$addl = ' (' . gettext('deprecated') . ')';
-		} else {
-			$addl = '';
-		}
-		?>
-		<span>
-			<img src="<?php echo $plugin_link; ?>" title="<?php echo $extension . $addl; ?>" alt="<?php echo $extension; ?>" height="16px" width="16px" />
-		</span>
-		<?php
-	}
-	setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
+	$displayErrors = $displayErrors || optionCheck($plugin_links);
 	?>
 </p>
 <p>
@@ -921,7 +1060,7 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 			echo gettext('Successful initialization (third party item)');
 		}
 		?>
-		<span id="errornote" style="display:none;"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
+		<span id="errornote" style="display:<?php echo $displayErrors ? 'show' : 'none'; ?>"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {
 			?>

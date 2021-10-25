@@ -10,11 +10,13 @@ define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
 require_once(CORE_SERVERPATH . 'template-functions.php');
 require_once(PLUGIN_SERVERPATH . 'cacheManager/functions.php');
+if (CURL_ENABLED) {
+	require (CORE_SERVERPATH . 'lib-CURL.php');
+}
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('cacheDBImages');
-
 
 printAdminHeader('admin', 'DB');
 echo "\n</head>";
@@ -91,13 +93,27 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								$update = true;
 
 								if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
-									$url = '<span><img src="' . npgFunctions::updateImageProcessorLink($uri) . '" height="20" width="20" alt="X" /></span>';
+									$link = npgFunctions::updateImageProcessorLink($uri);
+									$url = '<span><img src="' . $link . '" height="20" width="20" alt="X" /></span>';
 									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
-									?>
-									<a href="<?php echo $uri; ?>&amp;debug" title="<?php echo $title; ?>">
-										<?php echo $url . "\n"; ?>
-									</a>
-									<?php
+									if (CURL_ENABLED) {
+										$rslt = curlRequest(FULLHOSTPATH . $link . '&returncheckmark&curl');
+										if (is_numeric($rslt)) {
+											?>
+											<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rslt - 1); ?>" title="<?php echo html_encode($title); ?>" height = "16px" width = "16px">
+											<?php
+										} else {
+											?>
+											<a href="<?php echo pathurlencode($uri) . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($title); ?>"><?php echo CROSS_MARK_RED; ?></a>
+											<?php
+										}
+									} else {
+										?>
+										<a href="<?php echo pathurlencode($uri); ?>&amp;debug" title="<?php echo html_encode($title); ?>">
+											<?php echo $url . "\n"; ?>
+										</a>
+										<?php
+									}
 								}
 							}
 						}
@@ -148,13 +164,26 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 										if (!file_exists($cachefile)) {
 											$fixed++;
 											$title = getTitle($table, $row);
-											?>
-											<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
-												<?php
-												echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+											if (CURL_ENABLED) {
+												$rslt = curlRequest(FULLHOSTPATH . $uri . '&returncheckmark&curl');
+												if (is_numeric($rslt)) {
+													?>
+													<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rslt - 1); ?>" title="<?php echo html_encode($title); ?>" height = "16px" width = "16px">
+													<?php
+												} else {
+													?>
+													<a href="<?php echo $uri . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($title); ?>"><?php echo CROSS_MARK_RED; ?></a>
+													<?php
+												}
+											} else {
 												?>
-											</a>
-											<?php
+												<a href="<?php echo pathurlencode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
+													<?php
+													echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+													?>
+												</a>
+												<?php
+											}
 										}
 									}
 								}
@@ -177,13 +206,26 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 									if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 										$fixed++;
 										$title = getTitle($table, $row);
-										?>
-										<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
-											<?php
-											echo '<img class="iplink" src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+										if (CURL_ENABLED) {
+											$rslt = curlRequest(FULLHOSTPATH . $uri . '&returncheckmark&curl');
+											if (is_numeric($rslt)) {
+												?>
+												<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rslt - 1); ?>" title="<?php echo html_encode($title); ?>" height = "16px" width = "16px">
+												<?php
+											} else {
+												?>
+												<a href="<?php echo pathurlencode($uri) . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($title); ?>"><?php echo CROSS_MARK_RED; ?></a>
+												<?php
+											}
+										} else {
 											?>
-										</a>
-										<?php
+											<a href="<?php echo pathurlencode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug" title="<?php echo $title; ?>">
+												<?php
+												echo '<img class="iplink" src="' . pathurlencode($uri) . '&returncheckmark" height="16" width="16" alt="x" />' . "\n";
+												?>
+											</a>
+											<?php
+										}
 									}
 									break;
 								}

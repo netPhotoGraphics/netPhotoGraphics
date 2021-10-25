@@ -49,5 +49,6 @@ if (isset($_GET['curl'])) {
 } else {
 	sendImage(0, 'Mod_rewrite');
 }
+db_close();
 exit();
 ?>

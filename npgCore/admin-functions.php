@@ -6347,7 +6347,7 @@ function convert_size($size, $round = 0) {
  */
 function getRemoteFile($source, $dest) {
 	$msg = NULL;
-	if (function_exists('curl_init')) {
+	if (CURL_ENABLED) {
 		try {
 			$msg = curlDL($source, $dest);
 		} catch (Exception $ex) {

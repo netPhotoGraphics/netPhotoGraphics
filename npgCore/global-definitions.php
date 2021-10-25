@@ -15,7 +15,11 @@ if (!isset($_SERVER['HTTP_HOST']))
 	die();
 
 $v = explode("\n", file_get_contents(__DIR__ . '/version.php'));
-eval($v[2]); // Include the version info avoiding captured PHP script.
+foreach ($v as $line) {
+	if (strpos($line, 'define') !== false) {
+		eval($line); // Include the version info avoiding captured PHP script.
+	}
+}
 
 if (!function_exists("gettext")) {
 	require_once(__DIR__ . '/php-gettext/gettext.inc');
@@ -165,6 +169,8 @@ if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
 define('FALLBACK_SUFFIX', 'webp');
+
+define('CURL_ENABLED', function_exists('curl_init'));
 
 unset($matches);
 unset($const_webpath);

@@ -9,6 +9,9 @@
 define('OFFSET_PATH', 3);
 require_once("../../admin-globals.php");
 require_once(CORE_SERVERPATH . 'template-functions.php');
+if (CURL_ENABLED) {
+	require (CORE_SERVERPATH . 'lib-CURL.php');
+}
 
 if (isset($_REQUEST['album'])) {
 	$localrights = ALBUM_RIGHTS;
@@ -19,7 +22,6 @@ admin_securityChecks($localrights, $return = currentRelativeURL());
 
 function loadAlbum($album) {
 	global $_current_album, $_current_image, $_gallery, $custom, $enabled, $fullImage;
-	set_time_limit(200);
 	$subalbums = $album->getAlbums();
 	sort($subalbums);
 	$started = false;
@@ -41,28 +43,22 @@ function loadAlbum($album) {
 	loadLocalOptions($id, $theme);
 	$_current_album = $album;
 	if ($album->getNumImages() > 0) {
+		$needsCaching = array();
+
 		echo "<br />" . $album->name . ' ';
 		while (next_image(true)) {
 			if ($_current_image->isPhoto()) {
-				$countit = 0;
+
 				if ($fullImage) {
 					$uri = getFullImageURL(NULL, 'Protected');
 					if (strpos($uri, 'full-image.php?') !== false) {
-						if (!($count + $countit)) {
-							echo "{ ";
-						} else {
-							echo ' | ';
-						}
-						$countit = 1;
-						?>
-						<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug">
-							<?php
-							echo '<img src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n";
-							?>
-						</a>
-						<?php
+						$needsCaching[] = array(
+								'uri' => str_replace('check=', '', $uri),
+								'cache' => ltrim(getImageCacheFilename($_current_image->album->name, $_current_image->filename, $args), '/')
+						);
 					}
 				}
+
 				foreach ($custom as $key => $cacheimage) {
 					if (in_array($key, $enabled)) {
 						$size = isset($cacheimage['image_size']) ? $cacheimage['image_size'] : NULL;
@@ -95,26 +91,58 @@ function loadAlbum($album) {
 						$args = getImageParameters($args, $album->name);
 						$uri = getImageURI($args, $_current_image->album->name, $_current_image->filename, $_current_image->filemtime);
 						if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
-							$uri = str_replace('check=', '', $uri);
-							if (!($count + $countit)) {
-								echo '{ ';
-							} else {
+							$needsCaching[] = array(
+									'uri' => str_replace('check=', '', preg_replace('~/i\.(.*)\?~', '/i.php?', $uri)),
+									'cache' => ltrim(getImageCacheFilename($_current_image->album->name, $_current_image->filename, $args), '/')
+							);
+						}
+					}
+				}
+				$count = count($needsCaching);
+				if ($count) {
+					echo '{ ';
+					if (CURL_ENABLED) {
+						$sections = array_chunk($needsCaching, getOption('imageProcessorConcurrency'), true);
+						foreach ($sections as $block) {
+							set_time_limit(200);
+							$uriList = array();
+							foreach ($block as $key => $img) {
+								$uriList[$key] = FULLHOSTPATH . preg_replace('~\&limit=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl';
+							}
+							$checks = new ParallelCURL($uriList);
+							$rsp = $checks->getResults();
+							foreach ($block as $key => $img) {
+								if ($key) {
+									echo ' | ';
+								}
+								if (isset($rsp[$key]) && is_numeric($rsp[$key])) {
+									?>
+									<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rsp[$key] - 1); ?>" title="<?php echo html_encode($img['cache']); ?>" height = "16px" width = "16px">
+									<?php
+								} else {
+									?>
+									<a href="<?php echo $img['uri'] . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($img['cache']); ?>"><?php echo CROSS_MARK_RED; ?></a>
+									<?php
+								}
+							}
+						}
+					} else {
+						set_time_limit(200);
+						foreach ($needsCaching as $key => $img) {
+							if ($key) {
 								echo ' | ';
 							}
-							$countit = 1;
 							?>
-							<a href="<?php echo html_encode($uri); ?>&amp;admin&amp;returncheckmark&amp;debug">
-								<?php echo '<img src="' . html_encode($uri) . '&returncheckmark" height="16" width="16" alt="X" />' . "\n"; ?>
+							<a href="<?php echo $img['uri']; ?>&amp;admin&amp;returncheckmark&amp;debug">
+								<?php echo '<img src="' . $img['uri'] . '&amp;returncheckmark" title="' . html_encode($img['cache']) . '" height="16" width="16" alt="X" />' . "\n"; ?>
 							</a>
 							<?php
 						}
 					}
+					echo '} ';
 				}
-				$count = $count + $countit;
 			}
 		}
-		if ($count)
-			echo '} ';
 		printf(ngettext('[%u image]', '[%u images]', $count), $count);
 		echo "<br />\n";
 	}

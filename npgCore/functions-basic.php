@@ -397,14 +397,14 @@ function getSetClause($new_unique_set) {
 }
 
 /**
- * gating functionm for all database queries
+ * gating function for all database queries
  * @param type $sql
  * @param type $errorstop
  */
 function query($sql, $errorstop = true) {
 	$result = class_exists('npgFilters') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
-		return db_query($sql, $errorstop);
+		$result = db_query($sql, $errorstop);
 	}
 	return $result;
 }

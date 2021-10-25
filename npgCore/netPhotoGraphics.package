@@ -695,6 +695,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/lib-auth.php
 %core%/lib-config.php
 %core%/lib-controller.php
+%core%/lib-CURL.php
 %core%/lib-encryption.php
 %core%/lib-filter.php
 %core%/lib-GD.php
@@ -8029,7 +8030,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/watermarks/watermark.png
 %core%/version.php:*
 %core%/setup:*
-%core%/setup/async_options.php:*
 %core%/setup/database.php:*
 %core%/setup/icon.php:*
 %core%/setup/index.php:*
