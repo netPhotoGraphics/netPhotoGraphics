@@ -43,6 +43,8 @@ $option_interface = 'ipBlocker';
 npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
+npgFilters::register('theme_headers', 'ipBlocker::load');
+npgFilters::register('admin_headers', 'ipBlocker::clear'); //	if we are logged in we should not be blocked
 
 /**
  * Option handler class
@@ -296,6 +298,26 @@ class ipBlocker {
 			return false;
 	}
 
+	static function clear() {
+		if (npg_loggedin()) {
+			$ip = getUserIP();
+			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
+			query($sql);
+			$block = getSerializedArray(getOption('ipBlocker_forbidden'));
+			if (array_key_exists($ip, $block)) {
+				unset($block[$ip]);
+				if (empty($block)) {
+					$block = NULL;
+				} else {
+					$block = serialize($block);
+				}
+				setOption('ipBlocker_forbidden', $block);
+			}
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Monitors Login attempts and suspends of past failure threshold
 	 * @param bit true if login is successful
@@ -304,10 +326,10 @@ class ipBlocker {
 	 */
 	static function login($loggedin, $user, $pass = NULL, $auth = NULL) {
 		if ($loggedin) {
-			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote(getUserIP());
-			query($sql);
+			self::clear();
 		} else {
 			self::ipGate('logon');
+			self::load();
 		}
 		return $loggedin;
 	}
@@ -405,13 +427,13 @@ class ipBlocker {
 	 */
 	static function load() {
 		if (self::blocked() || self::suspended()) {
-			sleep(30);
-			header("HTTP/1.0 403 " . gettext("Forbidden"));
-			header("Status: 403 " . gettext("Forbidden"));
-			exit(); //	terminate the script with no output
+			if (!self::clear()) {
+				sleep(30);
+				header("HTTP/1.0 403 " . gettext("Forbidden"));
+				header("Status: 403 " . gettext("Forbidden"));
+				exit(); //	terminate the script with no output
+			}
 		}
 	}
 
 }
-
-ipBlocker::load();
