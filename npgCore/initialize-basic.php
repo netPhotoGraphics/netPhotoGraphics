@@ -233,3 +233,15 @@ define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
 define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s', getOption('last_admin_action')) . ' GMT');
 
 define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
+
+$chunk = getOption('imageProcessorConcurrency');
+if (!$chunk) {
+	$chunk = 15;
+}
+$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+if ($max['Value']) {
+	$chunk = min($max['Value'], $chunk);
+}
+define('PROCESSING_CONCURENCY', $chunk);
+unset($chunk);
+unset($max);

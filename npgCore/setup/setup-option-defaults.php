@@ -983,7 +983,7 @@ setOptionDefault('cache_random_search', 1);
 setOptionDefault('search_within', 1);
 
 setOptionDefault('debug_log_size', 5000000);
-setOptionDefault('imageProcessorConcurrency', 15);
+setOptionDefault('imageProcessorConcurrency', PROCESSING_CONCURENCY);
 setOptionDefault('search_album_sort_type', 'title');
 setOptionDefault('search_album_sort_direction', '');
 setOptionDefault('search_image_sort_type', 'title');
