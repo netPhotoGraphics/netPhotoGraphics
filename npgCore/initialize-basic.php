@@ -239,8 +239,8 @@ if (!$chunk) {
 	$chunk = 15;
 }
 $max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-if ($max['Value']) {
-	$chunk = min($max['Value'], $chunk);
+if ($max['Value'] && $max['Value'] < $chunk + 2) {
+	$chunk = $max['Value'] - 2;
 }
 define('PROCESSING_CONCURENCY', $chunk);
 unset($chunk);
