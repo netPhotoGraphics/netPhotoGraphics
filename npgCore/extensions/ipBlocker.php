@@ -118,7 +118,6 @@ class ipBlocker {
 				'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)
 		);
 
-
 		if (!extensionEnabled('ipBlocker')) {
 			$options['note'] = array('key' => 'ipBlocker_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 0,
@@ -163,20 +162,20 @@ class ipBlocker {
 				?>
 				<script type="text/javascript">
 					<!--
-					function clearips() {
-				<?php
-				for ($i = 0; $i <= $key + 4; $i++) {
-					?>
+					fun	ction clearips() {
+					<?php
+					for ($i = 0; $i <= $key + 4; $i++) {
+						?>
 							$('#ipholder_<?php echo $i; ?>a').val('');
 							$('#ipholder_<?php echo $i; ?>b').val('');
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 					}
 					//-->
 				</script>
 				<p>
-					<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
+						<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
 				</p>
 				<?php
 				break;
@@ -215,16 +214,16 @@ class ipBlocker {
 					$ipa = explode('.', $range['start'] . '0.0.0.0');
 					do {
 						$current = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
-						$ipa[3] ++;
+						$ipa[3]++;
 						if ($ipa[3] > 255) {
 							$ipa[3] = 0;
-							$ipa[2] ++;
+							$ipa[2]++;
 							if ($ipa[2] > 255) {
 								$ipa[2] = 0;
-								$ipa[2] ++;
+								$ipa[2]++;
 								if ($ipa[1] > 255) {
 									$ipa[1] = 0;
-									$ipa[0] ++;
+									$ipa[0]++;
 									if ($ipa[0] > 255) {
 										break;
 									}
@@ -258,16 +257,16 @@ class ipBlocker {
 						$try = trim(array_shift($import_list));
 						if ($try) { //	ignore empty lines
 							$ipa = explode('.', $current);
-							$ipa[3] ++;
+							$ipa[3]++;
 							if ($ipa[3] > 255) {
 								$ipa[3] = 0;
-								$ipa[2] ++;
+								$ipa[2]++;
 								if ($ipa[2] > 255) {
 									$ipa[2] = 0;
-									$ipa[2] ++;
+									$ipa[2]++;
 									if ($ipa[1] > 255) {
 										$ipa[1] = 0;
-										$ipa[0] ++;
+										$ipa[0]++;
 										if ($ipa[0] > 255) {
 											break;
 										}
@@ -416,4 +415,3 @@ class ipBlocker {
 }
 
 ipBlocker::load();
-?>
