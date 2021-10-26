@@ -24,33 +24,6 @@ require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
-if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
-	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
-		setOption('getDEVUpdates_lastCheck', time());
-		try {
-			$api = new Github\Api;
-			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
-			$fullRepoData = $api->decode($fullRepoResponse);
-			$assets = $fullRepoData->assets;
-
-			if (!empty($assets)) {
-				$item = array_pop($assets);
-				setOption('getDEVUpdates_latest', $item->browser_download_url);
-			}
-		} catch (Exception $e) {
-			debugLog(gettext('GitHub repository not accessible. ') . $e);
-		}
-	}
-	$devVersionURI = getOption('getDEVUpdates_latest');
-	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
-	$newestVersion = $matches[1];
-
-	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
-	if (isset($_GET['update_check'])) {
-		npgFilters::register('admin_note', 'devReleases::notice');
-	}
-}
-
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
@@ -102,6 +75,33 @@ if (isset($_GET['action'])) {
 			header('location: ' . getAdminLink('admin.php') . '?action=session&error');
 			exit();
 		}
+	}
+}
+
+if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
+	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
+		setOption('getDEVUpdates_lastCheck', time());
+		try {
+			$api = new Github\Api;
+			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
+			$fullRepoData = $api->decode($fullRepoResponse);
+			$assets = $fullRepoData->assets;
+
+			if (!empty($assets)) {
+				$item = array_pop($assets);
+				setOption('getDEVUpdates_latest', $item->browser_download_url);
+			}
+		} catch (Exception $e) {
+			debugLog(gettext('GitHub repository not accessible. ') . $e);
+		}
+	}
+	$devVersionURI = getOption('getDEVUpdates_latest');
+	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+	$newestVersion = $matches[1];
+
+	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
+	if (isset($_GET['update_check'])) {
+		npgFilters::register('admin_note', 'devReleases::notice');
 	}
 }
 
