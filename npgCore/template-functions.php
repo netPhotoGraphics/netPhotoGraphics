@@ -1676,8 +1676,6 @@ function getPasswordProtectImage($extra) {
 	$themedir = SERVERPATH . '/themes/' . basename($_themeroot);
 	if (file_exists(internalToFilesystem($themedir . '/images/err-passwordprotected.png'))) {
 		$image = $_themeroot . '/images/err-passwordprotected.png';
-	} else if (file_exists(internalToFilesystem($themedir . '/images/err-passwordprotected.gif'))) {
-		$image = $_themeroot . '/images/err-passwordprotected.gif';
 	} else {
 		$image = WEBPATH . '/' . CORE_FOLDER . '/images/err-passwordprotected.png';
 	}
