@@ -43,6 +43,8 @@ $option_interface = 'ipBlocker';
 npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
+npgFilters::register('theme_headers', 'ipBlocker::load');
+npgFilters::register('admin_headers', 'ipBlocker::clear'); //	if we are logged in we should not be blocked
 
 /**
  * Option handler class
@@ -118,7 +120,6 @@ class ipBlocker {
 				'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)
 		);
 
-
 		if (!extensionEnabled('ipBlocker')) {
 			$options['note'] = array('key' => 'ipBlocker_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 0,
@@ -163,20 +164,20 @@ class ipBlocker {
 				?>
 				<script type="text/javascript">
 					<!--
-					function clearips() {
-				<?php
-				for ($i = 0; $i <= $key + 4; $i++) {
-					?>
+					fun	ction clearips() {
+					<?php
+					for ($i = 0; $i <= $key + 4; $i++) {
+						?>
 							$('#ipholder_<?php echo $i; ?>a').val('');
 							$('#ipholder_<?php echo $i; ?>b').val('');
-					<?php
-				}
-				?>
+						<?php
+					}
+					?>
 					}
 					//-->
 				</script>
 				<p>
-					<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
+						<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
 				</p>
 				<?php
 				break;
@@ -215,16 +216,16 @@ class ipBlocker {
 					$ipa = explode('.', $range['start'] . '0.0.0.0');
 					do {
 						$current = sprintf('%03u.%03u.%03u.%03u', $ipa[0], $ipa[1], $ipa[2], $ipa[3]);
-						$ipa[3] ++;
+						$ipa[3]++;
 						if ($ipa[3] > 255) {
 							$ipa[3] = 0;
-							$ipa[2] ++;
+							$ipa[2]++;
 							if ($ipa[2] > 255) {
 								$ipa[2] = 0;
-								$ipa[2] ++;
+								$ipa[2]++;
 								if ($ipa[1] > 255) {
 									$ipa[1] = 0;
-									$ipa[0] ++;
+									$ipa[0]++;
 									if ($ipa[0] > 255) {
 										break;
 									}
@@ -258,16 +259,16 @@ class ipBlocker {
 						$try = trim(array_shift($import_list));
 						if ($try) { //	ignore empty lines
 							$ipa = explode('.', $current);
-							$ipa[3] ++;
+							$ipa[3]++;
 							if ($ipa[3] > 255) {
 								$ipa[3] = 0;
-								$ipa[2] ++;
+								$ipa[2]++;
 								if ($ipa[2] > 255) {
 									$ipa[2] = 0;
-									$ipa[2] ++;
+									$ipa[2]++;
 									if ($ipa[1] > 255) {
 										$ipa[1] = 0;
-										$ipa[0] ++;
+										$ipa[0]++;
 										if ($ipa[0] > 255) {
 											break;
 										}
@@ -297,6 +298,26 @@ class ipBlocker {
 			return false;
 	}
 
+	static function clear() {
+		if (npg_loggedin()) {
+			$ip = getUserIP();
+			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
+			query($sql);
+			$block = getSerializedArray(getOption('ipBlocker_forbidden'));
+			if (array_key_exists($ip, $block)) {
+				unset($block[$ip]);
+				if (empty($block)) {
+					$block = NULL;
+				} else {
+					$block = serialize($block);
+				}
+				setOption('ipBlocker_forbidden', $block);
+			}
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Monitors Login attempts and suspends of past failure threshold
 	 * @param bit true if login is successful
@@ -305,10 +326,10 @@ class ipBlocker {
 	 */
 	static function login($loggedin, $user, $pass = NULL, $auth = NULL) {
 		if ($loggedin) {
-			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote(getUserIP());
-			query($sql);
+			self::clear();
 		} else {
 			self::ipGate('logon');
+			self::load();
 		}
 		return $loggedin;
 	}
@@ -406,14 +427,13 @@ class ipBlocker {
 	 */
 	static function load() {
 		if (self::blocked() || self::suspended()) {
-			sleep(30);
-			header("HTTP/1.0 403 " . gettext("Forbidden"));
-			header("Status: 403 " . gettext("Forbidden"));
-			exit(); //	terminate the script with no output
+			if (!self::clear()) {
+				sleep(30);
+				header("HTTP/1.0 403 " . gettext("Forbidden"));
+				header("Status: 403 " . gettext("Forbidden"));
+				exit(); //	terminate the script with no output
+			}
 		}
 	}
 
 }
-
-ipBlocker::load();
-?>

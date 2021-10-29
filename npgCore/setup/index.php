@@ -104,7 +104,6 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 }
 $_SESSION['save_session_path'] = session_save_path();
 
-
 $en_US = dirname(__DIR__) . '/locale/en_US/';
 if (!file_exists($en_US)) {
 	mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
@@ -440,6 +439,8 @@ if ($selected_database) {
 require_once(dirname(__DIR__) . '/admin-functions.php');
 require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/security-logger.php');
 
+$system_check = !$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized());
+
 header('Content-Type: text/html; charset=UTF-8');
 header("HTTP/1.0 200 OK");
 header("Status: 200 OK");
@@ -478,7 +479,7 @@ if ($setup_checked) {
 		setupLog(gettext('Setup cookie test successful'));
 		clearNPGCookie('setup_test_cookie');
 	} else {
-		setupLog(gettext('Setup cookie test unsuccessful'), true);
+		setupLog('<span class="logwarning">' . gettext('Setup cookie test unsuccessful') . '</span>', true);
 	}
 	if ($s = getOption('users_per_page')) {
 		setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
@@ -582,7 +583,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 				if ($connection && empty($_options)) {
 					primeOptions();
 				}
-				if (!$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized())) {
+				if ($system_check) {
 					if ($blindInstall = ($upgrade && $autorun) && !setupUserAuthorized()) {
 						ob_start(); //	hide output for auto-upgrade
 					}

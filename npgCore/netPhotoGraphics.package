@@ -49,7 +49,7 @@ themes/ardoise/images/bg2.jpg
 themes/ardoise/images/bg3.jpg
 themes/ardoise/images/close.png
 themes/ardoise/images/download.png
-themes/ardoise/images/err-passwordprotected.gif
+themes/ardoise/images/err-passwordprotected.png
 themes/ardoise/images/favicon.ico
 themes/ardoise/images/help.png
 themes/ardoise/images/hr.gif
@@ -695,6 +695,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/lib-auth.php
 %core%/lib-config.php
 %core%/lib-controller.php
+%core%/lib-CURL.php
 %core%/lib-encryption.php
 %core%/lib-filter.php
 %core%/lib-GD.php
@@ -8041,4 +8042,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8043
+8044

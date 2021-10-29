@@ -536,7 +536,15 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Caching concurrency"); ?></td>
 						<td class="option_value">
-							<?php putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, 60, getOption('imageProcessorConcurrency')); ?>
+							<?php
+							$max_connections = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+							if ($max_connections['Value'] && $max_connections['Value'] < 62) {
+								$max = $max_connections['Value'] - 2;
+							} else {
+								$max = 60;
+							}
+							putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, $max, PROCESSING_CONCURENCY);
+							?>
 						</td>
 						<td class="option_desc">
 							<span class="option_info">

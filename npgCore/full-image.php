@@ -235,7 +235,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		}
 	} else {
 		//	have to create the image
-		$iMutex = new npgMutex('i', getOption('imageProcessorConcurrency'));
+		$iMutex = new npgMutex('i', PROCESSING_CONCURENCY);
 		$iMutex->lock();
 		$newim = gl_imageGet($image_path);
 		if ($rotate) {

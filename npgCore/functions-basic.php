@@ -397,14 +397,14 @@ function getSetClause($new_unique_set) {
 }
 
 /**
- * gating functionm for all database queries
+ * gating function for all database queries
  * @param type $sql
  * @param type $errorstop
  */
 function query($sql, $errorstop = true) {
 	$result = class_exists('npgFilters') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
-		return db_query($sql, $errorstop);
+		$result = db_query($sql, $errorstop);
 	}
 	return $result;
 }
@@ -1589,7 +1589,7 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 		$args['z'] = $z;
 	}
 
-	$uri .= '&limit=' . getOption('imageProcessorConcurrency') . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .= '&limit=' . PROCESSING_CONCURENCY . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = npgFilters::apply('image_processor_uri', $uri, $args, $album, $image);
 

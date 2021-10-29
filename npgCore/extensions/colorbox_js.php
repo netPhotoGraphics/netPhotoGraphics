@@ -40,11 +40,13 @@ class colorbox {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			//	clear old colorbox options
 			$result = getOptionsLike('colorbox_');
 			unset($result['colorbox_theme']);
 			foreach ($result as $option => $value) {
 				purgeOption('colorbox_' . $option);
 			}
+
 			setOptionDefault('colorbox_theme', 'example1');
 		}
 	}
@@ -77,7 +79,7 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
-		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
 	}
 
@@ -93,7 +95,7 @@ class colorbox {
 	 * @deprecated since version 1.9
 	 */
 	static function scriptEnabled($theme, $script) {
-		require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/deprecated-functions.php');
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/deprecated-functions.php');
 		deprecated_functions::notify('scriptEnabled() is no longer used. You may delete the calls.');
 		return true;
 	}
@@ -120,8 +122,8 @@ class colorbox {
 	}
 
 	static function js() {
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
-		scriptLoader(CORE_SERVERPATH .  PLUGIN_FOLDER . '/colorbox_js/functions.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/jquery.colorbox-min.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/colorbox_js/functions.js');
 	}
 
 }

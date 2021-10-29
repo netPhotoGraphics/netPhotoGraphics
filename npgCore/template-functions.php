@@ -1676,8 +1676,6 @@ function getPasswordProtectImage($extra) {
 	$themedir = SERVERPATH . '/themes/' . basename($_themeroot);
 	if (file_exists(internalToFilesystem($themedir . '/images/err-passwordprotected.png'))) {
 		$image = $_themeroot . '/images/err-passwordprotected.png';
-	} else if (file_exists(internalToFilesystem($themedir . '/images/err-passwordprotected.gif'))) {
-		$image = $_themeroot . '/images/err-passwordprotected.gif';
 	} else {
 		$image = WEBPATH . '/' . CORE_FOLDER . '/images/err-passwordprotected.png';
 	}
@@ -1719,7 +1717,7 @@ function printAlbumThumbImage($alt, $class = NULL, $id = NULL, $title = NULL) {
 	$thumbobj = $_current_album->getAlbumThumbImage();
 	$sizes = getSizeDefaultThumb($thumbobj);
 	$size = ' width="' . $sizes[0] . '" height="' . $sizes[1] . '"';
-	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
+	if (empty($pwd) || !getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || $_current_album->checkforGuest()) {
 		$html = '<img src="' . html_encode($thumbobj->getThumb('album')) . '"' . $size . ' alt="' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
 		$html = npgFilters::apply('standard_album_thumb_html', $html);
 		if (ENCODING_FALLBACK) {

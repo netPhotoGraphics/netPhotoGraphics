@@ -289,6 +289,7 @@ function toggle_passwords(id, pwd_enable) {
 }
 
 function resetPass(id) {
+	$(this.form).addClass('dirty');
 	$('#user_name' + id).val('');
 	$('#pass' + id).val('');
 	$('#pass_r' + id).val('');

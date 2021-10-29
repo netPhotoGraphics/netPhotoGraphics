@@ -189,8 +189,12 @@ if ($debug) {
 } else {
 	if (isset($_GET['returncheckmark'])) {
 		//	from the cachemanager cache image generator
-		require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
-		sendImage((int) ($thumb && true), 'i.php');
+		if (isset($_GET['curl'])) {
+			echo (int) ($thumb && true);
+		} else {
+			require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
+			sendImage((int) ($thumb && true), 'i.php');
+		}
 		exit();
 	}
 	// ... and redirect the browser to it.

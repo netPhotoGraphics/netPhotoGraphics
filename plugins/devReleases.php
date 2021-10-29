@@ -24,40 +24,11 @@ require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
-if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
-	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
-		setOption('getDEVUpdates_lastCheck', time());
-		try {
-			$api = new Github\Api;
-			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
-			$fullRepoData = $api->decode($fullRepoResponse);
-			$assets = $fullRepoData->assets;
-
-			if (!empty($assets)) {
-				$item = array_pop($assets);
-				setOption('getDEVUpdates_latest', $item->browser_download_url);
-			}
-		} catch (Exception $e) {
-			debugLog(gettext('GitHub repository not accessible. ') . $e);
-		}
-	}
-	$devVersionURI = getOption('getDEVUpdates_latest');
-	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
-	$newestVersion = $matches[1];
-
-	npgFilters::register('admin_utilities_buttons', 'devRelease::buttons');
-	if (isset($_GET['update_check'])) {
-		npgFilters::register('admin_note', 'devRelease::notice');
-	}
-}
-
 if (isset($_GET['action'])) {
-	if ($_GET['action'] == 'check_updates') {
+	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
 		purgeOption('getUpdates_lastCheck');
-		header("HTTP/1.0 302 Found");
-		header("Status: 302 Found");
 		header('location: ' . getAdminLink('admin.php') . '?update_check');
 		exit();
 	}
@@ -107,7 +78,34 @@ if (isset($_GET['action'])) {
 	}
 }
 
-class devRelease {
+if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
+	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
+		setOption('getDEVUpdates_lastCheck', time());
+		try {
+			$api = new Github\Api;
+			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
+			$fullRepoData = $api->decode($fullRepoResponse);
+			$assets = $fullRepoData->assets;
+
+			if (!empty($assets)) {
+				$item = array_pop($assets);
+				setOption('getDEVUpdates_latest', $item->browser_download_url);
+			}
+		} catch (Exception $e) {
+			debugLog(gettext('GitHub repository not accessible. ') . $e);
+		}
+	}
+	$devVersionURI = getOption('getDEVUpdates_latest');
+	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+	$newestVersion = $matches[1];
+
+	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
+	if (isset($_GET['update_check'])) {
+		npgFilters::register('admin_note', 'devReleases::notice');
+	}
+}
+
+class devReleases {
 
 	static function buttons($buttons) {
 		$devVersionURI = getOption('getDEVUpdates_latest');
@@ -136,11 +134,11 @@ class devRelease {
 					'enable' => 1,
 					'button_text' => gettext('Check for updates'),
 					'formname' => 'check_update',
-					'action' => getAdminLink('admin.php') . '?action=check_updates',
+					'action' => getAdminLink('admin.php') . '?action=check_update',
 					'icon' => CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN,
 					'alt' => '',
 					'title' => gettext('Check for newer versions of netPhotoGraphics.'),
-					'hidden' => '<input type = "hidden" name = "action" value = "check_updates" />',
+					'hidden' => '<input type = "hidden" name = "action" value = "check_update" />',
 					'rights' => ADMIN_RIGHTS
 			);
 		}
@@ -171,4 +169,3 @@ class devRelease {
 	}
 
 }
-?>

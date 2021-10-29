@@ -8,14 +8,17 @@
  * @package setup
  *
  */
-ini_set('display_errors', 1);
-
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
+
+if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
+	ini_set('display_errors', 1);
+} else {
+	ini_set('display_errors', 0);
+}
 
 npg_session_start();
 
@@ -23,15 +26,16 @@ list($usec, $sec) = explode(" ", microtime());
 $startPO = (float) $usec + (float) $sec;
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
-require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
-
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
 $icon = $_GET['class'];
-$fullLog = isset($_GET['fullLog']) || $icon == 2;
+$fullLog = !$nolog && (isset($_GET['fullLog']) || $icon == 2);
 
 $extension = sanitize($_REQUEST['plugin']);
-$__script = 'Plugin:' . $extension;
+
+if ($extension != 'cacheManager') {
+	require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
+}
 
 if ($icon == 2) {
 	$name = '<span style="text-decoration: line-through;">' . $extension . '</span>';
@@ -40,6 +44,7 @@ if ($icon == 2) {
 }
 setupLog(sprintf(gettext('Plugin:%s setup started'), $name), $fullLog);
 
+$__script = 'Plugin:' . $extension;
 $path = getPlugin($extension . '.php');
 $p = file_get_contents($path);
 if (extensionEnabled($extension)) {
@@ -103,12 +108,16 @@ if ($str = isolate('$option_interface', $p)) {
 }
 @ob_end_clean(); //	Flush any unwanted output
 
-sendImage($icon, 'plugin_' . $extension);
-
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $name, $last - $startPO), $fullLog);
 
+if (isset($_GET['curl'])) {
+	echo $icon + 1;
+} else {
+	sendImage($icon, 'plugin_' . $extension);
+}
+db_close();
 exit();
 ?>

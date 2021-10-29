@@ -8,14 +8,17 @@
  * @package setup
  *
  */
-ini_set('display_errors', 1);
-
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
-
 require_once(dirname(__DIR__) . '/initialize-basic.php');
+
+if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
+	ini_set('display_errors', 1);
+} else {
+	ini_set('display_errors', 0);
+}
 
 npg_session_start();
 
@@ -26,7 +29,8 @@ require_once(dirname(__DIR__) . '/admin-globals.php');
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
-$fullLog = isset($_GET['fullLog']);
+$icon = $_GET['class'];
+$fullLog = !$nolog && (isset($_GET['fullLog']) || $icon == 2);
 
 $theme = sanitize($_REQUEST['theme']);
 $__script = 'Theme:' . $theme;
@@ -62,12 +66,16 @@ if (protectedTheme($theme)) {
 	purgeOption('albums_per_row', $theme);
 }
 
-sendImage($_GET['class'], 'theme_' . $theme);
-
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
 
+if (isset($_GET['curl'])) {
+	echo $icon + 1;
+} else {
+	sendImage($icon, 'plugin_' . $extension);
+}
+db_close();
 exit();
 ?>

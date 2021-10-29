@@ -14,7 +14,7 @@ if (!OFFSET_PATH) {
 	setOption('personnal_thumb_width', '267', false);
 	setOption('personnal_thumb_height', '133', false);
 
-	enableExtension('colorbox_js', 9 | THEME_PLUGIN, false); //force colorbox
+	require_once(PLUGIN_SERVERPATH . 'colorbox_js.php'); //force colorbox
 	setOption('comment_form_toggle', false, false); // force this option of comment_form, to avoid JS conflits
 	setOption('comment_form_pagination', false, false); // force this option of comment_form, to avoid JS conflits
 	setOption('tinymce_comments', null, false); // force this option to disable tinyMCE for comment form

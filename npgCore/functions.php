@@ -1797,7 +1797,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 		$auth = array(array('authType' => $authType, 'check_auth' => $check_auth, 'check_user' => $check_user));
 	}
 
-// Handle the login form.
+	// Handle the login form.
 	if (DEBUG_LOGIN) {
 		debugLogVar(["handle_password:" => $auth]);
 	}
@@ -3101,4 +3101,3 @@ class _npg_HTML_cache {
 	}
 
 }
-?>

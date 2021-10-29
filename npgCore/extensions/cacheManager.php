@@ -117,7 +117,7 @@ class cacheManager {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" AND `subtype`!="_custom_"');
+			self::deleteCacheSizes('admin');
 			self::addCacheSize('admin', ADMIN_THUMB_LARGE, NULL, NULL, ADMIN_THUMB_LARGE, ADMIN_THUMB_LARGE, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_MEDIUM, NULL, NULL, ADMIN_THUMB_MEDIUM, ADMIN_THUMB_MEDIUM, NULL, NULL, -1);
 			self::addCacheSize('admin', ADMIN_THUMB_SMALL, NULL, NULL, ADMIN_THUMB_SMALL, ADMIN_THUMB_SMALL, NULL, NULL, -1);
@@ -183,7 +183,6 @@ class cacheManager {
 	 */
 	function handleOption($option, $currentValue) {
 		global $_gallery;
-		$currenttheme = $_gallery->getCurrentTheme();
 		$custom = array();
 		$result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
 		$key = 0;
@@ -373,7 +372,6 @@ class cacheManager {
 	 */
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
 		global $_set_theme_album, $_gallery;
-
 
 		$albumName = '';
 		if (getPlugin($owner . '.php')) {

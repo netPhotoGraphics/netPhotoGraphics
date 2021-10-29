@@ -1102,6 +1102,7 @@ class _Authority {
 						if ($user) {
 							$_loggedin = $user->getRights();
 						}
+
 						$_loggedin = npgFilters::apply('admin_login_attempt', $_loggedin, $post_user, $post_pass, $user);
 						if ($_loggedin) {
 							self::logUser($user);
@@ -1291,6 +1292,7 @@ class _Authority {
 		if (is_null($redirect)) {
 			$redirect = getRequestURI();
 		}
+		$redirect = npgFilters::apply('login_redirect_link', $redirect);
 
 		if (is_null($showUserField)) {
 			$showUserField = $_gallery->getUserLogonField();
@@ -1521,7 +1523,6 @@ class _Authority {
 							</script>
 							<?php
 						}
-						$redirect = npgFilters::apply('login_redirect_link', $redirect);
 						?>
 						<form name="login" id="login" action="<?php echo pathurlencode($redirect); ?>" method="post">
 							<input type="hidden" name="login" value="1" />
@@ -1811,7 +1812,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
