@@ -1589,7 +1589,7 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 		$args['z'] = $z;
 	}
 
-	$uri .= '&limit=' . PROCESSING_CONCURENCY . '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = npgFilters::apply('image_processor_uri', $uri, $args, $album, $image);
 

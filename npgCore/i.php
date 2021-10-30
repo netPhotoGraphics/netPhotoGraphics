@@ -33,11 +33,11 @@
 if (!defined('OFFSET_PATH'))
 	define('OFFSET_PATH', 2);
 require_once(__DIR__ . '/functions-basic.php');
+require_once(__DIR__ . '/initialize-basic.php');
 
-$iMutex = new npgMutex('i', isset($_GET['limit']) ? $_GET['limit'] : NULL);
+$iMutex = new npgMutex('i', PROCESSING_CONCURENCY);
 $iMutex->lock();
 
-require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
 
 $debug = isset($_GET['debug']);
@@ -190,7 +190,7 @@ if ($debug) {
 	if (isset($_GET['returncheckmark'])) {
 		//	from the cachemanager cache image generator
 		if (isset($_GET['curl'])) {
-			echo (int) ($thumb && true);
+			echo (int) ($thumb && true) + 1;
 		} else {
 			require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 			sendImage((int) ($thumb && true), 'i.php');
