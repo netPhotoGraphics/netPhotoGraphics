@@ -246,14 +246,14 @@ class imageProcessing {
 				$im = gl_imageGet($imgfile);
 			}
 			if (!$im) {
-				self::error('404 Not Found', sprintf(gettext('Image %s not renderable (imageGet).'), filesystemToInternal($imgfile)), 'err-failimage.png');
+				self::error('404 Not Found', sprintf(gettext('Image %s not renderable (imageGet).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 			}
 			if ($rotate) {
 				if (DEBUG_IMAGE)
 					debugLog("self::cache:rotate->$rotate");
 				$im = gl_rotateImage($im, $rotate);
 				if (!$im) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not rotatable.'), filesystemToInternal($imgfile)), 'err-failimage.png');
+					self::error('404 Not Found', sprintf(gettext('Image %s not rotatable.'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 				}
 			}
 			$w = gl_imageWidth($im);
@@ -390,7 +390,7 @@ class imageProcessing {
 				}
 				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
+					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 				}
 			} else {
 				if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
@@ -416,11 +416,11 @@ class imageProcessing {
 				}
 				$newim = gl_createImage($neww, $newh);
 				if (!gl_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {
-					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png');
+					self::error('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 				}
 				if (($thumb && $sharpenthumbs) || (!$thumb && $sharpenimages)) {
 					if (!gl_imageUnsharpMask($newim, getOption('sharpen_amount'), getOption('sharpen_radius'), getOption('sharpen_threshold'))) {
-						self::error('404 Not Found', sprintf(gettext('Image %s not renderable (unsharp).'), filesystemToInternal($imgfile)), 'err-failimage.png');
+						self::error('404 Not Found', sprintf(gettext('Image %s not renderable (unsharp).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 					}
 				}
 			}
@@ -491,7 +491,7 @@ class imageProcessing {
 			} else {
 				if (DEBUG_IMAGE)
 					debugLog('imageProcessing::cache: failed to create ' . $newfile);
-				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-failimage.png');
+				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-imagefail.png');
 			}
 			chmod($newfile, FILE_MOD);
 
@@ -499,7 +499,7 @@ class imageProcessing {
 			gl_imageKill($im);
 		} catch (Exception $e) {
 			debugLog('imageProcessing::cache(' . $newfilename . ') exception: ' . $e->getMessage());
-			self::error('404 Not Found', sprintf(gettext('imageProcessing::cache(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-failimage.png');
+			self::error('404 Not Found', sprintf(gettext('imageProcessing::cache(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-imagefail.png');
 			return false;
 		}
 		clearstatcache();
@@ -538,7 +538,7 @@ class imageProcessing {
 		$percent = getOption('watermark_scale') / 100;
 		$watermark = gl_imageGet($watermark_image);
 		if (!$watermark) {
-			self::error('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-failimage.png');
+			self::error('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-imagefail.png');
 		}
 		$watermark_width = gl_imageWidth($watermark);
 		$watermark_height = gl_imageHeight($watermark);
@@ -556,7 +556,7 @@ class imageProcessing {
 				gl_imageKill($watermark);
 				$watermark = $new_watermark;
 			} else {
-				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
+				self::error('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-imagefail.png');
 			}
 		}
 		// Position Overlay in Bottom Right
@@ -565,7 +565,7 @@ class imageProcessing {
 		if (DEBUG_IMAGE)
 			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png');
+			self::error('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 		}
 
 		gl_imageKill($watermark);

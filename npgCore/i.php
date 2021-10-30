@@ -120,12 +120,12 @@ if (!is_dir(SERVERCACHE)) {
 	mkdir(SERVERCACHE, FOLDER_MOD);
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
-		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-imagefail.png');
 }
 if (!is_writable(SERVERCACHE)) {
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
-		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-failimage.png');
+		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-imagefail.png');
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
