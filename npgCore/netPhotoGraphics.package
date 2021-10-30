@@ -55,6 +55,7 @@ themes/ardoise/images/help.png
 themes/ardoise/images/hr.gif
 themes/ardoise/images/hr_light.gif
 themes/ardoise/images/icon-comment.png
+themes/ardoise/images/imageDefault.png
 themes/ardoise/images/loader.gif
 themes/ardoise/images/loader_light.gif
 themes/ardoise/images/map.png
@@ -7825,7 +7826,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/chevron-hover.png
 %core%/images/chevron.png
 %core%/images/err-broken-page.png
-%core%/images/err-failimage.png
+%core%/images/err-imagefail.png
 %core%/images/err-imageforbidden.png
 %core%/images/err-imagegeneral.png
 %core%/images/err-imagenotfound.png
@@ -8042,4 +8043,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8044
+8045

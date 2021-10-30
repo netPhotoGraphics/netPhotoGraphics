@@ -1864,7 +1864,7 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 		$title = ' title = "' . html_encode($title) . '"';
 	}
 
-	if (!getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || empty($pwd)) {
+	if (empty($pwd) || !getOption('use_lock_image') || $_current_album->isMyItem(LIST_RIGHTS) || $_current_album->checkforGuest()) {
 		$html = '<img src = "' . html_encode(getCustomAlbumThumb($args)) . '"' . $sizing . ' alt = "' . html_encode($alt) . '"' . $class . $id . $title . " />\n";
 		$html = npgFilters::apply('custom_album_thumb_html', $html);
 		if (ENCODING_FALLBACK) {
@@ -4607,7 +4607,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
