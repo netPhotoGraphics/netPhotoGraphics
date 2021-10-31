@@ -35,18 +35,18 @@ if (!defined('OFFSET_PATH')) {
 }
 require_once(__DIR__ . '/global-definitions.php');
 require_once(__DIR__ . '/class-mutex.php');
-$config = file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-preg_match('~\$conf\[\'PROCESSING_CONCURENCY\'\]\s*\=\s*(\d+);~', $config, $matches);
-if (isset($matches[1])) {
-	$limit = $matches[1];
-} else {
-	$limit = 15;
+
+$limit = 15;
+if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	if (isset($conf['PROCESSING_CONCURENCY'])) {
+		$limit = $conf['PROCESSING_CONCURENCY'];
+	}
+	unset($conf);
 }
 $iMutex = new npgMutex('i', $limit);
 $iMutex->lock();
 unset($limit);
-unset($matches);
-unset($config);
 
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');

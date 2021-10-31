@@ -327,10 +327,18 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
-//	cleanup option mutexes
-$list = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/oP*');
+//	cleanup mutexes
+$list = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/*');
 foreach ($list as $file) {
-	unlink($file);
+	switch (basename($file)) {
+		case 'sP':
+		case 'npg':
+			//these are used during setup!
+			break;
+		default:
+			unlink($file);
+			break;
+	}
 }
 
 //	migrate theme name changes
