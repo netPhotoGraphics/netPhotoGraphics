@@ -30,14 +30,26 @@
 // force UTF-8 Ø
 
 
-if (!defined('OFFSET_PATH'))
+if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 2);
+}
+require_once(__DIR__ . '/global-definitions.php');
+require_once(__DIR__ . '/class-mutex.php');
+$config = file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+preg_match('~\$conf\[\'PROCESSING_CONCURENCY\'\]\s*\=\s*(\d+);~', $config, $matches);
+if (isset($matches[1])) {
+	$limit = $matches[1];
+} else {
+	$limit = 15;
+}
+$iMutex = new npgMutex('i', $limit);
+$iMutex->lock();
+unset($limit);
+unset($matches);
+unset($config);
+
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
-
-$iMutex = new npgMutex('i', PROCESSING_CONCURENCY);
-$iMutex->lock();
-
 require_once(__DIR__ . '/lib-image.php');
 
 $debug = isset($_GET['debug']);

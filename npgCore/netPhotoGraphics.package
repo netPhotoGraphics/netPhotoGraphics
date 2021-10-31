@@ -670,6 +670,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/class-feed.php
 %core%/class-gallery.php
 %core%/class-image.php
+%core%/class-mutex.php
 %core%/class-search.php
 %core%/class.ncrypt.php
 %core%/classes.php
@@ -8043,4 +8044,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8045
+8046

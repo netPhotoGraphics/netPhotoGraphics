@@ -931,194 +931,6 @@ function getSerializedArray($string) {
 }
 
 /**
- * Mutex class
- * @author Stephen
- *
- */
-class npgMutex {
-
-	private $locked = NULL;
-	private $ignoreUseAbort = NULL;
-	private $mutex = NULL;
-	private $lock = NULL;
-
-	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
-		// if any of the construction fails, run in free mode (lock = NULL)
-		if (defined('SERVERPATH')) {
-			if (is_null($folder)) {
-				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
-			}
-			if (!is_dir($folder)) {
-				mkdir_recursive($folder, fileperms(__DIR__) & 0666 | 311);
-			}
-
-			if ($concurrent > 1) {
-				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
-					$this->lock = $folder . '/' . $lock . '_' . $subLock;
-				}
-			} else {
-				$this->lock = $folder . '/' . $lock;
-			}
-		}
-		return $this->lock;
-	}
-
-	// returns the integer id of the lock to be obtained
-	// rotates locks sequentially mod $concurrent
-	private static function which_lock($lock, $concurrent, $folder) {
-		global $_mutex;
-		$count = false;
-		$counter_file = $folder . '/' . $lock . '_counter';
-		if ($f = fopen($counter_file, 'a+')) {
-			if (flock($f, LOCK_EX)) {
-				clearstatcache();
-				fseek($f, 0);
-				$data = fgets($f);
-				$count = (((int) $data) + 1) % $concurrent;
-				ftruncate($f, 0);
-				fwrite($f, "$count");
-				fflush($f);
-				flock($f, LOCK_UN);
-				fclose($f);
-				$count++;
-			}
-		}
-		return $count;
-	}
-
-	function __destruct() {
-		if ($this->locked) {
-			$this->unlock();
-		}
-	}
-
-	public function lock() {
-		//if "flock" is not supported run un-serialized
-		//Only lock an unlocked mutex, we don't support recursive mutex'es
-		if (!$this->locked && $this->lock) {
-			if ($this->mutex = @fopen($this->lock, 'wb')) {
-				try {
-					if (flock($this->mutex, LOCK_EX)) {
-						$this->locked = true;
-						//We are entering a critical section so we need to change the ignore_user_abort setting so that the
-						//script doesn't stop in the critical section.
-						$this->ignoreUserAbort = ignore_user_abort(true);
-					}
-				} catch (Exception $e) {
-					// what can you do, we will just have to run in free mode
-					$this->locked = NULL;
-				}
-			}
-		}
-		return $this->locked;
-	}
-
-	/**
-	 * 	Unlock the mutex.
-	 */
-	public function unlock() {
-		if ($this->locked) {
-			//Only unlock a locked mutex.
-			$this->locked = false;
-			ignore_user_abort($this->ignoreUserAbort); //Restore the ignore_user_abort setting.
-			flock($this->mutex, LOCK_UN);
-			fclose($this->mutex);
-			return true;
-		}
-		return false;
-	}
-
-}
-
-function primeOptions() {
-	global $_options;
-	$_options = array();
-	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
-	$rslt = query($sql, false);
-	if ($rslt) {
-		while ($option = db_fetch_assoc($rslt)) {
-			$_options[strtolower($option['name'])] = $option['value'];
-		}
-	}
-}
-
-/**
- * Get a option stored in the database.
- * This function reads the options only once, in order to improve performance.
- * @param string $key the name of the option.
- */
-function getOption($key) {
-	global $_options;
-	if (isset($_options[$key = strtolower($key)])) {
-		return $_options[$key];
-	} else {
-		return NULL;
-	}
-}
-
-/**
- * Returns a list of options that match $pattern
- * @param string $pattern
- * @return array
- */
-function getOptionsLike($pattern) {
-	$result = array();
-
-	$sql = 'SELECT `name`,`value` FROM ' . prefix('options') . ' WHERE `name` LIKE ' . db_quote(str_replace('_', '\_', rtrim($pattern, '%')) . '%') . ' ORDER BY `name`;';
-	$found = query_full_array($sql, false);
-	if (!empty($found)) {
-		foreach ($found as $row) {
-			$result[$row['name']] = $row['value'];
-		}
-	}
-
-	return $result;
-}
-
-/**
- * Stores an option value.
- *
- * @param string $key name of the option.
- * @param mixed $value new value of the option.
- * @param bool $persistent set to false if the option is stored in memory only
- * otherwise it is preserved in the database
- */
-function setOption($key, $value, $persistent = true) {
-	global $_options, $_conf_options_associations, $_conf_vars, $_configMutex;
-	$_options[$keylc = strtolower($key)] = $value;
-	if ($persistent) {
-		list($theme, $creator) = getOptionOwner();
-		if (is_null($value)) {
-			$v = 'NULL';
-		} else {
-			if (is_bool($value)) {
-				$value = (int) $value;
-			}
-			$v = db_quote($value);
-		}
-		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ') ON DUPLICATE KEY UPDATE `value`=' . $v;
-		$result = query($sql, false);
-		if ($result) {
-			if (array_key_exists($keylc, $_conf_options_associations)) {
-				$configKey = $_conf_options_associations[$keylc];
-				if ($_conf_vars[$configKey] !== $value) {
-					//	it is stored in the config file, update that too
-					require_once(CORE_SERVERPATH . 'lib-config.php');
-					$_configMutex->lock();
-					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-					$_config_contents = configFile::update($configKey, $value, $_config_contents);
-					configFile::store($_config_contents);
-					$_configMutex->unlock();
-				}
-			}
-		}
-		return $result;
-	} else {
-		return true;
-	}
-}
-
-/**
  * returns the owner fields of an option. Typically used when the option is set
  * to its default value
  *
@@ -2140,4 +1952,92 @@ function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
 		return $conf;
 	}
 	return $_zp_conf_vars;
+}
+
+function primeOptions() {
+	global $_options;
+	$_options = array();
+	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
+	$rslt = query($sql, false);
+	if ($rslt) {
+		while ($option = db_fetch_assoc($rslt)) {
+			$_options[strtolower($option['name'])] = $option['value'];
+		}
+	}
+}
+
+/**
+ * Get a option stored in the database.
+ * This function reads the options only once, in order to improve performance.
+ * @param string $key the name of the option.
+ */
+function getOption($key) {
+	global $_options;
+	if (isset($_options[$key = strtolower($key)])) {
+		return $_options[$key];
+	} else {
+		return NULL;
+	}
+}
+
+/**
+ * Returns a list of options that match $pattern
+ * @param string $pattern
+ * @return array
+ */
+function getOptionsLike($pattern) {
+	$result = array();
+
+	$sql = 'SELECT `name`,`value` FROM ' . prefix('options') . ' WHERE `name` LIKE ' . db_quote(str_replace('_', '\_', rtrim($pattern, '%')) . '%') . ' ORDER BY `name`;';
+	$found = query_full_array($sql, false);
+	if (!empty($found)) {
+		foreach ($found as $row) {
+			$result[$row['name']] = $row['value'];
+		}
+	}
+
+	return $result;
+}
+
+/**
+ * Stores an option value.
+ *
+ * @param string $key name of the option.
+ * @param mixed $value new value of the option.
+ * @param bool $persistent set to false if the option is stored in memory only
+ * otherwise it is preserved in the database
+ */
+function setOption($key, $value, $persistent = true) {
+	global $_options, $_conf_options_associations, $_conf_vars, $_configMutex;
+	$_options[$keylc = strtolower($key)] = $value;
+	if ($persistent) {
+		list($theme, $creator) = getOptionOwner();
+		if (is_null($value)) {
+			$v = 'NULL';
+		} else {
+			if (is_bool($value)) {
+				$value = (int) $value;
+			}
+			$v = db_quote($value);
+		}
+		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ') ON DUPLICATE KEY UPDATE `value`=' . $v;
+		$result = query($sql, false);
+		if ($result) {
+			if (array_key_exists($keylc, $_conf_options_associations)) {
+				$configKey = $_conf_options_associations[$keylc];
+				if ($_conf_vars[$configKey] !== $value) {
+					//	it is stored in the config file, update that too
+					require_once(CORE_SERVERPATH . 'lib-config.php');
+					$_configMutex->lock();
+					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+					$_config_contents = configFile::update($configKey, $value, $_config_contents);
+					configFile::store($_config_contents);
+					$_configMutex->unlock();
+				}
+			}
+		}
+		return $result;
+	} else {
+		return true;
+	}
 }

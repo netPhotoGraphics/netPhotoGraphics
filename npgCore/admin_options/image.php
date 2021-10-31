@@ -8,7 +8,7 @@ require_once(CORE_SERVERPATH . 'lib-Imagick.php');
 require_once(CORE_SERVERPATH . 'lib-GD.php');
 
 function saveOptions() {
-	global $_gallery, $_images_classes, $_exifvars;
+	global $_gallery, $_images_classes, $_exifvars, $_configMutex;
 
 	$notify = $returntab = NULL;
 
@@ -56,7 +56,13 @@ function saveOptions() {
 	setOption('full_image_quality', sanitize($_POST['fullimagequality'], 3));
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
-	setOption('imageProcessorConcurrency', sanitize_numeric($_POST['imageProcessorConcurrency']));
+	$limit = sanitize_numeric($_POST['imageProcessorConcurrency']);
+	setOption('imageProcessorConcurrency', $limit);
+	$_configMutex->lock();
+	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	$_config_contents = configFile::update('PROCESSING_CONCURENCY', $limit, $_config_contents);
+	configFile::store($_config_contents);
+	$_configMutex->unlock();
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {
