@@ -192,6 +192,9 @@ function saveOptions() {
 			case 3:
 				$report = gettext('Metadata fields will be added and <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
 				break;
+			default:
+				$report = gettext('Metadata fields will be unchanged.');
+				break;
 		}
 		requestSetup($requestor, $report);
 	}
