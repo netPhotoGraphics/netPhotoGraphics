@@ -24,6 +24,8 @@ require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
+$devVersionURI = getOption('getDEVUpdates_latest');
+
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
@@ -95,7 +97,6 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 			debugLog(gettext('GitHub repository not accessible. ') . $e);
 		}
 	}
-	$devVersionURI = getOption('getDEVUpdates_latest');
 	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
 	$newestVersion = $matches[1];
 
