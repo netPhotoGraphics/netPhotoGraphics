@@ -155,7 +155,7 @@ if (!file_exists($imgfile)) {
 }
 
 // Make the directories for the albums in the cache, recursively.
-
+$_mutex->lock(); //	avoid multiple threads trying to create the same folders
 $albumdirs = getAlbumArray($album, true);
 foreach ($albumdirs as $dir) {
 	$dir = internalToFilesystem($dir);
@@ -167,6 +167,7 @@ foreach ($albumdirs as $dir) {
 		chmod($dir, FOLDER_MOD);
 	}
 }
+$_mutex->unlock();
 unset($dir);
 
 $process = true;
