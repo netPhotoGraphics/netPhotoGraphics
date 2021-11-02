@@ -51,6 +51,7 @@ unset($limit);
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
+npg_session_start();
 
 $debug = isset($_GET['debug']);
 
@@ -84,7 +85,6 @@ if (getOption('secure_image_processor')) {
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
-	npg_session_start();
 	if (isset($_SESSION['adminRequest'])) {
 		if ($_SESSION['adminRequest'] == getNPGCookie('user_auth')) {
 			$forbidden = false;
