@@ -68,6 +68,7 @@ function getIPSizedImage($size, $image) {
 					$thumbobj = $obj->getAlbumThumbImage();
 					$args['image'] = $thumbobj->getFilename();
 					$args['album'] = $thumbobj->album->getFilename();
+					$size = getOption('thumb_size');
 					$imageb = preg_replace('~&ipcheck=(.*)~', '', getIPSizedImage($size, $thumbobj));
 				}
 				$image = preg_replace('~&ipcheck=(.*)~', '', $image);
@@ -88,7 +89,8 @@ function getIPSizedImage($size, $image) {
 				}
 			} else {
 				// a simple link
-				$args['album'] = $args['image'] = $imagehtml = $imagechtml = $imagef = $imageb = $image = $alt1 = $title1 = NULL;
+				$args['album'] = $args['image'] = $imagehtml = $imagechtml = $imagef = $imageb = $image = NULL;
+				$alt1 = '';
 				if (isset($args['news'])) {
 					$obj = newArticle($args['news']);
 					$title = gettext('<em>news article</em>: %s');
@@ -105,6 +107,7 @@ function getIPSizedImage($size, $image) {
 					$token = gettext('title with link to category');
 				}
 			}
+
 			$link = $obj->getLink();
 			$title1 = getBare($obj->getTitle());
 
