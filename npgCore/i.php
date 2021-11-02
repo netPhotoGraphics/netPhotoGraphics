@@ -53,6 +53,8 @@ require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
 npg_session_start();
 
+debugLogVar(['$_SESSION' => $_SESSION, '$_GET' => $_GET]);
+
 $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
@@ -83,7 +85,7 @@ if (getOption('secure_image_processor')) {
 	unset($albumobj);
 }
 
-if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $checkArgs))) {
+if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
 	if (isset($_SESSION['adminRequest'])) {
 		if ($_SESSION['adminRequest'] == getNPGCookie('user_auth')) {

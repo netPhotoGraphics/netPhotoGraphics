@@ -55,7 +55,7 @@ function getIPSizedImage($size, $image) {
 					} else {
 						$image = $obj->getThumb();
 						$imagewebp = $obj->getThumb(FALLBACK_SUFFIX);
-						$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $obj));
+						$imageb = preg_replace('~&ipcheck=(.*)~', '', getIPSizedImage($size, $obj));
 					}
 				} else {
 					$args['image'] = $imagef = NULL;
@@ -67,10 +67,10 @@ function getIPSizedImage($size, $image) {
 					$thumbobj = $obj->getAlbumThumbImage();
 					$args['image'] = $thumbobj->getFilename();
 					$args['album'] = $thumbobj->album->getFilename();
-					$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $thumbobj));
+					$imageb = preg_replace('~&ipcheck=(.*)~', '', getIPSizedImage($size, $thumbobj));
 				}
-				$image = preg_replace('~&check=(.*)~', '', $image);
-				$imagewebp = preg_replace('~&check=(.*)~', '', $image);
+				$image = preg_replace('~&ipcheck=(.*)~', '', $image);
+				$imagewebp = preg_replace('~&ipcheck=(.*)~', '', $image);
 				$alt1 = $obj->getFileName();
 
 				$imagehtml = '<img src="' . html_encode($image) . '" alt="%alt1%" title="%title1%" />';

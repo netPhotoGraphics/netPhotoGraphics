@@ -1324,6 +1324,7 @@ function ipProtectTag($album, $image, $args) {
 			$key .= $index . $args[$index];
 		}
 	}
+
 	$tag = sha1(HASH_SEED . $album . $image . $key);
 	return $tag;
 }
@@ -1401,7 +1402,7 @@ function getImageProcessorURI($args, $album, $image, $suffix = NULL) {
 		$args['z'] = $z;
 	}
 
-	$uri .= '&check=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
+	$uri .= '&ipcheck=' . ipProtectTag(internalToFilesystem($album), internalToFilesystem($image), $args) . '&cached=' . rand();
 
 	$uri = npgFilters::apply('image_processor_uri', $uri, $args, $album, $image);
 
