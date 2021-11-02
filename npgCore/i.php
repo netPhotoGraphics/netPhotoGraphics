@@ -53,8 +53,6 @@ require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
 npg_session_start();
 
-debugLogVar(['$_SESSION' => $_SESSION, '$_GET' => $_GET]);
-
 $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
