@@ -109,7 +109,7 @@ function loadAlbum($album) {
 					set_time_limit(200);
 					$uriList = array();
 					foreach ($block as $key => $img) {
-						$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl&check=';
+						$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl';
 					}
 					$checks = new ParallelCURL($uriList);
 					$rsp = $checks->getResults();
