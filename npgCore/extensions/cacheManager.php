@@ -585,7 +585,7 @@ class cacheManager {
 			$disable = ' disabled="disabled"';
 			$title = gettext("You must first set the plugin options for cached image parameters.");
 		}
-		$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
+		$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . pathurlencode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
 		return $html;
 	}
 

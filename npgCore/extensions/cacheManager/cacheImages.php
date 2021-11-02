@@ -231,7 +231,7 @@ if ($alb) {
 	cacheManager::printShowHide();
 	?>
 
-	<form class="dirtylistening" onReset="setClean('size_selections');" id="size_selections" name="size_selections" action="?tab=images&action=select&album=<?php echo $alb; ?>" method="post" autocomplete="off">
+	<form class="dirtylistening" onReset="setClean('size_selections');" id="size_selections" name="size_selections" action="?tab=images&action=select&album=<?php echo pathurlencode($alb); ?>" method="post" autocomplete="off">
 		<?php XSRFToken('cacheImages') ?>
 		<ol class="no_bullets">
 			<?php
@@ -376,6 +376,7 @@ if ($alb) {
 		<?php
 		if (is_array($enabled)) {
 			if ($cachesizes) {
+				$complete = true;
 				echo '<p>';
 				printf(ngettext('%u cache size to apply.', '%u cache sizes to apply.', $cachesizes), $cachesizes);
 				echo '</p>';
@@ -385,17 +386,29 @@ if ($alb) {
 				} else {
 					$albums = $_gallery->getAlbums();
 					sort($albums);
-					foreach ($albums as $folder) {
+					foreach ($albums as $key => $folder) {
 						$album = newAlbum($folder);
 						if (!$album->isDynamic()) {
 							$count = $count + loadAlbum($album);
+							if ($count > 500) {
+								$complete = $key + 1 >= count($albums);
+
+								break;
+							}
 						}
 					}
 				}
 				$partb = sprintf(ngettext('%u cache size requested', '%u cache sizes requested', $count * $cachesizes), $count * $cachesizes);
-				echo "\n" . "<br />" . sprintf(ngettext('Finished processing %1$u image (%2$s).', 'Finished processing %1$u images (%2$s).', $count), $count, $partb);
-				if ($count) {
+				echo "\n" . "<br />";
+				if ($complete) {
+					printf(ngettext('Finished processing %1$u image (%2$s).', 'Finished processing %1$u images (%2$s).', $count), $count, $partb);
+				} else {
+					printf(ngettext('Interum processing %1$u image (%2$s).', 'Interum processing %1$u images (%2$s).', $count), $count, $partb);
+				}
+				if ($count && $complete) {
 					$button = array('text' => gettext("Refresh"), 'title' => gettext('Refresh the caching of the selected image sizes if some images did not render.'));
+				} else if (!$complete) {
+					$button = array('text' => gettext("Continue"), 'title' => gettext('Refresh the caching of the selected image sizes if some images did not render.'));
 				} else {
 					$button = false;
 				}
