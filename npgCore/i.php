@@ -51,7 +51,6 @@ unset($limit);
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
-npg_session_start();
 
 $debug = isset($_GET['debug']);
 
@@ -78,19 +77,20 @@ if (getOption('secure_image_processor')) {
 	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)", 'err-imageforbidden.png'));
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(1)'), $album), 'err-imageforbidden.png');
 	}
 	unset($albumobj);
 }
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
-	if (isset($_SESSION['adminRequest'])) {
-		if ($_SESSION['adminRequest'] == getNPGCookie('user_auth')) {
-			$forbidden = false;
-		} else {
-			$forbidden = 3;
-		}
+	if (isset($_REQUEST['album'])) {
+		$localrights = ALBUM_RIGHTS;
+	} else {
+		$localrights = ADMIN_RIGHTS;
+	}
+	if ($_loggedin & $localrights) {
+		$forbidden = false;
 	} else {
 		$forbidden = 2;
 	}
@@ -183,7 +183,7 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden($forbidden)"), 'err-imageforbidden.png');
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(%2$s)'), $album, $forbidden), 'err-imageforbidden.png');
 	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
