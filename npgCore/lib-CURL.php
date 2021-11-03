@@ -20,14 +20,7 @@
 function curlRequest($uri, $options = array()) {
 	if (function_exists('curl_init')) {
 		if (empty($options) || !is_array($options)) {
-			$cookies = '';
-			foreach ($_COOKIE as $name => $value) {
-				if (!is_array($value)) {
-					$cookies .= $name . '=' . $value . ';';
-				}
-			}
-			$cookies = rtrim($cookies, ';');
-
+			$cookies = 'user_auth=' . getNPGCookie('user_auth');
 			$options = array(
 					CURLOPT_SSL_VERIFYPEER => false,
 					CURLOPT_RETURNTRANSFER => true,
@@ -65,14 +58,8 @@ class ParallelCURL {
 	var $res = array();
 
 	function __construct($urls) {
-		$cookies = '';
-		foreach ($_COOKIE as $name => $value) {
-			if (!is_array($value)) {
-				$cookies .= $name . '=' . $value . ';';
-			}
-		}
-		$cookies = rtrim($cookies, ';');
 
+		$cookies = 'user_auth=' . getNPGCookie('user_auth');
 		// Create get requests for each URL
 		$mh = curl_multi_init();
 		foreach ($urls as $i => $url) {
