@@ -222,9 +222,16 @@ class site_upgrade {
 			switch ($source) {
 				case '*':
 					$data = file_get_contents(PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
-					$data = str_replace('SITEINDEX', FULLWEBPATH . "/index.php", $data);
-					$data = str_replace('CORE_FOLDER', CORE_FOLDER, $data);
-					$data = str_replace('CONFIGFILE', CONFIGFILE, $data);
+					$defines = array(
+							'SITEINDEX' => FULLWEBPATH . "/index.php",
+							'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
+							'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+							'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+							'DATA_FOLDER' => DATA_FOLDER,
+							'CONFIGFILE' => CONFIGFILE,
+							'RW_SUFFIX' => preg_quote(getOption('mod_rewrite_suffix'))
+					);
+					$data = strtr($data, $defines);
 					break;
 				case '+':
 					$data = file_get_contents(PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
@@ -287,4 +294,3 @@ switch (OFFSET_PATH) {
 		site_upgrade::updateXML();
 		break;
 }
-?>
