@@ -1002,7 +1002,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  * @param string $theme
  */
 function loadLocalOptions($albumid, $theme) {
-	global $_options;
+	global $_options, $_conf_vars;
+	//start with the config file
+	$options = $_conf_vars;
 	//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
@@ -1948,11 +1950,12 @@ function installSignature() {
  * @param type $from the config file name
  */
 function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
+	global $_conf_vars;
 	eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
 	if (isset($conf)) {
 		return $conf;
 	}
-	return $_zp_conf_vars;
+	return $_conf_vars;
 }
 
 function primeOptions() {
