@@ -2,6 +2,9 @@
 
 /*
  * CURL support
+ *
+ * NOTE: it is presumed that these routines are used for launching requests upon
+ * the local site netPhotoGraphic scripts
  */
 
 /**
@@ -58,16 +61,17 @@ class ParallelCURL {
 	var $res = array();
 
 	function __construct($urls) {
-
-		$cookies = 'user_auth=' . getNPGCookie('user_auth');
 		// Create get requests for each URL
 		$mh = curl_multi_init();
+		$options = array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_COOKIE => 'user_auth=' . getNPGCookie('user_auth')
+		);
+
 		foreach ($urls as $i => $url) {
 			$ch[$i] = curl_init($url);
-			curl_setopt($ch[$i], CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch[$i], CURLOPT_SSL_VERIFYPEER, false);
-			// We pass the authorization cookie
-			curl_setopt($ch[$i], CURLOPT_COOKIE, $cookies);
+			curl_setopt_array($ch[$i], $options);
 			curl_multi_add_handle($mh, $ch[$i]);
 		}
 

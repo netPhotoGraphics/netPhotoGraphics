@@ -20,8 +20,6 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 	ini_set('display_errors', 0);
 }
 
-npg_session_start();
-
 list($usec, $sec) = explode(" ", microtime());
 $startTO = (float) $usec + (float) $sec;
 

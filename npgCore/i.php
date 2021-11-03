@@ -84,12 +84,7 @@ if (getOption('secure_image_processor')) {
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
-	if (isset($_REQUEST['album'])) {
-		$localrights = ALBUM_RIGHTS;
-	} else {
-		$localrights = ADMIN_RIGHTS;
-	}
-	if ($_loggedin & $localrights) {
+	if ($_loggedin & ALBUM_RIGHTS) {
 		$forbidden = false;
 	} else {
 		$forbidden = 2;
