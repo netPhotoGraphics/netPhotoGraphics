@@ -6385,7 +6385,7 @@ function getRemoteFile($source, $dest) {
 function curlDL($fileUrl, $saveTo) {
 	$fp = fopen($saveTo . '/' . basename($fileUrl), 'w+');
 	if ($fp === false) {
-		throw new Exception(sprintf(gettext('Could not create: %1$s') . $saveTo . '/' . basename($fileUrl)));
+		throw new Exception(sprintf(gettext('Could not create: %1$s'), $saveTo . '/' . basename($fileUrl)));
 	}
 
 	//Create a cURL handle.
