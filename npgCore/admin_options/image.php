@@ -57,12 +57,7 @@ function saveOptions() {
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
 	$limit = sanitize_numeric($_POST['imageProcessorConcurrency']);
-	setOption('imageProcessorConcurrency', $limit);
-	$_configMutex->lock();
-	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	$_config_contents = configFile::update('PROCESSING_CONCURENCY', $limit, $_config_contents);
-	configFile::store($_config_contents);
-	$_configMutex->unlock();
+	setOption('PROCESSING_CONCURENCY', $limit);
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {
@@ -758,7 +753,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																			 togglePassword('');" />
+																	 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 
