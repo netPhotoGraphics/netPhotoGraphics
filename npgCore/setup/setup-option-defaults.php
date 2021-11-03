@@ -327,10 +327,18 @@ if (!empty($where)) {
 	db_free_result($result);
 }
 
-//	cleanup option mutexes
-$list = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/oP*');
+//	cleanup mutexes
+$list = safe_glob(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/*');
 foreach ($list as $file) {
-	unlink($file);
+	switch (basename($file)) {
+		case 'sP':
+		case 'npg':
+			//these are used during setup!
+			break;
+		default:
+			unlink($file);
+			break;
+	}
 }
 
 //	migrate theme name changes
@@ -983,7 +991,14 @@ setOptionDefault('cache_random_search', 1);
 setOptionDefault('search_within', 1);
 
 setOptionDefault('debug_log_size', 5000000);
+
 setOptionDefault('imageProcessorConcurrency', PROCESSING_CONCURENCY);
+$_configMutex->lock();
+$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+$_config_contents = configFile::update('PROCESSING_CONCURENCY', getOption('imageProcessorConcurrency'), $_config_contents);
+configFile::store($_config_contents);
+$_configMutex->unlock();
+
 setOptionDefault('search_album_sort_type', 'title');
 setOptionDefault('search_album_sort_direction', '');
 setOptionDefault('search_image_sort_type', 'title');

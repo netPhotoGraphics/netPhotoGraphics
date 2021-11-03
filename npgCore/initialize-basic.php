@@ -4,6 +4,7 @@
  * one time initialization code for basic execution
  */
 require_once(__DIR__ . '/global-definitions.php');
+require_once(__DIR__ . '/class-mutex.php');
 
 define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 

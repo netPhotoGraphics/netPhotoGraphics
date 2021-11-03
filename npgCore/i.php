@@ -30,14 +30,26 @@
 // force UTF-8 Ø
 
 
-if (!defined('OFFSET_PATH'))
+if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', 2);
+}
+require_once(__DIR__ . '/global-definitions.php');
+require_once(__DIR__ . '/class-mutex.php');
+
+$limit = 15;
+if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	if (isset($conf['PROCESSING_CONCURENCY'])) {
+		$limit = $conf['PROCESSING_CONCURENCY'];
+	}
+	unset($conf);
+}
+$iMutex = new npgMutex('i', $limit);
+$iMutex->lock();
+unset($limit);
+
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
-
-$iMutex = new npgMutex('i', PROCESSING_CONCURENCY);
-$iMutex->lock();
-
 require_once(__DIR__ . '/lib-image.php');
 
 $debug = isset($_GET['debug']);
@@ -65,20 +77,15 @@ if (getOption('secure_image_processor')) {
 	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(1)", 'err-imageforbidden.png'));
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(1)'), $album), 'err-imageforbidden.png');
 	}
 	unset($albumobj);
 }
 
-if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['check']) || $_GET['check'] != ipProtectTag($album, $image, $checkArgs))) {
+if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
-	npg_session_start();
-	if (isset($_SESSION['adminRequest'])) {
-		if ($_SESSION['adminRequest'] == getNPGCookie('user_auth')) {
-			$forbidden = false;
-		} else {
-			$forbidden = 3;
-		}
+	if ($_loggedin & ALBUM_RIGHTS) {
+		$forbidden = false;
 	} else {
 		$forbidden = 2;
 	}
@@ -143,7 +150,7 @@ if (!file_exists($imgfile)) {
 }
 
 // Make the directories for the albums in the cache, recursively.
-
+$_mutex->lock(); //	avoid multiple threads trying to create the same folders
 $albumdirs = getAlbumArray($album, true);
 foreach ($albumdirs as $dir) {
 	$dir = internalToFilesystem($dir);
@@ -155,6 +162,7 @@ foreach ($albumdirs as $dir) {
 		chmod($dir, FOLDER_MOD);
 	}
 }
+$_mutex->unlock();
 unset($dir);
 
 $process = true;
@@ -170,7 +178,7 @@ if (file_exists($newfile) & !$adminrequest) {
 
 if ($process) { // If the file hasn't been cached yet, create it.
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden($forbidden)"), 'err-imageforbidden.png');
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(%2$s)'), $album, $forbidden), 'err-imageforbidden.png');
 	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {

@@ -43,6 +43,7 @@ function getIPSizedImage($size, $image) {
 			if (!$size = getOption('pasteImageSize')) {
 				$size = getOption('image_size');
 			}
+
 			if (isset($args['album'])) {
 				// an image type object
 				if (isset($args['image'])) {
@@ -55,7 +56,7 @@ function getIPSizedImage($size, $image) {
 					} else {
 						$image = $obj->getThumb();
 						$imagewebp = $obj->getThumb(FALLBACK_SUFFIX);
-						$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $obj));
+						$imageb = preg_replace('~&ipcheck=(.*)~', '', getIPSizedImage($size, $obj));
 					}
 				} else {
 					$args['image'] = $imagef = NULL;
@@ -67,10 +68,11 @@ function getIPSizedImage($size, $image) {
 					$thumbobj = $obj->getAlbumThumbImage();
 					$args['image'] = $thumbobj->getFilename();
 					$args['album'] = $thumbobj->album->getFilename();
-					$imageb = preg_replace('~&check=(.*)~', '', getIPSizedImage($size, $thumbobj));
+					$size = getOption('thumb_size');
+					$imageb = preg_replace('~&ipcheck=(.*)~', '', getIPSizedImage($size, $thumbobj));
 				}
-				$image = preg_replace('~&check=(.*)~', '', $image);
-				$imagewebp = preg_replace('~&check=(.*)~', '', $image);
+				$image = preg_replace('~&ipcheck=(.*)~', '', $image);
+				$imagewebp = preg_replace('~&ipcheck=(.*)~', '', $image);
 				$alt1 = $obj->getFileName();
 
 				$imagehtml = '<img src="' . html_encode($image) . '" alt="%alt1%" title="%title1%" />';
@@ -87,7 +89,8 @@ function getIPSizedImage($size, $image) {
 				}
 			} else {
 				// a simple link
-				$args['album'] = $args['image'] = $imagehtml = $imagechtml = $imagef = $imageb = $image = $alt1 = $title1 = NULL;
+				$args['album'] = $args['image'] = $imagehtml = $imagechtml = $imagef = $imageb = $image = NULL;
+				$alt1 = '';
 				if (isset($args['news'])) {
 					$obj = newArticle($args['news']);
 					$title = gettext('<em>news article</em>: %s');
@@ -104,6 +107,7 @@ function getIPSizedImage($size, $image) {
 					$token = gettext('title with link to category');
 				}
 			}
+
 			$link = $obj->getLink();
 			$title1 = getBare($obj->getTitle());
 
@@ -277,54 +281,56 @@ function getIPSizedImage($size, $image) {
 						<br />
 						<?php
 					}
-					if ($obj->isPhoto()) {
-						?>
-						<label class="nowrap">
-							<input type="radio" name="link" value="image" id="link_image_none" onchange="pasteobjchange();" />
-							<?php echo gettext('image only'); ?>
-						</label>
-						<label class="nowrap">
-							<input type="radio" name="link" value="imagelink" id="link_image_image"<?php if ($picture) echo 'checked="checked"'; ?> onchange="pasteobjchange();" />
-							<?php printf($token, 'image'); ?>
-						</label>
-						<?php
-						if ($imagef) {
+					if (isImageClass($obj)) {
+						if ($obj->isPhoto()) {
 							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="imagelinkfull" id="link_image_full" onchange="pasteobjchange();" />
-								<?php echo gettext('image with link to full-sized image'); ?>
+								<input type="radio" name="link" value="image" id="link_image_none" onchange="pasteobjchange();" />
+								<?php echo gettext('image only'); ?>
 							</label>
-							<?php
-						}
-						?>
-						<?php
-						if ($link2) {
-							?>
 							<label class="nowrap">
-								<input type="radio" name="link" value="link2" id="link_image_album" onchange="pasteobjchange();" />
-								<?php echo gettext('image with link to album'); ?>
+								<input type="radio" name="link" value="imagelink" id="link_image_image"<?php if ($picture) echo 'checked="checked"'; ?> onchange="pasteobjchange();" />
+								<?php printf($token, 'image'); ?>
 							</label>
 							<?php
-						}
-					} elseif ($obj->isVideo()) {
-						$content_macros = getMacros();
-						if (array_key_exists('MEDIAPLAYER', $content_macros)) {
+							if ($imagef) {
+								?>
+								<label class="nowrap">
+									<input type="radio" name="link" value="imagelinkfull" id="link_image_full" onchange="pasteobjchange();" />
+									<?php echo gettext('image with link to full-sized image'); ?>
+								</label>
+								<?php
+							}
 							?>
-							<label class="nowrap">
-								<input type="radio" name="link" value="player" id="link_image_none" onchange="pasteobjchange();" />
-								<?php echo gettext('Mediaplayer macro'); ?>
-							</label>
 							<?php
-						}
-					} else if (!$imagef) {
-						$content_macros = getMacros();
-						if (array_key_exists('SLIDESHOW', $content_macros)) {
-							?>
-							<label class="nowrap">
-								<input type="radio" name="link" value="show" id="link_image_none" onchange="pasteobjchange();" />
-								<?php echo gettext('Slideshow macro'); ?>
-							</label>
-							<?php
+							if ($link2) {
+								?>
+								<label class="nowrap">
+									<input type="radio" name="link" value="link2" id="link_image_album" onchange="pasteobjchange();" />
+									<?php echo gettext('image with link to album'); ?>
+								</label>
+								<?php
+							}
+						} elseif ($obj->isVideo()) {
+							$content_macros = getMacros();
+							if (array_key_exists('MEDIAPLAYER', $content_macros)) {
+								?>
+								<label class="nowrap">
+									<input type="radio" name="link" value="player" id="link_image_none" onchange="pasteobjchange();" />
+									<?php echo gettext('Mediaplayer macro'); ?>
+								</label>
+								<?php
+							}
+						} else if (!$imagef) {
+							$content_macros = getMacros();
+							if (array_key_exists('SLIDESHOW', $content_macros)) {
+								?>
+								<label class="nowrap">
+									<input type="radio" name="link" value="show" id="link_image_none" onchange="pasteobjchange();" />
+									<?php echo gettext('Slideshow macro'); ?>
+								</label>
+								<?php
+							}
 						}
 					}
 					?>
@@ -363,7 +369,7 @@ function getIPSizedImage($size, $image) {
 
 			<div id="content"></div>
 			<?php
-			if ($image && !$picture && $obj->isPhoto()) {
+			if ($image && !$picture && isImageClass($obj) && $obj->isPhoto()) {
 				?>
 				<a href="javascript:launchScript('<?php echo getAdminLink(PLUGIN_FOLDER . '/crop_image.php'); ?>',['a=<?php echo str_replace('%27', "\'", pathurlencode($args['album'])); ?>','i=<?php echo str_replace('%27', "\'", urlencode($args['image'])); ?>','performcrop=pasteobj','size='+$('#imagesize').val()]);" title="<?php echo gettext('Click to bring up the custom cropping page.'); ?>" style="text-decoration: none;">
 					<?php echo SHAPE_HANDLES; ?>

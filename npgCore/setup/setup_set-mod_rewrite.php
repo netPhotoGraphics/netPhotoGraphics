@@ -17,8 +17,6 @@ register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/functions-basic.php');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
-npg_session_start();
-
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;
 

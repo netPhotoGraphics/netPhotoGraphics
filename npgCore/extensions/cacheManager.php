@@ -372,7 +372,6 @@ class cacheManager {
 	 */
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
 		global $_set_theme_album, $_gallery;
-
 		$albumName = '';
 		if (getPlugin($owner . '.php')) {
 			$class = 'plugin';
@@ -382,8 +381,13 @@ class cacheManager {
 				$class = 'theme';
 				//from a theme, so there are standard options
 				if (is_null($watermark)) {
-					$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
+					if ($thumb) {
+						$watermark = getThemeOption('image_watermark', $_set_theme_album, $owner);
+					} else {
+						$watermark = getThemeOption('fullimage_watermark', $_set_theme_album, $owner);
+					}
 				}
+
 				if (is_null($effects)) {
 					if ($thumb) {
 						if (getThemeOption('thumb_gray', $_set_theme_album, $owner)) {
@@ -581,7 +585,7 @@ class cacheManager {
 			$disable = ' disabled="disabled"';
 			$title = gettext("You must first set the plugin options for cached image parameters.");
 		}
-		$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . html_encode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
+		$html .= get_npgButton('button', CIRCLED_BLUE_STAR . ' ' . gettext('Cache album images'), array('buttonTitle' => $title, 'buttonLink' => getAdminLink(PLUGIN_FOLDER . '/cacheManager/cacheImages.php') . '?album=' . pathurlencode($object->name) . '&amp;XSRFToken=' . getXSRFToken('cacheImages'), 'buttonClass' => 'fixedwidth')) . '<br />';
 		return $html;
 	}
 

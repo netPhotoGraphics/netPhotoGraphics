@@ -388,6 +388,9 @@ function launchScript(script, params) {
 	if (params.length == 0) {
 		params = '';
 	} else {
+		for (var i = 0; i < params.length; i++) {
+			params[i] = params[i].replace(/&/g, '%26');
+		}
 		params = '?' + params.join('&');
 	}
 	window.location = script + params;

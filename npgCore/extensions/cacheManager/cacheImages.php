@@ -53,7 +53,7 @@ function loadAlbum($album) {
 					$uri = getFullImageURL(NULL, 'Protected');
 					if (strpos($uri, 'full-image.php?') !== false) {
 						$needsCaching[] = array(
-								'uri' => str_replace('check=', '', $uri),
+								'uri' => preg_replace('~/i\.(.*)\?~', '/i.php?', $uri),
 								'cache' => ltrim(getImageCacheFilename($_current_image->album->name, $_current_image->filename, $args), '/')
 						);
 					}
@@ -92,56 +92,56 @@ function loadAlbum($album) {
 						$uri = getImageURI($args, $_current_image->album->name, $_current_image->filename, $_current_image->filemtime);
 						if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 							$needsCaching[] = array(
-									'uri' => str_replace('check=', '', preg_replace('~/i\.(.*)\?~', '/i.php?', $uri)),
+									'uri' => preg_replace('~/i\.(.*)\?~', '/i.php?', $uri),
 									'cache' => ltrim(getImageCacheFilename($_current_image->album->name, $_current_image->filename, $args), '/')
 							);
 						}
 					}
 				}
-				$count = count($needsCaching);
-				if ($count) {
-					echo '{ ';
-					if (CURL_ENABLED) {
-						$sections = array_chunk($needsCaching, PROCESSING_CONCURENCY, true);
-						foreach ($sections as $block) {
-							set_time_limit(200);
-							$uriList = array();
-							foreach ($block as $key => $img) {
-								$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl&check=';
-							}
-							$checks = new ParallelCURL($uriList);
-							$rsp = $checks->getResults();
-							foreach ($block as $key => $img) {
-								if ($key) {
-									echo ' | ';
-								}
-								if (isset($rsp[$key]) && is_numeric($rsp[$key])) {
-									?>
-									<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rsp[$key] - 1); ?>" title="<?php echo html_encode($img['cache']); ?>" height = "16px" width = "16px">
-									<?php
-								} else {
-									?>
-									<a href="<?php echo $img['uri'] . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($img['cache']); ?>"><?php echo CROSS_MARK_RED; ?></a>
-									<?php
-								}
-							}
+			}
+		}
+		$count = count($needsCaching);
+		if ($count) {
+			echo '{ ';
+			if (CURL_ENABLED) {
+				$sections = array_chunk($needsCaching, PROCESSING_CONCURENCY, true);
+				foreach ($sections as $block) {
+					set_time_limit(200);
+					$uriList = array();
+					foreach ($block as $key => $img) {
+						$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl';
+					}
+					$checks = new ParallelCURL($uriList);
+					$rsp = $checks->getResults();
+					foreach ($block as $key => $img) {
+						if ($key) {
+							echo ' | ';
 						}
-					} else {
-						set_time_limit(200);
-						foreach ($needsCaching as $key => $img) {
-							if ($key) {
-								echo ' | ';
-							}
+						if (isset($rsp[$key]) && is_numeric($rsp[$key])) {
 							?>
-							<a href="<?php echo $img['uri']; ?>&amp;admin&amp;returncheckmark&amp;debug">
-								<?php echo '<img src="' . $img['uri'] . '&amp;returncheckmark" title="' . html_encode($img['cache']) . '" height="16" width="16" alt="X" />' . "\n"; ?>
-							</a>
+							<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=' . ($rsp[$key] - 1); ?>" title="<?php echo html_encode($img['cache']); ?>" height = "16px" width = "16px">
+							<?php
+						} else {
+							?>
+							<a href="<?php echo $img['uri'] . '&amp;debug'; ?>" target="_blank" title="<?php echo html_encode($img['cache']); ?>"><?php echo CROSS_MARK_RED; ?></a>
 							<?php
 						}
 					}
-					echo '} ';
+				}
+			} else {
+				set_time_limit(200);
+				foreach ($needsCaching as $key => $img) {
+					if ($key) {
+						echo ' | ';
+					}
+					?>
+					<a href="<?php echo $img['uri']; ?>&amp;admin&amp;returncheckmark&amp;debug">
+						<?php echo '<img src="' . $img['uri'] . '&amp;returncheckmark" title="' . html_encode($img['cache']) . '" height="16" width="16" alt="X" />' . "\n"; ?>
+					</a>
+					<?php
 				}
 			}
+			echo '} ';
 		}
 		printf(ngettext('[%u image]', '[%u images]', $count), $count);
 		echo "<br />\n";
@@ -231,7 +231,7 @@ if ($alb) {
 	cacheManager::printShowHide();
 	?>
 
-	<form class="dirtylistening" onReset="setClean('size_selections');" id="size_selections" name="size_selections" action="?tab=images&action=select&album=<?php echo $alb; ?>" method="post" autocomplete="off">
+	<form class="dirtylistening" onReset="setClean('size_selections');" id="size_selections" name="size_selections" action="?tab=images&action=select&album=<?php echo pathurlencode($alb); ?>" method="post" autocomplete="off">
 		<?php XSRFToken('cacheImages') ?>
 		<ol class="no_bullets">
 			<?php
@@ -376,6 +376,7 @@ if ($alb) {
 		<?php
 		if (is_array($enabled)) {
 			if ($cachesizes) {
+				$complete = true;
 				echo '<p>';
 				printf(ngettext('%u cache size to apply.', '%u cache sizes to apply.', $cachesizes), $cachesizes);
 				echo '</p>';
@@ -385,17 +386,29 @@ if ($alb) {
 				} else {
 					$albums = $_gallery->getAlbums();
 					sort($albums);
-					foreach ($albums as $folder) {
+					foreach ($albums as $key => $folder) {
 						$album = newAlbum($folder);
 						if (!$album->isDynamic()) {
 							$count = $count + loadAlbum($album);
+							if ($count > 500) {
+								$complete = $key + 1 >= count($albums);
+
+								break;
+							}
 						}
 					}
 				}
 				$partb = sprintf(ngettext('%u cache size requested', '%u cache sizes requested', $count * $cachesizes), $count * $cachesizes);
-				echo "\n" . "<br />" . sprintf(ngettext('Finished processing %1$u image (%2$s).', 'Finished processing %1$u images (%2$s).', $count), $count, $partb);
-				if ($count) {
+				echo "\n" . "<br />";
+				if ($complete) {
+					printf(ngettext('Finished processing %1$u image (%2$s).', 'Finished processing %1$u images (%2$s).', $count), $count, $partb);
+				} else {
+					printf(ngettext('Interum processing %1$u image (%2$s).', 'Interum processing %1$u images (%2$s).', $count), $count, $partb);
+				}
+				if ($count && $complete) {
 					$button = array('text' => gettext("Refresh"), 'title' => gettext('Refresh the caching of the selected image sizes if some images did not render.'));
+				} else if (!$complete) {
+					$button = array('text' => gettext("Continue"), 'title' => gettext('Refresh the caching of the selected image sizes if some images did not render.'));
 				} else {
 					$button = false;
 				}
