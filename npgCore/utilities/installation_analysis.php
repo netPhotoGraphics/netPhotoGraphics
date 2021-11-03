@@ -101,18 +101,6 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								if (SITE_LOCALE_OPTION) {
-									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
-								} else {
-									echo gettext('<strong>Locale setting has failed</strong>');
-								}
-								?>
-							</li>
-							<li>
-								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
-							</li>
-							<li>
-								<?php
 								$permission_names = array(
 										0444 => gettext('readonly'),
 										0644 => gettext('strict'),
@@ -127,6 +115,21 @@ echo '</head>';
 								}
 								echo gettext('File permissions:') . ' <strong>' . $value . '</strong>';
 								?>
+							</li>
+							<li>
+								<?php
+								if (SITE_LOCALE_OPTION) {
+									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
+								} else {
+									echo gettext('<strong>Locale setting has failed</strong>');
+								}
+								?>
+							</li>
+							<li>
+								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
+							</li>
+							<li>
+								<?php printf(gettext('Server software: <strong>%1$s</strong>'), html_encode($_SERVER['SERVER_SOFTWARE'])); ?>
 							</li>
 							<li>
 								<?php
@@ -242,17 +245,15 @@ echo '</head>';
 										}
 									}
 									printf(gettext('PHP Error reporting: <strong>%s</strong>'), implode(' | ', $text));
+									if (ini_get('display_errors')) {
+										?>
+										<a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a>
+										<?php
+									} else {
+										echo gettext('<em>display_errors</em> is <strong>Off</strong>');
+									}
 									?>
 								</li>
-								<?php
-							}
-							if (ini_get('display_errors')) {
-								?>
-								<li><a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a></li>
-								<?php
-							} else {
-								?>
-								<li><?php echo gettext('<em>display_errors</em> is <strong>Off</strong>') ?></li>
 								<?php
 							}
 							?>
@@ -335,7 +336,6 @@ echo '</head>';
 								$file = trim(str_replace(SERVERPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
 								echo gettext('Authentication authority: ') . '<strong>' . $file . '</strong>';
 								?>
-
 							</li>
 							<li>
 								<?php

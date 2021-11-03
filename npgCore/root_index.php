@@ -60,7 +60,7 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 			if (isset($conf)) {
 				$_conf_vars = $conf;
 			} else {
-				$_conf_vars = $_zp_conf_vars;
+				$_conf_vars = $_zp_conf_vars; //	backward compatibility
 			}
 			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
 				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {

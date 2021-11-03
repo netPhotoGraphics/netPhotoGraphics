@@ -126,7 +126,7 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	if (strpos($config_contents, '<?php') === false) {
 		$config_contents = "<?php\n" . $config_contents . "\n?>";
 	}
-	$config_contents = strtr($config_contents, array('global $_zp_conf_vars;' => '', '$_zp_conf_vars = $conf;' => '', 'unset($conf);' => ''));
+	$config_contents = strtr($config_contents, array('global $_zp_conf_vars;' => '', '$_zp_conf_vars = $conf;' => '', 'unset($conf);' => '')); //	migrate of zenphoto config file
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
 	configMod();
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php');

@@ -235,7 +235,7 @@ define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s', getOption('last_admin_actio
 
 define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
 
-$chunk = getOption('imageProcessorConcurrency');
+$chunk = getOption('PROCESSING_CONCURENCY');
 if (!$chunk) {
 	$chunk = 15;
 }
