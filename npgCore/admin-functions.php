@@ -5505,7 +5505,7 @@ function parseDMS($geoString) {
 			$g = $g + $matches[2] / 3600;
 		}
 	}
-	if ($g < 0 || $g > 90) {
+	if ($g < 0 || $g > 90 + 90 * in_array($r, array('e', 'w'))) {
 		return NULL; //	invalild coordinate
 	}
 	$g = $g * $ref;
