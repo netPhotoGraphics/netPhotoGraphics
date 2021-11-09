@@ -207,17 +207,22 @@ if ($alb) {
 	$r = '/admin.php';
 	echo "\n<h1>" . $clear . "</h1>";
 }
-?>
 
-<script type="text/javascript">
-	$(function () {
-		$('img').on("error", function () {
-			var link = $(this).attr('src');
-			var title = $(this).attr('title');
-			$(this).parent().html('<a href="' + link + '&debug" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+if (!CURL_ENABLED) {
+	?>
+
+	<script type="text/javascript">
+		$(function () {
+			$('img').on("error", function () {
+				var link = $(this).attr('src');
+				var title = $(this).attr('title');
+				$(this).parent().html('<a href="' + link + '&debug" target="_blank" title="' + title + '"><?php echo CROSS_MARK_RED; ?></a>');
+			});
 		});
-	});
-</script>
+	</script>
+	<?php
+}
+?>
 
 <div class="tabbox">
 	<?php
