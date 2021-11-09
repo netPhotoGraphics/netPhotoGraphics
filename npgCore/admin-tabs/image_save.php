@@ -11,7 +11,7 @@ if (isset($_POST['checkForPostTruncation'])) {
 		$single = sanitize($_POST['singleimage']);
 	}
 
-	$changed = FALSE;
+	$notify = $changed = FALSE;
 	for ($i = 0; $i <= $_POST['totalimages']; $i++) {
 		if (isset($_POST["$i-filename"])) {
 			$filename = sanitize($_POST["$i-filename"]);
@@ -52,7 +52,9 @@ if (isset($_POST['checkForPostTruncation'])) {
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
 						if (isset($_POST["$i-$geo"])) {
 							$dms = parseDMS($_POST["$i-$geo"]);
-							if (!is_null($dms)) {
+							if (is_null($dms)) {
+								$notify .= '&dms=' . $geo;
+							} else {
 								$image->set($geo, $dms);
 							}
 						}
@@ -93,27 +95,27 @@ if (isset($_POST['checkForPostTruncation'])) {
 						$dest = sanitize_path($_POST[$i . '-albumselect']);
 						if ($dest && $dest != $folder) {
 							if ($e = $image->move($dest)) {
-								$notify = "&mcrerr=" . $e;
+								$notify .= "&mcrerr=" . $e;
 							}
 						} else {
 							// Cannot move image to same album.
-							$notify = "&mcrerr=2";
+							$notify .= "&mcrerr=2";
 						}
 					} else if ($movecopyrename_action == 'copy') {
 						$dest = sanitize_path($_POST[$i . '-albumselect']);
 						if ($dest && $dest != $folder) {
 							if ($e = $image->copy($dest)) {
-								$notify = "&mcrerr=" . $e;
+								$notify .= "&mcrerr=" . $e;
 							}
 						} else {
 							// Cannot copy image to existing album.
 							// Or, copy with rename?
-							$notify = "&mcrerr=2";
+							$notify .= "&mcrerr=2";
 						}
 					} else if ($movecopyrename_action == 'rename') {
 						$renameto = sanitize_path($_POST[$i . '-renameto']);
 						if ($e = $image->rename($renameto)) {
-							$notify = "&mcrerr=" . $e;
+							$notify .= "&mcrerr=" . $e;
 						} else {
 							$single = $renameto;
 						}
