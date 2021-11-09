@@ -228,7 +228,7 @@ function sanitize_path($filename) {
  * @return int
  */
 function sanitize_numeric($num) {
-	$f = filter_var($num, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+	$f = filter_var(str_replace(',', '.', $num), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	if (!$f) {
 		return 0;
 	} else {
