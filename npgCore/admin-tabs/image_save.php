@@ -51,7 +51,10 @@ if (isset($_POST['checkForPostTruncation'])) {
 					}
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
 						if (isset($_POST["$i-$geo"])) {
-							$image->set($geo, parseDMS($_POST["$i-$geo"]));
+							$dms = parseDMS($_POST["$i-$geo"]);
+							if (!is_null($dms)) {
+								$image->set($geo, $dms);
+							}
 						}
 					}
 					if (isset($_POST[$i . '-oldrotation']) && isset($_POST[$i . '-rotation'])) {
