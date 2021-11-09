@@ -5505,6 +5505,7 @@ function parseDMS($geoString) {
 			$g = $g + $matches[2] / 3600;
 		}
 	}
+
 	if ($g < 0 || $g > 90 + 90 * in_array($r, array('e', 'w'))) {
 		return NULL; //	invalild coordinate
 	}
@@ -6137,6 +6138,9 @@ function consolidatedEditMessages($subtab) {
 				$messagebox[] = $action;
 				break;
 		}
+	}
+	if (isset($_GET['dms'])) {
+		$errorbox[] = sprintf(gettext("Invalid %s."), $_GET['dms']);
 	}
 	if (isset($_GET['mcrerr'])) {
 		switch (sanitize_numeric($_GET['mcrerr'])) {

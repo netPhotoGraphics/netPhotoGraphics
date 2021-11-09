@@ -144,10 +144,11 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					XSRFdefender('protect_setup');
 					chdir(CORE_SERVERPATH . 'setup/');
 					$list = safe_glob('*.php');
+					$exempt = array('setup-functions.php', 'icon.php');
 
 					$rslt = array();
 					foreach ($list as $component) {
-						if ($component == 'setup-functions.php') { // some plugins may need these.
+						if (in_array($component, $exempt)) { // some plugins may need these.
 							continue;
 						}
 						chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
