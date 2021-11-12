@@ -1389,7 +1389,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						break;
 					case'numerictext':
 						if (isset($_POST[$postkey])) {
-							if (is_numeric(sstr_replace(',', '.', $_POST[$postkey]))) {
+							if (is_numeric(str_replace(',', '.', $_POST[$postkey]))) {
 								$value = $_POST[$postkey];
 							} else {
 								$value = NULL;
