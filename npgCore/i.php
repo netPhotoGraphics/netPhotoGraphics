@@ -84,6 +84,7 @@ if (getOption('secure_image_processor')) {
 
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
+	require_once(__DIR__ . '/functions.php'); //	just to be sure...
 	if ($_loggedin & ALBUM_RIGHTS) {
 		$forbidden = false;
 	} else {
