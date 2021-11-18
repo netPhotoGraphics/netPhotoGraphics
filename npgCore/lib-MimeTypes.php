@@ -2,7 +2,7 @@
 
 class mimeTypes {
 
-	private $mime_types = array(
+	public static $mime_types = array(
 			'3dm' => 'x-world/x-3dmf',
 			'3dmf' => 'x-world/x-3dmf',
 			'a' => 'application/octet-stream',
