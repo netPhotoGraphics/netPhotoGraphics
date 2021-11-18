@@ -66,7 +66,9 @@ function processCommentBlock($commentBlock) {
 			'&lt;/pre&gt;' => '</pre>',
 			'&lt;br&gt;' => '<br />',
 			'&lt;var&gt;' => '<span class="inlinecode">',
-			'&lt;/var&gt;' => '</span>'
+			'&lt;/var&gt;' => '</span>',
+			'&lt;flag&gt;' => '<span class="warningbox">',
+			'&lt;/flag&gt;' => '</span>'
 	);
 	$const_tr = array(
 			'%CORE_FOLDER%' => CORE_FOLDER,
