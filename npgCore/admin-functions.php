@@ -5792,6 +5792,7 @@ function getPluginTabs() {
 			'mail' => gettext('Mail'),
 			'media' => gettext('Media'),
 			'misc' => gettext('Misc'),
+			'security' => gettext('Security'),
 			'theme' => gettext('Theme support'),
 			'tools' => gettext('Tools'),
 			'users' => gettext('Users')
@@ -5910,7 +5911,7 @@ function getPluginTabs() {
 			if (array_key_exists($key, $Xlate)) {
 				$local = $Xlate[$key];
 			} else {
-				$local = $Xlate[$key] = $key;
+				$local = $Xlate[$key] = gettext(ucfirst($key));
 			}
 			$member[$plugin] = $local;
 		}
@@ -5918,7 +5919,7 @@ function getPluginTabs() {
 
 
 	$hr = false;
-	if (isset($_GET['tab']) && ($cat = sanitize($_GET['tab']))) {
+	if (isset($_GET['tab']) && ($cat = sanitize($_GET['tab'])) && $cat != 'all') {
 		$default = $cat;
 		$currentlist = array();
 	} else {
