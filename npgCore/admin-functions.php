@@ -5824,7 +5824,6 @@ function getPluginTabs() {
 
 	$plugin_lc = array();
 	$paths = getPluginFiles('*.php');
-	npgFilters::apply('plugin_tabs', $Xlate);
 
 	$class = $feature = $admin = $theme = $details = $enabled = $disabled = $deprecated = $classes = $member = $thirdparty = array();
 	foreach ($paths as $plugin => $path) {
