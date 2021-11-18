@@ -31,7 +31,7 @@
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/ipBlocker
- * @pluginCategory admin
+ * @pluginCategory security
  */
 $plugin_is_filter = 10 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
