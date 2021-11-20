@@ -5830,13 +5830,7 @@ function getPluginTabs() {
 	foreach ($paths as $plugin => $path) {
 		if (!isset($plugin_lc[strtolower($plugin)])) {
 			$plugin_lc[strtolower($plugin)] = true;
-			$p = preg_replace('~/\* LegacyConverter(.*)was here \*/~s', '', file_get_contents($path));
-			preg_match('~/\*(.*?)\*/~s', $p, $matches);
-			if (isset($matches[1])) {
-				$d = $matches[1];
-			} else {
-				$d = '';
-			}
+			$p = file_get_contents($path);
 
 			if ($str = isolate('$plugin_description', $p)) {
 				$details[$plugin]['plugin_description'] = $str;
@@ -5857,20 +5851,20 @@ function getPluginTabs() {
 			$details[$plugin]['option_interface'] = isolate('$option_interface', $p);
 
 			$key = 'misc';
-			preg_match('|@pluginCategory\s+(.*)\s|', $d, $matches);
-
+			preg_match('|@pluginCategory\s+(.*)\s|', $p, $matches);
 			if (isset($matches[1])) {
 				$key = strtolower(trim($matches[1]));
 			}
 			$details[$plugin]['category'] = $key;
 
-			if (preg_match('~@deprecated(.*)[^\*]~', $d, $matches)) {
+			if (preg_match('~@deprecated(.*)[^\*]~', $p, $matches)) {
 				$details[$plugin]['deprecated'] = 'deprecated';
 				if (isset($matches[1])) {
 					$details[$plugin]['deprecated'] = trim($matches[1]);
 				}
 				$deprecated[$plugin] = $path;
 			}
+
 			$plugin_is_filter = 1 | THEME_PLUGIN;
 			if ($str = isolate('$plugin_is_filter', $p)) {
 				eval($str);
