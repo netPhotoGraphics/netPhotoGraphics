@@ -5800,7 +5800,7 @@ function getLogTabs() {
  * Figures out which plugin tabs to display
  */
 function getPluginTabs() {
-	/* subpackages */
+	/* categories */
 	$pluginCategoryNames = array(
 			'admin' => gettext('Admin support'),
 			'development' => gettext('Development'),
@@ -5890,9 +5890,18 @@ function getPluginTabs() {
 			if (isset($matches[1])) {
 				$d = $matches[1];
 
-				if ($key = getDocBlockValue('@pluginCategory', $d)) {
-					$key = strtolower($key);
-				} else {
+				$package = getDocBlockValue('@package', $d);
+				if (!empty($package)) {
+					$details[$plugin]['package'] = $package;
+				}
+
+				$author = getDocBlockValue('@author', $d);
+				if (!empty($author)) {
+					$details[$plugin]['author'] = $author;
+				}
+
+				$key = strtolower(getDocBlockValue('@pluginCategory', $d));
+				if (empty($key)) {
 					$key = 'misc';
 				}
 				$details[$plugin]['category'] = $key;
@@ -5900,7 +5909,7 @@ function getPluginTabs() {
 				if (array_key_exists($key, $Xlate)) {
 					$local = $Xlate[$key];
 				} else {
-					$local = $Xlate[$key] = gettext(ucfirst($key));
+					$Xlate[$key] = $local = gettext(ucfirst($key));
 				}
 				$member[$plugin] = $local;
 
@@ -5912,11 +5921,11 @@ function getPluginTabs() {
 					$details[$plugin]['deprecated'] = $deprecated;
 				}
 			}
-			if (!isset($key)) {
-				$member[$plugin] = 'misc';
-				$details[$plugin]['category'] = 'misc';
+			if (!isset($details[$plugin]['package'])) {
+				$Xlate['docblock'] = $member[$plugin] = gettext('Missing DocBlock');
+				$details[$plugin]['category'] = 'docblock';
+				$classes['docblock'][] = $plugin;
 			}
-			unset($key);
 
 			if (extensionEnabled($plugin)) {
 				$enabled[$plugin] = $path;
