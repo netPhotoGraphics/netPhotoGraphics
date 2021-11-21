@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This plugin is used to extend the gallery database table fields. The
  * administrative tabs for the objects will have input items for these new fields.
  * They will be placed in the proximate location of the "custom data" field on the page.

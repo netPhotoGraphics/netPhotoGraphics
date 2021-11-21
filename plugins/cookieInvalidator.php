@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Use when you want to clear out all cookies stored by site visitors. For instance if you have logged
  * in as an admin on a computer and forgot to log out. Then you can press the plugin button to clear
  * this (and other) cookies.
@@ -15,7 +15,6 @@
  * @package plugin/cookieInvalidator
  * @pluginCategory development
  */
-
 $plugin_is_filter = 99 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Invalidates all cookies that were created earlier than the invalidate action.');

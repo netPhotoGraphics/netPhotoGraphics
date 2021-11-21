@@ -436,12 +436,8 @@ npgFilters::apply('admin_note', 'plugins', '');
 											<?php
 										}
 										if ($plugin_deprecated) {
-											if ($plugin_notice) {
-												$plugin_notice .= '<br />';
-											}
-											$plugin_notice .= '<strong>' . gettext('Plugin is deprecated') . '</strong> ' . trim(str_replace('deprecated', '', $plugin_deprecated));
 											?>
-											<span class="deprecated">
+											<span class="deprecated" title="<?php echo gettext('Plugin is deprecated') . ' ' . trim(str_replace('deprecated', '', $plugin_deprecated)); ?>">
 												<?php
 											}
 											echo $extension;
