@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This plugin is a migration tool to move <var>TEXT</var> and <var>LONGTEXT</var> database fields to
  * <i>utf8mb4</i> encoding and collation. All other <i>text</i> fields are left as <i>utf8</i>.
  *
@@ -26,7 +26,6 @@
  *
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-
 // force UTF-8 Ø
 
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);

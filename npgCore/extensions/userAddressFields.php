@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This plugin is used to extend the administrator table to add user address fields.
  *
  * <b>NOTE:</b> you must run setup after enabling or disabling this plugin to cause changes to

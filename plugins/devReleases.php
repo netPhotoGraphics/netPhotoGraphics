@@ -1,5 +1,6 @@
 <?php
-/* Provides an install button for development releases
+/**
+ * Provides an install button for development releases
  *
  * This plugin is will place an install button pointing to the current Development
  * release (sbillard/netPhotoGraphics-DEV) repository. Clicking the button will download
@@ -14,7 +15,6 @@
  *
  * permission granted for use in conjunction with netPhotoGraphics. All other rights reserved
  */
-
 // force UTF-8 Ø
 
 $plugin_is_filter = 5 | ADMIN_PLUGIN;

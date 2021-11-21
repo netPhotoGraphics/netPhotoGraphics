@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * provide functions, methods, and such that are used by legacy zenphoto
  *
  * This plugin should be enabled if you are using themes or plugins developed

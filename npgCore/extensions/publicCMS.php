@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Normally a <em>private</em> gallery is not accessable to anyone but the registered
  * users. There is a gallery option to expose particular pages (such as the index.php page
  * or the register.php page) to site visitors.
@@ -23,7 +23,6 @@
  * @package plugins/publicCMS
  *
  */
-
 $plugin_is_filter = 9 | FEATURE_PLUGIN;
 $plugin_description = gettext('Provide public CMS <em>pages</em> and <em>categories</em> in a private gallery.');
 $plugin_disable = extensionEnabled('zenpage') ? '' : gettext('This plugin is not useful if the <code>zenpage</code> plugin is not enabled.');

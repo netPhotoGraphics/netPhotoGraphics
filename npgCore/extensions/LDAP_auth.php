@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * LDAP authorization plugin
  *
  * This plugin will link the site to an LDAP server for user verification.
@@ -10,7 +10,6 @@
  * @package plugins/LDAP_auth
  * @pluginCategory users
  */
-
 $plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Enable LDAP user authentication.');

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Applies browser differed loading to image content.
  *
  * There are options to control how the lazy loading is applied.
@@ -21,7 +21,6 @@
  *
  * @Copyright 2020 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-
 $plugin_is_filter = defaultExtension(9 | FEATURE_PLUGIN);
 $plugin_description = gettext('A plugin to apply lazy loading to images and videos.');
 
