@@ -35,8 +35,8 @@
 
 global $_CMS;
 
-function processCommentBlock($commentBlock) {
-	global $plugin_author, $plugin_copyright, $plugin_repository, $subpackage, $plugin_deprecated;
+function processDocBlock($docBlock) {
+	global $plugin_author, $plugin_copyright, $plugin_repository, $plugincategory, $plugin_deprecated;
 	$markup = array(
 			'&amp;gt;' => '>',
 			'&amp;lt;' => '<',
@@ -66,7 +66,9 @@ function processCommentBlock($commentBlock) {
 			'&lt;/pre&gt;' => '</pre>',
 			'&lt;br&gt;' => '<br />',
 			'&lt;var&gt;' => '<span class="inlinecode">',
-			'&lt;/var&gt;' => '</span>'
+			'&lt;/var&gt;' => '</span>',
+			'&lt;flag&gt;' => '<span class="warningbox">',
+			'&lt;/flag&gt;' => '</span>'
 	);
 	$const_tr = array(
 			'%CORE_FOLDER%' => CORE_FOLDER,
@@ -93,7 +95,7 @@ function processCommentBlock($commentBlock) {
 	$body = $doc = '';
 	$par = false;
 	$empty = false;
-	$lines = explode("\n", strtr($commentBlock, $const_tr));
+	$lines = explode("\n", strtr($docBlock, $const_tr));
 	foreach ($lines as $line) {
 		$line = trim(preg_replace('~^\s*\*~', '', $line));
 		if (empty($line)) {
@@ -111,6 +113,9 @@ function processCommentBlock($commentBlock) {
 					switch ($case = strtolower($matches[1])) {
 						case 'author':
 							$plugin_author = trim(substr($line, 8));
+							break;
+						case 'plugincategory':
+							$plugincategory = trim(substr($line, 16));
 							break;
 						case 'repository':
 						case 'copyright':
@@ -130,9 +135,6 @@ function processCommentBlock($commentBlock) {
 							$case = 'plugin_' . $case;
 							$$case = $result;
 							break;
-						case 'subpackage':
-							$subpackage = trim(substr($line, 11));
-							break;
 						case 'link':
 							$line = trim(substr($line, 5));
 							$l = strpos($line, ' ');
@@ -145,7 +147,7 @@ function processCommentBlock($commentBlock) {
 							$links[] = array('text' => $text, 'link' => $line);
 							break;
 						case 'deprecated':
-							preg_match('~.*(deprecated\s+[since\s+[\d.]*]*)\s+[and]*(.*)~i', $line, $matches);
+							preg_match('~.*(deprecated\s+[since\s+[\d+\.]*]*)\s*[and]*(.*)~i', $line, $matches);
 
 							$plugin_deprecated = ucfirst(trim($matches[1])) . '<br />' . ucfirst(trim($matches[2]));
 							break;
@@ -256,14 +258,12 @@ if (!defined('OFFSET_PATH')) {
 		}
 	}
 
-	$pluginStream = preg_replace("~/\* LegacyConverter (.*) was here \*/~", '', file_get_contents($pluginToBeDocPath));
-	$i = strpos($pluginStream, '/*');
-	$j = strpos($pluginStream, '*/');
+	preg_match('~/\*\*(.*?)\*/~s', file_get_contents($pluginToBeDocPath), $matches);
+	if (isset($matches[1])) {
+		$docBlock = $matches[1];
 
-	if ($i !== false && $j !== false) {
-		$commentBlock = substr($pluginStream, $i + 2, $j - $i - 2);
-		$sublink = $subpackage = false;
-		$body = processCommentBlock($commentBlock);
+		$plugincategory = false;
+		$body = processDocBlock($docBlock);
 		switch ($pluginType) {
 			case 'thirdparty':
 				$whose = 'Third party plugin';
@@ -275,16 +275,10 @@ if (!defined('OFFSET_PATH')) {
 				}
 				break;
 			case 'supplemental':
-				if ($subpackage) {
-					$sublink = $subpackage . '/';
-				}
 				$whose = 'Supplemental plugin';
 				$ico = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_blue.png" alt="logo" title="<?php echo $whose; ?>" /> ';
 				break;
 			default:
-				if ($subpackage) {
-					$sublink = $subpackage . '/';
-				}
 				$whose = 'Official plugin';
 				$ico = '<img class="npg_logoicon" src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="<?php echo $whose; ?>" /> ';
 				break;
@@ -405,7 +399,14 @@ if (!defined('OFFSET_PATH')) {
 					<br class="clearall" />
 
 					<div id="plugin-content">
-						<h1><?php echo $ico; ?><?php echo html_encode($extension); ?></h1>
+						<h1><?php echo $ico; ?><?php
+							echo html_encode($extension);
+							if ($plugincategory) {
+								?>
+								<em><small>{<?php printf('%1$s plugins', $plugincategory); ?>}</small></em>
+								<?php
+							}
+							?></h1>
 						<?php
 						if ($plugin_deprecated) {
 							?>

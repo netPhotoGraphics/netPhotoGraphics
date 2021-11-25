@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Migrates old titlelinks to append the <em>mod_rewrite_suffix</em> so they are consistent
  * with newly created titlelinks.
  *
@@ -17,7 +17,6 @@
  *
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("Migrate titlelinks to include the <em>mod_rewrite_suffix</em>.");
 $plugin_disable = npgFunctions::pluginDisable(array(array(!RW_SUFFIX, gettext('No <em>mod_rewrite_suffix</em> has been set.'))));

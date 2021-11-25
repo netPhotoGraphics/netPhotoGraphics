@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * QR code image generator
  *
  *
@@ -11,7 +11,6 @@
  *
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-
 $plugin_is_filter = 5 | FEATURE_PLUGIN;
 $plugin_description = gettext('Provides a function to emit a QR code image.');
 

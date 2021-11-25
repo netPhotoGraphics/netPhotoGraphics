@@ -29,7 +29,6 @@
  */
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext("Generates a list of albums containing the summary of all photos taken that day.");
-$plugin_author = "Marcus Wong (wongm) and Stephen Billard";
 
 $option_interface = 'DailySummaryOptions';
 
@@ -65,7 +64,6 @@ class DailySummaryOptions {
 		$list = array_flip($list);
 
 		$current = array(getOption('DailySummaryScript'));
-
 
 		return array(gettext('Days of history') => array(
 						'order' => 0,

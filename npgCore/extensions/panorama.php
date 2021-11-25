@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This plugin is based on {@link https://github.com/terrymun/paver <b>Paver</b>} by terrymun
  *
  * The plugin will display exceptionally wide images as a scrollable panorama. Images which
@@ -35,7 +35,6 @@
  *
  * @Copyright 2020 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-
 $plugin_is_filter = 9 | THEME_PLUGIN;
 $plugin_description = gettext('A plugin to display photo images as a panorama.');
 $plugin_notice = gettext('Panoramic images can be quite large which may cause issues. Please review the note in the plugin usage information.');

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Debugging aids
  *
  * <b><i>Mark release</i> button:</b>
@@ -28,7 +28,6 @@
  * @package plugins/debug
  * @pluginCategory development
  */
-
 $plugin_is_filter = 10 | ADMIN_PLUGIN;
 $plugin_description = gettext("Debugging aids.");
 

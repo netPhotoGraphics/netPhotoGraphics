@@ -15,7 +15,7 @@
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/security-logger
- * @pluginCategory admin
+ * @pluginCategory security
  */
 $plugin_is_filter = defaultExtension(100 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid

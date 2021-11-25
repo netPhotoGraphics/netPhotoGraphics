@@ -23,7 +23,7 @@
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/googleTFA
- * @pluginCategory admin
+ * @pluginCategory security
  *
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *

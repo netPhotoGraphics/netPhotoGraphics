@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This plugin implements <i>tiny URLs</i> such as used by the tweet_news plugin
  *
  * <i>Tiny URLs</i> are short digital strings that

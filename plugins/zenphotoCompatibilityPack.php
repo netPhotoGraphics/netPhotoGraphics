@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * provide functions, methods, and such that are used by legacy zenphoto
  *
  * This plugin should be enabled if you are using themes or plugins developed
@@ -135,7 +135,8 @@ $legacyReplacements = array(
 		'Image::isImageClass' => 'isImageClass',
 		'tidyHTML' => 'cleanHTML',
 		'AlbumBase::getNumAllImages\(' => 'getTotalImagesIn(',
-		'@subpackage' => '@pluginCategory'
+		'@subpackage' => '@pluginCategory',
+		'class-mimetypes.php' => 'lib-MimeTypes.php'
 );
 
 class zenPhotoCompatibilityPack {

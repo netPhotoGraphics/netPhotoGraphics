@@ -5,7 +5,7 @@
  * @author Stephen Billard (sbillard)
  *
  * @package plugins/captcha
- * @pluginCategory admin
+ * @pluginCategory security
  */
 // force UTF-8 Ø
 
