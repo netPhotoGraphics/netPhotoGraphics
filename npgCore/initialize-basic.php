@@ -239,10 +239,13 @@ $chunk = getOption('PROCESSING_CONCURENCY');
 if (!$chunk) {
 	$chunk = 15;
 }
-$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-if ($max['Value'] && $max['Value'] < $chunk + 2) {
-	$chunk = $max['Value'] - 2;
+if ($__initialDBConnection) {
+	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";', FALSE);
+	if ($max['Value'] && $max['Value'] < $chunk + 2) {
+		$chunk = $max['Value'] - 2;
+	}
+	unset($max);
 }
 define('PROCESSING_CONCURENCY', $chunk);
 unset($chunk);
-unset($max);
+
