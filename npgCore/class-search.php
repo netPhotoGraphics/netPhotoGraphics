@@ -1190,6 +1190,12 @@ class SearchEngine {
 		global $_gallery;
 		$weights = $idlist = array();
 		$sql = $allIDs = NULL;
+		if (version_compare(MySQL_VERSION, '8.4', '>=')) {
+			$wordStart = $wordEnd = '\b';
+		} else {
+			$wordStart = '[[:<:]]';
+			$wordEnd = '[[:>:]]';
+		}
 
 		switch ((int) getOption('exact_tag_match')) {
 			case 0:
@@ -1202,7 +1208,7 @@ class SearchEngine {
 				break;
 			case 2:
 				//word
-				$this->tagPattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
+				$this->tagPattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => $wordEnd);
 				break;
 		}
 
@@ -1213,11 +1219,11 @@ class SearchEngine {
 				break;
 			case 1:
 				// partial start
-				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '');
+				$this->pattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => '');
 				break;
 			case 2:
 				//word
-				$this->pattern = array('type' => 'regexp', 'open' => '[[:<:]]', 'close' => '[[:>:]]');
+				$this->pattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => $wordEnd);
 				break;
 		}
 
