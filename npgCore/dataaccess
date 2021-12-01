@@ -2,6 +2,6 @@
 <IfModule mod_autoindex.c>
 	IndexIgnore *
 </IfModule>
-<FilesMatch "\.(htaccess|cfg|log|php|zdb)$">
+<FilesMatch "\.(htaccess|cfg|log|php)$">
   Deny from all
 </FilesMatch>

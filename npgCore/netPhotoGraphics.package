@@ -679,6 +679,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/cron_runner.php
 %core%/dataaccess
 %core%/databaseTemplate
+%core%/denyaccess
 %core%/external_auth.php
 %core%/full-image.php
 %core%/functions-basic.php
@@ -7350,6 +7351,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/panorama/paver.css
 %extensions%/PHPMailer
 %extensions%/PHPMailer/Exception.php
+%extensions%/PHPMailer/OAuth.php
 %extensions%/PHPMailer/PHPMailer.php
 %extensions%/PHPMailer/POP3.php
 %extensions%/PHPMailer/SMTP.php
@@ -8044,4 +8046,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8046
+8048

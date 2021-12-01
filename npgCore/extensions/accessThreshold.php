@@ -88,8 +88,8 @@ class accessThreshold {
 			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
 		} else {
-			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
-				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 			} else {
 				$recentIP = array();
 			}
@@ -102,7 +102,7 @@ class accessThreshold {
 				'accessThreshold_LocaleCount' => getOption('accessThreshold_LocaleCount'),
 				'accessThreshold_SENSITIVITY' => $sensitivity
 		);
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
+		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 	}
 
 	static function admin_tabs($tabs) {
@@ -145,8 +145,8 @@ $monitor = getOption('accessThreshold_Monitor');
 if ($me && getUserIP() != $me) {
 	$mu = new npgMutex('aT');
 	$mu->lock();
-	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
-		$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+		$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 	} else {
 		$recentIP = array();
 	}
@@ -178,7 +178,7 @@ if ($me && getUserIP() != $me) {
 		}
 		$recentIP[$ip]['lastAccessed'] = $__time;
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
-			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
+			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
 			exit();
 		} else {
@@ -224,7 +224,7 @@ if ($me && getUserIP() != $me) {
 			$recentIP = array_slice($recentIP, 0, $__config['accessThreshold_IP_RETENTION']);
 			$recentIP['config'] = $__config;
 		}
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', serialize($recentIP));
+		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 		$mu->unlock();
 
 		unset($ip);
