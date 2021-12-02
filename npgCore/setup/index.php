@@ -180,12 +180,35 @@ if (file_exists(SERVERPATH . '/backup')) {
 	chmod(SERVERPATH . '/backup', 0777);
 	rmdir(SERVERPATH . '/backup');
 }
-
 if (file_exists(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
 }
-copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+copy(dirname(__DIR__) . '/denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
+
+if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
+	@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
+}
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess')) {
+	chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0777);
+}
+copy(dirname(__DIR__) . '/denyaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess');
+chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0444);
+
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
+	chmod(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', 0777);
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck.cfg');
+}
+
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
+	chmod(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', 0777);
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg');
+}
+
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést')) {
+	chmod(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést', 0777);
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést', SERVERPATH . '/' . DATA_FOLDER . '/charset_tést.cfg');
+}
 
 if (isset($_GET['mod_rewrite'])) {
 	$mod = '&mod_rewrite=' . $_GET['mod_rewrite'];

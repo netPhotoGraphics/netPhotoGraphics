@@ -29,6 +29,22 @@ if (isset($_GET['selection'])) {
 	}
 }
 
+$_GET['page'] = 'plugins';
+localeSort($pluginlist);
+
+//compute the subpage the plugin is on
+if (isset($_REQUEST['subpage'])) {
+	$subpage = (int) filter_var($_REQUEST['subpage'], FILTER_SANITIZE_NUMBER_FLOAT);
+	if (isset($_GET['show']) && $subpage < 0) {
+		unset($_GET['tab']);
+		list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
+		localeSort($pluginlist);
+		$subpage = floor(array_search($_GET['show'], array_values(array_map('strtolower', $pluginlist))) / PLUGINS_PER_PAGE);
+	}
+} else {
+	$subpage = 0;
+}
+
 /* handle posts */
 if (isset($_GET['action'])) {
 	$notify = '&post_error';
@@ -112,20 +128,6 @@ if (isset($_GET['action'])) {
 	}
 	header('Location: ' . getAdminLink('admin-tabs/plugins.php') . '?page=plugins&tab=' . html_encode($plugin_default) . "&subpage=" . html_encode($subpage) . $notify);
 	exit();
-}
-localeSort($pluginlist);
-
-$_GET['page'] = 'plugins';
-if (isset($_REQUEST['subpage'])) {
-	$subpage = (int) filter_var($_REQUEST['subpage'], FILTER_SANITIZE_NUMBER_FLOAT);
-	if (isset($_GET['show']) && $subpage < 0) {
-		unset($_GET['tab']);
-		list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
-		localeSort($pluginlist);
-		$subpage = floor(array_search($_GET['show'], array_values(array_map('strtolower', $pluginlist))) / PLUGINS_PER_PAGE);
-	}
-} else {
-	$subpage = 0;
 }
 
 $saved = isset($_GET['saved']);

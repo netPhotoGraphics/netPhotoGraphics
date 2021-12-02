@@ -52,7 +52,7 @@ function setSiteState($state, $folder = NULL) {
 	if (is_null($folder)) {
 		$folder = SERVERPATH . '/';
 	}
-	$_configMutex = new npgMutex('cF', NULL, $folder . DATA_FOLDER . '/.mutex');
+	$_configMutex = new npgMutex('cF', NULL, $folder . DATA_FOLDER . '/' . MUTEX_FOLDER);
 	$_configMutex->lock();
 	$_config_contents = file_get_contents($folder . DATA_FOLDER . '/' . CONFIGFILE);
 	$_config_contents = configFile::update('site_upgrade_state', $state, $_config_contents);

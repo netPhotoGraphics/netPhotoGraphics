@@ -145,8 +145,8 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	}
 
 	//update publish state, but only on static cache expiry intervals
-	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
-		$lastupdate = (int) file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck');
+	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck.cfg')) {
+		$lastupdate = (int) file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck.cfg');
 	} else {
 		$lastupdate = NULL;
 	}
@@ -158,7 +158,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 		foreach ($tables as $table) {
 			updatePublished($table);
 		}
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', time());
+		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck.cfg', time());
 	}
 
 	// Include the appropriate page for the requested object, and a 200 OK header.

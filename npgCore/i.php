@@ -156,6 +156,7 @@ $albumdirs = getAlbumArray($album, true);
 foreach ($albumdirs as $dir) {
 	$dir = internalToFilesystem($dir);
 	$dir = SERVERCACHE . '/' . $dir;
+	clearstatcache();
 	if (!is_dir($dir)) {
 		mkdir($dir, FOLDER_MOD);
 		chmod($dir, FOLDER_MOD);

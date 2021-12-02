@@ -14,8 +14,8 @@ admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 
 $recentIP = $localeList = $ipList = array();
 $ip = sanitize($_GET['selected_ip']);
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
-	$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP'));
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+	$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 }
 
 if (isset($recentIP[$ip])) {
