@@ -197,22 +197,17 @@ chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0444);
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', 0777);
-	unlink(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck');
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck.cfg');
 }
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', 0777);
-	unlink(SERVERPATH . '/' . DATA_FOLDER . '/recentIP');
-}
-
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP')) {
-	chmod(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', 0777);
-	unlink(SERVERPATH . '/' . DATA_FOLDER . '/recentIP');
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/recentIP', SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg');
 }
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést', 0777);
-	unlink(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést');
+	rename(SERVERPATH . '/' . DATA_FOLDER . '/charset_tést', SERVERPATH . '/' . DATA_FOLDER . '/charset_tést.cfg');
 }
 
 if (isset($_GET['mod_rewrite'])) {
