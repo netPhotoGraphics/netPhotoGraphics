@@ -1717,8 +1717,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							setupLog($msg, true);
 							?>
 							<h3><?php echo $msg; ?></h3>
-							<?php
-							?>
 							<script type = "text/javascript">
 								$("#prime<?php echo $primeid; ?>").remove();
 							</script>
