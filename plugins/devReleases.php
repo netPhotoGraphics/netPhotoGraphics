@@ -27,6 +27,7 @@ use Milo\Github;
 $devVersionURI = getOption('getDEVUpdates_latest');
 
 if (isset($_GET['action'])) {
+	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
