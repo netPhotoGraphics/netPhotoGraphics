@@ -245,7 +245,7 @@ class user_expiry {
 		global $_authority;
 		//process any verifications posted
 		if (isset($_GET['user_expiry_reverify'])) {
-			$params = unserialize(pack("H*", trim(sanitize($_GET['user_expiry_reverify']), '.')));
+			$params = sanitize(unserialize(pack("H*", trim($_GET['user_expiry_reverify']), '.')));
 			if ((time() - $params['date']) < 2592000) {
 				$userobj = $_authority->getAnAdmin(array('`user`=' => $params['user'], '`email`=' => $params['email'], '`valid`>' => 0));
 				if ($userobj) {
