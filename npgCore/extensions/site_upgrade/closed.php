@@ -12,8 +12,8 @@ if (file_exists(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE')) {
 	eval($_contents);
 	if (isset($conf['site_upgrade_state']) && $conf['site_upgrade_state'] == 'open') {
 		// site is now open, redirect to index
-		header("HTTP/1.0 307 Found");
-		header("Status: 307 Found");
+		header("HTTP/1.0 303 See Other");
+		header("Status: 303 See Other");
 		header('Location: SITEINDEX');
 		exit();
 	}

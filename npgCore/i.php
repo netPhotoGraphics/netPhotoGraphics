@@ -224,7 +224,9 @@ if ($debug) {
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $fmt) . ' GMT');
 		header('Content-Type: image/' . $suffix);
 		//redirect to the cached image
-		header('Location: ' . $path, true, 301);
+		header("HTTP/1.0 301 Moved Permanently");
+		header("Status: 301 Moved Permanently");
+		header('Location: ' . $path);
 	} else {
 		$fp = fopen($newfile, 'rb');
 		// send the right headers
