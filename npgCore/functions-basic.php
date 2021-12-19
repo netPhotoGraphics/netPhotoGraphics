@@ -890,21 +890,27 @@ function is_serialized($data) {
 	$data = trim($data);
 	if ('N;' == $data)
 		return true;
-	if (!preg_match('/^([adObis]):/', $data, $badions))
-		return false;
-	switch ($badions[1]) {
-		case 'a' :
-		case 'O' :
-		case 's' :
-			if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
-				return true;
-			break;
-		case 'b' :
-		case 'i' :
-		case 'd' :
-			if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
-				return true;
-			break;
+	if (preg_match('/^([adObis]):/', $data, $badions)) {
+		switch ($badions[1]) {
+			case 'a' :
+			case 'C':
+			case 'O' :
+			case 'R':
+			case 'S' :
+			case 's' :
+			case 'U':
+				if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data)) {
+					return true;
+				}
+				break;
+			case 'b' :
+			case 'i' :
+			case 'd' :
+				if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/i", $data)) {
+					return true;
+				}
+				break;
+		}
 	}
 	return false;
 }
@@ -921,7 +927,7 @@ function getSerializedArray($string) {
 		return $string;
 	}
 	if (is_serialized($string)) {
-		$strings = unserialize($string);
+		$strings = unserialize($string, ['allowed_classes' => false]);
 		if (is_array($strings)) {
 			return $strings;
 		}
