@@ -31,7 +31,7 @@ if (!defined('WEBPATH'))
 				<?php echo date('Y'); ?>.
 
 				<h2>netPhotoGraphics</h2>
-				<p><?php echo gettext('This website is based on netPhotoGraphics the <a href="http://netPhotoGraphics.org/" target="_blank">simple media website CMS</a>'); ?>.</p>
+				<p><?php echo gettext('This website is based on netPhotoGraphics the <a href="https://netPhotoGraphics.org/" target="_blank">simple media website CMS</a>'); ?>.</p>
 				<p><?php echo gettext('Theme used:'); ?> Paradigm <?php echo gettext('by'); ?> Olivier French (<a href="http://www.france-in-photos.com">France in Photos</a>).</p>
 			</section>
 			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
