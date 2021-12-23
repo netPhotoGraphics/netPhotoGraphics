@@ -136,8 +136,8 @@ class GDPR_required {
 					if ($require) {
 						$from = '?from=' . urlencode(getRequestURI());
 						//	redirect to the policy page
-						header("HTTP/1.0 307 Found");
-						header("Status: 307 Found");
+						header("HTTP/1.0 303 See Other");
+						header("Status: 303 See Other");
 						header('Location: ' . $link . $from);
 						exit();
 					}

@@ -32,6 +32,8 @@ if (isset($_GET['action'])) {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
 		purgeOption('getUpdates_lastCheck');
+		header('HTTP/1.0 303 See Other');
+		header("Status: 303 See Other");
 		header('location: ' . getAdminLink('admin.php') . '?update_check');
 		exit();
 	}
@@ -62,6 +64,8 @@ if (isset($_GET['action'])) {
 					unlink($file);
 				}
 				if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
+					header('HTTP/1.0 303 See Other');
+					header("Status: 303 See Other");
 					header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
 					exit();
 				} else {
@@ -75,6 +79,8 @@ if (isset($_GET['action'])) {
 		}
 		if ($msg) {
 			$_SESSION['errormessage'] = $msg;
+			header('HTTP/1.0 303 See Other');
+			header("Status: 303 See Other");
 			header('location: ' . getAdminLink('admin.php') . '?action=session&error');
 			exit();
 		}

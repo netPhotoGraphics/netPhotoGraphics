@@ -155,7 +155,9 @@ switch ($suffix) {
 			fpassthru($fp);
 			fclose($fp);
 		} else {
-			header('Location: ' . $imageobj->getFullImageURL(), true, 301);
+			header("HTTP/1.0 301 Moved Permanently");
+			header("Status: 301 Moved Permanently");
+			header('Location: ' . $imageobj->getFullImageURL());
 		}
 		exit();
 }
@@ -271,7 +273,9 @@ if (!is_null($cache_path)) {
 		fpassthru($fp);
 		fclose($fp);
 	} else {
-		header('Location: ' . FULLWEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file)), true, 301);
+		header("HTTP/1.0 301 Moved Permanently");
+		header("Status: 301 Moved Permanently");
+		header('Location: ' . FULLWEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file)));
 	}
 	exit();
 }
