@@ -714,22 +714,26 @@ function npg_session_start() {
 	} else {
 		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
 		session_name('Session_' . str_replace('.', '_', $p . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
+
 		//	insure that the session data has a place to be saved
-		if (getOption('session_save_path')) {
+		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
 		}
 		$_session_path = session_save_path();
-
 		if (ini_get('session.save_handler') == 'files' && !file_exists($_session_path) || !is_writable($_session_path)) {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-		$sessionCookie = session_get_cookie_params();
-		$sessionCookie['secure'] = secureServer();
-		$sessionCookie['httponly'] = TRUE;
-		$sessionCookie['samesite'] = 'Lax';
-		$sessionCookie['path'] = WEBPATH . '/';
-		$sessionCookie['domain'] = $_SERVER['HTTP_HOST'];
+
+		//	setup session cookie
+		$sessionCookie = array(
+				'lifetime' => 0,
+				'path' => WEBPATH . '/',
+				'domain' => $_SERVER['HTTP_HOST'],
+				'secure' => secureServer(),
+				'httponly' => TRUE,
+				'samesite' => 'Strict'
+		);
 		if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
 			session_set_cookie_params($sessionCookie);
 		} else {
@@ -737,8 +741,8 @@ function npg_session_start() {
 		}
 
 		$result = session_start();
+		define('npg_SID', session_id());
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
-
 		return $result;
 	}
 }
@@ -884,7 +888,7 @@ function clearNPGCookie($name) {
  * @return boolean
  */
 function is_serialized($data) {
-	// if it isn't a string, it isn't serialized
+// if it isn't a string, it isn't serialized
 	if (!is_string($data))
 		return false;
 	$data = trim($data);
@@ -947,7 +951,7 @@ function getOptionOwner() {
 	$bt = debug_backtrace();
 	$b = array_shift($bt); // this function
 	$b = array_shift($bt); //the setOption... function
-	//$b now has the calling file/line# of the setOption... function
+//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
 	if (array_pop($matches) == 'themeoptions.php') {
@@ -1009,9 +1013,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  */
 function loadLocalOptions($albumid, $theme) {
 	global $_options, $_conf_vars;
-	//start with the config file
+//start with the config file
 	$options = $_conf_vars;
-	//raw theme options Order is so that Album theme options will override simple theme options
+//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {
@@ -1088,7 +1092,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	global $_rewritten, $_albumHandlers;
 	$ralbum = isset($_GET[$albumvar]) ? trim(sanitize($_GET[$albumvar]), '/') : NULL;
 	$rimage = isset($_GET[$imagevar]) ? sanitize($_GET[$imagevar]) : NULL;
-	//	we assume that everything is correct if rewrite rules were not applied
+//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
 			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
@@ -1130,7 +1134,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_supported_images, $_cachefileSuffix;
-	// this function works in FILESYSTEM_CHARSET, so convert the file names
+// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1149,7 +1153,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 			}
 		}
 	}
-	// Set default variable values.
+// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
 	if (getOption('obfuscate_cache')) {
@@ -1200,7 +1204,7 @@ function getImageParameters($args, $album = NULL) {
 	$thumb_crop_height = getOption('thumb_crop_height');
 	$image_default_size = getOption('image_size');
 	$quality = getOption('image_quality');
-	// Set up the parameters
+// Set up the parameters
 	$thumb = $crop = false;
 	extract($args);
 
@@ -1296,7 +1300,7 @@ function getImageParameters($args, $album = NULL) {
 			}
 		}
 	}
-	// Return an array of parameters used in image conversion.
+// Return an array of parameters used in image conversion.
 	$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'quality' => $quality, 'crop' => $crop, 'thumb' => $thumb, 'WM' => $WM, 'adminrequest' => $adminrequest, 'effects' => $effects);
 	return $args;
 }
@@ -1775,7 +1779,7 @@ function getAlbumInherited($folder, $field, &$id) {
  * @return string
  */
 function imageThemeSetup($album) {
-	// we need to conserve memory in i.php so loading the classes is out of the question.
+// we need to conserve memory in i.php so loading the classes is out of the question.
 	$id = 0;
 	$theme = getAlbumInherited(filesystemToInternal($album), 'album_theme', $id);
 	if (empty($theme)) {

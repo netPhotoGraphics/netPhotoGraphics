@@ -2207,8 +2207,7 @@ function getXSRFToken($action, $modifier = NULL) {
 	if (is_object($_current_admin_obj)) {
 		$modifier .= $_current_admin_obj->getPass() . $_current_admin_obj->get('passupdate') . $_current_admin_obj->getLastLogon();
 	}
-	$token = sha1($action . $modifier . session_id());
-	return $token;
+	return sha1($action . $modifier . npg_SID);
 }
 
 /**
