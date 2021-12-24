@@ -16,9 +16,10 @@ $page = 'edit';
 
 define('MENU_ITEM_TRUNCATION', 40);
 
-$reports = array('updated' => '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>');
+$reports = array();
 if (isset($_POST['update'])) {
 	XSRFdefender('update_menu');
+	$reports = array('updated' => '<p class="messagebox fade-message">' . gettext('Nothing changed') . '</p>');
 	if ($report = updateItemsSortorder()) {
 		$reports[] = $report;
 		unset($reports['updated']);
@@ -46,7 +47,6 @@ if (isset($_GET['delete'])) {
 		query($sql);
 		$reports[] = "<p class='messagebox fade-message'>" . gettext('Menu item deleted') . "</p>";
 	}
-	unset($reports['updated']);
 }
 
 if (isset($_GET['deletemenuset'])) {
@@ -55,7 +55,6 @@ if (isset($_GET['deletemenuset'])) {
 	query($sql);
 	purgeOption('menu_lastChanged');
 	$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” deleted"), html_encode(sanitize($_GET['deletemenuset']))) . "</p>";
-	unset($reports['updated']);
 }
 
 if (isset($_GET['exportmenuset'])) {
@@ -90,15 +89,14 @@ if (isset($_GET['exportmenuset'])) {
 					'<h2>' . $menuEpxorted . '</h2>' .
 					$text .
 					'</div>';
-	unset($reports['updated']);
 }
 
 if (isset($_GET['dupmenuset'])) {
+	XSRFdefender('dup_menu');
 	$menuset = sanitize($_GET['targetname']);
 	if (menuExists($menuset)) {
 		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” already exists"), html_encode($menuset)) . "</p>";
 	} else {
-		XSRFdefender('dup_menu');
 		$oldmenuset = sanitize($_GET['dupmenuset']);
 		$menuitems = query_full_array('SELECT * FROM ' . prefix('menu') . ' WHERE `menuset`=' . db_quote($oldmenuset) . ' ORDER BY `sort_order`');
 		foreach ($menuitems as $key => $item) {
@@ -108,7 +106,6 @@ if (isset($_GET['dupmenuset'])) {
 		createMenu($menuitems, $menuset);
 		$reports[] = "<p class='messagebox fade-message'>" . sprintf(gettext("Menu “%s” duplicated"), html_encode($oldmenuset)) . "</p>";
 	}
-	unset($reports['updated']);
 }
 
 // publish or un-publish page by click
