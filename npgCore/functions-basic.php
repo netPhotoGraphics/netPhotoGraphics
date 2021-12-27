@@ -708,12 +708,17 @@ function secureServer() {
  */
 function npg_session_start() {
 	global $_conf_vars;
-	$result = session_id();
-	if ($result) {
-		return $result;
+	$sessionName = 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(WEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE);
+
+	if (($id = session_id()) && session_name() == $sessionName) {
+		return TRUE;
 	} else {
-		$p = preg_replace('~/+~', '_', $_SERVER['HTTP_HOST'] . WEBPATH);
-		session_name('Session_' . str_replace('.', '_', $p . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
+
+		if ($id) {
+			session_abort(); //	close existing session which has different name
+		}
+
+		session_name($sessionName);
 
 		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
