@@ -105,7 +105,7 @@ function menu_admin_toolbox_global() {
 function menu_tabs($tabs) {
 	if (npg_loggedin(ADMIN_RIGHTS)) {
 		$tabs['menu'] = array('text' => gettext("menu"),
-				'link' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?page=menu&amp;tab=menu',
+				'link' => getAdminLink(PLUGIN_FOLDER . '/menu_manager/menu_tab.php') . '?page=menu&tab=menu',
 				'default' => 'menu',
 				'subtabs' => NULL
 		);
@@ -544,7 +544,6 @@ function getCurrentMenuItem($menuset) {
 	$items = getMenuItems($menuset, $visibility);
 	$currentkey = NULL;
 
-
 	foreach ($items as $key => $item) {
 		switch ($item['type']) {
 			case 'menulabel':
@@ -956,12 +955,12 @@ function createMenu($menuitems, $menuset = 'default') {
 		}
 		switch ($type) {
 			case 'all_items':
-				$orders[$nesting] ++;
+				$orders[$nesting]++;
 				query("INSERT INTO " . prefix('menu') . " (`title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 								"VALUES ('" . gettext('Home') . "', '" . WEBPATH . '/' . "','siteindex','1'," . db_quote($menuset) . ',' . db_quote($orders), true);
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
 				if (class_exists('CMS')) {
-					$orders[$nesting] ++;
+					$orders[$nesting]++;
 					query("INSERT INTO " . prefix('menu') . " (title`,`link`,`type`,`show`,`menuset`,`sort_order`) " .
 									"VALUES ('" . gettext('News index') . "', '" . getNewsIndexURL() . "','newsindex','1'," . db_quote($menuset) . ',' . db_quote(sprintf('%03u', $base + 1)), true);
 					$orders[$nesting] = addPagesToDatabase($menuset, $orders) + 1;
@@ -970,17 +969,17 @@ function createMenu($menuitems, $menuset = 'default') {
 				$type = false;
 				break;
 			case 'all_albums':
-				$orders[$nesting] ++;
+				$orders[$nesting]++;
 				$orders[$nesting] = addAlbumsToDatabase($menuset, $orders);
 				$type = false;
 				break;
 			case 'all_pages':
-				$orders[$nesting] ++;
+				$orders[$nesting]++;
 				$orders[$nesting] = addPagesToDatabase($menuset, $orders);
 				$type = false;
 				break;
 			case 'all_categories':
-				$orders[$nesting] ++;
+				$orders[$nesting]++;
 				$orders[$nesting] = addCategoriesToDatabase($menuset, $orders);
 				$type = false;
 				break;
@@ -1059,7 +1058,7 @@ function createMenu($menuitems, $menuset = 'default') {
 				break;
 		}
 		if ($success > 0 && $type) {
-			$orders[$nesting] ++;
+			$orders[$nesting]++;
 			$sort_order = '';
 			for ($i = 0; $i < count($orders); $i++) {
 				$sort_order .= sprintf('%03u', $orders[$i]) . '-';
@@ -1210,7 +1209,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 				$parents[$indent] = NULL;
 				while ($indent > $level) {
 					if ($open[$indent]) {
-						$open[$indent] --;
+						$open[$indent]--;
 						echo "</li>\n";
 					}
 					$indent--;
@@ -1219,7 +1218,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 			} else { // level == indent, have not changed
 				if ($open[$indent]) { // level = indent
 					echo str_pad("\t", $indent, "\t") . "</li>\n";
-					$open[$indent] --;
+					$open[$indent]--;
 				} else {
 					echo "\n";
 				}
@@ -1227,7 +1226,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 
 			if ($open[$indent]) { // close an open LI if it exists
 				echo "</li>\n";
-				$open[$indent] --;
+				$open[$indent]--;
 			}
 
 			echo str_pad("\t", $indent - 1, "\t");
@@ -1339,14 +1338,14 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	while ($indent > 1) {
 		if ($open[$indent]) {
 			echo "</li>\n";
-			$open[$indent] --;
+			$open[$indent]--;
 		}
 		$indent--;
 		echo str_pad("\t", $indent, "\t") . "</ul>";
 	}
 	if ($open[$indent]) {
 		echo "</li>\n";
-		$open[$indent] --;
+		$open[$indent]--;
 	} else {
 		echo "\n";
 	}
