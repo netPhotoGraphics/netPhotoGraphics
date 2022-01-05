@@ -6,12 +6,12 @@
  */
 // force UTF-8 Ø
 
-$_graphics_optionhandlers[] = new lib_NoGraphics(); // register option handler
+$_graphics_optionhandlers['none'] = new lib_NoGraphics(); // register option handler
+
 /**
  * Option class for lib-GD
  *
  */
-
 class lib_NoGraphics {
 
 	function __construct() {
