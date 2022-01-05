@@ -1974,8 +1974,11 @@ function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
 }
 
 function primeOptions() {
-	global $_options;
+	global $_options, $_conf_vars;
 	$_options = array();
+	foreach ($_conf_vars as $name => $value) {
+		$_options[strtolower($name)] = $value;
+	}
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
 	$rslt = query($sql, false);
 	if ($rslt) {
@@ -2005,13 +2008,11 @@ function getOption($key) {
  * @return array
  */
 function getOptionsLike($pattern) {
+	global $_options;
 	$result = array();
-
-	$sql = 'SELECT `name`,`value` FROM ' . prefix('options') . ' WHERE `name` LIKE ' . db_quote(str_replace('_', '\_', rtrim($pattern, '%')) . '%') . ' ORDER BY `name`;';
-	$found = query_full_array($sql, false);
-	if (!empty($found)) {
-		foreach ($found as $row) {
-			$result[$row['name']] = $row['value'];
+	foreach ($_options as $key => $value) {
+		if (preg_match('~' . $pattern . '.*~', $key)) {
+			$result[$key] = $value;
 		}
 	}
 
