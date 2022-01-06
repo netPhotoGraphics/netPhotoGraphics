@@ -332,8 +332,8 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$authority = new ReflectionClass('_Authority');
-								$file = trim(str_replace(SERVERPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
+								$authority = new ReflectionClass(get_class($_authority));
+								$file = trim(str_replace(SCRIPTPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
 								echo gettext('Authentication authority: ') . '<strong>' . $file . '</strong>';
 								?>
 							</li>
