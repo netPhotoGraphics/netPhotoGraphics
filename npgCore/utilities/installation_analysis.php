@@ -333,7 +333,7 @@ echo '</head>';
 							<li>
 								<?php
 								$authority = new ReflectionClass(get_class($_authority));
-								$file = trim(str_replace(SCRIPTPATH, '', str_replace('\\', '/', $authority->getFileName())), '/');
+								$file = replaceScriptPath($authority->getFileName());
 								echo gettext('Authentication authority: ') . '<strong>' . $file . '</strong>';
 								?>
 							</li>
@@ -478,8 +478,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php
