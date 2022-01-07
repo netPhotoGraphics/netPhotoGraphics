@@ -1062,14 +1062,14 @@ function getOptionList() {
  * a clone. SERVERPATH is the path to the clone installation and will not be the same
  * as the script path to the symLinked files.
  *
- * This function deals with the situation and returns the relative path in all cases
+ * This function deals with the situation and returns the relative path
  *
  * @param string $file
  * @return string the relative path to the file
  */
 function replaceScriptPath($file, $replace = '') {
 	$file = str_replace('\\', '/', $file);
-	return trim(preg_replace('~^(' . SERVERPATH . '|' . SCRIPTPATH . ')~i', $replace, $file), '/');
+	return trim(preg_replace('~^(' . SCRIPTPATH . '|' . SERVERPATH . ')~i', $replace, $file), '/');
 }
 
 /**
