@@ -409,7 +409,7 @@ function printBareGalleryTitle() {
 
 /**
  * Function to create the page title to be used within the html <head> <title></title> element.
- * Usefull if you use one header.php for the header of all theme pages instead of individual ones on the theme pages
+ * Useful if you use one header.php for the header of all theme pages instead of individual ones on the theme pages
  * It returns the title and site name in reversed breadcrumb order:
  * <title of current page> | <parent item if present> | <gallery title>
  * It supports standard gallery pages as well a custom and Zenpage news articles, categories and pages.
@@ -449,15 +449,15 @@ function getHeadTitle($separator = ' | ', $listparents = true) {
 			} else {
 				$parentalbums = '';
 			}
-			$albumtitle = html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
-			switch ($_gallery_page) {
-				case 'album.php':
-				case 'favorites.php';
-					return $albumtitle;
-					break;
-				case 'image.php':
-					return html_encode(getBareImageTitle()) . $separator . $albumtitle;
-					break;
+
+			witch ($_gallery_page) {
+			case 'album.php':
+			case 'favorites.php';
+			return html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
+			break;
+			case 'image.php':
+			return html_encode(getBareImageTitle()) . $separator . $albumtitle;
+			break;
 			}
 			break;
 		case 'news.php':
