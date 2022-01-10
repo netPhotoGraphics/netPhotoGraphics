@@ -90,7 +90,7 @@ class tinymce {
 
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		$MCEspecial['browser_spellcheck'] = "true";
-		if (npg_loggedin(UPLOAD_RIGHTS)) {
+		if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
 			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
 		}
 		if (empty($_editorconfig)) { // only if we get here first!
