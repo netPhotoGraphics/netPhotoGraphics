@@ -450,14 +450,14 @@ function getHeadTitle($separator = ' | ', $listparents = true) {
 				$parentalbums = '';
 			}
 
-			witch ($_gallery_page) {
-			case 'album.php':
-			case 'favorites.php';
-			return html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
-			break;
-			case 'image.php':
-			return html_encode(getBareImageTitle()) . $separator . $albumtitle;
-			break;
+			switch ($_gallery_page) {
+				case 'album.php':
+				case 'favorites.php';
+					return html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
+					break;
+				case 'image.php':
+					return html_encode(getBareImageTitle()) . $separator . $albumtitle;
+					break;
 			}
 			break;
 		case 'news.php':
