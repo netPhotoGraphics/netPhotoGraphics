@@ -16,21 +16,6 @@ admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 
 $imagelist = array();
 
-function getSubalbumImages($folder) {
-	global $imagelist, $_gallery;
-	$album = newAlbum($folder);
-	if ($album->isDynamic())
-		return;
-	$images = $album->getImages();
-	foreach ($images as $image) {
-		$imagelist[] = '/' . $folder . '/' . $image;
-	}
-	$albums = $album->getAlbums();
-	foreach ($albums as $folder) {
-		getSubalbumImages($folder);
-	}
-}
-
 $search = new SearchEngine(true);
 if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 	XSRFdefender('savealbum');

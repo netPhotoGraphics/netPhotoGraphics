@@ -19,21 +19,6 @@ admin_securityChecks(ALBUM_RIGHTS, $return = currentRelativeURL());
 
 $imagelist = array();
 
-function getSubalbumImages($folder) {
-	global $imagelist, $_gallery;
-	$album = newAlbum($folder);
-	if ($album->isDynamic())
-		return;
-	$images = $album->getImages();
-	foreach ($images as $image) {
-		$imagelist[] = '/' . $folder . '/' . $image;
-	}
-	$albums = $album->getAlbums();
-	foreach ($albums as $folder) {
-		getSubalbumImages($folder);
-	}
-}
-
 $user = $_current_admin_obj->getUser();
 $favorite = trim(sanitize($_REQUEST['title']), '/');
 if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
@@ -96,7 +81,6 @@ if ($favorite) {
 $albumlist = genAlbumList();
 $albumname = $user . '-' . $favorite;
 
-
 $images = $source->getImages(0);
 foreach ($images as $image) {
 	$folder = $image['folder'];
@@ -118,7 +102,7 @@ while ($old != $albumname) {
 ?>
 <div class="tabbox">
 	<form class="dirtylistening" onReset="setClean('savealbum_form');" id="savealbum_form" action="?action=savealbum" method="post">
-		<?php XSRFToken('savealbum'); ?>
+<?php XSRFToken('savealbum'); ?>
 		<input type="hidden" name="savealbum" value="yes" />
 		<input type="hidden" name="title" value="<?php echo sanitize($_GET['title']); ?>" />
 		<table>
@@ -132,9 +116,9 @@ while ($old != $albumname) {
 				<td><?php echo gettext("Create in:"); ?></td>
 				<td>
 					<select id="albumselectmenu" name="albumselect">
-						<?php
-						if (accessAllAlbums(UPLOAD_RIGHTS)) {
-							?>
+<?php
+if (accessAllAlbums(UPLOAD_RIGHTS)) {
+	?>
 							<option value="" selected="selected" style="font-weight: bold;">/</option>
 							<?php
 						}
@@ -160,51 +144,51 @@ while ($old != $albumname) {
 				<td><?php echo gettext("Thumbnail:"); ?></td>
 				<td>
 					<select id="thumb" name="thumb">
-						<?php
-						$selections = array();
-						foreach ($_albumthumb_selector as $key => $selection) {
-							$selections[$selection['desc']] = $key;
-						}
-						generateListFromArray(array(getOption('AlbumThumbSelect')), $selections, false, true);
-						$showThumb = $_gallery->getThumbSelectImages();
-						foreach ($imagelist as $imagepath) {
-							$pieces = explode('/', $imagepath);
-							$filename = array_pop($pieces);
-							$folder = implode('/', $pieces);
-							$albumx = newAlbum($folder);
-							$image = newImage($albumx, $filename);
-							if ($image->isPhoto() || !is_null($image->objectsThumb)) {
-								echo "\n<option class=\"thumboption\"";
-								if ($showThumb) {
-									echo " style=\"background-image: url(" . html_encode($image->getSizedImage(80)) .
-									"); background-repeat: no-repeat;\"";
-								}
-								echo " value=\"" . $imagepath . "\"";
-								echo ">" . $image->getTitle();
-								echo " ($imagepath)";
-								echo "</option>";
-							}
-						}
-						?>
+<?php
+$selections = array();
+foreach ($_albumthumb_selector as $key => $selection) {
+	$selections[$selection['desc']] = $key;
+}
+generateListFromArray(array(getOption('AlbumThumbSelect')), $selections, false, true);
+$showThumb = $_gallery->getThumbSelectImages();
+foreach ($imagelist as $imagepath) {
+	$pieces = explode('/', $imagepath);
+	$filename = array_pop($pieces);
+	$folder = implode('/', $pieces);
+	$albumx = newAlbum($folder);
+	$image = newImage($albumx, $filename);
+	if ($image->isPhoto() || !is_null($image->objectsThumb)) {
+		echo "\n<option class=\"thumboption\"";
+		if ($showThumb) {
+			echo " style=\"background-image: url(" . html_encode($image->getSizedImage(80)) .
+			"); background-repeat: no-repeat;\"";
+		}
+		echo " value=\"" . $imagepath . "\"";
+		echo ">" . $image->getTitle();
+		echo " ($imagepath)";
+		echo "</option>";
+	}
+}
+?>
 					</select>
 				</td>
 			</tr>
 
 		</table>
-		<?php
-		if (empty($albumlist)) {
-			?>
+<?php
+if (empty($albumlist)) {
+	?>
 			<p class="errorbox">
-				<?php echo gettext('There is no place you are allowed to put this album.'); ?>
+			<?php echo gettext('There is no place you are allowed to put this album.'); ?>
 			</p>
 			<p>
-				<?php echo gettext('You must have <em>upload</em> rights to at least one album to have a place to store this album.'); ?>
+	<?php echo gettext('You must have <em>upload</em> rights to at least one album to have a place to store this album.'); ?>
 			</p>
-			<?php
-		} else {
-			applyButton(array('buttonText' => gettext('Create the album')));
-		}
-		?>
+				<?php
+			} else {
+				applyButton(array('buttonText' => gettext('Create the album')));
+			}
+			?>
 	</form>
 	<br clear="all">
 </div>
