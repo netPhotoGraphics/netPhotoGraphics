@@ -450,10 +450,11 @@ function getHeadTitle($separator = ' | ', $listparents = true) {
 				$parentalbums = '';
 			}
 
+			$albumtitle = html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
 			switch ($_gallery_page) {
 				case 'album.php':
 				case 'favorites.php';
-					return html_encode(getBareAlbumTitle()) . $pagenumber . $separator . $parentalbums . $gallerytitle . $mainsitetitle;
+					return $albumtitle;
 					break;
 				case 'image.php':
 					return html_encode(getBareImageTitle()) . $separator . $albumtitle;
