@@ -13,9 +13,9 @@ $subscription = 86400 * getOption('user_expiry_interval');
 $now = time();
 $warnInterval = $now + getOption('user_expiry_warn_interval') * 86400;
 
-$admins = $_authority->getAdministrators('all');
+$admins = $_authority->getAdministrators('allusers');
 foreach ($admins as $key => $user) {
-	if ($user['valid'] && !($user['rights'] & ADMIN_RIGHTS)) {
+	if (!($user['rights'] & ADMIN_RIGHTS)) {
 		if ($subscription) {
 			$admins[$key]['expires'] = strtotime($user['date']) + $subscription;
 		} else {
