@@ -359,8 +359,12 @@ class _Authority {
 				return $list;
 		}
 
+
 		if (empty($list)) {
-			$sql = 'SELECT * FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
+			$sql = 'SELECT ' .
+							// per requirements from class-auth return the following fields
+							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `date`' .
+							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
 			$admins = query($sql, false);
 			if ($admins) {
 				while ($user = db_fetch_assoc($admins)) {
@@ -459,7 +463,7 @@ class _Authority {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
 
-		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1 LIMIT 1');
+		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1 LIMIT 1', false);
 		if (empty($row)) {
 			if (DEBUG_LOGIN) {
 				debugLog("checkAuthorization: no admins");
@@ -1134,7 +1138,7 @@ class _Authority {
 						$user = NULL;
 						foreach ($admins as $key => $tuser) {
 							if (empty($tuser['email'])) {
-								unset($admins[$key]); // we want to ignore groups and users with no email address here!
+								unset($admins[$key]); // we want to ignore users with no email address here!
 							} else {
 								if (!empty($post_user) && ($tuser['user'] == $post_user || $tuser['email'] == $post_user)) {
 									$name = $tuser['name'];
