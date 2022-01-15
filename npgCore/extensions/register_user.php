@@ -294,7 +294,6 @@ function printRegistrationForm($thanks = NULL) {
 	$userobj = NULL;
 	// handle any postings
 	if (isset($_GET['verify'])) {
-		$currentadmins = $_authority->getAdministrators();
 		$params = sanitize(unserialize(pack("H*", trim($_GET['verify']), '.')));
 		// expung the verify query string as it will cause us to come back here if login fails.
 		unset($_GET['verify']);

@@ -57,7 +57,7 @@ if (isset($_GET['subpage'])) {
 	}
 }
 
-$admins = $_authority->getAdministrators('all');
+$admins = $_authority->getAdministrators('alluser');
 
 $adminordered = sortMultiArray($admins, 'user');
 
@@ -114,15 +114,13 @@ if (isset($_GET['action'])) {
 							//have to update any users who have this group designate.
 							$groupname = $group->getUser();
 							foreach ($admins as $admin) {
-								if ($admin['valid']) {
-									$hisgroups = explode(',', $admin['group']);
-									if (in_array($groupname, $hisgroups)) {
-										$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
-										user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
-										$success = $userobj->save();
-										if ($success == 1) {
-											npgFilters::apply('save_user_complete', '', $userobj, 'update');
-										}
+								$hisgroups = explode(',', $admin['group']);
+								if (in_array($groupname, $hisgroups)) {
+									$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
+									user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
+									$success = $userobj->save();
+									if ($success == 1) {
+										npgFilters::apply('save_user_complete', '', $userobj, 'update');
 									}
 								}
 							}
@@ -336,19 +334,17 @@ echo '</head>' . "\n";
 								<?php
 								$user_count = array();
 								foreach ($admins as $key => $user) {
-									if ($user['valid'] >= 1) {
-										if (!empty($user['group'])) {
-											$membership[$user['user']] = $belongs = explode(',', $user['group']);
-											foreach ($belongs as $group) {
-												if (!isset($user_count[$group])) {
-													$user_count[$group] = 1;
-												} else {
-													$user_count[$group]++;
-												}
+									if (!empty($user['group'])) {
+										$membership[$user['user']] = $belongs = explode(',', $user['group']);
+										foreach ($belongs as $group) {
+											if (!isset($user_count[$group])) {
+												$user_count[$group] = 1;
+											} else {
+												$user_count[$group]++;
 											}
-										} else {
-											$membership[$user['user']] = array();
 										}
+									} else {
+										$membership[$user['user']] = array();
 									}
 								}
 
@@ -383,20 +379,20 @@ echo '</head>' . "\n";
 
 										<td style="border-top: 4px solid #D1DBDF;<?php echo $background; ?>" valign="top" colspan="100%">
 											<div class="user_left">
-												<?php
-												if (empty($groupname)) {
-													?>
+			<?php
+			if (empty($groupname)) {
+				?>
 													<input type="hidden" name="newgroupid" value="<?php echo $id; ?>" />
 													<input type="hidden" name="user[<?php echo $id; ?>][type]" value="<?php echo $subtab; ?>" checked="checked"  />
 													<em>
-														<?php echo gettext('New'); ?>
+				<?php echo gettext('New'); ?>
 													</em>
 													<br />
 													<input type="text" size="35" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][groupname]" value=""
 																 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', true);" />
-																 <?php
-															 } else {
-																 ?>
+				<?php
+			} else {
+				?>
 													<span class="userextrashow">
 
 														<a onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', true);" title="<?php echo $groupname; ?>" >
@@ -411,53 +407,53 @@ echo '</head>' . "\n";
 													</span>
 													<input type="hidden" id="group-<?php echo $id ?>" name="user[<?php echo $id ?>][groupname]" value="<?php echo html_encode($groupname); ?>" />
 													<input type="hidden" name="user[<?php echo $id ?>][type]" value="<?php echo html_encode($grouptype); ?>" />
-													<?php
-												}
-												?>
+				<?php
+			}
+			?>
 												<input type="hidden" name="user[<?php echo $id ?>][confirmed]" value="1" />
 											</div>
 											<div class="floatright">
-												<?php
-												if (!empty($groupname)) {
-													$msg = gettext('Are you sure you want to delete this group?');
-													?>
+			<?php
+			if (!empty($groupname)) {
+				$msg = gettext('Are you sure you want to delete this group?');
+				?>
 													<a href="javascript:if(confirm(<?php echo "'" . $msg . "'"; ?>)) { launchScript('',['tab=<?php echo $subtab; ?>', 'action=deletegroup','groupname=<?php echo addslashes($groupname); ?>','XSRFToken=<?php echo getXSRFToken('deletegroup') ?>']); }"
 														 title="<?php echo gettext('Delete this group.'); ?>" style="color: #c33;">
-															 <?php echo WASTEBASKET; ?>
+				<?php echo WASTEBASKET; ?>
 													</a>
-													<?php
-												}
-												?>
+															 <?php
+														 }
+														 ?>
 											</div>
 											<br class="clearall" />
 											<div class="user_left userextrainfo"<?php echo $display; ?>>
-												<?php
-												printAdminRightsTable($id, '  ', ' ', $rights);
+			<?php
+			printAdminRightsTable($id, '  ', ' ', $rights);
 
-												if (empty($groupname) && !empty($groups)) {
-													?>
+			if (empty($groupname) && !empty($groups)) {
+				?>
 													<?php echo gettext('clone:'); ?>
 													<br />
 													<select name="user[<?php echo $id; ?>][initgroup]" onchange="javascript:$('#hint<?php echo $id; ?>').html(this.options[this.selectedIndex].title);">
 														<option title=""></option>
-														<?php
-														foreach ($groups as $user) {
-															$hint = '<em>' . html_encode($desc) . '</em>';
-															if ($groupname == $user['user']) {
-																$selected = ' selected="selected"';
-															} else {
-																$selected = '';
-															}
-															?>
+				<?php
+				foreach ($groups as $user) {
+					$hint = '<em>' . html_encode($desc) . '</em>';
+					if ($groupname == $user['user']) {
+						$selected = ' selected="selected"';
+					} else {
+						$selected = '';
+					}
+					?>
 															<option<?php echo $selected; ?> title="<?php echo $hint; ?>"><?php echo $user['user']; ?></option>
 															<?php
 														}
 														?>
 													</select>
 													<span class="hint<?php echo $id; ?>" id="hint<?php echo $id; ?>"></span><br /><br />
-													<?php
-												}
-												?>
+				<?php
+			}
+			?>
 
 											</div>
 											<div class="user_right userextrainfo" <?php echo $display; ?>>
@@ -469,88 +465,88 @@ echo '</head>' . "\n";
 												<div id="users<?php echo $id; ?>" <?php if ($grouptype == 'template') echo ' style="display:none"' ?>>
 													<h2 class="h2_bordered_edit"><?php echo gettext("Assign users"); ?></h2>
 													<div class="box-tags-unpadded">
-														<?php
-														$members = array();
-														if (!empty($groupname)) {
-															foreach ($adminlist as $user) {
-																if ($user['valid']) {
-																	if (in_array($groupname, $membership[$user['user']])) {
-																		$members[] = $user['user'];
-																	}
-																}
-															}
-														}
-														?>
+			<?php
+			$members = array();
+			if (!empty($groupname)) {
+				foreach ($adminlist as $user) {
+					if ($user['valid']) {
+						if (in_array($groupname, $membership[$user['user']])) {
+							$members[] = $user['user'];
+						}
+					}
+				}
+			}
+			?>
 														<ul class="shortchecklist">
-															<?php generateUnorderedListFromArray($members, $members, 'user[' . $id . '][userlist]', false, true, false, NULL, NULL, 2); ?>
+														<?php generateUnorderedListFromArray($members, $members, 'user[' . $id . '][userlist]', false, true, false, NULL, NULL, 2); ?>
 															<?php generateUnorderedListFromArray(array(), array_diff($users, $members), 'user[' . $id . '][userlist]', false, true, false, NULL, NULL, 2); ?>
 														</ul>
 													</div>
 												</div>
 
-												<?php
-												printManagedObjects('albums', $albumlist, NULL, $groupobj, $id, $kind, array());
-												if (class_exists('CMS')) {
-													$newslist = array();
-													$categories = $_CMS->getAllCategories(false);
-													foreach ($categories as $category) {
-														$newslist[get_language_string($category['title'])] = $category['titlelink'];
-													}
-													printManagedObjects('news_categories', $newslist, NULL, $groupobj, $id, $kind, NULL);
-													$pagelist = array();
-													$pages = $_CMS->getPages(false);
-													foreach ($pages as $page) {
-														if (!$page['parentid']) {
-															$pagelist[get_language_string($page['title'])] = $page['titlelink'];
-														}
-													}
-													printManagedObjects('pages', $pagelist, NULL, $groupobj, $id, $kind, NULL);
-												}
-												?>
+			<?php
+			printManagedObjects('albums', $albumlist, NULL, $groupobj, $id, $kind, array());
+			if (class_exists('CMS')) {
+				$newslist = array();
+				$categories = $_CMS->getAllCategories(false);
+				foreach ($categories as $category) {
+					$newslist[get_language_string($category['title'])] = $category['titlelink'];
+				}
+				printManagedObjects('news_categories', $newslist, NULL, $groupobj, $id, $kind, NULL);
+				$pagelist = array();
+				$pages = $_CMS->getPages(false);
+				foreach ($pages as $page) {
+					if (!$page['parentid']) {
+						$pagelist[get_language_string($page['title'])] = $page['titlelink'];
+					}
+				}
+				printManagedObjects('pages', $pagelist, NULL, $groupobj, $id, $kind, NULL);
+			}
+			?>
 
 											</div>
 											<br class="clearall" />
 											<div class="userextrainfo" <?php echo $display; ?>>
-												<?php
-												$custom = npgFilters::apply('edit_admin_custom', '', $groupobj, $id, $background, true, '');
-												if ($custom) {
-													echo stripTableRows($custom);
-												}
-												?>
+			<?php
+			$custom = npgFilters::apply('edit_admin_custom', '', $groupobj, $id, $background, true, '');
+			if ($custom) {
+				echo stripTableRows($custom);
+			}
+			?>
 											</div>
 										</td>
 									</tr>
-									<?php
-									$id++;
-									$display = ' style="display:none"';
-								}
-								?>
+			<?php
+			$id++;
+			$display = ' style="display:none"';
+		}
+		?>
 								<tr>
 									<th>
-										<?php
-										if (count($groups) != 1) {
-											?>
+		<?php
+		if (count($groups) != 1) {
+			?>
 											<span style="font-weight: normal">
 												<a onclick="toggleExtraInfo('', 'user', true);"><?php echo gettext('Expand all'); ?></a>
 												|
 												<a onclick="toggleExtraInfo('', 'user', false);"><?php echo gettext('Collapse all'); ?></a>
 											</span>
-											<?php
-										}
-										?>
+			<?php
+		}
+		?>
 									</th>
 									<th>
-										<?php
-										printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
-										?>
+		<?php
+		printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+		?>
 									</th>
 								</tr>
 							</table>
 							<p>
-								<?php
-								applyButton();
-								resetButton();
-								?>
+		<?php
+		applyButton();
+		resetButton();
+		?>
 								<br /><br />
 							</p>
 
@@ -595,36 +591,36 @@ echo '</head>' . "\n";
 							// ]]> -->
 						</script>
 						<br class="clearall" />
-						<?php
-						break;
-					case 'assignment':
-						$list = $groups = array();
-						$userCount = $groupCount = 0;
-						foreach ($adminordered as $user) {
-							if ($user['valid']) {
-								$users[] = $user;
-								$list[] = $user['user'];
-								$userCount++;
-							} else {
-								if ($user['name'] == 'group') {
-									$groups[] = $user;
-									$groupCount++;
-								}
-							}
-						}
-						$rangeset = getPageSelector($list, USERS_PER_PAGE);
-						$max = floor((count($users) - 1) / USERS_PER_PAGE);
-						if ($subpage > $max) {
-							$subpage = $max;
-						}
-						$userlist = array_slice($users, $subpage * USERS_PER_PAGE, USERS_PER_PAGE);
-						if ($userCount > GROUP_STEP) {
-							?>
+		<?php
+		break;
+	case 'assignment':
+		$list = $groups = array();
+		$userCount = $groupCount = 0;
+		foreach ($adminordered as $user) {
+			if ($user['valid']) {
+				$users[] = $user;
+				$list[] = $user['user'];
+				$userCount++;
+			} else {
+				if ($user['name'] == 'group') {
+					$groups[] = $user;
+					$groupCount++;
+				}
+			}
+		}
+		$rangeset = getPageSelector($list, USERS_PER_PAGE);
+		$max = floor((count($users) - 1) / USERS_PER_PAGE);
+		if ($subpage > $max) {
+			$subpage = $max;
+		}
+		$userlist = array_slice($users, $subpage * USERS_PER_PAGE, USERS_PER_PAGE);
+		if ($userCount > GROUP_STEP) {
+			?>
 							<div class="floatright">
-								<?php
-								$numsteps = ceil(min(100, $userCount) / GROUP_STEP);
-								if ($numsteps) {
-									?>
+							<?php
+							$numsteps = ceil(min(100, $userCount) / GROUP_STEP);
+							if ($numsteps) {
+								?>
 									<?php
 									$steps = array();
 									for ($i = 1; $i <= $numsteps; $i++) {
@@ -634,80 +630,80 @@ echo '</head>' . "\n";
 								}
 								?>
 							</div>
-							<?php
-						}
-						?>
-						<p>
-							<?php
-							echo gettext("Assign users to groups.");
+								<?php
+							}
 							?>
+						<p>
+						<?php
+						echo gettext("Assign users to groups.");
+						?>
 						</p>
 						<form class="dirtylistening" onReset="setClean('saveAssignments_form');" id="saveAssignments_form" action="?tab=<?php echo $subtab; ?>&amp;action=saveauserassignments" method="post" autocomplete="off" >
-							<?php XSRFToken('saveauserassignments'); ?>
+		<?php XSRFToken('saveauserassignments'); ?>
 							<div class="notebox">
-								<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
+							<?php echo gettext('<strong>Note:</strong> When a group is assigned <em>rights</em> and <em>managed objects</em> are determined by the group!'); ?>
 							</div>
 							<p>
-								<?php
-								applyButton();
-								resetButton();
-								?>
+		<?php
+		applyButton();
+		resetButton();
+		?>
 								<br />
 							</p>
 
 							<input type="hidden" name="saveauserassignments" value="yes" />
 							<div class="floatright">
 
-								<?php
-								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
-								?>
+		<?php
+		printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+		?>
 							</div>
 
 							<table class="bordered">
-								<?php
-								$id = 0;
-								foreach ($userlist as $user) {
-									$userobj = new npg_Administrator($user['user'], $user['valid']);
-									$group = $user['group'];
-									?>
+		<?php
+		$id = 0;
+		foreach ($userlist as $user) {
+			$userobj = new npg_Administrator($user['user'], $user['valid']);
+			$group = $user['group'];
+			?>
 									<tr>
 										<td width="20%" style="border-top: 1px solid #D1DBDF;" valign="top">
 											<input type="hidden" name="user[<?php echo $id; ?>][userid]" value="<?php echo $user['user']; ?>" />
-											<?php echo $user['user']; ?>
+			<?php echo $user['user']; ?>
 										</td>
 										<td style="border-top: 1px solid #D1DBDF;" valign="top" >
-											<?php echo user_groups::groupList($userobj, $id, '', $user['group'], false); ?>
+			<?php echo user_groups::groupList($userobj, $id, '', $user['group'], false); ?>
 										</td>
 									</tr>
-									<?php
-									$id++;
-								}
-								?>
+			<?php
+			$id++;
+		}
+		?>
 							</table>
 
 							<div class="floatright">
-								<?php
-								printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
-								?>
+		<?php
+		printPageSelector($subpage, $rangeset, PLUGIN_FOLDER . '/user_groups/user_groups-tab.php', array('page' => 'admin', 'tab' => $subtab));
+		?>
 							</div>
 							<p>
-								<?php
-								applyButton();
-								resetButton();
-								?>
+		<?php
+		applyButton();
+		resetButton();
+		?>
 							</p>
 
 							<input type="hidden" name="totalusers" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
 						</form>
 						<br class="clearall" />
-						<?php
-						break;
-				}
-				?>
+		<?php
+		break;
+}
+?>
 			</div>
 		</div>
-		<?php printAdminFooter(); ?>
+<?php printAdminFooter(); ?>
 	</div>
 </body>
 

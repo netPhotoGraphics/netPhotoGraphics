@@ -40,7 +40,7 @@ foreach ($admins as $adminid) {
 		} else {
 			$bccList[] = $admin['email'];
 		}
-	} else {
+	} else { //	group or template
 		if ($admin['name'] == 'group') {
 			$group = $admin['user'];
 			foreach ($adminlist as $member) {

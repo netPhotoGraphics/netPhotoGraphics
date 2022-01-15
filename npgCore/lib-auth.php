@@ -64,12 +64,9 @@ class _Authority {
 		Define('STRONG_PASSWORD_HASH', $strongHash);
 
 		$sql = 'SELECT * FROM ' . prefix('administrators') . 'WHERE `valid`=1 ORDER BY `rights` DESC, `id`';
-		$user = query_single_row($sql);
-		$this->master_user = $user['user'];
-	}
-
-	function addOtherUser($adminObj) {
-		$this->admin_users[$adminObj->getID()] = $adminObj->getData();
+		if ($user = query_single_row($sql, false)) {
+			$this->master_user = $user['user'];
+		}
 	}
 
 	function getMasterUser() {
@@ -448,7 +445,7 @@ class _Authority {
 	}
 
 	/**
-	 * Retuns the administration rights of a saved authorization code
+	 * Returns the administration rights of a saved authorization code
 	 * Will promote an admin to ADMIN_RIGHTS if he is the most privileged admin
 	 *
 	 * @param string $authCode the hash code to check
@@ -461,8 +458,9 @@ class _Authority {
 		if (DEBUG_LOGIN) {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
-		$admins = $this->getAdministrators();
-		if (count($admins) == 0) {
+
+		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1 LIMIT 1');
+		if (empty($row)) {
 			if (DEBUG_LOGIN) {
 				debugLog("checkAuthorization: no admins");
 			}
@@ -482,7 +480,7 @@ class _Authority {
 		if (empty($authCode) || empty($id))
 			return 0; //  so we don't "match" with an empty password
 		if (DEBUG_LOGIN) {
-			debugLogVar(["checkAuthorization: admins" => $admins]);
+			debugLogVar(["checkAuthorization: admins" => $this->getAdministrators()]);
 		}
 		$rights = 0;
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
@@ -564,10 +562,7 @@ class _Authority {
 	 * @param bit $rights what kind of admins to retrieve
 	 * @return array
 	 */
-	function getAdminEmail($rights = NULL) {
-		if (is_null($rights)) {
-			$rights = ADMIN_RIGHTS;
-		}
+	function getAdminEmail($rights = ADMIN_RIGHTS) {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
@@ -1812,7 +1807,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
