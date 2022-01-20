@@ -235,6 +235,9 @@ function db_query($sql, $errorstop = true) {
  * @since 0.6
  */
 function query_single_row($sql, $errorstop = true) {
+	if (strpos('SELECT', $sql) === 0) {
+		$sql = rtrim($sql, ';') . 'LIMIT 1';
+	}
 	$result = query($sql, $errorstop);
 	if ($result) {
 		$row = db_fetch_assoc($result);

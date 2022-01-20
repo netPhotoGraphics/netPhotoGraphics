@@ -132,8 +132,8 @@ function saveOptions() {
 					if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
 						if ($disableEmpty) {
 							$sql = "SELECT `id`, $key FROM " . prefix('images') . " WHERE $key IS NOT NULL AND TRIM($key) <> '' LIMIT 1";
-							$rslt = query_single_row($sql, false);
-							if (empty($rslt)) {
+							$found = query($sql, false);
+							if (!$found) {
 								$disable[$key] = $key;
 								$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
 							}
@@ -753,7 +753,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																	 togglePassword('');" />
+																			 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 

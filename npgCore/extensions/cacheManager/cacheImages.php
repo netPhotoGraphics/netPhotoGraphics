@@ -172,7 +172,7 @@ if ($alb) {
 }
 $custom = array();
 
-$result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` = "cacheManager"');
+$result = query('SELECT `data` FROM ' . prefix('plugin_storage') . ' WHERE `type` = "cacheManager"');
 while ($row = db_fetch_assoc($result)) {
 	$datarow = getSerializedArray($row['data']);
 	if ($datarow['theme']) {

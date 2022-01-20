@@ -119,6 +119,9 @@ function db_query($sql, $errorstop = true) {
  */
 function query_single_row($sql, $errorstop = true) {
 	global $_DB_connection;
+	if (strpos('SELECT', $sql) === 0) {
+		$sql = rtrim($sql, ';') . 'LIMIT 1';
+	}
 	$result = query($sql, $errorstop);
 	if (is_object($result)) {
 		$row = $result->fetch_assoc();

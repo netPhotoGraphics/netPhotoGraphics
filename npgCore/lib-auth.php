@@ -324,6 +324,50 @@ class _Authority {
 	}
 
 	/**
+	 * Counts the users by criteria
+	 *
+	 * @param string $what: 'all' for everything, 'users' for valid users,
+	 * 											'admin_other' for non-valid users, 'allusers' for all both valid and not valid users,
+	 * 											'user_groups' for groups and 'group_templates' for templates
+	 * @return int count
+	 *
+	 * @Copyright 2022 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+	 */
+	function count($what) {
+		switch ($what) {
+			case 'users':
+				$valid = ' WHERE `valid`=1';
+				break;
+			case 'user_groups':
+				if (extensionEnabled('user_groups')) {
+					$valid = ' WHERE `valid`=0 and `name`="group"';
+				} else {
+					return 0;
+				}
+				break;
+			case 'group_templates':
+				if (extensionEnabled('user_groups')) {
+					$valid = ' WHERE `valid`=0 and `name`="template"';
+				} else {
+					return 0;
+				}
+				break;
+
+			case 'admin_other':
+				$valid = ' WHERE `valid`>1';
+				break;
+			default: // 'all'
+				$valid = '';
+				break;
+			case 'allusers':
+				$valid = ' WHERE `valid`>0';
+				break;
+		}
+		$row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid);
+		return array_shift($row);
+	}
+
+	/**
 	 * Returns an array of admin users, indexed by the userid and ordered by "privileges"
 	 *
 	 * @param string $what: 'all' for everything, 'users' for valid users,
@@ -355,15 +399,14 @@ class _Authority {
 			default: // 'all'
 				$list = self::getAdministrators('groups');
 			case 'allusers':
-				$list = array_merge($list, self::getAdministrators('users'), self::getAdministrators('admin_other'));
+				$list = $list + self::getAdministrators('users') + self::getAdministrators('admin_other');
 				return $list;
 		}
-
 
 		if (empty($list)) {
 			$sql = 'SELECT ' .
 							// per requirements from class-auth return the following fields
-							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `date`' .
+							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `date`' .
 							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
 			$admins = query($sql, false);
 			if ($admins) {
@@ -408,7 +451,7 @@ class _Authority {
 			}
 			$selector[] = $select['field'] . $select['op'] . $value;
 		}
-		$sql = 'SELECT * FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector) . ' LIMIT 1';
+		$sql = 'SELECT `user`, `valid` FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector);
 		$admin = query_single_row($sql);
 
 		if ($admin) {
@@ -463,7 +506,7 @@ class _Authority {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
 
-		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1 LIMIT 1', false);
+		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1', false);
 		if (empty($row)) {
 			if (DEBUG_LOGIN) {
 				debugLog("checkAuthorization: no admins");
@@ -595,7 +638,7 @@ class _Authority {
 		$oldversion = self::getVersion();
 		setOption('libauth_version', $to);
 
-		$sql = "SELECT * FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
+		$sql = "SELECT `id`, `rights` FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
 		$admins = query($sql, false);
 		if ($admins) { // something to migrate
 			$oldrights = array();
@@ -2154,7 +2197,7 @@ class _Administrator extends PersistentObject {
 	}
 
 	/**
-	 * Uptates the database with all changes
+	 * Updates the database with all changes
 	 */
 	function save() {
 		global $_gallery;
@@ -2177,11 +2220,12 @@ class _Administrator extends PersistentObject {
 			}
 			$id = $this->getID();
 			$old = array();
-			$sql = "SELECT * FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
+			$sql = "SELECT `id`, `objectid`, `type`, `edit` FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
 			$result = query($sql, false);
 			while ($row = db_fetch_assoc($result)) {
 				$old[$row['id']] = array($row['objectid'], $row['type'], $row['edit']);
 			}
+			db_free_result($result);
 			foreach ($this->objects as $object) {
 				$edit = MANAGED_OBJECT_MEMBER;
 				if (array_key_exists('edit', $object)) {

@@ -206,7 +206,7 @@ Query('UPDATE ' . prefix('options') . ' SET `theme`="" WHERE `theme` IS NULL');
 $sql = 'UPDATE ' . prefix('admin_to_object') . ' SET `type`="news_categories" WHERE `type`="news"';
 query($sql);
 
-$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `theme`="" AND `creator` LIKE "themes/%";';
+$sql = 'SELECT `id`, `creator` FROM ' . prefix('options') . ' WHERE `theme`="" AND `creator` LIKE "themes/%";';
 $result = query_full_array($sql);
 foreach ($result as $row) {
 	$elements = explode('/', $row['creator']);
@@ -218,7 +218,7 @@ foreach ($result as $row) {
 }
 
 //migrate plugin enables removing "zp" from name
-$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
+$sql = 'SELECT `id`, `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
 $result = query($sql);
 while ($row = db_fetch_assoc($result)) {
 	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
@@ -233,7 +233,7 @@ $sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(CORE_FOLDER 
 query($sql);
 
 //clean up tag list quoted strings
-$sql = 'SELECT * FROM ' . prefix('tags') . ' WHERE `name` LIKE \'"%\' OR `name` LIKE "\'%"';
+$sql = 'SELECT `id`, `name` FROM ' . prefix('tags') . ' WHERE `name` LIKE \'"%\' OR `name` LIKE "\'%"';
 $result = query($sql);
 if ($result) {
 	while ($row = db_fetch_assoc($result)) {
@@ -242,7 +242,7 @@ if ($result) {
 			$oldtag = $row['id'];
 			$sql = 'DELETE FROM ' . prefix('tags') . ' WHERE `id`=' . $oldtag;
 			query($sql);
-			$sql = 'SELECT * FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote(trim($row['name'], '"\''));
+			$sql = 'SELECT `id`, `name` FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote(trim($row['name'], '"\''));
 			$row = query_single_row($sql);
 			if (!empty($row)) {
 				$sql = 'UPDATE ' . prefix('obj_to_tag') . ' SET `tagid`=' . $row['id'] . ' WHERE `tagid`=' . $oldtag;
@@ -346,7 +346,7 @@ $migrate = array('zpArdoise' => 'zpArdoise', 'zpBootstrap' => 'zpBootstrap', 'zp
 foreach ($migrate as $file => $theme) {
 	deleteDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
 	$newtheme = lcfirst(substr($theme, 2));
-	$result = query('SELECT * FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
+	$result = query('SELECT `id`, `creator` FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
 	while ($row = db_fetch_assoc($result)) {
 		$newcreator = str_replace($theme, $newtheme, $row['creator']);
 		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
@@ -405,8 +405,7 @@ $questions[] = getSerializedArray(getAllTranslations("What is the date of the Id
 setOptionDefault('challenge_foils', serialize($questions));
 setOptionDefault('online_persistance', 5);
 
-$admins = $_authority->getAdministrators('all');
-if (empty($admins)) { //	empty administrators table
+if ($_authority->count('allusers') == 0) { //	empty administrators table
 	$groupsdefined = NULL;
 	if (isset($_SESSION['clone'][$cloneid])) { //replicate the user who cloned the install
 		$clone = $_SESSION['clone'][$cloneid];
@@ -832,7 +831,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 $displayErrors = false;
 
 //migrate favorites data
-$all = query_full_array('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `subtype` IS NULL');
+$all = query_full_array('SELECT `id`, `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `subtype` IS NULL');
 foreach ($all as $aux) {
 	$instance = getSerializedArray($aux['aux']);
 	if (isset($instance[1])) {

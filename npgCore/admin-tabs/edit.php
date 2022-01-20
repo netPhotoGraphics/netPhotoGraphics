@@ -675,7 +675,6 @@ echo "\n</head>";
 
 				$oldalbumimagesort = $_gallery->getSortType('image');
 				$direction = $_gallery->getSortDirection('image');
-
 				if ($album->isDynamic()) {
 					$subalbums = array();
 					$allimages = array();
@@ -690,10 +689,9 @@ echo "\n</head>";
 						} else {
 							$retunNull = '';
 						}
-						$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (' . $retunNull . ' `owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
+						$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (' . $retunNull . ' `owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
 						if ($direction)
 							$sql .= ' DESC';
-
 						$result = query($sql);
 						if ($result) {
 							while ($row = db_fetch_assoc($result)) {

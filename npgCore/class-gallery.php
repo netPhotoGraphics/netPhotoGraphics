@@ -534,7 +534,7 @@ class Gallery {
 			$this->commentClean('pages');
 			// clean up obj_to_tag
 			$dead = array();
-			$result = query("SELECT * FROM " . prefix('obj_to_tag'));
+			$result = query("SELECT `id`, `type`, `tagid`, `objectid` FROM " . prefix('obj_to_tag'));
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$tbl = $row['type'];
@@ -557,14 +557,14 @@ class Gallery {
 			}
 			// clean up admin_to_object
 			$dead = array();
-			$result = query("SELECT * FROM " . prefix('admin_to_object'));
+			$result = query("SELECT `id`, `adminid`, `objectid`, `type` FROM " . prefix('admin_to_object'));
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					if (!$_authority->validID($row['adminid'])) {
 						$dead[$row['id']]['user'] = $row['adminid'];
 					}
 					$tbl = $row['type'];
-					$dbtag = query_single_row($sql = "SELECT * FROM " . prefix($tbl) . " WHERE `id`='" . $row['objectid'] . "'", false);
+					$dbtag = query_single_row($sql = "SELECT `id` FROM " . prefix($tbl) . " WHERE `id`='" . $row['objectid'] . "'", false);
 					if (!$dbtag) {
 						$dead[$row['id']][$tbl] = $row['objectid'];
 					}
@@ -579,7 +579,7 @@ class Gallery {
 			}
 			// clean up news2cat
 			$dead = array();
-			$result = query("SELECT * FROM " . prefix('news2cat'));
+			$result = query("SELECT `id`, `news_id`, `cat_id` FROM " . prefix('news2cat'));
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$dbtag = query_single_row($sql = "SELECT `id` FROM " . prefix('news') . " WHERE `id`='" . $row['news_id'] . "'", false);
@@ -605,7 +605,7 @@ class Gallery {
 			$live = array(''); // purge the root album if it exists
 			$deadalbumthemes = array();
 			// Load the albums from disk
-			$result = query("SELECT * FROM " . prefix('albums'));
+			$result = query("SELECT `id`, `folder`, `album_theme` FROM " . prefix('albums'));
 			while ($row = db_fetch_assoc($result)) {
 				$albumpath = internalToFilesystem($row['folder']);
 				$albumpath_valid = preg_replace('~/\.*/~', '/', $albumpath);
@@ -765,7 +765,7 @@ class Gallery {
 				$restartwhere = ' WHERE `mtime`=0';
 			}
 			define('RECORD_LIMIT', 5);
-			$sql = 'SELECT * FROM ' . prefix('images') . $restartwhere . ' ORDER BY `id` LIMIT ' . (RECORD_LIMIT + 2);
+			$sql = 'SELECT `id`, `albumid`, `filename`, `mtime` FROM ' . prefix('images') . $restartwhere . ' ORDER BY `id` LIMIT ' . (RECORD_LIMIT + 2);
 			$images = query($sql);
 			if ($images) {
 				$c = 0;
@@ -773,7 +773,7 @@ class Gallery {
 				while ($image = db_fetch_assoc($images)) {
 					$albumobj = getItemByID('albums', $image['albumid']);
 					if ($albumobj && $albumobj->exists && file_exists($imageName = internalToFilesystem(ALBUM_FOLDER_SERVERPATH . $albumobj->name . '/' . $image['filename']))) {
-						if ($image['mtime'] != $mtime = filemtime($imageName)) { // file has changed since we last saw it
+						if ($image['filename'] != $mtime = filemtime($imageName)) { // file has changed since we last saw it
 							$imageobj = newImage($albumobj, $image['filename']);
 							$imageobj->set('mtime', $mtime);
 							$imageobj->updateMetaData(); // prime the EXIF/IPTC fields
@@ -883,7 +883,12 @@ class Gallery {
 			}
 			$order = $sortdirection && strtolower($sortdirection) != 'asc';
 		}
-		$sql = 'SELECT * FROM ' . prefix("albums") . ' WHERE `parentid`' . $albumid . ' ORDER BY ' . db_escape($sortkey);
+		if ($sortkey == 'RAND()') {
+			$key = '';
+		} else {
+			$key = ', ' . $sortkey;
+		}
+		$sql = 'SELECT `id`, `folder`' . $key . ' FROM ' . prefix("albums") . ' WHERE `parentid`' . $albumid . ' ORDER BY ' . db_escape($sortkey);
 		if ($order)
 			$sql .= ' DESC';
 		$result = query($sql);

@@ -122,7 +122,7 @@ printLogoAndLinks();
 
 					<?php
 					$id = sanitize_numeric($_GET['id']);
-					$commentarr = query_single_row("SELECT * FROM " . prefix('comments') . " WHERE id = $id LIMIT 1");
+					$commentarr = query_single_row("SELECT * FROM " . prefix('comments') . " WHERE id = $id");
 					if ($commentarr) {
 						extract($commentarr);
 						$commentarr = array_merge($commentarr, getSerializedArray($commentarr['address_data']));

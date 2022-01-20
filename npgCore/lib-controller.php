@@ -468,17 +468,17 @@ class Controller {
 		}
 		if (isset($request['title'])) {
 			$titlelink = sanitize(trim($request['title'], '/'));
-			$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink);
-			$result = query_single_row($sql);
-			if (is_array($result)) {
+			$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink) . ' LIMIT 1';
+			$found = query($sql);
+			if ($found) {
 				add_context(ZENPAGE_NEWS_ARTICLE | ZENPAGE_SINGLE);
 				$_CMS_current_article = newArticle($titlelink);
 			} else {
 				//check if it is an old link missing the suffix and redirect if so
 				if (RW_SUFFIX && !preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $titlelink)) {
-					$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink . RW_SUFFIX);
-					$result = query_single_row($sql);
-					if (is_array($result)) {
+					$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink . RW_SUFFIX) . ' LIMIT 1';
+					$found = query($sql);
+					if ($found) {
 						self::fix_suffix_redirect($titlelink);
 					}
 				}
@@ -620,7 +620,7 @@ class Controller {
 //force license page if not acknowledged
 if (!getOption('license_accepted')) {
 	if (isset($_GET['z']) && $_GET['z'] != 'setup') {
-// License needs agreement
+		// License needs agreement
 		$_GET['p'] = 'license';
 		$_GET['z'] = '';
 	}

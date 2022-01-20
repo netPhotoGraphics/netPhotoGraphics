@@ -40,8 +40,6 @@ if (abs(OFFSET_PATH) != 2) {
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
 
-
-
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
 		if (DEBUG_PLUGINS) {
 			switch ($mask) {
@@ -209,8 +207,8 @@ if (isset($_loggedin) && $_loggedin) {
 		}
 		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_current_admin_obj->getUser()) . ' LIMIT 1';
-			$result = query_single_row($sql);
-			if (!empty($result)) {
+			$found = query($sql);
+			if ($found) {
 				$_admin_menu['images'] = array(
 						'text' => gettext("my images"),
 						'link' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images',

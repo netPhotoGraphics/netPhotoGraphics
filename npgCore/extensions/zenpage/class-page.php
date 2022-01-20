@@ -149,7 +149,7 @@ class Page extends CMSItems {
 				$success = $success && query("DELETE FROM " . prefix('comments') . " WHERE ownerid = " . $this->getID() . ' AND type="pages"'); // delete any comments
 				//	remove subpages
 				$mychild = strlen($sortorder) + 4;
-				$result = query_full_array('SELECT * FROM ' . prefix('pages') . " WHERE `sort_order` like '" . $sortorder . "-%'");
+				$result = query_full_array('SELECT `titlelink`, `sort_order` FROM ' . prefix('pages') . " WHERE `sort_order` like '" . $sortorder . "-%'");
 				if (is_array($result)) {
 					foreach ($result as $row) {
 						if (strlen($row['sort_order']) == $mychild) {

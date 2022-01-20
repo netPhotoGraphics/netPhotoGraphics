@@ -22,8 +22,8 @@
  * array returned by getAdministrators().
  *
  * 		In particular, there should be array elements for:
- * 				'id' (unique), 'user' (unique),	'pass',	'name', 'email', 'rights', 'valid',
- * 				'group', 'other_credentials' and 'date
+ * 				'id' (unique), 'valid' , 'user' (unique),	'pass',	'name', 'email', 'rights',
+ * 				'group', 'other_credentials', 'lastloggedin' and 'date
  *
  * 		So long as all these indices are populated it should not matter when and where
  * 		the data is stored.

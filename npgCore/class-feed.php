@@ -308,8 +308,8 @@ class feed {
 			$type = $this->getCommentFeedType();
 			if ($type != 'all') {
 				$id = (int) $this->options['id'];
-				$result = query_single_row('SELECT `id` FROM ' . prefix($type) . ' WHERE id =' . $id);
-				if ($result) {
+				$found = query('SELECT `id` FROM ' . prefix($type) . ' WHERE id =' . $id . ' LIMIT 1');
+				if ($found) {
 					return $id;
 				}
 			}

@@ -836,7 +836,7 @@ function handleSearchParms($what, $album = NULL, $image = NULL) {
  */
 function updatePublished($table) {
 	//publish items that have matured
-	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=0 AND `publishdate`IS NOT NULL AND `publishdate`<=' . db_quote(date('Y-m-d H:i:s'));
+	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `show`=0 AND `publishdate`IS NOT NULL AND `publishdate`<=' . db_quote(date('Y-m-d H:i:s'));
 	$result = query($sql);
 	if ($result) {
 		while ($row = db_fetch_assoc($result)) {
@@ -849,7 +849,7 @@ function updatePublished($table) {
 	}
 
 	//unpublish items that have expired or are not yet published
-	$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `show`=1 AND (`expiredate` IS NOT NULL AND `expiredate`<' . db_quote(date('Y-m-d H:i:s')) . ' OR `publishdate`>' . db_quote(date('Y-m-d H:i:s')) . ')';
+	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `show`=1 AND (`expiredate` IS NOT NULL AND `expiredate`<' . db_quote(date('Y-m-d H:i:s')) . ' OR `publishdate`>' . db_quote(date('Y-m-d H:i:s')) . ')';
 	$result = query($sql);
 	if ($result) {
 		while ($row = db_fetch_assoc($result)) {
@@ -1990,7 +1990,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 		$theme = $_gallery->getCurrentTheme();
 	}
 // album-theme order of preference is: Album theme => Theme => album => general
-	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC LIMIT 1';
+	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC';
 	$db = query_single_row($sql);
 	if (empty($db)) {
 		return NULL;

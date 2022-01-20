@@ -148,7 +148,7 @@ class PersistentObject {
 	function move($new_unique_set) {
 		// Check if we have a row
 		$new_unique_set = array_change_key_case($new_unique_set, CASE_LOWER);
-		$result = query_single_row('SELECT * FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
+		$result = query_single_row('SELECT `id` FROM ' . prefix($this->table) . getWhereClause($new_unique_set));
 		if (!$result || $result['id'] == $this->id) { //	we should not find an entry for the new unique set!
 			if (!npgFilters::apply('move_object', true, $this, $new_unique_set)) {
 				return false;
@@ -172,7 +172,7 @@ class PersistentObject {
 	function copy($new_unique_set) {
 		// Check if we have a row
 		$new_unique_set = array_change_key_case($new_unique_set, CASE_LOWER);
-		$result = query('SELECT * FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
+		$result = query('SELECT `id` FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
 
 		if ($result && db_num_rows($result) == 0) {
 			if (!npgFilters::apply('copy_object', true, $this, $new_unique_set)) {
@@ -287,7 +287,7 @@ class PersistentObject {
 		}
 		// Check the database if: 1) not using cache, or 2) didn't get a hit.
 		if (empty($entry) && !$this->transient) {
-			$sql = 'SELECT * FROM ' . prefix($this->table) . getWhereClause($this->unique_set) . ' LIMIT 1;';
+			$sql = 'SELECT * FROM ' . prefix($this->table) . getWhereClause($this->unique_set) . ';';
 			$entry = query_single_row($sql, false);
 			// Save this entry into the cache so we get a hit next time.
 			if ($entry) {
@@ -959,7 +959,7 @@ class ThemeObject extends PersistentObject {
 	 * @return type
 	 */
 	protected function setDefaultSortOrder($qualifier = NULL) {
-		$sql = 'SELECT * FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC LIMIT 1';
+		$sql = 'SELECT `sort_order` FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC';
 		$result = query_single_row($sql);
 		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
 		$this->setSortOrder($new);

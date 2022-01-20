@@ -40,7 +40,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 	if (npg_loggedin()) {
 		$albumWhere = "WHERE `dynamic`=0";
 	} else {
-		$albumscheck = query_full_array("SELECT * FROM " . prefix('albums') . " ORDER BY title");
+		$albumscheck = query_full_array("SELECT `id`, `folder` FROM " . prefix('albums') . " ORDER BY title");
 		$passwordcheck = array();
 		foreach ($albumscheck as $albumcheck) {
 			if (!checkAlbumPassword($albumcheck['folder'])) {
