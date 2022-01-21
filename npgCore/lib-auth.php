@@ -398,11 +398,14 @@ class _Authority {
 				$list = $this->admin_other;
 				$valid = ' WHERE `valid`>1';
 				break;
-			default: // 'all'
+			case 'all':
 				$list = self::getAdministrators('groups');
 			case 'allusers':
 				$list = $list + self::getAdministrators('users') + self::getAdministrators('admin_other');
 				return $list;
+			default:
+				throw new Exception(gettext('Unknown getAdministrators request.'));
+				return array();
 		}
 
 		if (empty($list)) {
@@ -1856,7 +1859,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
