@@ -728,7 +728,7 @@ $buttonlist = array();
 								</li>
 
 								<?php
-								$g = $_authority->count('user_gropus');
+								$g = $_authority->count('user_groups');
 								$t = $_authority->count('group_templates');
 								if ($g) {
 									?>

@@ -340,28 +340,30 @@ class _Authority {
 				break;
 			case 'user_groups':
 				if (extensionEnabled('user_groups')) {
-					$valid = ' WHERE `valid`=0 and `name`="group"';
+					$valid = ' WHERE `valid`=0 AND `name`="group"';
 				} else {
 					return 0;
 				}
 				break;
 			case 'group_templates':
 				if (extensionEnabled('user_groups')) {
-					$valid = ' WHERE `valid`=0 and `name`="template"';
+					$valid = ' WHERE `valid`=0 AND `name`="template"';
 				} else {
 					return 0;
 				}
 				break;
-
 			case 'admin_other':
 				$valid = ' WHERE `valid`>1';
-				break;
-			default: // 'all'
-				$valid = '';
 				break;
 			case 'allusers':
 				$valid = ' WHERE `valid`>0';
 				break;
+			case 'all':
+				$valid = '';
+				break;
+			default:
+				throw new Exception(gettext('Unknown count request.'));
+				return 0;
 		}
 		$row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid);
 		return array_shift($row);
@@ -1854,7 +1856,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
