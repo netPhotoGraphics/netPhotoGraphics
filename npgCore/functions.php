@@ -2207,7 +2207,10 @@ function getXSRFToken($action, $modifier = NULL) {
 	if (is_object($_current_admin_obj)) {
 		$modifier .= $_current_admin_obj->getPass() . $_current_admin_obj->get('passupdate') . $_current_admin_obj->getLastLogon();
 	}
-	return sha1($action . $modifier . defined('npg_SID') ? npg_SID : '');
+	if (defined('npg_SID')) {
+		$modifier .= npg_SID;
+	}
+	return sha1($action . $modifier);
 }
 
 /**
