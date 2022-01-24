@@ -1292,6 +1292,11 @@ class _Authority {
 		if (getOption('SecureLogout')) {
 			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
 		}
+		//	try to prevent browser, etc. from caching login form
+		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
+
 		header("Location: " . $location);
 		exit();
 	}
