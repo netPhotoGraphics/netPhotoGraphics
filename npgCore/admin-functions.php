@@ -1914,6 +1914,24 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 	}
 
+	function dbFieldSelector($table, $currentValue, $prefix = '') {
+		$fields = explode(',', strtolower($currentValue));
+		$dbfields = db_list_fields($table);
+		foreach ($dbfields as $key => $row) {
+			$display = $row['Field'];
+			$key = strtolower($display);
+			$checked = in_array($key, $fields);
+			?>
+			<li>
+				<label>
+					<input type="checkbox" id="custom<?php echo $table; ?>sort<?php echo $prefix; ?>" name="<?php echo $prefix; ?>custom<?php echo $table; ?>sort[]" value="<?php echo $key; ?>"<?php if ($checked) echo ' checked="checked"'; ?> />
+					<?php echo($display); ?>
+				</label>
+			</li>
+			<?php
+		}
+	}
+
 	/**
 	 *
 	 * @param string $whom the calling location
@@ -2273,7 +2291,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<br />
 									<?php echo gettext('custom fields') ?>
 									<span class="tagSuggestContainer">
-										<input id="customalbumsort<?php echo $suffix; ?>" class="customalbumsort" name="<?php echo $prefix; ?>customalbumsort" type="text" value="<?php echo html_encode($cvt); ?>" />
+										<ul class="searchchecklist">
+											<?php dbFieldSelector('albums', $cvt, $prefix); ?>
+										</ul>
 									</span>
 								</span>
 							</td>
@@ -2331,7 +2351,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 									<br />
 									<?php echo gettext('custom fields') ?>
 									<span class="tagSuggestContainer">
-										<input id="customimagesort<?php echo $suffix; ?>" class="customimagesort" name="<?php echo $prefix; ?>customimagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
+										<ul class="searchchecklist">
+											<?php dbFieldSelector('images', $cvt, $prefix); ?>
+										</ul>
 									</span>
 								</span>
 							</td>
@@ -3248,7 +3270,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (isset($_POST[$prefix . 'sortby'])) {
 			$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
 			if ($sorttype == 'custom') {
-				$sorttype = unquote(strtolower(sanitize($_POST[$prefix . 'customimagesort'], 3)));
+				if (isset($_POST[$prefix . 'customimagessort'])) {
+					$sorttype = implode(',', sanitize($_POST[$prefix . 'customimagessort']));
+				} else {
+					$sorttype = '';
+				}
 			}
 			$album->setSortType($sorttype, 'image');
 
@@ -3263,8 +3289,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$album->setSortDirection($direction, 'image');
 			}
 			$sorttype = strtolower(sanitize($_POST[$prefix . 'subalbumsortby'], 3));
-			if ($sorttype == 'custom')
-				$sorttype = strtolower(sanitize($_POST[$prefix . 'customalbumsort'], 3));
+			if ($sorttype == 'custom') {
+				if (isset($_POST[$prefix . 'customalbumssort'])) {
+					$sorttype = implode(',', sanitize($_POST[$prefix . 'customalbumssort']));
+				} else {
+					$sorttype = '';
+				}
+			}
 			$album->setSortType($sorttype, 'album');
 			if (($sorttype == 'manual') || ($sorttype == 'random')) {
 				$album->setSortDirection(false, 'album');

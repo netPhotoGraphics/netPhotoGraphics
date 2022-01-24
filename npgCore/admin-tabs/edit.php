@@ -558,13 +558,13 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 		//<!-- <![CDATA[
 		var albumdbfields = [<?php echo $albumdbfields; ?>];
 		$(function () {
-			$('.customalbumsort').tagSuggest({
+			$('.customalbumssort').tagSuggest({
 				tags: albumdbfields
 			});
 		});
 		var imagedbfields = [<?php echo $imagedbfields; ?>];
 		$(function () {
-			$('.customimagesort').tagSuggest({
+			$('.customimagessort').tagSuggest({
 				tags: imagedbfields
 			});
 		});

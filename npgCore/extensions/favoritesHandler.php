@@ -160,6 +160,7 @@ class favoritesHandler {
 						}
 						generateListFromArray($cv, $sort, false, true);
 						?>
+
 					</select>
 					<?php
 					if (($type == 'random') || ($type == '')) {
@@ -176,6 +177,23 @@ class favoritesHandler {
 						}
 						?> />
 					</label>
+					<?php
+					$flip = array_flip($sort);
+					if (empty($type) || isset($flip[$type])) {
+						$dsp = 'none';
+					} else {
+						$dsp = 'block';
+					}
+					?>
+					<span id="album_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
+						<br />
+						<?php echo gettext('custom fields') ?>
+						<span class="tagSuggestContainer">
+							<ul class="searchchecklist">
+								<?php dbFieldSelector('albums', $cvt); ?>
+							</ul>
+						</span>
+					</span>
 				</span>
 				<?php
 				break;
@@ -209,6 +227,23 @@ class favoritesHandler {
 						}
 						?> />
 					</label>
+					<?php
+					$flip = array_flip($sort);
+					if (empty($type) || isset($flip[$type])) {
+						$dsp = 'none';
+					} else {
+						$dsp = 'block';
+					}
+					?>
+					<span id="image_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
+						<br />
+						<?php echo gettext('custom fields') ?>
+						<span class="tagSuggestContainer">
+							<ul class="searchchecklist">
+								<?php dbFieldSelector('images', $cvt); ?>
+							</ul>
+						</span>
+					</span>
 				</span>
 				<?php
 				break;
@@ -216,9 +251,14 @@ class favoritesHandler {
 	}
 
 	function handleOptionSave($theme, $album) {
+		global $_gallery;
 		$sorttype = strtolower(sanitize($_POST['sortby'], 3));
 		if ($sorttype == 'custom') {
-			$sorttype = unquote(strtolower(sanitize($_POST['customimagesort'], 3)));
+			if (isset($_POST['customimagessort'])) {
+				$sorttype = implode(',', sanitize($_POST['customimagessort']));
+			} else {
+				$sorttype = $_gallery->getSortType('image');
+			}
 		}
 		setOption('favorites_image_sort_type', $sorttype);
 		if (($sorttype == 'manual') || ($sorttype == 'random')) {
@@ -232,8 +272,14 @@ class favoritesHandler {
 			setOption('favorites_image_sort_direction', $direction ? 'DESC' : '');
 		}
 		$sorttype = strtolower(sanitize($_POST['subalbumsortby'], 3));
-		if ($sorttype == 'custom')
-			$sorttype = strtolower(sanitize($_POST['customalbumsort'], 3));
+		if ($sorttype == 'custom') {
+			if (isset($_POST['customalbumssort'])) {
+				$sorttype = implode(',', sanitize($_POST['customalbumssort']));
+			} else {
+				$sorttype = $_gallery->getSortType('album');
+			}
+		}
+
 		setOption('favorites_album_sort_type', $sorttype);
 		if (($sorttype == 'manual') || ($sorttype == 'random')) {
 			$direction = 0;

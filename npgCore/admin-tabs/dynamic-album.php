@@ -342,23 +342,23 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 			<tr>
 				<td class="nowrap"><?php echo gettext("Search fields:"); ?></td>
 				<td>
-					<?php
-					echo '<ul class="searchchecklist">' . "\n";
-					$selected_fields = array();
-					$engine = new SearchEngine(true);
-					$available_fields = $engine->allowedSearchFields();
-					if (count($fields) == 0) {
-						$selected_fields = $available_fields;
-					} else {
-						foreach ($available_fields as $display => $key) {
-							if (in_array($key, $fields)) {
-								$selected_fields[$display] = $key;
+					<ul class="searchchecklist">
+						<?php
+						$selected_fields = array();
+						$engine = new SearchEngine(true);
+						$available_fields = $engine->allowedSearchFields();
+						if (count($fields) == 0) {
+							$selected_fields = $available_fields;
+						} else {
+							foreach ($available_fields as $display => $key) {
+								if (in_array($key, $fields)) {
+									$selected_fields[$display] = $key;
+								}
 							}
 						}
-					}
-					generateUnorderedListFromArray($selected_fields, $available_fields, 'SEARCH_', false, true, true, 'searchcheck');
-					echo '</ul>';
-					?>
+						generateUnorderedListFromArray($selected_fields, $available_fields, 'SEARCH_', false, true, true, 'searchcheck');
+						?>
+					</ul>
 				</td>
 			</tr>
 

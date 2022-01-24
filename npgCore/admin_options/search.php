@@ -29,7 +29,12 @@ function saveOptions() {
 	setOption('languageTagSearch', sanitize_numeric($_POST['languageTagSearch']));
 	$sorttype = strtolower(sanitize($_POST['sortby'], 3));
 	if ($sorttype == 'custom') {
-		$sorttype = unquote(strtolower(sanitize($_POST['customimagesort'], 3)));
+		if (isset($_POST['customimagessort'])) {
+			$sorttype = implode(',', sanitize($_POST['customimagessort']));
+		} else {
+			$sorttype = $_gallery->getSortType('image');
+			;
+		}
 	}
 	setOption('search_image_sort_type', $sorttype);
 	if ($sorttype == 'random') {
@@ -44,8 +49,14 @@ function saveOptions() {
 	}
 
 	$sorttype = strtolower(sanitize($_POST['subalbumsortby'], 3));
-	if ($sorttype == 'custom')
-		$sorttype = strtolower(sanitize($_POST['customalbumsort'], 3));
+	if ($sorttype == 'custom') {
+		if (isset($_POST['customalbumssort'])) {
+			$sorttype = implode(',', sanitize($_POST['customalbumssort']));
+		} else {
+			$sorttype = $_gallery->getSortType('album');
+		}
+	}
+
 	setOption('search_album_sort_type', $sorttype);
 	if ($sorttype == 'random') {
 		setOption('search_album_sort_direction', 0);
@@ -91,8 +102,8 @@ function getOptionContent() {
 	?>
 	<div id="tab_search" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
-					<?php XSRFToken('saveoptions'); ?>
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+	<?php XSRFToken('saveoptions'); ?>
 			<input	type="hidden" name="saveoptions" value="search" />
 			<input	type="hidden" name="password_enabled" id="password_enabled" value="0" />
 			<p>
@@ -110,7 +121,7 @@ function getOptionContent() {
 						<tr class="passwordextrashow">
 							<td class="option_name">
 								<a onclick="toggle_passwords('', true);">
-									<?php echo gettext("Search password"); ?>
+		<?php echo gettext("Search password"); ?>
 								</a>
 							</td>
 							<td class="option_value">
@@ -119,14 +130,14 @@ function getOptionContent() {
 								if (empty($x)) {
 									?>
 									<a onclick="toggle_passwords('', true);">
-										<?php echo LOCK_OPEN; ?>
+									<?php echo LOCK_OPEN; ?>
 									</a>
 									<?php
 								} else {
 									$x = '          ';
 									?>
 									<a onclick="resetPass('');" title="<?php echo gettext('clear password'); ?>">
-										<?php echo LOCK; ?>
+									<?php echo LOCK; ?>
 									</a>
 									<?php
 								}
@@ -134,7 +145,7 @@ function getOptionContent() {
 							</td>
 							<td class="option_desc">
 								<span class="option_info">
-									<?php echo INFORMATION_BLUE; ?>
+		<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
 
 										<p><?php echo gettext("Password for the search guest user. click on <em>Search password</em> to change."); ?></p>
@@ -145,7 +156,7 @@ function getOptionContent() {
 						<tr class="passwordextrahide" style="display:none">
 							<td class="option_name">
 								<a onclick="toggle_passwords('', false);">
-									<?php echo gettext("Search guest user"); ?>
+		<?php echo gettext("Search guest user"); ?>
 								</a>
 							</td>
 							<td class="option_value">
@@ -158,9 +169,9 @@ function getOptionContent() {
 							</td>
 							<td class="option_desc">
 								<span class="option_info">
-									<?php echo INFORMATION_BLUE; ?>
+										<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
-										<?php echo gettext("User ID for the search guest user") ?>
+		<?php echo gettext("User ID for the search guest user") ?>
 									</div>
 								</span>
 							</td>
@@ -168,7 +179,7 @@ function getOptionContent() {
 						<tr class="passwordextrahide" style="display:none" >
 							<td class="option_name">
 								<span id="strength">
-									<?php echo gettext("Search password"); ?>
+		<?php echo gettext("Search password"); ?>
 								</span>
 								<br />
 								<span id="match" class="password_field_">
@@ -188,7 +199,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-														 togglePassword('');" /><?php echo gettext('Show'); ?>
+																 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 								<br />
 								<span class="password_field_">
@@ -203,26 +214,26 @@ function getOptionContent() {
 							</td>
 							<td class="option_desc">
 								<span class="option_info">
-									<?php echo INFORMATION_BLUE; ?>
+		<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
 
-										<?php echo gettext("Password for the search guest user. If this is set, visitors must know this password to view search results."); ?>
+		<?php echo gettext("Password for the search guest user. If this is set, visitors must know this password to view search results."); ?>
 									</div>
 								</span>
 							</td>
 						</tr>
 						<tr class="passwordextrahide" style="display:none" >
 							<td class="option_name">
-								<?php echo gettext("Search password hint"); ?>
+		<?php echo gettext("Search password hint"); ?>
 							</td>
 							<td class="option_value">
-								<?php print_language_string_list(getOption('search_hint'), 'hint', false, NULL, 'hint', '100%'); ?>
+		<?php print_language_string_list(getOption('search_hint'), 'hint', false, NULL, 'hint', '100%'); ?>
 							</td>
 							<td class="option_desc">
 								<span class="option_info">
-									<?php echo INFORMATION_BLUE; ?>
+										<?php echo INFORMATION_BLUE; ?>
 									<div class="option_desc_hidden">
-										<?php echo gettext("A reminder hint for the password."); ?>
+		<?php echo gettext("A reminder hint for the password."); ?>
 									</div>
 								</span>
 							</td>
@@ -250,7 +261,7 @@ function getOptionContent() {
 						});
 					</script>
 					<td class="option_value">
-						<?php echo gettext('fields list'); ?>
+	<?php echo gettext('fields list'); ?>
 						<div id="resizable">
 							<ul class="searchchecklist" id="searchchecklist">
 								<?php
@@ -279,7 +290,7 @@ function getOptionContent() {
 							?>
 						</p>
 						<p>
-							<?php echo gettext('language specific tags'); ?>
+	<?php echo gettext('language specific tags'); ?>
 							<label>
 								<input type="radio" name="languageTagSearch"  value="" <?php if (getOption('languageTagSearch') == 0) echo ' checked="checked"'; ?> /><?php echo gettext('off'); ?>
 							</label>
@@ -305,7 +316,7 @@ function getOptionContent() {
 					</td>
 					<td class="option_desc">
 						<span class="option_info">
-							<?php echo INFORMATION_BLUE; ?>
+	<?php echo INFORMATION_BLUE; ?>
 							<div class="option_desc_hidden">
 								<p><?php echo gettext("<em>Field list</em> is the set of fields on which searches may be performed."); ?></p>
 								<p>
@@ -327,19 +338,19 @@ function getOptionContent() {
 					</td>
 					<tr>
 						<td class="option_name">
-							<?php echo gettext('Search objects'); ?>
+	<?php echo gettext('Search objects'); ?>
 						</td>
 						<td class="option_value">
 							<p>
 								<label>
 									<input type="checkbox" name="search_no_albums" value="1" <?php checked('1', getOption('search_no_albums')); ?> />
-									<?php echo gettext('do not return <em>album</em> matches') ?>
+	<?php echo gettext('do not return <em>album</em> matches') ?>
 								</label>
 							</p>
 							<p>
 								<label>
 									<input type="checkbox" name="search_no_images" value="1" <?php checked('1', getOption('search_no_images')); ?> />
-									<?php echo gettext('do not return <em>image</em> matches') ?>
+	<?php echo gettext('do not return <em>image</em> matches') ?>
 								</label>
 							</p>
 							<?php
@@ -348,13 +359,13 @@ function getOptionContent() {
 								<p>
 									<label>
 										<input type="checkbox" name="search_no_news" value="1" <?php checked('1', getOption('search_no_news')); ?> />
-										<?php echo gettext('do not return <em>news</em> matches') ?>
+		<?php echo gettext('do not return <em>news</em> matches') ?>
 									</label>
 								</p>
 								<p>
 									<label>
 										<input type="checkbox" name="search_no_pages" value="1" <?php checked('1', getOption('search_no_pages')); ?> />
-										<?php echo gettext('do not return <em>page</em> matches') ?>
+		<?php echo gettext('do not return <em>page</em> matches') ?>
 									</label>
 								</p>
 								<?php
@@ -363,7 +374,7 @@ function getOptionContent() {
 						</td>
 						<td class="option_desc">
 							<span class="option_info">
-								<?php echo INFORMATION_BLUE; ?>
+	<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
 									<p><?php echo gettext('Setting <code>do not return <em>{item}</em> matches</code> will cause search to ignore <em>{items}</em> when looking for matches.') ?></p>
 								</div>
@@ -372,18 +383,18 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Cache expiry'); ?></td>
 						<td class="option_value">
-							<?php printf(gettext('redo search after %s minutes.'), '<input type="textbox" size="4" name="search_cache_duration" value="' . getOption('search_cache_duration') . '" />'); ?>
+	<?php printf(gettext('redo search after %s minutes.'), '<input type="textbox" size="4" name="search_cache_duration" value="' . getOption('search_cache_duration') . '" />'); ?>
 							<br />
 							<label>
 								<input type="checkbox" name="cache_random_search" value="1" <?php if (getoption('cache_random_search')) echo ' checked="checked"'; ?>>
-								<?php echo gettext('cache searches which return randomly sorted items'); ?>
+	<?php echo gettext('cache searches which return randomly sorted items'); ?>
 							</label>
 						</td>
 						<td class="option_desc">
 							<span class="option_info">
-								<?php echo INFORMATION_BLUE; ?>
+									<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
-									<?php echo gettext('Search will remember the results of particular searches so that it can quickly serve multiple pages, etc. Over time this remembered result can become obsolete, so it should be refreshed. This option lets you decide how long before a search will be considered obsolete and thus re-executed. Setting the option to <em>zero</em> disables caching of searches.'); ?>
+	<?php echo gettext('Search will remember the results of particular searches so that it can quickly serve multiple pages, etc. Over time this remembered result can become obsolete, so it should be refreshed. This option lets you decide how long before a search will be considered obsolete and thus re-executed. Setting the option to <em>zero</em> disables caching of searches.'); ?>
 								</div>
 							</span>
 						</td>
@@ -434,17 +445,20 @@ function getOptionContent() {
 							?>
 							<span id="album_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 								<br />
-								<?php echo gettext('custom fields') ?>
+	<?php echo gettext('custom fields') ?>
+
 								<span class="tagSuggestContainer">
-									<input id="customalbumsort" class="customalbumsort" name="customalbumsort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<ul class="searchchecklist">
+	<?php dbFieldSelector('albums', $cvt); ?>
+									</ul>
 								</span>
 							</span>
 						</td>
 						<td class="option_desc">
 							<span class="option_info">
-								<?php echo INFORMATION_BLUE; ?>
+									<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
-									<?php echo gettext('Search will return items in the selected order.'); ?>
+	<?php echo gettext('Search will return items in the selected order.'); ?>
 								</div>
 							</span>
 						</td>
@@ -452,6 +466,7 @@ function getOptionContent() {
 					</tr>
 					<?php
 					unset($sort[gettext('Album order')]);
+					$sort[gettext('Image order')] = 'sort_order';
 					?>
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Sort images by"); ?> </td>
@@ -495,9 +510,11 @@ function getOptionContent() {
 							?>
 							<span id="image_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 								<br />
-								<?php echo gettext('custom fields') ?>
+	<?php echo gettext('custom fields') ?>
 								<span class="tagSuggestContainer">
-									<input id="customimagesort" class="customimagesort" name="customimagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<ul class="searchchecklist">
+	<?php dbFieldSelector('images', $cvt); ?>
+									</ul>
 								</span>
 							</span>
 						</td>
@@ -552,7 +569,7 @@ function getOptionContent() {
 									?>
 									<span id="article_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 										<br />
-										<?php echo gettext('custom fields') ?>
+			<?php echo gettext('custom fields') ?>
 										<span class="tagSuggestContainer">
 											<input id="customarticlesort" class="customarticlesort" name="customarticlesort" type="text" value="<?php echo html_encode($cvt); ?>" />
 										</span>
@@ -607,7 +624,7 @@ function getOptionContent() {
 									?>
 									<span id="page_custom_div" class="customText" style="display:<?php echo $dsp; ?>;white-space:nowrap;">
 										<br />
-										<?php echo gettext('custom fields') ?>
+			<?php echo gettext('custom fields') ?>
 										<span class="tagSuggestContainer">
 											<input id="custompaagesort" class="custompagesort" name="custompagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
 										</span>
