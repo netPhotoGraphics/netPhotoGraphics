@@ -365,8 +365,10 @@ class _Authority {
 				throw new Exception(gettext('Unknown count request.'));
 				return 0;
 		}
-		$row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid);
-		return array_shift($row);
+		if ($row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid, false)) {
+			return array_shift($row);
+		}
+		return NULL;
 	}
 
 	/**
@@ -1289,10 +1291,13 @@ class _Authority {
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
+
+		//	try to prevent browser, etc. from using logged-on versions of pages
 		if (getOption('SecureLogout')) {
 			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
+		} else {
+			header('Clear-Site-Data: "cache"');
 		}
-		//	try to prevent browser, etc. from caching login form
 		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0"); // Proxies.
@@ -1864,7 +1869,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
