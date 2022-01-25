@@ -57,6 +57,9 @@ if (file_exists(SERVERPATH . '/zp-core')) {
 		$_config_contents = substr($_config_contents, 0, $i + 36);
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
 	}
+	if (file_exists(SERVERPATH . '/zp-data/charset_tést')) {
+		rename(SERVERPATH . '/zp-data/charset_tést', SERVERPATH . '/' . DATA_FOLDER . '/charset_tést.cfg');
+	}
 	if (file_exists(SERVERPATH . '/zp-data')) {
 		npgFunctions::removeDir(SERVERPATH . '/zp-data');
 	}
