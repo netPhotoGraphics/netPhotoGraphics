@@ -22,10 +22,6 @@ $_initial_session_path = session_save_path();
 require_once(dirname(__DIR__) . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
 
-//allow only one setup to run
-$setupMutex = new npgMutex('sP');
-$setupMutex->lock();
-
 if ($debug = isset($_REQUEST['debug'])) {
 	if (!$debug = $_REQUEST['debug']) {
 		$debug = 'debug';
@@ -50,47 +46,30 @@ if (isset($_REQUEST['autorun'])) {
 	$displayLimited = $autorun = $autorunq = false;
 }
 
-if (file_exists(SERVERPATH . ($old = '/zp-data'))) {
-	chmod(SERVERPATH . $old, 0777);
-	rename(SERVERPATH . $old, SERVERPATH . '/' . DATA_FOLDER);
-	chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
-	//	reload the page so that the database config takes effect
+if (file_exists(SERVERPATH . '/zp-core')) {
+	if (file_exists(SERVERPATH . '/zp-data/zenphoto.cfg.php')) {
+		$_config_contents = file_get_contents(SERVERPATH . '/zp-data/zenphoto.cfg.php');
+		$i = strpos($_config_contents, '/** Do not edit below this line. **/');
+		$_config_contents = substr($_config_contents, 0, $i + 36);
+		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
+	}
+	if (file_exists(SERVERPATH . '/zp-data')) {
+		npgFunctions::removeDir(SERVERPATH . '/zp-data');
+	}
+	npgFunctions::removeDir(SERVERPATH . '/zp-core');
+	//	redirect to get the config file loaded.
 	$q = '?' . ltrim($debugq . $autorunq, '&');
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }
 
+//allow only one setup to run
+$setupMutex = new npgMutex('sP');
+$setupMutex->lock();
+
 session_cache_limiter('nocache');
 $session = npg_session_start();
 $setup_checked = false;
-
-if (file_exists(USER_PLUGIN_SERVERPATH . 'core-locator.npg') && extensionEnabled('folderName')) {
-	$corelocator = file_get_contents(USER_PLUGIN_SERVERPATH . 'core-locator.npg');
-	if (basename(dirname(__DIR__)) != basename($corelocator)) {
-		require_once(CORE_SERVERPATH . 'reconfigure.php');
-		switch (CORE_FOLDER) {
-			case 'zp-core':
-				$extensions = basename($rename['zp-core/zp-extensions'] = 'zp-core/' . PLUGIN_PATH);
-				$core = $rename['zp-core'] = 'npgCore';
-				break;
-			default:
-				$extensions = $rename['npgCore/' . PLUGIN_PATH] = 'npgCore/zp-extensions';
-				$core = $rename['npgCore'] = 'zp-core';
-				break;
-		}
-		npgFunctions::removeDir(SERVERPATH . '/' . $core);
-		foreach ($rename as $oldname => $newname) {
-			chmod(SERVERPATH . '/' . $oldname, 0777);
-			rename(SERVERPATH . '/' . $oldname, SERVERPATH . '/' . $newname);
-			chmod(SERVERPATH . '/' . $newname, FOLDER_MOD);
-			npgFilters::apply('security_misc', true, 'folder_rename', 'admin_auth', $oldname . ' => ' . $newname);
-		}
-
-		unlink(USER_PLUGIN_SERVERPATH . 'core-locator.npg'); //	so setup won't undo the request
-		header('Location:' . WEBPATH . '/' . $core . '/setup/index.php?autorun=admin');
-		exit();
-	}
-}
 
 if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUEST['checked'])) {
 	if (isset($_SESSION['save_session_path'])) {
