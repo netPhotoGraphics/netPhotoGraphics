@@ -22,6 +22,10 @@ $_initial_session_path = session_save_path();
 require_once(dirname(__DIR__) . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
 
+//allow only one setup to run
+$setupMutex = new npgMutex('sP');
+$setupMutex->lock();
+
 if ($debug = isset($_REQUEST['debug'])) {
 	if (!$debug = $_REQUEST['debug']) {
 		$debug = 'debug';
@@ -57,15 +61,12 @@ if (file_exists(SERVERPATH . '/zp-core')) {
 		npgFunctions::removeDir(SERVERPATH . '/zp-data');
 	}
 	npgFunctions::removeDir(SERVERPATH . '/zp-core');
+	$setupMutex->unlock();
 	//	redirect to get the config file loaded.
 	$q = '?' . ltrim($debugq . $autorunq, '&');
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
 }
-
-//allow only one setup to run
-$setupMutex = new npgMutex('sP');
-$setupMutex->lock();
 
 session_cache_limiter('nocache');
 $session = npg_session_start();
