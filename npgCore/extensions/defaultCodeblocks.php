@@ -34,18 +34,23 @@ class defaultCodeblocks {
 		$this->blocks = array('gallery' => NULL, 'albums' => NULL, 'images' => NULL, 'news' => NULL, 'pages' => NULL);
 		if (OFFSET_PATH == 2) {
 			//	migrate the legacy codeblocks
-			$oldoptions = getOptionsLike('defaultCodeblocks');
+			$oldoptions = getOptionsLike('defaultCodeblocks_object');
 			if ($oldoptions) {
-				$block = querySingleRow("SELECT id, `aux`, `data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'defaultCodeblocks'");
-				query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $block['id']);
-				foreach ($oldoptions as $object) {
-					$object = str_replace('defaultCodeblocks_objects_', '', $object);
+				$block = query_single_row("SELECT id, `aux`, `data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'defaultCodeblocks' AND `subtype` IS NULL");
+				if ($block) {
+					query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $block['id']);
+				} else {
+					$block['data'] = serialize(array());
+				}
+				foreach (array_keys($oldoptions) as $target) {
+					$object = preg_replace('~defaultCodeblocks_object_~i', '', $target);
 					if (array_key_exists($object, $this->blocks)) {
 						$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("defaultCodeblocks",' . db_quote($object) . ',"",' . db_quote($block['data']) . ')';
 						query($sql);
 					}
-					purgeOption($object);
+					purgeOption($target);
 				}
+				purgeOption('defaultCodeblocks');
 			}
 		}
 

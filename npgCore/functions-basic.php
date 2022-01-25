@@ -2014,7 +2014,7 @@ function getOptionsLike($pattern) {
 	global $_options;
 	$result = array();
 	foreach ($_options as $key => $value) {
-		if (preg_match('~' . $pattern . '.*~', $key)) {
+		if (preg_match('~' . $pattern . '.*~i', $key)) {
 			$result[$key] = $value;
 		}
 	}
