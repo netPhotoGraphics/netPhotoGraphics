@@ -304,7 +304,7 @@ if (!empty($where)) {
 		$img = getItemByID('images', $row['id']);
 		if ($img) {
 			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
-				$data = $img->get($source);
+				$data = floatval($img->get($source));
 				if (!empty($data)) {
 					if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
 						$data = -$data;
@@ -312,7 +312,7 @@ if (!empty($where)) {
 					$img->set(substr($source, 4), $data);
 				}
 			}
-			$alt = $img->get('EXIFGPSAltitude');
+			$alt = floatval($img->get('EXIFGPSAltitude'));
 			if (!empty($alt)) {
 				$ref = $img->get('EXIFGPSAltitudeRef');
 				if (!is_null($ref) && $ref != 0) {
@@ -371,7 +371,7 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 			}
 		}
 	}
-//	update symlinks
+	//	update symlinks
 	$master = clonedFrom();
 	foreach ($migrate as $theme) {
 		$theme = lcfirst(substr($theme, 2));

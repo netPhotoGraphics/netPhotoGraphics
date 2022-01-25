@@ -935,6 +935,9 @@ function getSerializedArray($string) {
 	if (is_array($string)) {
 		return $string;
 	}
+	if (is_null($string)) {
+		return array();
+	}
 	if (is_serialized($string)) {
 		$strings = unserialize($string, ['allowed_classes' => false]);
 		if (is_array($strings)) {
