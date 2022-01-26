@@ -350,6 +350,7 @@ foreach ($template as $tablename => $table) {
 			if ($exists) {
 				if (isset($database[$tablename]['keys'][$key])) {
 					if ($index != $database[$tablename]['keys'][$key]) {
+						setupQuery('LOCK TABLES ' . $tablename . ' WRITE');
 						$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $index['Key_name'] . "`;";
 						if (setupQuery($dropString)) {
 							$_DB_Structure_change = TRUE;
@@ -357,6 +358,7 @@ foreach ($template as $tablename => $table) {
 						if (setupQuery($alterString)) {
 							$_DB_Structure_change = TRUE;
 						}
+						setupQuery('UNLOCK TABLES');
 					}
 				} else {
 					if (setupQuery($alterString)) {
@@ -400,7 +402,7 @@ foreach ($template as $tablename => $table) {
 
 foreach ($uniquekeys as $table => $keys) {
 	foreach ($keys as $unique => $components) {
-		$updateErrors = $updateErrors || checkUnique(prefix($table), array_flip(array_map(function($item) {
+		$updateErrors = $updateErrors || checkUnique(prefix($table), array_flip(array_map(function ($item) {
 															return trim($item, '`');
 														}, $components)));
 	}
