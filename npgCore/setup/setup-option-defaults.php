@@ -780,7 +780,7 @@ setOption('defined_groups', serialize($groupsdefined)); // record that these hav
 
 setOptionDefault('AlbumThumbSelect', 1);
 
-setOptionDefault('site_email', "netPhotoGraphics" . $_SERVER['SERVER_NAME']);
+setOptionDefault('site_email', "netPhotoGraphics@" . $_SERVER['SERVER_NAME']);
 setOptionDefault('site_email_name', 'netPhotoGraphics');
 
 setOptionDefault('register_user_notify', 1);
