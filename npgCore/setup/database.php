@@ -128,9 +128,9 @@ foreach ($metadataProviders as $source => $handler) {
 	if ($source == 'class-image') {
 		$enabled = true;
 	} else {
-		$enabled = extensionEnabled($source);
 		$plugin = getPlugin($source . '.php');
 		require_once($plugin);
+		$enabled = extensionEnabled($source);
 	}
 
 	$exifvars = $handler::getMetadataFields();
