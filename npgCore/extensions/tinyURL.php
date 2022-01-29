@@ -169,7 +169,7 @@ class tinyURL {
 							break;
 						case 'images':
 							$image = $_GET['image'] = $result['filename'];
-							$result = query_single_row('SELECT * FROM ' . prefix('albums') . ' WHERE `id`=' . $result['albumid']);
+							$result = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $result['albumid']);
 						case 'albums':
 							$album = $_GET['album'] = $result['folder'];
 							unset($_GET['p']);

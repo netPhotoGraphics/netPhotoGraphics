@@ -9,10 +9,10 @@ require_once(__DIR__ . '/classes.php');
 
 class _Authority {
 
-	public $admin_users = NULL;
-	public $admin_groups = NULL;
-	public $admin_other = NULL;
-	public $rightsset = NULL;
+	protected $admin_users = array();
+	protected $admin_groups = array();
+	protected $admin_other = array();
+	protected $rightsset = NULL;
 	protected $master_user = NULL;
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
@@ -54,43 +54,19 @@ class _Authority {
 		} else {
 			define('PASSWORD_FUNCTION_DEFAULT', 3);
 		}
-
-		$this->admin_groups = $this->admin_users = $this->admin_other = array();
-		$groups = extensionEnabled('user_groups');
-		$sql = 'SELECT * FROM ' . prefix('administrators') . ' ORDER BY `rights` DESC, `id`';
-		$admins = query($sql, false);
-		if ($admins) {
-			while ($user = db_fetch_assoc($admins)) {
-				switch ($user['valid']) {
-					case 1:
-						$this->admin_users[$user['id']] = $user;
-						if (empty($this->master_user))
-							$this->master_user = $user['user'];
-						break;
-					case 0:
-						if ($groups) {
-							$this->admin_groups[$user['id']] = $user;
-						}
-						break;
-					default:
-						$this->admin_other[$user['id']] = $user;
-						break;
-				}
-			}
-			db_free_result($admins);
-		}
 		$strongHash = (int) getOption('strong_hash');
 		$list = self::getHashList();
 		$list['default'] = 1000;
-		if (empty($this->admin_users) || !in_array($strongHash, $list)) {
+		if (!in_array($strongHash, $list)) {
 			$strongHash = 1000;
 			setOption('strong_hash', 1000);
 		}
 		Define('STRONG_PASSWORD_HASH', $strongHash);
-	}
 
-	function addOtherUser($adminObj) {
-		$this->admin_users[$adminObj->getID()] = $adminObj->getData();
+		$sql = 'SELECT * FROM ' . prefix('administrators') . 'WHERE `valid`=1 ORDER BY `rights` DESC, `id`';
+		if ($user = query_single_row($sql, false)) {
+			$this->master_user = $user['user'];
+		}
 	}
 
 	function getMasterUser() {
@@ -110,7 +86,9 @@ class _Authority {
 	}
 
 	function validID($id) {
-		return array_key_exists($id, $this->admin_users) || array_key_exists($id, $this->admin_other) || array_key_exists($id, $this->admin_groups);
+		$sql = 'SELECT `user` FROM ' . prefix('administrators') . ' WHERE `id`=' . $id;
+		$result = query($sql);
+		return $result;
 	}
 
 	/**
@@ -346,24 +324,119 @@ class _Authority {
 	}
 
 	/**
-	 * Returns an array of admin users, indexed by the userid and ordered by "privileges"
+	 * Counts the users by criteria
 	 *
-	 * The array contains the id, hashed password, user's name, email, and admin privileges
+	 * @param string $what: 'all' for everything, 'users' for valid users,
+	 * 											'admin_other' for non-valid users, 'allusers' for all both valid and not valid users,
+	 * 											'user_groups' for groups and 'group_templates' for templates
+	 * @return int count
 	 *
-	 * @param string $what: 'all' for everything, 'users' for just users 'groups' for groups and templates
-	 * @return array
+	 * @Copyright 2022 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
-	function getAdministrators($what = 'users') {
+	function count($what) {
 		switch ($what) {
 			case 'users':
-				return $this->admin_users;
-			case 'groups':
-				return $this->admin_groups;
+				$valid = ' WHERE `valid`=1';
+				break;
+			case 'user_groups':
+				if (extensionEnabled('user_groups')) {
+					$valid = ' WHERE `valid`=0 AND `name`="group"';
+				} else {
+					return 0;
+				}
+				break;
+			case 'group_templates':
+				if (extensionEnabled('user_groups')) {
+					$valid = ' WHERE `valid`=0 AND `name`="template"';
+				} else {
+					return 0;
+				}
+				break;
+			case 'admin_other':
+				$valid = ' WHERE `valid`>1';
+				break;
 			case 'allusers':
-				return $this->admin_users + $this->admin_other;
+				$valid = ' WHERE `valid`>0';
+				break;
+			case 'all':
+				$valid = '';
+				break;
 			default:
-				return $this->admin_users + $this->admin_other + $this->admin_groups;
+				throw new Exception(gettext('Unknown count request.'));
+				return 0;
 		}
+		if ($row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid, false)) {
+			return array_shift($row);
+		}
+		return NULL;
+	}
+
+	/**
+	 * Returns an array of admin users, indexed by the userid and ordered by "privileges"
+	 *
+	 * @param string $what: 'all' for everything, 'users' for valid users,
+	 * 											'admin_other' for non-valid users, 'allusers' for all both valid and not valid users,
+	 * 											'groups' for groups and templates
+	 * @return array
+	 *
+	 * @Copyright 2022 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+	 */
+	function getAdministrators($what = 'users') {
+		$list = array();
+		switch ($what) {
+			case 'users':
+				$list = $this->admin_users;
+				$valid = ' WHERE `valid`=1';
+				break;
+			case 'groups':
+				if (extensionEnabled('user_groups')) {
+					$list = $this->admin_groups;
+					$valid = ' WHERE `valid`=0';
+				} else {
+					return array();
+				}
+				break;
+			case 'admin_other':
+				$list = $this->admin_other;
+				$valid = ' WHERE `valid`>1';
+				break;
+			case 'all':
+				$list = self::getAdministrators('groups');
+			case 'allusers':
+				$list = $list + self::getAdministrators('users') + self::getAdministrators('admin_other');
+				return $list;
+			default:
+				throw new Exception(gettext('Unknown getAdministrators request.'));
+				return array();
+		}
+
+		if (empty($list)) {
+			$sql = 'SELECT ' .
+							// per requirements from class-auth return the following fields
+							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `date`' .
+							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
+			$admins = query($sql, false);
+			if ($admins) {
+				while ($user = db_fetch_assoc($admins)) {
+					$list[$user['id']] = $user;
+				}
+				db_free_result($admins);
+			}
+
+			switch ($what) {
+				case 'users':
+					$this->admin_users = $list;
+					break;
+				case 'groups':
+					$this->admin_groups = $list;
+					break;
+				case 'admin_other':
+					$this->admin_other = $list;
+					break;
+			}
+		}
+
+		return $list;
 	}
 
 	/**
@@ -377,39 +450,17 @@ class _Authority {
 			preg_match('/(.*)([<>=!])/', $match, $detail);
 			$find[trim($detail[1], '`')] = array('field' => trim($detail[1]), 'op' => trim($detail[2]), 'value' => $value);
 		}
-		if (isset($find['id'])) {
-			$id = $find['id']['value'];
-			foreach (array($this->admin_users, $this->admin_other, $this->admin_groups) as $list) {
-				if (isset($list[$id])) {
-					$admin = $list[$id];
-					foreach ($find as $field => $select) {
-						if ($r = strcmp($admin[$field], $select['value']) == 0) {
-							$ops = array('=', '>=', '<=');
-						} else if ($r > 0) {
-							$ops = array('>', '>=', '!=');
-						} else {
-							$ops = array('<', '<=', '!=');
-						}
-						if (!in_array($select['op'], $ops)) {
-							unset($admin);
-							break;
-						}
-					}
-					break;
-				}
+
+		$selector = array();
+		foreach ($find as $field => $select) {
+			if (!is_numeric($value = $select['value'])) {
+				$value = db_quote($value);
 			}
+			$selector[] = $select['field'] . $select['op'] . $value;
 		}
-		if (!isset($admin)) {
-			$selector = array();
-			foreach ($find as $field => $select) {
-				if (!is_numeric($value = $select['value'])) {
-					$value = db_quote($value);
-				}
-				$selector[] = $select['field'] . $select['op'] . $value;
-			}
-			$sql = 'SELECT * FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector) . ' LIMIT 1';
-			$admin = query_single_row($sql);
-		}
+		$sql = 'SELECT `user`, `valid` FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector);
+		$admin = query_single_row($sql);
+
 		if ($admin) {
 			return self::newAdministrator($admin['user'], $admin['valid']);
 		} else {
@@ -448,7 +499,7 @@ class _Authority {
 	}
 
 	/**
-	 * Retuns the administration rights of a saved authorization code
+	 * Returns the administration rights of a saved authorization code
 	 * Will promote an admin to ADMIN_RIGHTS if he is the most privileged admin
 	 *
 	 * @param string $authCode the hash code to check
@@ -461,8 +512,9 @@ class _Authority {
 		if (DEBUG_LOGIN) {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
-		$admins = $this->getAdministrators();
-		if (count($admins) == 0) {
+
+		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1', false);
+		if (empty($row)) {
 			if (DEBUG_LOGIN) {
 				debugLog("checkAuthorization: no admins");
 			}
@@ -482,7 +534,7 @@ class _Authority {
 		if (empty($authCode) || empty($id))
 			return 0; //  so we don't "match" with an empty password
 		if (DEBUG_LOGIN) {
-			debugLogVar(["checkAuthorization: admins" => $admins]);
+			debugLogVar(["checkAuthorization: admins" => $this->getAdministrators()]);
 		}
 		$rights = 0;
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
@@ -564,10 +616,7 @@ class _Authority {
 	 * @param bit $rights what kind of admins to retrieve
 	 * @return array
 	 */
-	function getAdminEmail($rights = NULL) {
-		if (is_null($rights)) {
-			$rights = ADMIN_RIGHTS;
-		}
+	function getAdminEmail($rights = ADMIN_RIGHTS) {
 		$emails = array();
 		$admins = $this->getAdministrators();
 		foreach ($admins as $user) {
@@ -595,8 +644,8 @@ class _Authority {
 		$success = true;
 		$oldversion = self::getVersion();
 		setOption('libauth_version', $to);
-		$this->admin_users = array();
-		$sql = "SELECT * FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
+
+		$sql = "SELECT `id`, `rights` FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
 		$admins = query($sql, false);
 		if ($admins) { // something to migrate
 			$oldrights = array();
@@ -1139,7 +1188,7 @@ class _Authority {
 						$user = NULL;
 						foreach ($admins as $key => $tuser) {
 							if (empty($tuser['email'])) {
-								unset($admins[$key]); // we want to ignore groups and users with no email address here!
+								unset($admins[$key]); // we want to ignore users with no email address here!
 							} else {
 								if (!empty($post_user) && ($tuser['user'] == $post_user || $tuser['email'] == $post_user)) {
 									$name = $tuser['name'];
@@ -1242,9 +1291,17 @@ class _Authority {
 		$_loggedin = false;
 		$_pre_authorization = array();
 		npg_session_destroy();
+
+		//	try to prevent browser, etc. from using logged-on versions of pages
 		if (getOption('SecureLogout')) {
 			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
+		} else {
+			header('Clear-Site-Data: "cache"');
 		}
+		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
+
 		header("Location: " . $location);
 		exit();
 	}
@@ -2155,7 +2212,7 @@ class _Administrator extends PersistentObject {
 	}
 
 	/**
-	 * Uptates the database with all changes
+	 * Updates the database with all changes
 	 */
 	function save() {
 		global $_gallery;
@@ -2178,11 +2235,12 @@ class _Administrator extends PersistentObject {
 			}
 			$id = $this->getID();
 			$old = array();
-			$sql = "SELECT * FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
+			$sql = "SELECT `id`, `objectid`, `type`, `edit` FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
 			$result = query($sql, false);
 			while ($row = db_fetch_assoc($result)) {
 				$old[$row['id']] = array($row['objectid'], $row['type'], $row['edit']);
 			}
+			db_free_result($result);
 			foreach ($this->objects as $object) {
 				$edit = MANAGED_OBJECT_MEMBER;
 				if (array_key_exists('edit', $object)) {
@@ -2362,7 +2420,6 @@ class _Administrator extends PersistentObject {
 		if ($loggedin) {
 			$loggedin = time();
 		}
-		$_authority->admin_users[$this->getId()]['lastaccess'] = $loggedin;
 		$this->set('lastaccess', $loggedin);
 		$sql = 'UPDATE ' . prefix('administrators') . ' SET `lastaccess`=' . $loggedin . ' WHERE `id`=' . $this->id;
 		query($sql, false);

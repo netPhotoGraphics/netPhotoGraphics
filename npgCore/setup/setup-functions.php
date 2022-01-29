@@ -474,7 +474,7 @@ function printSetupFooter($checked) {
 
 function setupUserAuthorized() {
 	global $_authority, $_loggedin;
-	if ($_authority && $_authority->getAdministrators()) {
+	if ($_authority && $_authority->count('allusers')) {
 		return $_loggedin & ADMIN_RIGHTS;
 	} else {
 		return true; //	in a primitive environment

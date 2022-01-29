@@ -151,8 +151,8 @@ function adminToolbox() {
 
 				if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_current_admin_obj->getUser()) . ' LIMIT 1';
-					$result = query_single_row($sql);
-					if (!empty($result)) {
+					$found = query($sql);
+					if (!empty($found)) {
 						?>
 						<li>
 							<?php printLinkHTML(getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>

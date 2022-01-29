@@ -316,7 +316,7 @@ echo "\n</head>";
 
 					$albumowner = $album->getOwner();
 
-					$sql = 'SELECT * FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (`owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
+					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE (`albumid`=' . $album->getID() . ') AND (`owner`="' . $requestor . '") ORDER BY `' . $oldalbumimagesort . '`';
 					if ($direction)
 						$sql .= ' DESC';
 
@@ -424,13 +424,13 @@ echo "\n</head>";
 					consolidatedEditMessages('');
 
 					$albums = array();
-					$sql = 'SELECT * FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
+					$sql = 'SELECT `folder` FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
 					$result = query($sql);
 
 					while ($row = db_fetch_assoc($result)) {
 						$folder = $row['folder'];
 						if (isset($albums[$folder])) {
-							$albums[$folder]['image_count'] ++;
+							$albums[$folder]['image_count']++;
 						} else {
 							$albums[$folder] = array('folder' => $folder, 'image_count' => 1);
 						}

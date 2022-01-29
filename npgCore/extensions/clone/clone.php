@@ -98,11 +98,10 @@ if (isset($_GET['purge'])) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
 									$success = false;
 								}
+								chmod($folder . $target, FOLDER_MOD);
 							} else {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
-								$success = false;
 							}
-							chmod($folder . $target, FOLDER_MOD);
 						}
 						break;
 					case 'file':
@@ -130,7 +129,7 @@ if (isset($_GET['purge'])) {
 						break;
 				}
 			} else {
-				if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+				if (SYMLINK && symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
 						case 'zp-core':
@@ -170,7 +169,7 @@ if (isset($_GET['purge'])) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Successful clone to %s'), $folder) . '</h2>' . "\n");
 		list($diff, $needs) = checkSignature(4);
 		if (empty($needs)) {
-			$rslt = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone" AND `aux`=' . db_quote(rtrim($folder, '/')));
+			$rslt = query_single_row('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone" AND `aux`=' . db_quote(rtrim($folder, '/')));
 			if (empty($rslt)) {
 				query('INSERT INTO ' . prefix('plugin_storage') . '(`type`,`aux`,`data`) VALUES("clone",' . db_quote(rtrim($folder, '/')) . ',' . db_quote(trim($newinstall, '/')) . ')');
 			} else {

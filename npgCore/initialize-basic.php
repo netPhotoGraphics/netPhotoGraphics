@@ -240,7 +240,7 @@ if (!$chunk) {
 	$chunk = 15;
 }
 if ($__initialDBConnection) {
-	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";', FALSE);
+	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections"', FALSE);
 	if ($max['Value'] && $max['Value'] < $chunk + 2) {
 		$chunk = $max['Value'] - 2;
 	}

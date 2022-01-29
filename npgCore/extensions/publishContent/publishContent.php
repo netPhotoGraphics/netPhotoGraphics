@@ -67,8 +67,8 @@ if (isset($_POST['set_defaults'])) {
 			foreach ($_POST as $action) {
 				$i = strrpos($action, '_');
 				$imageid = sanitize_numeric(substr($action, $i + 1));
-				$rowi = query_single_row('SELECT * FROM ' . prefix('images') . ' WHERE `id`=' . $imageid);
-				$rowa = query_single_row('SELECT * FROM ' . prefix('albums') . ' WHERE `id`=' . $rowi['albumid']);
+				$rowi = query_single_row('SELECT `albumid`, `filename` FROM ' . prefix('images') . ' WHERE `id`=' . $imageid);
+				$rowa = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $rowi['albumid']);
 				$album = newAlbum($rowa['folder']);
 				$image = newImage($album, $rowi['filename']);
 				switch (substr($action, 0, $i)) {

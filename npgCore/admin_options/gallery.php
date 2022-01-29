@@ -23,12 +23,16 @@ function saveOptions() {
 	$web = sanitize($_POST['website_url'], 3);
 	$_gallery->setWebsiteURL($web);
 	$_gallery->setAlbumUseImagedate((int) isset($_POST['album_use_new_image_date']));
-	$st = strtolower(sanitize($_POST['gallery_sorttype'], 3));
-	if ($st == 'custom') {
-		$st = strtolower(sanitize($_POST['customalbumsort'], 3));
+	$sorttype = strtolower(sanitize($_POST['gallery_sorttype'], 3));
+	if ($sorttype == 'custom') {
+		if (isset($_POST['customalbumssort'])) {
+			$sorttype = implode(',', sanitize($_POST['customalbumssort']));
+		} else {
+			$sorttype = 'title';
+		}
 	}
-	$_gallery->setSortType($st);
-	if (($st == 'manual') || ($st == 'random')) {
+	$_gallery->setSortType($sorttype);
+	if (($sorttype == 'manual') || ($sorttype == 'random')) {
 		$_gallery->setSortDirection(false);
 	} else {
 		$_gallery->setSortDirection(isset($_POST['gallery_sortdirection']));
@@ -460,7 +464,11 @@ function getOptionContent() {
 							<div id="customTextBox2" class="customText" <?php echo $dspc; ?>>
 								<?php echo gettext('custom fields') ?>
 								<span class="tagSuggestContainer">
-									<input id="customalbumsort" name="customalbumsort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<span class="tagSuggestContainer">
+										<ul class="searchchecklist">
+											<?php dbFieldSelector('albums', $cvt); ?>
+										</ul>
+									</span>
 								</span>
 							</div>
 

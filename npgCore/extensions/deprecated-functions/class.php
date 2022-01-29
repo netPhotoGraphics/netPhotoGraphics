@@ -17,7 +17,7 @@ class deprecated_functions {
 
 		if (OFFSET_PATH == 2) {
 			//clean up the mess from previous implementation
-			$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `name` LIKE "deprecated_%"';
+			$sql = 'SELECT `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "deprecated_%"';
 			$result = query_full_array($sql);
 			foreach ($result as $option) {
 				if ($option['name'] != 'deprecated_functions_signature') {

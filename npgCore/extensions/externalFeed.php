@@ -121,7 +121,7 @@ class externalFeed_options {
 
 	function handleOption($option, $currentValue) {
 		$count = 0;
-		$result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" ORDER BY `aux`');
+		$result = query('SELECT `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" ORDER BY `aux`');
 		if ($result) {
 			while ($row = db_fetch_assoc($result)) {
 				$count++;
@@ -180,8 +180,8 @@ class ExternalFeed extends feed {
 		parent::__construct($options);
 
 		if ($this->key) {
-			$result = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" AND `data`=' . db_quote($this->key));
-			if (!$result) {
+			$found = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" AND `data`=' . db_quote($this->key) . ' LIMIT 1');
+			if (!$found) {
 				$this->key = NULL;
 			}
 		}

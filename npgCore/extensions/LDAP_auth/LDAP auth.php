@@ -165,7 +165,10 @@ class npg_Authority extends _Authority {
 		}
 
 		if ($rights) {
-			$_authority->addOtherUser($adminObj);
+			if (empty($this->admin_users)) {
+				$this->getAdministrators();
+			}
+			$this->admin_users[$adminObj->getID()] = $adminObj->getData();
 			return $adminObj;
 		}
 		return NULL;

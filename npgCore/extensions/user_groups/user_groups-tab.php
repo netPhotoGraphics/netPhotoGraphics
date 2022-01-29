@@ -114,15 +114,13 @@ if (isset($_GET['action'])) {
 							//have to update any users who have this group designate.
 							$groupname = $group->getUser();
 							foreach ($admins as $admin) {
-								if ($admin['valid']) {
-									$hisgroups = explode(',', $admin['group']);
-									if (in_array($groupname, $hisgroups)) {
-										$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
-										user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
-										$success = $userobj->save();
-										if ($success == 1) {
-											npgFilters::apply('save_user_complete', '', $userobj, 'update');
-										}
+								$hisgroups = explode(',', $admin['group']);
+								if (in_array($groupname, $hisgroups)) {
+									$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
+									user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
+									$success = $userobj->save();
+									if ($success == 1) {
+										npgFilters::apply('save_user_complete', '', $userobj, 'update');
 									}
 								}
 							}
@@ -336,19 +334,17 @@ echo '</head>' . "\n";
 								<?php
 								$user_count = array();
 								foreach ($admins as $key => $user) {
-									if ($user['valid'] >= 1) {
-										if (!empty($user['group'])) {
-											$membership[$user['user']] = $belongs = explode(',', $user['group']);
-											foreach ($belongs as $group) {
-												if (!isset($user_count[$group])) {
-													$user_count[$group] = 1;
-												} else {
-													$user_count[$group]++;
-												}
+									if (!empty($user['group'])) {
+										$membership[$user['user']] = $belongs = explode(',', $user['group']);
+										foreach ($belongs as $group) {
+											if (!isset($user_count[$group])) {
+												$user_count[$group] = 1;
+											} else {
+												$user_count[$group]++;
 											}
-										} else {
-											$membership[$user['user']] = array();
 										}
+									} else {
+										$membership[$user['user']] = array();
 									}
 								}
 

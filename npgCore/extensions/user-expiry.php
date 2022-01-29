@@ -190,7 +190,7 @@ class user_expiry {
 
 	static function passwordAllowed($msg, $pwd, $user) {
 		if ($id = !$user->transient) {
-			$store = query_single_row('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="user_expiry" AND `aux`=' . $id);
+			$store = query_single_row('SELECT `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="user_expiry" AND `aux`=' . $id);
 			if ($store) {
 				$used = getSerializedArray($store['data']);
 				if (in_array($pwd, $used)) {
@@ -306,7 +306,7 @@ class user_expiry {
 						$msg = gettext('You have users whose credentials are disabled.');
 					}
 					$subscription = time() - 86400 * getOption('user_expiry_interval');
-					$sql = 'SELECT * FROM ' . prefix('administrators') . ' WHERE `valid`=1 AND `date`<' . db_quote(date('Y-m-d H:i:s', $subscription));
+					$sql = 'SELECT `rights` FROM ' . prefix('administrators') . ' WHERE `valid`=1 AND `date`<' . db_quote(date('Y-m-d H:i:s', $subscription));
 					$result = query_full_array($sql);
 					foreach ($result as $admin) {
 						if (!($admin['rights'] & ADMIN_RIGHTS)) {

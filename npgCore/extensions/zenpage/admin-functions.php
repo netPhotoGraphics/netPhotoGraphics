@@ -55,9 +55,9 @@ function makeNewTitleLink($title, $table, &$reports) {
 		$titlelink = gettext('untitled');
 	}
 
-	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `titlelink`=' . db_quote($titlelink . $append);
-	$rslt = query_single_row($sql, false);
-	if ($rslt) {
+	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `titlelink`=' . db_quote($titlelink . $append) . ' LIMIT 1';
+	$found = query($sql, false);
+	if ($found) {
 		//already exists
 		$titlelink = $titlelink . '_' . date_format(date_create('now'), 'Y-m-d-H-i-s-u') . $append;
 		$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate page title') . '</p>';
@@ -476,7 +476,7 @@ function updateArticle(&$reports, $newarticle = false) {
 
 	if (isset($_POST['addcategories'])) {
 		$cats = sanitize($_POST['addcategories']);
-		$result2 = query_full_array("SELECT * FROM " . prefix('news_categories') . " ORDER BY titlelink", true, 'id');
+		$result2 = query_full_array("SELECT `id`, `titlelink` FROM " . prefix('news_categories') . " ORDER BY titlelink", true, 'id');
 		if ($result2) {
 			foreach ($cats as $cat) {
 				if (isset($result2[$cat])) {
@@ -1170,21 +1170,21 @@ function printNestedItemsList($listtype = 'cats-sortablelist', $articleid = '', 
 				$open[$indent] = 0;
 			} else if ($level < $indent) {
 				while ($indent > $level) {
-					$open[$indent] --;
+					$open[$indent]--;
 					$indent--;
 					echo "</li>\n" . str_pad("\t", $indent, "\t") . "</ul>\n";
 				}
 			} else { // indent == level
 				if ($open[$indent]) {
 					echo str_pad("\t", $indent, "\t") . "</li>\n";
-					$open[$indent] --;
+					$open[$indent]--;
 				} else {
 					echo "\n";
 				}
 			}
 			if ($open[$indent]) {
 				echo str_pad("\t", $indent, "\t") . "</li>\n";
-				$open[$indent] --;
+				$open[$indent]--;
 			}
 			switch ($listtype) {
 				case 'cats-checkboxlist':
@@ -1200,12 +1200,12 @@ function printNestedItemsList($listtype = 'cats-sortablelist', $articleid = '', 
 					printPagesListTable($itemobj, $toodeep);
 					break;
 			}
-			$open[$indent] ++;
+			$open[$indent]++;
 		}
 	}
 	while ($indent > 1) {
 		echo "</li>\n";
-		$open[$indent] --;
+		$open[$indent]--;
 		$indent--;
 		echo str_pad("\t", $indent, "\t") . "</ul>";
 	}

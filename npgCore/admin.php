@@ -76,7 +76,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					$class = 'messagebox fade-message';
 					$msg = gettext('Fields and indexes not used by netPhotoGraphics were removed from the database.');
 
-					$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
+					$sql = 'SELECT `type`, `subtype`, `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%');
 					$result = query_full_array($sql);
 					foreach ($result as $item) {
 						if ($item['type'] == 'db_orpahned_index') {
@@ -353,7 +353,7 @@ $buttonlist = array();
 
 	if (npg_loggedin(ADMIN_RIGHTS)) {
 
-		$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
+		$sql = 'SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
 		$result = query_full_array($sql);
 		if (!empty($result)) {
 			$buttonlist[] = array(
@@ -395,6 +395,7 @@ $buttonlist = array();
 			<?php
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
+
 			$setupUnprotected = printSetupWarning();
 			if (npgFunctions::hasPrimaryScripts()) {
 				$found = safe_glob(SERVERPATH . '/setup-*.zip');
@@ -716,14 +717,8 @@ $buttonlist = array();
 								</li>
 								<li>
 									<?php
-									$users = $_authority->getAdministrators('allusers');
-									$t = count($users);
-									$c = 0;
-									foreach ($users as $key => $user) {
-										if ($user['valid'] > 1) {
-											$c++;
-										}
-									}
+									$t = $_authority->count('allusers');
+									$c = $_authority->count('admin_other');
 									if ($c) {
 										printf(ngettext('<strong>%1$u</strong> User (%2$u expired)', '<strong>%1$u</strong> Users (%2$u expired)', $t), $t, $c);
 									} else {
@@ -733,14 +728,8 @@ $buttonlist = array();
 								</li>
 
 								<?php
-								$g = $t = 0;
-								foreach ($_authority->getAdministrators('groups') as $element) {
-									if ($element['name'] == 'group') {
-										$g++;
-									} else {
-										$t++;
-									}
-								}
+								$g = $_authority->count('user_groups');
+								$t = $_authority->count('group_templates');
 								if ($g) {
 									?>
 									<li>

@@ -35,7 +35,7 @@ if (isset($_POST['update'])) {
 
 if (isset($_GET['delete'])) {
 	XSRFdefender('delete_menu');
-	$sql = 'SELECT * FROM ' . prefix('menu') . ' WHERE `id`=' . sanitize_numeric($_GET['id']);
+	$sql = 'SELECT `id`, `menuset`, `sort_order` FROM ' . prefix('menu') . ' WHERE `id`=' . sanitize_numeric($_GET['id']);
 	$result = query_single_row($sql);
 	if (empty($result)) {
 		$reports[] = "<p class='errorbox' >" . gettext('Menu item deleted failed') . "</p>";

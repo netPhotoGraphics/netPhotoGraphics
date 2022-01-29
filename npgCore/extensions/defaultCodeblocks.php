@@ -32,6 +32,28 @@ class defaultCodeblocks {
 
 	function __construct() {
 		$this->blocks = array('gallery' => NULL, 'albums' => NULL, 'images' => NULL, 'news' => NULL, 'pages' => NULL);
+		if (OFFSET_PATH == 2) {
+			//	migrate the legacy codeblocks
+			$oldoptions = getOptionsLike('defaultCodeblocks_object');
+			if ($oldoptions) {
+				$block = query_single_row("SELECT id, `aux`, `data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'defaultCodeblocks' AND `subtype` IS NULL");
+				if ($block) {
+					query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $block['id']);
+				} else {
+					$block['data'] = serialize(array());
+				}
+				foreach (array_keys($oldoptions) as $target) {
+					$object = preg_replace('~defaultCodeblocks_object_~i', '', $target);
+					if (array_key_exists($object, $this->blocks)) {
+						$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("defaultCodeblocks",' . db_quote($object) . ',"",' . db_quote($block['data']) . ')';
+						query($sql);
+					}
+					purgeOption($target);
+				}
+				purgeOption('defaultCodeblocks');
+			}
+		}
+
 		$blocks = query_full_array("SELECT id, `subtype`, `aux`, `data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'defaultCodeblocks'");
 		foreach ($blocks as $block) {
 			if ($block['subtype']) {
@@ -41,18 +63,6 @@ class defaultCodeblocks {
 				} else {
 					$this->blocks[$block['subtype']] = $block['data'];
 				}
-			} else {
-				//	migrate the legacy codeblocks
-				$oldoptions = getSerializedArray(getOption('defaultCodeblocks_objects'));
-				foreach ($oldoptions as $object) {
-					if (is_null($this->blocks[$object])) {
-						$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("defaultCodeblocks",' . db_quote($object) . ',"",' . db_quote($block['data']) . ')';
-						query($sql);
-					}
-					$this->blocks[$object] = $block['data'];
-				}
-				query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $block['id']);
-				purgeOption('defaultCodeblocks_objects');
 			}
 		}
 		foreach ($this->blocks as $object => $block) {

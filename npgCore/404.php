@@ -32,25 +32,6 @@ if ($image) { //	maybe we can find it
 					header('Location: ' . $uri);
 					exit();
 				}
-
-			case 'npgCore':
-			case 'zp-core':
-				//	Maybe reference to "other" core folder image
-				$folders[0] = CORE_FOLDER;
-				if (isset($folders[1])) {
-					switch ($folders[1]) {
-						case 'zp-extensions':
-						case 'extensions':
-							$folders[1] = PLUGIN_FOLDER;
-					}
-				}
-				$imager = implode('/', $folders) . '/' . $image;
-				if (file_exists(SERVERPATH . '/' . $imager)) {
-					header("HTTP/1.0 301 Moved Permanently");
-					header("Status: 301 Moved Permanently");
-					header('Location: ' . WEBPATH . '/' . $imager);
-					exit();
-				}
 		}
 	}
 }

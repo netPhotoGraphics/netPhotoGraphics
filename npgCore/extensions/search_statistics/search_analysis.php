@@ -29,7 +29,7 @@ $data = $results_f = $results = $terms = $sites = array();
 $bargraphmaxsize = 600;
 $opChars = array('(', ')', '&', '|', '!', ',');
 
-$sql = 'SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
+$sql = 'SELECT `subtype`, `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
 $searches = query($sql);
 while ($datum = db_fetch_assoc($searches)) {
 	$element = getSerializedArray($datum['data']);
@@ -52,7 +52,7 @@ while ($datum = db_fetch_assoc($searches)) {
 				$data[$datum['subtype']] = $element;
 				$ip = $datum['aux'];
 				if (array_key_exists($ip, $sites)) {
-					$sites[$ip] ++;
+					$sites[$ip]++;
 					if ($criteria_maxvalue < $sites[$ip]) {
 						$criteria_maxvalue = $sites[$ip];
 					}
@@ -73,7 +73,7 @@ foreach ($data as $uid => $element) {
 	$success = $element['success'];
 	if ($success) {
 		if (array_key_exists($instance, $results)) {
-			$results[$instance] ++;
+			$results[$instance]++;
 			if ($criteria_maxvalue < $results[$instance]) {
 				$criteria_maxvalue = $results[$instance];
 			}
@@ -82,7 +82,7 @@ foreach ($data as $uid => $element) {
 		}
 	} else {
 		if (array_key_exists($instance, $results_f)) {
-			$results_f[$instance] ++;
+			$results_f[$instance]++;
 			if ($criteria_maxvalue < $results_f[$instance]) {
 				$criteria_maxvalue = $results_f[$instance];
 			}
@@ -94,7 +94,7 @@ foreach ($data as $uid => $element) {
 	foreach ($searchset as $instance) {
 		if (!in_array($instance, $opChars)) {
 			if (array_key_exists($instance, $terms)) {
-				$terms[$instance] ++;
+				$terms[$instance]++;
 				if ($criteria_maxvalue < $terms[$instance]) {
 					$criteria_maxvalue = $terms[$instance];
 				}

@@ -82,11 +82,15 @@ function saveOptions() {
 
 	setOption('hotlink_protection', (int) isset($_POST['hotlink_protection']));
 	setOption('use_lock_image', (int) isset($_POST['use_lock_image']));
-	$st = sanitize($_POST['image_sorttype'], 3);
-	if ($st == 'custom') {
-		$st = unQuote(strtolower(sanitize($_POST['customimagesort'], 3)));
+	$sorttype = sanitize($_POST['image_sorttype'], 3);
+	if ($sorttype == 'custom') {
+		if (isset($_POST['customimagessort'])) {
+			$sorttype = implode(',', sanitize($_POST['customimagessort']));
+		} else {
+			$sorttype = $_gallery->getSortType('image');
+		}
 	}
-	$_gallery->setSortType($st, 'image');
+	$_gallery->setSortType($sorttype, 'image');
 	$_gallery->setSortDirection((int) isset($_POST['image_sortdirection']), 'image');
 	setOption('use_embedded_thumb', (int) isset($_POST['use_embedded_thumb']));
 	setOption('IPTC_encoding', sanitize($_POST['IPTC_encoding']));
@@ -132,8 +136,8 @@ function saveOptions() {
 					if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
 						if ($disableEmpty) {
 							$sql = "SELECT `id`, $key FROM " . prefix('images') . " WHERE $key IS NOT NULL AND TRIM($key) <> '' LIMIT 1";
-							$rslt = query_single_row($sql, false);
-							if (empty($rslt)) {
+							$found = query($sql, false);
+							if (!$found) {
 								$disable[$key] = $key;
 								$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
 							}
@@ -311,7 +315,11 @@ function getOptionContent() {
 								<br />
 								<?php echo gettext('custom fields') ?>
 								<span class="tagSuggestContainer">
-									<input id="customimagesort" name="customimagesort" type="text" value="<?php echo html_encode($cvt); ?>" />
+									<span class="tagSuggestContainer">
+										<ul class="searchchecklist">
+											<?php dbFieldSelector('images', $cvt); ?>
+										</ul>
+									</span>
 								</span>
 							</span>
 
@@ -753,7 +761,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																	 togglePassword('');" />
+																			 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 

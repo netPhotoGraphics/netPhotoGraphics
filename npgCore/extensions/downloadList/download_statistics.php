@@ -14,7 +14,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 if (!npg_loggedin(OVERVIEW_RIGHTS)) { // prevent nefarious access to this page.
-	header('Location: ' . getAdminLink('admin.php').'?from=' . currentRelativeURL());
+	header('Location: ' . getAdminLink('admin.php') . '?from=' . currentRelativeURL());
 	exit();
 }
 
@@ -100,7 +100,7 @@ echo '</head>';
 				<?php
 				if (isset($_GET['removeoutdateddownloads'])) {
 					XSRFdefender('removeoutdateddownloads');
-					$sql = "SELECT * FROM " . prefix('plugin_storage') . " WHERE `type`='downloadList'";
+					$sql = "SELECT `id`, `aux` FROM " . prefix('plugin_storage') . " WHERE `type`='downloadList'";
 					$result = query_full_array($sql);
 					if ($result) {
 						foreach ($result as $row) {

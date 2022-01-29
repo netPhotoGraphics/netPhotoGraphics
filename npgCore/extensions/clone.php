@@ -71,7 +71,7 @@ if ($plugin_disable) {
 			global $_current_admin_obj;
 			$clones = array();
 			$sig = file_get_contents(CORE_SERVERPATH . 'version.php');
-			if ($result = query('SELECT * FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {
+			if ($result = query('SELECT `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="clone"')) {
 				while ($row = db_fetch_assoc($result)) {
 					if (SYMLINK) {
 						if (is_dir($row['aux'] . '/' . CORE_FOLDER)) {

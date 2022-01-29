@@ -935,6 +935,9 @@ function getSerializedArray($string) {
 	if (is_array($string)) {
 		return $string;
 	}
+	if (is_null($string)) {
+		return array();
+	}
 	if (is_serialized($string)) {
 		$strings = unserialize($string, ['allowed_classes' => false]);
 		if (is_array($strings)) {
@@ -983,6 +986,7 @@ function getOptionOwner() {
  */
 function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	global $_options;
+
 	if (is_null($creator)) {
 		list($theme, $creator) = getOptionOwner();
 	}
@@ -996,15 +1000,19 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 		}
 		$value = db_quote($value);
 	}
-	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
-	if (query($sql, false)) {
-		$_options[strtolower($key)] = $default;
-	} else {
-		if (is_null(getOption($key))) {
-			$v = ', `value`=' . $value;
-		} else {
+
+	$v = ', `value`=' . $value;
+	if (isset($_options[strtolower($key)])) {
+		if (!is_null($_options[strtolower($key)])) {
 			$v = '';
 		}
+	} else {
+		$_options[strtolower($key)] = $default;
+	}
+
+	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
+	if (!query($sql, false)) {
+		//	update the creator field
 		$sql = 'UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . $v . ' WHERE `ownerid`=0 AND `name`=' . db_quote($key) . ' AND `theme`=' . db_quote($theme) . ';';
 		query($sql, false);
 	}
@@ -2011,7 +2019,7 @@ function getOptionsLike($pattern) {
 	global $_options;
 	$result = array();
 	foreach ($_options as $key => $value) {
-		if (preg_match('~' . $pattern . '.*~', $key)) {
+		if (preg_match('~' . $pattern . '.*~i', $key)) {
 			$result[$key] = $value;
 		}
 	}

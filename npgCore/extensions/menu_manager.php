@@ -147,12 +147,13 @@ function getMenuItems($menuset, $visible) {
 			$visible = 'all';
 			break;
 	}
-	$result = query("SELECT * FROM " . prefix('menu') . $where . " ORDER BY sort_order", false, 'sort_order');
+	$result = query("SELECT * FROM " . prefix('menu') . $where . " ORDER BY sort_order", false);
 	if ($result) {
 		while ($row = db_fetch_assoc($result)) {
 			$row['type'] = strtolower($row['type']);
-			if (strpos($row['type'], 'zenpage') !== false)
+			if (strpos($row['type'], 'zenpage') !== false) {
 				$row['type'] = str_replace('zenpage', '', $row['type']);
+			}
 			$_menu_manager_items[$menuset][$visible][] = $row;
 		}
 		db_free_result($result);
@@ -254,9 +255,9 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "page":
-			$sql = 'SELECT * FROM ' . prefix('pages') . ' WHERE `titlelink`="' . $item['link'] . '"';
-			$result = query_single_row($sql);
-			if (is_array($result) && class_exists('CMS')) {
+			$sql = 'SELECT `id` FROM ' . prefix('pages') . ' WHERE `titlelink`=' . db_quote($item['link']) . ' LIMIT 1';
+			$found = query($sql);
+			if ($found && class_exists('CMS')) {
 				$obj = newPage($item['link']);
 				$url = $obj->getLink(0);
 				$protected = $obj->isProtected();
@@ -289,9 +290,9 @@ function getItemTitleAndURL($item) {
 			);
 			break;
 		case "category":
-			$sql = "SELECT title FROM " . prefix('news_categories') . " WHERE titlelink='" . $item['link'] . "'";
-			$obj = query_single_row($sql, false);
-			if ($obj && class_exists('CMS')) {
+			$sql = "SELECT title FROM " . prefix('news_categories') . ' WHERE titlelink=' . db_quote($item['link']) . " LIMIT 1";
+			$found = query($sql, false);
+			if ($found && class_exists('CMS')) {
 				$obj = newCategory($item['link']);
 				$title = $obj->getTitle();
 				$protected = $obj->isProtected();

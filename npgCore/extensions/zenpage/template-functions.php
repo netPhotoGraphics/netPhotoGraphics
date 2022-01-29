@@ -2148,7 +2148,7 @@ function getLatestZenpageComments($number, $type = "all", $itemID = "") {
 			$newsshow = '';
 		} else {
 			$newsshow = 'news.show=1 AND';
-			$newscheck = query_full_array("SELECT * FROM " . prefix('news') . " ORDER BY date");
+			$newscheck = query_full_array("SELECT `id`, `titlelink` FROM " . prefix('news') . " ORDER BY date");
 			foreach ($newscheck as $articlecheck) {
 				$obj = newArticle($articlecheck['titlelink']);
 				if ($obj->inProtectedCategory()) {
@@ -2168,7 +2168,7 @@ function getLatestZenpageComments($number, $type = "all", $itemID = "") {
 			$pagesshow = '';
 		} else {
 			$pagesshow = 'pages.show=1 AND';
-			$pagescheck = query_full_array("SELECT * FROM " . prefix('pages') . " ORDER BY date");
+			$pagescheck = query_full_array("SELECT `id`, `titlelink` FROM " . prefix('pages') . " ORDER BY date");
 			foreach ($pagescheck as $pagecheck) {
 				$obj = newPage($pagecheck['titlelink']);
 				if ($obj->isProtected()) {

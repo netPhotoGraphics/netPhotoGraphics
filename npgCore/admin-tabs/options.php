@@ -58,10 +58,10 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	if ($_admin_subtab == 'gallery' || $_admin_subtab == 'image') {
 		if ($_admin_subtab == 'image') {
 			$table = 'images';
-			$targetid = 'customimagesort';
+			$targetid = 'customimagessort';
 		} else {
 			$table = 'albums';
-			$targetid = 'customalbumsort';
+			$targetid = 'customalbumssort';
 		}
 		$result = db_list_fields($table);
 		$dbfields = array();

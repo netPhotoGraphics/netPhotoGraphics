@@ -115,18 +115,18 @@ class user_groups {
 	static function groupList($userobj, $i, $background, $current, $template) {
 		global $_authority;
 		$group = $userobj->getGroup();
-		$admins = $_authority->getAdministrators('groups');
+		$adminGroups = $_authority->getAdministrators('groups');
 		$membership = $groups = array();
 		$hisgroups = explode(',', $userobj->getGroup());
 
 		$userid = $userobj->getUser();
-		$admins = sortMultiArray($admins, 'user');
-		foreach ($admins as $user) {
-			if (in_array($user['user'], $hisgroups)) {
-				$membership[] = $user;
+		$adminGroups = sortMultiArray($adminGroups, 'user');
+		foreach ($adminGroups as $adminGroup) {
+			if (in_array($adminGroup['user'], $hisgroups)) {
+				$membership[] = $adminGroup;
 			} else {
-				if ($template || $user['name'] != 'template') {
-					$groups[] = $user;
+				if ($template || $adminGroup['name'] != 'template') {
+					$groups[] = $adminGroup;
 				}
 			}
 		}
@@ -136,8 +136,8 @@ class user_groups {
 
 		$grouppart = '<ul class="customchecklist scrollable_list" >' . "\n";
 
-		foreach ($groups as $key => $user) {
-			if ($user['name'] == 'template') {
+		foreach ($groups as $key => $group) {
+			if ($group['name'] == 'template') {
 				$type = gettext(' (Template)');
 				$highlight = ' class="grouphighlight"';
 				$class = 'templatelist' . $i;
@@ -147,21 +147,21 @@ class user_groups {
 				$class = 'grouplist' . $i;
 				$case = 1;
 			}
-			if (in_array($user['user'], $hisgroups)) {
+			if (in_array($group['user'], $hisgroups)) {
 				$checked = ' checked="checked"';
 			} else {
 				$checked = '';
 			}
-			if (empty($user['user'])) {
+			if (empty($group['user'])) {
 				$display = gettext('*no group selected');
 				$case = 0;
 				if (empty($hisgroups)) {
 					$checked = ' checked="checked"';
 				}
 			} else {
-				$display = $user['user'];
+				$display = $group['user'];
 			}
-			$grouppart .= '<label title="' . html_encode(get_language_string($user['other_credentials'])) . $type . '"' . $highlight . '><input type="checkbox" class="' . $class . '" name="user[' . $i . '][group][]" id="' . $user['user'] . '_' . $i . '" value="' . $user['user'] . '" onclick="groupchange' . $i . '(' . $case . ');"' . $checked . ' />' . html_encode($display) . '</label>' . "\n";
+			$grouppart .= '<label title="' . html_encode(get_language_string($group['other_credentials'])) . $type . '"' . $highlight . '><input type="checkbox" class="' . $class . '" name="user[' . $i . '][group][]" id="' . $group['user'] . '_' . $i . '" value="' . $group['user'] . '" onclick="groupchange' . $i . '(' . $case . ');"' . $checked . ' />' . html_encode($display) . '</label>' . "\n";
 		}
 
 		$grouppart .= "</ul>\n";
@@ -264,9 +264,9 @@ class user_groups {
 	static function admin_alterrights($alterrights, $userobj) {
 		global $_authority;
 		$group = $userobj->getGroup();
-		$admins = $_authority->getAdministrators('groups');
-		foreach ($admins as $admin) {
-			if ($group == $admin['user']) {
+		$adminGroups = $_authority->getAdministrators('groups');
+		foreach ($adminGroups as $adminGroup) {
+			if ($group == $adminGroup['user']) {
 				return ' disabled="disabled"';
 			}
 		}

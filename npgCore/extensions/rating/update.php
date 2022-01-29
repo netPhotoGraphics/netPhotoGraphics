@@ -44,7 +44,7 @@ if (extensionEnabled('rating') && isset($_POST['id']) && isset($_POST['table']))
 
 		// Make sure the incoming rating isn't a hack
 		$rating = min(getOption('rating_stars_count'), max(0, $rating));
-		$IPlist = query_single_row("SELECT * FROM $dbtable WHERE id= $id");
+		$IPlist = query_single_row("SELECT `used_ips`, `rating` FROM $dbtable WHERE id= $id");
 		if (is_array($IPlist)) {
 			$oldrating = jquery_rating::getRatingByIP($ip, $IPlist['used_ips'], $IPlist['rating']);
 		} else {

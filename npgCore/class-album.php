@@ -1137,7 +1137,12 @@ class AlbumBase extends MediaObject {
 				}
 			}
 		}
-		$sql = "SELECT * FROM " . prefix("images") . " WHERE `albumid`= " . $this->getID() . ' ORDER BY ' . $sortkey;
+		if ($sortkey == 'RAND()') {
+			$key = '';
+		} else {
+			$key = ', ' . $sortkey;
+		}
+		$sql = 'SELECT `id`, `filename`, `show`' . $key . ' FROM ' . prefix("images") . ' WHERE `albumid` = ' . $this->getID() . ' ORDER BY ' . db_escape($sortkey);
 		if ($order) {
 			$sql .= ' DESC';
 		}
@@ -1516,7 +1521,7 @@ class Album extends AlbumBase {
 		if (!$rslt) {
 			$newfolder .= '/' . basename($this->name);
 			$success = true;
-//	copy the images
+			//	copy the images
 			$images = $this->getImages(0);
 			foreach ($images as $imagename) {
 				$image = newImage($this, $imagename);
@@ -1524,7 +1529,7 @@ class Album extends AlbumBase {
 					$success = false;
 				}
 			}
-// copy the subalbums.
+			// copy the subalbums.
 			$subalbums = $this->getAlbums(0);
 			foreach ($subalbums as $subalbumname) {
 				$subalbum = newAlbum($subalbumname);
@@ -1549,7 +1554,7 @@ class Album extends AlbumBase {
 	function garbageCollect($deep = false) {
 		if (is_null($this->images))
 			$this->getImages();
-		$result = query("SELECT * FROM " . prefix('images') . " WHERE `albumid` = '" . $this->id . "'");
+		$result = query("SELECT `id`, `filename` FROM " . prefix('images') . " WHERE `albumid` = '" . $this->id . "'");
 		$dead = array();
 		$live = array();
 
@@ -1582,7 +1587,7 @@ class Album extends AlbumBase {
 		}
 
 		// Get all sub-albums and make sure they exist.
-		$result = query("SELECT * FROM " . prefix('albums') . " WHERE `folder` LIKE " . db_quote(db_LIKE_escape($this->name) . '%'));
+		$result = query("SELECT `id`, `folder` FROM " . prefix('albums') . " WHERE `folder` LIKE " . db_quote(db_LIKE_escape($this->name) . '%'));
 		$dead = array();
 		$live = array();
 		// Does the dirname from the db row exist on disk?
@@ -1608,7 +1613,7 @@ class Album extends AlbumBase {
 		if ($deep) {
 			foreach ($this->getAlbums(0) as $dir) {
 				$subalbum = newAlbum($dir);
-// Could have been deleted if it didn't exist above...
+				// Could have been deleted if it didn't exist above...
 				if ($subalbum->exists)
 					$subalbum->garbageCollect($deep);
 			}

@@ -37,7 +37,7 @@ class userAddressFields extends fieldExtender {
 
 		parent::constructor('userAddressFields', self::fields());
 		if ($firstTime) { //	migrate the custom data user data
-			$result = query('SELECT * FROM ' . prefix('administrators') . ' WHERE `valid`!=0');
+			$result = query('SELECT `custom_data` FROM ' . prefix('administrators') . ' WHERE `valid`!=0');
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$custom = getSerializedArray($row['custom_data']);

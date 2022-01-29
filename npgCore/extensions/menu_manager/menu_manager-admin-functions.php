@@ -198,29 +198,29 @@ function printItemsList($items) {
 			$open[$indent] = 0;
 		} else if ($level < $indent) {
 			while ($indent > $level) {
-				$open[$indent] --;
+				$open[$indent]--;
 				$indent--;
 				echo "</li>\n" . str_pad("\t", $indent, "\t") . "</ul>\n";
 			}
 		} else { // indent == level
 			if ($open[$indent]) {
 				echo str_pad("\t", $indent, "\t") . "</li>\n";
-				$open[$indent] --;
+				$open[$indent]--;
 			} else {
 				echo "\n";
 			}
 		}
 		if ($open[$indent]) {
 			echo str_pad("\t", $indent, "\t") . "</li>\n";
-			$open[$indent] --;
+			$open[$indent]--;
 		}
 		echo str_pad("\t", $indent - 1, "\t") . "<li id=\"id_" . $item['id'] . "\">";
 		echo printItemsListTable($item, $toodeep);
-		$open[$indent] ++;
+		$open[$indent]++;
 	}
 	while ($indent > 1) {
 		echo "</li>\n";
-		$open[$indent] --;
+		$open[$indent]--;
 		$indent--;
 		echo str_pad("\t", $indent, "\t") . "</ul>";
 	}
@@ -404,7 +404,7 @@ function addPagesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $pagebase;
 	$parents = array('NULL');
-	$query = query("SELECT * FROM " . prefix('pages') . " ORDER BY sort_order");
+	$query = query("SELECT `title`, `titlelink`, `sort_order`, `show` FROM " . prefix('pages') . " ORDER BY sort_order");
 	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);
@@ -443,7 +443,7 @@ function addCategoriesToDatabase($menuset, $base = NULL) {
 	}
 	$result = $categorybase;
 	$parents = array('NULL');
-	$query = query("SELECT * FROM " . prefix('news_categories') . " ORDER BY sort_order");
+	$query = query("SELECT `title`, `titlelink`, `sort_order` FROM " . prefix('news_categories') . " ORDER BY sort_order");
 	while ($item = db_fetch_assoc($query)) {
 		$sorts = explode('-', $item['sort_order']);
 		$level = count($sorts);

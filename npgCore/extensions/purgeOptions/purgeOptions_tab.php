@@ -143,9 +143,8 @@ scriptLoader(PLUGIN_SERVERPATH . 'purgeOptions/purgeOptions.css');
 					ksort($owners[CORE_FOLDER . '/' . PLUGIN_FOLDER], SORT_NATURAL);
 					ksort($owners[USER_PLUGIN_FOLDER], SORT_NATURAL);
 					ksort($owners[THEMEFOLDER], SORT_NATURAL);
-
 					$empty = $hiddenOptions = false;
-					$sql = 'SELECT * FROM ' . prefix('options') . ' WHERE `creator` is NULL || `creator` LIKE "%purgeOptions%" ORDER BY `name`';
+					$sql = 'SELECT `id`, `name`, `value`, `creator` FROM ' . prefix('options') . ' WHERE `creator` is NULL || `creator` LIKE "%purgeOptions%" ORDER BY `name`';
 					$result = query_full_array($sql);
 					foreach ($result as $opt) {
 						if (strpos($opt['name'], '_plugin_') === false) {
