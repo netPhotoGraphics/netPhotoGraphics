@@ -17,7 +17,7 @@ require_once(__DIR__ . '/functions.php');
  * @param string $subtab the sub-tab if any
  */
 function printAdminHeader($tab, $subtab = NULL) {
-	global $_admin_tab, $_admin_subtab, $_gallery, $_admin_menu, $_RTL_css, $tabtext, $subtabtext;
+	global $_adminScript_timer, $_admin_tab, $_admin_subtab, $_gallery, $_admin_menu, $_RTL_css, $tabtext, $subtabtext;
 	$_admin_tab = $tab;
 	if (isset($_GET['tab'])) {
 		$_admin_subtab = sanitize($_GET['tab'], 3);
@@ -157,6 +157,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</script>
 			<?php
 			npgFilters::apply('admin_head');
+			$_adminScript_timer["preamble($tab)"] = microtime();
 		}
 
 		function printSortableHead() {
@@ -216,6 +217,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since  1.0.0
 	 */
 	function printAdminFooter($addl = '') {
+		global $_adminScript_timer;
 		?>
 		<div id="footer">
 			<span id="footer_left">
@@ -261,6 +263,24 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 		npgFilters::apply('admin_close');
 		db_close(); //	close the database as we are done
+		$_adminScript_timer['admin_body'] = microtime();
+
+		if (TEST_RELEASE) {
+			echo "\n";
+
+			list($usec, $sec) = explode(' ', array_shift($_adminScript_timer));
+			$first = $last = (float) $usec + (float) $sec;
+
+			foreach ($_adminScript_timer as $step => $time) {
+				list($usec, $sec) = explode(" ", $time);
+				$cur = (float) $usec + (float) $sec;
+				printf("<!-- " . gettext('Script processing %1$s:%2$.4f seconds') . " -->\n", $step, $cur - $last);
+				$last = $cur;
+			}
+			if (count($_adminScript_timer) > 1) {
+				printf("<!-- " . gettext('Script processing total:%.4f seconds') . " -->\n", $last - $first);
+			}
+		}
 	}
 
 	function datepickerJS() {
