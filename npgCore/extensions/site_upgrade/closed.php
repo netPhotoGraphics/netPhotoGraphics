@@ -30,7 +30,7 @@ if (($dir = opendir(__DIR__)) !== false) {
 }
 $xml = '';
 foreach ($glob as $key => $file) {
-	if (isset($_GET['$key'])) {
+	if (isset($_GET[$key])) {
 		$path = __DIR__ . '/' . $file;
 		$xml = file_get_contents($path);
 		$xml = preg_replace('~<pubDate>(.*)</pubDate>~', '<pubDate>' . date("r", time()) . '</pubDate>', $xml);
