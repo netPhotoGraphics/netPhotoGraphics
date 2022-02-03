@@ -5,7 +5,7 @@
  * If you wish to change the appearance or behavior of
  * the site when closed you may edit the .htm and .xmp files
  */
-if (file_exists(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE')) {
+if (file_exists(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE') && !file_exists(dirname(dirname(__DIR__)) . '/extract.php')) {
 	$_contents = file_get_contents(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE');
 	if (strpos($_contents, '<?php') !== false)
 		$_contents = '?>' . $_contents;
