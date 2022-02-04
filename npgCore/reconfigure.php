@@ -20,7 +20,7 @@ function reconfigureAction($mandatory) {
 	$diffkeys = array_keys($diff);
 	if ($mandatory) {
 		if (isset($_GET['rss']) || isset($_GET['external'])) {
-			if (isset($_GET['rss']) && file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php')) {
+			if (file_exists(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php')) {
 				include(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/site_upgrade/closed.php');
 			}
 			exit(); //	can't really run setup from an RSS feed.
