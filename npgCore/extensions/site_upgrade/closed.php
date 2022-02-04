@@ -28,16 +28,26 @@ if (($dir = opendir(__DIR__)) !== false) {
 		}
 	}
 }
-$xml = '';
+
 foreach ($glob as $key => $file) {
 	if (isset($_GET[$key])) {
 		$path = __DIR__ . '/' . $file;
 		$xml = file_get_contents($path);
+		$xml = preg_replace('~<atom:link href="(.*) rel=~', '<atom:link href="SITEINDEX" rel=', $xml);
 		$xml = preg_replace('~<pubDate>(.*)</pubDate>~', '<pubDate>' . date("r", time()) . '</pubDate>', $xml);
+		header('Content-Type: application/xml');
 		echo $xml;
+		exit();
 	}
 }
-if (empty($xml)) {
-	echo file_get_contents(__DIR__ . '/closed.htm');
-}
+
+header("HTTP/1.1 503 Service Unavailable");
+header("Status: 503 Service Unavailable");
+header('Pragma: no-cache');
+header('Retry-After: 300');
+header('Cache-Control: no-cache, must-revalidate, max-age=0');
+$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
+
+echo file_get_contents(__DIR__ . '/closed.htm');
+exit();
 ?>

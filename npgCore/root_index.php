@@ -64,13 +64,7 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 			}
 			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed' || file_exists(dirname(__FILE__) . '/extract.php')) {
 				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-					header("HTTP/1.1 503 Service Unavailable");
-					header("Status: 503 Service Unavailable");
-					header('Pragma: no-cache');
-					header('Retry-After: 300');
-					header('Cache-Control: no-cache, must-revalidate, max-age=0');
-					$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
-					header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
+					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
 				}
 				exit();
 			}

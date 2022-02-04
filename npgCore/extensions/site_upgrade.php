@@ -244,9 +244,9 @@ class site_upgrade {
 					$items = array(
 							array(
 									'title' => sprintf(gettext('%s suspended'), $source),
-									'link' => '',
+									'link' => FULLWEBPATH . '/index.php',
 									'enclosure' => '',
-									'category' => '',
+									'category' => 'suspend',
 									'media_content' => '',
 									'media_thumbnail' => '',
 									'pubdate' => date("r", time()),
