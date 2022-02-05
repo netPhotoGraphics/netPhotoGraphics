@@ -15,6 +15,21 @@ if (!defined('WEBPATH'))
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
+		<script type="text/javascript">
+			// <!-- <![CDATA[
+			function toggleExtraElements(category, show) {
+				if (show) {
+					jQuery('.' + category + '_showless').show();
+					jQuery('.' + category + '_showmore').hide();
+					jQuery('.' + category + '_extrashow').show();
+				} else {
+					jQuery('.' + category + '_showless').hide();
+					jQuery('.' + category + '_showmore').show();
+					jQuery('.' + category + '_extrashow').hide();
+				}
+			}
+			// ]]> -->
+		</script>
 	</head>
 	<body>
 		<?php
@@ -216,8 +231,8 @@ if (!defined('WEBPATH'))
 			}
 			?>
 			<?php printSoftwareLink(); ?>
-			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
+<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>
