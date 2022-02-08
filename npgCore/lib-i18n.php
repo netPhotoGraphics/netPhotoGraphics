@@ -187,7 +187,7 @@ class i18n {
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
 			$locale = getOption('locale');
 			if (empty($locale) || isset($disallow[$locale])) {
-				$locale = array_shift($languages);
+				$locale = reset($languages);
 			}
 		}
 		// gettext setup
@@ -367,7 +367,7 @@ class i18n {
 			if (empty($languageSupport) || in_array($loc, $languageSupport)) {
 				$new_locale = $loc;
 			} else {
-				$new_locale = array_shift($languageSupport);
+				$new_locale = reset($languageSupport);
 			}
 			if (DEBUG_LOCALE)
 				debugLog("locale from language list: " . $new_locale);
@@ -433,7 +433,7 @@ function get_language_string($dbstring, $locale = NULL) {
 			return $strings['en_US'];
 		}
 	}
-	return array_shift($strings);
+	return reset($strings);
 }
 
 /**

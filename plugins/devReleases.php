@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
 		} else {
 			$found = safe_glob(SERVERPATH . '/setup-*.zip');
 			if (!empty($found)) {
-				$file = array_shift($found);
+				$file = reset($found);
 				if (!unzip($file, SERVERPATH)) {
 					$class = 'errorbox';
 					$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');

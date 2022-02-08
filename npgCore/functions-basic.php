@@ -421,7 +421,7 @@ function db_count($table, $clause = NULL, $field = "*") {
 	$sql = 'SELECT COUNT(' . $field . ') FROM ' . prefix($table) . ' ' . $clause;
 	$result = query_single_row($sql);
 	if ($result) {
-		return array_shift($result);
+		return reset($result);
 	} else {
 		return 0;
 	}
@@ -501,7 +501,7 @@ function varDebug($args) {
 	}
 	$dump = explode("\n", var_export($args, true));
 	//get rid of the outer array element
-	array_shift($dump);
+	unset($dump[0]);
 	array_pop($dump);
 	$br = '';
 	echo '<pre>' . "\n";
@@ -957,9 +957,9 @@ function getSerializedArray($string) {
 function getOptionOwner() {
 	$creator = NULL;
 	$bt = debug_backtrace();
-	$b = array_shift($bt); // this function
-	$b = array_shift($bt); //the setOption... function
-//$b now has the calling file/line# of the setOption... function
+	$b = reset($bt); // this function
+	$b = next($bt); //the setOption... function
+	//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
 	if (array_pop($matches) == 'themeoptions.php') {
@@ -1765,8 +1765,8 @@ function getAlbumInherited($folder, $field, &$id) {
 	$folders = explode('/', filesystemToInternal($folder));
 	$album = array_shift($folders);
 	$like = ' LIKE ' . db_quote(db_LIKE_escape($album));
-	while (!empty($folders)) {
-		$album .= '/' . array_shift($folders);
+	foreach ($folders as $folder) {
+		$album .= '/' . $folder;
 		$like .= ' OR `folder` LIKE ' . db_quote(db_LIKE_escape($album));
 	}
 	$sql = 'SELECT `id`, `' . $field . '` FROM ' . prefix('albums') . ' WHERE `folder`' . $like;

@@ -416,7 +416,7 @@ class Gallery {
 			if (empty($theme) || !file_exists(SERVERPATH . "/" . THEMEFOLDER . "/$theme")) {
 				$themes = array_keys($this->getThemes());
 				if (!empty($themes)) {
-					$theme = array_shift($themes);
+					$theme = reset($themes);
 				}
 			}
 			$this->theme = $theme;
@@ -744,7 +744,7 @@ class Gallery {
 							if (is_null($album->getDateTime())) { // see if we can get one from an image
 								$images = $album->getImages(0, 0);
 								if (count($images) > 0) {
-									$image = newImage($album, array_shift($images));
+									$image = newImage($album, reset($images));
 									$album->setDateTime($image->getDateTime());
 									$album->save();
 								}
@@ -799,7 +799,7 @@ class Gallery {
 			$resource = db_show('tables');
 			if ($resource) {
 				while ($row = db_fetch_assoc($resource)) {
-					$tbl = array_shift($row);
+					$tbl = reset($row);
 					query('OPTIMIZE TABLE `' . $tbl . '`');
 				}
 				db_free_result($resource);

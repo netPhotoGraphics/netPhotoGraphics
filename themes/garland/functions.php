@@ -31,7 +31,7 @@ if (!OFFSET_PATH) {
 	}
 	if (!in_array($personality, $personalities)) {
 		$persona = $personalities;
-		$personality = array_shift($persona);
+		$personality = reset($persona);
 	}
 	require_once(__DIR__ . '/' . $personality . '/functions.php');
 	$_current_page_check = 'my_checkPageValidity';

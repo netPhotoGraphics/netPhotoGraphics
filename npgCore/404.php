@@ -14,7 +14,7 @@ if ($image) { //	maybe we can find it
 				$folders[] = $image;
 				list($i, $args) = getImageProcessorURIFromCacheName(implode('/', $folders), getWatermarks());
 				$split = explode('?', $i);
-				$i = array_shift($split);
+				$i = reset($split);
 
 				$base = stripSuffix($i);
 				foreach ($_supported_images as $suffix) {

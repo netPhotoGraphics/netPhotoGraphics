@@ -12,11 +12,10 @@ $stuff = array('description' => gettext('Description'), 'metadata' => gettext('M
 $stuff = array_merge($stuff, npgFilters::apply('mass_edit_selector', array(), 'images'));
 asort($stuff, SORT_NATURAL | SORT_FLAG_CASE);
 
-
 if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 	$showfilter = !isset($_GET['singleimage']);
 	if ($totalimages == 1) {
-		$_GET['singleimage'] = array_shift($images);
+		$_GET['singleimage'] = reset($images);
 	}
 	$singleimage = sanitize($_GET['singleimage']);
 	$allimagecount = 1;
@@ -329,9 +328,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-																		 $('.expire-<?php echo $currentimage; ?>').html('');" />
+															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+															 $('.expire-<?php echo $currentimage; ?>').html('');" />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
@@ -375,9 +374,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<p>
 										<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 										<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php
-										if ($publishdate > date('Y-m-d H:i:s'))
-											echo 'style="color:blue"';
-										?> />
+						if ($publishdate > date('Y-m-d H:i:s'))
+							echo 'style="color:blue"';
+									?> />
 									</p>
 									<p>
 										<label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
@@ -408,10 +407,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<p class="checkbox">
 											<label class="checkboxlabel">
 												<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
-												if ($image->getCommentsAllowed()) {
-													echo ' checked = "checked"';
-												}
-												?> />
+						if ($image->getCommentsAllowed()) {
+							echo ' checked = "checked"';
+						}
+										?> />
 															 <?php echo gettext("Comments on"); ?>
 											</label>
 										</p>
@@ -474,7 +473,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
@@ -557,30 +556,30 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
-											checked(0, $rotation);
-											echo $disablerotate
-											?> />
+						checked(0, $rotation);
+						echo $disablerotate
+										?> />
 														 <?php echo gettext('none'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
-											checked(6, $rotation);
-											echo $disablerotate
-											?> />
+										 checked(6, $rotation);
+										 echo $disablerotate
+														 ?> />
 														 <?php echo gettext('90 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_180-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="3" <?php
-											checked(3, $rotation);
-											echo $disablerotate
-											?> />
+										 checked(3, $rotation);
+										 echo $disablerotate
+														 ?> />
 														 <?php echo gettext('180 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
-											checked(8, $rotation);
-											echo $disablerotate
-											?> />
+										 checked(8, $rotation);
+										 echo $disablerotate
+														 ?> />
 														 <?php echo gettext('270 degrees'); ?>
 										</label>
 										<?php

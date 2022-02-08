@@ -65,7 +65,7 @@ function accessMedia($attr, $path, $data, $volume) {
 function accessAlbums($attr, $path, $data, $volume) {
 	//	restrict access to his albums
 	$base = explode('/', str_replace(getAlbumFolder(SERVERPATH), '', str_replace('\\', '/', $path) . '/'));
-	$base = array_shift($base);
+	$base = reset($base);
 	$block = !$base && $attr == 'write';
 	if ($block || access($attr, $path, $data, $volume)) {
 		return !($attr == 'read' || $attr == 'write');

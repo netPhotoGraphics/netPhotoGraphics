@@ -1074,7 +1074,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$sqlv = versionCheck($required, $desired, $dbversion);
 								if ($sqlv && $deprecated) {
 									$preferredDB = array_keys($preferences);
-									$preferredDB = array_shift($preferredDB);
+									$preferredDB = reset($preferredDB);
 									checkMark(-1, sprintf(gettext('%1$s version %2$s'), $dbapp, $dbversion), "", sprintf(gettext('The PHP %1$s extension is deprecated. You should enable the PHP %2$s extension.'), $dbapp, $preferredDB), false);
 								} else {
 									$good = checkMark($sqlv, sprintf(gettext('%1$s version %2$s'), $dbapp, $dbversion), "", sprintf(gettext('%1$s Version %2$s or greater is required. Version %3$s or greater is preferred. Use a lower version at your own risk.'), $dbapp, $required, $desired), false) && $good;

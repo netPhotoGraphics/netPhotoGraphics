@@ -650,26 +650,29 @@ function next_album($all = false, $mine = NULL) {
 			$result = NULL;
 		} else {
 			$_current_album_restore = $_current_album;
-			$_current_album = newAlbum(array_shift($__albums), true, true);
+			$album = reset($__albums);
+			$_current_album = newAlbum($album, true, true);
 			if ($_current_album_restore && $_current_album_restore->isDynamic()) {
 				$_current_album->linkname = $_current_album_restore->linkname . '/' . basename($_current_album->linkname);
 			}
-
 			save_context();
 			add_context(NPG_ALBUM);
 			$result = true;
 		}
-	} else if (empty($__albums)) {
-		$__albums = NULL;
-		$_current_album = $_current_album_restore;
-		restore_context();
-		$result = NULL;
 	} else {
-		$_current_album = newAlbum(array_shift($__albums), true, true);
-		if ($_current_album_restore && $_current_album_restore->isDynamic()) {
-			$_current_album->linkname = $_current_album_restore->linkname . '/' . basename($_current_album->name);
+		$album = next($__albums);
+		if ($album) {
+			$_current_album = newAlbum($album, true, true);
+			if ($_current_album_restore && $_current_album_restore->isDynamic()) {
+				$_current_album->linkname = $_current_album_restore->linkname . '/' . basename($_current_album->name);
+			}
+			$result = true;
+		} else {
+			$__albums = NULL;
+			$_current_album = $_current_album_restore;
+			restore_context();
+			$result = NULL;
 		}
-		$result = true;
 	}
 	return npgFilters::apply('next_object_loop', $result, $_current_album);
 }
@@ -1401,9 +1404,9 @@ function getParentBreadcrumb() {
 	if ($n > 0) {
 		//the following loop code is @Copyright 2016 by Stephen L Billard for use in netPhotoGraphics and derivitives
 		array_push($parents, $_current_album);
-		$parent = array_shift($parents);
+		$parent = reset($parents);
 		while ($parent != $_current_album) {
-			$fromAlbum = array_shift($parents);
+			$fromAlbum = next($parents);
 			//cleanup things in description for use as attribute tag
 			$desc = getBare(preg_replace('|</p\s*>|i', '</p> ', preg_replace('|<br\s*/>|i', ' ', $parent->getDesc())));
 			$output[] = array('link' => html_encode($parent->getLink($fromAlbum->getGalleryPage())), 'title' => $desc, 'text' => $parent->getTitle());
@@ -1781,7 +1784,7 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 	if (!is_array($args)) {
 		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'title');
 		$p = func_get_args();
-		array_shift($p); //	$alt
+		unset($p[0]); //	$alt
 		$args = array();
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
@@ -2121,21 +2124,23 @@ function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
 				$result = NULL;
 			} else {
 				$_current_image_restore = $_current_image;
-				$img = array_shift($__images);
+				$img = reset($__images);
 				$_current_image = newImage($_current_album, $img, true, true);
 				save_context();
 				add_context(NPG_IMAGE);
 				$result = true;
 			}
-		} else if (empty($__images)) {
-			$__images = NULL;
-			$_current_image = $_current_image_restore;
-			restore_context();
-			$result = false;
 		} else {
-			$img = array_shift($__images);
-			$_current_image = newImage($_current_album, $img, true, true);
-			$result = true;
+			$img = next($__images);
+			if ($img) {
+				$_current_image = newImage($_current_album, $img, true, true);
+				$result = true;
+			} else {
+				$__images = NULL;
+				$_current_image = $_current_image_restore;
+				restore_context();
+				$result = false;
+			}
 		}
 	}
 	return npgFilters::apply('next_object_loop', $result, $_current_image);
@@ -3153,7 +3158,7 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 	} else {
 		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'thumb', 'effects', 'title');
 		$p = func_get_args();
-		array_shift($p); //	$alt
+		unset($p[0]); //	$alt
 		$args = array();
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
@@ -3378,7 +3383,7 @@ function getRandomImages($daily = false, $limit = 1) {
 			$imageWhere = " WHERE `show`=1";
 		}
 		$row = query_single_row('SELECT COUNT(*) FROM ' . prefix('images'));
-		if (5000 < $count = array_shift($row)) {
+		if (5000 < $count = reset($row)) {
 			$sample = ceil((max(1000, $limit * 100) / $count) * 100);
 			if ($imageWhere) {
 				$imageWhere .= ' AND';
@@ -3976,7 +3981,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
 				$fields = explode(',', $fields);
 			}
 			$temp = $fields;
-			if ($rewrite && count($fields) == 1 && array_shift($temp) == 'tags') {
+			if ($rewrite && count($fields) == 1 && reset($temp) == 'tags') {
 				$url = SEO_WEBPATH . '/' . _TAGS_ . '/' . $words . '/';
 			} else {
 				$search = new SearchEngine();
@@ -4608,7 +4613,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
@@ -4785,7 +4790,7 @@ function print404status() {
 	$log = npgFilters::apply('log_404', DEBUG_404 && !preg_match('~\.(css|js|min)\.map$~i', $album), $_404_data); //	don't log these
 	if ($log) {
 		$list = explode('/', $album);
-		if (array_shift($list) != 'cache') {
+		if (reset($list) != 'cache') {
 			$target = getRequestURI();
 			if (!in_array($target, array(WEBPATH . '/favicon.ico', WEBPATH . '/' . DATA_FOLDER . '/tést.jpg'))) {
 				$output = "404 error details\n\t\t\tSERVER:\n";

@@ -147,15 +147,18 @@ function next_DailySummaryItem($all = false) {
 		$_current_DailySummaryItem_restore = $_current_DailySummaryItem;
 		save_context();
 		add_context(NPG_ALBUM);
+		$item = reset($_DailySummaryItems);
+	} else {
+		$item = next($_DailySummaryItems);
 	}
-	if (empty($_DailySummaryItems)) {
+	if ($item) {
+		$_current_DailySummaryItem = new DailySummaryItem($item);
+		return true;
+	} else {
 		$_DailySummaryItems = NULL;
 		$_current_DailySummaryItem = $_current_DailySummaryItem_restore;
 		restore_context();
 		return false;
-	} else {
-		$_current_DailySummaryItem = new DailySummaryItem(array_shift($_DailySummaryItems));
-		return true;
 	}
 }
 

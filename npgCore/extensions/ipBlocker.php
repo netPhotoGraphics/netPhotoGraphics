@@ -168,13 +168,13 @@ class ipBlocker {
 					<?php
 					for ($i = 0; $i <= $key + 4; $i++) {
 						?>
-							$('#ipholder_<?php echo $i; ?>a').val('');
-							$('#ipholder_<?php echo $i; ?>b').val('');
+											$('#ipholder_<?php echo $i; ?>a').val('');
+											$('#ipholder_<?php echo $i; ?>b').val('');
 						<?php
 					}
 					?>
-					}
-					//-->
+									}
+									//-->
 				</script>
 				<p>
 						<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
@@ -255,8 +255,8 @@ class ipBlocker {
 					$current = $start = array_shift($import_list);
 					$end = $start;
 					$clean = false;
-					while (!empty($import_list)) {
-						$try = trim(array_shift($import_list));
+					foreach ($import_list as $try) {
+						$try = trim($try);
 						if ($try) { //	ignore empty lines
 							$ipa = explode('.', $current);
 							$ipa[3]++;

@@ -140,7 +140,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						if (preg_match('~/' . CACHEFOLDER . '/~', $match)) {
 							$match = urldecode($match);
 							$split = explode('?', $match);
-							$match = array_shift($split);
+							$match = reset($split);
 							$found++;
 							list($image_uri, $args) = getImageProcessorURIFromCacheName($match, $watermarks);
 							if (!file_exists(getAlbumFolder() . $image_uri)) {

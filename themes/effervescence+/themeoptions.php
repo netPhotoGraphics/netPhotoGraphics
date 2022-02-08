@@ -162,9 +162,9 @@ class ThemeOptions {
 		if (class_exists('image_effects')) {
 			$effects = new image_effects();
 			$effectOptions = $effects->getOptionsSupported();
-			$effect = array_shift($effectOptions);
+			$effect = reset($effectOptions);
 			while ($effect && !array_key_exists('selections', $effect)) {
-				$effect = array_shift($effectOptions);
+				$effect = next($effectOptions);
 			}
 			if ($effect && array_key_exists('selections', $effect)) {
 				$options[gettext('Index Image')] = array(

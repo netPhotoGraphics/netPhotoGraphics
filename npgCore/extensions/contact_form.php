@@ -259,10 +259,10 @@ function printContactForm($subject_override = '') {
 					$err = $error;
 					switch (count($err)) {
 						case 1:
-							printf(gettext('Please enter %s. Thanks.'), array_shift($err));
+							printf(gettext('Please enter %s. Thanks.'), reset($err));
 							break;
 						case 2:
-							printf(gettext('Please enter %1$s and %2$s. Thanks.'), array_shift($err), array_shift($err));
+							printf(gettext('Please enter %1$s and %2$s. Thanks.'), reset($err), next($err));
 							break;
 						default:
 							$list = '<ul class="errorlist">';

@@ -500,7 +500,7 @@ function updateArticle(&$reports, $newarticle = false) {
 		if (!isset($myCategories['`'])) {
 			$reports[] = "<p class='errorbox fade-message'>" . sprintf(gettext("Article <em>%s</em> may not be un-categorized."), $titlelink) . '</p>';
 			unset($myCategories['`']);
-			$cagegories[] = array_shift($myCategories);
+			$cagegories[] = reset($myCategories);
 		}
 	}
 

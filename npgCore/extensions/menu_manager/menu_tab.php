@@ -118,7 +118,7 @@ $menuset = checkChosenMenuset();
 if (empty($menuset)) { //	setup default menuset
 	$result = query_full_array("SELECT DISTINCT menuset FROM " . prefix('menu') . ' ORDER BY `menuset`');
 	if (is_array($result)) { // default to the first one
-		$set = array_shift($result);
+		$set = reset($result);
 		$menuset = $set['menuset'];
 	} else {
 		$menuset = '';

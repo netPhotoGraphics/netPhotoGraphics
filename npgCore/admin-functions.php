@@ -619,7 +619,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			if (isset($_admin_menu[$_admin_tab]['default'])) {
 				$current = $_admin_menu[$_admin_tab]['default'];
 			} else if (empty($_admin_subtab)) {
-				$current = array_shift($tabs);
+				$current = reset($tabs);
 				$i = strrpos($current, 'tab=');
 				$amp = strrpos($current, '&');
 				if ($i === false) {
@@ -3529,9 +3529,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$strings = getSerializedArray($dbstring);
 		if (count($strings) == 1) {
 			$keys = array_keys($strings);
-			$lang = array_shift($keys);
+			$lang = reset($keys);
 			if (!is_string($lang)) {
-				$strings = array($locale => array_shift($strings));
+				$strings = array($locale => reset($strings));
 			}
 		}
 		$activelang = i18n::generateLanguageList();
@@ -3638,8 +3638,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</div>
 			<?php
 		} else {
-			if (empty($locale))
+			if (empty($locale)) {
 				$locale = 'en_US';
+			}
 			if (isset($strings[$locale])) {
 				$dbstring = $strings[$locale];
 				unset($strings[$locale]);
@@ -3691,7 +3692,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 			case 1:
 				if (!getOption('multi_lingual')) {
-					return array_shift($strings);
+					return reset($strings);
 				}
 			default:
 				return serialize($strings);

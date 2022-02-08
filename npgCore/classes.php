@@ -457,7 +457,7 @@ class PersistentObject {
 	public function __call($method, $args) {
 		$how = strtolower(substr($method, 0, 3));
 		$what = strtolower(substr($method, 3));
-		$arg = array_shift($args);
+		$arg = reset($args);
 		switch ($how) {
 			case 'get':
 				if (array_key_exists($what, $this->updates)) {
@@ -473,9 +473,9 @@ class PersistentObject {
 		}
 
 		$caller = debug_backtrace();
-		$call = array_shift($caller);
+		$call = reset($caller);
 		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
-			$call = array_shift($caller);
+			$call = next($caller);
 		}
 		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
 		trigger_error($msg);
@@ -488,9 +488,9 @@ class PersistentObject {
 			return call_user_func_array($name, $arguments);
 		}
 		$caller = debug_backtrace();
-		$call = array_shift($caller);
+		$call = reset($caller);
 		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
-			$call = array_shift($caller);
+			$call = next($caller);
 		}
 		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
 		trigger_error($msg);

@@ -166,9 +166,9 @@ class quota_manager extends fieldExtender {
 	}
 
 	/**
-	 * Returns current image useage
+	 * Returns current image usage
 	 * @param $userobj Admin user object
-	 * @return int
+	 * @return float
 	 */
 	static function getCurrentUse($userobj) {
 		global $_current_admin_obj;
@@ -177,7 +177,7 @@ class quota_manager extends fieldExtender {
 		}
 		$sql = 'SELECT sum(`filesize`) FROM ' . prefix('images') . ' WHERE `owner`="' . $userobj->getUser() . '"';
 		$result = query_single_row($sql);
-		return array_shift($result) / 1024;
+		return reset($result) / 1024;
 	}
 
 	/**

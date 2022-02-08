@@ -1175,7 +1175,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	$parents = array(NULL);
 	$order = explode('-', $sortorder);
 	$mylevel = count($order);
-	$myparentsort = array_shift($order);
+	$myparentsort = reset($order);
 
 	for ($c = 0; $c <= $mylevel; $c++) {
 		$parents[$c] = NULL;

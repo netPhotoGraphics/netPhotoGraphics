@@ -214,7 +214,7 @@ class dynamic_locale {
 		$matches = explode('.', $host);
 		$webpath = ltrim(WEBPATH, '/');
 		if (i18n::validateLocale($matches[0], 'Dynamic Locale')) {
-			array_shift($matches);
+			unset($matches[0]);
 			$host = implode('.', $matches);
 		}
 		$localdesc = '<p>' . sprintf(gettext('Select <em>Use subdomains</em> and links will be in the form <code><em>language</em>.%s/...</code> where <code><em>language</em></code> is the language code, e.g. <code><em>fr</em></code> for French.'), $host . '/' . $webpath) . '</p>';
@@ -256,7 +256,7 @@ class dynamic_locale {
 		$host = $_SERVER['HTTP_HOST'];
 		$matches = explode('.', $host);
 		if (i18n::validateLocale($matches[0], 'Dynamic Locale')) {
-			array_shift($matches);
+			unset($matches[0]);
 			$host = implode('.', $matches);
 		}
 		if (($lang != BASE_LOCALE) && $l = $_locale_Subdomains[$lang]) {

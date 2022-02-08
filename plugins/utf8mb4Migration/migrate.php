@@ -36,7 +36,7 @@ if ($resource) {
 $tables = array();
 if (is_array($result)) {
 	foreach ($result as $row) {
-		$tables[] = array_shift($row);
+		$tables[] = reset($row);
 	}
 }
 
@@ -74,7 +74,6 @@ $_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CO
 $_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
 configFile::store($_config_contents);
 $_configMutex->unlock();
-
 
 header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('utf8mb4 migration completed.'));
 exit();

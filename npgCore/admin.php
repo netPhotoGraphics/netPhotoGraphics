@@ -18,7 +18,7 @@ $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
 	if (!$_current_admin_obj->getID() || empty($msg) && !npg_loggedin(OVERVIEW_RIGHTS)) {
 		// admin access without overview rights, redirect to first tab
-		$tab = array_shift($_admin_menu);
+		$tab = reset($_admin_menu);
 		$link = $tab['link'];
 		header('location:' . $link);
 		exit();
@@ -190,7 +190,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					}
 					$found = safe_glob(SERVERPATH . '/setup-*.zip');
 					if (!empty($found)) {
-						$file = array_shift($found);
+						$file = reset($found);
 						if (!unzip($file, SERVERPATH)) {
 							$class = 'errorbox';
 							$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');

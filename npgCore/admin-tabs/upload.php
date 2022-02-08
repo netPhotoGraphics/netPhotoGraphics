@@ -35,7 +35,7 @@ if (isset($_GET['tab'])) {
 $handlers = array_keys($uploadHandlers = npgFilters::apply('upload_handlers', array()));
 if (count($handlers) > 0) {
 	if (!isset($uploadHandlers[$uploadtype]) || !file_exists($uploadHandlers[$uploadtype] . '/upload_form.php')) {
-		$uploadtype = array_shift($handlers);
+		$uploadtype = reset($handlers);
 	}
 	require_once($uploadHandlers[$uploadtype] . '/upload_form.php');
 } else {
