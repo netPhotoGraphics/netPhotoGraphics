@@ -1146,8 +1146,8 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  * @return string
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
-	global $_supported_images, $_cachefileSuffix;
-// this function works in FILESYSTEM_CHARSET, so convert the file names
+	global $_cachefileSuffix;
+	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1166,7 +1166,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 			}
 		}
 	}
-// Set default variable values.
+	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
 	if (getOption('obfuscate_cache')) {

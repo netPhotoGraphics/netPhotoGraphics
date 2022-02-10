@@ -1404,16 +1404,16 @@ class Image extends MediaObject {
 		global $_current_search;
 		$index = $this->getIndex();
 		$album = $this->albumnamealbum;
-
-		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
-			$image = $_current_search->getImage($index + 1);
-		} else {
+		if ($album->isDynamic() || is_null($_current_search) || in_context(ALBUM_LINKED)) {
 			$image = $album->getImage($index + 1);
+			if ($image && $image->exists && $album->isDynamic()) {
+				$image->albumname = $album->name;
+				$image->albumlink = $album->linkname;
+				$image->albumnamealbum = $album;
+			}
+		} else {
+			$image = $_current_search->getImage($index + 1);
 		}
-		if ($image && $image->exists) {
-			$image->albumnamealbum = $album;
-		}
-
 		return $image;
 	}
 
@@ -1426,15 +1426,17 @@ class Image extends MediaObject {
 		global $_current_search;
 		$album = $this->albumnamealbum;
 		$index = $this->getIndex();
-
-		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
-			$image = $_current_search->getImage($index - 1);
-		} else {
+		if ($album->isDynamic() || is_null($_current_search) || in_context(ALBUM_LINKED)) {
 			$image = $album->getImage($index - 1);
+			if ($image && $image->exists && $album->isDynamic()) {
+				$image->albumname = $album->name;
+				$image->albumlink = $album->linkname;
+				$image->albumnamealbum = $album;
+			}
+		} else {
+			$image = $_current_search->getImage($index - 1);
 		}
-		if ($image && $image->exists) {
-			$image->albumnamealbum = $album;
-		}
+
 		return $image;
 	}
 
