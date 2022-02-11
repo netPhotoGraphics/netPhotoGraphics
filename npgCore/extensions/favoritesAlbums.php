@@ -38,6 +38,8 @@ define("FAVORITESALBUM_FOLDER", CORE_FOLDER . '/' . PLUGIN_FOLDER . '/favoritesA
 
 class favoritesAlbum extends favorites {
 
+	public $dupImages = false; //	true if the image search has multiple files with the same basename
+
 	function __construct($folder8, $cache = true, $quiet = false) {
 
 		$folder8 = trim($folder8, '/');
@@ -145,6 +147,39 @@ class favoritesAlbum extends favorites {
 
 	function getSearchEngine() {
 		return NULL;
+	}
+
+	/**
+	 * Returns a of a slice of the images for this album. They will
+	 * also be sorted according to the sort type of this album, or by filename if none
+	 * has been set.
+	 *
+	 * @param string $page  Which page of images should be returned. If zero, all images are returned.
+	 * @param int $firstPageCount count of images that go on the album/image transition page
+	 * @param string $sorttype optional sort type
+	 * @param string $sortdirection optional sort direction
+	 * @param bool $care set to false if the order of the images does not matter
+	 * @param bool $mine set true/false to override ownership
+	 *
+	 * @return array
+	 */
+	function getImages($page = 0, $firstPageCount = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
+		if ($mine || is_null($this->images) || $care && $sorttype . $sortdirection !== $this->lastimagesort) {
+			$this->images = parent::getImages(0, $firstPageCount, $sorttype, $sortdirection, $care, $mine);
+			$this->imageNames = array();
+			foreach ($this->images as $key => $image) {
+				if (in_array($image['filename'], $this->imageNames)) {
+					unset($this->images[$key]);
+					$this->dupImages = true;
+				} else {
+					$this->imageNames[$image['folder'] . '/' . $image['filename']] = $image['filename'];
+				}
+			}
+			if ($this->dupImages) {
+				$this->images = array_values($this->images);
+			}
+		}
+		return AlbumBase::getImages($page, $firstPageCount);
 	}
 
 	static function toolbox() {
