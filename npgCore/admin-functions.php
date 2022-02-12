@@ -2139,7 +2139,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 									$images = $album->getImages();
 									if ($album->dupImages) {
-										echo '<div class="warningbox">' . gettext('Duplicate image names have been excluded.') . '</div>';
+										echo '<div class="warningbox">' . gettext('Images with duplicate names have been excluded.') . '</div>';
 									}
 									?>
 								</td>
