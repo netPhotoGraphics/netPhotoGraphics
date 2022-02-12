@@ -416,14 +416,11 @@ class Article extends CMSItems {
 		}
 		if (!isset($this->index[$catI])) {
 			$articles = $_CMS->getArticles(0, NULL, true, NULL, NULL, NULL, $cat);
-			for ($i = 0; $i < count($articles); $i++) {
-				$article = $articles[$i];
-				if ($this->getTitlelink() == $article['titlelink']) {
-					$this->index[$catI] = $i;
-					return $i;
-				}
-			}
-			$this->index[$catI] = NULL;
+			$titlelink = $this->getTitlelink();
+			$target = array_filter($articles, function ($item) use ($titlelink) {
+				return $item['titlelink'] == $titlelink;
+			});
+			$this->index[$catI] = key($target);
 		}
 		return $this->index[$catI];
 	}

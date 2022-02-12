@@ -1365,27 +1365,24 @@ class Image extends MediaObject {
 				$album = $this->albumnamealbum;
 			}
 			$filename = $this->filename;
-			if (!is_null($_current_search) && !in_context(ALBUM_LINKED) || $album->isDynamic()) {
+			if ($album->isDynamic() || $_current_search && !in_context(ALBUM_LINKED)) {
 				$imagefolder = $this->imagefolder;
 				if ($album->isDynamic()) {
-					$images = $album->getImages();
+					$images = $album->getImages(0);
 				} else {
 					$images = $_current_search->getImages(0);
 				}
-				$target = array_keys(array_filter($images, function ($item) use ($filename, $imagefolder) {
-									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
-								}));
+				$target = array_filter($images, function ($item) use ($filename, $imagefolder) {
+					return $item['filename'] == $filename && $item['folder'] == $imagefolder;
+				});
 			} else {
 				$images = $this->album->getImages(0);
-				$target = array_keys(array_filter($images, function ($item) use ($filename) {
-									return $item == $filename;
-								}));
+				$target = array_filter($images, function ($item) use ($filename) {
+					return $item == $filename;
+				});
 			}
-			if (isset($target[0])) {
-				$index = $target[0];
-			} else {
-				$index = NULL;
-			}
+			$index = key($target);
+
 			if ($use_album) {
 				//	don't set the property of the album isn't the same as the instantiation album
 				return $index;

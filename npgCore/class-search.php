@@ -1816,13 +1816,10 @@ class SearchEngine {
 	 */
 	function getImageIndex($album, $filename) {
 		$images = $this->getImages();
-		$target = array_keys(array_filter($images, function ($item) use ($album, $filename) {
-							return $item['filename'] == $filename && $item['folder'] == $album;
-						}));
-		if (isset($target[0])) {
-			return $target[0];
-		}
-		return NULL;
+		$target = array_filter($images, function ($item) use ($album, $filename) {
+			return $item['filename'] == $filename && $item['folder'] == $album;
+		});
+		return key($target);
 	}
 
 	/**
