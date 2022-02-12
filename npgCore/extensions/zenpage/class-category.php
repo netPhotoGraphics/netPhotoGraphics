@@ -479,48 +479,6 @@ class Category extends CMSRoot {
 	}
 
 	/**
-	 * Get the index of this article
-	 *
-	 * @return int
-	 */
-	function getIndex($sortorder, $sortdirection, $sticky) {
-		global $_CMS;
-		if ($this->index == NULL) {
-			$articles = $_CMS->getArticles(0, NULL, true, $sortorder, $sortdirection, $sticky);
-			for ($i = 0; $i < count($articles); $i++) {
-				$article = $articles[$i];
-				if ($this->getTitlelink() == $article['titlelink']) {
-					$this->index = $i;
-					break;
-				}
-			}
-		}
-		return $this->index;
-	}
-
-	/**
-	 * Return the previous article
-	 *
-	 * @return object
-	 */
-	function getPrevArticle($sortorder = 'date', $sortdirection = 'desc', $sticky = true) {
-		$index = $this->getIndex($sortorder, $sortdirection, $sticky);
-		$article = $this->getArticle($index - 1);
-		return $article;
-	}
-
-	/**
-	 * Returns the next article.
-	 *
-	 * @return object
-	 */
-	function getNextArticle($sortorder = 'date', $sortdirection = 'desc', $sticky = true) {
-		$index = $this->getIndex($sortorder, $sortdirection, $sticky);
-		$article = $this->getArticle($index + 1);
-		return $article;
-	}
-
-	/**
 	 * Returns the full path to a news category
 	 *
 	 * @param string $page The category page number
