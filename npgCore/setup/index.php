@@ -404,16 +404,8 @@ if ($selected_database) {
 		configFile::store($_config_contents);
 
 		$result = query("SELECT `id` FROM " . $_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
-		if ($result) {
-			if (db_num_rows($result) > 0) {
-				$upgrade = gettext("upgrade");
-				// apply some critical updates to the database for migration issues
-				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `valid` int(1) default 1', false);
-				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' CHANGE `password` `pass` TINYTEXT', false);
-				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `loggedin` datetime', false);
-				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `lastloggedin` datetime', false);
-				query('ALTER TABLE ' . $_conf_vars['mysql_prefix'] . 'administrators' . ' ADD COLUMN `challenge_phrase` TEXT', false);
-			}
+		if ($result && db_num_rows($result) > 0) {
+			$upgrade = gettext("upgrade");
 		} else {
 			$upgrade = gettext("install");
 		}
@@ -1202,6 +1194,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 
 							primeMark(gettext('netPhotoGraphics files'));
+							clearstatcache();
 							set_time_limit(120);
 							$stdExclude = Array('Thumbs.db', 'readme.md', 'data');
 							$base = SERVERPATH . '/';
