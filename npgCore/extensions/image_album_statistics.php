@@ -489,7 +489,7 @@ function getImageStatistic($number, $option, $albumfolder = NULL, $collection = 
 			break;
 		case "random":
 			$row = query_single_row('SELECT COUNT(*) FROM ' . prefix('images'));
-			if (5000 < $count = array_shift($row)) {
+			if (5000 < $count = reset($row)) {
 				$sample = ceil((max(1000, $number * 100) / $count) * 100);
 				$where .= ' AND CAST((RAND() * 100 * `id`) % 100 as UNSIGNED) < ' . $sample;
 			}

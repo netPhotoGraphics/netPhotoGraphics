@@ -14,9 +14,9 @@ if (array_key_exists('REQUEST_URI', $_SERVER)) {
 $parts = explode('?', $uri);
 $uri = $parts[0];
 unset($parts);
-if (preg_match('~(.*?)/(CORE_PATH|USER_PLUGIN_PATH)/(.*?)\?~i', $uri . '?', $matches)) {
-	$base = '/' . $matches[2] . '/' . $matches[3];
-	foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/') as $from => $to) {
+if (preg_match('~(.*?)/(admin|CORE_PATH|USER_PLUGIN_PATH)/?(.*?)\?~i', $uri . '?', $matches)) {
+	$base = '/' . $matches[2] . ($matches[3] ? '/' . $matches[3] : '');
+	foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/', '/admin' => '/CORE_FOLDER/admin') as $from => $to) {
 		$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
 		if ($count) {
 			break;
@@ -62,10 +62,9 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 			} else {
 				$_conf_vars = $_zp_conf_vars; //	backward compatibility
 			}
-			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
+			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed' || file_exists(dirname(__FILE__) . '/extract.php')) {
 				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-					$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
-					header('location: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME']) . 'plugins/site_upgrade/closed.php');
+					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
 				}
 				exit();
 			}

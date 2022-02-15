@@ -78,7 +78,7 @@ class GoogleMap {
 		$defaultMap = getOption('gmap_starting_map');
 		if (array_search($defaultMap, $MapTypes) === false) { // the starting map is not allowed, pick a new one
 			$temp = $MapTypes;
-			$defaultMap = array_shift($temp);
+			$defaultMap = reset($temp);
 			setOption('gmap_starting_map', $defaultMap);
 		}
 

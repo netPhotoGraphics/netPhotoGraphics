@@ -70,7 +70,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 				$tables = array();
 				if (is_array($result)) {
 					foreach ($result as $row) {
-						$tables[] = array_shift($row);
+						$tables[] = reset($row);
 					}
 				}
 				?>
@@ -140,7 +140,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 						<tr>
 							<?php
 							$cols = $tablecols = db_list_fields($table);
-							$cols = array_shift($cols);
+							$cols = reset($cols);
 							foreach ($cols as $col => $value) {
 								?>
 								<th><?php echo $col; ?></th>

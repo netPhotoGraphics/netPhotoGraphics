@@ -1097,7 +1097,7 @@ if (!empty($themes) || !empty($userPlugins)) {
 	$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
 	$prior = getSerializedArray(getOption('deprecated_functions_signature'));
 	if (!array_key_exists('signature', $prior)) {
-		$prior = array('signature' => array_shift($prior), 'themes' => array(), 'plugins' => array());
+		$prior = array('signature' => reset($prior), 'themes' => array(), 'plugins' => array());
 	}
 	if ($current != $prior) {
 		$newThemes = array_diff($themes, $prior['themes']);

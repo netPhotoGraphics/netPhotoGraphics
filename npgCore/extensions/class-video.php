@@ -428,7 +428,7 @@ class Video extends Image {
 						switch ($key) {
 							case 'comments':
 								foreach ($info as $key1 => $data) {
-									$ThisFileInfo[$key1] = array_shift($data);
+									$ThisFileInfo[$key1] = reset($data);
 								}
 								break;
 							case 'audio':

@@ -42,7 +42,7 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 		$headers['cc'] = 'Cc: ' . substr($list, 1);
 	}
 	if ($replyTo) {
-		$headers ['reply'] = 'Reply-To: ' . array_shift($replyTo);
+		$headers ['reply'] = 'Reply-To: ' . reset($replyTo);
 	}
 	$headers ['mime'] = "Mime-Version: 1.0";
 	$headers ['type'] = "Content-Type: text/html; charset=" . LOCAL_CHARSET;

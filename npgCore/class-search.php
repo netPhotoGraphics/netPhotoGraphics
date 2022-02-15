@@ -928,13 +928,13 @@ class SearchEngine {
 
 		$orphans = array();
 		$build = array($last = (int) array_shift($idlist));
-		while (!empty($idlist)) {
-			$cur = (int) array_shift($idlist);
+		foreach ($idlist as $cur) {
+			$cur = (int) $cur;
 			if ($cur == $last + 1) {
 				$build[] = $cur;
 			} else {
 				if (count($build) > 2) {
-					$clause .= '(`id`>=' . array_shift($build) . ' AND `id`<=' . array_pop($build) . ') OR ';
+					$clause .= '(`id`>=' . reset($build) . ' AND `id`<=' . array_pop($build) . ') OR ';
 				} else {
 					$orphans = array_merge($build, $orphans);
 				}
@@ -943,7 +943,7 @@ class SearchEngine {
 			$last = $cur;
 		}
 		if (count($build) > 2) {
-			$clause .= '(`id`>=' . array_shift($build) . ' AND `id`<=' . array_pop($build) . ') OR ';
+			$clause .= '(`id`>=' . reset($build) . ' AND `id`<=' . array_pop($build) . ') OR ';
 		} else {
 			$orphans = array_merge($build, $orphans);
 		}
@@ -1350,8 +1350,7 @@ class SearchEngine {
 			$op = '';
 			$idstack = array();
 			$opstack = array();
-			while (count($searchstring) > 0) {
-				$singlesearchstring = array_shift($searchstring);
+			foreach ($searchstring as $singlesearchstring) {
 				switch ($singlesearchstring) {
 					case '&':
 					case '!':
@@ -1817,13 +1816,10 @@ class SearchEngine {
 	 */
 	function getImageIndex($album, $filename) {
 		$images = $this->getImages();
-		$target = array_keys(array_filter($images, function ($item) use ($album, $filename) {
-							return $item['filename'] == $filename && $item['folder'] == $album;
-						}));
-		if (isset($target[0])) {
-			return $target[0];
-		}
-		return NULL;
+		$target = array_filter($images, function ($item) use ($album, $filename) {
+			return $item['filename'] == $filename && $item['folder'] == $album;
+		});
+		return key($target);
 	}
 
 	/**

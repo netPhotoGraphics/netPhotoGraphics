@@ -463,7 +463,7 @@ if (!defined('OFFSET_PATH')) {
 									$option_interface = new $option_interface;
 								}
 								$options = $supportedOptions = $option_interface->getOptionsSupported();
-								$option = array_shift($options);
+								$option = reset($options);
 								if (array_key_exists('order', $option)) {
 									$options = sortMultiArray($supportedOptions, 'order');
 									$options = array_keys($options);

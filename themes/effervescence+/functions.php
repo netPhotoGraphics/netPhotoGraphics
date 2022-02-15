@@ -56,7 +56,7 @@ if (class_exists('themeSwitcher')) {
 
 if (!in_array($personality, $personalities)) {
 	$persona = $personalities;
-	$personality = array_shift($persona);
+	$personality = reset($persona);
 }
 
 if (($_ef_menu = getOption('effervescence_menu')) == 'effervescence' || $_ef_menu == 'zenpage') {

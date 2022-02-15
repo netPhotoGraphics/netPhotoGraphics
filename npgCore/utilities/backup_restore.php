@@ -149,7 +149,7 @@ if ($action == 'backup') {
 	if (isset($_REQUEST['autobackup'])) {
 		$requestedTables = array();
 		foreach ($tables as $row) {
-			$table = array_shift($row);
+			$table = reset($row);
 			$unprefixed_table = substr($table, $prefixLen);
 			$requestedTables[] = $unprefixed_table;
 		}
@@ -192,7 +192,7 @@ if ($action == 'backup') {
 			$writeresult = true;
 			$tablesSeen = array();
 			foreach ($tables as $row) {
-				$table = array_shift($row);
+				$table = reset($row);
 				$unprefixed_table = substr($table, $prefixLen);
 				if (in_array($unprefixed_table, $requestedTables)) {
 					$tableCount++;
@@ -315,7 +315,7 @@ if ($action == 'backup') {
 				if (is_array($result)) {
 					foreach ($result as $row) {
 						extendExecution();
-						$table = array_shift($row);
+						$table = reset($row);
 						$tables[$table] = array();
 						$table_cleared[$table] = false;
 						$result2 = db_list_fields(substr($table, $prefixLen));

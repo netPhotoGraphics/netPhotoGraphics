@@ -366,7 +366,7 @@ class _Authority {
 				return 0;
 		}
 		if ($row = query_single_row($sql = 'SELECT COUNT(*) FROM ' . prefix('administrators') . $valid, false)) {
-			return array_shift($row);
+			return reset($row);
 		}
 		return NULL;
 	}
@@ -2266,7 +2266,7 @@ class _Administrator extends PersistentObject {
 						break;
 				}
 				if ($keys = array_keys($old, array($objectid, $table, $edit))) {
-					$key = array_shift($keys);
+					$key = reset($keys);
 					unset($old[$key]);
 				} else {
 					$sql = 'INSERT INTO ' . prefix('admin_to_object') . " (adminid, objectid, type, edit) VALUES ($id, $objectid, '$table', $edit)";

@@ -32,6 +32,10 @@ if (isset($_GET['action'])) {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
 		purgeOption('getUpdates_lastCheck');
+		header('Clear-Site-Data: "cache"');
+		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
 		header('HTTP/1.0 303 See Other');
 		header("Status: 303 See Other");
 		header('location: ' . getAdminLink('admin.php') . '?update_check');
@@ -50,7 +54,7 @@ if (isset($_GET['action'])) {
 		} else {
 			$found = safe_glob(SERVERPATH . '/setup-*.zip');
 			if (!empty($found)) {
-				$file = array_shift($found);
+				$file = reset($found);
 				if (!unzip($file, SERVERPATH)) {
 					$class = 'errorbox';
 					$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');

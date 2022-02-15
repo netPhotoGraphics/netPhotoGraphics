@@ -9,7 +9,7 @@
  */
 // force UTF-8 Ø
 
-
+$_adminScript_timer['start'] = microtime();
 ini_set('post_max_size', "10M");
 ini_set('post_input_vars', "2500");
 

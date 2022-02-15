@@ -77,7 +77,7 @@ class sitemap {
 		$host = $_SERVER['HTTP_HOST'];
 		$matches = explode('.', $host);
 		if (i18n::validateLocale($matches[0], 'Dynamic Locale')) {
-			array_shift($matches);
+			unset($matches[0]);
 			$host = implode('.', $matches);
 		}
 

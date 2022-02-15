@@ -47,7 +47,7 @@ class npgFilters {
 		global $_filters, $_EnabledPlugins;
 		$bt = debug_backtrace();
 		if (is_array($bt)) {
-			$b = array_shift($bt);
+			$b = reset($bt);
 			$base = basename($b['file']);
 			if (is_null($priority) && isset($_EnabledPlugins[$b = stripSuffix($base)])) {
 				$priority = $_EnabledPlugins[$b]['priority'] & PLUGIN_PRIORITY;

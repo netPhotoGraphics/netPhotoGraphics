@@ -35,7 +35,7 @@ echo '</head>';
 								$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
 								$v = $debug[0];
 								$debug = explode('_', $debug[1]);
-								array_shift($debug);
+								unset($debug[0]);
 								if (!empty($debug)) {
 									$debug = array_map('strtolower', $debug);
 									$debug = array_map('ucfirst', $debug);
@@ -315,8 +315,7 @@ echo '</head>';
 				SELECT user " . db_quote($_conf_vars['mysql_user']) . "FROM information_schema.processlist
 		) A GROUP BY " . db_quote($_conf_vars['mysql_user']) . " WITH ROLLUP;");
 								printf(gettext('Database name: <strong>%1$s</strong>; '), db_name());
-								printf(ngettext('%d connection allowed; ', '%d connections allowed; ', $max['Value']), $max['Value']);
-								printf(ngettext('%d connection used', '%d connections used', $used['Connections']), $used['Connections']);
+								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', $max['Value']), $used['Connections'], $max['Value']);
 								?>
 							</li>
 							<li>

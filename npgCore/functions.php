@@ -613,7 +613,7 @@ function enableExtension($extension, $priority, $persistent = true) {
 function defaultExtension($priority) {
 	if (OFFSET_PATH == 2) {
 		$bt = debug_backtrace();
-		$b = array_shift($bt);
+		$b = reset($bt);
 		setOptionDefault('_plugin_' . stripSuffix(basename($b['file'])), $priority);
 	}
 	return $priority;
@@ -1492,7 +1492,7 @@ function makeSpecialImageName($image) {
 	$base = explode('/', replaceScriptPath(dirname($image)));
 	$nameBase = $sourceFolder = array_shift($base);
 	$sourceSubfolder = implode('/', $base);
-	$subFolder = array_shift($base);
+	$subFolder = reset($base);
 
 	switch ($nameBase) {
 		case USER_PLUGIN_FOLDER:
@@ -2010,7 +2010,7 @@ function getDBTables() {
 	if ($resource) {
 		$result = array();
 		while ($row = db_fetch_assoc($resource)) {
-			$table = array_shift($row);
+			$table = reset($row);
 			$table = substr($table, strlen($prefix));
 			$tables[] = $table;
 		}
@@ -2900,7 +2900,7 @@ class npgFunctions {
 	 * @param array $bcc_addresses a list of addresses to send blind copies to.
 	 * @param string $replyTo reply-to address
 	 * @param string $failMessage will be displayed upon a failure to send
-	 * @param array $fromMail an array of name=>email arrress for the sender. Defaults to the site email name and address
+	 * @param array $fromMail an array of name=>email address for the sender. Defaults to the site email name and address
 	 *
 	 * @return string
 	 *
@@ -2926,8 +2926,7 @@ class npgFunctions {
 			$result .= gettext('Mail messagaes must have a body. ');
 		}
 		if ($replyTo) {
-			$t = $replyTo;
-			if (!npgFunctions::isValidEmail($m = array_shift($t))) {
+			if (!npgFunctions::isValidEmail($m = reset($replyTo))) {
 				if (empty($result)) {
 					$result = $failMessage;
 				}
@@ -2990,8 +2989,8 @@ class npgFunctions {
 			if (npgFilters::has_filter('sendmail')) {
 
 				if (is_array($fromMail)) {
-					$from_name = reset($fromMail);
-					$from_mail = array_shift($fromMail);
+					$from_mail = reset($fromMail);
+					$from_name = key($fromMail);
 				} else {
 					$from_mail = getOption('site_email');
 					$from_name = get_language_string(getOption('site_email_name'));

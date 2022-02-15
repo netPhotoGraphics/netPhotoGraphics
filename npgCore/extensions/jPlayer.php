@@ -230,7 +230,7 @@ class jPlayer extends html5Player {
 
 	static function CSS() {
 		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = array_shift($skins);
+		$skin = reset($skins);
 		if (!file_exists($skin)) {
 			$skin = PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
 		}

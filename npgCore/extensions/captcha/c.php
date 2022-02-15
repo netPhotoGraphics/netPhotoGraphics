@@ -24,7 +24,7 @@ if (isset($_GET['f'])) {
 	if ($fontname == '*') { //	Random selection
 		$fonts = gl_getFonts();
 		shuffle($fonts);
-		$fontname = array_shift($fonts);
+		$fontname = reset($fonts);
 	}
 }
 

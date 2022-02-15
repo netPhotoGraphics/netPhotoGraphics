@@ -257,6 +257,7 @@ function next_news() {
 		if (in_context(NPG_SEARCH)) {
 			//note: we do not know how to paginate the search page, so for now we will return all news articles
 			$_CMS_articles = $_current_search->getArticles(ARTICLES_PER_PAGE, NULL, true, NULL, NULL);
+			$news = reset($_CMS_articles);
 		} else {
 			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
 				$_CMS_articles = $_CMS_current_category->getArticles(ARTICLES_PER_PAGE, NULL, false, NULL, NULL);
@@ -266,16 +267,17 @@ function next_news() {
 			if (empty($_CMS_articles)) {
 				return npgFilters::apply('next_object_loop', NULL, $_CMS_current_article);
 			}
+			$news = reset($_CMS_articles);
 		}
 		$_CMS_current_article_restore = $_CMS_current_article;
+	} else {
+		$news = next($_CMS_articles);
 	}
-	if (!empty($_CMS_articles)) {
-		$news = array_shift($_CMS_articles);
-		if (is_array($news)) {
-			add_context(ZENPAGE_NEWS_ARTICLE);
-			$_CMS_current_article = newArticle($news['titlelink']);
-			return npgFilters::apply('next_object_loop', true, $_CMS_current_article);
-		}
+
+	if (is_array($news)) {
+		add_context(ZENPAGE_NEWS_ARTICLE);
+		$_CMS_current_article = newArticle($news['titlelink']);
+		return npgFilters::apply('next_object_loop', true, $_CMS_current_article);
 	}
 
 	$_CMS_articles = NULL;
@@ -1447,7 +1449,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	$parents = array(NULL);
 	$order = explode('-', $currentitem_sortorder);
 	$mylevel = count($order);
-	$myparentsort = array_shift($order);
+	$myparentsort = reset($order);
 	for ($c = 0; $c <= $mylevel; $c++) {
 		$parents[$c] = NULL;
 	}
@@ -1713,30 +1715,37 @@ function getNumPages($total = false) {
 function next_page() {
 	global $_CMS, $_next_pagelist, $_current_search, $_CMS_current_page, $_CMS_current_page_restore;
 
-	if ($_CMS->pages_enabled && is_null($_next_pagelist)) {
-		if (in_context(NPG_SEARCH)) {
-			$_next_pagelist = $_current_search->getPages(NULL, false, NULL, NULL, NULL);
-		} else if (in_context(ZENPAGE_PAGE)) {
-			if (!is_null($_CMS_current_page)) {
-				$_next_pagelist = $_CMS_current_page->getPages(NULL, false, NULL, NULL, NULL);
+	if ($_CMS->pages_enabled) {
+		if (is_null($_next_pagelist)) {
+			if (in_context(NPG_SEARCH)) {
+				$_next_pagelist = $_current_search->getPages(NULL, false, NULL, NULL, NULL);
+			} else if (in_context(ZENPAGE_PAGE)) {
+				if (!is_null($_CMS_current_page)) {
+					$_next_pagelist = $_CMS_current_page->getPages(NULL, false, NULL, NULL, NULL);
+				}
+			} else {
+				$_next_pagelist = $_CMS->getPages(NULL, true, NULL, NULL, NULL);
 			}
+			save_context();
+			add_context(ZENPAGE_PAGE);
+			$_CMS_current_page_restore = $_CMS_current_page;
+			$pageItem = reset($_next_pagelist);
 		} else {
-			$_next_pagelist = $_CMS->getPages(NULL, true, NULL, NULL, NULL);
+			$pageItem = next($_next_pagelist);
 		}
-		save_context();
-		add_context(ZENPAGE_PAGE);
-		$_CMS_current_page_restore = $_CMS_current_page;
-	}
-	while (!empty($_next_pagelist)) {
-		$page = newPage(array_shift($_next_pagelist));
-		if ((npg_loggedin() && $page->isMyItem(LIST_RIGHTS)) || $page->checkForGuest()) {
-			$_CMS_current_page = $page;
-			return npgFilters::apply('next_object_loop', true, $_CMS_current_page);
+		while ($pageItem) {
+			$page = newPage($pageItem);
+			if ((npg_loggedin() && $page->isMyItem(LIST_RIGHTS)) || $page->checkForGuest()) {
+				$_CMS_current_page = $page;
+				return npgFilters::apply('next_object_loop', true, $_CMS_current_page);
+			}
+			$pageItem = next($_next_pagelist);
 		}
+
+		$_next_pagelist = NULL;
+		$_CMS_current_page = $_CMS_current_page_restore;
+		restore_context();
 	}
-	$_next_pagelist = NULL;
-	$_CMS_current_page = $_CMS_current_page_restore;
-	restore_context();
 	return npgFilters::apply('next_object_loop', false, $_CMS_current_page);
 }
 

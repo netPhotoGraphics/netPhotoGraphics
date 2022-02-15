@@ -1365,27 +1365,24 @@ class Image extends MediaObject {
 				$album = $this->albumnamealbum;
 			}
 			$filename = $this->filename;
-			if (!is_null($_current_search) && !in_context(ALBUM_LINKED) || $album->isDynamic()) {
+			if ($album->isDynamic() || $_current_search && !in_context(ALBUM_LINKED)) {
 				$imagefolder = $this->imagefolder;
 				if ($album->isDynamic()) {
-					$images = $album->getImages();
+					$images = $album->getImages(0);
 				} else {
 					$images = $_current_search->getImages(0);
 				}
-				$target = array_keys(array_filter($images, function ($item) use ($filename, $imagefolder) {
-									return $item['filename'] == $filename && $item['folder'] == $imagefolder;
-								}));
+				$target = array_filter($images, function ($item) use ($filename, $imagefolder) {
+					return $item['filename'] == $filename && $item['folder'] == $imagefolder;
+				});
 			} else {
 				$images = $this->album->getImages(0);
-				$target = array_keys(array_filter($images, function ($item) use ($filename) {
-									return $item == $filename;
-								}));
+				$target = array_filter($images, function ($item) use ($filename) {
+					return $item == $filename;
+				});
 			}
-			if (isset($target[0])) {
-				$index = $target[0];
-			} else {
-				$index = NULL;
-			}
+			$index = key($target);
+
 			if ($use_album) {
 				//	don't set the property of the album isn't the same as the instantiation album
 				return $index;
@@ -1404,16 +1401,16 @@ class Image extends MediaObject {
 		global $_current_search;
 		$index = $this->getIndex();
 		$album = $this->albumnamealbum;
-
-		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
-			$image = $_current_search->getImage($index + 1);
-		} else {
+		if ($album->isDynamic() || is_null($_current_search) || in_context(ALBUM_LINKED)) {
 			$image = $album->getImage($index + 1);
+			if ($image && $image->exists && $album->isDynamic()) {
+				$image->albumname = $album->name;
+				$image->albumlink = $album->linkname;
+				$image->albumnamealbum = $album;
+			}
+		} else {
+			$image = $_current_search->getImage($index + 1);
 		}
-		if ($image && $image->exists) {
-			$image->albumnamealbum = $album;
-		}
-
 		return $image;
 	}
 
@@ -1426,15 +1423,17 @@ class Image extends MediaObject {
 		global $_current_search;
 		$album = $this->albumnamealbum;
 		$index = $this->getIndex();
-
-		if (!is_null($_current_search) && !in_context(ALBUM_LINKED)) {
-			$image = $_current_search->getImage($index - 1);
-		} else {
+		if ($album->isDynamic() || is_null($_current_search) || in_context(ALBUM_LINKED)) {
 			$image = $album->getImage($index - 1);
+			if ($image && $image->exists && $album->isDynamic()) {
+				$image->albumname = $album->name;
+				$image->albumlink = $album->linkname;
+				$image->albumnamealbum = $album;
+			}
+		} else {
+			$image = $_current_search->getImage($index - 1);
 		}
-		if ($image && $image->exists) {
-			$image->albumnamealbum = $album;
-		}
+
 		return $image;
 	}
 

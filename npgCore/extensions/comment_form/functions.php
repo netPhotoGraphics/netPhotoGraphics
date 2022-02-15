@@ -1022,13 +1022,17 @@ function next_comment($desc = false) {
 		if (empty($_comments)) {
 			return false;
 		}
-	} else if (empty($_comments)) {
-		$_comments = NULL;
-		$_current_comment = NULL;
-		rem_context(NPG_COMMENT);
-		return false;
+		$_current_comment = reset($_comments);
+	} else {
+		$_current_comment = next($_comments);
+		if (empty($_current_comment)) {
+			$_comments = NULL;
+			$_current_comment = NULL;
+			rem_context(NPG_COMMENT);
+			return false;
+		}
 	}
-	$_current_comment = array_shift($_comments);
+
 	if ($_current_comment['anon']) {
 		$_current_comment['email'] = $_current_comment['name'] = '<' . gettext("Anonymous") . '>';
 	}

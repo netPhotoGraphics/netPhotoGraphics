@@ -75,10 +75,10 @@ foreach (getDBTables() as $table) {
 			foreach ($index as $element) {
 				$column[] = "`" . $element['Column_name'] . "`";
 			}
-			$index = array_shift($index);
+			$index = reset($index);
 			$index['Column_name'] = implode(',', $column);
 		} else {
-			$index = array_shift($index);
+			$index = reset($index);
 			$index['Column_name'] = "`" . $index['Column_name'] . "`";
 		}
 		unset($index['Table']);
@@ -217,7 +217,7 @@ foreach ($datefields as $fix) {
 //setup database
 $result = db_show('variables', 'character_set_database');
 if (is_array($result)) {
-	$row = array_shift($result);
+	$row = reset($result);
 	$dbmigrate = $row['Value'] != 'utf8mb4';
 } else {
 	$dbmigrate = true;

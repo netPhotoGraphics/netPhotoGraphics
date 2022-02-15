@@ -287,8 +287,7 @@ class Controller {
 			$folders = explode('/', $folder);
 			$build = '';
 			$album = NULL;
-			while (!empty($folders)) {
-				$try = array_shift($folders);
+			foreach ($folders as $try) {
 				if ($build) {
 					$build .= '/';
 				}
@@ -375,7 +374,7 @@ class Controller {
 	 * @return the loaded album object on success, or (===false) on failure.
 	 */
 	static function load_image($folder, $filename) {
-		global $_current_image, $_current_album, $_current_search, $_current_page;
+		global $_supported_images, $_current_image, $_current_album, $_current_search, $_current_page;
 		if (!is_object($_current_album) || $_current_album->name != $folder) {
 			$album = self::load_album($folder, true);
 		} else {
@@ -385,7 +384,7 @@ class Controller {
 			return false;
 		}
 		$images = $album->getImages();
-		if (!getSuffix($filename) && !empty($images)) { //	still some work to do
+		if (!empty($images) && !in_array(getSuffix($filename), $_supported_images)) { //	still some work to do
 			foreach ($images as $image) {
 				if (is_array($image)) {
 					$image = $image['filename'];
@@ -602,7 +601,7 @@ class Controller {
 						}
 					}
 					if (count($albums) == 1) { // there is only one parent album for the search
-						$album = array_shift($albums);
+						$album = reset($albums);
 					}
 				}
 				break;
