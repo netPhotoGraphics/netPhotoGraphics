@@ -5067,9 +5067,8 @@ function processAlbumBulkActions() {
 			if ($action == 'changeowner') {
 				$newowner = sanitize($_POST['massownerselect']);
 			}
-			$n = 0;
+			$fail = 0;
 			foreach ($ids as $albumname) {
-				$n++;
 				$albumobj = newAlbum($albumname);
 				if (is_null($result)) {
 					switch ($action) {
@@ -5117,7 +5116,7 @@ function processAlbumBulkActions() {
 							$albumobj->setOwner($newowner);
 							break;
 						default:
-							$action = call_user_func($action, $albumobj);
+							$fail = call_user_func($action, $albumobj);
 							break;
 					}
 				} else {
@@ -5125,7 +5124,7 @@ function processAlbumBulkActions() {
 				}
 				$albumobj->save();
 			}
-			return $action;
+			return $fail;
 		}
 	}
 	return false;
@@ -5156,9 +5155,8 @@ function processImageBulkActions($album) {
 			if ($action == 'changeowner') {
 				$newowner = sanitize($_POST['massownerselect']);
 			}
-			$n = 0;
+			$fail = 0;
 			foreach ($ids as $filename) {
-				$n++;
 				$imageobj = newImage($album, $filename);
 				if (is_null($result)) {
 					switch ($action) {
@@ -5188,19 +5186,19 @@ function processImageBulkActions($album) {
 							break;
 						case 'copyimages':
 							if ($e = $imageobj->copy($dest)) {
-								return "&mcrerr=" . $e;
+								$fail = "&mcrerr=" . $e;
 							}
 							break;
 						case 'moveimages':
 							if ($e = $imageobj->move($dest)) {
-								return "&mcrerr=" . $e;
+								$fail = "&mcrerr=" . $e;
 							}
 							break;
 						case 'changeowner':
 							$imageobj->setOwner($newowner);
 							break;
 						default:
-							$action = call_user_func($action, $imageobj);
+							$fail = call_user_func($action, $imageobj);
 							break;
 					}
 				} else {
@@ -5208,7 +5206,7 @@ function processImageBulkActions($album) {
 				}
 				$imageobj->save();
 			}
-			return $action;
+			return $fail;
 		}
 	}
 	return false;
