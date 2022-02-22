@@ -5059,15 +5059,17 @@ function processAlbumBulkActions() {
 		$ids = sanitize($_POST['ids']);
 		$action = sanitize($_POST['checkallaction']);
 		$result = npgFilters::apply('processBulkAlbumsSave', NULL, $action);
-		$total = count($ids);
-		if ($action != 'noaction' && $total > 0) {
-			if ($action == 'addtags' || $action == 'alltags') {
-				$tags = bulkTags();
+		if ($action != 'noaction' && count($ids) > 0) {
+			switch ($action) {
+				case 'addtags' :
+				case 'alltags':
+					$tags = bulkTags();
+					break;
+				case 'changeowner':
+					$newowner = sanitize($_POST['massownerselect']);
+					break;
 			}
-			if ($action == 'changeowner') {
-				$newowner = sanitize($_POST['massownerselect']);
-			}
-			$fail = 0;
+			$fail = $action;
 			foreach ($ids as $albumname) {
 				$albumobj = newAlbum($albumname);
 				if (is_null($result)) {
@@ -5139,75 +5141,75 @@ function processImageBulkActions($album) {
 	$result = npgFilters::apply('processBulkImageSave', NULL, $action, $album);
 
 	$ids = sanitize($_POST['ids']);
-	$total = count($ids);
-	if ($action != 'noaction') {
-		if ($total > 0) {
-			if ($action == 'addtags') {
+	if ($action != 'noaction' && count($ids) > 0) {
+		switch ($action) {
+			case 'addtags':
 				$tags = bulkTags();
-			}
-			if ($action == 'moveimages' || $action == 'copyimages') {
+				break;
+			case 'moveimages':
+			case 'copyimages':
 				$dest = sanitize($_POST['massalbumselect']);
 				$folder = sanitize($_POST['massfolder']);
 				if (!$dest || $dest == $folder) {
 					return "&mcrerr=2";
 				}
-			}
-			if ($action == 'changeowner') {
+				break;
+			case 'changeowner':
 				$newowner = sanitize($_POST['massownerselect']);
-			}
-			$fail = 0;
-			foreach ($ids as $filename) {
-				$imageobj = newImage($album, $filename);
-				if (is_null($result)) {
-					switch ($action) {
-						case 'deleteall':
-							$imageobj->remove();
-							break;
-						case 'showall':
-							$imageobj->setShow(1);
-							break;
-						case 'hideall':
-							$imageobj->setShow(0);
-							break;
-						case 'commentson':
-							$imageobj->set('commentson', 1);
-							break;
-						case 'commentsoff':
-							$imageobj->set('commentson', 0);
-							break;
-						case 'resethitcounter':
-							$imageobj->set('hitcounter', 0);
-							break;
-						case 'addtags':
-							addTags($tags, $imageobj);
-							break;
-						case 'cleartags':
-							$imageobj->setTags(array());
-							break;
-						case 'copyimages':
-							if ($e = $imageobj->copy($dest)) {
-								$fail = "&mcrerr=" . $e;
-							}
-							break;
-						case 'moveimages':
-							if ($e = $imageobj->move($dest)) {
-								$fail = "&mcrerr=" . $e;
-							}
-							break;
-						case 'changeowner':
-							$imageobj->setOwner($newowner);
-							break;
-						default:
-							$fail = call_user_func($action, $imageobj);
-							break;
-					}
-				} else {
-					$imageobj->set($action, $result);
-				}
-				$imageobj->save();
-			}
-			return $fail;
+				break;
 		}
+		$fail = 0;
+		foreach ($ids as $filename) {
+			$imageobj = newImage($album, $filename);
+			if (is_null($result)) {
+				switch ($action) {
+					case 'deleteall':
+						$imageobj->remove();
+						break;
+					case 'showall':
+						$imageobj->setShow(1);
+						break;
+					case 'hideall':
+						$imageobj->setShow(0);
+						break;
+					case 'commentson':
+						$imageobj->set('commentson', 1);
+						break;
+					case 'commentsoff':
+						$imageobj->set('commentson', 0);
+						break;
+					case 'resethitcounter':
+						$imageobj->set('hitcounter', 0);
+						break;
+					case 'addtags':
+						addTags($tags, $imageobj);
+						break;
+					case 'cleartags':
+						$imageobj->setTags(array());
+						break;
+					case 'copyimages':
+						if ($e = $imageobj->copy($dest)) {
+							$fail = "&mcrerr=" . $e;
+						}
+						break;
+					case 'moveimages':
+						if ($e = $imageobj->move($dest)) {
+							$fail = "&mcrerr=" . $e;
+						}
+						break;
+					case 'changeowner':
+						$imageobj->setOwner($newowner);
+						break;
+					default:
+						$fail = call_user_func($action, $imageobj);
+						break;
+				}
+			} else {
+				$imageobj->set($action, $result);
+			}
+			$imageobj->save();
+		}
+		return $fail;
 	}
 	return false;
 }
@@ -6219,6 +6221,9 @@ function consolidatedEditMessages($subtab) {
 				break;
 			case 'clearalltags':
 				$messagebox[] = gettext('Tags cleared for images of selected items');
+				break;
+			case 'changeowner':
+				$messagebox[] = gettext('Owner changed for selected items');
 				break;
 			default:
 				$messagebox[] = $action;
