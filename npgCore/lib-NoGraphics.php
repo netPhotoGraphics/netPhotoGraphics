@@ -143,10 +143,6 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		return false;
 	}
 
-	function imageBlurGD($imgCanvas, $imgCanvas2, $radius, $w, $h) {
-
-	}
-
 	function gl_imageFromString($string) {
 		return false;
 	}

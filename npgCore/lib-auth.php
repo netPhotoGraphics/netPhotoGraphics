@@ -2066,7 +2066,7 @@ class _Administrator extends PersistentObject {
 	 * Stores the user email
 	 */
 	function setEmail($admin_e) {
-		$this->set('email', $admin_e);
+		$this->set('email', strtolower($admin_e));
 	}
 
 	/**

@@ -132,7 +132,6 @@ if (isset($_GET['action'])) {
 					$alter = isset($_POST['alter_enabled']);
 					$nouser = true;
 					$returntab = $newuser = false;
-					$list = $_authority->getAdministrators('users');
 
 					for ($i = 0; $i < sanitize_numeric($_POST['totaladmins']); $i++) {
 						$error = false;
@@ -173,17 +172,18 @@ if (isset($_GET['action'])) {
 								$userobj->setName($admin_n);
 							}
 							if (isset($userlist[$i]['admin_email'])) {
-								$admin_e = trim(sanitize($userlist[$i]['admin_email']));
-								if (npgFunctions::isValidEmail($admin_e)) {
-									foreach ($list as $anuser) {
-										if ($anuser['user'] != $user && $anuser['email'] == $admin_e) {
-											$msg = sprintf(gettext('%1$s: %2$s is already used by another user.'), $userobj->getUser(), $admin_e);
-											break;
+								$admin_e = strtolower(trim(sanitize($userlist[$i]['admin_email'])));
+								if ($userobj->getEmail() != $admin_e) {
+									if (npgFunctions::isValidEmail($admin_e)) {
+										$sql = 'SELECT `user`, `email` FROM' . prefix('administrators') . ' WHERE `email`=' . db_quote($admin_e) . ' AND `user`<>' . db_quote($user);
+										$result = query_single_row($sql);
+										if ($result) {
+											$msg = sprintf(gettext('%1$s: email address %2$s is already used by %3$s.'), $userobj->getUser(), $admin_e, $result['user']);
 										}
-									}
-								} else {
-									if ($admin_e) { //	invalid email address
-										$msg = sprintf(gettext('%1$s: %2$s is not a valid e-mail address.'), $userobj->getUser(), $admin_e);
+									} else {
+										if ($admin_e) { //	invalid email address
+											$msg = sprintf(gettext('%1$s: %2$s is not a valid e-mail address.'), $userobj->getUser(), $admin_e);
+										}
 									}
 								}
 								if (empty($msg)) {
