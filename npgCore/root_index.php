@@ -1,47 +1,49 @@
 <?php
 
-//	redirect to the admin core
-if (array_key_exists('REQUEST_URI', $_SERVER)) {
-	$uri = str_replace('\\', '/', $_SERVER['REQUEST_URI']);
-	preg_match('|^(http[s]*\://[a-zA-Z0-9\-\.]+/?)*(.*)$|xis', $uri, $matches);
-	$uri = $matches[2];
-	if (!empty($matches[1])) {
-		$uri = '/' . $uri;
-	}
-} else {
-	$uri = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
-}
-$parts = explode('?', $uri);
-$uri = $parts[0];
-unset($parts);
-if (preg_match('~(.*?)/(admin|CORE_PATH|USER_PLUGIN_PATH)/?(.*?)\?~i', $uri . '?', $matches)) {
-	$base = '/' . $matches[2] . ($matches[3] ? '/' . $matches[3] : '');
-	foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/', '/admin' => '/CORE_FOLDER/admin') as $from => $to) {
-		$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
-		if ($count) {
-			break;
-		}
-	}
-	if (preg_match('~\.php$~i', $base)) {
-		if (file_exists(__DIR__ . $base)) {
-			trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
+if (!file_exists('ROOT_FOLDER/extract.php')) {
+	//	redirect to the admin core?
+	if (array_key_exists('REQUEST_URI', $_SERVER)) {
+		$uri = str_replace('\\', '/', $_SERVER['REQUEST_URI']);
+		preg_match('|^(http[s]*\://[a-zA-Z0-9\-\.]+/?)*(.*)$|xis', $uri, $matches);
+		$uri = $matches[2];
+		if (!empty($matches[1])) {
+			$uri = '/' . $uri;
 		}
 	} else {
-		$base = preg_replace('~RW_SUFFIX$~i', '', $base) . '.php';
+		$uri = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
 	}
-	if (file_exists(__DIR__ . $base)) {
-		//	mock up things as if the the uri went directly to the script
-		$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;
-		$_SERVER['SCRIPT_FILENAME'] = dirname($_SERVER['SCRIPT_FILENAME']) . $base;
-		unset($uri);
-		unset($matches);
-		chdir(dirname($_SERVER['SCRIPT_FILENAME']));
-		include($_SERVER['SCRIPT_FILENAME']);
-		exit();
+	$parts = explode('?', $uri);
+	$uri = $parts[0];
+	unset($parts);
+	if (preg_match('~(.*?)/(admin|CORE_PATH|USER_PLUGIN_PATH)/?(.*?)\?~i', $uri . '?', $matches)) {
+		$base = '/' . $matches[2] . ($matches[3] ? '/' . $matches[3] : '');
+		foreach (array('/CORE_PATH/PLUGIN_PATH/' => '/CORE_FOLDER/PLUGIN_FOLDER/', '/USER_PLUGIN_PATH/' => '/USER_PLUGIN_FOLDER/', '/CORE_PATH/' => '/CORE_FOLDER/', '/admin' => '/CORE_FOLDER/admin') as $from => $to) {
+			$base = preg_replace('~' . $from . '~', $to, $base, 1, $count);
+			if ($count) {
+				break;
+			}
+		}
+		if (preg_match('~\.php$~i', $base)) {
+			if (file_exists(__DIR__ . $base)) {
+				trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
+			}
+		} else {
+			$base = preg_replace('~RW_SUFFIX$~i', '', $base) . '.php';
+		}
+		if (file_exists(__DIR__ . $base)) {
+			//	mock up things as if the the uri went directly to the script
+			$_SERVER['SCRIPT_NAME'] = $matches[1] . $base;
+			$_SERVER['SCRIPT_FILENAME'] = dirname($_SERVER['SCRIPT_FILENAME']) . $base;
+			unset($uri);
+			unset($matches);
+			chdir(dirname($_SERVER['SCRIPT_FILENAME']));
+			include($_SERVER['SCRIPT_FILENAME']);
+			exit();
+		}
 	}
 	unset($matches);
+	unset($uri);
 }
-unset($uri);
 
 define('OFFSET_PATH', 0);
 if (isset($_SERVER['SCRIPT_FILENAME'])) {
