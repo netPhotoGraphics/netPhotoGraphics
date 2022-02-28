@@ -62,7 +62,7 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 			} else {
 				$_conf_vars = $_zp_conf_vars; //	backward compatibility
 			}
-			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed' || file_exists(dirname(__FILE__) . '/extract.php')) {
+			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed' || file_exists('ROOT_FOLDER/extract.php')) {
 				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
 					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
 				}
