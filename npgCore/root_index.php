@@ -1,6 +1,7 @@
 <?php
 
-if (!file_exists('ROOT_FOLDER/extract.php')) {
+$closed = file_exists('ROOT_FOLDER/extract.php');
+if (!$closed) {
 	//	redirect to the admin core?
 	if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = str_replace('\\', '/', $_SERVER['REQUEST_URI']);
@@ -36,6 +37,8 @@ if (!file_exists('ROOT_FOLDER/extract.php')) {
 			$_SERVER['SCRIPT_FILENAME'] = dirname($_SERVER['SCRIPT_FILENAME']) . $base;
 			unset($uri);
 			unset($matches);
+			unset($base);
+			unset($closed);
 			chdir(dirname($_SERVER['SCRIPT_FILENAME']));
 			include($_SERVER['SCRIPT_FILENAME']);
 			exit();
@@ -43,6 +46,7 @@ if (!file_exists('ROOT_FOLDER/extract.php')) {
 	}
 	unset($matches);
 	unset($uri);
+	unset($base);
 }
 
 define('OFFSET_PATH', 0);
@@ -64,7 +68,7 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 			} else {
 				$_conf_vars = $_zp_conf_vars; //	backward compatibility
 			}
-			if (isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed' || file_exists('ROOT_FOLDER/extract.php')) {
+			if ($closed || isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
 				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
 					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
 				}
@@ -74,6 +78,7 @@ if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
 
 		}
 	}
+	unset($_contents);
 }
-unset($_contents);
+unset($closed);
 include (__DIR__ . '/CORE_FOLDER/index.php');
