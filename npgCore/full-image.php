@@ -241,7 +241,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		$iMutex->lock();
 		$newim = gl_imageGet($image_path);
 		if ($rotate) {
-			$newim = gl_rotateImage($newim, $rotate);
+			$newim = imageProcessing::transform($newim, $rotate);
 		}
 		if ($watermark_use_image) {
 			$newim = imageProcessing::watermarkImage($newim, $watermark_use_image, $image_path);

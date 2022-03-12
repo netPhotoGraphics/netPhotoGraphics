@@ -431,6 +431,32 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	}
 
 	/**
+	 * Flips an image as directed by the second parameter:
+	 * 								IMG_FLIP_HORIZONTAL->mirrored
+	 * 								IMG_FLIP_VERTICAL->flipped (upside down)
+	 * 								IMG_FLIP_BOTH->mirrored and flilpped
+	 *
+	 * @param resource $im
+	 * @param int $how
+	 * @return resource
+	 */
+	function gl_flipImage($im, $how) {
+		switch ($how) {
+			case IMG_FLIP_HORIZONTAL:
+				$im->transverseImage();
+				break;
+			case IMG_FLIP_VERTICAL;
+				$im->flipImage();
+				break;
+			case IMG_FLIP_BOTH:
+				$im->flipImage();
+				$im->transverseImage();
+				break;
+		}
+		return $im;
+	}
+
+	/**
 	 * Returns the image height and width
 	 *
 	 * @param string $filename

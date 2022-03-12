@@ -340,6 +340,23 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		}
 
 		/**
+		 * Flips an image as directed by the second parameter:
+		 * 								IMG_FLIP_HORIZONTAL->mirrored
+		 * 								IMG_FLIP_VERTICAL->flipped (upside down)
+		 * 								IMG_FLIP_BOTH->mirrored and flilpped
+		 *
+		 * @param resource $im
+		 * @param int $how
+		 * @return resource
+		 */
+		function gl_flipImage($im, $how) {
+			if (imageflip($im, $how)) {
+				return $im;
+			}
+			return NULL;
+		}
+
+		/**
 		 * Returns the image height and width
 		 *
 		 * @param string $filename

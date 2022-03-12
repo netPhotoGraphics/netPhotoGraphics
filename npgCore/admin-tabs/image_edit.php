@@ -328,9 +328,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 													 name="<?php echo $currentimage; ?>-Visible"
 													 value="1" <?php if ($image->getShow()) echo ' checked = "checked"'; ?>
 													 onclick="$('#publishdate-<?php echo $currentimage; ?>').val('');
-															 $('#expirationdate-<?php echo $currentimage; ?>').val('');
-															 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
-															 $('.expire-<?php echo $currentimage; ?>').html('');" />
+																		 $('#expirationdate-<?php echo $currentimage; ?>').val('');
+																		 $('#publishdate-<?php echo $currentimage; ?>').css('color', 'black ');
+																		 $('.expire-<?php echo $currentimage; ?>').html('');" />
 													 <?php echo gettext("Published"); ?>
 									</label>
 									<?php
@@ -374,9 +374,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									<p>
 										<label for="publishdate-<?php echo $currentimage; ?>"><?php echo gettext('Publish date'); ?> <small>(YYYY-MM-DD)</small></label>
 										<br /><input value="<?php echo $publishdate; ?>" type="text" size="20" maxlength="30" name="publishdate-<?php echo $currentimage; ?>" id="publishdate-<?php echo $currentimage; ?>" <?php
-						if ($publishdate > date('Y-m-d H:i:s'))
-							echo 'style="color:blue"';
-									?> />
+										if ($publishdate > date('Y-m-d H:i:s'))
+											echo 'style="color:blue"';
+										?> />
 									</p>
 									<p>
 										<label for="expirationdate-<?php echo $currentimage; ?>"><?php echo gettext('Expiration date'); ?> <small>(YYYY-MM-DD)</small></label>
@@ -407,10 +407,10 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<p class="checkbox">
 											<label class="checkboxlabel">
 												<input type="checkbox" id="allowcomments-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-allowcomments" value="1" <?php
-						if ($image->getCommentsAllowed()) {
-							echo ' checked = "checked"';
-						}
-										?> />
+												if ($image->getCommentsAllowed()) {
+													echo ' checked = "checked"';
+												}
+												?> />
 															 <?php echo gettext("Comments on"); ?>
 											</label>
 										</p>
@@ -473,7 +473,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									</label>
 									<label class="checkboxlabel">
 										<input type="radio" id="Delete-<?php echo $currentimage; ?>" name="<?php echo $currentimage; ?>-MoveCopyRename" value="delete" onclick="toggleMoveCopyRename('<?php echo $currentimage; ?>', '');
-												deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
+															deleteConfirm('Delete-<?php echo $currentimage; ?>', '<?php echo $currentimage; ?>', '<?php echo addslashes(gettext("Are you sure you want to select this image for deletion?")); ?>')" /> <?php echo gettext("Delete image") ?>
 									</label>
 									<br class="clearall" />
 									<div id="movecopydiv-<?php echo $currentimage; ?>" class="resetHide" style="padding-top: .5em; padding-left: .5em; padding-bottom: .5em; display: none;">
@@ -532,55 +532,81 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<?php echo gettext("Rotation:"); ?>
 										<br />
 										<?php
-										switch (substr(trim($image->get('rotation'), '!'), 0, 1)) {
+										$rotation = substr(trim($image->get('rotation'), '!'), 0, 1);
+										switch ($rotation) {
 											default:
 											case 0:
-											case 1:
-											case 2:
-												$rotation = 0;
+											case 1: // none
+												$flip = NULL;
 												break;
-											case 3:
-											case 4:
-												$rotation = 3;
+											case 2: // mirrored
+												$flip = IMG_FLIP_HORIZONTAL;
 												break;
-											case 5:
-											case 8:
-												$rotation = 8;
+											case 3: // upside-down
+												$flip = IMG_FLIP_VERTICAL;
 												break;
-											case 6:
-											case 7:
-												$rotation = 6;
+											case 4: // upside-down mirrored
+												$flip = IMG_FLIP_BOTH;
+												break;
+											case 5: // 90 CW mirrored
+												$flip = IMG_FLIP_HORIZONTAL;
+												break;
+											case 6: // 90 CCW
+												$flip = NULL;
+												break;
+											case 7: // 90 CCW mirrored
+												$flip = IMG_FLIP_HORIZONTAL;
+												break;
+											case 8: // 90 CW
+												$flip = NULL;
 												break;
 										}
 										?>
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
-						checked(0, $rotation);
-						echo $disablerotate
-										?> />
+											if ($rotation <= 2) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('none'); ?>
 										</label>
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
-										 checked(6, $rotation);
-										 echo $disablerotate
-														 ?> />
+											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
+											if ($rotation == 7 || $rotation == 8) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
 														 <?php echo gettext('90 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_180-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="3" <?php
-										 checked(3, $rotation);
-										 echo $disablerotate
-														 ?> />
-														 <?php echo gettext('180 degrees'); ?>
+											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
+											if ($rotation == 5 || $rotation == 6) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
+														 <?php echo gettext('-90 degrees'); ?>
 										</label>
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
-										 checked(8, $rotation);
-										 echo $disablerotate
-														 ?> />
-														 <?php echo gettext('270 degrees'); ?>
+											<input type="radio" id="flip-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value=3" <?php
+											if ($rotation == 3 || $rotation == 4) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
+														 <?php echo gettext('Flip'); ?>
+										</label>
+										<label class="checkboxlabel">
+											<input type="checkbox" id="mirror-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-mirror" value="<?php echo IMG_FLIP_HORIZONTAL; ?>" <?php
+											if ($rotation == 2 || $rotation == 4 || $rotation == 5 || $rotation == 7) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
+														 <?php echo gettext('Mirror'); ?>
 										</label>
 										<?php
 									}
