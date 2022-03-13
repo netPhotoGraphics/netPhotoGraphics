@@ -527,41 +527,11 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 
 									<?php
 									if ($image->isPhoto()) {
+										$rotation = substr(trim($image->get('rotation'), '!'), 0, 1);
 										?>
 										<hr />
 										<?php echo gettext("Rotation:"); ?>
 										<br />
-										<?php
-										$rotation = substr(trim($image->get('rotation'), '!'), 0, 1);
-										switch ($rotation) {
-											default:
-											case 0:
-											case 1: // none
-												$flip = NULL;
-												break;
-											case 2: // mirrored
-												$flip = IMG_FLIP_HORIZONTAL;
-												break;
-											case 3: // upside-down
-												$flip = IMG_FLIP_VERTICAL;
-												break;
-											case 4: // upside-down mirrored
-												$flip = IMG_FLIP_BOTH;
-												break;
-											case 5: // 90 CW mirrored
-												$flip = IMG_FLIP_HORIZONTAL;
-												break;
-											case 6: // 90 CCW
-												$flip = NULL;
-												break;
-											case 7: // 90 CCW mirrored
-												$flip = IMG_FLIP_HORIZONTAL;
-												break;
-											case 8: // 90 CW
-												$flip = NULL;
-												break;
-										}
-										?>
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
@@ -570,7 +540,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											echo $disablerotate
 											?> />
-														 <?php echo gettext('none'); ?>
+														 <?php echo gettext('None'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
@@ -579,7 +549,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											echo $disablerotate
 											?> />
-														 <?php echo gettext('90 degrees'); ?>
+														 <?php echo gettext('Right'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
@@ -588,7 +558,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											}
 											echo $disablerotate
 											?> />
-														 <?php echo gettext('-90 degrees'); ?>
+														 <?php echo gettext('Left'); ?>
 										</label>
 										<label class="checkboxlabel">
 											<input type="radio" id="flip-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value=3" <?php
