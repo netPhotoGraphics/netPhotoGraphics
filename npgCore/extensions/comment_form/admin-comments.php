@@ -250,7 +250,12 @@ printLogoAndLinks();
 					$fulltext = false;
 					$fulltexturl = '';
 				}
-				$allcomments = fetchComments(NULL);
+				if (isset($_GET['moderation'])) {
+					$moderation = (int) $_GET['moderation'] - 1;
+				} else {
+					$moderation = 0;
+				}
+				$allcomments = fetchComments(NULL, $moderation);
 				if (isset($_GET['subpage'])) {
 					$pagenum = max(1, sanitize_numeric($_GET['subpage']));
 				} else {
@@ -322,8 +327,9 @@ printLogoAndLinks();
 					}
 					?>
 
-					<p><?php echo gettext("You can edit or delete comments."); ?></p>
-
+					<p >
+						<?php echo gettext("You can edit or delete comments."); ?>
+					</p>
 					<?php
 					if ($fulltext) {
 						$msg = gettext("View truncated");
@@ -344,6 +350,7 @@ printLogoAndLinks();
 					} else {
 						$p = '';
 					}
+					$adminlink = getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?page=comments&amp;tab=comments';
 					?>
 					<form class="dirtylistening" onReset="setClean('form_commentlist');"  name="comments" id="form_commentlist" action="?action=applycomments" method="post" onsubmit="return confirmAction();" autocomplete="off">
 						<?php XSRFToken('applycomments'); ?>
@@ -356,6 +363,24 @@ printLogoAndLinks();
 							</span>
 							<?php
 						}
+						?>
+						<div class="floatright">
+							<form name="AutoListBox0" id="articleauthordropdown" style="float:left; margin:5px;" action="#" >
+								<?php echo gettext('Show'); ?>
+								<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
+									<option value = "<?php echo $adminlink; ?>"<?php if ($moderation < 0) echo ' selected="selected"'; ?>>
+										<?php echo gettext('all comments'); ?>
+									</option>
+									<option value="<?php echo $adminlink; ?>&moderation=1"<?php if ($moderation === 0) echo ' selected="selected"'; ?>>
+										<?php echo gettext('approved'); ?>
+									</option>
+									<option value="<?php echo $adminlink; ?>&moderation=2'"<?php if ($moderation === 1) echo ' selected="selected"'; ?>>
+										<?php echo gettext('spam'); ?>
+									</option>
+								</select>
+							</form>
+						</div>
+						<?php
 						applyButton();
 						npgButton('button', $arrow . ' ' . $msg, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/comment_form/admin-comments.php') . '?fulltext=' . $ft . $v . $p));
 						?>
