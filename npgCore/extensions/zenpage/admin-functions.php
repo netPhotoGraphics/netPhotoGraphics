@@ -561,27 +561,28 @@ function printAuthorDropdown() {
 			$authors[] = $row['owner'];
 		}
 		if (isset($_GET['author'])) {
-			$authors[] = $cur_author = sanitize($_GET['author']);
+			$cur_author = sanitize($_GET['author']);
 			if (!in_array($cur_author, $authors)) {
 				$authors[] = $cur_author;
 			}
-			$selected = 'selected="selected"';
+			$selected = NULL;
 		} else {
-			$selected = $cur_author = NULL;
+			$selected = 'selected="selected"';
+			$cur_author = NULL;
 		}
 		$option = getNewsAdminOption('author');
 		?>
 		<form name="AutoListBox0" id="articleauthordropdown" style="float:left; margin:5px;" action="#" >
 			<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 				<?php
-				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("All authors") . "</option>";
+				echo '<option ' . $selected . ' value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("All authors") . "</option>";
 				foreach ($authors as $author) {
 					if ($cur_author == $author) {
 						$selected = 'selected="selected"';
 					} else {
 						$selected = '';
 					}
-					echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . '">' . $author . '</option>\n';
+					echo '<option ' . $selected . ' value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('author' => $author), $option)) . '">' . $author . "</option>\n";
 				}
 				?>
 			</select>
@@ -602,7 +603,7 @@ function printNewsDatesDropdown() {
 	$nr = "";
 	$option = getNewsAdminOption('date');
 	if (!isset($_GET['date'])) {
-		$selected = 'selected = "selected"';
+		$selected = 'selected="selected"';
 	} else {
 		$selected = "";
 		if (!in_array($_GET['date'], $datecount)) {
@@ -613,7 +614,7 @@ function printNewsDatesDropdown() {
 	<form name="AutoListBox1" id="articledatesdropdown" style="float:left; margin:5px;" action="#" >
 		<select name="ListBoxURL" size="1" onchange="npg_gotoLink(this.form)">
 			<?php
-			echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("View all months") . "</option>\n";
+			echo '<option ' . $selected . ' value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath($option) . '">' . gettext("View all months") . "</option>\n";
 			foreach ($datecount as $key => $val) {
 				$nr++;
 				if ($key == '0000-00-01') {
@@ -635,7 +636,7 @@ function printNewsDatesDropdown() {
 				} else {
 					$selected = "";
 				}
-				echo '<option $selected value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . '">' . $month . ' ' . $year . ' (' . $val . ')</option>\n';
+				echo '<option ' . $selected . ' value="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . getNewsAdminOptionPath(array_merge(array('date' => substr($key, 0, 7)), $option)) . '">' . $month . ' ' . $year . ' (' . $val . ")</option>\n";
 			}
 			?>
 		</select>
