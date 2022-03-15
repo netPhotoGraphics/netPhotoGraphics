@@ -434,7 +434,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	 * Flips an image as directed by the second parameter:
 	 * 								IMG_FLIP_HORIZONTAL->mirrored
 	 * 								IMG_FLIP_VERTICAL->flipped (upside down)
-	 * 								IMG_FLIP_BOTH->mirrored and flilpped
+	 * 								IMG_FLIP_BOTH->mirrored and flipped
 	 *
 	 * @param resource $im
 	 * @param int $how
@@ -443,14 +443,14 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	function gl_flipImage($im, $how) {
 		switch ($how) {
 			case IMG_FLIP_HORIZONTAL:
-				$im->transverseImage();
+				$im->flopImage();
 				break;
 			case IMG_FLIP_VERTICAL;
 				$im->flipImage();
 				break;
 			case IMG_FLIP_BOTH:
+				$im->flopImage();
 				$im->flipImage();
-				$im->transverseImage();
 				break;
 		}
 		return $im;

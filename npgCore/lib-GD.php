@@ -343,7 +343,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 * Flips an image as directed by the second parameter:
 		 * 								IMG_FLIP_HORIZONTAL->mirrored
 		 * 								IMG_FLIP_VERTICAL->flipped (upside down)
-		 * 								IMG_FLIP_BOTH->mirrored and flilpped
+		 * 								IMG_FLIP_BOTH->mirrored and flipped
 		 *
 		 * @param resource $im
 		 * @param int $how
