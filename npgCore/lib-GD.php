@@ -349,7 +349,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 * @param int $how
 		 * @return resource
 		 */
-		function gl_flipImage($im, $how) {
+		function gl_imageFlip($im, $how) {
 			if (imageflip($im, $how)) {
 				return $im;
 			}

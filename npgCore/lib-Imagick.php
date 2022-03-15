@@ -440,7 +440,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	 * @param int $how
 	 * @return resource
 	 */
-	function gl_flipImage($im, $how) {
+	function gl_imageFlip($im, $how) {
 		switch ($how) {
 			case IMG_FLIP_HORIZONTAL:
 				$im->flopImage();

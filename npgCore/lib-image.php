@@ -621,31 +621,29 @@ class imageProcessing {
 	 */
 	static function transform($im, $rotation) {
 		switch ($rotation) {
-			default:
-			case 0:
-			case 1: // none
+			default: // none
 				$rotate = 0;
 				break;
 			case 2: // mirrored
-				$im = gl_flipImage($im, IMG_FLIP_HORIZONTAL);
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 0;
 				break;
 			case 3:// upside-down
 				$rotate = 180;
 				break;
 			case 4: // upside-down mirrored
-				$im = gl_flipImage($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 180;
+				$im = gl_imageFlip($im, IMG_FLIP_BOTH);
+				$rotate = 0;
 				break;
 			case 5: // 90 CCW mirrored
-				$im = gl_flipImage($im, IMG_FLIP_HORIZONTAL);
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 270;
 				break;
 			case 6: // 90 CCW
 				$rotate = 270;
 				break;
 			case 7: // 90 CW mirrored
-				$im = gl_flipImage($im, IMG_FLIP_HORIZONTAL);
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 90;
 				break;
 			case 8: // 90 CCW
