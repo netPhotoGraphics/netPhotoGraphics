@@ -207,6 +207,8 @@ class imageProcessing {
 					$effects = 'gray';
 				} else if (getOption('image_gray')) {
 					$effects = 'gray';
+				} else {
+					$effects = '';
 				}
 			}
 			$newfile = SERVERCACHE . $newfilename;
@@ -362,10 +364,12 @@ class imageProcessing {
 						$cw = round($h / $ch * $cw * $cf);
 						$ch = round($h * $cf);
 						$cx = round(($w - $cw) / 2);
+						$cy = 0;
 					} else {
 						$ch = round($w / $cw * $ch * $cf);
 						$cw = round($w * $cf);
 						$cy = round(($h - $ch) / 2);
+						$cx = 0;
 					}
 				} else { // custom crop
 					if (!$cw || $cw > $w)

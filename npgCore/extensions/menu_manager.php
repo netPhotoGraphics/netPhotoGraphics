@@ -185,6 +185,9 @@ function checkChosenMenuset() {
 		setOption('menu_lastChanged', $menuset);
 	} else {
 		$menuset = getOption('menu_lastChanged');
+		if (is_null($menuset)) {
+			$menuset = '';
+		}
 	}
 	return $menuset;
 }

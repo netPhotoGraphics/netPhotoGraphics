@@ -728,7 +728,7 @@ class ThemeObject extends PersistentObject {
 		if ($d && $d != '0000-00-00 00:00:00') {
 			return $d;
 		}
-		return NULL;
+		return false;
 	}
 
 	/**
@@ -1001,7 +1001,9 @@ class MediaObject extends ThemeObject {
 	 * @param string $desc description text
 	 */
 	function setDesc($desc) {
-		$desc = npgFunctions::tagURLs($desc);
+		if ($desc) {
+			$desc = npgFunctions::tagURLs($desc);
+		}
 		$this->set('desc', $desc);
 	}
 

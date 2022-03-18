@@ -1869,7 +1869,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1909,10 +1909,10 @@ class _Authority {
 	 *  @return string derived key
 	 */
 	static function pbkdf2($p, $s, $c = 1000, $kl = 32, $a = 'sha256') {
-		$hl = strlen(hash($a, null, true)); # Hash length
+		$hl = strlen(hash($a, false, true)); # Hash length
 		$kb = ceil($kl / $hl); # Key blocks to compute
 		$dk = ''; # Derived key
-# Create key
+		# Create key
 		for ($block = 1; $block <= $kb; $block++) {
 			# Initial hash for this block
 			$ib = $b = hash_hmac($a, $s . pack('N', $block), $p, true);
@@ -1922,7 +1922,7 @@ class _Authority {
 				$ib ^= ($b = hash_hmac($a, $b, $p, true));
 			$dk .= $ib; # Append iterated block
 		}
-# Return derived key of correct length
+		# Return derived key of correct length
 		return substr($dk, 0, $kl);
 	}
 

@@ -181,11 +181,13 @@ class Gallery {
 	 *
 	 */
 	function getPassword() {
-		if (GALLERY_SECURITY != 'public') {
-			return NULL;
-		} else {
-			return $this->get('gallery_password');
+		if (GALLERY_SECURITY == 'public') {
+			$p = $this->get('gallery_password');
+			if ($p) {
+				return $p;
+			}
 		}
+		return '';
 	}
 
 	function setPassword($value) {

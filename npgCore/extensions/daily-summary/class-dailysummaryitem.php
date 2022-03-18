@@ -40,7 +40,7 @@ class DailySummaryItem extends Album {
 			if ($albumobj && $albumobj->checkAccess()) {
 				if (empty($this->date)) {
 					$this->set('date', dateTimeConvert($album['date']));
-					$this->set('mtime', strftime('%Y-%m-%d %H:%M:%S', $album['mtime']));
+					$this->set('mtime', date('%Y-%m-%d %H:%M:%S', $album['mtime']));
 					$this->set('thumbfolder', $album['folder']);
 					$this->set('thumbimage', $album['filename']);
 					$this->set('thumbtitle', $album['thumbtitle']);

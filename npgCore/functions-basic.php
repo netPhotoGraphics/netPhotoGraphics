@@ -228,12 +228,13 @@ function sanitize_path($filename) {
  * @return int
  */
 function sanitize_numeric($num) {
-	$f = filter_var(str_replace(',', '.', $num), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-	if (!$f) {
-		return 0;
-	} else {
-		return (int) round($f);
+	if ($num) {
+		$f = filter_var(str_replace(',', '.', $num), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		if ($f) {
+			return (int) round($f);
+		}
 	}
+	return 0;
 }
 
 /**
@@ -451,7 +452,10 @@ function html_decode($string) {
  * @return string
  */
 function html_encode($this_string) {
-	return htmlspecialchars($this_string, ENT_FLAGS, LOCAL_CHARSET);
+	if ($this_string) {
+		$this_string = htmlspecialchars($this_string, ENT_FLAGS, LOCAL_CHARSET);
+	}
+	return $this_string;
 }
 
 /**
@@ -1000,21 +1004,12 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 		}
 		$value = db_quote($value);
 	}
+	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' .
+					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
+	query($sql, false);
 
-	$v = ', `value`=' . $value;
-	if (isset($_options[strtolower($key)])) {
-		if (!is_null($_options[strtolower($key)])) {
-			$v = '';
-		}
-	} else {
+	if (!isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $default;
-	}
-
-	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ');';
-	if (!query($sql, false)) {
-		//	update the creator field
-		$sql = 'UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . $v . ' WHERE `ownerid`=0 AND `name`=' . db_quote($key) . ' AND `theme`=' . db_quote($theme) . ';';
-		query($sql, false);
 	}
 }
 
@@ -1026,9 +1021,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  */
 function loadLocalOptions($albumid, $theme) {
 	global $_options, $_conf_vars;
-//start with the config file
+	//start with the config file
 	$options = $_conf_vars;
-//raw theme options Order is so that Album theme options will override simple theme options
+	//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {

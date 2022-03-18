@@ -621,7 +621,7 @@ function printNewsDatesDropdown() {
 					$year = "no date";
 					$month = "";
 				} else {
-					$dt = strftime('%Y-%B', strtotime($key));
+					$dt = date('%Y-%B', strtotime($key));
 					$year = substr($dt, 0, 4);
 					$month = substr($dt, 5);
 				}

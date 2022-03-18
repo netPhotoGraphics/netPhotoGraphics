@@ -111,7 +111,7 @@ class Video extends Image {
 			}
 			return;
 		}
-		$alts = explode(',', extensionEnabled('class-video_videoalt'));
+		$alts = explode(',', getOption('class-video_videoalt'));
 		foreach ($alts as $alt) {
 			$this->videoalt[] = trim(strtolower($alt));
 		}
@@ -119,7 +119,7 @@ class Video extends Image {
 		$this->video = true;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 
-// This is where the magic happens...
+		// This is where the magic happens...
 		$album_name = $album->name;
 		$this->updateDimensions();
 
