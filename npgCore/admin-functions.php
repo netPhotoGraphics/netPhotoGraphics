@@ -6019,7 +6019,7 @@ function getPluginTabs() {
 		} else {
 			$hr = true;
 			$tabs[$Xlate[$class]] = $adminPlugin . '?page=plugins&tab=' . $class;
-			if ($class == $default) {
+			if ($class == $default && is_array($$class)) {
 				$currentlist = array_keys($$class);
 			}
 		}
@@ -6110,7 +6110,7 @@ function processCredentials($object, $suffix = '') {
 			}
 			if (empty($pwd)) {
 				if (strlen($_POST['pass' . $suffix]) == 0) {
-// clear the  password
+					// clear the  password
 					if (is_object($object)) {
 						$object->setPassword(NULL);
 					} else {
