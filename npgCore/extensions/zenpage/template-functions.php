@@ -503,6 +503,7 @@ function getNewsCategoryDesc() {
 	if (!is_null($_CMS_current_category)) {
 		return $_CMS_current_category->getDesc();
 	}
+	return '';
 }
 
 /**
@@ -1391,7 +1392,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				$currentitem_id = $_CMS_current_category->getID();
 				$currentitem_parentid = $_CMS_current_category->getParentID();
 			} else {
-				$currentitem_sortorder = NULL;
+				$currentitem_sortorder = false;
 				$currentitem_id = NULL;
 				$currentitem_parentid = NULL;
 			}
@@ -1443,11 +1444,11 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				break;
 		}
 	}
-	$baseindent = max(1, count(explode("-", $currentitem_sortorder)));
 	$indent = 1;
 	$open = array($indent => 0);
 	$parents = array(NULL);
 	$order = explode('-', $currentitem_sortorder);
+	$baseindent = max(1, count($order));
 	$mylevel = count($order);
 	$myparentsort = reset($order);
 	for ($c = 0; $c <= $mylevel; $c++) {
@@ -2034,8 +2035,8 @@ function getPageURL($titlelink = '') {
  * @param string $next text to follow the URL
  * @param string $class optional class
  */
-function printPageURL($linktext = NULL, $titlelink = NULL, $prev = '', $next = '', $class = NULL) {
-	if (!is_null($class)) {
+function printPageURL($linktext = NULL, $titlelink = NULL, $prev = '', $next = '', $class = false) {
+	if (!$class) {
 		$class = 'class="' . $class . '"';
 	}
 	if (is_null($linktext)) {

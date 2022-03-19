@@ -112,14 +112,14 @@ class SearchEngine {
 		if (isset($_REQUEST['words'])) {
 			$this->words = self::decode(sanitize($_REQUEST['words'], 4));
 		} else {
-			$this->words = NULL;
+			$this->words = false;
 			if (isset($_REQUEST['date'])) { // words & dates are mutually exclusive
 				$this->dates = sanitizeDate($_REQUEST['date']);
 				if (isset($_REQUEST['whichdate'])) {
 					$this->whichdates = sanitize($_REQUEST['whichdate']);
 				}
 			} else {
-				$this->dates = NULL;
+				$this->dates = false;
 			}
 		}
 		$this->fieldList = $this->parseQueryFields();

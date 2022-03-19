@@ -546,7 +546,7 @@ function getCurrentMenuItem($menuset) {
 	}
 	$visibility = 'all';
 	$items = getMenuItems($menuset, $visibility);
-	$currentkey = NULL;
+	$currentkey = false;
 
 	foreach ($items as $key => $item) {
 		switch ($item['type']) {
@@ -606,7 +606,7 @@ function getMenumanagerPredicessor($menuset = 'default') {
  * @param string  $class
  * @param string  $id
  */
-function printMenumanagerPrevLink($text, $menuset = 'default', $title = NULL, $class = NULL, $id = NULL) {
+function printMenumanagerPrevLink($text, $menuset = 'default', $title = NULL, $class = false, $id = NULL) {
 	$itemarray = getMenumanagerPredicessor($menuset);
 	if (is_array($itemarray)) {
 		if (is_null($title))
@@ -656,7 +656,7 @@ function getMenumanagerSuccessor($menuset = 'default') {
  * @param string $class
  * @param string $id
  */
-function printMenumanagerNextLink($text, $menuset = 'default', $title = NULL, $class = NULL, $id = NULL) {
+function printMenumanagerNextLink($text, $menuset = 'default', $title = NULL, $class = false, $id = NULL) {
 	$itemarray = getMenumanagerSuccessor($menuset);
 	if (is_array($itemarray)) {
 		if (is_null($title))

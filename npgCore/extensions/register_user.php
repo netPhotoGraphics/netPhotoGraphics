@@ -515,9 +515,9 @@ function printRegistrationForm($thanks = NULL) {
  * @param string $next text to follow the URL
  * @param string $class optional class
  */
-function printRegisterURL($_linktext = NULL, $prev = '', $next = '', $class = NULL, $hint = NULL) {
+function printRegisterURL($_linktext = NULL, $prev = '', $next = '', $class = false, $hint = NULL) {
 	if (!npg_loggedin()) {
-		if (!is_null($class)) {
+		if (!$class) {
 			$class = 'class="' . $class . '"';
 		}
 		if (is_null($_linktext)) {

@@ -731,7 +731,7 @@ function getCommentAuthorSite() {
  * @param string $class optional class tag
  * @param string $id optional id tag
  */
-function getCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
+function getCommentAuthorLink($title = NULL, $class = false, $id = NULL) {
 	global $_current_comment;
 	if ($_current_comment['anon']) {
 		$name = gettext('anonymous ');
@@ -760,7 +760,7 @@ function getCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
  * @param string $class optional class tag
  * @param string $id optional id tag
  */
-function printCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
+function printCommentAuthorLink($title = NULL, $class = false, $id = NULL) {
 	echo getCommentAuthorLink($title, $class, $id);
 }
 
@@ -784,7 +784,7 @@ function getCommentBody() {
  * @param string $class optional css clasee
  * @param string $id optional css id
  */
-function printEditCommentLink($text, $before = '', $after = '', $title = NULL, $class = NULL, $id = NULL) {
+function printEditCommentLink($text, $before = '', $after = '', $title = NULL, $class = false, $id = NULL) {
 	global $_current_comment;
 	if (npg_loggedin(COMMENT_RIGHTS)) {
 		if ($before) {

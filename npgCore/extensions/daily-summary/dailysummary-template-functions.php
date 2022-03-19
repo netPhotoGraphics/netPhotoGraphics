@@ -48,7 +48,7 @@ function getDailySummaryTitle() {
 	return sprintf(ngettext('%1$s - 1 new photo', '%1$s - %2$s new photos', $count), date("l, F j Y", strtotime($_current_DailySummaryItem->getDateTime())), $count);
 }
 
-function printDailySummaryUrl($text, $title, $class = NULL, $id = NULL) {
+function printDailySummaryUrl($text, $title, $class = false, $id = NULL) {
 	printLinkHTML(getDailySummaryUrl(), $text, $title, $class, $id);
 }
 

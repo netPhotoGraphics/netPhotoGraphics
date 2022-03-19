@@ -97,6 +97,7 @@ $legacyReplacements = array(
 		'ZP_ZENPAGE_NEWS_DATE' => 'ZENPAGE_NEWS_DATE',
 		'ZP_ZENPAGE_PAGE' => 'ZENPAGE_PAGE',
 		'ZP_ZENPAGE_SINGLE' => 'ZENPAGE_SINGLE',
+		'ZP_ARTICLES_PER_PAGE' => 'ARTICLES_PER_PAGE',
 		'\$_zp_captcha' => '$_captcha',
 		'\$_zp_gallery_page' => '$_gallery_page',
 		'\$_zp_gallery' => '$_gallery',
@@ -287,6 +288,7 @@ switch (OFFSET_PATH) {
 		define('ZP_IMAGE_LINKED', IMAGE_LINKED);
 		define('ZP_ZENPAGE_NEWS_PAGE', ZENPAGE_NEWS_PAGE);
 		define('ZP_ZENPAGE_NEWS_ARTICLE', ZENPAGE_NEWS_ARTICLE);
+		define('ZP_ARTICLES_PER_PAGE', ARTICLES_PER_PAGE);
 		define('ZP_ZENPAGE_NEWS_CATEGORY', ZENPAGE_NEWS_CATEGORY);
 		define('ZP_ZENPAGE_NEWS_DATE', ZENPAGE_NEWS_DATE);
 		define('ZP_ZENPAGE_PAGE', ZENPAGE_PAGE);

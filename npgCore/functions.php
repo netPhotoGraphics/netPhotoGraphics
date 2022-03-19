@@ -1209,7 +1209,7 @@ function generateListFromFiles($currentValue, $root, $suffix, $descending = fals
  * @param string $class optional class
  * @param string $id optional id
  */
-function getLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
+function getLinkHTML($url, $text, $title = NULL, $class = false, $id = NULL) {
 	return "<a href=\"" . html_encode($url) . "\"" .
 					(($title) ? " title=\"" . html_encode(getBare($title)) . "\"" : "") .
 					(($class) ? " class=\"$class\"" : "") .
@@ -1225,7 +1225,7 @@ function getLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
  * @param string $class optional class
  * @param string $id optional id
  */
-function printLinkHTML($url, $text, $title = NULL, $class = NULL, $id = NULL) {
+function printLinkHTML($url, $text, $title = NULL, $class = false, $id = NULL) {
 	echo getLinkHTML($url, $text, $title, $class, $id);
 }
 
