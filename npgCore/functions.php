@@ -368,7 +368,7 @@ function lookupSortKey($sorttype, $default, $table) {
  */
 function formattedDate($format, $dt) {
 	global $_UTF8;
-	$fdate = strftime($format, $dt);
+	$fdate = date($format, $dt);
 	$charset = 'ISO-8859-1';
 	if (function_exists('mb_internal_encoding')) {
 		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
@@ -1409,12 +1409,12 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 				switch ($fieldname) {
 					case 'title':
 					case 'desc':
-						$s1 = isset($a[$fieldname]) ? get_language_string($a[$fieldname]) : NULL;
-						$s2 = isset($b[$fieldname]) ? get_language_string($b[$fieldname]) : NULL;
+						$s1 = isset($a[$fieldname]) ? get_language_string($a[$fieldname]) : '';
+						$s2 = isset($b[$fieldname]) ? get_language_string($b[$fieldname]) : '';
 						break;
 					default:
-						$s1 = isset($a[$fieldname]) ? $a[$fieldname] : NULL;
-						$s2 = isset($b[$fieldname]) ? $b[$fieldname] : NULL;
+						$s1 = isset($a[$fieldname]) ? $a[$fieldname] : '';
+						$s2 = isset($b[$fieldname]) ? $b[$fieldname] : '';
 						break;
 				}
 				$retval = localeCompare($s1, $s2, $nat, $case);
@@ -1933,27 +1933,23 @@ function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = f
 		}
 	}
 
+
 	$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`ownerid`,`theme`,`creator`,`value`) VALUES (' . db_quote($key) . ',' . $id . ',' . db_quote($theme) . ',' . db_quote($creator) . ',';
-	$sqlu = ' ON DUPLICATE KEY UPDATE `value`=';
 	if (is_null($value)) {
 		$sql .= 'NULL';
-		$sqlu .= 'NULL';
 	} else {
 		if (is_bool($value)) {
 			$value = (int) $value;
 		}
 		$sql .= db_quote($value);
-		$sqlu .= db_quote($value);
 	}
-	$sql .= ') ';
-	if ($default) {
-		if (!isset($_options[$key = strtolower($key)]))
-			$_options[$key] = $value;
-	} else {
-		$sql .= $sqlu;
+	$sql .= ')' .
+					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
+	query($sql, false);
+
+	if (!$default || !isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $value;
 	}
-	$result = query($sql, false);
 }
 
 /**
@@ -2778,18 +2774,20 @@ class npgFunctions {
 	 */
 	static function unTagURLs($text, $debug = NULL) {
 		global $_tagURLs_tags, $_tagURLs_values;
-		if ($serial = is_serialized($text)) {
-			$text = unserialize($text);
-		}
-		if (is_array($text)) {
-			foreach ($text as $key => $textelement) {
-				$text[$key] = self::unTagURLs($textelement, $debug + 1);
+		if ($text) {
+			if ($serial = is_serialized($text)) {
+				$text = unserialize($text);
 			}
-			if ($serial) {
-				$text = serialize($text);
+			if (is_array($text)) {
+				foreach ($text as $key => $textelement) {
+					$text[$key] = self::unTagURLs($textelement, $debug + 1);
+				}
+				if ($serial) {
+					$text = serialize($text);
+				}
+			} else {
+				$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
 			}
-		} else {
-			$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
 		}
 		return $text;
 	}

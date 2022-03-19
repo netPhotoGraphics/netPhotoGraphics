@@ -616,7 +616,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = strftime('%Y-%B', strtotime($key));
+			$dt = date('%Y-%B', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}
@@ -632,7 +632,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 		if ($yearsonly) {
 			$datetosearch = $key;
 		} else {
-			$datetosearch = strftime('%Y-%B', strtotime($key));
+			$datetosearch = date('%Y-%B', strtotime($key));
 		}
 		if (getCurrentNewsArchive('plain') == $datetosearch) {
 			$active = $activeclass;
@@ -656,7 +656,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
  * Gets the current select news date (year-month) or formatted
  *
  * @param string $mode "formatted" for a formatted date or "plain" for the pure year-month (for example "2008-09") archive date
- * @param string $format If $mode="formatted" how the date should be printed (see PHP's strftime() function for the requirements)
+ * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
 function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
@@ -665,7 +665,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
 		$archivedate = $_post_date;
 		if ($mode == "formatted") {
 			$archivedate = strtotime($archivedate);
-			$archivedate = strftime($format, $archivedate);
+			$archivedate = date($format, $archivedate);
 		}
 		return $archivedate;
 	}
@@ -677,7 +677,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
  *
  * @param string $before What you want to print before the archive if using in a breadcrumb navigation for example
  * @param string $mode "formatted" for a formatted date or "plain" for the pure year-month (for example "2008-09") archive date
- * @param string $format If $mode="formatted" how the date should be printed (see PHP's strftime() function for the requirements)
+ * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
 function printCurrentNewsArchive($before = '', $mode = 'formatted', $format = '%B %Y') {

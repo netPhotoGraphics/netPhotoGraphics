@@ -35,7 +35,8 @@ class bxslider {
 
 			$found = array();
 			$result = getOptionsLike('bxslider_');
-			foreach ($result as $option) {
+
+			foreach ($result as $option => $value) {
 				preg_match('/bxslider_(.*)_(.*)/', $option, $matches);
 				if (count($matches) == 3 && $matches[2] != 'scripts') {
 					if ($value) {

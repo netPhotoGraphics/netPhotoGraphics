@@ -2940,7 +2940,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function printAlbumEditRow($album, $show_thumb, $owner, $toodeep) {
 		global $_current_admin_obj;
 		$enableEdit = $album->subRights() & MANAGED_OBJECT_RIGHTS_EDIT;
-		if (is_object($owner)) {
+		if (is_null($owner)) {
+			$owner = '';
+		} else if (is_object($owner)) {
 			$owner = $owner->name;
 		}
 		if ($toodeep) {
@@ -3462,7 +3464,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 		} else {
 			if ($allimagecount != $totalimages) { // need pagination links
-				adminPageNav($pagenum, $totalpages, 'admin-tabs/edit.php', '?page=edit&amp;album=' . pathurlencode($album->name), '&amp;tab=imageinfo&amp;filter=' . $filter);
+				?>
+				<span align="center">
+					<?php adminPageNav($pagenum, $totalpages, 'admin-tabs/edit.php', '?page=edit&amp;album=' . pathurlencode($album->name), '&amp;tab=imageinfo&amp;filter=' . $filter); ?>
+				</span>
+				<?php
 			}
 		}
 	}
@@ -3816,7 +3822,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 			return '';
 		}
-		return NULL;
+		return false;
 	}
 
 	/**
@@ -4114,10 +4120,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<span style="float: right; padding-right: 12px;">
 					<label title="<?php echo gettext('check/uncheck all'); ?>">
 						<input type="checkbox" name="all_<?php echo $id; ?>" id="all-<?php echo $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $rightslist['ADMIN_RIGHTS']['value']; ?>"<?php
-						if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
-							echo ' checked="checked"';
-						echo $alterrights;
-						?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/>
+					if ($rights & $rightslist['ADMIN_RIGHTS']['value'])
+						echo ' checked="checked"';
+					echo $alterrights;
+					?> onclick="$('.user-<?php echo $id; ?>').prop('checked', $('#all-<?php echo $id; ?>').prop('checked'));"/>
 									 <?php echo gettext('All rights'); ?>
 					</label>
 				</span>
@@ -4143,10 +4149,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 						<label style="padding-right: 15px;" title="<?php echo html_encode(get_language_string($right['hint'])); ?>">
 							<input type="checkbox" name="<?php printf($format, $rightselement, $id); ?>" id="<?php echo $rightselement . '-' . $id; ?>" class="user-<?php echo $id; ?>" value="<?php echo $right['value']; ?>"<?php
-							if ($rights & $right['value'])
-								echo ' checked="checked"';
-							echo $alterrights;
-							?> />
+				if ($rights & $right['value'])
+					echo ' checked="checked"';
+				echo $alterrights;
+						?> />
 										 <?php echo $right['name']; ?>
 						</label>
 						<?php
@@ -5898,7 +5904,7 @@ function getPluginTabs() {
 	$plugin_lc = array();
 	$paths = getPluginFiles('*.php');
 
-	$class = $feature = $admin = $theme = $details = $enabled = $disabled = $deprecated = $classes = $member = $thirdparty = array();
+	$details = $enabled = $disabled = $deprecated = $classes = $member = $thirdparty = array();
 	foreach ($paths as $plugin => $path) {
 		if (!isset($plugin_lc[strtolower($plugin)])) {
 			$plugin_lc[strtolower($plugin)] = true;
@@ -5969,12 +5975,12 @@ function getPluginTabs() {
 				}
 				$member[$plugin] = $local;
 
-				$deprecated = getDocBlockValue('@deprecated', $d);
-				if (!is_null($deprecated)) {
-					if (!$deprecated) {
-						$deprecated = 'deprecated';
+				$isDeprecated = getDocBlockValue('@deprecated', $d);
+				if ($isDeprecated !== false) {
+					if (!$isDeprecated) {
+						$isDeprecated = 'deprecated';
 					}
-					$details[$plugin]['deprecated'] = $deprecated;
+					$details[$plugin]['deprecated'] = $isDeprecated;
 				}
 			}
 			if (!isset($details[$plugin]['package'])) {
@@ -6019,7 +6025,7 @@ function getPluginTabs() {
 		} else {
 			$hr = true;
 			$tabs[$Xlate[$class]] = $adminPlugin . '?page=plugins&tab=' . $class;
-			if ($class == $default && is_array($$class)) {
+			if ($class == $default) {
 				$currentlist = array_keys($$class);
 			}
 		}
@@ -6405,7 +6411,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-			 <?php echo CLIPBOARD; ?>
+		 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }

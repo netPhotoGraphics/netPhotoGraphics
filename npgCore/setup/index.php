@@ -468,17 +468,19 @@ if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 
 if ($setup_checked) {
 	setupLog(gettext("Completed system check"), true);
+
 	if (isset($_COOKIE['setup_test_cookie'])) {
 		$setup_cookie = $_COOKIE['setup_test_cookie'];
 	} else {
 		$setup_cookie = '';
 	}
+	clearNPGCookie('setup_test_cookie');
 	if ($setup_cookie == NETPHOTOGRAPHICS_VERSION) {
 		setupLog(gettext('Setup cookie test successful'));
-		clearNPGCookie('setup_test_cookie');
 	} else {
 		setupLog('<span class="logwarning">' . gettext('Setup cookie test unsuccessful') . '</span>', true);
 	}
+
 	if ($s = getOption('users_per_page')) {
 		setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
 		purgeOption('users_per_page');

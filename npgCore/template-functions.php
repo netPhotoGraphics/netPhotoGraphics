@@ -1327,7 +1327,7 @@ function printSearchBreadcrumb($between = NULL, $class = NULL, $search = NULL, $
 		echo '<span class="betweentext">' . html_encode($between) . '</span>';
 		if ($format) {
 			$d = strtotime($d);
-			$d = strftime($format, $d);
+			$d = date($format, $d);
 		}
 		echo $d;
 	} else {
@@ -3828,7 +3828,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = strftime('%Y-%B', strtotime($key));
+			$dt = date('%Y-%B', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}

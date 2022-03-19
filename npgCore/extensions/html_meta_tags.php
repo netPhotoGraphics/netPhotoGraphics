@@ -171,7 +171,7 @@ class htmlmetatags {
 
 		// generate page title, get date
 		$pagetitle = ""; // for gallery index setup below switch
-		$date = strftime(DATE_FORMAT); // if we don't have a item date use current date
+		$date = date(DATE_FORMAT); // if we don't have a item date use current date
 		$desc = getBareGalleryDesc();
 		$thumb = '';
 		if (getOption('htmlmeta_sitelogo')) {
@@ -265,7 +265,7 @@ class htmlmetatags {
 						}
 					} else if (is_NewsCategory()) {
 						$pagetitle = $_CMS_current_category->getTitlelink() . " - ";
-						$date = strftime(DATE_FORMAT);
+						$date = date(DATE_FORMAT);
 						$desc = trim(getBare($_CMS_current_category->getDesc()));
 						$canonicalurl = FULLHOSTPATH . $_CMS_current_category->getLink($_current_page);
 						$type = 'category';

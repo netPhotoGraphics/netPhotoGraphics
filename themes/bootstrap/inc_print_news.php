@@ -1,8 +1,8 @@
 <div class="<?php echo $news_class; ?> margin-bottom-double clearfix">
 					<div class="post-date">
-						<span class="month"><?php echo strftime('%b', strtotime($_CMS_current_article->getDateTime())); ?></span>
-						<span class="day"><?php echo strftime('%d', strtotime($_CMS_current_article->getDateTime())); ?></span>
-						<span class="year"><?php echo strftime('%Y', strtotime($_CMS_current_article->getDateTime())); ?></span>
+						<span class="month"><?php echo date('%b', strtotime($_CMS_current_article->getDateTime())); ?></span>
+						<span class="day"><?php echo date('%d', strtotime($_CMS_current_article->getDateTime())); ?></span>
+						<span class="year"><?php echo date('%Y', strtotime($_CMS_current_article->getDateTime())); ?></span>
 					</div>
 					<h4 class="post-title">
 						<?php
