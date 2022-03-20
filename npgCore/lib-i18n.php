@@ -395,7 +395,10 @@ class i18n {
 	 */
 	static function getUserLocale($separator = '_') {
 		global $_current_locale;
-		return str_replace('_', $separator, $_current_locale);
+		if ($_current_locale) {
+			return str_replace('_', $separator, $_current_locale);
+		}
+		return false;
 	}
 
 	/**

@@ -673,6 +673,8 @@ function optionCheck($urls) {
 					$errors = true;
 				}
 			}
+			ob_flush();
+			flush();
 		}
 	} else {
 		foreach ($urls as $whom => $link) {

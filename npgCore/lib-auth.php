@@ -1311,20 +1311,22 @@ class _Authority {
 	 */
 	function checkCookieCredentials() {
 		$auth = $cookie = getNPGCookie('user_auth');
-		$idLoc = strrpos($cookie, '.');
-		if ($idLoc) {
-			$id = (int) substr($cookie, $idLoc + 1);
-			$auth = substr($cookie, 0, $idLoc);
-		} else {
-			$id = 0;
-		}
-		$loggedin = $this->checkAuthorization($auth, $id);
-		$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
-		if ($loggedin) {
-			return $loggedin;
-		}
-		if ($auth) { //	expired/invalid auth cookie
-			clearNPGCookie("user_auth");
+		if ($cookie) {
+			$idLoc = strrpos($cookie, '.');
+			if ($idLoc) {
+				$id = (int) substr($cookie, $idLoc + 1);
+				$auth = substr($cookie, 0, $idLoc);
+			} else {
+				$id = 0;
+			}
+			$loggedin = $this->checkAuthorization($auth, $id);
+			$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
+			if ($loggedin) {
+				return $loggedin;
+			}
+			if ($auth) { //	expired/invalid auth cookie
+				clearNPGCookie("user_auth");
+			}
 		}
 		return NULL;
 	}
@@ -1869,7 +1871,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

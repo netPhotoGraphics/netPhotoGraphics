@@ -281,11 +281,14 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
  */
 function db_escape($string) {
 	global $_DB_connection;
-	if ($_DB_connection) {
-		return trim($_DB_connection->quote($string), "'" . '"');
-	} else {
-		return addslashes($string);
+	if ($string) {
+		if ($_DB_connection) {
+			return trim($_DB_connection->quote($string), "'" . '"');
+		} else {
+			return addslashes($string);
+		}
 	}
+	return '';
 }
 
 /*
