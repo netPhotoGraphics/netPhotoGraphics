@@ -127,7 +127,9 @@ function loadAlbum($album) {
 							<?php
 						}
 					}
-					ob_flush();
+					if (ob_get_length()) {
+						ob_flush();
+					}
 					flush();
 				}
 			} else {
@@ -138,7 +140,7 @@ function loadAlbum($album) {
 					}
 					?>
 					<a href="<?php echo $img['uri']; ?>&amp;admin&amp;returncheckmark&amp;debug">
-					<?php echo '<img src="' . $img['uri'] . '&amp;returncheckmark" title="' . html_encode($img['cache']) . '" height="16" width="16" alt="X" />' . "\n"; ?>
+						<?php echo '<img src="' . $img['uri'] . '&amp;returncheckmark" title="' . html_encode($img['cache']) . '" height="16" width="16" alt="X" />' . "\n"; ?>
 					</a>
 					<?php
 				}
@@ -239,7 +241,7 @@ if (!CURL_ENABLED) {
 	?>
 
 	<form class="dirtylistening" onReset="setClean('size_selections');" id="size_selections" name="size_selections" action="?tab=images&action=select&album=<?php echo pathurlencode($alb); ?>" method="post" autocomplete="off">
-			<?php XSRFToken('cacheImages') ?>
+		<?php XSRFToken('cacheImages') ?>
 		<ol class="no_bullets">
 			<?php
 			if (getOption('cache_full_image') && (!is_array($enabled) || in_array('*', $enabled))) {
@@ -257,14 +259,14 @@ if (!CURL_ENABLED) {
 					if (!is_array($enabled)) {
 						?>
 						<span class="icons" id="<?php echo $theme; ?>_arrow">
-						<?php echo PLACEHOLDER_ICON; ?>
+							<?php echo PLACEHOLDER_ICON; ?>
 						</span>
 						<?php
 					}
 					?>
 					<label>
 						<input type="checkbox" name="enable[*]" value="*" <?php echo $checked; ?> />
-	<?php echo gettext('Apply'); ?> <code><?php echo gettext('Full Image'); ?></code>
+						<?php echo gettext('Apply'); ?> <code><?php echo gettext('Full Image'); ?></code>
 					</label>
 				</li>
 				<?php
@@ -334,7 +336,7 @@ if (!CURL_ENABLED) {
 					<li>
 						<span class="icons upArrow" id="<?php echo $theme; ?>_arrow">
 							<a onclick="showTheme('<?php echo $theme; ?>');" title="<?php echo gettext('Show'); ?>">
-			<?php echo ARROW_DOWN_GREEN; ?>
+								<?php echo ARROW_DOWN_GREEN; ?>
 							</a>
 						</span>
 						<label>
@@ -364,7 +366,7 @@ if (!CURL_ENABLED) {
 									?>
 									<label>
 										<input type="checkbox" name="enable[]" class="<?php echo $theme; ?>" value="<?php echo $key; ?>" <?php echo $checked; ?> />
-			<?php echo gettext('Apply'); ?> <code><?php echo ltrim($postfix, '_'); ?></code>
+										<?php echo gettext('Apply'); ?> <code><?php echo ltrim($postfix, '_'); ?></code>
 									</label>
 								</li>
 								<?php
@@ -434,7 +436,7 @@ if (!CURL_ENABLED) {
 		if ($button) {
 			?>
 			<p>
-			<?php applyButton(array('buttonText' => CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . '' . $button['text'], 'buttonCass' => 'tooltip')); ?>
+				<?php applyButton(array('buttonText' => CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE . '' . $button['text'], 'buttonCass' => 'tooltip')); ?>
 			</p>
 			<?php
 		}

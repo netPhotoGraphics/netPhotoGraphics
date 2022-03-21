@@ -673,7 +673,9 @@ function optionCheck($urls) {
 					$errors = true;
 				}
 			}
-			ob_flush();
+			if (ob_get_length()) {
+				ob_flush();
+			}
 			flush();
 		}
 	} else {
