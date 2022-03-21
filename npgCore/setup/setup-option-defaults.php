@@ -55,12 +55,12 @@ if (isset($old['NETPHOTOGRAPHICS'])) {
 	$from = NULL;
 }
 
-//	preload for check images
-?>
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
-<?php
+if (CURL_ENABLED) {
+	//	preload for check images
+	?>
+	<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+	<?php
+}
 purgeOption('mod_rewrite');
 $sfx = getOption('mod_rewrite_image_suffix');
 purgeOption('mod_rewrite_image_suffix');
@@ -481,6 +481,7 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
+
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
@@ -1089,6 +1090,9 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 </p>
 <br clear="all">
 <?php
+if ($displayErrors) {
+	$autorun = false;
+}
 $userPlugins = array_diff($plugins, $_npg_plugins);
 if (!empty($themes) || !empty($userPlugins)) {
 	//	There are either un-distributed themes or un-distributed plugins present

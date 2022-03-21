@@ -1721,8 +1721,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										$autorun = getAdminLink('admin-tabs/users.php') . '?page=admin';
 									}
 								}
-							} else {
-								$autorun = false;
 							}
 
 							require_once(PLUGIN_SERVERPATH . 'clone.php');
@@ -1739,7 +1737,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
 							?>
-							<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
+							<p id="golink" class="delayshow"<?php
+							if (!CURL_ENABLED) {
+								echo ' style="display:none;"';
+							}
+							?>>
+									 <?php echo $link; ?>
+							</p>
 							<?php
 							switch ($autorun) {
 								case false:
