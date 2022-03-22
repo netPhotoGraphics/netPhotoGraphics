@@ -49,7 +49,7 @@ foreach ($tables as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
 		$dbType = strtoupper($datum['Type']);
-		if ($dbType == 'TEXT' || $dbType == 'LONGTEXT') {
+		if ($dbType == 'TEXT' || ($dbType == 'LONGTEXT' && $datum['Field'] != 'used_ips')) {
 			$sql = "ALTER TABLE " . prefix($table) . " CHANGE `" . $datum['Field'] . "` `" . $datum['Field'] . "` " . $dbType . ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 			if ($datum['Null'] === 'NO')
 				$sql .= " NOT NULL";
