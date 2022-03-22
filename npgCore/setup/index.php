@@ -1666,9 +1666,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 						$updateErrors = false;
 						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
-
 							primeMark(gettext('Database update'));
-							if (@$_conf_vars['UTF-8'] != 'utf8mb4') {
+							if (getOption('UTF-8') !== 'utf8mb4') {
 								$sql = 'SELECT COLLATION_NAME FROM information_schema.columns ' .
 												'WHERE TABLE_SCHEMA = "' . $_conf_vars['mysql_database'] . '" ' .
 												'AND TABLE_NAME = "' . trim(prefix('albums'), '`') . '" ' .
@@ -1680,8 +1679,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									configFile::store($_config_contents);
 								}
 							}
-
-
 							require_once(CORE_SERVERPATH . 'setup/database.php');
 							unset($_tableFields);
 							if ($updateErrors) {
