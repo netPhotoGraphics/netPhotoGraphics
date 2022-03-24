@@ -20,14 +20,8 @@ admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('utf8mb4Migration');
 
+setOption('UTF-8', 'utf8mb4');
 require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
-
-$_configMutex->lock();
-$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
-configFile::store($_config_contents);
-$_configMutex->unlock();
-
 require_once(CORE_SERVERPATH . 'setup/database.php'); //	this will do the actual migration of the fields
 
 header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('utf8mb4 migration completed.'));
