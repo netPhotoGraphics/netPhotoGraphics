@@ -1729,6 +1729,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									var cloneWindow = window.open(url, "", "");
 									if (!cloneWindow || cloneWindow.closed || typeof cloneWindow.closed == 'undefined') {
 										$('.cloneLink').show();
+										imageErr = true;	//	stop autorun
 									}
 								}
 							</script>
