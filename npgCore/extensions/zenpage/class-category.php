@@ -41,7 +41,7 @@ class Category extends CMSRoot {
 	 */
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
-		if (text) {
+		if ($text) {
 			if ($locale == 'all') {
 				return npgFunctions::unTagURLs($text);
 			} else {
