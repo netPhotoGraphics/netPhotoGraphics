@@ -10,21 +10,32 @@ $_comment_stored = array();
  * Gets an array of comments for the current admin
  *
  * @param int $number how many comments desired
+ * @param int $status if the comment is marked spam or not
  * @return array
  */
-function fetchComments($number) {
+function fetchComments($number, $status = -1) {
 	if ($number) {
 		$limit = " LIMIT $number";
 	} else {
 		$limit = '';
 	}
+	if ($status < 0) {
+		$where = '';
+	} else {
+		$where = ' WHERE `inmoderation`=' . ($status % 2);
+	}
 
 	$comments = array();
 	if (npg_loggedin(ADMIN_RIGHTS | COMMENT_RIGHTS)) {
 		if (npg_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
-			$sql = "SELECT * FROM " . prefix('comments') . " ORDER BY id DESC$limit";
+			$sql = "SELECT * FROM " . prefix('comments') . $where . " ORDER BY id DESC$limit";
 			$comments = query_full_array($sql);
 		} else {
+			if ($where) {
+				$where .= ' AND ';
+			} else {
+				$where = ' Where ';
+			}
 			$albumlist = getManagedAlbumList();
 			$albumIDs = array();
 			foreach ($albumlist as $albumname) {
@@ -34,7 +45,7 @@ function fetchComments($number) {
 				}
 			}
 			if (count($albumIDs) > 0) {
-				$sql = "SELECT  * FROM " . prefix('comments') . " WHERE ";
+				$sql = "SELECT  * FROM " . prefix('comments') . $where;
 
 				$sql .= " (`type`='albums' AND (";
 				$i = 0;
@@ -58,7 +69,7 @@ function fetchComments($number) {
 								prefix('comments') . ".name as name, " . prefix('comments') . ".date AS date, " .
 								prefix('images') . ".`albumid` as albumid," .
 								prefix('images') . ".`id` as imageid" .
-								" FROM " . prefix('comments') . "," . prefix('images') . " WHERE ";
+								" FROM " . prefix('comments') . "," . prefix('images') . $where;
 
 				$sql .= "(`type` IN (" . npg_image_types("'") . ") AND (";
 				$i = 0;
@@ -720,7 +731,7 @@ function getCommentAuthorSite() {
  * @param string $class optional class tag
  * @param string $id optional id tag
  */
-function getCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
+function getCommentAuthorLink($title = NULL, $class = false, $id = NULL) {
 	global $_current_comment;
 	if ($_current_comment['anon']) {
 		$name = gettext('anonymous ');
@@ -749,7 +760,7 @@ function getCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
  * @param string $class optional class tag
  * @param string $id optional id tag
  */
-function printCommentAuthorLink($title = NULL, $class = NULL, $id = NULL) {
+function printCommentAuthorLink($title = NULL, $class = false, $id = NULL) {
 	echo getCommentAuthorLink($title, $class, $id);
 }
 
@@ -773,7 +784,7 @@ function getCommentBody() {
  * @param string $class optional css clasee
  * @param string $id optional css id
  */
-function printEditCommentLink($text, $before = '', $after = '', $title = NULL, $class = NULL, $id = NULL) {
+function printEditCommentLink($text, $before = '', $after = '', $title = NULL, $class = false, $id = NULL) {
 	global $_current_comment;
 	if (npg_loggedin(COMMENT_RIGHTS)) {
 		if ($before) {

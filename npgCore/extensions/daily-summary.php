@@ -90,7 +90,7 @@ class DailySummaryOptions {
 
 }
 
-function printDailySummaryLink($linkText = NULL, $q = '', $prev = '', $next = '', $class = NULL) {
+function printDailySummaryLink($linkText = NULL, $q = '', $prev = '', $next = '', $class = false) {
 	if (is_null($linkText)) {
 		$linkText = gettext('Daily Summary');
 	}

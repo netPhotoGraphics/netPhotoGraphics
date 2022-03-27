@@ -316,7 +316,7 @@ class Image extends MediaObject {
 		$this->imagetype = strtolower(get_class($this)) . 's';
 		$date = $this->get('date');
 		if (!$date || $date == '0000-00-00 00:00:00') {
-			$this->set('date', strftime('%Y-%m-%d %H:%M:%S', $this->filemtime));
+			$this->set('date', date('%Y-%m-%d %H:%M:%S', $this->filemtime));
 		}
 		return true;
 	}
@@ -400,7 +400,7 @@ class Image extends MediaObject {
 		if ($_exifvars[$field][EXIF_FIELD_ENABLED]) {
 			return $this->get($field);
 		} else {
-			return NULL;
+			return false;
 		}
 	}
 
@@ -545,7 +545,13 @@ class Image extends MediaObject {
 			/* "import" metadata into database fields as makes sense */
 
 			/* Image Rotation */
-			$this->set('rotation', substr(trim(self::fetchMetadata('EXIFOrientation'), '!'), 0, 1));
+			$rotation = self::fetchMetadata('EXIFOrientation');
+			if ($rotation) {
+				$rotation = substr(trim(self::fetchMetadata('EXIFOrientation'), '!'), 0, 1);
+			} else {
+				$rotation = 0;
+			}
+			$this->set('rotation', $rotation);
 
 			/* "date" field population */
 			if ($date = self::fetchMetadata('IPTCDateCreated')) {
@@ -570,7 +576,7 @@ class Image extends MediaObject {
 				$date = self::fetchMetadata('EXIFDateTimeDigitized');
 			}
 			if (empty($date)) {
-				$this->setDateTime(strftime('%Y-%m-%d %H:%M:%S', $this->filemtime));
+				$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->filemtime));
 			} else {
 				$this->setDateTime($date);
 			}

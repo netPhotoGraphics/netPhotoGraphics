@@ -107,7 +107,7 @@ class zoomImage {
  * @param string $alt
  * @param string $title
  */
-function printZoomImage($size = NULL, $type = NULL, $magnify = NULL, $target = NULL, $image = NULL, $id = NULL, $class = NULL, $alt = NULL, $title = NULL) {
+function printZoomImage($size = NULL, $type = NULL, $magnify = NULL, $target = NULL, $image = NULL, $id = NULL, $class = false, $alt = NULL, $title = NULL) {
 	global $_current_image, $_zoomImage_ID, $_zoomImage_id_list;
 	if (is_null($image)) {
 		$image = $_current_image;

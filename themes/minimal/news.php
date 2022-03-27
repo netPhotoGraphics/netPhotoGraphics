@@ -2,7 +2,8 @@
 
 <div id="breadcrumbs">
 	<h2><a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Home'); ?>"><?php echo gettext('Home'); ?></a> &raquo; <a href="<?php echo getCustomPageURL('gallery'); ?>" title="<?php echo gettext('Gallery Index'); ?>"><?php echo gettext('Gallery Index'); ?></a> &raquo; <?php printNewsIndexURL(); ?><?php printCurrentNewsCategory(" » Category → "); ?><?php printNewsTitle("  »  ");
-printCurrentNewsArchive("  »  "); ?></h2>
+printCurrentNewsArchive("  »  ");
+?></h2>
 </div>
 </div> <!-- close #header -->
 <div id="content">
@@ -13,8 +14,9 @@ printCurrentNewsArchive("  »  "); ?></h2>
 				<div class="newsarticlecredit">
 					<span><?php printNewsDate(); ?> &sdot; <?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?> <?php if (function_exists('printCommentForm')) { ?>&sdot; <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?><?php } ?></span>
 				</div>
-	<?php printNewsContent();
-	printCodeblock(1); ?>
+				<?php printNewsContent();
+				printCodeblock(1);
+				?>
 			</div>
 			<div id="pagination">
 			<?php if (getPrevNewsURL()) { ?><div class="prev"><?php printPrevNewsLink('←'); ?></div><?php } ?>
@@ -29,7 +31,7 @@ printCurrentNewsArchive("  »  "); ?></h2>
 				<?php if (getCurrentNewsArchive()) { ?>
 					<h1><?php printCurrentNewsArchive(); ?></h1>
 				<?php } ?>
-				<?php if (strlen(getNewsCategoryDesc()) > 0) { ?>
+				<?php if (getNewsCategoryDesc()) { ?>
 					<div><?php echo getNewsCategoryDesc(); ?></div><br />
 	<?php } ?>
 	<?php while (next_news()):; ?>
@@ -39,7 +41,8 @@ printCurrentNewsArchive("  »  "); ?></h2>
 							<span><?php printNewsDate(); ?> &sdot; <?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?><?php if (function_exists('printCommentForm')) { ?> &sdot; <?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?> <?php } ?></span>
 						</div>
 					<?php printNewsContent();
-					printCodeblock(1); ?>
+					printCodeblock(1);
+					?>
 					</div>
 				<?php endwhile; ?>
 			</div>

@@ -167,7 +167,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 		debugLog("image_crop: crop " . basename($imgpath) . ":\$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy \$rotate=$rotate");
 
 	if ($rotate) {
-		$timg = gl_rotateImage($timg, $rotate);
+		$timg = imageProcessing::transform($timg, $rotate);
 	}
 
 	$newim = gl_createImage($cw, $ch);

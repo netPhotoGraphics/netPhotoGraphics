@@ -822,7 +822,7 @@ function getNextPageURL() {
  * @param string $class Text for the HTML class
  * @param string $id Text for the HTML id
  */
-function printNextPageURL($text, $title = NULL, $class = NULL, $id = NULL) {
+function printNextPageURL($text, $title = NULL, $class = false, $id = NULL) {
 	if (hasNextPage()) {
 		printLinkHTML(getNextPageURL(), $text, $title, $class, $id);
 	} else {
@@ -856,7 +856,7 @@ function getPrevPageURL() {
  * @param string $class Insert here the CSS-class name you want to style the link with
  * @param string $id Insert here the CSS-ID name you want to style the link with
  */
-function printPrevPageURL($text, $title = NULL, $class = NULL, $id = NULL) {
+function printPrevPageURL($text, $title = NULL, $class = false, $id = NULL) {
 	if (hasPrevPage()) {
 		printLinkHTML(getPrevPageURL(), $text, $title, $class, $id);
 	} else {
@@ -1305,7 +1305,7 @@ function printAlbumBreadcrumb($before = '', $after = '', $title = NULL) {
  * @param string $archive text for an archive page title
  * @param string $format data format for archive page crumb
  */
-function printSearchBreadcrumb($between = NULL, $class = NULL, $search = NULL, $archive = NULL, $format = '%B %Y') {
+function printSearchBreadcrumb($between = NULL, $class = false, $search = NULL, $archive = NULL, $format = '%B %Y') {
 	global $_current_search;
 	if (is_null($between)) {
 		$between = ' | ';
@@ -1327,7 +1327,7 @@ function printSearchBreadcrumb($between = NULL, $class = NULL, $search = NULL, $
 		echo '<span class="betweentext">' . html_encode($between) . '</span>';
 		if ($format) {
 			$d = strtotime($d);
-			$d = strftime($format, $d);
+			$d = date($format, $d);
 		}
 		echo $d;
 	} else {
@@ -1475,7 +1475,7 @@ function printParentBreadcrumb($before = NULL, $between = NULL, $after = NULL, $
  * @param string $class optional css class
  * @param string $id optional css id
  *  */
-function printHomeLink($before = '', $after = '', $title = NULL, $class = NULL, $id = NULL) {
+function printHomeLink($before = '', $after = '', $title = NULL, $class = false, $id = NULL) {
 	global $_gallery;
 	$site = rtrim($_gallery->getWebsiteURL(), '/');
 	if (!empty($site)) {
@@ -1654,7 +1654,7 @@ function getAlbumPage() {
  * @param string $class Insert here the CSS-class name with with you want to style the link.
  * @param string $id Insert here the CSS-id name with with you want to style the link.
  */
-function printAlbumURL($text, $title, $class = NULL, $id = NULL) {
+function printAlbumURL($text, $title, $class = false, $id = NULL) {
 	printLinkHTML(getAlbumURL(), $text, $title, $class, $id);
 }
 
@@ -1694,7 +1694,7 @@ function getPasswordProtectImage($extra) {
  * @param string $id Insert here the CSS-id name with with you want to style the link.
  * @param string $title option title attribute
  *  */
-function printAlbumThumbImage($alt, $class = NULL, $id = NULL, $title = NULL) {
+function printAlbumThumbImage($alt, $class = false, $id = NULL, $title = NULL) {
 	global $_current_album, $_themeroot;
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
@@ -1778,7 +1778,7 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
  *
  * @return string
  */
-function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomAlbumThumbImage($alt, $args, $class = false, $id = NULL, $title = NULL) {
 	global $_current_album;
 
 	if (!is_array($args)) {
@@ -1789,19 +1789,22 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		if (isset($args['class'])) {
+		if (array_key_exists('class', $args)) {
 			$class = $args['class'];
 			unset($args['class']);
+			if (is_null($class)) {
+				$class = false;
+			}
 		} else {
-			$class = NULL;
+			$class = false;
 		}
-		if (isset($args['id'])) {
+		if (array_key_exists('id', $args)) {
 			$id = $args['id'];
 			unset($args['id']);
 		} else {
 			$id = NULL;
 		}
-		if (isset($args['title'])) {
+		if (array_key_exists('title', $args)) {
 			$title = $args['title'];
 			unset($args['title']);
 		} else {
@@ -1816,7 +1819,6 @@ function printCustomAlbumThumbImage($alt, $args, $class = NULL, $id = NULL, $tit
 
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
-
 	if (!$_current_album->getShow()) {
 		$class .= " not_visible";
 	}
@@ -1953,7 +1955,7 @@ function getCustomAlbumThumbMaxSpace($width, $height, $suffix = NULL) {
  * @param string $id Optional style id
  * @param string $title optional title attribute
  */
-function printCustomAlbumThumbMaxSpace($alt, $width, $height, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomAlbumThumbMaxSpace($alt, $width, $height, $class = false, $id = NULL, $title = NULL) {
 	global $_current_album;
 	$albumthumb = $_current_album->getAlbumThumbImage();
 	getMaxSpaceContainer($width, $height, $albumthumb, true);
@@ -2513,7 +2515,7 @@ function getImageURL() {
  * @param string $class optional style class for the link
  * @param string $id optional style id for the link
  */
-function printImageURL($text, $title, $class = NULL, $id = NULL) {
+function printImageURL($text, $title, $class = false, $id = NULL) {
 	printLinkHTML(getImageURL(), $text, $title, $class, $id);
 }
 
@@ -2559,7 +2561,7 @@ function getImageMetaData($image = NULL, $displayonly = true) {
  * @param string $class style class
  * @author Ozh
  */
-function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata', $class = null, $span = NULL) {
+function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata', $class = false, $span = NULL) {
 	global $_exifvars, $_current_image;
 	if (false === ($exif = getImageMetaData($_current_image, true))) {
 		return;
@@ -2838,7 +2840,7 @@ function getDefaultSizedImage($image = NULL, $suffix = NULL) {
  * @param string $id Optional style id
  * @param string $title Title attribute
  */
-function printDefaultSizedImage($alt, $class = NULL, $id = NULL, $title = NULL) {
+function printDefaultSizedImage($alt, $class = false, $id = NULL, $title = NULL) {
 	global $_current_image;
 	$content = $_current_image->getContent();
 
@@ -2882,7 +2884,7 @@ function getImageThumb($suffix = NULL) {
  * @param string $id optional id tag
  * @param string $title Title attribute
  */
-function printImageThumb($alt, $class = NULL, $id = NULL, $title = NULL) {
+function printImageThumb($alt, $class = false, $id = NULL, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
@@ -3146,7 +3148,7 @@ function getCustomImageURL($args, $suffix = NULL) {
  * @param array $args of parameters
  * @param string $title title attribute
  * */
-function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
@@ -3163,19 +3165,22 @@ function printCustomSizedImage($alt, $args, $class = NULL, $id = NULL, $title = 
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
-		if (isset($args['class'])) {
+		if (array_key_exists('class', $args)) {
 			$class = $args['class'];
 			unset($args['class']);
+			if (is_null($class)) {
+				$class = false;
+			}
 		} else {
-			$class = NULL;
+			$class = false;
 		}
-		if (isset($args['id'])) {
+		if (array_key_exists('id', $args)) {
 			$id = $args['id'];
 			unset($args['id']);
 		} else {
 			$id = NULL;
 		}
-		if (isset($args['title'])) {
+		if (array_key_exists('title', $args)) {
 			$title = $args['title'];
 			unset($args['title']);
 		} else {
@@ -3277,7 +3282,7 @@ function getCustomSizedImageThumbMaxSpace($width, $height) {
  * @param string $id Optional style id
  * @param string $title Option title attribute
  */
-function printCustomSizedImageThumbMaxSpace($alt, $width, $height, $class = NULL, $id = NULL, $title = NULL) {
+function printCustomSizedImageThumbMaxSpace($alt, $width, $height, $class = false, $id = NULL, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
@@ -3296,7 +3301,7 @@ function printCustomSizedImageThumbMaxSpace($alt, $width, $height, $class = NULL
  * @param string $id Optional style id
  * @param string $title Option title attribute
  */
-function printCustomSizedImageMaxSpace($alt, $width, $height, $class = NULL, $id = NULL, $thumb = false, $title = NULL) {
+function printCustomSizedImageMaxSpace($alt, $width, $height, $class = false, $id = NULL, $thumb = false, $title = NULL) {
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
@@ -3312,7 +3317,7 @@ function printCustomSizedImageMaxSpace($alt, $width, $height, $class = NULL, $id
  * @param string $class optional URL class
  * @param string $id optional URL id
  */
-function printSizedImageURL($size, $text, $title, $class = NULL, $id = NULL) {
+function printSizedImageURL($size, $text, $title, $class = false, $id = NULL) {
 	printLinkHTML(getSizedImageURL($size), $text, $title, $class, $id);
 }
 
@@ -3505,7 +3510,7 @@ function getPictureOfTheDay() {
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
  */
-function printRandomImages($number = 5, $class = null, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false) {
+function printRandomImages($number = 5, $class = false, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false) {
 	if (is_null($crop) && is_null($width) && is_null($height)) {
 		$crop = 2;
 	} else {
@@ -3606,9 +3611,9 @@ function getTags() {
  * @param string $separator what charactor shall separate the tags
  * @since 1.1
  */
-function printTags($option = 'links', $preText = NULL, $class = NULL, $separator = ', ') {
+function printTags($option = 'links', $preText = NULL, $class = false, $separator = ', ') {
 	global $_current_search;
-	if (is_null($class)) {
+	if (!$class) {
 		$class = 'taglist';
 	}
 	$singletag = getTags();
@@ -3828,7 +3833,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = strftime('%Y-%B', strtotime($key));
+			$dt = date('%Y-%B', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}
@@ -3911,8 +3916,8 @@ function getCustomPageURL($page, $q = '', $pageno = NULL) {
  * @param string $next text to follow the URL
  * @param string $class optional class
  */
-function printCustomPageURL($linktext, $page, $q = '', $prev = '', $next = '', $class = NULL) {
-	if (!is_null($class)) {
+function printCustomPageURL($linktext, $page, $q = '', $prev = '', $next = '', $class = false) {
+	if (!$class) {
 		$class = 'class="' . $class . '"';
 	}
 	echo $prev . "<a href=\"" . html_encode(getCustomPageURL($page, $q)) . "\" $class title=\"" . html_encode($linktext) . "\">" . html_encode($linktext) . "</a>" . $next;
@@ -4047,7 +4052,7 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
  * @param string $placeholder HTML5 placeholder text for search words input field
  * @since 1.1.3
  */
-function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL, $placeholder = NULL) {
+function printSearchForm($options = NULL, $id = 'search', $buttonSource = false, $buttontext = '', $iconsource = NULL, $query_fields = NULL, $object_list = NULL, $within = NULL, $placeholder = NULL) {
 	global $_current_search, $_current_album;
 
 	if (is_array($options)) {
@@ -4056,6 +4061,9 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = NULL, 
 		extract($options);
 	} else {
 		$prevtext = $options;
+		if (is_null($buttonSource)) {
+			$buttonSource = false;
+		}
 		if (empty($buttontext)) {
 			$buttontext = gettext("Search");
 		}
@@ -4613,7 +4621,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

@@ -30,30 +30,25 @@
 
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("Migrate database to utf8mb4 encodings.");
-$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(MySQL_VERSION, '5.5.3', '<'), gettext('MySQL version 5.5.3 or greater is required to support trans-BMP character encodings.')), array(@$_conf_vars['UTF-8'] == 'utf8mb4', gettext('<em>utf8mb4</em> migration is complete. '))));
+$plugin_disable = npgFunctions::pluginDisable(array(array(version_compare(MySQL_VERSION, '5.5.3', '<'), gettext('MySQL version 5.5.3 or greater is required to support trans-BMP character encodings.')), array(getOption('UTF-8') === 'utf8mb4', gettext('<em>utf8mb4</em> migration is complete. '))));
 
 npgFilters::register('admin_utilities_buttons', 'utf8mb4Migration::buttons');
 
 class utf8mb4Migration {
 
 	static function buttons($buttons) {
-
-		if (getOption('UTF-8') == 'utf8') {
-			if (version_compare(MySQL_VERSION, '5.5.3', '>=')) {
-				$buttons[] = array(
-						'category' => gettext('Development'),
-						'enable' => true,
-						'button_text' => gettext('Migrate to utf8mb4'),
-						'formname' => 'utf8button',
-						'action' => getAdminLink(USER_PLUGIN_FOLDER . '/utf8mb4Migration/migrate.php'),
-						'icon' => BADGE_BLUE,
-						'title' => gettext('A utility to migrate TEXT and LONGTEXT database fields to utf8mb4 so as to allow 4-byte unicode characters.'),
-						'alt' => '',
-						'rights' => ADMIN_RIGHTS,
-						'XSRFTag' => 'utf8mb4Migration'
-				);
-			}
-		}
+		$buttons[] = array(
+				'category' => gettext('Database'),
+				'enable' => true,
+				'button_text' => gettext('Migrate to utf8mb4'),
+				'formname' => 'utf8button',
+				'action' => getAdminLink(USER_PLUGIN_FOLDER . '/utf8mb4Migration/migrate.php'),
+				'icon' => BADGE_BLUE,
+				'title' => gettext('A utility to migrate TEXT and LONGTEXT database fields to utf8mb4 so as to allow 4-byte unicode characters.'),
+				'alt' => '',
+				'rights' => ADMIN_RIGHTS,
+				'XSRFTag' => 'utf8mb4Migration'
+		);
 		return $buttons;
 	}
 

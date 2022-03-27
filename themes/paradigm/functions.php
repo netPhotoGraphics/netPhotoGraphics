@@ -11,9 +11,9 @@
  * @param string $separator what charactor shall separate the tags
  * @since 1.1
  */
-function printTags_zb($option = 'links', $preText = NULL, $class = NULL, $separator = ', ') {
+function printTags_zb($option = 'links', $preText = NULL, $class = false, $separator = ', ') {
 	global $_current_search;
-	if (is_null($class)) {
+	if (!$class) {
 		$class = 'taglist';
 	}
 	$singletag = getTags();
@@ -235,7 +235,7 @@ function printCurrentNewsCategory_zb() {
  * @param bool $crop 'true' (default) if the thumb should be cropped, 'false' if not
  * @param bool $fullimagelink 'false' (default) for the image page link , 'true' for the unprotected full image link (to use Colorbox for example)
  */
-function printRandomImages_zb($number = 12, $class = null, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false) {
+function printRandomImages_zb($number = 12, $class = false, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false) {
 	if (is_null($crop) && is_null($width) && is_null($height)) {
 		$crop = 2;
 	} else {

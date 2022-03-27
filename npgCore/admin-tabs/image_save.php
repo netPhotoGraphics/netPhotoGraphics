@@ -61,7 +61,29 @@ if (isset($_POST['checkForPostTruncation'])) {
 					}
 					if (isset($_POST[$i . '-oldrotation']) && isset($_POST[$i . '-rotation'])) {
 						$oldrotation = (int) $_POST[$i . '-oldrotation'];
-						$rotation = (int) $_POST[$i . '-rotation'];
+						$r = $rotation = (int) $_POST[$i . '-rotation'];
+						$flip = isset($_POST[$i . '-flip']) && $_POST[$i . '-flip'];
+						$mirror = isset($_POST[$i . '-mirror']) && $_POST[$i . '-mirror'];
+						if ($flip && $mirror) {
+							$rotation = 4;
+						} else if ($mirror) {
+							switch ($rotation) {
+								case 0:
+								case 1:
+									$rotation = 2;
+									break;
+								case 3:
+									$rotation = 4;
+									break;
+								case 6:
+									$rotation = 5;
+									break;
+								case 8:
+									$rotation = 7;
+									break;
+							}
+						}
+
 						if ($rotation != $oldrotation) {
 							$image->set('rotation', $rotation);
 							$image->updateDimensions();

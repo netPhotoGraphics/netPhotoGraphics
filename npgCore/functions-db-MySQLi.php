@@ -29,6 +29,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if (is_object($_DB_connection)) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
+		mysqli_report(MYSQLI_REPORT_OFF);
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
 			$config['mysql_port'] = ini_get('mysqli.default_port');
 		}
@@ -122,7 +123,7 @@ function query_single_row($sql, $errorstop = true) {
 	if (strpos('SELECT', $sql) === 0) {
 		$sql = rtrim($sql, ';') . 'LIMIT 1';
 	}
-	$result = query($sql, $errorstop);
+	$result = db_query($sql, $errorstop);
 	if (is_object($result)) {
 		$row = $result->fetch_assoc();
 		mysqli_free_result($result);
@@ -142,7 +143,7 @@ function query_single_row($sql, $errorstop = true) {
  */
 function query_full_array($sql, $errorstop = true, $key = NULL) {
 	global $_DB_connection;
-	$result = query($sql, $errorstop);
+	$result = db_query($sql, $errorstop);
 	if (is_object($result)) {
 		$allrows = array();
 		if (is_null($key)) {
@@ -169,11 +170,14 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
  */
 function db_escape($string) {
 	global $_DB_connection;
-	if ($_DB_connection) {
-		return $_DB_connection->real_escape_string($string);
-	} else {
-		return addslashes($string);
+	if ($string) {
+		if ($_DB_connection) {
+			return $_DB_connection->real_escape_string($string);
+		} else {
+			return addslashes($string);
+		}
 	}
+	return '';
 }
 
 /*
@@ -285,7 +289,7 @@ function db_software() {
 function db_create() {
 	global $_DB_details;
 	$sql = 'CREATE DATABASE IF NOT EXISTS ' . '`' . $_DB_details['mysql_database'] . '` CHARACTER SET utf8 COLLATE utf8_unicode_ci';
-	return query($sql, false);
+	return db_query($sql, false);
 }
 
 /**
@@ -293,11 +297,8 @@ function db_create() {
  */
 function db_permissions() {
 	global $_DB_details;
-	$sql = "SHOW GRANTS FOR " . $_DB_details['mysql_user'] . ";";
-	$result = query($sql, false);
-	if (!$result) {
-		$result = query("SHOW GRANTS;", false);
-	}
+	$sql = "SHOW GRANTS;";
+	$result = db_query($sql, false);
 	if (is_object($result)) {
 		$db_results = array();
 		while ($onerow = db_fetch_row($result)) {
@@ -313,14 +314,14 @@ function db_permissions() {
  * Sets the SQL session mode to empty
  */
 function db_setSQLmode() {
-	return query('SET SESSION sql_mode=""', false);
+	return db_query('SET SESSION sql_mode=""', false);
 }
 
 /**
  * Queries the SQL session mode
  */
 function db_getSQLmode() {
-	$result = query('SELECT @@SESSION.sql_mode;', false);
+	$result = db_query('SELECT @@SESSION.sql_mode;', false);
 	if (is_object($result)) {
 		$row = db_fetch_row($result);
 		return $row[0];
@@ -329,11 +330,11 @@ function db_getSQLmode() {
 }
 
 function db_create_table(&$sql) {
-	return query($sql, false);
+	return db_query($sql, false);
 }
 
 function db_table_update(&$sql) {
-	return query($sql, false);
+	return db_query($sql, false);
 }
 
 function db_show($what, $aux = '') {
@@ -341,10 +342,10 @@ function db_show($what, $aux = '') {
 	switch ($what) {
 		case 'tables':
 			$sql = "SHOW TABLES FROM `" . $_DB_details['mysql_database'] . "` LIKE '" . db_LIKE_escape($_DB_details['mysql_prefix']) . "%'";
-			return query($sql, false);
+			return db_query($sql, false);
 		case 'columns':
 			$sql = 'SHOW FULL COLUMNS FROM `' . $_DB_details['mysql_prefix'] . $aux . '`';
-			return query($sql, false);
+			return db_query($sql, false);
 		case 'variables':
 			$sql = "SHOW VARIABLES LIKE '$aux'";
 			return query_full_array($sql);
@@ -371,7 +372,7 @@ function db_list_fields($table) {
 function db_truncate_table($table) {
 	global $_DB_details;
 	$sql = 'TRUNCATE ' . $_DB_details['mysql_prefix'] . $table;
-	return query($sql, false);
+	return db_query($sql, false);
 }
 
 function db_LIKE_escape($str) {

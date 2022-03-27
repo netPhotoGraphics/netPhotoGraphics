@@ -222,7 +222,11 @@ updatePublished('news');
 									$item = getSerializedArray($item);
 									$item = get_language_string($item);
 								}
-								$list[] = $item;
+								if ($item) {
+									$list[] = $item;
+								} else {
+									$list[] = '';
+								}
 							}
 							if ($sortorder == 'title') {
 								$rangeset = getPageSelector($list, $articles_page);

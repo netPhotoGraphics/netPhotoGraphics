@@ -266,11 +266,12 @@ class i18n {
 	static function validateLocale($userlocale, $source) {
 		if (DEBUG_LOCALE)
 			debugLog("self::validateLocale($userlocale,$source)");
-		$userlocale = strtoupper(str_replace('-', '_', $userlocale));
-		$languageSupport = self::generateLanguageList();
 
 		$locale = NULL;
 		if (!empty($userlocale)) {
+			$userlocale = strtoupper(str_replace('-', '_', $userlocale));
+			$languageSupport = self::generateLanguageList();
+
 			foreach ($languageSupport as $key => $value) {
 				if (strtoupper($value) == $userlocale) { // we got a match
 					$locale = $value;
@@ -394,7 +395,10 @@ class i18n {
 	 */
 	static function getUserLocale($separator = '_') {
 		global $_current_locale;
-		return str_replace('_', $separator, $_current_locale);
+		if ($_current_locale) {
+			return str_replace('_', $separator, $_current_locale);
+		}
+		return false;
 	}
 
 	/**
@@ -451,8 +455,10 @@ function getTimezones() {
 				 * Only get time zones explicitely not part of "Others".
 				 * @see http://www.php.net/manual/en/timezones.others.php
 				 */
-				if (preg_match('~^(Africa/|America/|Antarctica/|Arctic/|Asia/|Atlantic/|Australia/|Europe/|Indian/|Pacific/|UTC)~', $zone['timezone_id'])) {
-					$cities[] = $zone['timezone_id'];
+				if ($zone['timezone_id']) {
+					if (preg_match('~^(Africa/|America/|Antarctica/|Arctic/|Asia/|Atlantic/|Australia/|Europe/|Indian/|Pacific/|UTC)~', $zone['timezone_id'])) {
+						$cities[] = $zone['timezone_id'];
+					}
 				}
 			}
 		}

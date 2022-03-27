@@ -20,60 +20,9 @@ admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
 
 XSRFdefender('utf8mb4Migration');
 
+setOption('UTF-8', 'utf8mb4');
 require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
-
-$prefix = strlen(trim(prefix(), '`'));
-$resource = db_show('tables');
-if ($resource) {
-	$result = array();
-	while ($row = db_fetch_assoc($resource)) {
-		$result[] = $row;
-	}
-	db_free_result($resource);
-} else {
-	$result = false;
-}
-$tables = array();
-if (is_array($result)) {
-	foreach ($result as $row) {
-		$tables[] = reset($row);
-	}
-}
-
-
-$sql = 'ALTER DATABASE `' . db_name() . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;';
-query($sql);
-
-foreach ($tables as $table) {
-	$table = substr($table, $prefix);
-	$tablecols = db_list_fields($table);
-	foreach ($tablecols as $key => $datum) {
-		$dbType = strtoupper($datum['Type']);
-		if ($dbType == 'TEXT' || $dbType == 'LONGTEXT') {
-			$sql = "ALTER TABLE " . prefix($table) . " CHANGE `" . $datum['Field'] . "` `" . $datum['Field'] . "` " . $dbType . ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
-			if ($datum['Null'] === 'NO')
-				$sql .= " NOT NULL";
-			if (!empty($datum['Default']) || $datum['Default'] === '0' || $datum['Null'] !== 'NO') {
-				if (is_null($datum['Default'])) {
-					if ($datum['Null'] !== 'NO') {
-						$sql .= " DEFAULT NULL";
-					}
-				} else {
-					$sql .= " DEFAULT '" . $datum['Default'] . "'";
-				}
-			}
-			if (!empty($datum['Comment'])) {
-				$sql .= " COMMENT '" . $datum['Comment'] . "'";
-			}
-			query($sql);
-		}
-	}
-}
-$_configMutex->lock();
-$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
-configFile::store($_config_contents);
-$_configMutex->unlock();
+require_once(CORE_SERVERPATH . 'setup/database.php'); //	this will do the actual migration of the fields
 
 header('Location: ' . getAdminLink('admin.php') . '?action=external&msg=' . gettext('utf8mb4 migration completed.'));
 exit();

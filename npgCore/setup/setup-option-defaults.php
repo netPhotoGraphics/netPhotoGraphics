@@ -9,11 +9,11 @@
  * @package setup
  */
 setupLog(gettext('Set default options'), true);
+
 require_once(CORE_SERVERPATH . 'admin-globals.php');
 if (CURL_ENABLED) {
 	require (CORE_SERVERPATH . 'lib-CURL.php');
 }
-
 
 $setOptions = getOptionList();
 
@@ -38,7 +38,6 @@ if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_sta
 	$fullLog = false;
 }
 
-//	preload for check images
 $unique = time();
 foreach (array('filterDoc', 'zenphoto_package', 'slideshow') as $remove) {
 	if (is_dir(USER_PLUGIN_SERVERPATH . $remove)) {
@@ -55,11 +54,13 @@ if (isset($old['NETPHOTOGRAPHICS'])) {
 } else {
 	$from = NULL;
 }
-?>
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" />
-<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=2'; ?>" />
-<?php
+
+if (CURL_ENABLED) {
+	//	preload for check images
+	?>
+	<link rel="preload" as="image" href="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" />
+	<?php
+}
 purgeOption('mod_rewrite');
 $sfx = getOption('mod_rewrite_image_suffix');
 purgeOption('mod_rewrite_image_suffix');
@@ -163,7 +164,6 @@ foreach ($themes as $key => $theme) {
 	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
-
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
@@ -259,9 +259,9 @@ foreach (array('albums', 'images', 'news', 'pages') as $table) {
 	query($sql);
 	$sql = 'UPDATE ' . prefix($table) . ' SET `publishdate`=`date` WHERE `publishdate` IS NULL AND `show`="1"';
 	query($sql);
-}
-foreach (array('news', 'pages', 'images', 'albums') as $table) {
 	$sql = 'UPDATE ' . prefix($table) . ' SET `lastchange`=`date` WHERE `lastchange` IS NULL';
+	query($sql);
+	$sql = 'UPDATE ' . prefix($table) . ' SET `date`=`lastchange` WHERE `date` IS NULL';
 	query($sql);
 	$sql = 'UPDATE ' . prefix($table) . ' SET `lastchangeuser`=`owner` WHERE `lastchangeuser` IS NULL';
 	query($sql);
@@ -481,6 +481,7 @@ foreach ($showDefaultThumbs as $key => $value) {
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
 setOptionDefault('time_zone', date('T'));
+
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
@@ -1089,6 +1090,9 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 </p>
 <br clear="all">
 <?php
+if ($displayErrors) {
+	$autorun = false;
+}
 $userPlugins = array_diff($plugins, $_npg_plugins);
 if (!empty($themes) || !empty($userPlugins)) {
 	//	There are either un-distributed themes or un-distributed plugins present

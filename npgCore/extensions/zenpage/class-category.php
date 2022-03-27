@@ -41,11 +41,14 @@ class Category extends CMSRoot {
 	 */
 	function getDesc($locale = NULL) {
 		$text = $this->get('desc');
-		if ($locale == 'all') {
-			return npgFunctions::unTagURLs($text);
-		} else {
-			return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
+		if ($text) {
+			if ($locale == 'all') {
+				return npgFunctions::unTagURLs($text);
+			} else {
+				return applyMacros(npgFunctions::unTagURLs(get_language_string($text, $locale)));
+			}
 		}
+		return '';
 	}
 
 	/**

@@ -82,7 +82,7 @@ function my_checkPageValidity($request, $gallery_page, $page) {
   /*	- implements call of colorbox
  */
 
-function zpArdoise_printRandomImages($number = 5, $class = NULL, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false, $a_class = NULL) {
+function zpArdoise_printRandomImages($number = 5, $class = false, $option = 'all', $rootAlbum = '', $width = NULL, $height = NULL, $crop = NULL, $fullimagelink = false, $a_class = NULL) {
 	if (is_null($crop) && is_null($width) && is_null($height)) {
 		$crop = 2;
 	} else {

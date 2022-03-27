@@ -503,6 +503,7 @@ function getNewsCategoryDesc() {
 	if (!is_null($_CMS_current_category)) {
 		return $_CMS_current_category->getDesc();
 	}
+	return '';
 }
 
 /**
@@ -616,7 +617,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = strftime('%Y-%B', strtotime($key));
+			$dt = date('%Y-%B', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}
@@ -632,7 +633,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 		if ($yearsonly) {
 			$datetosearch = $key;
 		} else {
-			$datetosearch = strftime('%Y-%B', strtotime($key));
+			$datetosearch = date('%Y-%B', strtotime($key));
 		}
 		if (getCurrentNewsArchive('plain') == $datetosearch) {
 			$active = $activeclass;
@@ -656,7 +657,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
  * Gets the current select news date (year-month) or formatted
  *
  * @param string $mode "formatted" for a formatted date or "plain" for the pure year-month (for example "2008-09") archive date
- * @param string $format If $mode="formatted" how the date should be printed (see PHP's strftime() function for the requirements)
+ * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
 function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
@@ -665,7 +666,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
 		$archivedate = $_post_date;
 		if ($mode == "formatted") {
 			$archivedate = strtotime($archivedate);
-			$archivedate = strftime($format, $archivedate);
+			$archivedate = date($format, $archivedate);
 		}
 		return $archivedate;
 	}
@@ -677,7 +678,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
  *
  * @param string $before What you want to print before the archive if using in a breadcrumb navigation for example
  * @param string $mode "formatted" for a formatted date or "plain" for the pure year-month (for example "2008-09") archive date
- * @param string $format If $mode="formatted" how the date should be printed (see PHP's strftime() function for the requirements)
+ * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
 function printCurrentNewsArchive($before = '', $mode = 'formatted', $format = '%B %Y') {
@@ -1391,7 +1392,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				$currentitem_id = $_CMS_current_category->getID();
 				$currentitem_parentid = $_CMS_current_category->getParentID();
 			} else {
-				$currentitem_sortorder = NULL;
+				$currentitem_sortorder = false;
 				$currentitem_id = NULL;
 				$currentitem_parentid = NULL;
 			}
@@ -1443,11 +1444,11 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				break;
 		}
 	}
-	$baseindent = max(1, count(explode("-", $currentitem_sortorder)));
 	$indent = 1;
 	$open = array($indent => 0);
 	$parents = array(NULL);
 	$order = explode('-', $currentitem_sortorder);
+	$baseindent = max(1, count($order));
 	$mylevel = count($order);
 	$myparentsort = reset($order);
 	for ($c = 0; $c <= $mylevel; $c++) {
@@ -2034,8 +2035,8 @@ function getPageURL($titlelink = '') {
  * @param string $next text to follow the URL
  * @param string $class optional class
  */
-function printPageURL($linktext = NULL, $titlelink = NULL, $prev = '', $next = '', $class = NULL) {
-	if (!is_null($class)) {
+function printPageURL($linktext = NULL, $titlelink = NULL, $prev = '', $next = '', $class = false) {
+	if (!$class) {
 		$class = 'class="' . $class . '"';
 	}
 	if (is_null($linktext)) {

@@ -207,6 +207,8 @@ class imageProcessing {
 					$effects = 'gray';
 				} else if (getOption('image_gray')) {
 					$effects = 'gray';
+				} else {
+					$effects = '';
 				}
 			}
 			$newfile = SERVERCACHE . $newfilename;
@@ -218,7 +220,7 @@ class imageProcessing {
 			if (!file_exists($imgfile) || !is_readable($imgfile)) {
 				self::error('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
 			}
-			$rotate = false;
+			$rotate = $flip = false;
 			if (gl_imageCanRotate()) {
 				$rotate = self::getRotation($imgfile);
 			}
@@ -248,10 +250,11 @@ class imageProcessing {
 			if (!$im) {
 				self::error('404 Not Found', sprintf(gettext('Image %s not renderable (imageGet).'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 			}
+
 			if ($rotate) {
 				if (DEBUG_IMAGE)
 					debugLog("self::cache:rotate->$rotate");
-				$im = gl_rotateImage($im, $rotate);
+				$im = self::transform($im, $rotate);
 				if (!$im) {
 					self::error('404 Not Found', sprintf(gettext('Image %s not rotatable.'), filesystemToInternal($imgfile)), 'err-imagefail.png');
 				}
@@ -361,10 +364,12 @@ class imageProcessing {
 						$cw = round($h / $ch * $cw * $cf);
 						$ch = round($h * $cf);
 						$cx = round(($w - $cw) / 2);
+						$cy = 0;
 					} else {
 						$ch = round($w / $cw * $ch * $cf);
 						$cw = round($w * $cf);
 						$cy = round(($h - $ch) / 2);
+						$cx = 0;
 					}
 				} else { // custom crop
 					if (!$cw || $cw > $w)
@@ -572,17 +577,12 @@ class imageProcessing {
 		return $newim;
 	}
 
-	/* Determines the rotation of the image looking EXIF information.
+	/**
+	 * Retrieves the image rotation setting
 	 *
-	 * @param string $imgfile the image name
-	 * @return false when the image should not be rotated, or the degrees the
-	 *         image should be rotated otherwise.
-	 *
-	 * PHP GD do not support flips so when a flip is needed we make a
-	 * rotation that get close to that flip. But I don't think any camera will
-	 * fill a flipped value in the tag.
+	 * @param type $img
+	 * @return int
 	 */
-
 	static function getRotation($img) {
 		if (is_object($img)) {
 			$rotation = $img->get('rotation');
@@ -612,18 +612,52 @@ class imageProcessing {
 				}
 			}
 		}
-		switch (substr(trim($rotation, '!'), 0, 1)) {
-			case 0:
-			case 1: // none
-			case 2: return 0; // mirrored
-			case 3: // upside-down
-			case 4: return 180; // upside-down mirrored
-			case 5: // 90 CW mirrored
-			case 6: return 90; // 90 CCW
-			case 7: // 90 CCW mirrored
-			case 8: return 270; // 90 CW
+		return substr(trim($rotation, '!'), 0, 1);
+	}
+
+	/**
+	 * performs image transformations based on $rotation
+	 *
+	 * @param resource $im
+	 * @param int $rotation from the EXIF data
+	 * @param int $rotation
+	 * @return resource
+	 */
+	static function transform($im, $rotation) {
+		switch ($rotation) {
+			default: // none
+				$rotate = 0;
+				break;
+			case 2: // mirrored
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
+				$rotate = 0;
+				break;
+			case 3:// upside-down
+				$rotate = 180;
+				break;
+			case 4: // upside-down mirrored
+				$im = gl_imageFlip($im, IMG_FLIP_BOTH);
+				$rotate = 0;
+				break;
+			case 5: // 90 CCW mirrored
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
+				$rotate = 270;
+				break;
+			case 6: // 90 CCW
+				$rotate = 270;
+				break;
+			case 7: // 90 CW mirrored
+				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
+				$rotate = 90;
+				break;
+			case 8: // 90 CCW
+				$rotate = 90;
+				break;
 		}
-		return 0;
+		if ($rotate) {
+			$im = gl_rotateImage($im, $rotate);
+		}
+		return $im;
 	}
 
 }

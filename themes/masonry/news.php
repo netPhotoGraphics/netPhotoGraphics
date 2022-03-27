@@ -1,9 +1,10 @@
 <?php include ("inc-header.php"); ?>
 
 <div id="breadcrumbs">
-	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo; <?php printNewsIndexURL(); ?><?php printCurrentNewsCategory(" » Category - "); ?><?php printNewsTitle("  »  ");
-printCurrentNewsArchive("  »  ");
-?>
+	<a href="<?php echo $zpmas_homelink; ?>" title="<?php echo gettext("Gallery Index"); ?>"><?php echo gettext("Gallery Index"); ?></a> &raquo; <?php printNewsIndexURL(); ?><?php printCurrentNewsCategory(" » Category - "); ?><?php
+	printNewsTitle("  »  ");
+	printCurrentNewsArchive("  »  ");
+	?>
 </div>
 <div id="wrapper">
 	<div id="sidebar">
@@ -42,7 +43,8 @@ printCurrentNewsArchive("  »  ");
 				<div class="newsarticlecredit">
 					<span><?php printNewsDate(); ?></span><span><?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?></span><?php if (function_exists('printCommentForm')) { ?><span><?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?></span><?php } ?>
 				</div>
-				<?php printNewsContent();
+				<?php
+				printNewsContent();
 				printCodeblock();
 				?>
 			</div>
@@ -61,7 +63,7 @@ printCurrentNewsArchive("  »  ");
 				<?php if (getCurrentNewsArchive()) { ?>
 					<h1><?php printCurrentNewsArchive(); ?></h1>
 				<?php } ?>
-				<?php if (strlen(getNewsCategoryDesc()) > 0) { ?>
+				<?php if (getNewsCategoryDesc()) { ?>
 					<div><?php echo getNewsCategoryDesc(); ?></div><br />
 					<?php } ?>
 
@@ -72,9 +74,10 @@ printCurrentNewsArchive("  »  ");
 							<div class="newsarticlecredit">
 								<span><?php printNewsDate(); ?></span><span><?php printNewsCategories(", ", gettext("Categories: "), "taglist"); ?></span><?php if (function_exists('printCommentForm')) { ?><span><?php echo gettext("Comments:"); ?> <?php echo getCommentCount(); ?></span><?php } ?>
 							</div>
-						<?php echo preg_replace("/<img[^>]+\>/i", " [image removed] ", getNewsContent());
-						printCodeblock();
-						?>
+							<?php
+							echo preg_replace("/<img[^>]+\>/i", " [image removed] ", getNewsContent());
+							printCodeblock();
+							?>
 						</div>
 			<?php endwhile; ?>
 				</div>
@@ -85,14 +88,14 @@ printCurrentNewsArchive("  »  ");
 				<?php if (getNextNewsPageURL()) { ?><a href="<?php echo getNextNewsPageURL(); ?>">Next Page</a> <?php } ?>
 				</div>
 				<?php
-				} else {
-					if ((getNextNewsPageURL()) || (getPrevNewsPageURL())) {
-						?>
+			} else {
+				if ((getNextNewsPageURL()) || (getPrevNewsPageURL())) {
+					?>
 					<div id="pagination">
-			<?php printNewsPageListWithNav(gettext('Next »'), gettext('« Prev'), true, ''); ?>
+					<?php printNewsPageListWithNav(gettext('Next »'), gettext('« Prev'), true, ''); ?>
 					</div>
 			<?php } ?>
-	<?php } ?>
+		<?php } ?>
 
 		</div>
 <?php } ?>

@@ -314,13 +314,13 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
  * @param string $lang optional to display a feed link for a specific language. Enter the locale like "de_DE" (the locale must be installed to work of course). If empty the locale set in the admin option or the language selector (getOption('locale') is used.
  * @param string $addl provided additional data for feeds (e.g. album object for album feeds, $categorylink for zenpage categories
  */
-function printRSSLink($option, $prev, $linktext, $next, $printIcon = true, $class = null, $lang = '', $addl = NULL) {
+function printRSSLink($option, $prev, $linktext, $next, $printIcon = true, $class = false, $lang = '', $addl = NULL) {
 	if ($printIcon) {
 		$icon = ' <img src="' . FULLWEBPATH . '/' . CORE_FOLDER . '/images/rss.png" alt="RSS Feed" />';
 	} else {
 		$icon = '';
 	}
-	if (!is_null($class)) {
+	if (!$class) {
 		$class = 'class="' . $class . '"';
 	}
 	$link = getRSSLink($option, $lang, $addl);

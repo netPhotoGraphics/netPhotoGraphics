@@ -598,6 +598,7 @@ function updateRootIndexFile() {
 	}
 
 	$defines = array(
+			'ROOT_FOLDER' => str_replace('\\', '/', dirname(dirname(realpath(SERVERPATH . '/' . CORE_FOLDER . '/root_index.php')))),
 			'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
 			'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
 			'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
@@ -672,6 +673,10 @@ function optionCheck($urls) {
 					$errors = true;
 				}
 			}
+			if (ob_get_length()) {
+				ob_flush();
+			}
+			flush();
 		}
 	} else {
 		foreach ($urls as $whom => $link) {

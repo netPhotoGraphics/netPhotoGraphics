@@ -176,10 +176,20 @@ function getOptionContent() {
 									<tr>
 										<td colspan="100%">
 											<p class="padded">
-												<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
-												<span class="floatright" >
-													<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
-												</span>
+												<?php
+												if ($prev) {
+													?>
+													<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($prev); ?>"><?php echo $prev; ?></a>
+													<?php
+												}
+												if ($next) {
+													?>
+													<span class="floatright" >
+														<a href="?page=options&amp;tab=plugin&amp;single=<?php echo urlencode($next); ?>"><?php echo $next; ?></a>
+													</span>
+													<?php
+												}
+												?>
 											</p>
 										</td>
 									</tr>

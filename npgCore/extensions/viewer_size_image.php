@@ -284,7 +284,7 @@ if ($plugin_disable) {
 	 * @param string $class if not empty will be used as the image class tag
 	 * @param string $id if not empty will be used as the image id tag
 	 */
-	function printUserSizeImage($alt, $default = NULL, $class = NULL, $id = NULL) {
+	function printUserSizeImage($alt, $default = NULL, $class = false, $id = NULL) {
 		$size = $width = $height = NULL;
 		getViewerImageSize($default, $size, $width, $height);
 		if (empty($size)) {

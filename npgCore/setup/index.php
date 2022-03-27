@@ -468,17 +468,19 @@ if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 
 if ($setup_checked) {
 	setupLog(gettext("Completed system check"), true);
+
 	if (isset($_COOKIE['setup_test_cookie'])) {
 		$setup_cookie = $_COOKIE['setup_test_cookie'];
 	} else {
 		$setup_cookie = '';
 	}
+	clearNPGCookie('setup_test_cookie');
 	if ($setup_cookie == NETPHOTOGRAPHICS_VERSION) {
 		setupLog(gettext('Setup cookie test successful'));
-		clearNPGCookie('setup_test_cookie');
 	} else {
 		setupLog('<span class="logwarning">' . gettext('Setup cookie test unsuccessful') . '</span>', true);
 	}
+
 	if ($s = getOption('users_per_page')) {
 		setNPGCookie('usersTab_userCount', $s, 3600 * 24 * 365 * 10);
 		purgeOption('users_per_page');
@@ -1664,9 +1666,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 						}
 						$updateErrors = false;
 						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
-
 							primeMark(gettext('Database update'));
-							if (@$_conf_vars['UTF-8'] != 'utf8mb4') {
+							if (getOption('UTF-8') !== 'utf8mb4') {
 								$sql = 'SELECT COLLATION_NAME FROM information_schema.columns ' .
 												'WHERE TABLE_SCHEMA = "' . $_conf_vars['mysql_database'] . '" ' .
 												'AND TABLE_NAME = "' . trim(prefix('albums'), '`') . '" ' .
@@ -1678,8 +1679,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									configFile::store($_config_contents);
 								}
 							}
-
-
 							require_once(CORE_SERVERPATH . 'setup/database.php');
 							unset($_tableFields);
 							if ($updateErrors) {
@@ -1719,25 +1718,51 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										$autorun = getAdminLink('admin-tabs/users.php') . '?page=admin';
 									}
 								}
-							} else {
-								$autorun = false;
 							}
-
 							require_once(PLUGIN_SERVERPATH . 'clone.php');
+							?>
+							<p id="warning" class="warningbox cloneLink" style="display:none;">
+								<?php printf(gettext('Your browser is blocking popups from %1$s so automatic setup of clones installs did not happen. Click the links below to setup your clone installations.'), FULLWEBPATH); ?>
+							</p>
+							<script>
+								function launchClone(url) {
+									var cloneWindow = window.open(url, "", "");
+									if (!cloneWindow || cloneWindow.closed || typeof cloneWindow.closed == 'undefined') {
+										$('.cloneLink').show();
+										imageErr = true;	//	stop autorun
+									}
+								}
+							</script>
+							<?php
 							if (class_exists('npgClone')) {
 								foreach (npgClone::clones() as $clone => $data) {
-									$url = $data['url'];
+									$url = $data['url'] . CORE_FOLDER . '/setup/index.php?autorun';
 									?>
-									<p>
-										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $data['url'] . CORE_FOLDER . '/setup/index.php?autorun', $clone);
+									<p class="cloneLink" style="display:none;margin-left: 2em;">
+										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url, $clone);
 										?>
 									</p>
+									<script type="text/javascript">launchClone('<?php echo $url; ?>');</script>
 									<?php
 								}
+								?>
+								<p id="spacer" style="display:none; margin-bottom: 2em;"></p>
+								<script type="text/javascript">
+									if ($('#warning').is(":visible")) {
+										$('#spacer').show();
+									}
+								</script>
+								<?php
 							}
 							$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
 							?>
-							<p id="golink" class="delayshow" style="display:none;"><?php echo $link; ?></p>
+							<p id ="golink" class="delayshow"<?php
+							if (!CURL_ENABLED) {
+								echo ' style="display:none;"';
+							}
+							?>>
+									 <?php echo $link; ?>
+							</p>
 							<?php
 							switch ($autorun) {
 								case false:
@@ -1757,7 +1782,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 								window.onload = function () {
 									var errors = $('#setupErrors').val();
-
 									$.ajax({
 										type: 'POST',
 										cache: false,

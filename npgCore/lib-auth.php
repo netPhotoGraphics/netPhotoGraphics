@@ -1311,20 +1311,22 @@ class _Authority {
 	 */
 	function checkCookieCredentials() {
 		$auth = $cookie = getNPGCookie('user_auth');
-		$idLoc = strrpos($cookie, '.');
-		if ($idLoc) {
-			$id = (int) substr($cookie, $idLoc + 1);
-			$auth = substr($cookie, 0, $idLoc);
-		} else {
-			$id = 0;
-		}
-		$loggedin = $this->checkAuthorization($auth, $id);
-		$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
-		if ($loggedin) {
-			return $loggedin;
-		}
-		if ($auth) { //	expired/invalid auth cookie
-			clearNPGCookie("user_auth");
+		if ($cookie) {
+			$idLoc = strrpos($cookie, '.');
+			if ($idLoc) {
+				$id = (int) substr($cookie, $idLoc + 1);
+				$auth = substr($cookie, 0, $idLoc);
+			} else {
+				$id = 0;
+			}
+			$loggedin = $this->checkAuthorization($auth, $id);
+			$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
+			if ($loggedin) {
+				return $loggedin;
+			}
+			if ($auth) { //	expired/invalid auth cookie
+				clearNPGCookie("user_auth");
+			}
 		}
 		return NULL;
 	}
@@ -1909,10 +1911,10 @@ class _Authority {
 	 *  @return string derived key
 	 */
 	static function pbkdf2($p, $s, $c = 1000, $kl = 32, $a = 'sha256') {
-		$hl = strlen(hash($a, null, true)); # Hash length
+		$hl = strlen(hash($a, false, true)); # Hash length
 		$kb = ceil($kl / $hl); # Key blocks to compute
 		$dk = ''; # Derived key
-# Create key
+		# Create key
 		for ($block = 1; $block <= $kb; $block++) {
 			# Initial hash for this block
 			$ib = $b = hash_hmac($a, $s . pack('N', $block), $p, true);
@@ -1922,7 +1924,7 @@ class _Authority {
 				$ib ^= ($b = hash_hmac($a, $b, $p, true));
 			$dk .= $ib; # Append iterated block
 		}
-# Return derived key of correct length
+		# Return derived key of correct length
 		return substr($dk, 0, $kl);
 	}
 
