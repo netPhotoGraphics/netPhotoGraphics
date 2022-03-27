@@ -558,6 +558,16 @@ function commentFormUseCaptcha() {
 }
 
 /**
+ * Returns true if all the right conditions are set to allow comments for the $type
+ *
+ * @param string $type Which comments
+ * @return bool
+ */
+function commentsAllowed($type) {
+	return getOption($type) && (!MEMBERS_ONLY_COMMENTS || npg_loggedin(ADMIN_RIGHTS | POST_COMMENT_RIGHTS));
+}
+
+/**
  *
  * checks if comments are allowed and then processes them if so
  * @param string $error

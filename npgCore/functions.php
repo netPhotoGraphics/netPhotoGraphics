@@ -2016,16 +2016,6 @@ function getDBTables() {
 }
 
 /**
- * Returns true if all the right conditions are set to allow comments for the $type
- *
- * @param string $type Which comments
- * @return bool
- */
-function commentsAllowed($type) {
-	return getOption($type) && (!MEMBERS_ONLY_COMMENTS || npg_loggedin(ADMIN_RIGHTS | POST_COMMENT_RIGHTS));
-}
-
-/**
  * Strips out and/or replaces characters from the string that are not "soe" friendly
  *
  * @param string $string
