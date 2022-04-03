@@ -170,14 +170,11 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
  */
 function db_escape($string) {
 	global $_DB_connection;
-	if ($string) {
-		if ($_DB_connection) {
-			return $_DB_connection->real_escape_string($string);
-		} else {
-			return addslashes($string);
-		}
+	if ($_DB_connection) {
+		return $_DB_connection->real_escape_string($string);
+	} else {
+		return addslashes($string);
 	}
-	return '';
 }
 
 /*
