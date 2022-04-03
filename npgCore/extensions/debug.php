@@ -107,25 +107,7 @@ class debug {
 	}
 
 	function getOptionsSupported() {
-		$list = array(
-				gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
-				gettext('<em>testing mode</em>') => 'TESTING',
-				gettext('Log 404 error processing debug information') => '404',
-				gettext('Log start/finish of exif processing') => 'EXIF',
-				gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
-				gettext('Log filter application sequence') => 'FILTERS',
-				gettext('Log image processing debug information') => 'IMAGE',
-				gettext('Log language selection processing') => 'LOCALE',
-				gettext('Log admin saves and login attempts') => 'LOGIN',
-				gettext('Log plugin load sequence') => 'PLUGINS',
-				gettext('Log Feed issues') => 'FEED',
-				gettext('Log Managed Objects changes') => 'OBJECTS'
-		);
 		$options = array(
-				NULL => array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
-						'checkboxes' => $list,
-						'order' => 1,
-						'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.')),
 				1 => array('key' => '', 'type' => OPTION_TYPE_NOTE, 'desc' => '<p class="warningbox">' . gettext('Note: These options are enabled only when the release is marked in <em>debug</em> mode.') . '</p>'),
 				gettext('jQuery migration (admin)') => array('key' => 'jQuery_Migrate_admin', 'type' => OPTION_TYPE_RADIO,
 						'buttons' => array(// The definition of the radio buttons to choose from and their values.
@@ -145,6 +127,27 @@ class debug {
 						'order' => 3,
 						'desc' => gettext('Adds the <a href="https://jquery.com/upgrade-guide/">jQuery migration</a> tool to theme pages. (If <em>No migration</em> is selected jQuery v1.12 and jQuery migration v1.4.1 will be loaded instead of jQuery v3.'))
 		);
+		if (npgFunctions::hasPrimaryScripts()) {
+			$list = array(
+					gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
+					gettext('<em>testing mode</em>') => 'TESTING',
+					gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
+					gettext('Log 404 error processing debug information') => '404',
+					gettext('Log start/finish of exif processing') => 'EXIF',
+					gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
+					gettext('Log filter application sequence') => 'FILTERS',
+					gettext('Log image processing debug information') => 'IMAGE',
+					gettext('Log language selection processing') => 'LOCALE',
+					gettext('Log admin saves and login attempts') => 'LOGIN',
+					gettext('Log plugin load sequence') => 'PLUGINS',
+					gettext('Log Feed issues') => 'FEED',
+					gettext('Log Managed Objects changes') => 'OBJECTS'
+			);
+			$options[NULL] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
+					'checkboxes' => $list,
+					'order' => 1,
+					'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . gettext('If <em>disable auto protect scripts</em> is checked <em>Setup</em> will not protect its scrpts after an install.'));
+		}
 		return $options;
 	}
 

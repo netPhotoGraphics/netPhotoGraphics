@@ -1734,8 +1734,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							</script>
 							<?php
+							$noclones = true;
 							if (class_exists('npgClone')) {
 								foreach (npgClone::clones() as $clone => $data) {
+									$noclones = false;
 									$url = $data['url'] . CORE_FOLDER . '/setup/index.php?autorun';
 									?>
 									<p class="cloneLink" style="display:none;margin-left: 2em;">
@@ -1754,22 +1756,38 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								</script>
 								<?php
 							}
-							$link = sprintf(gettext('You may now %1$sadminister your gallery%2$s.'), '<a href="' . getAdminLink('admin.php') . '">', '</a>');
-							?>
-							<p id ="golink" class="delayshow"<?php
-							if (!CURL_ENABLED) {
-								echo ' style="display:none;"';
+							$debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
+							$debug = $debug[1];
+							if (strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
+								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
+							} else {
+								$query = '';
 							}
-							?>>
-									 <?php echo $link; ?>
-							</p>
+							?>
+							<div id ="golink" class="delayshow"<?php echo (CURL_ENABLED) ? '' : ' style="display:none;"'; ?>>
+								<?php
+								if ($query && !$noclones) {
+									?>
+									<p class="warning">
+										<?php printf(gettext('You may <a href="%1$s">administer your gallery</a> once all clones have completed setup.'), getAdminLink('admin.php') . $query); ?>
+									</p>
+									<?php
+								} else {
+									?>
+									<p>
+										<?php printf(gettext('You may now <a href="%1$s">administer your gallery</a>.'), getAdminLink('admin.php') . $query); ?>
+									</p>
+									<?php
+								}
+								?>
+							</div>
 							<?php
 							switch ($autorun) {
 								case false:
 									break;
 								case 'gallery':
 								case 'admin':
-									$autorun = getAdminLink('admin.php');
+									$autorun = getAdminLink('admin.php') . $query;
 									break;
 								default:
 									break;
@@ -1778,7 +1796,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script type="text/javascript">
 								function launchAdmin() {
-									window.location = '<?php echo getAdminLink('admin.php'); ?>';
+									window.location = '<?php echo getAdminLink('admin.php') . $query; ?>';
 								}
 								window.onload = function () {
 									var errors = $('#setupErrors').val();
@@ -1790,7 +1808,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									});
 									$('.delayshow').show();
 		<?php
-		if ($autorun) {
+		if ($autorun && ($noclones || !$query)) { //	don't autorun and protect the scripts if there are clones
 			?>
 										if (!imageErr) {
 											$('#golink').hide();
