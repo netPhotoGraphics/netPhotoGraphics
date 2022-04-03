@@ -2140,6 +2140,7 @@ function load_jQuery_CSS() {
 
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
+		default:
 		case 0: //	no migration script
 			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
 			break;
