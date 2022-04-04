@@ -1758,7 +1758,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							}
 							$debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 							$debug = $debug[1];
-							if (strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
+							if (!strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
 							} else {
 								$query = '';
