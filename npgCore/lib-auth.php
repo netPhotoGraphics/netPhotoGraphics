@@ -1319,13 +1319,12 @@ class _Authority {
 			} else {
 				$id = 0;
 			}
-			$loggedin = $this->checkAuthorization($auth, $id);
-			$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
+			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
+			clearNPGCookie("user_auth"); //	we will refresh it if the authorization was successful
 			if ($loggedin) {
+				//	refresh the cookie so if he visits often enough it is persistent
+				setNPGCookie("user_auth", $cookie);
 				return $loggedin;
-			}
-			if ($auth) { //	expired/invalid auth cookie
-				clearNPGCookie("user_auth");
 			}
 		}
 		return NULL;

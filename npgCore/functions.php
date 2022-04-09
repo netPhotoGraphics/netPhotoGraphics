@@ -2219,7 +2219,7 @@ function XSRFToken($action, $modifier = NULL) {
 function httpsRedirect() {
 	global $_conf_vars;
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
-// force https
+		// force https
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
