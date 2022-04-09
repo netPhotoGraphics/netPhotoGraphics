@@ -851,7 +851,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
 							'path' => rtrim($path, '/') . '/',
 							'domain' => '',
 							'httponly' => TRUE,
-							'samesite' => 'Lax'
+							'samesite' => 'Strict'
 					), $options);
 
 	if (DEBUG_LOGIN) {
