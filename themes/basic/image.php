@@ -109,7 +109,8 @@ if (!defined('WEBPATH'))
 					</strong>
 					<?php
 					if ($_current_image->isPhoto()) {
-						if (function_exists('printUserSizeSelector')) printUserSizeSelector();
+						if (function_exists('printUserSizeSelector'))
+							printUserSizeSelector();
 					}
 				}
 				?>
@@ -146,8 +147,10 @@ if (!defined('WEBPATH'))
 				?>
 				<br class="clearall" />
 				<?php
-				if (function_exists('printRating')) printRating();
-				if (function_exists('printCommentForm')) printCommentForm();
+				if (function_exists('printRating'))
+					printRating();
+				if (function_exists('printCommentForm'))
+					printCommentForm();
 				?>
 			</div>
 		</div>
@@ -161,11 +164,11 @@ if (!defined('WEBPATH'))
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
 			<?php
 			if (extensionEnabled('daily-summary')) {
-				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
 			}
 			?>
-			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
+	<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+<?php npgFilters::apply('theme_body_close'); ?>
 </html>

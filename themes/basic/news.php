@@ -141,10 +141,10 @@ if (class_exists('CMS')) {
 				<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> | <?php printSoftwareLink(); ?>
 				<?php
 				if (extensionEnabled('daily-summary')) {
-					printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+					printDailySummaryLink(gettext('Daily summary'), '', ' | ');
 				}
 				?>
-				<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
+				<?php if (function_exists('printUserLogin_out')) printUserLogin_out(' | '); ?>
 			</div>
 		</body>
 		<?php npgFilters::apply('theme_body_close'); ?>

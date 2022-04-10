@@ -212,7 +212,8 @@ if (!defined('WEBPATH'))
 				</div>
 				<br class="clearall" />
 				<?php
-				if (function_exists('printSlideShowLink')) printSlideShowLink();
+				if (function_exists('printSlideShowLink'))
+					printSlideShowLink();
 				printPageListWithNav("« " . gettext("prev"), gettext("next") . " »");
 				?>
 			</div>
@@ -227,7 +228,7 @@ if (!defined('WEBPATH'))
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
 			if (extensionEnabled('daily-summary')) {
-				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
 			}
 			?>
 			<?php printSoftwareLink(); ?>
