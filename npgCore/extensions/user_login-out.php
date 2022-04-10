@@ -41,7 +41,7 @@ if (isset($_gallery_page) && getOption('user_logout_login_form') > 1) {
 if (in_context(NPG_INDEX)) {
 	if (isset($_GET['userlog'])) { // process the logout.
 		if ($_GET['userlog'] == 0) {
-			$logoutRedirect = str_replace('userlog=0', 'fromlogout', userLogoutRedirect());
+			$logoutRedirect = str_replace('userlog=0', 'fromlogout', getRequestURI());
 			npg_Authority::handleLogout($logoutRedirect);
 		}
 	}
@@ -70,51 +70,6 @@ class user_logout_options {
 
 	}
 
-}
-
-function userLogoutRedirect($logoutlink = NULL) {
-	global $_current_admin_obj, $_current_album, $_current_image, $_CMS_current_page, $_CMS_current_article, $_CMS_current_category;
-
-	$redirect = array();
-	if (in_context(NPG_ALBUM)) {
-		$redirect['album'] = $_current_album->name;
-	}
-	if (in_context(NPG_IMAGE)) {
-		$redirect['image'] = $_current_image->filename;
-	}
-	if (in_context(ZENPAGE_PAGE)) {
-		$redirect['title'] = $_CMS_current_page->getTitlelink();
-	}
-	if (in_context(ZENPAGE_NEWS_ARTICLE)) {
-		$redirect['title'] = $_CMS_current_article->getTitlelink();
-	}
-	if (in_context(ZENPAGE_NEWS_CATEGORY)) {
-		$redirect['category'] = $_CMS_current_category->getTitlelink();
-	}
-	if (isset($_GET['p'])) {
-		$redirect['p'] = sanitize($_GET['p']);
-	}
-	if (isset($_GET['searchfields'])) {
-		$redirect['searchfields'] = sanitize($_GET['searchfields']);
-	}
-	if (isset($_GET['words'])) {
-		$redirect['words'] = sanitize($_GET['words']);
-	}
-	if (isset($_GET['date'])) {
-		$redirect['date'] = sanitize($_GET['date']);
-	}
-	if (isset($_GET['title'])) {
-		$redirect['title'] = sanitize($_GET['title']);
-	}
-	if (isset($_GET['page'])) {
-		$redirect['page'] = sanitize($_GET['page']);
-	}
-	$redirect['userlog'] = 0;
-	$logoutlink = FULLWEBPATH . '/index.php?';
-	foreach ($redirect as $name => $value) {
-		$logoutlink .= $name . '=' . $value . '&';
-	}
-	return trim($logoutlink, '&');
 }
 
 /**
@@ -235,7 +190,13 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 		if ($before) {
 			echo '<span class="beforetext">' . html_encodeTagged($before) . '</span>';
 		}
-		$logoutlink = userLogoutRedirect();
+
+		$parts = parse_url(getRequestURI());
+		if (isset($parts['query'])) {
+			$logoutlink = $parts['path'] . '?' . preg_replace('~userlog\=.\&*~', '', $parts['query']) . '&userlog=0';
+		} else {
+			$logoutlink = $parts['path'] . '?userlog=0';
+		}
 		?>
 		<a href="<?php echo html_encode($logoutlink); ?>" title="<?php echo $logouttext; ?>">
 			<?php echo $logouttext; ?>
