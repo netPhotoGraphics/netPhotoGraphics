@@ -839,19 +839,14 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
 		$path = WEBPATH;
 	}
 
-	if (is_array($options)) {
-		$options['secure'] = secureServer() && isset($options['secure']) && $options['secure'];
-	} else {
-		$options = array('secure' => $options && secureServer());
-	}
-
 	$options = array_merge(
 					array(
 							'expires' => (int) $t,
 							'path' => rtrim($path, '/') . '/',
 							'domain' => '',
 							'httponly' => TRUE,
-							'samesite' => 'Strict'
+							'samesite' => 'Strict',
+							'secure' => secureServer()
 					), $options);
 
 	if (DEBUG_LOGIN) {
@@ -886,7 +881,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
  */
 function clearNPGCookie($name) {
 	if (isset($_COOKIE[$name])) {
-		setNPGCookie($name, 'null', -368000, FALSE);
+		setNPGCookie($name, 'null', -368000, ['secure' => ['secure' => FALSE]]);
 	}
 }
 

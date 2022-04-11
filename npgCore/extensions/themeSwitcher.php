@@ -96,7 +96,7 @@ class themeSwitcher {
 		$themeOption = getNPGCookie('themeSwitcher_' . $option);
 		if (isset($_GET[$option])) {
 			if (in_array($_GET[$option], $allowed)) {
-				setNPGCookie('themeSwitcher_' . $option, $_GET[$option], FALSE);
+				setNPGCookie('themeSwitcher_' . $option, $_GET[$option], ['secure' => FALSE]);
 				$themeOption = $_GET[$option];
 			}
 		}
@@ -233,7 +233,7 @@ unset($__key);
 unset($__theme);
 
 if (isset($_GET['themeSwitcher'])) {
-	setNPGCookie('themeSwitcher_theme', sanitize($_GET['themeSwitcher']), FALSE);
+	setNPGCookie('themeSwitcher_theme', sanitize($_GET['themeSwitcher']), ['secure' => FALSE]);
 }
 
 if (getNPGCookie('themeSwitcher_theme')) {
