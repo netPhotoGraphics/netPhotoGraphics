@@ -1617,7 +1617,7 @@ function build_url($parts) {
 			$u .= '/' . ltrim($parts['path'], '/');
 		}
 	}
-	if (isset($parts['query'])) {
+	if (isset($parts['query']) && $parts['query']) {
 		$u .= '?' . $parts['query'];
 	}
 	if (isset($parts['fragment '])) {

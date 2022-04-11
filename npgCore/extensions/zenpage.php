@@ -311,7 +311,7 @@ class cmsFilters {
 		}
 	}
 
-	static function admin_toolbox_pages($redirect) {
+	static function admin_toolbox_pages() {
 		global $_CMS, $_CMS_current_page;
 
 		if (npg_loggedin(ZENPAGE_PAGES_RIGHTS) && $_CMS && $_CMS->pages_enabled && ($_CMS_current_page->subrights() & MANAGED_OBJECT_RIGHTS_EDIT)) {
@@ -335,10 +335,9 @@ class cmsFilters {
 			<?php
 			echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?page&amp;add">' . gettext("Add Page") . '</a></li>';
 		}
-		return $redirect . '&amp;title=' . urlencode(getPageTitlelink());
 	}
 
-	static function admin_toolbox_news($redirect) {
+	static function admin_toolbox_news() {
 		global $_CMS, $_CMS_current_category, $_CMS_current_article;
 		if (!empty($_CMS_current_category)) {
 			$cat = '&amp;category=' . $_CMS_current_category->getTitlelink();
@@ -365,11 +364,7 @@ class cmsFilters {
 				echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?newsarticle&amp;
 add">' . gettext("Add Article") . '</a></li>';
 			}
-			$redirect .= '&amp;title=' . urlencode($_CMS_current_article->getTitlelink());
-		} else {
-			$redirect .= $cat;
 		}
-		return $redirect;
 	}
 
 }

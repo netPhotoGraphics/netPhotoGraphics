@@ -35,7 +35,7 @@ if ($image) { //	maybe we can find it
 		}
 	}
 }
-if (isset($_GET['fromlogout'])) {
+if (isset($_GET['loggedout']) && $_GET['logout'] < 0) {
 	header("HTTP/1.0 302 Found");
 	header("Status: 302 Found");
 	header('Location: ' . WEBPATH . '/index.php');

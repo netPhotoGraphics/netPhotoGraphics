@@ -38,15 +38,6 @@ if (isset($_gallery_page) && getOption('user_logout_login_form') > 1) {
 	}
 }
 
-if (in_context(NPG_INDEX)) {
-	if (isset($_GET['userlog'])) { // process the logout.
-		if ($_GET['userlog'] == 0) {
-			$logoutRedirect = str_replace('userlog=0', 'fromlogout', getRequestURI());
-			npg_Authority::handleLogout($logoutRedirect);
-		}
-	}
-}
-
 /**
  * Plugin option handling class
  *
@@ -190,15 +181,8 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 		if ($before) {
 			echo '<span class="beforetext">' . html_encodeTagged($before) . '</span>';
 		}
-
-		$parts = parse_url(getRequestURI());
-		if (isset($parts['query'])) {
-			$logoutlink = $parts['path'] . '?' . preg_replace('~userlog\=.\&*~', '', $parts['query']) . '&userlog=0';
-		} else {
-			$logoutlink = $parts['path'] . '?userlog=0';
-		}
 		?>
-		<a href="<?php echo html_encode($logoutlink); ?>" title="<?php echo $logouttext; ?>">
+		<a href="<?php echo getLogoutLink(array('logout' => 3)); ?>" title="<?php echo $logouttext; ?>">
 			<?php echo $logouttext; ?>
 		</a>
 		<?php

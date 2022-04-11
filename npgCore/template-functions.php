@@ -205,14 +205,6 @@ function adminToolbox() {
 							</li>
 							<?php
 						}
-						if ($_gallery_page == 'index.php') {
-							$redirect = '';
-						} else {
-							$redirect = "&amp;p=" . urlencode(stripSuffix($_gallery_page));
-						}
-						if ($page > 1) {
-							$redirect .= "&amp;page=$page";
-						}
 						npgFilters::apply('admin_toolbox_gallery');
 						break;
 					case 'image.php':
@@ -309,13 +301,6 @@ function adminToolbox() {
 								// set return to this image page
 								npgFilters::apply('admin_toolbox_image', $albumname, $imagename);
 							}
-							$redirect = "&amp;album=" . pathurlencode($albumname) . "&amp;image=" . urlencode($imagename);
-						} else {
-							// set the return to this album/page
-							$redirect = "&amp;album=" . pathurlencode($albumname);
-							if ($page > 1) {
-								$redirect .= "&amp;page=$page";
-							}
 						}
 						break;
 					case 'search.php':
@@ -333,39 +318,24 @@ function adminToolbox() {
 							}
 							npgFilters::apply('admin_toolbox_search');
 						}
-						$redirect = "&amp;p=search&amp;page=$page" . html_encode($_current_search->getSearchParams());
 						break;
 					case 'pages.php':
-						$redirect = "&amp;p=pages";
-						if ($page > 1) {
-							$redirect .= "&amp;page=$page";
-						}
-						$redirect = npgFilters::apply('admin_toolbox_pages', $redirect);
+						npgFilters::apply('admin_toolbox_pages');
 						break;
 					case 'news.php':
-						$redirect = "&amp;p=news";
-						if ($page > 1) {
-							$redirect .= "&amp;page=$page";
-						}
-						$redirect = npgFilters::apply('admin_toolbox_news', $redirect);
+						npgFilters::apply('admin_toolbox_news');
 						break;
 					default:
 						// arbitrary custom page
-						$gal = stripSuffix($_gallery_page);
-						$redirect = "&amp;p=" . urlencode($gal);
-						if ($page > 1) {
-							$redirect .= "&amp;page=$page";
-						}
-						$redirect = npgFilters::apply('admin_toolbox_' . $gal, $redirect);
+						npgFilters::apply('admin_toolbox_' . stripSuffix($_gallery_page));
 						break;
 				}
-				$redirect = npgFilters::apply('admin_toolbox_close', $redirect);
+				npgFilters::apply('admin_toolbox_close');
 				if ($_current_admin_obj->logout_link) {
 					// logout link
-					$link = SEO_FULLWEBPATH . '/index.php?logout=1' . $redirect;
 					?>
 					<li>
-						<a href="<?php echo $link; ?>" id="toolbox_logout"><?php echo gettext("Logout"); ?> </a>
+						<a href="<?php echo getLogoutLink(array('logout' => 2)); ?>" id="toolbox_logout"><?php echo gettext("Logout"); ?> </a>
 					</li>
 				</ul>
 			</div>
@@ -4486,28 +4456,27 @@ function checkAccess(&$hint = NULL, &$show = NULL) {
  *
  * @since 1.1.3
  */
-function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $_password_redirect = NULL, $showLogo = NULL) {
+function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $password_redirect = NULL, $showLogo = NULL) {
 	global $_login_error, $_password_form_printed, $_current_search, $_gallery, $_gallery_page,
 	$_current_album, $_current_image, $theme, $_CMS_current_page, $_authority;
 	if ($_password_form_printed)
 		return;
 	$_password_form_printed = true;
-	if (is_null($_password_redirect)) {
+	if (is_null($password_redirect)) {
 		$parts = mb_parse_url(getRequestURI());
 		if (array_key_exists('query', $parts)) {
 			$query = parse_query($parts['query']);
+			unset($query['logout']);
 		} else {
 			$query = array();
 		}
-		$query['userlog'] = 1;
 		if (isset($_GET['p']) && $_GET['p'] == 'password') {
 			// redirecting here would be terribly confusing
 			unset($query['p']);
 			$parts['path'] = SEO_WEBPATH;
 		}
 		$parts['query'] = http_build_query($query);
-		$action = build_url($parts);
-		$_password_redirect = $action;
+		$password_redirect = build_url($parts);
 	}
 	?>
 	<div id="passwordform">
@@ -4525,7 +4494,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 			<a href="<?php echo $loginlink; ?>" title="<?php echo $logintext; ?>"><?php echo $logintext; ?></a>
 			<?php
 		} else {
-			$_authority->printLoginForm($_password_redirect, $showLogo, $_password_showuser, NULL, $_password_hint);
+			$_authority->printLoginForm($password_redirect, $showLogo, $_password_showuser, NULL, $_password_hint);
 		}
 		?>
 	</div>

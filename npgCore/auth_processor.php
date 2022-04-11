@@ -92,37 +92,7 @@ if ($_loggedin) {
 	}
 }
 // Handle a logout action.
-if (isset($_REQUEST['logout'])) {
-
-	$redirect = '?fromlogout';
-	if (isset($_GET['p'])) {
-		$redirect .= "&p=" . sanitize($_GET['p']);
-	}
-	if (isset($_GET['searchfields'])) {
-		$redirect .= "&searchfields=" . sanitize($_GET['searchfields']);
-	}
-	if (isset($_GET['words'])) {
-		$redirect .= "&words=" . sanitize($_GET['words']);
-	}
-	if (isset($_GET['date'])) {
-		$redirect .= "&date=" . sanitize($_GET['date']);
-	}
-	if (isset($_GET['album'])) {
-		$redirect .= "&album=" . sanitize($_GET['album']);
-	}
-	if (isset($_GET['image'])) {
-		$redirect .= "&image=" . sanitize($_GET['image']);
-	}
-	if (isset($_GET['title'])) {
-		$redirect .= "&title=" . sanitize($_GET['title']);
-	}
-	if (isset($_GET['page'])) {
-		$redirect .= "&page=" . sanitize($_GET['page']);
-	}
-	if (!empty($redirect)) {
-		$redirect = '?' . substr($redirect, 1);
-	}
-	$location = FULLWEBPATH . '/index.php' . $redirect;
-	npg_Authority::handleLogout($location);
+if (isset($_REQUEST['logout']) && $_REQUEST['logout'] > 0) {
+	npg_Authority::handleLogout(html_decode(getLogoutLink(array('logout' => -$_REQUEST['logout']))));
 }
 ?>
