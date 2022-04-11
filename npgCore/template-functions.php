@@ -4346,9 +4346,6 @@ function getTransitionImageCount() {
  */
 function checkForGuest(&$hint = NULL, &$show = NULL) {
 	global $_gallery, $_gallery_page, $_CMS_current_page, $_CMS_current_category, $_CMS_current_article;
-	$authType = npgFilters::apply('checkForGuest', NULL);
-	if (!is_null($authType))
-		return $authType;
 	if (in_context(NPG_SEARCH)) { // search page
 		$hash = getOption('search_password');
 		if (getOption('search_user') != '')
@@ -4380,8 +4377,9 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 		}
 	} else { // other page
 		$hash = $_gallery->getPassword();
-		if ($_gallery->getUser() != '')
+		if ($_gallery->getUser() != '') {
 			$show = true;
+		}
 		$hint = $_gallery->getPasswordHint();
 		if (!empty($hash) && getNPGCookie('gallery_auth') == $hash) {
 			return 'gallery_auth';
@@ -4590,7 +4588,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

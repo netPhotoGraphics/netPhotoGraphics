@@ -289,7 +289,7 @@ class Category extends CMSRoot {
 	 * @param $show
 	 */
 	function checkforGuest(&$hint = NULL, &$show = NULL) {
-		if (!parent::checkForGuest()) {
+		if (!parent::checkForGuest($hint, $show)) {
 			return false;
 		}
 		$id = $this->getID();
@@ -317,8 +317,9 @@ class Category extends CMSRoot {
 				return $authType;
 			} else {
 				$user = $this->getUser();
-				if (!empty($user))
+				if (!empty($user)) {
 					$show = true;
+				}
 				$hint = $this->getPasswordHint();
 				return false;
 			}

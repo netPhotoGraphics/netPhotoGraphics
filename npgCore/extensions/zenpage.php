@@ -64,7 +64,6 @@ $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/([0-9]+)/*$',
 $_conf_vars['special_pages'][] = array('rewrite' => '^%NEWS%/(.+?)/*$',
 		'rule' => '%REWRITE% index.php?p=news&title=$1 [NC,L,QSA]');
 
-npgFilters::register('checkForGuest', 'cmsFilters::checkForGuest');
 npgFilters::register('isMyItemToView', 'cmsFilters::isMyItemToView');
 npgFilters::register('admin_toolbox_global', 'cmsFilters::admin_toolbox_global');
 npgFilters::register('admin_toolbox_news', 'cmsFilters::admin_toolbox_news');
@@ -203,23 +202,7 @@ class cmsFilters {
 		return $ignore;
 	}
 
-// zenpage filters
-
-	/**
-	 * Handles password checks
-	 * @param string $auth
-	 */
-	static function checkForGuest($auth) {
-		global $_CMS_current_page, $_CMS_current_category;
-		if (!is_null($_CMS_current_page)) { // zenpage page
-			$authType = $_CMS_current_page->checkforGuest();
-			return $authType;
-		} else if (!is_null($_CMS_current_category)) {
-			$authType = $_CMS_current_category->checkforGuest();
-			return $authType;
-		}
-		return $auth;
-	}
+	// zenpage filters
 
 	/**
 	 * Handles item ownership

@@ -1281,6 +1281,7 @@ class _Authority {
 	static function handleLogout($location) {
 		global $_loggedin, $_pre_authorization, $_current_admin_obj;
 		$location = npgFilters::apply('logout', $location, $_current_admin_obj);
+
 		foreach (self::getAuthCookies() as $cookie => $value) {
 			clearNPGCookie($cookie);
 		}
@@ -1346,7 +1347,6 @@ class _Authority {
 		if (is_null($logo)) {
 			$logo = $_gallery->branded;
 		}
-
 		if (is_null($redirect)) {
 			$redirect = getRequestURI();
 		}
@@ -1446,7 +1446,12 @@ class _Authority {
 			?>
 			<div id="loginform-content">
 				<?php
-				if ($welcome = $_gallery->getLogonWelcome()) {
+				if ($hint) {
+					$welcome = get_language_string($hint);
+				} else {
+					$welcome = $_gallery->getLogonWelcome();
+				}
+				if ($welcome) {
 					?>
 					<p class="logon_welcome">
 						<?php echo html_encodeTagged($welcome); ?>
@@ -1615,9 +1620,6 @@ class _Authority {
 						</form>
 
 						<?php
-						if ($hint) {
-							echo '<p>' . $hint . '</p>';
-						}
 						if ($showUserField && OFFSET_PATH != 2) {
 							if (getOption('challenge_foil_enabled')) {
 								?>

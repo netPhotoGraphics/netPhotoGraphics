@@ -1110,7 +1110,7 @@ class Gallery {
 		if (!(GALLERY_SECURITY != 'public')) {
 			return false;
 		}
-		$hint = '';
+		$hint = $_gallery->getPasswordHint();
 		$pwd = $this->getPassword();
 		if (!empty($pwd)) {
 			return 'gallery_auth';

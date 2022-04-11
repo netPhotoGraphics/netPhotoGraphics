@@ -1517,7 +1517,7 @@ class Image extends MediaObject {
 	 * @param unknown_type $show
 	 */
 	function checkforGuest(&$hint = NULL, &$show = NULL) {
-		if (!parent::checkForGuest()) {
+		if (!parent::checkForGuest($hint, $show)) {
 			return false;
 		}
 		$album = $this->getAlbum();

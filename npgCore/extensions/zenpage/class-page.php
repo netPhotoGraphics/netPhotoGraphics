@@ -214,7 +214,7 @@ class Page extends CMSItems {
 	 * @param $show
 	 */
 	function checkforGuest(&$hint = NULL, &$show = NULL) {
-		if (!parent::checkForGuest()) {
+		if (!parent::checkForGuest($hint, $show)) {
 			return false;
 		}
 		$pageobj = $this;
