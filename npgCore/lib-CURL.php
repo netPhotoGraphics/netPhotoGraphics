@@ -23,7 +23,7 @@
 function curlRequest($uri, $options = array()) {
 	if (function_exists('curl_init')) {
 		if (empty($options) || !is_array($options)) {
-			$cookies = 'user_auth=' . getNPGCookie('user_auth');
+			$cookies = 'user_auth=' . getNPGCookie(AUTHCOOKIE);
 			$options = array(
 					CURLOPT_SSL_VERIFYPEER => false,
 					CURLOPT_RETURNTRANSFER => true,
@@ -66,7 +66,7 @@ class ParallelCURL {
 		$options = array(
 				CURLOPT_RETURNTRANSFER => 1,
 				CURLOPT_SSL_VERIFYPEER => false,
-				CURLOPT_COOKIE => 'user_auth=' . getNPGCookie('user_auth')
+				CURLOPT_COOKIE => 'user_auth=' . getNPGCookie(AUTHCOOKIE)
 		);
 
 		foreach ($urls as $i => $url) {

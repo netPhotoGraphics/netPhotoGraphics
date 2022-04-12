@@ -78,7 +78,7 @@ if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_WEBPATH', WEBPATH);
 }
 
-$_SESSION['adminRequest'] = getNPGCookie('user_auth'); //	Allow "unprotected" i.php if the request came from an admin session
+$_SESSION['adminRequest'] = getNPGCookie(AUTHCOOKIE); //	Allow "unprotected" i.php if the request came from an admin session
 
 require_once(CORE_SERVERPATH . 'rewrite.php');
 if (OFFSET_PATH != 2 && !getOption('license_accepted') && !isset($_invisible_execute)) {

@@ -168,13 +168,14 @@ define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 if (!defined('WEBPATH')) {
 	define('WEBPATH', $const_webpath);
 }
-define('FALLBACK_SUFFIX', 'webp');
-
-define('CURL_ENABLED', function_exists('curl_init'));
 
 unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
+
+define('FALLBACK_SUFFIX', 'webp');
+define('CURL_ENABLED', function_exists('curl_init'));
+define('AUTHCOOKIE', 'user_auth' . str_replace('/', '_', WEBPATH));
 
 define('DESIRED_PHP_EXTENSIONS', array(
 		'bz2',

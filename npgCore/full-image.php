@@ -57,7 +57,7 @@ $args['size'] = 'FULL';
 if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $args))) {
 	// maybe it was from javascript which does not know better!
 	npg_session_start();
-	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != getNPGCookie('user_auth');
+	$forbidden = !isset($_SESSION['adminRequest']) || $_SESSION['adminRequest'] != getNPGCookie(AUTHCOOKIE);
 }
 
 $hash = getOption('protected_image_password');

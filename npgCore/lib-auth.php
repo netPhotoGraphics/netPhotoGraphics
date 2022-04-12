@@ -1124,7 +1124,7 @@ class _Authority {
 	static function logUser($user) {
 		$user->set('lastloggedin', date('Y-m-d H:i:s'));
 		$user->save();
-		setNPGCookie("user_auth", $user->getPass() . '.' . $user->getID());
+		setNPGCookie(AUTHCOOKIE, $user->getPass() . '.' . $user->getID());
 	}
 
 	/**
@@ -1157,7 +1157,7 @@ class _Authority {
 							self::logUser($user);
 							$_current_admin_obj = $user;
 						} else {
-							clearNPGCookie("user_auth"); // Clear the cookie, just in case
+							clearNPGCookie(AUTHCOOKIE); // Clear the cookie, just in case
 							$_login_error = 1;
 						}
 					}
@@ -1311,7 +1311,7 @@ class _Authority {
 	 * Checks saved cookies to see if a user is logged in
 	 */
 	function checkCookieCredentials() {
-		$auth = $cookie = getNPGCookie('user_auth');
+		$auth = $cookie = getNPGCookie(AUTHCOOKIE);
 		if ($cookie) {
 			$idLoc = strrpos($cookie, '.');
 			if ($idLoc) {
@@ -1321,10 +1321,10 @@ class _Authority {
 				$id = 0;
 			}
 			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
-			clearNPGCookie("user_auth"); //	we will refresh it if the authorization was successful
+			clearNPGCookie(AUTHCOOKIE); //	we will refresh it if the authorization was successful
 			if ($loggedin) {
 				//	refresh the cookie so if he visits often enough it is persistent
-				setNPGCookie("user_auth", $cookie);
+				setNPGCookie(AUTHCOOKIE, $cookie);
 				return $loggedin;
 			}
 		}
