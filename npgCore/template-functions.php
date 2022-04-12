@@ -152,7 +152,7 @@ function adminToolbox() {
 				if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_current_admin_obj->getUser()) . ' LIMIT 1';
 					$found = query($sql);
-					if (!empty($found)) {
+					if ($found && $found->num_rows > 0) {
 						?>
 						<li>
 							<?php printLinkHTML(getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
@@ -4588,7 +4588,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

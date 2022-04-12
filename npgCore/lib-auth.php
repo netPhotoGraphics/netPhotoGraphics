@@ -88,7 +88,7 @@ class _Authority {
 	function validID($id) {
 		$sql = 'SELECT `user` FROM ' . prefix('administrators') . ' WHERE `id`=' . $id;
 		$result = query($sql);
-		return $result;
+		return $result && $result->num_rows > 0;
 	}
 
 	/**
@@ -647,7 +647,7 @@ class _Authority {
 
 		$sql = "SELECT `id`, `rights` FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
 		$admins = query($sql, false);
-		if ($admins) { // something to migrate
+		if ($admins && $admins->num_rows > 0) { // something to migrate
 			$oldrights = array();
 			foreach (self::getRights($oldversion) as $key => $right) {
 				$oldrights[$key] = $right['value'];
@@ -1872,7 +1872,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

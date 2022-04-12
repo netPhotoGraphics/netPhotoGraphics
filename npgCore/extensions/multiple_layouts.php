@@ -435,7 +435,7 @@ function saveLayoutSelection($message, $obj) {
 		if ($selectedlayout) { // not default
 			$sql = 'SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="multiple_layouts" AND `subtype`=' . db_quote($table) . ' AND `aux`=' . $obj->getID() . 'LIMIT 1';
 			$exists = query($sql);
-			if (!$exists) {
+			if (!$exists || $exists->num_rows == 0) {
 				$query = query('INSERT INTO ' . prefix('plugin_storage') . ' (type,subtype,aux,data) VALUES ("multiple_layouts",' . db_quote($table) . ',' . $obj->getID() . ',' . db_quote($selectedlayout) . ')');
 			} else {
 				$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($selectedlayout) . ' WHERE `type`="multiple_layouts" AND `subtype`=' . db_quote($table) . ' AND `aux`=' . $obj->getID();
@@ -469,7 +469,7 @@ function saveLayoutSelectionFilter($obj, $prefix) {
 		if ($selectedlayout) { // not default
 			$sql = 'SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="multiple_layouts" AND `subtype`=' . db_quote($table) . ' AND `aux`=' . $obj->getID() . ' LIMIT 1';
 			$exists = query($sql);
-			if (!$exists) {
+			if (!$exists || $exists->num_rows == 0) {
 				$query = query('INSERT INTO ' . prefix('plugin_storage') . ' (type,subtype,aux,data) VALUES ("multiple_layouts",' . db_quote($table) . ',' . $obj->getID() . ',' . db_quote($selectedlayout) . ')');
 			} else {
 				$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($selectedlayout) . ' WHERE `type`="multiple_layouts" AND `subtype`=' . db_quote($table) . ' AND `aux`=' . $obj->getID();
@@ -494,7 +494,7 @@ function saveLayoutSelectionFilter($obj, $prefix) {
 			if ($selectedlayout) { // not default
 				$sql = 'SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="multiple_layouts" AND `subtype`="albums_images" AND `aux`=' . $obj->getID() . ' LIMIT 1';
 				$exists = query($sql);
-				if (!$exists) {
+				if (!$exists || $exists->num_rows == 0) {
 					$query = query('INSERT INTO ' . prefix('plugin_storage') . ' (type,subtype,aux,data) VALUES ("multiple_layouts","albums_images",' . $obj->getID() . ',' . db_quote($selectedlayout) . ')');
 				} else {
 					$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `data`=' . db_quote($selectedlayout) . ' WHERE `type`="multiple_layouts" AND `subtype`="albums_images" AND `aux`=' . $obj->getID();

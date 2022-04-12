@@ -208,7 +208,7 @@ if (isset($_loggedin) && $_loggedin) {
 		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_current_admin_obj->getUser()) . ' LIMIT 1';
 			$found = query($sql);
-			if ($found) {
+			if ($found && $found->num_rows > 0) {
 				$_admin_menu['images'] = array(
 						'text' => gettext("my images"),
 						'link' => getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images',
