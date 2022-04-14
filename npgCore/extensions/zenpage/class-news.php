@@ -40,6 +40,16 @@ class Article extends CMSItems {
 	}
 
 	/**
+	 * Returns true if the object is an 'article' object
+	 *
+	 * @param object $article
+	 * @return bool
+	 */
+	function isNewsClass($article) {
+		return is_object($article) && get_class($article) == 'Article';
+	}
+
+	/**
 	 * Gets the categories assigned to an news article
 	 *
 	 * @param int $article_id ID od the article

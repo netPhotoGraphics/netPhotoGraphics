@@ -33,6 +33,16 @@ class Page extends CMSItems {
 	}
 
 	/**
+	 * Returns true if the object is a 'page' object
+	 *
+	 * @param object $article
+	 * @return bool
+	 */
+	function isPageClass($page) {
+		return is_object($page) && get_class($page) == 'Page';
+	}
+
+	/**
 	 * Returns the sort order
 	 *
 	 * @return string
