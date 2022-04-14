@@ -12,25 +12,19 @@
  *
  * @param string $uri The uri to send the request to. Sets `curl_setopt($ch, CURLOPT_URL, $uri);`
  * @param array $options An array of cURL options to set (uri is set via the separate parameter)
- * Default is if nothing is set:
- * 	array(
- * 		CURLOPT_RETURNTRANSFER => true,
- * 		CURLOPT_TIMEOUT => 2000
- * )
  * See http://php.net/manual/en/function.curl-setopt.php for more info
  * @return boolean
  */
 function curlRequest($uri, $options = array()) {
 	if (function_exists('curl_init')) {
 		if (empty($options) || !is_array($options)) {
-			$cookies = 'user_auth=' . getNPGCookie(AUTHCOOKIE);
 			$options = array(
 					CURLOPT_SSL_VERIFYPEER => false,
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_TIMEOUT => 2000,
 					CURLOPT_FOLLOWLOCATION => true,
 					CURLOPT_MAXREDIRS => 3,
-					CURLOPT_COOKIE => $cookies
+					CURLOPT_COOKIE => AUTHCOOKIE . '=' . getNPGCookie(AUTHCOOKIE)
 			);
 		}
 		$ch = curl_init($uri);
@@ -66,7 +60,7 @@ class ParallelCURL {
 		$options = array(
 				CURLOPT_RETURNTRANSFER => 1,
 				CURLOPT_SSL_VERIFYPEER => false,
-				CURLOPT_COOKIE => 'user_auth=' . getNPGCookie(AUTHCOOKIE)
+				CURLOPT_COOKIE => AUTHCOOKIE . '=' . getNPGCookie(AUTHCOOKIE)
 		);
 
 		foreach ($urls as $i => $url) {
