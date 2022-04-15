@@ -18,6 +18,16 @@ function newArticle($titlelink, $allowCreate = NULL) {
 	return new Article($titlelink, $allowCreate);
 }
 
+/**
+ * Returns true if the object is an 'article' object
+ *
+ * @param object $article
+ * @return bool
+ */
+function isNewsClass($article) {
+	return is_object($article) && get_class($article) == 'Article';
+}
+
 class Article extends CMSItems {
 
 	public $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
@@ -37,16 +47,6 @@ class Article extends CMSItems {
 			$this->setDateTime(date('Y-m-d H:i:s'));
 		}
 		$this->exists = $this->loaded;
-	}
-
-	/**
-	 * Returns true if the object is an 'article' object
-	 *
-	 * @param object $article
-	 * @return bool
-	 */
-	function isNewsClass($article) {
-		return is_object($article) && get_class($article) == 'Article';
 	}
 
 	/**

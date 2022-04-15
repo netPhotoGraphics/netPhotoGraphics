@@ -46,9 +46,6 @@ function getRelatedItems($type = 'news', $album = NULL) {
 				$paramstr .= '&inalbums=1&inimages=1&innews=1&inpages=1';
 				break;
 		}
-
-		var_dump($paramstr);
-
 		$search->setSearchParams($paramstr);
 		// get the results
 		switch ($type) {
@@ -129,14 +126,14 @@ function createRelatedItemsResultArray($result, $type) {
 				}
 				break;
 			case 'news':
-				if (!Article::isNewseClass($current) || $current->getName() != $item['titlelink']) {
+				if (!isNewsClass($current) || $current->getName() != $item['titlelink']) {
 					if (!isset($item['weight']))
 						$item['weight'] = 13; //	there are circumstances where weights are not generated.
 					array_push($results, array('name' => $item['titlelink'], 'album' => '', 'type' => $type, 'weight' => $item['weight']));
 				}
 				break;
 			case 'pages':
-				if (!Page::isPageClass($current) || $current->getName() != $item) {
+				if (!isPageClass($current) || $current->getName() != $item) {
 					array_push($results, array('name' => $item, 'album' => '', 'type' => $type, 'weight' => '13')); // doesn't have weight so we just add one for sorting later
 				}
 				break;
