@@ -12,24 +12,16 @@ $plugin_description = gettext('Provides functionality to get the related items t
 
 function getRelatedItems($type = 'news', $album = NULL) {
 	global $_gallery, $_current_album, $_current_image, $_gallery_page;
-	$testfor = ['&', '|', '!', ',', '(', ')', '"', '`', "'", ' '];
 	$tags = getTags();
-
-	$tags = ['now&then"', 'normal', 'spaced tag'];
-
 	if (!empty($tags)) { // if there are tags at all
+		$testfor = ['&', '|', '!', ',', '(', ')', '"', '`', "'", ' '];
 		$searchstring = '';
 		foreach ($tags as $tag) {
-
-			var_dump($tag);
-
 			if ($tag !== str_replace($testfor, "\0", $tag)) {
-				$tag = '"' . str_replace('"', '\\"', $tag) . '"';
+				$tag = '"' . addslashes($tag) . '"';
 			}
 			$bool = '|'; // connect tags by OR to get a wide range
 			$searchstring .= $tag . '|';
-
-			var_dump($tag, $searchstring);
 		}
 		$searchstring = rtrim($searchstring, '|');
 		$paramstr = 'words=' . $searchstring . '&searchfields=tags';

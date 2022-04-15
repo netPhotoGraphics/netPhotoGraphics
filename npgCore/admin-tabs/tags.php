@@ -124,7 +124,6 @@ if (isset($_GET['action'])) {
 						$tbdeleted = array();
 						$multi = getOption('multi_lingual');
 						$languageList = i18n::generateLanguageList(false);
-
 						foreach ($tags as $key => $tagname) {
 							if (isset($langs[$key])) {
 								$lang = $langs[$key];
@@ -322,7 +321,7 @@ printAdminHeader('admin');
 							<ul class="tagrenamelist">
 								<?php
 								foreach ($list as $tagitem) {
-									$item = $tagitem['tag'];
+									$item = html_encode($tagitem['tag']);
 									?>
 									<li>
 										<span class="nowrap">
@@ -343,7 +342,7 @@ printAdminHeader('admin');
 											$itemarray = $tagitem['subtags'];
 											ksort($itemarray);
 											foreach ($itemarray as $lang => $tagitem) {
-												$tag = $tagitem['tag'];
+												$tag = html_encode($tagitem['tag']);
 												?>
 												<span class="nowrap">
 													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />
