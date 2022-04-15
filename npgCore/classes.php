@@ -492,7 +492,7 @@ class PersistentObject {
 		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
 			$call = next($caller);
 		}
-		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
+		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), $name, $call['file'], $call['line']);
 		trigger_error($msg);
 	}
 
