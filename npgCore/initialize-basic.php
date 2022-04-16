@@ -78,13 +78,6 @@ if (!defined('FILESYSTEM_CHARSET')) {
 }
 define('FILESYSTEM_CHARSET', $_conf_vars['FILESYSTEM_CHARSET']);
 
-// If the server protocol is not set, set it to the default.
-if (!isset($_conf_vars['server_protocol'])) {
-	$_conf_vars['server_protocol'] = 'http';
-} else {
-	$_conf_vars['server_protocol'] = strtolower($_conf_vars['server_protocol']);
-}
-
 foreach ($_conf_vars as $name => $value) {
 	if (!is_array($value)) {
 		$_conf_options_associations[strtolower($name)] = $name;

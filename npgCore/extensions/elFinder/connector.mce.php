@@ -78,7 +78,7 @@ if (npg_loggedin(FILES_RIGHTS)) {
 							cssAutoLoad: false,
 							customData: {
 							'XSRFToken':'<?php echo getXSRFToken('elFinder'); ?>',
-											'user_auth':'<?php echo getNPGCookie('user_auth'); ?>',
+											'user_auth':'<?php echo getNPGCookie(AUTHCOOKIE); ?>',
 											'origin':'tinyMCE',
 											'type':'<?php if (isset($_GET['type'])) echo sanitize($_GET['type']); ?>'
 							},

@@ -191,7 +191,7 @@ class oAuthLogin {
 		$oAuthAuthority = ucfirst(str_replace('Login', '', $class));
 
 		if (!npg_loggedin()) {
-			npgButton('button', '<img src="' . WEBPATH . ' / ' . CORE_FOLDER . ' / ' . PLUGIN_FOLDER . ' / ' . $class . '/login_button.png" alt="' . $oAuthAuthority . ' login">', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php') . '?request=' . $class . '&amp;redirect=/dev/index.php?userlog=1', 'buttonTitle' => $oAuthAuthority . ' login'));
+			npgButton('button', '<img src="' . WEBPATH . ' / ' . CORE_FOLDER . ' / ' . PLUGIN_FOLDER . ' / ' . $class . '/login_button.png" alt="' . $oAuthAuthority . ' login">', array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/' . $class . '/' . strtolower($oAuthAuthority) . '.php') . '?request=' . $class . '&amp;redirect=/dev/index.php', 'buttonTitle' => $oAuthAuthority . ' login'));
 		}
 	}
 

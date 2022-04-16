@@ -30,6 +30,7 @@ $plugin_is_filter = 900 | THEME_PLUGIN;
 $plugin_description = gettext("Provides a means for users to login/out from your theme pages.");
 
 $option_interface = 'user_logout_options';
+
 if (isset($_gallery_page) && getOption('user_logout_login_form') > 1) {
 	require_once(PLUGIN_SERVERPATH . 'colorbox_js.php');
 	if (!npgFilters::has_filter('theme_head', 'colorbox::css')) {
@@ -62,55 +63,6 @@ class user_logout_options {
 
 }
 
-if (in_context(NPG_INDEX)) {
-	if (isset($_GET['userlog'])) { // process the logout.
-		if ($_GET['userlog'] == 0) {
-			$__redirect = array();
-			if (in_context(NPG_ALBUM)) {
-				$__redirect['album'] = $_current_album->name;
-			}
-			if (in_context(NPG_IMAGE)) {
-				$__redirect['image'] = $_current_image->filename;
-			}
-			if (in_context(ZENPAGE_PAGE)) {
-				$__redirect['title'] = $_CMS_current_page->getTitlelink();
-			}
-			if (in_context(ZENPAGE_NEWS_ARTICLE)) {
-				$__redirect['title'] = $_CMS_current_article->getTitlelink();
-			}
-			if (in_context(ZENPAGE_NEWS_CATEGORY)) {
-				$__redirect['category'] = $_CMS_current_category->getTitlelink();
-			}
-			if (isset($_GET['p'])) {
-				$__redirect['p'] = sanitize($_GET['p']);
-			}
-			if (isset($_GET['searchfields'])) {
-				$__redirect['searchfields'] = sanitize($_GET['searchfields']);
-			}
-			if (isset($_GET['words'])) {
-				$__redirect['words'] = sanitize($_GET['words']);
-			}
-			if (isset($_GET['date'])) {
-				$__redirect['date'] = sanitize($_GET['date']);
-			}
-			if (isset($_GET['title'])) {
-				$__redirect['title'] = sanitize($_GET['title']);
-			}
-			if (isset($_GET['page'])) {
-				$__redirect['page'] = sanitize($_GET['page']);
-			}
-
-			$params = '';
-			if (!empty($__redirect)) {
-				foreach ($__redirect as $param => $value) {
-					$params .= '&' . $param . '=' . $value;
-				}
-			}
-			npg_Authority::handleLogout(FULLWEBPATH . '/index.php?fromlogout' . $params);
-		}
-	}
-}
-
 /**
  * Prints the logout link if the user is logged in.
  * This is for album passwords only, not admin users;
@@ -124,17 +76,13 @@ if (in_context(NPG_INDEX)) {
  * @param string $logouttext optional replacement text for "Logout"
  */
 function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $logouttext = NULL) {
-	global $_gallery, $__redirect, $_current_admin_obj, $_login_error, $_gallery_page;
+	global $_gallery, $_current_admin_obj, $_gallery_page;
 	$excludedPages = array('password.php', 'register.php', 'favorites.php', '404.php');
 	$logintext = gettext('Login');
-	if (is_null($logouttext))
+	if (is_null($logouttext)) {
 		$logouttext = gettext("Logout");
-	$params = array("userlog=0");
-	if (!empty($__redirect)) {
-		foreach ($__redirect as $param => $value) {
-			$params[] .= $param . '=' . urlencode($value);
-		}
 	}
+
 	if (is_null($showLoginForm)) {
 		$showLoginForm = getOption('user_logout_login_form');
 	}
@@ -233,9 +181,8 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 		if ($before) {
 			echo '<span class="beforetext">' . html_encodeTagged($before) . '</span>';
 		}
-		$logoutlink = FULLWEBPATH . '?' . implode('&', $params);
 		?>
-		<a href="<?php echo html_encode($logoutlink); ?>" title="<?php echo $logouttext; ?>">
+		<a href="<?php echo getLogoutLink(array('logout' => 3)); ?>" title="<?php echo $logouttext; ?>">
 			<?php echo $logouttext; ?>
 		</a>
 		<?php

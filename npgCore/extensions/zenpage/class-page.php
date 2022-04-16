@@ -12,6 +12,16 @@ function newPage($titlelink, $allowCreate = NULL) {
 	return new Page($titlelink, $allowCreate);
 }
 
+/**
+ * Returns true if the object is a 'page' object
+ *
+ * @param object $article
+ * @return bool
+ */
+function isPageClass($page) {
+	return is_object($page) && get_class($page) == 'Page';
+}
+
 class Page extends CMSItems {
 
 	public $manage_rights = MANAGE_ALL_PAGES_RIGHTS;
@@ -214,7 +224,7 @@ class Page extends CMSItems {
 	 * @param $show
 	 */
 	function checkforGuest(&$hint = NULL, &$show = NULL) {
-		if (!parent::checkForGuest()) {
+		if (!parent::checkForGuest($hint, $show)) {
 			return false;
 		}
 		$pageobj = $this;

@@ -144,6 +144,28 @@ function getAdminLink($script, $path = FULLWEBPATH) {
 }
 
 /**
+ * forms a canonical logout link
+ *
+ * @param string $what the query parameter describing the link
+ * @return string the link
+ */
+function getLogoutLink($what) {
+	$parts = mb_parse_url(getRequestURI());
+	if (isset($parts['query'])) {
+		$pairs = array_map("html_encode", parse_query($parts['query']));
+		$pairs = array_merge($pairs, $what);
+	} else {
+		$pairs = $what;
+	}
+	$parts['query'] = http_build_query($pairs, '', '&amp;');
+	if (array_key_exists('path', $parts)) {
+		$parts['path'] = implode("/", array_map("rawurlencode", explode("/", $parts['path'])));
+	}
+	$logoutlink = build_url($parts);
+	return $logoutlink;
+}
+
+/**
  * HTML encodes the non-metatag part of the string.
  *
  * @param string $original string to be encoded
@@ -1320,7 +1342,7 @@ function npgButton($buttonType, $buttonText, $options = array()) {
 	?>
 	<button type="<?php echo $buttonType; ?>" class="<?php echo $buttonClass; ?>"<?php echo $id . $buttonTitle . $buttonLink . $disabled . $buttonExtra; ?>>
 		<span class="buttonText">
-			<?php echo $buttonText; ?>
+	<?php echo $buttonText; ?>
 		</span>
 	</button>
 	<?php
@@ -2219,7 +2241,7 @@ function XSRFToken($action, $modifier = NULL) {
 function httpsRedirect() {
 	global $_conf_vars;
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
-// force https
+		// force https
 		if (!isset($_SERVER["HTTPS"])) {
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");

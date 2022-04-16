@@ -94,12 +94,11 @@ if (!defined('WEBPATH'))
 				printFavoritesURL(NULL, '', ' | ', '<br />');
 			}
 			?>
-			<?php if (function_exists('printUserLogin_out')) printUserLogin_out('', ' | '); ?>
 			<?php if (class_exists('RSS')) printRSSLink('Gallery', '', 'RSS', ' | '); ?>
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
 			if (extensionEnabled('daily-summary')) {
-				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
+				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
 			}
 			if (extensionEnabled('contact_form')) {
 				printCustomPageURL(gettext('Contact us'), 'contact', '', '', ' | ');
@@ -109,6 +108,8 @@ if (!defined('WEBPATH'))
 			}
 			?>
 			<?php printSoftwareLink(); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(' | '); ?>
+
 		</div>
 		<?php if (function_exists('mobileTheme::controlLink')) mobileTheme::controlLink(); ?>
 		<?php if (function_exists('printLanguageSelector')) printLanguageSelector(); ?>

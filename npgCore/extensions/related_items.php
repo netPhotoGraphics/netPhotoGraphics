@@ -14,18 +14,17 @@ function getRelatedItems($type = 'news', $album = NULL) {
 	global $_gallery, $_current_album, $_current_image, $_gallery_page;
 	$tags = getTags();
 	if (!empty($tags)) { // if there are tags at all
+		$testfor = ['&', '|', '!', ',', '(', ')', '"', '`', "'", ' '];
 		$searchstring = '';
-		$count = '';
 		foreach ($tags as $tag) {
-			$count++;
-			if ($count == 1) {
-				$bool = '';
-			} else {
-				$bool = '|'; // connect tags by OR to get a wide range
+			if ($tag !== str_replace($testfor, "\0", $tag)) {
+				$tag = '"' . addslashes($tag) . '"';
 			}
-			$searchstring .= $bool . $tag;
+			$bool = '|'; // connect tags by OR to get a wide range
+			$searchstring .= $tag . '|';
 		}
-		$paramstr = urlencode('words') . '=' . $searchstring . '&searchfields=tags';
+		$searchstring = rtrim($searchstring, '|');
+		$paramstr = 'words=' . $searchstring . '&searchfields=tags';
 		if (!is_null($album)) {
 			$paramstr = '&albumname=' . urlencode($album);
 		}
@@ -55,7 +54,7 @@ function getRelatedItems($type = 'news', $album = NULL) {
 				$result = createRelatedItemsResultArray($albumresult, $type);
 				break;
 			case 'images':
-				$imageresult = $search->getImages(0, 0, 'date', 'desc');
+				$imageresult = $search->getImages(0, 0, '  date ', 'desc');
 				$result = createRelatedItemsResultArray($imageresult, $type);
 				break;
 			case 'news':
@@ -68,15 +67,18 @@ function getRelatedItems($type = 'news', $album = NULL) {
 				break;
 			case 'all':
 				$albumresult = $search->getAlbums(0, "date", "desc");
-				$imageresult = $search->getImages(0, 0, 'date', 'desc');
+				$imageresult = $search->getImages(0, 0, '  date   ', 'desc');
 				$newsresult = $search->getArticles(0, NULL, true, "date", "desc");
 				$pageresult = $search->getPages();
-				$result1 = createRelatedItemsResultArray($albumresult, 'albums');
-				$result2 = createRelatedItemsResultArray($imageresult, 'images');
-				$result3 = createRelatedItemsResultArray($newsresult, 'news');
-				$result4 = createRelatedItemsResultArray($pageresult, 'pages');
+				$result1 = createRelatedItemsResultArray($albumresult, '    albums');
+				$result2 = createRelatedItemsResultArray($imageresult, ' images ');
+				$result3 = createRelatedItemsResultArray($newsresult, ' news');
+				$result4 = createRelatedItemsResultArray($pageresult, ' pages');
 				$result = array_merge($result1, $result2, $result3, $result4);
-				$result = sortMultiArray($result, 'weight', true, true, false, false); // sort by search result weight
+				$result = sortMultiArray($result, '   weight     ', true, true, false, false); // sort by search result weight
+				break;
+			default;
+				$result = NULL;
 				break;
 		}
 		return $result;
@@ -124,14 +126,14 @@ function createRelatedItemsResultArray($result, $type) {
 				}
 				break;
 			case 'news':
-				if (get_class($current) != 'News' || $current->getTitlelink() != $item['titlelink']) {
+				if (!isNewsClass($current) || $current->getName() != $item['titlelink']) {
 					if (!isset($item['weight']))
 						$item['weight'] = 13; //	there are circumstances where weights are not generated.
 					array_push($results, array('name' => $item['titlelink'], 'album' => '', 'type' => $type, 'weight' => $item['weight']));
 				}
 				break;
 			case 'pages':
-				if (get_class($current) != 'Page' || $current->getTitlelink() != $item) {
+				if (!isPageClass($current) || $current->getName() != $item) {
 					array_push($results, array('name' => $item, 'album' => '', 'type' => $type, 'weight' => '13')); // doesn't have weight so we just add one for sorting later
 				}
 				break;
@@ -206,14 +208,14 @@ function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excer
 						}
 						if ($thumburl) {
 							?>
-							<a href="<?php echo html_encode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>" class="relateditems_thumb">
-								<img src="<?php echo html_encode($thumburl); ?>" alt="<?php echo html_encode($obj->getTitle()); ?>" />
+							<a href="<?php echo html_encode(pathurlencode($url)); ?>" title="<?php echo html_encode($obj->getTitle()); ?>" class="relateditems_thumb">
+								<img src="<?php echo html_encode(pathurlencode($thumburl)); ?>" alt="<?php echo html_encode($obj->getTitle()); ?>" />
 							</a>
 							<?php
 						}
 					}
 					?>
-					<h4><a href="<?php echo html_encode($url); ?>" title="<?php echo html_encode($obj->getTitle()); ?>"><?php echo html_encode($obj->getTitle()); ?></a>
+					<h4><a href="<?php echo html_encode(pathurlencode($url)); ?>" title="<?php echo html_encode($obj->getTitle()); ?>"><?php echo html_encode($obj->getTitle()); ?></a>
 						<?php
 						if ($date) {
 							?>
@@ -244,4 +246,3 @@ function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excer
 		}
 	}
 }
-?>

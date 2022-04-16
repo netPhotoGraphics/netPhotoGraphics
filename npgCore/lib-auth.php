@@ -88,7 +88,7 @@ class _Authority {
 	function validID($id) {
 		$sql = 'SELECT `user` FROM ' . prefix('administrators') . ' WHERE `id`=' . $id;
 		$result = query($sql);
-		return $result;
+		return $result && $result->num_rows > 0;
 	}
 
 	/**
@@ -647,7 +647,7 @@ class _Authority {
 
 		$sql = "SELECT `id`, `rights` FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
 		$admins = query($sql, false);
-		if ($admins) { // something to migrate
+		if ($admins && $admins->num_rows > 0) { // something to migrate
 			$oldrights = array();
 			foreach (self::getRights($oldversion) as $key => $right) {
 				$oldrights[$key] = $right['value'];
@@ -1124,7 +1124,7 @@ class _Authority {
 	static function logUser($user) {
 		$user->set('lastloggedin', date('Y-m-d H:i:s'));
 		$user->save();
-		setNPGCookie("user_auth", $user->getPass() . '.' . $user->getID());
+		setNPGCookie(AUTHCOOKIE, $user->getPass() . '.' . $user->getID());
 	}
 
 	/**
@@ -1157,7 +1157,7 @@ class _Authority {
 							self::logUser($user);
 							$_current_admin_obj = $user;
 						} else {
-							clearNPGCookie("user_auth"); // Clear the cookie, just in case
+							clearNPGCookie(AUTHCOOKIE); // Clear the cookie, just in case
 							$_login_error = 1;
 						}
 					}
@@ -1281,6 +1281,7 @@ class _Authority {
 	static function handleLogout($location) {
 		global $_loggedin, $_pre_authorization, $_current_admin_obj;
 		$location = npgFilters::apply('logout', $location, $_current_admin_obj);
+
 		foreach (self::getAuthCookies() as $cookie => $value) {
 			clearNPGCookie($cookie);
 		}
@@ -1310,7 +1311,7 @@ class _Authority {
 	 * Checks saved cookies to see if a user is logged in
 	 */
 	function checkCookieCredentials() {
-		$auth = $cookie = getNPGCookie('user_auth');
+		$auth = $cookie = getNPGCookie(AUTHCOOKIE);
 		if ($cookie) {
 			$idLoc = strrpos($cookie, '.');
 			if ($idLoc) {
@@ -1319,13 +1320,12 @@ class _Authority {
 			} else {
 				$id = 0;
 			}
-			$loggedin = $this->checkAuthorization($auth, $id);
-			$loggedin = npgFilters::apply('authorization_cookie', $loggedin, $auth, $id);
+			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
+			clearNPGCookie(AUTHCOOKIE); //	we will refresh it if the authorization was successful
 			if ($loggedin) {
+				//	refresh the cookie so if he visits often enough it is persistent
+				setNPGCookie(AUTHCOOKIE, $cookie);
 				return $loggedin;
-			}
-			if ($auth) { //	expired/invalid auth cookie
-				clearNPGCookie("user_auth");
 			}
 		}
 		return NULL;
@@ -1347,7 +1347,6 @@ class _Authority {
 		if (is_null($logo)) {
 			$logo = $_gallery->branded;
 		}
-
 		if (is_null($redirect)) {
 			$redirect = getRequestURI();
 		}
@@ -1447,7 +1446,12 @@ class _Authority {
 			?>
 			<div id="loginform-content">
 				<?php
-				if ($welcome = $_gallery->getLogonWelcome()) {
+				if ($hint) {
+					$welcome = get_language_string($hint);
+				} else {
+					$welcome = $_gallery->getLogonWelcome();
+				}
+				if ($welcome) {
 					?>
 					<p class="logon_welcome">
 						<?php echo html_encodeTagged($welcome); ?>
@@ -1616,9 +1620,6 @@ class _Authority {
 						</form>
 
 						<?php
-						if ($hint) {
-							echo '<p>' . $hint . '</p>';
-						}
 						if ($showUserField && OFFSET_PATH != 2) {
 							if (getOption('challenge_foil_enabled')) {
 								?>
@@ -1871,7 +1872,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

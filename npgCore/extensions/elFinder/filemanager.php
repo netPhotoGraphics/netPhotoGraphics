@@ -54,7 +54,7 @@ echo "\n</head>";
 								cssAutoLoad: false,
 								customData: {
 									'XSRFToken': '<?php echo getXSRFToken('elFinder'); ?>',
-									'user_auth': '<?php echo getNPGCookie('user_auth'); ?>',
+									'user_auth': '<?php echo getNPGCookie(AUTHCOOKIE); ?>',
 <?php
 if ($theme) {
 	if (npg_loggedin(THEMES_RIGHTS) && is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {

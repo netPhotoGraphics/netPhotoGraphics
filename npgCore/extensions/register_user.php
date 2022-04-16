@@ -246,7 +246,7 @@ class register_user {
 								$userobj->msg .= ' ' . gettext('You must supply the postal code field.');
 							}
 						}
-						setNPGCookie('reister_user_form_addresses', $_comment_form_save_post, FALSE);
+						setNPGCookie('reister_user_form_addresses', $_comment_form_save_post, ['secure' => FALSE]);
 						userAddressFields::setCustomDataset($userobj, $userinfo);
 					}
 

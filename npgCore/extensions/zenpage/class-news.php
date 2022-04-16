@@ -18,6 +18,16 @@ function newArticle($titlelink, $allowCreate = NULL) {
 	return new Article($titlelink, $allowCreate);
 }
 
+/**
+ * Returns true if the object is an 'article' object
+ *
+ * @param object $article
+ * @return bool
+ */
+function isNewsClass($article) {
+	return is_object($article) && get_class($article) == 'Article';
+}
+
 class Article extends CMSItems {
 
 	public $manage_rights = MANAGE_ALL_NEWS_RIGHTS;
@@ -207,31 +217,6 @@ class Article extends CMSItems {
 		return true;
 	}
 
-	/**
-	 * See if a guest is logged on to the news category.
-	 * Note: If any belonging category is plublic or he is logged on, then success.
-	 * @param $hint
-	 * @param $show
-	 */
-	function checkforGuest(&$hint = NULL, &$show = NULL) {
-		if (!parent::checkForGuest()) {
-			return false;
-		}
-		$categories = $this->getCategories();
-		if (empty($categories)) { //	cannot be protected!
-			return 'public_access';
-		} else {
-			foreach ($categories as $cat) {
-				$catobj = newCategory($cat['titlelink']);
-				$guestaccess = $catobj->checkforGuest($hint, $show);
-				if ($guestaccess) {
-					return $guestaccess;
-				}
-			}
-		}
-		return false;
-	}
-
 	function subRights() {
 		global $_current_admin_obj;
 		if (!is_null($this->subrights)) {
@@ -321,12 +306,13 @@ class Article extends CMSItems {
 			return true;
 		}
 		$categories = $this->getCategories();
-		if (empty($categories) || npgFilters::apply('isPublicCategory', false, $categories)) { //	no protection on un-categorized news articles
+		if (empty($categories) || npgFilters::apply('isPublicCategory', false, $categories)) {
+			//	no protection on un-categorized news articles
 			return true;
 		}
 		foreach ($categories as $category) {
 			$catobj = newCategory($category['titlelink']);
-			if ($catobj->checkforGuest() || $catobj->subRights()) {
+			if ($catobj->checkforGuest($hint, $show) || $catobj->subRights()) {
 				return true;
 			}
 		}

@@ -174,7 +174,7 @@ class PersistentObject {
 		$new_unique_set = array_change_key_case($new_unique_set, CASE_LOWER);
 		$result = query('SELECT `id` FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
 
-		if ($result && db_num_rows($result) == 0) {
+		if ($result && $result->num_rows == 0) {
 			if (!npgFilters::apply('copy_object', true, $this, $new_unique_set)) {
 				return false;
 			}
@@ -492,7 +492,7 @@ class PersistentObject {
 		if (isset($call['class']) && $call['class'] == 'PersistentObject') {
 			$call = next($caller);
 		}
-		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_class($this) . '::' . $method, $call['file'], $call['line']);
+		$msg = sprintf(gettext('Call to undefined method %1$s() in %2$s on line %3$s'), get_called_class() . '::' . $name, $call['file'], $call['line']);
 		trigger_error($msg);
 	}
 

@@ -514,7 +514,7 @@ class cacheManager {
 	}
 
 	static function buttons($buttons) {
-		if (query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) {
+		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) && $result->num_rows > 0) {
 			$enable = true;
 			$title = gettext('Finds images that have not been cached and creates the cached versions.');
 		} else {
@@ -578,7 +578,7 @@ class cacheManager {
 
 	static function albumbutton($html, $object, $prefix) {
 		$html .= '<hr />';
-		if (query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" lIMIT 1')) {
+		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" lIMIT 1')) && $result->num_rows > 0) {
 			$disable = '';
 			$title = gettext('Finds images that have not been cached and creates the cached versions.');
 		} else {

@@ -26,22 +26,18 @@ if (isset($_GET['action'])) {
 			foreach ($_POST['new_tag'] as $value) {
 				if (!empty($value)) {
 					$value = html_decode(sanitize($value, 3));
-					$sql = 'SELECT `id` FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($value) . ' AND `language`=' . db_quote($language) . ' LIMIT 1';
-					$found = query($sql);
-					if (!$found) { // it really is a new tag
-						$success = query('INSERT INTO ' . prefix('tags') . ' (`name`,`language`) VALUES (' . db_quote($value) . ',' . db_quote($language) . ')', false);
-						if ($success) {
-							if ($multi) {
-								$master = db_insert_id();
-								foreach (i18n::generateLanguageList(false)as $text => $dirname) {
-									if ($dirname != $language) {
-										query('INSERT INTO ' . prefix('tags') . ' (`name`, `masterid`,`language`) VALUES (' . db_quote($value) . ',' . $master . ',' . db_quote($dirname) . ')', false);
-									}
+					$success = query('INSERT INTO ' . prefix('tags') . ' (`name`,`language`) VALUES (' . db_quote($value) . ',' . db_quote($language) . ')', false);
+					if ($success) {
+						if ($multi) {
+							$master = db_insert_id();
+							foreach (i18n::generateLanguageList(false)as $text => $dirname) {
+								if ($dirname != $language) {
+									query('INSERT INTO ' . prefix('tags') . ' (`name`, `masterid`,`language`) VALUES (' . db_quote($value) . ',' . $master . ',' . db_quote($dirname) . ')', false);
 								}
 							}
-						} else {
-							$subaction[] = ltrim(sprintf(gettext('%1$s: %2$s not stored, duplicate tag.'), $language, $value), ': ');
 						}
+					} else {
+						$subaction[] = ltrim(sprintf(gettext('%1$s: %2$s not stored, duplicate tag.'), $language, $value), ': ');
 					}
 				}
 			}
@@ -128,7 +124,6 @@ if (isset($_GET['action'])) {
 						$tbdeleted = array();
 						$multi = getOption('multi_lingual');
 						$languageList = i18n::generateLanguageList(false);
-
 						foreach ($tags as $key => $tagname) {
 							if (isset($langs[$key])) {
 								$lang = $langs[$key];
@@ -326,7 +321,7 @@ printAdminHeader('admin');
 							<ul class="tagrenamelist">
 								<?php
 								foreach ($list as $tagitem) {
-									$item = $tagitem['tag'];
+									$item = html_encode($tagitem['tag']);
 									?>
 									<li>
 										<span class="nowrap">
@@ -347,7 +342,7 @@ printAdminHeader('admin');
 											$itemarray = $tagitem['subtags'];
 											ksort($itemarray);
 											foreach ($itemarray as $lang => $tagitem) {
-												$tag = $tagitem['tag'];
+												$tag = html_encode($tagitem['tag']);
 												?>
 												<span class="nowrap">
 													&nbsp;&nbsp;<img src="<?php echo getLanguageFlag($lang); ?>" height="10" width="16" title="<?php echo i18n::getDisplayName($lang); ?>" />

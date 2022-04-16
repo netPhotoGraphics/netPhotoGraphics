@@ -469,7 +469,7 @@ class Controller {
 			$titlelink = sanitize(trim($request['title'], '/'));
 			$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink) . ' LIMIT 1';
 			$found = query($sql);
-			if ($found) {
+			if ($found && $found->num_rows > 0) {
 				add_context(ZENPAGE_NEWS_ARTICLE | ZENPAGE_SINGLE);
 				$_CMS_current_article = newArticle($titlelink);
 			} else {
@@ -477,7 +477,7 @@ class Controller {
 				if (RW_SUFFIX && !preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $titlelink)) {
 					$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink . RW_SUFFIX) . ' LIMIT 1';
 					$found = query($sql);
-					if ($found) {
+					if ($found && $found->num_rows > 0) {
 						self::fix_suffix_redirect($titlelink);
 					}
 				}

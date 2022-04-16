@@ -260,7 +260,7 @@ function getItemTitleAndURL($item) {
 		case "page":
 			$sql = 'SELECT `id` FROM ' . prefix('pages') . ' WHERE `titlelink`=' . db_quote($item['link']) . ' LIMIT 1';
 			$found = query($sql);
-			if ($found && class_exists('CMS')) {
+			if ($found && $found->num_rows > 0 && class_exists('CMS')) {
 				$obj = newPage($item['link']);
 				$url = $obj->getLink(0);
 				$protected = $obj->isProtected();
@@ -295,7 +295,7 @@ function getItemTitleAndURL($item) {
 		case "category":
 			$sql = "SELECT title FROM " . prefix('news_categories') . ' WHERE titlelink=' . db_quote($item['link']) . " LIMIT 1";
 			$found = query($sql, false);
-			if ($found && class_exists('CMS')) {
+			if ($found && $found->num_rows > 0 && class_exists('CMS')) {
 				$obj = newCategory($item['link']);
 				$title = $obj->getTitle();
 				$protected = $obj->isProtected();

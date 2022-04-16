@@ -60,9 +60,11 @@ $conf['album_folder'] = '/albums/';
 $conf['album_folder_class'] = 'std';
 
 // Server Protocol
-$conf['server_protocol'] = "http";
-// Change this to "https" if you use an HTTPS server (a "https://..." url)
+#$conf['server_protocol'] = "http";
+// remove the # to force the connection protocol.
+// Use "https" if you use an HTTPS server (a "https://..." url)
 // Otherwise you should leave it at "http"
+// If left commented, the site will use the protocol of the connection.
 //
 ////////////////////////////////////////////////////////////////////////////////
 // Special URL rule definitions
