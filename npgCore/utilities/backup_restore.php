@@ -67,13 +67,17 @@ function getrow($handle) {
 	} else {
 		$i = strpos($buffer, ':');
 		if ($i === false) {
-			fillbuffer($handle);
+			if (!fillbuffer($handle)) {
+				return false;
+			}
 			$i = strpos($buffer, ':');
 		}
+
 		$end = substr($buffer, 0, $i) + $i + 1;
-		while ($end >= strlen($buffer)) {
-			if (!fillbuffer($handle))
+		while ($end > strlen($buffer)) {
+			if (!fillbuffer($handle)) {
 				return false;
+			}
 		}
 		$result = substr($buffer, $i + 1, $end - $i - 1);
 		$buffer = substr($buffer, $end);
@@ -353,10 +357,12 @@ if ($action == 'backup') {
 					}
 					$string = getrow($handle);
 				}
+
 				$counter = 0;
 				$table_ignored = $table_restored = $missing_table = $missing_element = array();
 				$requestedTables = $_REQUEST['restore'];
 				$missing_element = array();
+
 				while (!empty($string) && count($errors) < 100) {
 					extendExecution();
 					$sep = strpos($string, TABLE_SEPARATOR);
@@ -593,7 +599,7 @@ if (isset($_GET['compression'])) {
 							</h1>
 
 							<?php echo gettext('Compression level'); ?> <select name="compress">
-								<?php
+							<?php
 								for ($v = 0; $v <= 9; $v++) {
 									?>
 									<option value="<?php echo $v; ?>"<?php if ($compression_level == $v) echo ' selected="selected"'; ?>><?php echo $v; ?></option>
