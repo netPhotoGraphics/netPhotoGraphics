@@ -202,7 +202,7 @@ if ($action == 'backup') {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
-					if ($result) {
+					if ($result && $result->num_rows > 0) {
 						$storestring = $unprefixed_table . TABLE_SEPARATOR;
 						$storestring = strlen($storestring) . ':' . $storestring;
 						$writeresult = fwrite($handle, $storestring);
@@ -224,7 +224,7 @@ if ($action == 'backup') {
 							}
 							$counter++;
 							if ($counter >= RESPOND_COUNTER) {
-								echo ' ';
+								extendExecution();
 								$counter = 0;
 							}
 						}
@@ -433,7 +433,7 @@ if ($action == 'backup') {
 
 					$counter++;
 					if ($counter >= RESPOND_COUNTER) {
-						echo ' ';
+						extendExecution();
 						$counter = 0;
 					}
 					$string = getrow($handle);
@@ -599,7 +599,7 @@ if (isset($_GET['compression'])) {
 							</h1>
 
 							<?php echo gettext('Compression level'); ?> <select name="compress">
-							<?php
+								<?php
 								for ($v = 0; $v <= 9; $v++) {
 									?>
 									<option value="<?php echo $v; ?>"<?php if ($compression_level == $v) echo ' selected="selected"'; ?>><?php echo $v; ?></option>

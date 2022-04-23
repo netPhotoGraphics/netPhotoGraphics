@@ -830,7 +830,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
 	if (is_null($t = $time)) {
 		$t = time() + COOKIE_PERSISTENCE;
 	} else {
-		if (!$time === false) {
+		if (is_numeric($time)) {
 			$t = time() + $time;
 		}
 	}
@@ -881,7 +881,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
  */
 function clearNPGCookie($name) {
 	if (isset($_COOKIE[$name])) {
-		setNPGCookie($name, 'null', -368000, ['secure' => ['secure' => FALSE]]);
+		setNPGCookie($name, 'null', -368000, ['secure' => FALSE]);
 	}
 }
 
