@@ -65,11 +65,7 @@ function getUserID() {
  * @param type $ex the exception
  */
 function npgExceptionHandler($ex) {
-	$errno = $ex->getCode();
-	$errstr = $ex->getMessage();
-	$errfile = $ex->getFile();
-	$errline = $ex->getLine();
-	npgErrorHandler($errno, $errstr, $errfile, $errline);
+	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
 	die();
 }
 
@@ -82,7 +78,7 @@ function npgExceptionHandler($ex) {
  * @param string $errline
  * @return void|boolean
  */
-function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
+function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $trace = 1) {
 	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
@@ -107,11 +103,10 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '') {
 		$errno = E_ERROR;
 	}
 
-
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
-	debugLogBacktrace($msg, 1);
+	debugLogBacktrace($msg, $trace);
 
-	if (!ini_get('display_errors') && ($errno == E_ERROR || $errno == E_USER_ERROR)) {
+	if ($errno == E_ERROR || $errno == E_USER_ERROR) {
 		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
@@ -634,11 +629,16 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 	}
 	$output .= $uri . NEWLINE;
 	// Get a backtrace.
-	$bt = debug_backtrace();
-	while ($omit >= 0) {
-		array_shift($bt); // Get rid of debug_backtrace, callers in the backtrace.
-		$omit--;
+	if (is_array($omit)) {
+		$bt = $omit;
+	} else {
+		$bt = debug_backtrace();
+		while ($omit >= 0) {
+			array_shift($bt); // Get rid of debug_backtrace, callers in the backtrace.
+			$omit--;
+		}
 	}
+
 	$prefix = '  ';
 	$line = '';
 	$caller = '';

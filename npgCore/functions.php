@@ -382,16 +382,34 @@ function lookupSortKey($sorttype, $default, $table) {
 }
 
 /**
- * Returns a formated date for output
+ * Returns a formatted date for output
  *
- * @param string $format the "strftime" format string
+ * @param string $format the DateTime::format()  format string
  * @param date $dt the date to be output
  * @return string
  */
 function formattedDate($format, $dt) {
-	global $_UTF8;
+	global $_UTF8, $_current_locale;
+	if ($format == '%x') {
+		if ($_current_locale && class_exists('IntlDateFormatter')) {
+			//handle "preferred date representation
+			$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+			if ($formatter === null)
+				throw new InvalidConfigException(intl_get_error_message());
+			$format = strtolower($formatter->getPattern());
+			if ($format[0] == 'm') {
+				$format = 'n/d/y';
+			} else {
+				$format = 'd/m/y';
+			}
+		} else {
+			$format = 'M/d/yy'; //	default to US date
+		}
+	}
+
 	$fdate = date($format, $dt);
 	$charset = 'ISO-8859-1';
+
 	if (function_exists('mb_internal_encoding')) {
 		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
 			return $fdate;
@@ -480,7 +498,7 @@ function checkAlbumPassword($album, &$hint = NULL) {
 			}
 			$album = $album->getParent();
 		}
-// revert all tlhe way to the gallery
+		// revert all tlhe way to the gallery
 		$hash = $_gallery->getPassword();
 		$authType = 'gallery_auth';
 		$saved_auth = getNPGCookie($authType);
@@ -1342,7 +1360,7 @@ function npgButton($buttonType, $buttonText, $options = array()) {
 	?>
 	<button type="<?php echo $buttonType; ?>" class="<?php echo $buttonClass; ?>"<?php echo $id . $buttonTitle . $buttonLink . $disabled . $buttonExtra; ?>>
 		<span class="buttonText">
-	<?php echo $buttonText; ?>
+			<?php echo $buttonText; ?>
 		</span>
 	</button>
 	<?php

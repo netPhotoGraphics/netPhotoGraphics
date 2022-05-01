@@ -685,6 +685,52 @@ if (getOption('protect_full_image') == 'Protected view') {
 setOptionDefault('protect_full_image', 'Protected');
 
 setOptionDefault('locale', '');
+
+//	update old date formats to be compatible with PHP 8.0 date formatting
+$formatXlate = array(
+		'%d/%m/%y %H:%M' => 'd/m/y H:i',
+		'%d/%m/%y' => 'd/m/y',
+		'%d/%m/%Y %H:%M' => 'd/m/Y H:i',
+		'%d/%m/%Y' => 'd/m/Y',
+		'%d-%m-%y %H:%M' => 'd-m-y H:i',
+		'%d-%m-%y' => 'd-m-y',
+		'%d-%m-%Y %H:%M' => 'd-m-Y H:i',
+		'%d-%m-%Y' => 'd-m-Y',
+		'%Y. %B %d. %H:%M' => 'Y. F d. H:i',
+		'%Y. %B %d.' => 'Y. F d.',
+		'%Y-%m-%d %H:%M' => 'Y-m-d H:i',
+		'%Y-%m-%d' => 'Y-m-d',
+		'%d %B %Y %H:%M' => 'd F Y H:i',
+		'%d %B %Y' => 'd F Y',
+		'%d %B %Y %H:%M' => 'd F Y H:i',
+		'%d %B %Y' => 'd F Y',
+		'%d. %B %Y %H:%M' => 'd. F Y H:i',
+		'%d. %B %Y' => 'd. F Y',
+		'%d. %b %y %H:%M' => 'd. M y H:i',
+		'%d. %b %y' => 'd. M y',
+		'%d. %B %Y %H:%M' => 'd. F Y H:i',
+		'%d. %B %Y' => 'd. F Y',
+		'%d.%m.%y %H:%M' => 'd.m.y H:i',
+		'%d.%m.%y' => 'd.m.y',
+		'%d.%m.%Y %H:%M' => 'd.m.Y H:i',
+		'%d.%m.%Y' => 'd.m.Y',
+		'%d-%m-%y %H:%M' => 'd-m-y H:i',
+		'%d-%m-%y' => 'd-m-y',
+		'%d-%m-%Y %H:%M' => 'd-m-Y H:i',
+		'%d-%m-%Y' => 'd-m-Y',
+		'%d-%b-%y %H:%M' => 'd-M-y H:i',
+		'%d-%b-%y' => 'd-M-y',
+		'%d-%b-%Y %H:%M' => 'd-M-Y H:i',
+		'%d-%b-%Y' => 'd-M-Y',
+		'%b %d, %Y %H:%M' => 'M d, Y H:i',
+		'%b %d, %Y' => 'M d, Y',
+		'%B %d, %Y %H:%M' => 'F d, Y H:i',
+		'%B %d, %Y' => 'F d, Y'
+);
+$old = getOption('date_format');
+if (isset($formatXlate[$old])) {
+	setOption('date_format', $formatXlate[$old]);
+}
 setOptionDefault('date_format', '%x');
 
 setOptionDefault('use_lock_image', 1);
