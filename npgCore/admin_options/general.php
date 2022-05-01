@@ -501,7 +501,7 @@ function getOptionContent() {
 							<span class="option_info">
 								<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
-									<?php echo gettext('Format for dates. Select from the list or set to <code>custom</code> and provide a <a href="http://us2.php.net/manual/en/function.strftime.php"><span class="nowrap"><code>date()</code></span></a> format string in the text box.'); ?>
+									<?php echo gettext('Format for dates. Select from the list or set to <code>custom</code> and provide a <a href="https://www.php.net/manual/en/datetime.format.php"><span class="nowrap"><code>date()</code></span></a> format string in the text box.'); ?>
 								</div>
 							</span>
 						</td>
