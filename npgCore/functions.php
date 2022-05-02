@@ -390,16 +390,26 @@ function lookupSortKey($sorttype, $default, $table) {
  */
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
-	if ($format == '%x') {
+
+	if (strtolower($format) == '%x') {
 		if ($_current_locale && class_exists('IntlDateFormatter')) {
 			//handle "preferred date representation
-			$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+			if ($format == '%x') { // local date format
+				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+			} else {
+				// local time format
+				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::NONE, IntlDateFormatter::SHORT);
+			}
 			if ($formatter === null) {
 				throw new InvalidConfigException(intl_get_error_message());
 			}
 			$fdate = $formatter->format($dt);
 		} else {
-			$format = 'n/j/y'; //	default to US standard date format
+			if ($format == '%x') { // local date format
+				$format = 'n/j/y'; //	default to US standard date format
+			} else {
+				$format = 'H:i:s'; //	default to US standard time format
+			}
 		}
 	}
 	if (!isset($fdate)) {
