@@ -437,59 +437,66 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext("Date format"); ?></td>
 						<td class="option_value">
+							<?php
+							$formats = array(
+									'02/25/08 15:30' => 'm/d/y H:i',
+									'02/25/08' => 'm/d/y',
+									'02/25/2008 15:30' => 'm/d/Y H:i',
+									'02/25/2008' => 'm/d/Y',
+									'02-25-08 15:30' => 'm-d-y H:i',
+									'02-25-08' => 'm-d-y',
+									'02-25-2008 15:30' => 'm-d-Y H:i',
+									'02-25-2008' => 'm-d-Y',
+									'2008. February 25. 15:30' => 'Y. F d. H:i',
+									'2008. February 25.' => 'Y. F d.',
+									'2008-02-25 15:30' => 'Y-m-d H:i',
+									'2008-02-25' => 'Y-m-d',
+									'25 Feb 2008 15:30' => 'd F Y H:i',
+									'25 Feb 2008' => 'd F Y',
+									'25 February 2008 15:30' => 'd F Y H:i',
+									'25 February 2008' => 'd F Y',
+									'25. Feb 2008 15:30' => 'd. F Y H:i',
+									'25. Feb 2008' => 'd. F Y',
+									'25. Feb. 08 15:30' => 'd. M y H:i',
+									'25. Feb. 08' => 'd. M y',
+									'25. February 2008 15:30' => 'd. F Y H:i',
+									'25. February 2008' => 'd. F Y',
+									'25.02.08 15:30' => 'd.m.y H:i',
+									'25.02.08' => 'd.m.y',
+									'25.02.2008 15:30' => 'd.m.Y H:i',
+									'25.02.2008' => 'd.m.Y',
+									'25-02-08 15:30' => 'd-m-y H:i',
+									'25-02-08' => 'd-m-y',
+									'25-02-2008 15:30' => 'd-m-Y H:i',
+									'25-02-2008' => 'd-m-Y',
+									'25-Feb-08 15:30' => 'd-M-y H:i',
+									'25-Feb-08' => 'd-M-y',
+									'25-Feb-2008 15:30' => 'd-M-Y H:i',
+									'25-Feb-2008' => 'd-M-Y',
+									'Feb 25, 2008 15:30' => 'M d, Y H:i',
+									'Feb 25, 2008' => 'M d, Y',
+									'February 25, 2008 15:30' => 'F d, Y H:i',
+									'February 25, 2008' => 'F d, Y');
+
+							$t = time();
+							$formatlist = [];
+							foreach ($formats as $disp => $fmt) {
+								$formatlist[formattedDate($fmt, $t)] = $fmt;
+							}
+							$formatlist[gettext('Preferred date representation')] = '%x';
+							if (in_array(DATE_FORMAT, $formatlist)) {
+								$dsp = 'none';
+								$formatlist[gettext('Custom')] = 'custom';
+								$cv = DATE_FORMAT;
+							} else {
+								$dsp = 'block';
+								$formatlist[sprintf(gettext('custom: %1$s'), formattedDate(DATE_FORMAT, time()))] = 'custom';
+								$cv = 'custom';
+							}
+							?>
 							<select id="date_format_list" name="date_format_list" onchange="showfield(this, 'customTextBox')">
 								<?php
-								$formatlist = array(gettext('Custom') => 'custom',
-										gettext('Preferred date representation') => '%x',
-										gettext('02/25/08 15:30') => 'd/m/y H:i',
-										gettext('02/25/08') => 'd/m/y',
-										gettext('02/25/2008 15:30') => 'd/m/Y H:i',
-										gettext('02/25/2008') => 'd/m/Y',
-										gettext('02-25-08 15:30') => 'd-m-y H:i',
-										gettext('02-25-08') => 'd-m-y',
-										gettext('02-25-2008 15:30') => 'd-m-Y H:i',
-										gettext('02-25-2008') => 'd-m-Y',
-										gettext('2008. February 25. 15:30') => 'Y. F d. H:i',
-										gettext('2008. February 25.') => 'Y. F d.',
-										gettext('2008-02-25 15:30') => 'Y-m-d H:i',
-										gettext('2008-02-25') => 'Y-m-d',
-										gettext('25 Feb 2008 15:30') => 'd F Y H:i',
-										gettext('25 Feb 2008') => 'd F Y',
-										gettext('25 February 2008 15:30') => 'd F Y H:i',
-										gettext('25 February 2008') => 'd F Y',
-										gettext('25. Feb 2008 15:30') => 'd. F Y H:i',
-										gettext('25. Feb 2008') => 'd. F Y',
-										gettext('25. Feb. 08 15:30') => 'd. M y H:i',
-										gettext('25. Feb. 08') => 'd. M y',
-										gettext('25. February 2008 15:30') => 'd. F Y H:i',
-										gettext('25. February 2008') => 'd. F Y',
-										gettext('25.02.08 15:30') => 'd.m.y H:i',
-										gettext('25.02.08') => 'd.m.y',
-										gettext('25.02.2008 15:30') => 'd.m.Y H:i',
-										gettext('25.02.2008') => 'd.m.Y',
-										gettext('25-02-08 15:30') => 'd-m-y H:i',
-										gettext('25-02-08') => 'd-m-y',
-										gettext('25-02-2008 15:30') => 'd-m-Y H:i',
-										gettext('25-02-2008') => 'd-m-Y',
-										gettext('25-Feb-08 15:30') => 'd-M-y H:i',
-										gettext('25-Feb-08') => 'd-M-y',
-										gettext('25-Feb-2008 15:30') => 'd-M-Y H:i',
-										gettext('25-Feb-2008') => 'd-M-Y',
-										gettext('Feb 25, 2008 15:30') => 'M d, Y H:i',
-										gettext('Feb 25, 2008') => 'M d, Y',
-										gettext('February 25, 2008 15:30') => 'F d, Y H:i',
-										gettext('February 25, 2008') => 'F d, Y');
-
-								$cv = DATE_FORMAT;
-								$flip = array_flip($formatlist);
-								if (isset($flip[$cv])) {
-									$dsp = 'none';
-								} else {
-									$dsp = 'block';
-								}
-								if (array_search($cv, $formatlist) === false)
-									$cv = 'custom';
-								generateListFromArray(array($cv), $formatlist, false, true);
+								generateListFromArray(array($cv), $formatlist, NULL, true);
 								?>
 							</select>
 							<div id="customTextBox" class="customText" style="display:<?php echo $dsp; ?>">
