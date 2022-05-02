@@ -263,9 +263,11 @@ function toggleExtraInfo(id, category, show) {
 // used to toggle fields
 function showfield(obj, fld) {
 	no = obj.options[obj.selectedIndex].value;
-	document.getElementById(fld).style.display = 'none';
-	if (no == 'custom')
+	if (no == 'custom') {
 		document.getElementById(fld).style.display = 'block';
+	} else {
+		document.getElementById(fld).style.display = 'none';
+	}
 }
 
 // password field hide/disable

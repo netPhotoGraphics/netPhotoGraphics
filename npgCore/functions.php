@@ -394,26 +394,23 @@ function formattedDate($format, $dt) {
 		if ($_current_locale && class_exists('IntlDateFormatter')) {
 			//handle "preferred date representation
 			$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
-			if ($formatter === null)
+			if ($formatter === null) {
 				throw new InvalidConfigException(intl_get_error_message());
-			$format = strtolower($formatter->getPattern());
-			if ($format[0] == 'm') {
-				$format = 'n/d/y';
-			} else {
-				$format = 'd/m/y';
 			}
+			$fdate = $formatter->format($dt);
 		} else {
-			$format = 'M/d/yy'; //	default to US date
+			$format = 'n/j/y'; //	default to US standard date format
 		}
 	}
-
-	$fdate = date($format, $dt);
-	$charset = 'ISO-8859-1';
-
+	if (!isset($fdate)) {
+		$fdate = date($format, $dt);
+	}
 	if (function_exists('mb_internal_encoding')) {
 		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
 			return $fdate;
 		}
+	} else {
+		$charset = 'ISO-8859-1';
 	}
 	return $_UTF8->convert($fdate, $charset, LOCAL_CHARSET);
 }
