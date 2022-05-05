@@ -781,21 +781,29 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 										if (!(isset($graphics_lib['PNG']))) {
 											$missing[] = 'PNG';
 										}
+										if (!(isset($graphics_lib['WEBP']))) {
+											$missing[] = 'WEBP';
+										}
 										if (count($missing) > 0) {
-											if (count($missing) < 3) {
-												if (count($missing) == 2) {
-													$imgmissing = sprintf(gettext('Your PHP graphics library does not support %1$s or %2$s'), $missing[0], $missing[1]);
-												} else {
+
+											switch (count($missing)) {
+												case 1:
 													$imgmissing = sprintf(gettext('Your PHP graphics library does not support %1$s'), $missing[0]);
-												}
-												$err = -1;
-												$mandate = gettext("To correct this you should install a graphics library with appropriate image support in your PHP");
-											} else {
-												$imgmissing = sprintf(gettext('Your PHP graphics library does not support %1$s, %2$s, or %3$s'), $missing[0], $missing[1], $missing[2]);
-												$err = 0;
-												$good = false;
-												$mandate = gettext("To correct this you need to install GD with appropriate image support in your PHP");
+													$err = -1;
+													break;
+												case 2:
+													$imgmissing = sprintf(gettext('Your PHP graphics library does not support %1$s or %2$s'), $missing[0], $missing[1]);
+													$err = -1;
+													break;
+												default:
+													$last = array_pop($missing);
+													$list = implode(', ', $missing);
+													$imgmissing = sprintf(gettext('Your PHP graphics library does not support %1$s, or %2$s'), $list, $last);
+													$err = 0;
+													$good = false;
+													break;
 											}
+											$mandate = gettext("To correct this you need to install a Graphics library with appropriate image support in your PHP");
 											checkMark($err, gettext("PHP graphics image support"), '', $imgmissing .
 															"<br />" . gettext("The unsupported image types will not be viewable in your albums.") .
 															"<br />" . $mandate);

@@ -21,11 +21,11 @@ define('WATERMARK_FULL', 4);
 function newImage($album, $filename = NULL, $quiet = false) {
 	global $_missing_image;
 	if (is_array($album)) {
-		$xalbum = newAlbum($album['folder'], true, true);
+		$xalbum = newAlbum($album['folder']);
 		$filename = $album['filename'];
 		$dyn = false;
 	} else if (is_array($filename)) {
-		$xalbum = newAlbum($filename['folder'], true, true);
+		$xalbum = newAlbum($filename['folder']);
 		$filename = $filename['filename'];
 		$dyn = is_object($album) && $album->isDynamic();
 	} else if (is_object($album) && $album->isDynamic()) {
@@ -33,11 +33,12 @@ function newImage($album, $filename = NULL, $quiet = false) {
 		$album->getImages();
 		$xalbum = array_keys($album->imageNames, $filename);
 		$xalbum = reset($xalbum);
-		$xalbum = newAlbum(dirname($xalbum), true, true);
+		$xalbum = newAlbum(dirname($xalbum));
 	} else {
 		$xalbum = $album;
 		$dyn = false;
 	}
+
 	if (!is_object($xalbum) || !$xalbum->exists || !isAlbumClass($xalbum)) {
 		$msg = sprintf(gettext('Bad album object parameter to newImage(%s)'), $filename);
 	} else {
@@ -751,22 +752,24 @@ class Image extends MediaObject {
 	function updateDimensions() {
 		$discard = NULL;
 		$size = gl_imageDims($this->localpath);
-		$width = $size['width'];
-		$height = $size['height'];
-		if (gl_imageCanRotate()) {
-			// Swap the width and height values if the image should be rotated
-			switch (substr(trim($this->get('rotation'), '!'), 0, 1)) {
-				case 5:
-				case 6:
-				case 7:
-				case 8:
-					$width = $size['height'];
-					$height = $size['width'];
-					break;
+		if (is_array($size)) {
+			$width = $size['width'];
+			$height = $size['height'];
+			if (gl_imageCanRotate()) {
+				// Swap the width and height values if the image should be rotated
+				switch (substr(trim($this->get('rotation'), '!'), 0, 1)) {
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+						$width = $size['height'];
+						$height = $size['width'];
+						break;
+				}
 			}
+			$this->set('width', $width);
+			$this->set('height', $height);
 		}
-		$this->set('width', $width);
-		$this->set('height', $height);
 	}
 
 	/**
