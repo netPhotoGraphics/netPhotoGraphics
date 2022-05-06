@@ -317,7 +317,7 @@ class Image extends MediaObject {
 		$this->imagetype = strtolower(get_class($this)) . 's';
 		$date = $this->get('date');
 		if (!$date || $date == '0000-00-00 00:00:00') {
-			$this->set('date', date('%Y-%m-%d %H:%M:%S', $this->filemtime));
+			$this->set('date', date('Y-m-d H:i:s', $this->filemtime));
 		}
 		return true;
 	}
@@ -577,7 +577,7 @@ class Image extends MediaObject {
 				$date = self::fetchMetadata('EXIFDateTimeDigitized');
 			}
 			if (empty($date)) {
-				$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->filemtime));
+				$this->setDateTime(date('Y-m-d H:i:s', $this->filemtime));
 			} else {
 				$this->setDateTime($date);
 			}

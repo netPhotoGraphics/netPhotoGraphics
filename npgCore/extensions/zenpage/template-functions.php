@@ -617,7 +617,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = date('%Y-%B', strtotime($key));
+			$dt = date('Y-F', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}
@@ -633,7 +633,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 		if ($yearsonly) {
 			$datetosearch = $key;
 		} else {
-			$datetosearch = date('%Y-%B', strtotime($key));
+			$datetosearch = date('Y-F', strtotime($key));
 		}
 		if (getCurrentNewsArchive('plain') == $datetosearch) {
 			$active = $activeclass;
@@ -660,7 +660,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
  * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
-function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
+function getCurrentNewsArchive($mode = 'formatted', $format = 'F Y') {
 	global $_post_date;
 	if (in_context(ZENPAGE_NEWS_DATE)) {
 		$archivedate = $_post_date;
@@ -681,7 +681,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = '%B %Y') {
  * @param string $format If $mode="formatted" how the date should be printed (see PHP's date() function for the requirements)
  * @return string
  */
-function printCurrentNewsArchive($before = '', $mode = 'formatted', $format = '%B %Y') {
+function printCurrentNewsArchive($before = '', $mode = 'formatted', $format = 'F Y') {
 	if ($date = getCurrentNewsArchive($mode, $format)) {
 		if ($before) {
 			echo '<span class="beforetext">' . html_encode($before) . '</span>';

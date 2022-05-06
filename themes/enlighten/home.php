@@ -44,7 +44,7 @@ if (!defined('WEBPATH'))
 									$link = $i->getLink();
 									$date = $i->getDateTime();
 									if ($date) {
-										$date = date("%d %B %Y", strtotime($date));
+										$date = date("d F y", strtotime($date));
 									}
 									?>
 									<a href="<?php echo $link; ?>">

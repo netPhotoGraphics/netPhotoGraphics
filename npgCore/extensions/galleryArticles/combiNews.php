@@ -214,7 +214,7 @@ class Combi extends CMS {
 					if ($timestamp == 0) {
 						$albumdate = $tempalbum->getDateTime();
 					} else {
-						$albumdate = date('%Y-%m-%d %H:%M:%S', $timestamp);
+						$albumdate = date('Y-m-d H:i:s', $timestamp);
 					}
 					$latestalbums[$counter] = array(
 							"albumname" => $tempalbum->getFileName(),

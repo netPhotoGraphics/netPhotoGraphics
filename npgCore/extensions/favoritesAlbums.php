@@ -82,7 +82,7 @@ class favoritesAlbum extends favorites {
 		if ($new) {
 			$title = $this->get('title');
 			$this->set('title', stripSuffix($title)); // Strip the suffix
-			$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+			$this->setDateTime(date('Y-m-d H:i:s', $this->get('mtime')));
 			$this->setSortOrder(999);
 			$this->save();
 			setOption('last_admin_action', time());
@@ -102,7 +102,7 @@ class favoritesAlbum extends favorites {
 		parent::setDefaults();
 		$parentalbum = $this->getParent();
 		$this->set('mtime', filemtime($this->localpath));
-		$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+		$this->setDateTime(date('Y-m-d H:i:s', $this->get('mtime')));
 
 		$title = trim($this->name);
 		if (!is_null($parentalbum)) {

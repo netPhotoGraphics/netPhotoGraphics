@@ -1275,7 +1275,7 @@ function printAlbumBreadcrumb($before = '', $after = '', $title = NULL) {
  * @param string $archive text for an archive page title
  * @param string $format data format for archive page crumb
  */
-function printSearchBreadcrumb($between = NULL, $class = false, $search = NULL, $archive = NULL, $format = '%B %Y') {
+function printSearchBreadcrumb($between = NULL, $class = false, $search = NULL, $archive = NULL, $format = 'F Y') {
 	global $_current_search;
 	if (is_null($between)) {
 		$between = ' | ';
@@ -3783,7 +3783,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 		$class = "class=\"$class\"";
 	}
 	if ($_gallery_page == 'search.php') {
-		$activedate = getSearchDate('%Y-%m');
+		$activedate = getSearchDate('Y-m');
 	} else {
 		$activedate = '';
 	}
@@ -3803,7 +3803,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = date('%Y-%B', strtotime($key));
+			$dt = date('Y-F', strtotime($key));
 			$year = substr($dt, 0, 4);
 			$month = substr($dt, 5);
 		}
@@ -4286,7 +4286,7 @@ function getSearchWords() {
  * @return string
  * @since 1.1
  */
-function getSearchDate($format = '%B %Y') {
+function getSearchDate($format = 'F Y') {
 	if (in_context(NPG_SEARCH)) {
 		global $_current_search;
 		$date = $_current_search->getSearchDate();
@@ -4588,7 +4588,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
