@@ -1325,7 +1325,7 @@ class Album extends AlbumBase {
 		parent::setDefaults();
 		$this->set('mtime', filemtime($this->localpath));
 		if (!$_gallery->getAlbumUseImagedate()) {
-			$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+			$this->setDateTime(date('Y-m-d H:i:s', $this->get('mtime')));
 		}
 		return true;
 	}
@@ -1740,7 +1740,7 @@ class dynamicAlbum extends AlbumBase {
 			if ($new) {
 				$title = $this->get('title');
 				$this->set('title', stripSuffix($title)); // Strip the suffix
-				$this->setDateTime(date('%Y-%m-%d %H:%M:%S', $this->get('mtime')));
+				$this->setDateTime(date('Y-m-d H:i:s', $this->get('mtime')));
 				$this->setDefaultSortOrder();
 				$this->save();
 				setOption('last_admin_action', time());

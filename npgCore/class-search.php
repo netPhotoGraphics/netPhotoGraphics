@@ -1745,7 +1745,8 @@ class SearchEngine {
 			$images = $result = array();
 			if ($search_result) {
 				while ($row = db_fetch_assoc($search_result)) {
-					if ($image = getItemByID('images', $row['id'])) {
+					$image = getItemByID('images', $row['id']);
+					if ($image && $image->exists) {
 						$album = $image->album;
 						$uralbum = $album->getUrAlbum();
 						$viewUnpublished = ($this->search_unpublished || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS | VIEW_UNPUBLISHED_RIGHTS) || $uralbum->subRights() & (MANAGED_OBJECT_RIGHTS_EDIT | MANAGED_OBJECT_RIGHTS_VIEW));

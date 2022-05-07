@@ -34,7 +34,7 @@ if (!defined('WEBPATH'))
 				</div>
 
 				<div id="content-left">
-					<?php if (!getOption("zenpage_zp_index_news") OR ! function_exists("printNewsPageListWithNav")) { ?>
+					<?php if (!getOption("zenpage_zp_index_news") OR!function_exists("printNewsPageListWithNav")) { ?>
 						<div class="gallerydesc" style="margin-right: 20px; margin-left: 2px;"><?php printGalleryDesc(); ?> </div>
 						<div id="albums">
 							<?php $u = 0; ?>
@@ -45,7 +45,7 @@ if (!defined('WEBPATH'))
 									</div>
 									<div class="albumdesc">
 										<h3><a href="<?php echo html_encode(getAlbumURL()); ?>" title="<?php echo gettext('View album:'); ?> <?php echo html_encode(getBareAlbumTitle()); ?>"><?php printAlbumTitle(); ?></a></h3>
-										<h3 class="date"><?php printAlbumDate("", "", "%B %Y"); ?></h3>
+										<h3 class="date"><?php printAlbumDate("", "", "F Y"); ?></h3>
 									<!-- p><?php echo html_encodeTagged(shortenContent(getAlbumDesc(), 45)); ?></p --></h3>
 									</div>
 									<p style="clear: both; "></p>

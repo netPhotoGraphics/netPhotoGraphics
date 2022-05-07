@@ -688,6 +688,7 @@ setOptionDefault('locale', '');
 
 //	update old strftime date formats to be compatible with DateTime formatting as strftime is deprecated in PHP 8.0
 $strftimeXlate = array(
+		//Day		--- ---
 		'%a' => 'D', // An abbreviated textual representation of the day	Sun through Sat
 		'%A' => 'l', // A full textual representation of the day	Sunday through Saturday
 		'%d' => 'd', // Two-digit day of the month (with leading zeros)	01 to 31
@@ -710,7 +711,7 @@ $strftimeXlate = array(
 		'%G' => 'Y', // [sic]The full four-digit version of %g	Example: 2008 for the week of January 3, 2009
 		'%y' => 'y', // Two digit representation of the year	Example: 09 for 2009, 79 for 1979
 		'%Y' => 'Y', // Four digit representation for the year	Example: 2038
-		//Time------
+		//Time	--- ---
 		'%H' => 'H', // Two digit representation of the hour in 24-hour format	00 through 23
 		'%k' => 'G', // Hour in 24-hour format, with a space preceding single digits	0 through 23
 		'%I' => 'h', // Two digit representation of the hour in 12-hour format	01 through 12
@@ -733,7 +734,7 @@ $strftimeXlate = array(
 		'%x' => '%x', // Preferred date representation based on locale, without the time	Example: 02/05/09 for February 5, 2009
 		//Miscellaneous	---	---
 		'%n' => "\n", //	A newline character ("\n")	---
-		'%t' => "\t"		 // A Tab character ("\t")	---
+		'%t' => "\t"	// A Tab character ("\t")	---
 );
 $old = getOption('date_format');
 $new = strtr($old, $strftimeXlate);

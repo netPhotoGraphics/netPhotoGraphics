@@ -775,10 +775,10 @@ function checkIfNew($mode = "image", $timerange = 604800) {
 	$currentdate = date("U");
 	switch ($mode) {
 		case "image":
-			$itemdate = getImageDate("%s");
+			$itemdate = getImageDate('u');
 			break;
 		case "album":
-			$itemdate = getAlbumDate("%s");
+			$itemdate = getAlbumDate('u');
 			break;
 	}
 	$newcheck = $currentdate - $itemdate;

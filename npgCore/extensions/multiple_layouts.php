@@ -104,13 +104,24 @@ class multipleLayoutOptions {
 	}
 
 	function getOptionsSupported() {
-		$checkboxes = array(gettext('Albums') => 'multiple_layouts_albums', gettext('Images') => 'multiple_layouts_images');
+		$checkboxes = array(
+				gettext('Albums') => 'multiple_layouts_albums',
+				gettext('Images') => 'multiple_layouts_images'
+		);
 		if (class_exists('CMS')) {
-			$checkboxes = array_merge($checkboxes, array(gettext('Pages') => 'multiple_layouts_pages', gettext('News') => 'multiple_layouts_news', gettext('News categories') => 'multiple_layouts_news_categories'));
+			$checkboxes = array_merge($checkboxes, array(
+					gettext('Pages') => 'multiple_layouts_pages',
+					gettext('News') => 'multiple_layouts_news',
+					gettext('News categories') => 'multiple_layouts_news_categories')
+			);
 		}
-		$options = array(gettext('Enable multiple layouts for') => array('key' => 'multiple_layouts_allowed', 'type' => OPTION_TYPE_CHECKBOX_ARRAY,
+		$options = array(
+				gettext('Enable multiple layouts for') => array(
+						'key' => 'multiple_layouts_allowed',
+						'type' => OPTION_TYPE_CHECKBOX_ARRAY,
 						'checkboxes' => $checkboxes,
-						'desc' => '')
+						'desc' => ''
+				)
 		);
 		return $options;
 	}
@@ -371,7 +382,6 @@ function getLayoutSelector($obj, $type, $text, $prefix = '', $secondary = false)
  *
  * @param string $path Path of the layout file
  * @return string
- * @return string
  */
 function getLayout($path) {
 	global $_gallery, $_gallery_page, $_current_image, $_current_album, $_CMS_current_page, $_CMS_current_article, $_CMS_current_category, $_current_search;
@@ -386,13 +396,12 @@ function getLayout($path) {
 				break;
 			case 'image.php':
 				if (getOption('multiple_layouts_images')) {
-					$currentalbumname = $_current_album->name;
+					$getlayout = getSelectedLayout($_current_image, 'images');
 					if (in_context(SEARCH_LINKED) && !in_context(ALBUM_LINKED)) {
 						if (!$album = $_current_search->getDynamicAlbum()) {
 							$album = $_current_album;
 						}
 					} else {
-						$getlayout = getSelectedLayout($_current_image, 'images');
 						$album = $_current_album;
 					}
 					if ($album && !$getlayout) {
@@ -425,7 +434,6 @@ function getLayout($path) {
  *
  * @param string $message Message (not used)
  * @param object $obj Object of the item to assign the layout
- * @param string $oldtitlelink Name of the item before an update (only on updates)
  * @return string
  */
 function saveLayoutSelection($message, $obj) {
@@ -527,10 +535,11 @@ function deleteLayoutSelection($allow, $obj) {
 }
 
 /**
+ * Copies the layout selection
  *
- * Enter description here ...
- * @param $allow
- * @param $obj
+ * @param int $newid ID of the item to copy to
+ * @param obj $obj Object of the  original item
+ * return int
  */
 function copyLayoutSelection($newid, $obj) {
 	$type = $obj->table;
