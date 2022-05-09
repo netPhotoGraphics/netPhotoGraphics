@@ -712,7 +712,7 @@ function secureServer() {
  */
 function npg_session_start() {
 	global $_conf_vars;
-	$sessionName = 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(WEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE);
+	$sessionName = 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE);
 
 	if (($id = session_id()) && session_name() == $sessionName) {
 		return TRUE;

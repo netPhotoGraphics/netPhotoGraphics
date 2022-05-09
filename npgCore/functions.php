@@ -2268,6 +2268,7 @@ function httpsRedirect() {
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
 		// force https
 		if (!isset($_SERVER["HTTPS"])) {
+			npg_session_destroy();
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
 			exit();
