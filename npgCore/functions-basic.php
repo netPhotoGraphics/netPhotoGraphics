@@ -696,6 +696,8 @@ function secureServer() {
 		return true;
 	} else if (!(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
 		return true;
+	} else if (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == "https") {
+		return true;
 	} else if (isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] )) {
 		return true;
 	} else if (isset($_SERVER['HTTP_FORWARDED']) && preg_match("/^(.+[,;])?\s*proto=https\s*([,;].*)$/", strtolower($_SERVER['HTTP_FORWARDED']))) {
@@ -715,15 +717,15 @@ function npg_session_start() {
 	$sessionName = 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE);
 
 	if (($id = session_id()) && session_name() == $sessionName) {
+		if (!defined('npg_SID')) {
+			define('npg_SID', session_id());
+		}
 		return TRUE;
 	} else {
-
 		if ($id) {
 			session_abort(); //	close existing session which has different name
 		}
-
 		session_name($sessionName);
-
 		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
@@ -733,7 +735,6 @@ function npg_session_start() {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-
 		//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
@@ -748,7 +749,6 @@ function npg_session_start() {
 		} else {
 			session_set_cookie_params($sessionCookie['lifetime'], $sessionCookie['path'], $sessionCookie['domain'], $sessionCookie['secure'], $sessionCookie['httponly']);
 		}
-
 		$result = session_start();
 		define('npg_SID', session_id());
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;

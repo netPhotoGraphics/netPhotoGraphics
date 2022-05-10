@@ -2238,9 +2238,6 @@ function js_encode($this_string) {
  */
 function getXSRFToken($action, $modifier = NULL) {
 	global $_current_admin_obj;
-	if (is_object($_current_admin_obj)) {
-		$modifier .= $_current_admin_obj->getPass() . $_current_admin_obj->get('passupdate') . $_current_admin_obj->getLastLogon();
-	}
 	if (defined('npg_SID')) {
 		$modifier .= npg_SID;
 	}
