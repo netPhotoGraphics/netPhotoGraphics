@@ -241,7 +241,7 @@ class mobile extends Mobile_Detect {
 }
 
 if (isset($_GET['mobile'])) {
-	setNPGCookie('mobileTheme_disable', (int) $_GET['mobile'] == 'off', ['secure' => FALSE]);
+	setNPGCookie('mobileTheme_disable', (int) $_GET['mobile'] == 'off');
 }
 
 if (!getNPGCookie('mobileTheme_disable')) {

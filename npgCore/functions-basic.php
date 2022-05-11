@@ -881,6 +881,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
  */
 function clearNPGCookie($name) {
 	if (isset($_COOKIE[$name])) {
+		setNPGCookie($name, 'null', -368000, ['secure' => TRUE]);
 		setNPGCookie($name, 'null', -368000, ['secure' => FALSE]);
 	}
 }
