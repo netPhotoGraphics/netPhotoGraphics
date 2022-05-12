@@ -818,9 +818,9 @@ function encodeNPGCookie($value) {
  * @param string $value The value to be stored
  * @param int $time The time delta until the cookie expires. Set negative to clear cookie,
  * 									set to FALSE to expire at end of session
- * @param array $options setCookie options array / bool $security TRUE for a secure cookie
+ * @param array $uniqueoptions setCookie options array / bool $security TRUE for a secure cookie
  */
-function setNPGCookie($name, $value, $time = NULL, $options = array()) {
+function setNPGCookie($name, $value, $time = NULL, $uniqueoptions = array()) {
 
 	if (empty($value)) {
 		$cookiev = '';
@@ -847,7 +847,7 @@ function setNPGCookie($name, $value, $time = NULL, $options = array()) {
 							'httponly' => TRUE,
 							'samesite' => 'Strict',
 							'secure' => secureServer()
-					), $options);
+					), $uniqueoptions);
 
 	if (DEBUG_LOGIN) {
 		debugLogVar(["setNPGCookie($name, $value)" => $options, 'album_session' => GALLERY_SESSION, 'SESSION' => session_id()]);
