@@ -65,7 +65,7 @@ function getUserID() {
  * @param type $ex the exception
  */
 function npgExceptionHandler($ex) {
-	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
+	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), null, $ex->getTrace());
 	die();
 }
 
@@ -78,31 +78,39 @@ function npgExceptionHandler($ex) {
  * @param string $errline
  * @return void|boolean
  */
-function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $trace = 1) {
+function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $deprecated = null, $trace = 1) {
 	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
 	}
-	$errorType = array(
-			E_ERROR => gettext('ERROR'),
-			E_WARNING => gettext('WARNING'),
-			E_NOTICE => gettext('NOTICE'),
-			E_USER_ERROR => gettext('USER ERROR'),
-			E_USER_WARNING => gettext('USER WARNING'),
-			E_USER_NOTICE => gettext('USER NOTICE'),
-			E_STRICT => gettext('STRICT NOTICE')
-	);
 
-	// create error message
-
-	if (array_key_exists($errno, $errorType)) {
-		$err = $errorType[$errno];
-	} else {
-		$err = gettext("EXCEPTION ($errno)");
-		$errno = E_ERROR;
+	switch ($errno) {
+		case E_ERROR :
+			$err = gettext('ERROR');
+			break;
+		case E_WARNING:
+			$err = gettext('WARNING');
+			break;
+		case E_NOTICE:
+			$err = gettext('NOTICE');
+			break;
+		case E_USER_ERROR:
+			$err = gettext('USER ERROR');
+			break;
+		case E_USER_WARNING:
+			$err = gettext('USER WARNING');
+			break;
+		case E_USER_NOTICE:
+			$err = gettext('USER NOTICE');
+			break;
+		case E_STRICT:
+			$err = gettext('STRICT NOTICE');
+			break;
+		default:
+			$err = gettext("EXCEPTION ($errno)");
+			$errno = E_ERROR;
 	}
-
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	debugLogBacktrace($msg, $trace);
 
@@ -319,19 +327,19 @@ function sanitize_string($input, $sanitize_level) {
 			case 0:
 				return $input;
 			case 2:
-				// Strips non-style tags.
+// Strips non-style tags.
 				$input = sanitize_script($input);
 				return ksesProcess($input, getAllowedTags('style_tags'));
 			case 3:
-				// Full sanitation.  Strips all code.
+// Full sanitation.  Strips all code.
 				return ksesProcess($input, array());
 			case 1:
-				// Text formatting sanititation.
+// Text formatting sanititation.
 				$input = sanitize_script($input);
 				return ksesProcess($input, getAllowedTags('allowed_tags'));
 			case 4:
 			default:
-				// for internal use to eliminate security injections
+// for internal use to eliminate security injections
 				return sanitize_script($input);
 		}
 	}
@@ -431,7 +439,7 @@ function db_count($table, $clause = NULL, $field = "*") {
  */
 function html_decode($string) {
 	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
-	// Replace numeric entities because html_entity_decode doesn't do it for us.
+// Replace numeric entities because html_entity_decode doesn't do it for us.
 	if (function_exists('mb_convert_encoding')) {
 		$string = preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
 			return mb_convert_encoding($m[1], LOCAL_CHARSET, "HTML-ENTITIES");
@@ -499,7 +507,7 @@ function varDebug($args) {
 		$args = array('var' => $args);
 	}
 	$dump = explode("\n", var_export($args, true));
-	//get rid of the outer array element
+//get rid of the outer array element
 	unset($dump[0]);
 	array_pop($dump);
 	$br = '';
@@ -628,7 +636,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-	// Get a backtrace.
+// Get a backtrace.
 	if (is_array($omit)) {
 		$bt = $omit;
 	} else {
@@ -726,7 +734,7 @@ function npg_session_start() {
 			session_abort(); //	close existing session which has different name
 		}
 		session_name($sessionName);
-		//	insure that the session data has a place to be saved
+//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
 		}
@@ -735,7 +743,7 @@ function npg_session_start() {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-		//	setup session cookie
+//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
 				'path' => WEBPATH . '/',
@@ -959,7 +967,7 @@ function getOptionOwner() {
 	$bt = debug_backtrace();
 	$b = reset($bt); // this function
 	$b = next($bt); //the setOption... function
-	//$b now has the calling file/line# of the setOption... function
+//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
 	if (array_pop($matches) == 'themeoptions.php') {
@@ -1017,9 +1025,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  */
 function loadLocalOptions($albumid, $theme) {
 	global $_options, $_conf_vars;
-	//start with the config file
+//start with the config file
 	$options = $_conf_vars;
-	//raw theme options Order is so that Album theme options will override simple theme options
+//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {
@@ -1101,12 +1109,12 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
 			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
-					//has an RW_SUFFIX attached
+//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);
 					$ralbum = trim(dirname($matches[1]), '/');
 				} else { //	have to figure it out
 					if (Gallery::imageObjectClass($ralbum)) {
-						//	it is an image request
+//	it is an image request
 						$rimage = basename($ralbum);
 						$ralbum = trim(dirname($ralbum), '/');
 					}
@@ -1138,7 +1146,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_cachefileSuffix;
-	// this function works in FILESYSTEM_CHARSET, so convert the file names
+// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1157,7 +1165,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 			}
 		}
 	}
-	// Set default variable values.
+// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
 	if (getOption('obfuscate_cache')) {
@@ -1245,7 +1253,7 @@ function getImageParameters($args, $album = NULL) {
 		$height = false;
 	}
 	if (empty($size) && $width == $height) {
-		//square image
+//square image
 		$size = $height;
 		$width = $height = false;
 	}
@@ -2045,7 +2053,7 @@ function setOption($key, $value, $persistent = true) {
 			if (array_key_exists($keylc, $_conf_options_associations)) {
 				$configKey = $_conf_options_associations[$keylc];
 				if ($_conf_vars[$configKey] !== $value) {
-					//	it is stored in the config file, update that too
+//	it is stored in the config file, update that too
 					require_once(CORE_SERVERPATH . 'lib-config.php');
 					$_configMutex->lock();
 					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
