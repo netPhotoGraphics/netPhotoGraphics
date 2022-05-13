@@ -680,7 +680,7 @@ function comment_form_handle_comment() {
 				if (isset($_POST['remember'])) {
 					// Should always re-cookie to update info in case it's changed...
 					$_comment_stored['comment'] = ''; // clear the comment itself
-					setNPGCookie('comment_data', serialize($_comment_stored), ['secure' => FALSE]);
+					setNPGCookie('comment_data', serialize($_comment_stored));
 				} else {
 					clearNPGCookie('comment_data');
 				}

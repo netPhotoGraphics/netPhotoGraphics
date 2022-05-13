@@ -2237,14 +2237,7 @@ function js_encode($this_string) {
  * 																							parts of URL being used for more security
  */
 function getXSRFToken($action, $modifier = NULL) {
-	global $_current_admin_obj;
-	if (is_object($_current_admin_obj)) {
-		$modifier .= $_current_admin_obj->getPass() . $_current_admin_obj->get('passupdate') . $_current_admin_obj->getLastLogon();
-	}
-	if (defined('npg_SID')) {
-		$modifier .= npg_SID;
-	}
-	return sha1($action . $modifier);
+	return sha1($action . $modifier . npg_SID);
 }
 
 /**
@@ -2267,7 +2260,8 @@ function httpsRedirect() {
 	global $_conf_vars;
 	if (getNPGCookie('ssl_state') || isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
 		// force https
-		if (!isset($_SERVER["HTTPS"])) {
+		if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) == 'off') {
+			npg_session_destroy();
 			$redirect = "https://" . $_SERVER['HTTP_HOST'] . getRequestURI();
 			header("Location:$redirect");
 			exit();

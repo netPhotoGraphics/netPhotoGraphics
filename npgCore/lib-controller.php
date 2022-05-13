@@ -82,9 +82,9 @@ class Controller {
 			} else {
 				$obj = newAlbum($query['album'], NULL, true);
 			}
-			if (is_object($obj) && !$obj->exists)
+			if (!is_object($obj) || !$obj->exists) {
 				return '';
-
+			}
 			unset($query['album']);
 			$redirectURL = preg_replace('~^' . WEBPATH . '/~', '', $obj->getLink(isset($query['page']) ? $query['page'] : NULL));
 			unset($query['page']);

@@ -86,7 +86,7 @@ class themeSwitcher {
 	}
 
 	/**
-	 * Utility functon for managing switched theme options
+	 * Utility function for managing switched theme options
 	 *
 	 * @param string $option
 	 * @param array $allowed
@@ -96,7 +96,7 @@ class themeSwitcher {
 		$themeOption = getNPGCookie('themeSwitcher_' . $option);
 		if (isset($_GET[$option])) {
 			if (in_array($_GET[$option], $allowed)) {
-				setNPGCookie('themeSwitcher_' . $option, $_GET[$option], ['secure' => FALSE]);
+				setNPGCookie('themeSwitcher_' . $option, $_GET[$option]);
 				$themeOption = $_GET[$option];
 			}
 		}
@@ -233,7 +233,7 @@ unset($__key);
 unset($__theme);
 
 if (isset($_GET['themeSwitcher'])) {
-	setNPGCookie('themeSwitcher_theme', sanitize($_GET['themeSwitcher']), ['secure' => FALSE]);
+	setNPGCookie('themeSwitcher_theme', sanitize($_GET['themeSwitcher']));
 }
 
 if (getNPGCookie('themeSwitcher_theme')) {

@@ -21,11 +21,11 @@ define('WATERMARK_FULL', 4);
 function newImage($album, $filename = NULL, $quiet = false) {
 	global $_missing_image;
 	if (is_array($album)) {
-		$xalbum = newAlbum($album['folder']);
+		$xalbum = newAlbum($album['folder'], NULL, $quiet);
 		$filename = $album['filename'];
 		$dyn = false;
 	} else if (is_array($filename)) {
-		$xalbum = newAlbum($filename['folder']);
+		$xalbum = newAlbum($filename['folder'], NULL, $quiet);
 		$filename = $filename['filename'];
 		$dyn = is_object($album) && $album->isDynamic();
 	} else if (is_object($album) && $album->isDynamic()) {
@@ -33,7 +33,7 @@ function newImage($album, $filename = NULL, $quiet = false) {
 		$album->getImages();
 		$xalbum = array_keys($album->imageNames, $filename);
 		$xalbum = reset($xalbum);
-		$xalbum = newAlbum(dirname($xalbum));
+		$xalbum = newAlbum(dirname($xalbum), NULL, $quiet);
 	} else {
 		$xalbum = $album;
 		$dyn = false;
