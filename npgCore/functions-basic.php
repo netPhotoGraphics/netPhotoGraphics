@@ -25,7 +25,11 @@ function dbErrorReport($sql) {
  * @return type
  */
 function db_quote($string) {
-	return "'" . db_escape($string) . "'";
+	if ($string) {
+		$string = db_escape($string);
+	}
+	return $string = "'" . $string . "'";
+	;
 }
 
 /**
@@ -118,7 +122,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
 		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
-			<?php echo html_encode($msg); ?>
+		<?php echo html_encode($msg); ?>
 		</div>
 		<?php
 	}
@@ -812,7 +816,7 @@ function getNPGCookie($name) {
  * @param $value
  */
 function encodeNPGCookie($value) {
-	if (defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
+	if ($value && defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
 		return rc4(getUserIP() . HASH_SEED, $value);
 	} else {
 		return $value;
