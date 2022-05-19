@@ -15,18 +15,7 @@ if (!OFFSET_PATH) {
 	require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/mobileTheme.php');
 	$detect = new mobile;
 
-	if ($detect->isTablet()) {
-		$isTablet = true;
-	} else {
-		$isTablet = false;
-	}
-	if (($detect->isMobile()) && (!$detect->isTablet())) {
-		$isMobile = true;
-	} else {
-		$isMobile = false;
-	}
-
-	if ($isMobile) {
+	if ($detect->isMobile() && !$detect->isTablet()) {
 		// set album thumb size and album thumb size for mobile device
 		setOption('zpB_album_thumb_width', 720, false);
 		setOption('zpB_album_thumb_height', 360, false);
