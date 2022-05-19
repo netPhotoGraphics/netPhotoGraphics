@@ -3860,10 +3860,6 @@ function getCustomPageURL($page, $q = '', $pageno = NULL) {
 	$result_r = getCustomPageRewrite($page);
 	$result = "index.php?p=$page";
 
-	if (is_null($pageno) && in_context(NPG_ALBUM) && $_gallery_page != $page . '.php') {
-		$album = $_current_album->getUrAlbum();
-		$pageno = $album->getGalleryPage();
-	}
 	if ($pageno > 1) {
 		$result_r .= '/' . $pageno;
 		$result .= '&page=' . $pageno;
@@ -4588,7 +4584,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
