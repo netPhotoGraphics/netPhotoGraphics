@@ -12,8 +12,8 @@ if (!OFFSET_PATH) {
 	setOption('gmap_display', 'show', true);
 
 	// Check for mobile and tablets, and set some options
-	require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/mobileTheme/Mobile_Detect.php');
-	$detect = new Mobile_Detect;
+	require_once (CORE_SERVERPATH . PLUGIN_FOLDER . '/mobileTheme.php');
+	$detect = new mobile;
 
 	if ($detect->isTablet()) {
 		$isTablet = true;
