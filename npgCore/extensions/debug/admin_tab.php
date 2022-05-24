@@ -287,11 +287,18 @@ echo "\n</head>";
 								<table class="compact">
 									<?php
 									foreach ($_COOKIE as $cookie => $cookiev) {
+										if (defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
+											if ($cookiev && !(strlen($cookiev) % 2)) {
+												if (preg_match('~^[0-9A-F]+$~i', $cookiev)) {
+													$cookiev = rc4(getUserIP() . HASH_SEED, hex2bin($cookiev));
+												}
+											}
+										}
 										?>
 										<tr>
 											<td><input type="checkbox" name="delete_cookie[<?php echo html_encode(postIndexEncode($cookie)); ?>]" value="1"></td>
 											<td><?php echo html_encode($cookie); ?> </td>
-											<td><?php echo html_encode(encodeNPGCookie($cookiev)); ?></td>
+											<td><?php echo html_encode($cookiev); ?></td>
 										</tr>
 										<?php
 									}
