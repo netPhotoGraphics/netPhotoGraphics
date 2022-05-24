@@ -544,14 +544,14 @@ if (!isset($_setupCurrentLocale_result) || empty($_setupCurrentLocale_result)) {
 $testRelease = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false;
 
 $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"));
+clearstatcache();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title><?php printf('netPhotoGraphics %s', $upgrade); ?></title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<?php
-		scriptLoader(CORE_SERVERPATH . 'admin.css');
 		load_jQuery_CSS();
 		load_jQuery_scripts('theme');
 		?>
@@ -566,6 +566,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 			}
 		</script>
 		<?php
+		scriptLoader(CORE_SERVERPATH . 'admin.css');
 		scriptLoader(CORE_SERVERPATH . 'setup/setup.css');
 		scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 		?>
@@ -579,6 +580,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 			<br />
 			<div id="content">
 				<?php
+
 				$blindInstall = $warn = false;
 				if ($connection && empty($_options)) {
 					primeOptions();
@@ -1661,8 +1663,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 					} else {
 						$dbmsg = gettext("database connected");
 					} // system check
+
+
+
 					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+
 
 						$task = '';
 						if (isset($_GET['create'])) {
@@ -1673,6 +1679,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							$task = 'update';
 						}
 						$updateErrors = false;
+
+
 						if (isset($_GET['create']) || isset($_REQUEST['update']) && db_connect($_conf_vars, false)) {
 							primeMark(gettext('Database update'));
 							if (getOption('UTF-8') !== 'utf8mb4') {
@@ -1687,7 +1695,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									configFile::store($_config_contents);
 								}
 							}
+
+
 							require_once(CORE_SERVERPATH . 'setup/database.php');
+
+
 							unset($_tableFields);
 							if ($updateErrors) {
 								$autorun = false;
@@ -1697,7 +1709,10 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							} else {
 								$msg = gettext('Database update is not required.');
 							}
+
+
 							setupLog($msg, true);
+
 							?>
 							<h3><?php echo $msg; ?></h3>
 							<script type = "text/javascript">
@@ -1706,6 +1721,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							<?php
 							// set defaults on any options that need it
 							require(__DIR__ . '/setup-option-defaults.php');
+
 
 							if ($debug == 'albumids') {
 								// fixes 1.2 move/copy albums with wrong ids
@@ -1728,6 +1744,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 							require_once(PLUGIN_SERVERPATH . 'clone.php');
+
 							?>
 							<p id="warning" class="warningbox cloneLink" style="display:none;">
 								<?php printf(gettext('Your browser is blocking popups from %1$s so automatic setup of clones installs did not happen. Click the links below to setup your clone installations.'), FULLWEBPATH); ?>
@@ -1742,6 +1759,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							</script>
 							<?php
+
 							$noclones = true;
 							if (class_exists('npgClone')) {
 								foreach (npgClone::clones() as $clone => $data) {
@@ -1749,58 +1767,58 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$url = $data['url'] . CORE_FOLDER . '/setup/index.php?autorun';
 									?>
 									<p class="cloneLink" style="display:none;margin-left: 2em;">
-										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url, $clone);
-										?>
+									<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url, $clone);
+									?>
 									</p>
 									<script type="text/javascript">launchClone('<?php echo $url; ?>');</script>
-									<?php
-								}
-								?>
+										<?php
+									}
+									?>
 								<p id="spacer" style="display:none; margin-bottom: 2em;"></p>
 								<script type="text/javascript">
 									if ($('#warning').is(":visible")) {
 										$('#spacer').show();
 									}
 								</script>
-								<?php
-							}
-							$debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
-							$debug = $debug[1];
-							if (!strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
-								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
-							} else {
-								$query = '';
-							}
-							?>
+			<?php
+		}
+		$debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
+		$debug = $debug[1];
+		if (!strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
+			$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
+		} else {
+			$query = '';
+		}
+		?>
 							<div id ="golink" class="delayshow"<?php echo (CURL_ENABLED) ? '' : ' style="display:none;"'; ?>>
-								<?php
-								if ($query && !$noclones) {
-									?>
+							<?php
+							if ($query && !$noclones) {
+								?>
 									<p class="warning">
-										<?php printf(gettext('You may <a href="%1$s">administer your gallery</a> once all clones have completed setup.'), getAdminLink('admin.php') . $query); ?>
+									<?php printf(gettext('You may <a href="%1$s">administer your gallery</a> once all clones have completed setup.'), getAdminLink('admin.php') . $query); ?>
 									</p>
-									<?php
-								} else {
-									?>
+										<?php
+									} else {
+										?>
 									<p>
-										<?php printf(gettext('You may now <a href="%1$s">administer your gallery</a>.'), getAdminLink('admin.php') . $query); ?>
+									<?php printf(gettext('You may now <a href="%1$s">administer your gallery</a>.'), getAdminLink('admin.php') . $query); ?>
 									</p>
-									<?php
+										<?php
+									}
+									?>
+							</div>
+								<?php
+								switch ($autorun) {
+									case false:
+										break;
+									case 'gallery':
+									case 'admin':
+										$autorun = getAdminLink('admin.php') . $query;
+										break;
+									default:
+										break;
 								}
 								?>
-							</div>
-							<?php
-							switch ($autorun) {
-								case false:
-									break;
-								case 'gallery':
-								case 'admin':
-									$autorun = getAdminLink('admin.php') . $query;
-									break;
-								default:
-									break;
-							}
-							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script type="text/javascript">
 								function launchAdmin() {
@@ -1827,12 +1845,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 		?>
 								}
 							</script>
-							<?php
-						} else if (db_connect($_conf_vars, false)) {
-							$task = '';
-							if (setupUserAuthorized() || $blindInstall) {
-								if (!empty($dbmsg)) {
-									?>
+		<?php
+	} else if (db_connect($_conf_vars, false)) {
+		$task = '';
+		if (setupUserAuthorized() || $blindInstall) {
+			if (!empty($dbmsg)) {
+				?>
 									<h2><?php echo $dbmsg; ?></h2>
 									<?php
 								}
@@ -1860,28 +1878,28 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							if ($stop) {
 								?>
 								<div class="error">
-									<?php
-									if (npg_loggedin()) {
-										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-									} else {
-										echo gettext('You must be logged in to run setup.');
-									}
-									?>
-								</div>
 								<?php
-								$_authority->printLoginForm('', false);
-							} else {
-								if (!empty($task) && substr($task, 0, 1) != '&') {
-									$task = '&' . $task;
+								if (npg_loggedin()) {
+									echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+								} else {
+									echo gettext('You must be logged in to run setup.');
 								}
-								$task = html_encode($task);
 								?>
+								</div>
+									<?php
+									$_authority->printLoginForm('', false);
+								} else {
+									if (!empty($task) && substr($task, 0, 1) != '&') {
+										$task = '&' . $task;
+									}
+									$task = html_encode($task);
+									?>
 								<form id="setup" action="<?php echo WEBPATH . '/' . CORE_FOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
 									<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
 									<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
-									<?php
-									if ($autorun) {
-										?>
+			<?php
+			if ($autorun) {
+				?>
 										<input type="hidden" id="autorun" name="autorun" value="<?php echo html_encode($autorun); ?>" />
 										<?php
 									}
@@ -1892,44 +1910,44 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									<br class="clearall" />
 									<br />
 								</form>
-								<?php
-							}
-							if ($autorun) {
-								?>
+			<?php
+		}
+		if ($autorun) {
+			?>
 								<script type="text/javascript">
 									$('#submitbutton').hide();
 									$('#setup').submit();
 								</script>
-								<?php
-							}
-						} else {
-							?>
+			<?php
+		}
+	} else {
+		?>
 							<div class="error">
 								<h3><?php echo gettext("database did not connect"); ?></h3>
 								<p>
-									<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
+		<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
 								</p>
 							</div>
+									<?php
+								}
+							} else {
+								// The config file hasn't been created yet. Show the steps.
+								?>
+						<div class="error">
+						<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
+						</div>
 							<?php
 						}
-					} else {
-						// The config file hasn't been created yet. Show the steps.
-						?>
-						<div class="error">
-							<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
-						</div>
-						<?php
-					}
 
-					if ($blindInstall) {
-						@ob_end_clean();
-					}
-					?>
+						if ($blindInstall) {
+							@ob_end_clean();
+						}
+						?>
 					<br class="clearall" />
 			</div><!-- content -->
-			<?php
-			printSetupFooter($setup_checked);
-			?>
+					<?php
+					printSetupFooter($setup_checked);
+					?>
 		</div><!-- main -->
 	</body>
 </html>
