@@ -734,7 +734,7 @@ $strftimeXlate = array(
 		'%x' => '%x', // Preferred date representation based on locale, without the time	Example: 02/05/09 for February 5, 2009
 		//Miscellaneous	---	---
 		'%n' => "\n", //	A newline character ("\n")	---
-		'%t' => "\t"	// A Tab character ("\t")	---
+		'%t' => "\t" // A Tab character ("\t")	---
 );
 $old = getOption('date_format');
 $new = strtr($old, $strftimeXlate);
@@ -1195,4 +1195,3 @@ if (!empty($newPlugins) || !empty($newThemes)) {
 $_gallery->garbageCollect();
 
 setOption('zenphotoCompatibilityPack_signature', serialize($compatibilityIs));
-?>
