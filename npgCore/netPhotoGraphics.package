@@ -7174,6 +7174,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/php/plugins/Watermark
 %extensions%/elFinder/php/plugins/Watermark/logo.png
 %extensions%/elFinder/php/plugins/Watermark/plugin.php
+%extensions%/elFinder/php/plugins/WinRemoveTailDots
+%extensions%/elFinder/php/plugins/WinRemoveTailDots/plugin.php
 %extensions%/elFinder/php/resources
 %extensions%/elFinder/php/resources/image.png
 %extensions%/elFinder/php/resources/video.png
@@ -8047,4 +8049,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8049
+8051
