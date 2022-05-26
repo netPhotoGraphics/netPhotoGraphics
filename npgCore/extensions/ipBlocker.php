@@ -43,6 +43,7 @@ $option_interface = 'ipBlocker';
 npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
+npgFilters::register('log_404', 'ipBlocker::handle404');
 npgFilters::register('theme_headers', 'ipBlocker::load');
 npgFilters::register('admin_headers', 'ipBlocker::clear'); //	if we are logged in we should not be blocked
 
@@ -63,6 +64,7 @@ class ipBlocker {
 			setOptionDefault('ipBlocker_type', 'block');
 			setOptionDefault('ipBlocker_threshold', 10);
 			setOptionDefault('ipBlocker_404_threshold', 10);
+			setOptionDefault('ipBlocker_flood_threshold', 240);
 			setOptionDefault('ipBlocker_timeout', 60);
 			setOptionDefault('ipBlocker_forbidden', NULL);
 
@@ -82,20 +84,26 @@ class ipBlocker {
 		$buttons = array(gettext('Allow') => 'allow', gettext('Block') => 'block');
 		$text = array_flip($buttons);
 		$options = array(gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
-						'order' => 5,
+						'order' => 11,
 						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[getOption('ipBlocker_type')])),
 				gettext('Action') => array('key' => 'ipBlocker_type', 'type' => OPTION_TYPE_RADIO,
-						'order' => 4,
+						'order' => 10,
 						'buttons' => $buttons,
 						'desc' => gettext('How the plugin will interpret the IP list.')),
 				gettext('Logon threshold') => array('key' => 'ipBlocker_threshold', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => gettext('Admin page requests will be ignored after this many failed tries.')),
 				gettext('404 threshold') => array('key' => 'ipBlocker_404_threshold', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 1,
+						'order' => 2,
 						'desc' => gettext('Access will be suspended after this many 404 errors.')),
-				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
+				gettext('Flooding threshold') => array('key' => 'ipBlocker_flood_threshold', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 3,
+						'desc' => gettext('Access will be suspended if there are more than this many theme page requests.')),
+				'addl' => array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
+						'order' => 4,
+						'desc' => gettext('Requests older than the <em>Cool off</em> period are not counted. If a threshold value is zero, the blocking is disabled.')),
+				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
+						'order' => 5,
 						'desc' => gettext('The block will be removed after this many minutes.'))
 		);
 		$disabled = !extensionEnabled('ipBlocker');
@@ -113,7 +121,7 @@ class ipBlocker {
 			$disabled = true;
 		}
 		$options[gettext('Import list')] = array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
-				'order' => 6,
+				'order' => 12,
 				'selections' => $files,
 				'nullselection' => '',
 				'disabled' => $disabled,
@@ -329,12 +337,12 @@ class ipBlocker {
 			self::clear();
 		} else {
 			self::ipGate('logon');
-			self::load();
+			self::load(false);
 		}
 		return $loggedin;
 	}
 
-	static function handle404($log) {
+	static function handle404($log, $data) {
 		self::ipGate('404');
 		return $log;
 	}
@@ -352,6 +360,9 @@ class ipBlocker {
 			case '404':
 				$threshold = getOption('ipBlocker_404_threshold');
 				break;
+			case 'flood':
+				$threshold = getOption('ipBlocker_flood_threshold');
+				break;
 		}
 
 		//	clean out expired attempts
@@ -362,12 +373,10 @@ class ipBlocker {
 		query($sql);
 		//	check how many times this has happened recently
 		$count = db_count('plugin_storage', 'WHERE `type`="ipBlocker" AND `subtype`=' . db_quote($type) . ' AND `data`="' . getUserIP() . '"');
-		if ($count >= $threshold) {
+		if ($threshold && $count >= $threshold) {
 			$ip = getUserIP();
 			npgFilters::apply('security_misc', 2, $type, 'ipBlocker', gettext('Suspended'));
-
 			$block = getSerializedArray(getOption('ipBlocker_forbidden'));
-
 			$block[$ip] = time();
 			setOption('ipBlocker_forbidden', serialize($block));
 			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
@@ -425,7 +434,10 @@ class ipBlocker {
 	 * @param string $path
 	 * @return string
 	 */
-	static function load() {
+	static function load($check = true) {
+		if (!isset($check) || $check) {
+			self::ipGate('flood');
+		}
 		if (self::blocked() || self::suspended()) {
 			if (!self::clear()) {
 				sleep(30);
