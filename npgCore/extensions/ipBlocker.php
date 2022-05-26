@@ -44,7 +44,7 @@ npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('log_404', 'ipBlocker::handle404');
-npgFilters::register('theme_headers', 'ipBlocker::load');
+npgFilters::register('load_theme_script', 'ipBlocker::load');
 npgFilters::register('admin_headers', 'ipBlocker::clear'); //	if we are logged in we should not be blocked
 
 /**
