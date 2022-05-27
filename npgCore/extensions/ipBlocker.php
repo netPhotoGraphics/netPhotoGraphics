@@ -176,13 +176,13 @@ class ipBlocker {
 					<?php
 					for ($i = 0; $i <= $key + 4; $i++) {
 						?>
-											$('#ipholder_<?php echo $i; ?>a').val('');
-											$('#ipholder_<?php echo $i; ?>b').val('');
+							$('#ipholder_<?php echo $i; ?>a').val('');
+							$('#ipholder_<?php echo $i; ?>b').val('');
 						<?php
 					}
 					?>
-									}
-									//-->
+					}
+					//-->
 				</script>
 				<p>
 						<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
@@ -307,7 +307,8 @@ class ipBlocker {
 	}
 
 	static function clear() {
-		if (npg_loggedin()) {
+		global $_current_admin_obj;
+		if (npg_loggedin() && !$_current_admin_obj->transient) {
 			$ip = getUserIP();
 			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
 			query($sql);
