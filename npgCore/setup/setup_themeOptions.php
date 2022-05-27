@@ -75,6 +75,7 @@ if (isset($_GET['curl'])) {
 	sendImage($icon, 'plugin_' . $extension);
 }
 db_close();
-opcache_reset();
+if (function_exists('opcache_reset')) {
+	opcache_reset();
+}
 exit();
-?>
