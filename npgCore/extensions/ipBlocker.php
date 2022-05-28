@@ -176,13 +176,13 @@ class ipBlocker {
 					<?php
 					for ($i = 0; $i <= $key + 4; $i++) {
 						?>
-							$('#ipholder_<?php echo $i; ?>a').val('');
-							$('#ipholder_<?php echo $i; ?>b').val('');
+											$('#ipholder_<?php echo $i; ?>a').val('');
+											$('#ipholder_<?php echo $i; ?>b').val('');
 						<?php
 					}
 					?>
-					}
-					//-->
+									}
+									//-->
 				</script>
 				<p>
 						<?php npgButton('button', gettext('clear list'), array('buttonClick' => "clearips();")); ?>
@@ -442,8 +442,8 @@ class ipBlocker {
 		if (self::blocked() || self::suspended()) {
 			if (!self::clear()) {
 				sleep(30);
-				header("HTTP/1.0 403 " . gettext("Forbidden"));
-				header("Status: 403 " . gettext("Forbidden"));
+				header("HTTP/1.0 503 " . gettext("Unavailable"));
+				header("Status: 503 " . gettext("Unavailable"));
 				exit(); //	terminate the script with no output
 			}
 		}
