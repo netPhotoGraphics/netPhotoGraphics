@@ -376,7 +376,7 @@ class ipBlocker {
 		$count = db_count('plugin_storage', 'WHERE `type`="ipBlocker" AND `subtype`=' . db_quote($type) . ' AND `data`="' . getUserIP() . '"');
 		if ($threshold && $count >= $threshold) {
 			$ip = getUserIP();
-			npgFilters::apply('security_misc', 2, $type, 'ipBlocker', gettext('Suspended'));
+			npgFilters::apply('security_misc', 2, $type, 'ipBlocker', getRequestURI());
 			$block = getSerializedArray(getOption('ipBlocker_forbidden'));
 			$block[$ip] = time();
 			setOption('ipBlocker_forbidden', serialize($block));
