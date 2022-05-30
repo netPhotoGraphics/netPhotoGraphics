@@ -239,7 +239,7 @@ class security_logger {
 					$message .= gettext("Success") . "\t";
 					break;
 				case 2:
-					$message .= '<span class="logwarning">' . gettext("Blocked") . "</span>\t";
+					$message .= '<span class="logwarning">' . gettext("Suspended") . "</span>\t";
 					break;
 				case 3:
 					$message .= $aux1 . "\t";
