@@ -1208,26 +1208,9 @@ class Image extends MediaObject {
 			} else {
 				$suffix = NULL;
 			}
-			$example = '';
-			foreach ($args as $arg => $v) {
-				if (!is_null($v)) {
-					$example .= ",'" . $arg . "'=>";
-					if (is_numeric($v)) {
-						$example .= $v;
-					} else if (is_bool($v)) {
-						if ($v) {
-							$example .= 'true';
-						} else {
-							$example .= 'false';
-						}
-					} else {
-						$example .= "'" . $v . "'";
-					}
-				}
-			}
-			$example = '[' . ltrim($example, ',') . ']';
+
 			require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-			deprecated_functions::notify_call('Image::getCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
+			deprecated_functions::notify_call('Image::getCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 		}
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;

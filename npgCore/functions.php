@@ -3078,6 +3078,27 @@ class npgFunctions {
 		return filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE);
 	}
 
+	static function array_arg_example($args) {
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		return '[' . ltrim($example, ',') . ']';
+	}
+
 }
 
 /**
