@@ -2782,17 +2782,8 @@ class npgFunctions {
 			preg_match_all("/src\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $srcmatch);
 			preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);
 			$targets = array_unique(array_merge($hrefmatch[0], $srcmatch[0], $urlmatch[0]));
-
-			/*
-			 * TODO this code will remove "plugins" from consideration. At some point
-			 * the global should be updated, but for now we want to be sure "{*USER_PLUGIN_FOLDER*}"
-			 * gets untagged
-			 */
-			$values = $_tagURLs_values;
-			array_pop($values);
-
 			foreach ($targets as $target) {
-				$tagged = str_replace($values, $_tagURLs_tags, $target);
+				$tagged = str_replace($_tagURLs_values, $_tagURLs_tags, $target);
 				$text = str_replace($target, $tagged, $text);
 			}
 		}

@@ -137,7 +137,9 @@ $legacyReplacements = array(
 		'tidyHTML' => 'cleanHTML',
 		'AlbumBase::getNumAllImages\(' => 'getTotalImagesIn(',
 		'@subpackage' => '@pluginCategory',
-		'class-mimetypes.php' => 'lib-MimeTypes.php'
+		'class-mimetypes.php' => 'lib-MimeTypes.php',
+		'isImagePhoto\(\)' => '$_current_image->isPhoto()',
+		'isImageVideo\(\)' => '$_current_image->isVideo()'
 );
 
 class zenPhotoCompatibilityPack {

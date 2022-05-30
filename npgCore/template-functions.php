@@ -1726,9 +1726,26 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 		} else {
 			$suffix = NULL;
 		}
-
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		$example = '[' . ltrim($example, ',') . ']';
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
 	}
 	$args['thumb'] = TRUE;
 	$thumb = $_current_album->getAlbumThumbImage();
@@ -1780,9 +1797,26 @@ function printCustomAlbumThumbImage($alt, $args, $class = false, $id = NULL, $ti
 		} else {
 			$title = NULL;
 		}
-
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		$example = '[' . ltrim($example, ',') . ']';
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
 	}
 
 	$args['thumb'] = TRUE;
@@ -2611,8 +2645,26 @@ function getSizeCustomImage($args, $image = NULL) {
 		} else {
 			$suffix = NULL;
 		}
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		$example = '[' . ltrim($example, ',') . ']';
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
@@ -3097,8 +3149,28 @@ function getCustomImageURL($args, $suffix = NULL) {
 		} else {
 			$suffix = NULL;
 		}
+
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		$example = '[' . ltrim($example, ',') . ']';
+
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
 }
@@ -3156,9 +3228,26 @@ function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title =
 		} else {
 			$title = NULL;
 		}
-
+		$example = '';
+		foreach ($args as $arg => $v) {
+			if (!is_null($v)) {
+				$example .= ",'" . $arg . "'=>";
+				if (is_numeric($v)) {
+					$example .= $v;
+				} else if (is_bool($v)) {
+					if ($v) {
+						$example .= 'true';
+					} else {
+						$example .= 'false';
+					}
+				} else {
+					$example .= "'" . $v . "'";
+				}
+			}
+		}
+		$example = '[' . ltrim($example, ',') . ']';
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext('e.g. %1$s '), $example));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
