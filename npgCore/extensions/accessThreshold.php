@@ -141,8 +141,9 @@ if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
 $me = getOption('accessThreshold_Owner');
-$monitor = getOption('accessThreshold_Monitor');
+
 if ($me && getUserIP() != $me) {
+	$monitor = getOption('accessThreshold_Monitor');
 	$mu = new npgMutex('aT');
 	$mu->lock();
 	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
