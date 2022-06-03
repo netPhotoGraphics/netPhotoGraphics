@@ -22,7 +22,7 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		break;
 	case 'ip':
 		$sort = 'ip';
-		uksort($recentIP, function($a, $b) {
+		uksort($recentIP, function ($a, $b) {
 			$retval = 0;
 			$_a = explode('.', str_replace(':', '.', $a));
 			$_b = explode('.', str_replace(':', '.', $b));
@@ -42,7 +42,7 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		break;
 	default:
 		$sort = 'interval';
-		uasort($recentIP, function($a, $b) {
+		uasort($recentIP, function ($a, $b) {
 			$a_i = $a['interval'];
 			$b_i = $b['interval'];
 			if ($a_i === $b_i) {
@@ -139,7 +139,11 @@ echo "\n</head>";
 				?>
 			</h1>
 			<div id="container">
-
+				<?php
+				if (getOption('accessThreshold_Monitor')) {
+					echo gettext('accessThreshold is in monitor mode. No addresses have been blocked.');
+				}
+				?>
 				<div class="tabbox">
 					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
 						<span class="nowrap">
