@@ -181,7 +181,11 @@ if ($me && getUserIP() != $me) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
-			exit();
+			sleep(10);
+			header("HTTP/1.0 503 Service Unavailable");
+			header("Status: 403 Service Unavailable");
+			header("Retry-After: 300");
+			exit(); //	terminate the script with no output
 		} else {
 			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
 			$__locale = i18n::getUserLocale();
