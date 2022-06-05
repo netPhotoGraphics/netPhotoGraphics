@@ -891,6 +891,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (is_null($supportedOptions)) {
 			$supportedOptions = $optionHandler->getOptionsSupported();
 		}
+
 		if (count($supportedOptions) > 0) {
 			$whom = get_class($optionHandler);
 			$option = current($supportedOptions);
@@ -925,6 +926,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<?php
 			}
 
+
+
+
 			foreach ($options as $option) {
 				$descending = $ul = NULL;
 				$row = $supportedOptions[$option];
@@ -942,13 +946,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 				$postkey = postIndexEncode($key);
 				$optionID = $whom . '_' . $key;
 
+
 				if ($type == OPTION_TYPE_HIDDEN) {
 					?>
 					<input type="hidden" id="__<?php echo $key; ?>" name="<?php echo $postkey; ?>" value="<?php echo html_encode($row['value']); ?>" />
 					<?php
 					continue;
 				}
-
 				$desc = $row['desc'];
 
 				if (isset($row['multilingual'])) {
@@ -973,7 +977,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 					}
 					$option = '<div class="warningbox">' . $option . '<br /><em>' . $deprecated . '</em></div>';
 				}
-				if ($theme) {
+				if (isset($row['value'])) {
+					$v = $row['value'];
+				} else if ($theme) {
 					$v = getThemeOption($key, $album, $theme);
 				} else {
 					$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key);
