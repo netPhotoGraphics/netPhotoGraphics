@@ -104,7 +104,7 @@ class cmsFilters {
 						'multilingual' => true,
 						'order' => 0,
 						'desc' => gettext('Change this option if you want the news items named something else. This option also changes the rewrite token for <em>news</em>. For multilingual sites, the token will use the site language (if set) defaulting to the string for the current locale, the en_US string, or the first string which ever is present. Note: Themes should be using the define <var>NEWS_LABEL:</var> instead of <var>gettext("News")</var>. The change applies to the front-end only, admin pages still refer to <em>news</em> as news.')),
-				'hidden' => array('key' => 'CMS_news_label_prior', 'type' => OPTION_TYPE_HIDDEN, 'value' => getOption('zCMS_news_label')),
+				'hidden' => array('key' => 'CMS_news_label_prior', 'type' => OPTION_TYPE_HIDDEN, 'value' => getOption('CMS_news_label')),
 				gettext('Enabled CMS items') => array(
 						'key' => 'CMS_enabled_items',
 						'type' => OPTION_TYPE_RADIO,
