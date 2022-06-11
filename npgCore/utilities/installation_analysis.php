@@ -276,10 +276,15 @@ echo '</head>';
 								?>
 								<li>
 									<?php
+									echo gettext('Image handlers') . ':<br.>';
+									$handlers = array();
 									ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
-									echo gettext('Image handlers');
 									foreach ($_images_classes as $suffix => $handler) {
-										echo '<br />&nbsp;&nbsp;&nbsp;' . $suffix . ':' . 'class ' . $handler;
+										$handlers[$handler][] = $suffix;
+									}
+									ksort($handlers, SORT_NATURAL | SORT_FLAG_CASE);
+									foreach ($handlers as $handler => $suffixes) {
+										echo '&nbsp;&nbsp;&nbsp;<em>' . $handler . '</em>: ' . implode(', ', $suffixes) . '<br />';
 									}
 									?>
 								</li>
@@ -477,8 +482,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+								$('.overview_list').height(height);
 </script>
 
 <?php
