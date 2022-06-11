@@ -506,6 +506,7 @@ class ipBlocker {
 				sleep(30);
 				header("HTTP/1.0 503 " . gettext("Unavailable"));
 				header("Status: 503 " . gettext("Unavailable"));
+				header("Retry-After: 300");
 				exit(); //	terminate the script with no output
 			}
 		}

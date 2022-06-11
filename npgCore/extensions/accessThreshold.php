@@ -183,7 +183,7 @@ if ($me && getUserIP() != $me) {
 			$mu->unlock();
 			sleep(10);
 			header("HTTP/1.0 503 Service Unavailable");
-			header("Status: 403 Service Unavailable");
+			header("Status: 503 Service Unavailable");
 			header("Retry-After: 300");
 			exit(); //	terminate the script with no output
 		} else {
