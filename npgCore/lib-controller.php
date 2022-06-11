@@ -72,7 +72,7 @@ class Controller {
 			}
 			unset($query['p']);
 			if (isset($query['page'])) {
-				$redirectURL = rtrim($redirectURL, '/') . '/' . trim($query['page'], '/');
+				$redirectURL = rtrim($redirectURL, '/') . '/' . sanitize_numeric($query['page'], '/');
 				unset($query['page']);
 			}
 		} else if (isset($query['album'])) {
@@ -86,10 +86,10 @@ class Controller {
 				return '';
 			}
 			unset($query['album']);
-			$redirectURL = preg_replace('~^' . WEBPATH . '/~', '', $obj->getLink(isset($query['page']) ? $query['page'] : NULL));
+			$redirectURL = preg_replace('~^' . WEBPATH . '/~', '', $obj->getLink(isset($query['page']) ? sanitize_numeric($query['page']) : NULL));
 			unset($query['page']);
 		} else if (isset($query['page'])) { //index page
-			$redirectURL = _PAGE_ . '/' . trim($query['page'], '/');
+			$redirectURL = _PAGE_ . '/' . sanitize_numeric($query['page'], '/');
 			unset($query['page']);
 		}
 

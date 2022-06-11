@@ -236,7 +236,7 @@ function sanitize_path($filename) {
  */
 function sanitize_numeric($num) {
 	if ($num) {
-		$f = filter_var(str_replace(',', '.', $num), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$f = filter_var(str_replace(',', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		if ($f) {
 			return (int) round($f);
 		}
@@ -738,7 +738,7 @@ function npg_session_start() {
 			session_abort(); //	close existing session which has different name
 		}
 		session_name($sessionName);
-//	insure that the session data has a place to be saved
+		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
 		}
@@ -747,7 +747,7 @@ function npg_session_start() {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-//	setup session cookie
+		//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
 				'path' => WEBPATH . '/',
