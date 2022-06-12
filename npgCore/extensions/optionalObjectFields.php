@@ -443,7 +443,9 @@ class optionalObjectFields extends fieldExtender {
 
 	static function tags($object, $i, $field, $type) {
 		global $tagsort;
-		$i = trim($i, '-');
+		if ($i) {
+			$i = trim($i, '-');
+		}
 		if ($type == 'save') {
 			$tagsprefix = 'tag_list_tags_' . $i;
 			if (isset($_POST[$tagsprefix])) {
