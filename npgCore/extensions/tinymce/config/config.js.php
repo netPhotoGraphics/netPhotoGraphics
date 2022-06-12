@@ -51,7 +51,7 @@ if ($MCEdirection == NULL) {
 	}
 }
 
-scriptLoader(TINYMCE . '/tinymce.5.8.0.min.js');
+scriptLoader(TINYMCE . '/tinymce.5.10.5.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
