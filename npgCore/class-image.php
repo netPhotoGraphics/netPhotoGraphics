@@ -665,7 +665,7 @@ class Image extends MediaObject {
 					$alb->setUpdatedDate($this->getDateTime());
 					$save = true;
 				}
-				if (is_null($albdate = $alb->getDateTime()) || ($_gallery->getAlbumUseImagedate() && strtotime($albdate) < strtotime($this->getDateTime()))) {
+				if (!($albdate = $alb->getDateTime()) || ($_gallery->getAlbumUseImagedate() && strtotime($albdate) < strtotime($this->getDateTime()))) {
 					$alb->setDateTime($this->getDateTime()); //  not necessarily the right one, but will do. Can be changed in Admin
 					$save = true;
 				}
@@ -757,7 +757,10 @@ class Image extends MediaObject {
 			$height = $size['height'];
 			if (gl_imageCanRotate()) {
 				// Swap the width and height values if the image should be rotated
-				switch (substr(trim($this->get('rotation'), '!'), 0, 1)) {
+				if ($rotation = $this->get('rotation')) {
+					$rotation = substr(trim($this->get('rotation'), '!'), 0, 1);
+				}
+				switch ($rotation) {
 					case 5:
 					case 6:
 					case 7:
