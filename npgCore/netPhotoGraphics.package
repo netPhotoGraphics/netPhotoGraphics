@@ -7452,7 +7452,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/jquery.tinymce.min.js
 %extensions%/tinymce/license.txt
 %extensions%/tinymce/postAcceptor.php
-%extensions%/tinymce/tinymce.5.8.0.min.js
+%extensions%/tinymce/tinymce.5.10.5.min.js
 %extensions%/tinymce/tinymce.d.ts
 %extensions%/tinymce/config
 %extensions%/tinymce/config/CMS-basic.php
