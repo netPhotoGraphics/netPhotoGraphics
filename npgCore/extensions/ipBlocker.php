@@ -61,25 +61,22 @@ class ipBlocker {
 	 * @return security_logger
 	 */
 	function __construct() {
-		if (OFFSET_PATH == 2) {
 
+		if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+			$optons = [];
+			$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 1;
+			$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold') ? getOption('ipBlocker_threshold') : 10;
+			$options['ipBlocker_404_threshold'] = getOption('ipBlocker_404_threshold') ? getOption('ipBlocker_404_threshold') : 10;
+			$options['ipBlocker_timeout'] = getOption('ipBlocker_timeout') ? getOption('ipBlocker_timeout') : 60;
+			$options['ipBlocker_flood_threshold'] = 240;
+			self::setList('Options', $options);
 
-			if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
-				$optons = [];
-				$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 1;
-				$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold') ? getOption('ipBlocker_threshold') : 10;
-				$options['ipBlocker_404_threshold'] = getOption('ipBlocker_404_threshold') ? getOption('ipBlocker_404_threshold') : 10;
-				$options['ipBlocker_timeout'] = getOption('ipBlocker_timeout') ? getOption('ipBlocker_timeout') : 60;
-				$options['ipBlocker_flood_threshold'] = 240;
-				self::setList('Options', $options);
-
-				purgeOption('ipBlocker_type');
-				purgeOption('ipBlocker_threshold');
-				purgeOption('ipBlocker_404_threshold');
-				purgeOption('ipBlocker_timeout');
-				purgeOption('ipBlocker_forbidden');
-				purgeOption('ipBlocker_list');
-			}
+			purgeOption('ipBlocker_type');
+			purgeOption('ipBlocker_threshold');
+			purgeOption('ipBlocker_404_threshold');
+			purgeOption('ipBlocker_timeout');
+			purgeOption('ipBlocker_forbidden');
+			purgeOption('ipBlocker_list');
 
 			$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="ipBlocker", `subtype`="404" WHERE `type`="ipBlocker_404"';
 			query($sql);
@@ -419,6 +416,12 @@ class ipBlocker {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
 				$_ipBlocker_lists = unserialize($raw);
+			} else {
+				$_ipBlocker_lists['Options']['ipBlocker_type'] = 1;
+				$_ipBlocker_lists['Options']['ipBlocker_threshold'] = 10;
+				$_ipBlocker_lists['Options']['ipBlocker_404_threshold'] = 10;
+				$_ipBlocker_lists['Options']['ipBlocker_timeout'] = 60;
+				$_ipBlocker_lists['Options']['ipBlocker_flood_threshold'] = 240;
 			}
 		}
 		return $_ipBlocker_lists;

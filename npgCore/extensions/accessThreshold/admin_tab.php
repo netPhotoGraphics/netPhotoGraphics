@@ -10,8 +10,11 @@
  */
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
-
+if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+	accessThreshold::handleOptionSave(NULL, NULL);
+}
 $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+
 $__config = $recentIP['config'];
 unset($recentIP['config']);
 
