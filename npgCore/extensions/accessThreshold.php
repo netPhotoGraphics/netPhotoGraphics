@@ -203,6 +203,7 @@ if ($me && getUserIP() != $me) {
 				}
 			}
 			if ($__count > $__config['accessThreshold_LocaleCount']) {
+				npgFilters::apply('security_misc', 4, 'locales', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 1;
 			}
 
@@ -220,6 +221,7 @@ if ($me && getUserIP() != $me) {
 			}
 			$recentIP[$ip]['interval'] = $__interval;
 			if ($__count > 10 && $__interval < $__config['accessThreshold_THRESHOLD']) {
+				npgFilters::apply('security_misc', 4, 'threshold', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 2;
 			}
 		}
