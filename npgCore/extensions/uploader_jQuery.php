@@ -17,7 +17,7 @@
  */
 $plugin_is_filter = defaultExtension(40 | ADMIN_PLUGIN);
 $plugin_description = gettext('<em>jQuery</em> image upload handler.');
-$plugin_disable = (version_compare(PHP_VERSION, '5.3') >= 0) ? false : gettext('jQuery uploader requires PHP 5.3 or greater.');
+$plugin_disable = (version_compare(PHP_VERSION, '5.3', '>=') && version_compare(PHP_VERSION, '8.0', '<')) ? false : gettext('jQuery uploader works with PHP 5.3 through PHP 7.');
 $plugin_notice = gettext('This plugin will throw <em>deprecated</em> errors on PHP 8.1 and will cease working on a future version of PHP. The author has archived <em>blueimp/jQuery-File-Upload</em> upon which the plugin is based so no further updates are expected.');
 
 if ($plugin_disable) {
