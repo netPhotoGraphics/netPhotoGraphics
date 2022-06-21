@@ -140,7 +140,9 @@ class accessThreshold {
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
-$me = getOption('accessThreshold_Owner');
+if ($me = !npg_loggedin()) {
+	$me = getOption('accessThreshold_Owner');
+}
 
 if ($me && getUserIP() != $me) {
 	$monitor = getOption('accessThreshold_Monitor');
