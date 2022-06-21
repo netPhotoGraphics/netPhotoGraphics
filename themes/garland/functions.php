@@ -20,14 +20,17 @@ if (!OFFSET_PATH) {
 		if ($personality) {
 			setOption('garland_personality', $personality, false);
 		} else {
-			$personality = strtolower(getOption('garland_personality'));
+			$personality = getOption('garland_personality');
 		}
 		$sets = getMenuSets();
 		$sets[] = ''; //	the built-in menu
 		$themeMenu = themeSwitcher::themeSelection('themeMenu', $sets);
 		setOption('garland_menu', $themeMenu, false);
 	} else {
-		$personality = strtolower(getOption('garland_personality'));
+		$personality = getOption('garland_personality');
+	}
+	if ($personality) {
+		$personality = strtolower($personality);
 	}
 	if (!in_array($personality, $personalities)) {
 		$persona = $personalities;

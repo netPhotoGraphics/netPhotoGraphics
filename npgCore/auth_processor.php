@@ -86,10 +86,6 @@ if ($_loggedin) {
 		// https: refresh the 'ssl_state' marker for redirection
 		setNPGCookie("ssl_state", "needed", NULL, ['secure' => FALSE]);
 	}
-} else {
-	if (class_exists('ipBlocker')) {
-		ipBlocker::load();
-	}
 }
 // Handle a logout action.
 if (isset($_REQUEST['logout']) && $_REQUEST['logout'] > 0) {

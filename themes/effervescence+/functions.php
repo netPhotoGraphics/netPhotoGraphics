@@ -44,14 +44,17 @@ if (class_exists('themeSwitcher')) {
 	if ($personality) {
 		setOption('effervescence_personality', $personality, false);
 	} else {
-		$personality = strtolower(getOption('effervescence_personality'));
+		$personality = getOption('effervescence_personality');
 	}
 	$sets = getMenuSets();
 	$sets[] = ''; //	the built-in menu
 	$themeMenu = themeSwitcher::themeSelection('themeMenu', $sets);
 	setOption('effervescence_menu', $themeMenu, false);
 } else {
-	$personality = strtolower(getOption('effervescence_personality'));
+	$personality = getOption('effervescence_personality');
+}
+if ($personality) {
+	$personality = strtolower($personality);
 }
 
 if (!in_array($personality, $personalities)) {

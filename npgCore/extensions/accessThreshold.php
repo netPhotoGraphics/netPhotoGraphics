@@ -29,6 +29,7 @@ class accessThreshold {
 		if (OFFSET_PATH == 2) {
 			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
+			setOptionDefault('accessThreshold_SIGNIFICANT', 10);
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
@@ -46,6 +47,9 @@ class accessThreshold {
 				gettext('Memory') => array('key' => 'accessThreshold_IP_RETENTION', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'desc' => gettext('The number unique access attempts to keep.')),
+				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_NUMBER,
+						'order' => 2.5,
+						'desc' => gettext('The minimum number of accesses for the Threshold to be valid.')),
 				gettext('Threshold') => array('key' => 'accessThreshold_THRESHOLD', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 2,
 						'desc' => gettext('Attempts will be blocked if the average access interval is less than this number of seconds.')),
@@ -140,9 +144,12 @@ class accessThreshold {
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
-$me = getOption('accessThreshold_Owner');
-$monitor = getOption('accessThreshold_Monitor');
+if ($me = !npg_loggedin()) {
+	$me = getOption('accessThreshold_Owner');
+}
+
 if ($me && getUserIP() != $me) {
+	$monitor = getOption('accessThreshold_Monitor');
 	$mu = new npgMutex('aT');
 	$mu->lock();
 	if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
@@ -180,7 +187,11 @@ if ($me && getUserIP() != $me) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
-			exit();
+			sleep(10);
+			header("HTTP/1.0 503 Service Unavailable");
+			header("Status: 503 Service Unavailable");
+			header("Retry-After: 300");
+			exit(); //	terminate the script with no output
 		} else {
 			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
 			$__locale = i18n::getUserLocale();
@@ -198,6 +209,7 @@ if ($me && getUserIP() != $me) {
 				}
 			}
 			if ($__count > $__config['accessThreshold_LocaleCount']) {
+				npgFilters::apply('security_misc', 4, 'locales', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 1;
 			}
 
@@ -214,7 +226,8 @@ if ($me && getUserIP() != $me) {
 				$__interval = 0;
 			}
 			$recentIP[$ip]['interval'] = $__interval;
-			if ($__count > 10 && $__interval < $__config['accessThreshold_THRESHOLD']) {
+			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < $__config['accessThreshold_THRESHOLD']) {
+				npgFilters::apply('security_misc', 4, 'threshold', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 2;
 			}
 		}

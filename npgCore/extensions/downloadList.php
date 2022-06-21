@@ -150,7 +150,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-									 togglePassword('_downloadList');">
+											 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -660,8 +660,8 @@ if (isset($_GET['download'])) {
 		if (TEST_RELEASE) {
 			trigger_error(gettext('Forbidden'), E_USER_ERROR);
 		} else {
-			header("HTTP/1.0 403 " . gettext("Forbidden"));
-			header("Status: 403 " . gettext("Forbidden"));
+			header("HTTP/1.0 403 Forbidden");
+			header("Status: 403 Forbidden");
 			exit(); //	terminate the script with no output
 		}
 	}

@@ -132,7 +132,7 @@ function getCustomDailySummaryThumb($args, $suffix = NULL) {
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getCustomDailySummaryThumb', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 	$args['thumb'] = TRUE;
 	$thumb = $_current_DailySummaryItem->getDailySummaryThumbImage();

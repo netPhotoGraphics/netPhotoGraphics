@@ -29,7 +29,7 @@ define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will no
 $icon = $_GET['class'];
 $fullLog = !$nolog && (isset($_GET['fullLog']) || $icon == 2);
 
-$extension = sanitize($_REQUEST['plugin']);
+$extension = sanitize($_GET['plugin']);
 
 if ($extension != 'cacheManager') {
 	require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
@@ -117,5 +117,7 @@ if (isset($_GET['curl'])) {
 	sendImage($icon, 'plugin_' . $extension);
 }
 db_close();
+if (function_exists('opcache_reset')) {
+	opcache_reset();
+}
 exit();
-?>

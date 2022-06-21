@@ -7130,6 +7130,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/worker/quicklook.unzip.js
 %extensions%/elFinder/php
 %extensions%/elFinder/php/autoload.php
+%extensions%/elFinder/php/connector.minimal.php-dist
 %extensions%/elFinder/php/connector_npg.php
 %extensions%/elFinder/php/elFinder.class.php
 %extensions%/elFinder/php/elFinderConnector.class.php
@@ -7174,6 +7175,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/php/plugins/Watermark
 %extensions%/elFinder/php/plugins/Watermark/logo.png
 %extensions%/elFinder/php/plugins/Watermark/plugin.php
+%extensions%/elFinder/php/plugins/WinRemoveTailDots
+%extensions%/elFinder/php/plugins/WinRemoveTailDots/plugin.php
 %extensions%/elFinder/php/resources
 %extensions%/elFinder/php/resources/image.png
 %extensions%/elFinder/php/resources/video.png
@@ -7449,7 +7452,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/jquery.tinymce.min.js
 %extensions%/tinymce/license.txt
 %extensions%/tinymce/postAcceptor.php
-%extensions%/tinymce/tinymce.5.8.0.min.js
+%extensions%/tinymce/tinymce.5.10.5.min.js
 %extensions%/tinymce/tinymce.d.ts
 %extensions%/tinymce/config
 %extensions%/tinymce/config/CMS-basic.php
@@ -8047,4 +8050,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-8049
+8052

@@ -1728,7 +1728,7 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 	$args['thumb'] = TRUE;
 	$thumb = $_current_album->getAlbumThumbImage();
@@ -1782,7 +1782,7 @@ function printCustomAlbumThumbImage($alt, $args, $class = false, $id = NULL, $ti
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 
 	$args['thumb'] = TRUE;
@@ -2611,8 +2611,9 @@ function getSizeCustomImage($args, $image = NULL) {
 		} else {
 			$suffix = NULL;
 		}
+
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
@@ -3097,8 +3098,9 @@ function getCustomImageURL($args, $suffix = NULL) {
 		} else {
 			$suffix = NULL;
 		}
+
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 	return $_current_image->getCustomImage($args, $suffix);
 }
@@ -3158,7 +3160,7 @@ function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title =
 		}
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.'));
+		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
@@ -3860,10 +3862,6 @@ function getCustomPageURL($page, $q = '', $pageno = NULL) {
 	$result_r = getCustomPageRewrite($page);
 	$result = "index.php?p=$page";
 
-	if (is_null($pageno) && in_context(NPG_ALBUM) && $_gallery_page != $page . '.php') {
-		$album = $_current_album->getUrAlbum();
-		$pageno = $album->getGalleryPage();
-	}
 	if ($pageno > 1) {
 		$result_r .= '/' . $pageno;
 		$result .= '&page=' . $pageno;
@@ -4588,7 +4586,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

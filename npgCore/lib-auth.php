@@ -1312,6 +1312,7 @@ class _Authority {
 	 */
 	function checkCookieCredentials() {
 		$auth = $cookie = getNPGCookie(AUTHCOOKIE);
+
 		if ($cookie) {
 			$idLoc = strrpos($cookie, '.');
 			if ($idLoc) {
@@ -1321,11 +1322,12 @@ class _Authority {
 				$id = 0;
 			}
 			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
-			clearNPGCookie(AUTHCOOKIE); //	we will refresh it if the authorization was successful
 			if ($loggedin) {
 				//	refresh the cookie so if he visits often enough it is persistent
 				setNPGCookie(AUTHCOOKIE, $cookie);
 				return $loggedin;
+			} else {
+				clearNPGCookie(AUTHCOOKIE);
 			}
 		}
 		return NULL;
@@ -1872,7 +1874,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

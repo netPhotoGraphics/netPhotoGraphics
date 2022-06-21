@@ -128,7 +128,7 @@ class Paginator extends Sanity implements \Iterator {
 	 * @return string|NULL
 	 */
 	public static function parseLink($link, $rel) {
-		if (!preg_match('(<([^>]+)>;\s*rel="' . preg_quote($rel) . '")', $link, $match)) {
+		if (empty($rel) || !preg_match('(<([^>]+)>;\s*rel="' . preg_quote($rel) . '")', $link, $match)) {
 			return NULL;
 		}
 

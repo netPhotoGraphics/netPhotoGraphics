@@ -9,7 +9,6 @@ global $_current_context_stack, $_HTML_cache;
 //	insure the site is secure if that is the site's intent
 httpsRedirect();
 
-
 if (!function_exists("json_encode")) {
 // load the drop-in replacement library
 	require_once(__DIR__ . '/lib-json.php');
@@ -17,6 +16,7 @@ if (!function_exists("json_encode")) {
 
 require_once(__DIR__ . '/lib-filter.php');
 require_once(__DIR__ . '/lib-kses.php');
+
 
 if (class_exists('tidy')) {
 
@@ -34,19 +34,6 @@ if (class_exists('tidy')) {
 		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
 		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
 		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
-	}
-
-}
-if (!function_exists('hex2bin')) {
-
-	function hex2bin($h) {
-		if (!is_string($h))
-			return null;
-		$r = '';
-		for ($a = 0; $a < strlen($h); $a += 2) {
-			$r .= chr(hexdec($h[$a] . $h[($a + 1)]));
-		}
-		return $r;
 	}
 
 }
@@ -70,7 +57,9 @@ if (function_exists('openssl_encrypt')) {
 	$_adminCript = NULL;
 }
 
+
 require_once(__DIR__ . '/load_objectClasses.php');
+
 
 $_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
 		array('field' => 'id', 'direction' => 'DESC', 'desc' => gettext('most recent')),

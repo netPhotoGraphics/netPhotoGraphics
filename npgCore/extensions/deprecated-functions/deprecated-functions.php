@@ -351,7 +351,7 @@ function ngettext_pl($msgid1, $msgid2, $n, $plugin) {
  */
 function isImageVideo($image = NULL) {
 	global $_current_image;
-	deprecated_functions::notify(gettext('Use <code>isVideo()</code> object method instead.'));
+	deprecated_functions::notify(gettext('Use <code>$imageObject->isVideo()</code> object method instead.'));
 	if (is_null($image)) {
 		if (!in_context(NPG_IMAGE)) {
 			return false;
@@ -371,7 +371,7 @@ function isImageVideo($image = NULL) {
  */
 function isImagePhoto($image = NULL) {
 	global $_current_image;
-	deprecated_functions::notify(gettext('Use <code>isPhoto()</code> object method instead.'));
+	deprecated_functions::notify(gettext('Use <code>$imageObject->isPhoto()</code> object method instead.'));
 	if (is_null($image)) {
 		if (!in_context(NPG_IMAGE))
 			return false;
@@ -398,7 +398,7 @@ function getUrAlbum($album) {
 
 /**
  * @deprecated since version 2.00.11
- * 
+ *
  * @param type $suffix
  * @return type
  */

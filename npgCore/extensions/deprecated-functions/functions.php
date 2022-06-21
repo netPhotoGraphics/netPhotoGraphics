@@ -25,6 +25,8 @@ function getPHPFiles($folder, $exclude, &$files = array()) {
 function formatList($title, $subject, $patterns, $started = FALSE) {
 	global $deprecated;
 	$emitted = false;
+
+	$subject = preg_replace('~/\* TODO:replaced .* \*/~i', '', $subject);
 	foreach ($patterns as $pattern) {
 		preg_match_all($pattern, $subject, $matches);
 		if ($matches && !empty($matches[0])) {

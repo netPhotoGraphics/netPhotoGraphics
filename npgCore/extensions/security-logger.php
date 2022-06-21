@@ -244,6 +244,9 @@ class security_logger {
 				case 3:
 					$message .= $aux1 . "\t";
 					break;
+				case 4:
+					$message .= '<span class="logwarning">' . gettext("Suspended") . "</span>\t";
+					break;
 			}
 			$message .= str_replace('_auth', '', $authority);
 			if ($addl) {

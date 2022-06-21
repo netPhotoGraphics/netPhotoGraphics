@@ -998,7 +998,11 @@ class AlbumBase extends MediaObject {
 	 * Date at which the album last discovered an image
 	 */
 	function getUpdatedDate() {
-		return $this->get('updateddate');
+		$dt = $this->get('updateddate');
+		if (!$dt) {
+			$dt = $this->getDateTime();
+		}
+		return $dt;
 	}
 
 	function setUpdatedDate($date) {

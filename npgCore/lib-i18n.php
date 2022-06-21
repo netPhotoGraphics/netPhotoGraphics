@@ -269,7 +269,7 @@ class i18n {
 
 		$locale = NULL;
 		if (!empty($userlocale)) {
-			$userlocale = strtoupper(str_replace('-', '_', $userlocale));
+			$userlocale = preg_quote(strtoupper(str_replace('-', '_', $userlocale)));
 			$languageSupport = self::generateLanguageList();
 
 			foreach ($languageSupport as $key => $value) {

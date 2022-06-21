@@ -25,7 +25,11 @@ function dbErrorReport($sql) {
  * @return type
  */
 function db_quote($string) {
-	return "'" . db_escape($string) . "'";
+	if ($string) {
+		$string = db_escape($string);
+	}
+	return $string = "'" . $string . "'";
+	;
 }
 
 /**
@@ -232,7 +236,7 @@ function sanitize_path($filename) {
  */
 function sanitize_numeric($num) {
 	if ($num) {
-		$f = filter_var(str_replace(',', '.', $num), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$f = filter_var(str_replace(',', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		if ($f) {
 			return (int) round($f);
 		}
@@ -734,7 +738,7 @@ function npg_session_start() {
 			session_abort(); //	close existing session which has different name
 		}
 		session_name($sessionName);
-//	insure that the session data has a place to be saved
+		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
 		}
@@ -743,7 +747,7 @@ function npg_session_start() {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-//	setup session cookie
+		//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
 				'path' => WEBPATH . '/',
@@ -797,26 +801,21 @@ function getNPGCookie($name) {
 		}
 		debugLog("getNPGCookie($name)::" . 'album_session=' . GALLERY_SESSION . "; SESSION[" . session_id() . "]=" . $sessionv . ", COOKIE=" . $cookiev);
 	}
-	if ($cookiev || !defined('GALLERY_SESSION') || !GALLERY_SESSION) {
-		return encodeNPGCookie($cookiev);
+	if (!defined('GALLERY_SESSION') || !GALLERY_SESSION) {
+		if (defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
+			if ($cookiev && !(strlen($cookiev) % 2)) {
+				if (preg_match('~^[0-9A-F]+$~i', $cookiev)) {
+					$cookiev = hex2bin($cookiev);
+				}
+				return rc4(getUserIP() . HASH_SEED, $cookiev);
+			}
+		}
+		return $cookiev;
 	}
 	if (isset($_SESSION[$name])) {
 		return $_SESSION[$name];
 	}
 	return NULL;
-}
-
-/**
- *
- * Encodes a cookie value tying it to the user IP
- * @param $value
- */
-function encodeNPGCookie($value) {
-	if (defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
-		return rc4(getUserIP() . HASH_SEED, $value);
-	} else {
-		return $value;
-	}
 }
 
 /**
@@ -829,11 +828,10 @@ function encodeNPGCookie($value) {
  * @param array $uniqueoptions setCookie options array / bool $security TRUE for a secure cookie
  */
 function setNPGCookie($name, $value, $time = NULL, $uniqueoptions = array()) {
-
-	if (empty($value)) {
-		$cookiev = '';
+	if ($value && defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
+		$cookiev = bin2hex(rc4(getUserIP() . HASH_SEED, $value));
 	} else {
-		$cookiev = encodeNPGCookie($value);
+		$cookiev = $value;
 	}
 	if (is_null($t = $time)) {
 		$t = time() + COOKIE_PERSISTENCE;
