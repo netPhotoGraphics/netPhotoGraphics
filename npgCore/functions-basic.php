@@ -828,7 +828,9 @@ function getNPGCookie($name) {
  * @param array $uniqueoptions setCookie options array / bool $security TRUE for a secure cookie
  */
 function setNPGCookie($name, $value, $time = NULL, $uniqueoptions = array()) {
-	if ($value && defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
+	if (is_null($value)) {
+		$cookiev = '';
+	} else if ($value && defined('IP_TIED_COOKIES') && IP_TIED_COOKIES) {
 		$cookiev = bin2hex(rc4(getUserIP() . HASH_SEED, $value));
 	} else {
 		$cookiev = $value;
