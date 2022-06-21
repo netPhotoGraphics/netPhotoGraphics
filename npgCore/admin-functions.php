@@ -1044,7 +1044,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 								case OPTION_TYPE_NUMBER:
 									$multilingual = false;
 									$clear = 'numeric';
-									if (!is_numeric(str_replace(',', '.', $v)))
+									if (!$v || !is_numeric(str_replace(',', '.', $v)))
 										$v = 0;
 									$wide = 'width: 100px';
 									if (isset($row['limits'])) {
