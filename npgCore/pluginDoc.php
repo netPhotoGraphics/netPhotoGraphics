@@ -43,6 +43,8 @@ function processDocBlock($docBlock) {
 			'&amp;percnt;' => '%',
 			'&lt;i&gt;' => '<em>',
 			'&lt;/i&gt;' => '</em>',
+			'&lt;em&gt;' => '<em>',
+			'&lt;/em&gt;' => '</em>',
 			'&lt;b&gt;' => '<strong>',
 			'&lt;/b&gt;' => '</strong>',
 			'&lt;code&gt;' => '<span class="inlinecode">',
