@@ -52,9 +52,14 @@ npgFilters::register('edit_image_utilities', 'xmpMetadata::create');
 npgFilters::register('bulk_image_actions', 'xmpMetadata::bulkActions');
 npgFilters::register('bulk_album_actions', 'xmpMetadata::bulkActions');
 
-require_once(dirname(__DIR__) . '/exif/exif.php');
+$ext = getOption('xmpMetadata_suffix');
+if (is_null($ext)) {
+	$ext = 'xmp';
+}
+define('XMP_EXTENSION', strtolower($ext));
+unset($ext);
 
-define('XMP_EXTENSION', strtolower(getOption('xmpMetadata_suffix')));
+require_once(dirname(__DIR__) . '/exif/exif.php');
 
 /**
  * Plugin option handling class

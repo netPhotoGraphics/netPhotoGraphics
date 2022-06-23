@@ -435,97 +435,99 @@ class SearchEngine {
 	 */
 	function setSearchParams($paramstr) {
 		$this->clearSearchWords();
-		$params = explode('&', $paramstr);
-		foreach ($params as $param) {
-			$e = strpos($param, '=');
-			$p = substr($param, 0, $e);
-			$v = substr($param, $e + 1);
-			switch ($p) {
-				case 'words':
-					$this->words = urldecode($v);
-					break;
-				case 'date':
-					$this->dates = sanitizeDate($v);
-					break;
-				case 'whichdates':
-					$this->whichdates = $v;
-					break;
-				case 'searchfields':
-					if (is_numeric($v)) {
-						$this->fieldList = $this->numericFields($v);
-					} else {
-						$this->fieldList = array();
-						$list = explode(',', strtolower($v));
-						foreach ($this->search_structure as $key => $row) {
-							if (in_array(strtolower($key), $list)) {
-								$this->fieldList[] = $key;
+		if (!empty($paramstr)) {
+			$params = explode('&', $paramstr);
+			foreach ($params as $param) {
+				$e = strpos($param, '=');
+				$p = substr($param, 0, $e);
+				$v = substr($param, $e + 1);
+				switch ($p) {
+					case 'words':
+						$this->words = urldecode($v);
+						break;
+					case 'date':
+						$this->dates = sanitizeDate($v);
+						break;
+					case 'whichdates':
+						$this->whichdates = $v;
+						break;
+					case 'searchfields':
+						if (is_numeric($v)) {
+							$this->fieldList = $this->numericFields($v);
+						} else {
+							$this->fieldList = array();
+							$list = explode(',', strtolower($v));
+							foreach ($this->search_structure as $key => $row) {
+								if (in_array(strtolower($key), $list)) {
+									$this->fieldList[] = $key;
+								}
 							}
 						}
-					}
-					break;
-				case 'page':
-					$this->page = $v;
-					break;
-				case 'albumname':
-					$alb = newAlbum($v, true, true);
-					if ($alb->loaded) {
-						$this->album = $alb;
-						$this->dynalbumname = $v;
-						$this->searchprivatetags = true;
-						$this->setSortType($this->album->getSortType('album'), 'album');
-						$this->setSortDirection($this->album->getSortDirection('album'), 'album');
-						$this->setSortType($this->album->getSortType(), 'image');
-						$this->setSortDirection($this->album->getSortDirection('image'), 'image');
-					}
-					break;
-				case 'inimages':
-					if (strlen($v) > 0) {
-						switch ($v) {
-							case "0":
-								$this->search_no_images = true;
-								setOption('search_no_images', 1, false);
-								break;
-							case "1":
-								$this->search_no_images = false;
-								setOption('search_no_images', 0, false);
-								break;
+						break;
+					case 'page':
+						$this->page = $v;
+						break;
+					case 'albumname':
+						$alb = newAlbum($v, true, true);
+						if ($alb->loaded) {
+							$this->album = $alb;
+							$this->dynalbumname = $v;
+							$this->searchprivatetags = true;
+							$this->setSortType($this->album->getSortType('album'), 'album');
+							$this->setSortDirection($this->album->getSortDirection('album'), 'album');
+							$this->setSortType($this->album->getSortType(), 'image');
+							$this->setSortDirection($this->album->getSortDirection('image'), 'image');
 						}
-					}
-					break;
-				case 'inalbums':
-					if (strlen($v) > 0) {
-						$list = explode(':', $v);
-						if (isset($list[1])) {
-							$v = (int) $list[0];
-							$list = explode(',', $list[1]);
-						} else {
-							$list = array();
+						break;
+					case 'inimages':
+						if (strlen($v) > 0) {
+							switch ($v) {
+								case "0":
+									$this->search_no_images = true;
+									setOption('search_no_images', 1, false);
+									break;
+								case "1":
+									$this->search_no_images = false;
+									setOption('search_no_images', 0, false);
+									break;
+							}
 						}
-						if (is_numeric($v)) {
-							$this->search_no_albums = $v == 0;
-							setOption('search_no_albums', (int) $this->search_no_albums, false);
-						} else {
-							$list = array($v);
+						break;
+					case 'inalbums':
+						if (strlen($v) > 0) {
+							$list = explode(':', $v);
+							if (isset($list[1])) {
+								$v = (int) $list[0];
+								$list = explode(',', $list[1]);
+							} else {
+								$list = array();
+							}
+							if (is_numeric($v)) {
+								$this->search_no_albums = $v == 0;
+								setOption('search_no_albums', (int) $this->search_no_albums, false);
+							} else {
+								$list = array($v);
+							}
+							$this->album_list = $list;
 						}
-						$this->album_list = $list;
-					}
-					break;
-				case 'exact_tag_match':
-				case 'exact_string_match':
-				case 'search_space_is':
-				case 'languageTagSearch':
-					setOption($p, $v, false);
-					break;
-				case 'unpublished':
-					$this->search_unpublished = (bool) $v;
-					break;
-				case 'privatetags':
-					$this->searchprivatetags = (bool) $v;
-					break;
+						break;
+					case 'exact_tag_match':
+					case 'exact_string_match':
+					case 'search_space_is':
+					case 'languageTagSearch':
+						setOption($p, $v, false);
+						break;
+					case 'unpublished':
+						$this->search_unpublished = (bool) $v;
+						break;
+					case 'privatetags':
+						$this->searchprivatetags = (bool) $v;
+						break;
 
-				default:
-					$this->extraparams[$p] = $v;
-					break;
+					default:
+						$this->extraparams[$p] = $v;
+						break;
+				}
 			}
 		}
 		if (!empty($this->words)) {
