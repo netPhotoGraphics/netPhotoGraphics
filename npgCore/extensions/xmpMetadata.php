@@ -1060,71 +1060,79 @@ class xmpMetadata {
 		} else {
 			$file = stripSuffix($object->localpath) . '.xmp';
 		}
-		chmod($file, 0777);
+		if (file_exists($file)) {
+			chmod($file, 0777);
+		}
 		$f = fopen($file, 'w');
+
 		fwrite($f, '<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2-c020 1.124078, Tue Sep 11 2007 23:21:40 ">' . "\n");
 		fwrite($f, ' <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">' . "\n");
 		$last_element = $special = $output = false;
 		foreach ($desiredtags as $field => $elementXML) {
-			$elementXML = substr($elementXML, 1, -1);
-			if ($last_element != $elementXML) {
-				if ($output) {
-					fwrite($f, '  </rdf:Description>' . "\n");
-					fwrite($f, '  <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">' . "\n");
+			if ($v = $object->get($field)) {
+				$elementXML = substr($elementXML, 1, -1);
+				if ($last_element != $elementXML) {
+					if ($output) {
+						fwrite($f, '  </rdf:Description>' . "\n");
+						fwrite($f, '  <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">' . "\n");
+					}
+					$last_element = $elementXML;
+					$output = false;
 				}
-				$last_element = $elementXML;
-				$output = false;
-			}
-			$v = self::encode($object->get($field));
-			$tag = $elementXML;
-			switch ($elementXML) {
-				case 'dc:creator':
-					$special = 'rdf:Seq';
-					$tag = 'rdf:li';
-					if ($v) {
-						fwrite($f, "   <$elementXML>\n");
-						fwrite($f, "    <$special>\n");
-						fwrite($f, "     <$tag>$v</$tag>\n");
-						fwrite($f, "    </$special>\n");
-						fwrite($f, "   </$elementXML>\n");
-						$output = true;
-					}
-					break;
-				case 'dc:rights':
-				case 'xapRights:UsageTerms':
-					$special = 'rdf:Alt';
-					$tag = 'rdf:li';
-					if ($v) {
-						fwrite($f, "   <$elementXML>\n");
-						fwrite($f, "    <$special>\n");
-						fwrite($f, "     <$tag>$v</$tag>\n");
-						fwrite($f, "    </$special>\n");
-						fwrite($f, "   </$elementXML>\n");
-						$output = true;
-					}
-					break;
-				case 'dc:subject':
-					$tags = $object->getTags(false);
-					if (!empty($tags)) {
-						fwrite($f, "   <$elementXML>\n");
-						fwrite($f, "    <rdf:Bag>\n");
-						foreach ($tags as $tag) {
-							fwrite($f, "     <rdf:li>" . self::encode($tag) . "</rdf:li>\n");
+
+				$v = self::encode($v);
+				$tag = $elementXML;
+				switch ($elementXML) {
+					case 'dc:creator':
+						$special = 'rdf:Seq';
+						$tag = 'rdf:li';
+						if ($v) {
+							fwrite($f, "   <$elementXML>\n");
+							fwrite($f, "    <$special>\n");
+							fwrite($f, "     <$tag>$v</$tag>\n");
+							fwrite($f, "    </$special>\n");
+							fwrite($f, "   </$elementXML>\n");
+							$output = true;
 						}
-						fwrite($f, "    </rdf:Bag>\n");
-						fwrite($f, "   </$elementXML>\n");
-						$output = true;
-					}
-					break;
-				default:
-					if ($v) {
-						fwrite($f, "   <$tag>$v</$tag>\n");
-						$output = true;
-					}
-					break;
+						break;
+					case 'dc:rights':
+					case 'xapRights:UsageTerms':
+						$special = 'rdf:Alt';
+						$tag = 'rdf:li';
+						if ($v) {
+							fwrite($f, "   <$elementXML>\n");
+							fwrite($f, "    <$special>\n");
+							fwrite($f, "     <$tag>$v</$tag>\n");
+							fwrite($f, "    </$special>\n");
+							fwrite($f, "   </$elementXML>\n");
+							$output = true;
+						}
+						break;
+					case 'dc:subject':
+						$tags = $object->getTags(false);
+						if (!empty($tags)) {
+							fwrite($f, "   <$elementXML>\n");
+							fwrite($f, "    <rdf:Bag>\n");
+							foreach ($tags as $tag) {
+								fwrite($f, "     <rdf:li>" . self::encode($tag) . "</rdf:li>\n");
+							}
+							fwrite($f, "    </rdf:Bag>\n");
+							fwrite($f, "   </$elementXML>\n");
+							$output = true;
+						}
+						break;
+					default:
+						if ($v) {
+							fwrite($f, "   <$tag>$v</$tag>\n");
+							$output = true;
+						}
+						break;
+				}
 			}
 		}
-		fwrite($f, '  </rdf:Description>' . "\n");
+		if ($output) {
+			fwrite($f, '  </rdf:Description>' . "\n");
+		}
 		fwrite($f, ' </rdf:RDF>' . "\n");
 		fwrite($f, '</x:xmpmeta>' . "\n");
 		fclose($f);
@@ -1142,7 +1150,7 @@ class xmpMetadata {
 	}
 
 	static function bulkActions($actions) {
-		return array_merge($actions, array(gettext('Export Metadata') => 'xmpMetadata::publish'));
+		return array_merge($actions, array(gettext('Export metadata') => 'xmpMetadata::publish'));
 	}
 
 }
