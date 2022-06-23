@@ -475,7 +475,11 @@ class _Authority {
 	 * @return list ($index,name)
 	 */
 	static function getHashAlgorithm($userdata) {
-		$info = password_get_info($userdata['pass']);
+		if (empty($userdata['pass'])) {
+			$info['algo'] = false;
+		} else {
+			$info = password_get_info($userdata['pass']);
+		}
 		if ($info['algo']) {
 			$name = ucfirst($info['algoName']);
 			$index = self::$hashList[$name];
@@ -1874,7 +1878,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
