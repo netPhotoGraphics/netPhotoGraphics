@@ -261,9 +261,16 @@ switch (OFFSET_PATH) {
 
 			$_zp_zenpage = clone $_CMS;
 
-			//define the useless legacy definitions
+			//define the legacy definitions
 			define('ZP_NEWS_ENABLED', $_CMS->news_enabled);
 			define('ZP_PAGES_ENABLED', $_CMS->pages_enabled);
+			define('ZP_ZENPAGE_NEWS_PAGE', ZENPAGE_NEWS_PAGE);
+			define('ZP_ZENPAGE_NEWS_ARTICLE', ZENPAGE_NEWS_ARTICLE);
+			define('ZP_ARTICLES_PER_PAGE', ARTICLES_PER_PAGE);
+			define('ZP_ZENPAGE_NEWS_CATEGORY', ZENPAGE_NEWS_CATEGORY);
+			define('ZP_ZENPAGE_NEWS_DATE', ZENPAGE_NEWS_DATE);
+			define('ZP_ZENPAGE_PAGE', ZENPAGE_PAGE);
+			define('ZP_ZENPAGE_SINGLE', ZENPAGE_SINGLE);
 		}
 
 		class zpFunctions extends npgFunctions {
@@ -286,13 +293,6 @@ switch (OFFSET_PATH) {
 		define('ZP_SEARCH_LINKED', SEARCH_LINKED);
 		define('ZP_ALBUM_LINKED', ALBUM_LINKED);
 		define('ZP_IMAGE_LINKED', IMAGE_LINKED);
-		define('ZP_ZENPAGE_NEWS_PAGE', ZENPAGE_NEWS_PAGE);
-		define('ZP_ZENPAGE_NEWS_ARTICLE', ZENPAGE_NEWS_ARTICLE);
-		define('ZP_ARTICLES_PER_PAGE', ARTICLES_PER_PAGE);
-		define('ZP_ZENPAGE_NEWS_CATEGORY', ZENPAGE_NEWS_CATEGORY);
-		define('ZP_ZENPAGE_NEWS_DATE', ZENPAGE_NEWS_DATE);
-		define('ZP_ZENPAGE_PAGE', ZENPAGE_PAGE);
-		define('ZP_ZENPAGE_SINGLE', ZENPAGE_SINGLE);
 
 		npgFilters::register('load_theme_script', 'zenphotoCompatibilityPack::scriptFilter', 99999);
 		npgFilters::register('next_object_loop', 'zenphotoCompatibilityPack::nextObjFilter', 99999);
