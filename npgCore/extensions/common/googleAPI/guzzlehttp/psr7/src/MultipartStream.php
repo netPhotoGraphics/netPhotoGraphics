@@ -1,4 +1,5 @@
 <?php
+
 namespace GuzzleHttp\Psr7;
 
 use Psr\Http\Message\StreamInterface;
@@ -6,6 +7,8 @@ use Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
+ *
+ * @final
  */
 class MultipartStream implements StreamInterface
 {
@@ -27,7 +30,7 @@ class MultipartStream implements StreamInterface
      */
     public function __construct(array $elements = [], $boundary = null)
     {
-        $this->boundary = $boundary ?: uniqid();
+        $this->boundary = $boundary ?: sha1(uniqid('', true));
         $this->stream = $this->createStream($elements);
     }
 
@@ -71,7 +74,7 @@ class MultipartStream implements StreamInterface
         }
 
         // Add the trailing boundary with CRLF
-        $stream->addStream(stream_for("--{$this->boundary}--\r\n"));
+        $stream->addStream(Utils::streamFor("--{$this->boundary}--\r\n"));
 
         return $stream;
     }
@@ -84,7 +87,7 @@ class MultipartStream implements StreamInterface
             }
         }
 
-        $element['contents'] = stream_for($element['contents']);
+        $element['contents'] = Utils::streamFor($element['contents']);
 
         if (empty($element['filename'])) {
             $uri = $element['contents']->getMetadata('uri');
@@ -100,23 +103,25 @@ class MultipartStream implements StreamInterface
             isset($element['headers']) ? $element['headers'] : []
         );
 
-        $stream->addStream(stream_for($this->getHeaders($headers)));
+        $stream->addStream(Utils::streamFor($this->getHeaders($headers)));
         $stream->addStream($body);
-        $stream->addStream(stream_for("\r\n"));
+        $stream->addStream(Utils::streamFor("\r\n"));
     }
 
     /**
      * @return array
      */
-    private function createElement($name, $stream, $filename, array $headers)
+    private function createElement($name, StreamInterface $stream, $filename, array $headers)
     {
         // Set a default content-disposition header if one was no provided
         $disposition = $this->getHeader($headers, 'content-disposition');
         if (!$disposition) {
             $headers['Content-Disposition'] = ($filename === '0' || $filename)
-                ? sprintf('form-data; name="%s"; filename="%s"',
+                ? sprintf(
+                    'form-data; name="%s"; filename="%s"',
                     $name,
-                    basename($filename))
+                    basename($filename)
+                )
                 : "form-data; name=\"{$name}\"";
         }
 
@@ -131,7 +136,7 @@ class MultipartStream implements StreamInterface
         // Set a default Content-Type if one was not supplied
         $type = $this->getHeader($headers, 'content-type');
         if (!$type && ($filename === '0' || $filename)) {
-            if ($type = mimetype_from_filename($filename)) {
+            if ($type = MimeType::fromFilename($filename)) {
                 $headers['Content-Type'] = $type;
             }
         }

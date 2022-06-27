@@ -13,6 +13,7 @@ namespace Monolog\Handler;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Logger;
+use Monolog\Utils;
 use Monolog\Handler\Slack\SlackRecord;
 
 /**
@@ -70,6 +71,11 @@ class SlackWebhookHandler extends AbstractProcessingHandler
         return $this->slackRecord;
     }
 
+    public function getWebhookUrl()
+    {
+        return $this->webhookUrl;
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -78,16 +84,21 @@ class SlackWebhookHandler extends AbstractProcessingHandler
     protected function write(array $record)
     {
         $postData = $this->slackRecord->getSlackData($record);
-        $postString = json_encode($postData);
+        $postString = Utils::jsonEncode($postData);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->webhookUrl);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $options = array(
+            CURLOPT_URL => $this->webhookUrl,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-type: application/json'),
+            CURLOPT_POSTFIELDS => $postString
+        );
         if (defined('CURLOPT_SAFE_UPLOAD')) {
-            curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
+            $options[CURLOPT_SAFE_UPLOAD] = true;
         }
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array('payload' => $postString));
+
+        curl_setopt_array($ch, $options);
 
         Curl\Util::execute($ch);
     }

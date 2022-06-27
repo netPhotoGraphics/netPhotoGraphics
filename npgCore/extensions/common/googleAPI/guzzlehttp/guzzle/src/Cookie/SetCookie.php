@@ -35,14 +35,13 @@ class SetCookie
         $data = self::$defaults;
         // Explode the cookie string using a series of semicolons
         $pieces = array_filter(array_map('trim', explode(';', $cookie)));
-        // The name of the cookie (first kvp) must include an equal sign.
-        if (empty($pieces) || !strpos($pieces[0], '=')) {
+        // The name of the cookie (first kvp) must exist and include an equal sign.
+        if (empty($pieces[0]) || !strpos($pieces[0], '=')) {
             return new self($data);
         }
 
         // Add the cookie pieces into the parsed data array
         foreach ($pieces as $part) {
-
             $cookieParts = explode('=', $part, 2);
             $key = trim($cookieParts[0]);
             $value = isset($cookieParts[1])
@@ -86,8 +85,8 @@ class SetCookie
     {
         $str = $this->data['Name'] . '=' . $this->data['Value'] . '; ';
         foreach ($this->data as $k => $v) {
-            if ($k != 'Name' && $k != 'Value' && $v !== null && $v !== false) {
-                if ($k == 'Expires') {
+            if ($k !== 'Name' && $k !== 'Value' && $v !== null && $v !== false) {
+                if ($k === 'Expires') {
                     $str .= 'Expires=' . gmdate('D, d M Y H:i:s \G\M\T', $v) . '; ';
                 } else {
                     $str .= ($v === true ? $k : "{$k}={$v}") . '; ';
@@ -228,7 +227,7 @@ class SetCookie
     /**
      * Get whether or not this is a secure cookie
      *
-     * @return null|bool
+     * @return bool|null
      */
     public function getSecure()
     {
@@ -248,7 +247,7 @@ class SetCookie
     /**
      * Get whether or not this is a session cookie
      *
-     * @return null|bool
+     * @return bool|null
      */
     public function getDiscard()
     {
@@ -307,7 +306,7 @@ class SetCookie
         $cookiePath = $this->getPath();
 
         // Match on exact matches or when path is the default empty "/"
-        if ($cookiePath == '/' || $cookiePath == $requestPath) {
+        if ($cookiePath === '/' || $cookiePath == $requestPath) {
             return true;
         }
 
@@ -317,12 +316,12 @@ class SetCookie
         }
 
         // Match if the last character of the cookie-path is "/"
-        if (substr($cookiePath, -1, 1) == '/') {
+        if (substr($cookiePath, -1, 1) === '/') {
             return true;
         }
 
         // Match if the first character not included in cookie path is "/"
-        return substr($requestPath, strlen($cookiePath), 1) == '/';
+        return substr($requestPath, strlen($cookiePath), 1) === '/';
     }
 
     /**
@@ -334,12 +333,19 @@ class SetCookie
      */
     public function matchesDomain($domain)
     {
+        $cookieDomain = $this->getDomain();
+        if (null === $cookieDomain) {
+            return true;
+        }
+
         // Remove the leading '.' as per spec in RFC 6265.
         // http://tools.ietf.org/html/rfc6265#section-5.2.3
-        $cookieDomain = ltrim($this->getDomain(), '.');
+        $cookieDomain = ltrim(strtolower($cookieDomain), '.');
+
+        $domain = strtolower($domain);
 
         // Domain not set or exact match.
-        if (!$cookieDomain || !strcasecmp($domain, $cookieDomain)) {
+        if ('' === $cookieDomain || $domain === $cookieDomain) {
             return true;
         }
 
@@ -349,7 +355,7 @@ class SetCookie
             return false;
         }
 
-        return (bool) preg_match('/\.' . preg_quote($cookieDomain) . '$/', $domain);
+        return (bool) preg_match('/\.' . preg_quote($cookieDomain, '/') . '$/', $domain);
     }
 
     /**
@@ -359,7 +365,7 @@ class SetCookie
      */
     public function isExpired()
     {
-        return $this->getExpires() && time() > $this->getExpires();
+        return $this->getExpires() !== null && time() > $this->getExpires();
     }
 
     /**
@@ -378,8 +384,8 @@ class SetCookie
         // Check if any of the invalid characters are present in the cookie name
         if (preg_match(
             '/[\x00-\x20\x22\x28-\x29\x2c\x2f\x3a-\x40\x5c\x7b\x7d\x7f]/',
-            $name)
-        ) {
+            $name
+        )) {
             return 'Cookie name must not contain invalid characters: ASCII '
                 . 'Control characters (0-31;127), space, tab and the '
                 . 'following characters: ()<>@,;:\"/?={}';
