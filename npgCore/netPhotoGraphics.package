@@ -18240,6 +18240,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/apiclient-services/src/YouTubeReporting/Resource/Media.php
 %extensions%/common/googleAPI/google/apiclient-services/src/YouTubeReporting/Resource/ReportTypes.php
 %extensions%/common/googleAPI/google/auth
+%extensions%/common/googleAPI/google/auth/.php-cs-fixer.dist.php
 %extensions%/common/googleAPI/google/auth/autoload.php
 %extensions%/common/googleAPI/google/auth/CHANGELOG.md
 %extensions%/common/googleAPI/google/auth/CODE_OF_CONDUCT.md
@@ -18290,6 +18291,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/auth/src/Middleware/SimpleMiddleware.php
 %extensions%/common/googleAPI/guzzlehttp
 %extensions%/common/googleAPI/guzzlehttp/guzzle
+%extensions%/common/googleAPI/guzzlehttp/guzzle/.php_cs
 %extensions%/common/googleAPI/guzzlehttp/guzzle/CHANGELOG.md
 %extensions%/common/googleAPI/guzzlehttp/guzzle/composer.json
 %extensions%/common/googleAPI/guzzlehttp/guzzle/Dockerfile
@@ -18364,10 +18366,18 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/guzzlehttp/promises/src/TaskQueueInterface.php
 %extensions%/common/googleAPI/guzzlehttp/promises/src/Utils.php
 %extensions%/common/googleAPI/guzzlehttp/psr7
+%extensions%/common/googleAPI/guzzlehttp/psr7/.php_cs.dist
 %extensions%/common/googleAPI/guzzlehttp/psr7/CHANGELOG.md
 %extensions%/common/googleAPI/guzzlehttp/psr7/composer.json
 %extensions%/common/googleAPI/guzzlehttp/psr7/LICENSE
 %extensions%/common/googleAPI/guzzlehttp/psr7/README.md
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/FUNDING.yml
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/stale.yml
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/workflows
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/workflows/ci.yml
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/workflows/integration.yml
+%extensions%/common/googleAPI/guzzlehttp/psr7/.github/workflows/static.yml
 %extensions%/common/googleAPI/guzzlehttp/psr7/src
 %extensions%/common/googleAPI/guzzlehttp/psr7/src/AppendStream.php
 %extensions%/common/googleAPI/guzzlehttp/psr7/src/BufferStream.php
@@ -18515,11 +18525,15 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/monolog/monolog/src/Monolog/Processor/WebProcessor.php
 %extensions%/common/googleAPI/paragonie
 %extensions%/common/googleAPI/paragonie/constant_time_encoding
+%extensions%/common/googleAPI/paragonie/constant_time_encoding/.gitignore
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/composer.json
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/LICENSE.txt
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/phpunit.xml.dist
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/psalm.xml
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/README.md
+%extensions%/common/googleAPI/paragonie/constant_time_encoding/.github
+%extensions%/common/googleAPI/paragonie/constant_time_encoding/.github/workflows
+%extensions%/common/googleAPI/paragonie/constant_time_encoding/.github/workflows/ci.yml
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/src
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/src/Base32.php
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/src/Base32Hex.php
@@ -18567,6 +18581,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/phpseclib/phpseclib/composer.json
 %extensions%/common/googleAPI/phpseclib/phpseclib/LICENSE
 %extensions%/common/googleAPI/phpseclib/phpseclib/README.md
+%extensions%/common/googleAPI/phpseclib/phpseclib/.github
+%extensions%/common/googleAPI/phpseclib/phpseclib/.github/FUNDING.yml
+%extensions%/common/googleAPI/phpseclib/phpseclib/.github/workflows
+%extensions%/common/googleAPI/phpseclib/phpseclib/.github/workflows/ci.yml
 %extensions%/common/googleAPI/phpseclib/phpseclib/phpseclib
 %extensions%/common/googleAPI/phpseclib/phpseclib/phpseclib/bootstrap.php
 %extensions%/common/googleAPI/phpseclib/phpseclib/phpseclib/openssl.cnf
@@ -20340,4 +20358,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20342
+20360
