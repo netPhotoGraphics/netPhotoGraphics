@@ -30,8 +30,8 @@
 # /uploaded/
 /uploaded/*
 
-# /zp-data/
-/zp-data/*
+# /npgData/
+/npgData/*
 
 # /backup/
 /backup/*

@@ -1080,7 +1080,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/firebase/php-jwt
 %extensions%/common/googleAPI/firebase/php-jwt/composer.json
 %extensions%/common/googleAPI/firebase/php-jwt/LICENSE
-%extensions%/common/googleAPI/firebase/php-jwt/README.md
 %extensions%/common/googleAPI/firebase/php-jwt/src
 %extensions%/common/googleAPI/firebase/php-jwt/src/BeforeValidException.php
 %extensions%/common/googleAPI/firebase/php-jwt/src/ExpiredException.php
@@ -1092,8 +1091,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/apiclient
 %extensions%/common/googleAPI/google/apiclient/composer.json
 %extensions%/common/googleAPI/google/apiclient/LICENSE
-%extensions%/common/googleAPI/google/apiclient/README.md
-%extensions%/common/googleAPI/google/apiclient/SECURITY.md
 %extensions%/common/googleAPI/google/apiclient/src
 %extensions%/common/googleAPI/google/apiclient/src/aliases.php
 %extensions%/common/googleAPI/google/apiclient/src/Client.php
@@ -1115,7 +1112,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/apiclient/src/Http/REST.php
 %extensions%/common/googleAPI/google/apiclient/src/Service
 %extensions%/common/googleAPI/google/apiclient/src/Service/Exception.php
-%extensions%/common/googleAPI/google/apiclient/src/Service/README.md
 %extensions%/common/googleAPI/google/apiclient/src/Service/Resource.php
 %extensions%/common/googleAPI/google/apiclient/src/Task
 %extensions%/common/googleAPI/google/apiclient/src/Task/Composer.php
@@ -1128,9 +1124,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/apiclient-services/autoload.php
 %extensions%/common/googleAPI/google/apiclient-services/composer.json
 %extensions%/common/googleAPI/google/apiclient-services/LICENSE
-%extensions%/common/googleAPI/google/apiclient-services/README.md
 %extensions%/common/googleAPI/google/apiclient-services/renovate.json
-%extensions%/common/googleAPI/google/apiclient-services/SECURITY.md
 %extensions%/common/googleAPI/google/apiclient-services/src
 %extensions%/common/googleAPI/google/apiclient-services/src/AbusiveExperienceReport.php
 %extensions%/common/googleAPI/google/apiclient-services/src/Acceleratedmobilepageurl.php
@@ -18242,14 +18236,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/google/auth
 %extensions%/common/googleAPI/google/auth/.php-cs-fixer.dist.php
 %extensions%/common/googleAPI/google/auth/autoload.php
-%extensions%/common/googleAPI/google/auth/CHANGELOG.md
-%extensions%/common/googleAPI/google/auth/CODE_OF_CONDUCT.md
 %extensions%/common/googleAPI/google/auth/composer.json
 %extensions%/common/googleAPI/google/auth/COPYING
 %extensions%/common/googleAPI/google/auth/LICENSE
-%extensions%/common/googleAPI/google/auth/README.md
 %extensions%/common/googleAPI/google/auth/renovate.json
-%extensions%/common/googleAPI/google/auth/SECURITY.md
 %extensions%/common/googleAPI/google/auth/src
 %extensions%/common/googleAPI/google/auth/src/AccessToken.php
 %extensions%/common/googleAPI/google/auth/src/ApplicationDefaultCredentials.php
@@ -18292,12 +18282,9 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/guzzlehttp
 %extensions%/common/googleAPI/guzzlehttp/guzzle
 %extensions%/common/googleAPI/guzzlehttp/guzzle/.php_cs
-%extensions%/common/googleAPI/guzzlehttp/guzzle/CHANGELOG.md
 %extensions%/common/googleAPI/guzzlehttp/guzzle/composer.json
 %extensions%/common/googleAPI/guzzlehttp/guzzle/Dockerfile
 %extensions%/common/googleAPI/guzzlehttp/guzzle/LICENSE
-%extensions%/common/googleAPI/guzzlehttp/guzzle/README.md
-%extensions%/common/googleAPI/guzzlehttp/guzzle/UPGRADING.md
 %extensions%/common/googleAPI/guzzlehttp/guzzle/src
 %extensions%/common/googleAPI/guzzlehttp/guzzle/src/Client.php
 %extensions%/common/googleAPI/guzzlehttp/guzzle/src/ClientInterface.php
@@ -18341,11 +18328,9 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/guzzlehttp/guzzle/src/Handler/Proxy.php
 %extensions%/common/googleAPI/guzzlehttp/guzzle/src/Handler/StreamHandler.php
 %extensions%/common/googleAPI/guzzlehttp/promises
-%extensions%/common/googleAPI/guzzlehttp/promises/CHANGELOG.md
 %extensions%/common/googleAPI/guzzlehttp/promises/composer.json
 %extensions%/common/googleAPI/guzzlehttp/promises/LICENSE
 %extensions%/common/googleAPI/guzzlehttp/promises/Makefile
-%extensions%/common/googleAPI/guzzlehttp/promises/README.md
 %extensions%/common/googleAPI/guzzlehttp/promises/src
 %extensions%/common/googleAPI/guzzlehttp/promises/src/AggregateException.php
 %extensions%/common/googleAPI/guzzlehttp/promises/src/CancellationException.php
@@ -18367,10 +18352,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/guzzlehttp/promises/src/Utils.php
 %extensions%/common/googleAPI/guzzlehttp/psr7
 %extensions%/common/googleAPI/guzzlehttp/psr7/.php_cs.dist
-%extensions%/common/googleAPI/guzzlehttp/psr7/CHANGELOG.md
 %extensions%/common/googleAPI/guzzlehttp/psr7/composer.json
 %extensions%/common/googleAPI/guzzlehttp/psr7/LICENSE
-%extensions%/common/googleAPI/guzzlehttp/psr7/README.md
 %extensions%/common/googleAPI/guzzlehttp/psr7/.github
 %extensions%/common/googleAPI/guzzlehttp/psr7/.github/FUNDING.yml
 %extensions%/common/googleAPI/guzzlehttp/psr7/.github/stale.yml
@@ -18412,11 +18395,9 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/guzzlehttp/psr7/src/Utils.php
 %extensions%/common/googleAPI/monolog
 %extensions%/common/googleAPI/monolog/monolog
-%extensions%/common/googleAPI/monolog/monolog/CHANGELOG.md
 %extensions%/common/googleAPI/monolog/monolog/composer.json
 %extensions%/common/googleAPI/monolog/monolog/LICENSE
 %extensions%/common/googleAPI/monolog/monolog/phpstan.neon.dist
-%extensions%/common/googleAPI/monolog/monolog/README.md
 %extensions%/common/googleAPI/monolog/monolog/src
 %extensions%/common/googleAPI/monolog/monolog/src/Monolog
 %extensions%/common/googleAPI/monolog/monolog/src/Monolog/ErrorHandler.php
@@ -18530,7 +18511,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/LICENSE.txt
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/phpunit.xml.dist
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/psalm.xml
-%extensions%/common/googleAPI/paragonie/constant_time_encoding/README.md
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/.github
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/.github/workflows
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/.github/workflows/ci.yml
@@ -18577,10 +18557,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/phpseclib
 %extensions%/common/googleAPI/phpseclib/phpseclib
 %extensions%/common/googleAPI/phpseclib/phpseclib/AUTHORS
-%extensions%/common/googleAPI/phpseclib/phpseclib/BACKERS.md
 %extensions%/common/googleAPI/phpseclib/phpseclib/composer.json
 %extensions%/common/googleAPI/phpseclib/phpseclib/LICENSE
-%extensions%/common/googleAPI/phpseclib/phpseclib/README.md
 %extensions%/common/googleAPI/phpseclib/phpseclib/.github
 %extensions%/common/googleAPI/phpseclib/phpseclib/.github/FUNDING.yml
 %extensions%/common/googleAPI/phpseclib/phpseclib/.github/workflows
@@ -18966,20 +18944,16 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/phpseclib/phpseclib/phpseclib/System/SSH/Common/Traits/ReadBytes.php
 %extensions%/common/googleAPI/psr
 %extensions%/common/googleAPI/psr/cache
-%extensions%/common/googleAPI/psr/cache/CHANGELOG.md
 %extensions%/common/googleAPI/psr/cache/composer.json
 %extensions%/common/googleAPI/psr/cache/LICENSE.txt
-%extensions%/common/googleAPI/psr/cache/README.md
 %extensions%/common/googleAPI/psr/cache/src
 %extensions%/common/googleAPI/psr/cache/src/CacheException.php
 %extensions%/common/googleAPI/psr/cache/src/CacheItemInterface.php
 %extensions%/common/googleAPI/psr/cache/src/CacheItemPoolInterface.php
 %extensions%/common/googleAPI/psr/cache/src/InvalidArgumentException.php
 %extensions%/common/googleAPI/psr/http-message
-%extensions%/common/googleAPI/psr/http-message/CHANGELOG.md
 %extensions%/common/googleAPI/psr/http-message/composer.json
 %extensions%/common/googleAPI/psr/http-message/LICENSE
-%extensions%/common/googleAPI/psr/http-message/README.md
 %extensions%/common/googleAPI/psr/http-message/src
 %extensions%/common/googleAPI/psr/http-message/src/MessageInterface.php
 %extensions%/common/googleAPI/psr/http-message/src/RequestInterface.php
@@ -18991,7 +18965,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/psr/log
 %extensions%/common/googleAPI/psr/log/composer.json
 %extensions%/common/googleAPI/psr/log/LICENSE
-%extensions%/common/googleAPI/psr/log/README.md
 %extensions%/common/googleAPI/psr/log/Psr
 %extensions%/common/googleAPI/psr/log/Psr/Log
 %extensions%/common/googleAPI/psr/log/Psr/Log/AbstractLogger.php
@@ -19010,7 +18983,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/ralouphie/getallheaders
 %extensions%/common/googleAPI/ralouphie/getallheaders/composer.json
 %extensions%/common/googleAPI/ralouphie/getallheaders/LICENSE
-%extensions%/common/googleAPI/ralouphie/getallheaders/README.md
 %extensions%/common/googleAPI/ralouphie/getallheaders/src
 %extensions%/common/googleAPI/ralouphie/getallheaders/src/getallheaders.php
 %extensions%/common/googleAPI/symfony
@@ -19020,7 +18992,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/Idn.php
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/Info.php
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/LICENSE
-%extensions%/common/googleAPI/symfony/polyfill-intl-idn/README.md
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/Resources
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/Resources/unidata
 %extensions%/common/googleAPI/symfony/polyfill-intl-idn/Resources/unidata/deviation.php
@@ -19037,7 +19008,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/composer.json
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/LICENSE
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/Normalizer.php
-%extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/README.md
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/Resources
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/Resources/stubs
 %extensions%/common/googleAPI/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php
@@ -19051,7 +19021,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/symfony/polyfill-php70/composer.json
 %extensions%/common/googleAPI/symfony/polyfill-php70/LICENSE
 %extensions%/common/googleAPI/symfony/polyfill-php70/Php70.php
-%extensions%/common/googleAPI/symfony/polyfill-php70/README.md
 %extensions%/common/googleAPI/symfony/polyfill-php70/Resources
 %extensions%/common/googleAPI/symfony/polyfill-php70/Resources/stubs
 %extensions%/common/googleAPI/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php
@@ -19066,7 +19035,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/symfony/polyfill-php72/composer.json
 %extensions%/common/googleAPI/symfony/polyfill-php72/LICENSE
 %extensions%/common/googleAPI/symfony/polyfill-php72/Php72.php
-%extensions%/common/googleAPI/symfony/polyfill-php72/README.md
 %extensions%/common/jquerymobile
 %extensions%/common/jquerymobile/jquery.mobile-1.4.5.min.css
 %extensions%/common/jquerymobile/jquery.mobile-1.4.5.min.js
@@ -20358,4 +20326,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20360
+20328
