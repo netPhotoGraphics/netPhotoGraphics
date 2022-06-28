@@ -37,7 +37,7 @@ function getResidentFiles($folder, $exclude) {
 	$dir = opendir($folder);
 	while (($file = readdir($dir)) !== false) {
 		$file = str_replace('\\', '/', $file);
-		if ($file != '.' && $file != '..' && !in_array($file, $exclude)) {
+		if (!in_array($file, $exclude)) {
 			if (is_dir($folder . '/' . $file)) {
 				if ($file != 'session' && is_readable($folder . '/' . $file)) {
 					getResidentFiles($folder . '/' . $file, $exclude);
@@ -48,8 +48,9 @@ function getResidentFiles($folder, $exclude) {
 				}
 			} else {
 				$entry = $folder . '/' . $file;
-				if (CASE_INSENSITIVE)
+				if (CASE_INSENSITIVE) {
 					$entry = strtolower($entry);
+				}
 				$_resident_files[] = $entry;
 			}
 		}
