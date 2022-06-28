@@ -108,7 +108,7 @@ class getid3_quicktime extends getid3_handler
 			unset($info['avdataend_tmp']);
 		}
 
-		if (isset($info['quicktime']['comments']['chapters']) && is_array($info['quicktime']['comments']['chapters']) && (count($info['quicktime']['comments']['chapters']) > 0)) {
+		if (!empty($info['quicktime']['comments']['chapters']) && is_array($info['quicktime']['comments']['chapters']) && (count($info['quicktime']['comments']['chapters']) > 0)) {
 			$durations = $this->quicktime_time_to_sample_table($info);
 			for ($i = 0; $i < count($info['quicktime']['comments']['chapters']); $i++) {
 				$bookmark = array();
@@ -258,9 +258,7 @@ class getid3_quicktime extends getid3_handler
 		} else {
 			switch ($atomname) {
 				case 'moov': // MOVie container atom
-				case 'moof': // MOvie Fragment box
 				case 'trak': // TRAcK container atom
-				case 'traf': // TRAck Fragment box
 				case 'clip': // CLIPping container atom
 				case 'matt': // track MATTe container atom
 				case 'edts': // EDiTS container atom
@@ -1542,21 +1540,6 @@ $this->warning('incomplete/incorrect handling of "stsd" with Parrot metadata in 
 					unset($mdat_offset, $chapter_string_length, $chapter_matches);
 					break;
 
-				case 'ID32': // ID3v2
-					getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.tag.id3v2.php', __FILE__, true);
-
-					$getid3_temp = new getID3();
-					$getid3_temp->openfile($this->getid3->filename, $this->getid3->info['filesize'], $this->getid3->fp);
-					$getid3_id3v2 = new getid3_id3v2($getid3_temp);
-					$getid3_id3v2->StartingOffset = $atom_structure['offset'] + 14; // framelength(4)+framename(4)+flags(4)+??(2)
-					if ($atom_structure['valid'] = $getid3_id3v2->Analyze()) {
-						$atom_structure['id3v2'] = $getid3_temp->info['id3v2'];
-					} else {
-						$this->warning('ID32 frame at offset '.$atom_structure['offset'].' did not parse');
-					}
-					unset($getid3_temp, $getid3_id3v2);
-					break;
-
 				case 'free': // FREE space atom
 				case 'skip': // SKIP atom
 				case 'wide': // 64-bit expansion placeholder atom
@@ -1716,8 +1699,7 @@ $this->warning('incomplete/incorrect handling of "stsd" with Parrot metadata in 
 					$atom_structure['language'] =                           substr($atom_data, 4 + 0, 2);
 					$atom_structure['unknown']  = getid3_lib::BigEndian2Int(substr($atom_data, 4 + 2, 2));
 					$atom_structure['data']     =                           substr($atom_data, 4 + 4);
-					$atom_structure['key_name'] = (isset($info['quicktime']['temp_meta_key_names'][$metaDATAkey]) ? $info['quicktime']['temp_meta_key_names'][$metaDATAkey] : '');
-					$metaDATAkey++;
+					$atom_structure['key_name'] = @$info['quicktime']['temp_meta_key_names'][$metaDATAkey++];
 
 					if ($atom_structure['key_name'] && $atom_structure['data']) {
 						@$info['quicktime']['comments'][str_replace('com.apple.quicktime.', '', $atom_structure['key_name'])][] = $atom_structure['data'];
@@ -2092,28 +2074,6 @@ $this->warning('incomplete/incorrect handling of "stsd" with Parrot metadata in 
 					$atom_structure['track_number'] = getid3_lib::BigEndian2Int($atom_data);
 					break;
 
-
-// AVIF-related - https://docs.rs/avif-parse/0.13.2/src/avif_parse/boxes.rs.html
-				case 'pitm': // Primary ITeM
-				case 'iloc': // Item LOCation
-				case 'iinf': // Item INFo
-				case 'iref': // Image REFerence
-				case 'iprp': // Image PRoPerties
-$this->error('AVIF files not currently supported');
-					$atom_structure['data'] = $atom_data;
-					break;
-
-				case 'tfdt': // Track Fragment base media Decode Time box
-				case 'tfhd': // Track Fragment HeaDer box
-				case 'mfhd': // Movie Fragment HeaDer box
-				case 'trun': // Track fragment RUN box
-$this->error('fragmented mp4 files not currently supported');
-					$atom_structure['data'] = $atom_data;
-					break;
-
-				case 'mvex': // MoVie EXtends box
-				case 'pssh': // Protection System Specific Header box
-				case 'sidx': // Segment InDeX box
 				default:
 					$this->warning('Unknown QuickTime atom type: "'.preg_replace('#[^a-zA-Z0-9 _\\-]#', '?', $atomname).'" ('.trim(getid3_lib::PrintHexBytes($atomname)).'), '.$atomsize.' bytes at offset '.$baseoffset);
 					$atom_structure['data'] = $atom_data;
