@@ -389,6 +389,8 @@ class imageProcessing {
 				if ($cy < 0) {
 					$ch = $ch + $cy;
 					$cy = 0;
+				} else {
+					$cy = (int) $cy;
 				}
 				if (DEBUG_IMAGE) {
 					debugLog("imageProcessing::cache:crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate");
