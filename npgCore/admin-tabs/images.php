@@ -283,7 +283,7 @@ echo "\n</head>";
 					gettext('*Bulk actions*') => 'noaction',
 					gettext('Delete') => 'deleteall',
 					gettext('Set to published') => 'showall',
-					gettext('Set to unpublished') => 'hideall',
+					gettext('Set to unpublished') => 'hideall'
 			);
 
 			$checkarray_albums = array_merge($checkarray_images, array(
@@ -293,7 +293,8 @@ echo "\n</head>";
 			$checkarray_images = array_merge($checkarray_images, array(
 					gettext('Delete') => 'deleteall',
 					gettext('Move') => array('name' => 'moveimages', 'action' => 'mass_movecopy_data'),
-					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data')
+					gettext('Copy') => array('name' => 'copyimages', 'action' => 'mass_movecopy_data'),
+					gettext('Refresh metadata') => 'refresh_metadata'
 							)
 			);
 			$checkarray_images = npgFilters::apply('bulk_image_actions', $checkarray_images);

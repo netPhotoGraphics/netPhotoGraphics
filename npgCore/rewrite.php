@@ -227,7 +227,7 @@ $_definitions = array();
 if (isset($_conf_vars['special_pages'])) {
 	foreach ($_conf_vars['special_pages'] as $definition) {
 		if (isset($definition['define']) && $definition['define']) {
-			define($definition['define'], strtr($definition['rewrite'], $_definitions));
+			define($definition['define'], strtr($definition['rewrite'] ? $definition['rewrite'] : $definition['default'], $_definitions));
 			eval('$_definitions[$definition[\'define\']]=' . $definition['define'] . ';');
 		}
 	}

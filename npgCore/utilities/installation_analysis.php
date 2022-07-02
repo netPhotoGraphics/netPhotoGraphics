@@ -276,7 +276,7 @@ echo '</head>';
 								?>
 								<li>
 									<?php
-									echo gettext('Image handlers') . ':<br.>';
+									echo gettext('Image handlers') . ':<br />';
 									$handlers = array();
 									ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
 									foreach ($_images_classes as $suffix => $handler) {
@@ -482,8 +482,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-								var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-								$('.overview_list').height(height);
+										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+										$('.overview_list').height(height);
 </script>
 
 <?php

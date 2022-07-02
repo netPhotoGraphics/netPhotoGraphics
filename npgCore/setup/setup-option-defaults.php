@@ -737,9 +737,11 @@ $strftimeXlate = array(
 		'%t' => "\t" // A Tab character ("\t")	---
 );
 $old = getOption('date_format');
-$new = strtr($old, $strftimeXlate);
-if ($old != $new) {
-	setOption('date_format', $new);
+if ($old) {
+	$new = strtr($old, $strftimeXlate);
+	if ($old != $new) {
+		setOption('date_format', $new);
+	}
 }
 setOptionDefault('date_format', '%x');
 

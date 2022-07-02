@@ -129,7 +129,7 @@ if (isset($_GET['purge'])) {
 						break;
 				}
 			} else {
-				if (SYMLINK && symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
+				if (SYMLINK && @symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
 						case 'zp-core':

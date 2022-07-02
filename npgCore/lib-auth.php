@@ -464,7 +464,7 @@ class _Authority {
 		if ($admin) {
 			return self::newAdministrator($admin['user'], $admin['valid']);
 		} else {
-			return NULL;
+			return false;
 		}
 	}
 
@@ -475,7 +475,11 @@ class _Authority {
 	 * @return list ($index,name)
 	 */
 	static function getHashAlgorithm($userdata) {
-		$info = password_get_info($userdata['pass']);
+		if (empty($userdata['pass'])) {
+			$info['algo'] = false;
+		} else {
+			$info = password_get_info($userdata['pass']);
+		}
 		if ($info['algo']) {
 			$name = ucfirst($info['algoName']);
 			$index = self::$hashList[$name];
