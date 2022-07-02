@@ -74,5 +74,4 @@ local.properties
 /favicon.ico
 *.bat
 *.sh
-.*
 /docto.exe
