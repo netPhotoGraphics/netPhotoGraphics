@@ -18506,7 +18506,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/monolog/monolog/src/Monolog/Processor/WebProcessor.php
 %extensions%/common/googleAPI/paragonie
 %extensions%/common/googleAPI/paragonie/constant_time_encoding
-%extensions%/common/googleAPI/paragonie/constant_time_encoding/.gitignore
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/composer.json
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/LICENSE.txt
 %extensions%/common/googleAPI/paragonie/constant_time_encoding/phpunit.xml.dist
@@ -20326,4 +20325,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20328
+20327
