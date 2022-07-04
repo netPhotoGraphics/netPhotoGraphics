@@ -1752,7 +1752,7 @@ function printCustomAlbumThumbImage($alt, $args, $class = false, $id = NULL, $ti
 	global $_current_album;
 
 	if (!is_array($args)) {
-		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'title');
+		$a = array(NULL, 'size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'title');
 		$p = func_get_args();
 		unset($p[0]); //	$alt
 		$args = array();
@@ -3130,13 +3130,14 @@ function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title =
 			$args['thumb'] = NULL;
 		}
 	} else {
-		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'thumb', 'effects', 'title');
+		$a = array(NULL, 'size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'thumb', 'effects', 'title');
 		$p = func_get_args();
 		unset($p[0]); //	$alt
 		$args = array();
 		foreach ($p as $k => $v) {
 			$args[$a[$k]] = $v;
 		}
+
 		if (array_key_exists('class', $args)) {
 			$class = $args['class'];
 			unset($args['class']);
