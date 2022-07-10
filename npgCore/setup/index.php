@@ -1778,9 +1778,13 @@ clearstatcache();
 								</script>
 								<?php
 							}
-							$debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
-							$debug = $debug[1];
-							if (!strpos($debug, 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
+							clearstatcache();
+							//	if the install is a new version, the NETPHOTOGRAPHICS_VERSION define will not be updated
+							//	by the debug plugin, so we fecth the actual PHP file to be sure to be current.
+							$debug = file_get_contents(CORE_SERVERPATH . '/version.php');
+							preg_match('~define\(\'NETPHOTOGRAPHICS_VERSION\',\s+\'(.*)\'\);~im', $debug, $matches);
+							$debug = explode('-', $matches[1] . '-');
+							if (!strpos($debug[1], 'UNPROTECT') && npgFunctions::hasPrimaryScripts()) {
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
 							} else {
 								$query = '';
