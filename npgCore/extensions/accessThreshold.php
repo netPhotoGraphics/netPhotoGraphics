@@ -144,11 +144,11 @@ class accessThreshold {
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
-if ($me = !npg_loggedin()) {
-	$me = getOption('accessThreshold_Owner');
+if ($me = $_current_admin_obj && !$_current_admin_obj->transient) {
+	$me = getUserIP() == getOption('accessThreshold_Owner');
 }
 
-if ($me && getUserIP() != $me) {
+if (!$me) {
 	$monitor = getOption('accessThreshold_Monitor');
 	$mu = new npgMutex('aT');
 	$mu->lock();
