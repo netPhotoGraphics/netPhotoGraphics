@@ -3636,7 +3636,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					foreach ($emptylang as $key => $lang) {
 						$flag = getLanguageFlag($key);
 						?>
-						<option value="<?php echo $key; ?>" data-image="<?php echo $flag; ?>" alt="<?php echo $key; ?>"<?php if ($key == $locale) echo ' selected="selected"' ?>>
+						<option value="<?php echo $key; ?>" data-image="<?php echo $flag; ?>" alt="<?php echo $key; ?>" width="24" height="16"<?php if ($key == $locale) echo ' selected="selected"' ?>>
 							<?php echo $lang; ?>
 						</option>
 						<?php

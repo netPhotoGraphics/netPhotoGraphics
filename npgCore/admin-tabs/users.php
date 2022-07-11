@@ -996,7 +996,7 @@ echo $refresh;
 																?>
 																<li id="<?php echo $lang . '_' . $id; ?>"<?php if ($current) echo ' class="currentLanguage"'; ?>>
 																	<a onclick="languageChange('<?php echo $id; ?>', '<?php echo $lang; ?>');" >
-																		<img src="<?php echo $flags[$lang]; ?>" alt="<?php echo $text; ?>" title="<?php echo $text; ?>" />
+																		<img src="<?php echo $flags[$lang]; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
 																	</a>
 																</li>
 																<?php
