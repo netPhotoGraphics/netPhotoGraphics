@@ -144,11 +144,19 @@ class accessThreshold {
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
-if ($me = !npg_loggedin()) {
-	$me = getOption('accessThreshold_Owner');
+
+if (!$me = $_current_admin_obj && !$_current_admin_obj->transient) {
+	$me = getUserIP() == getOption('accessThreshold_Owner');
+} else {
+	if ($_current_admin_obj->master) {
+		if (getOption('accessThreshold_Owner') != $ip = getUserIP()) {
+			//	keep it mostly current if the user does not have a static IP
+			setOption('accessThreshold_Owner', $ip);
+		}
+	}
 }
 
-if ($me && getUserIP() != $me) {
+if (!$me) {
 	$monitor = getOption('accessThreshold_Monitor');
 	$mu = new npgMutex('aT');
 	$mu->lock();

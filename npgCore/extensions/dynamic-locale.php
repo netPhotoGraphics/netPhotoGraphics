@@ -151,14 +151,14 @@ function printLanguageSelector($flags = NULL) {
 				if ($current) {
 					?>
 					<li class="currentLanguage">
-						<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" title="<?php echo $text; ?>" />
+						<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
 					</li>
 					<?php
 				} else {
 					?>
 					<li>
 						<a href="<?php echo html_encode($path); ?>" >
-							<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" title="<?php echo $text; ?>" />
+							<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
 						</a>
 					</li>
 					<?php
