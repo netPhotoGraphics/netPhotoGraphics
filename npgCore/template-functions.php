@@ -4364,6 +4364,12 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 	} else if (!is_null($_CMS_current_article)) {
 		$authType = $_CMS_current_article->checkAccess($hint, $show);
 		return $authType;
+	} else if (!is_null($_CMS_current_page)) {
+		$authType = $_CMS_current_page->checkAccess($hint, $show);
+		return $authType;
+	} else if (!is_null($_CMS_current_category)) {
+		$authType = $_CMS_current_category->checkAccess($hint, $show);
+		return $authType;
 	} else if (isset($_GET['album'])) { // album page
 		list($album, $image) = rewrite_get_album_image('album', 'image');
 		if ($authType = checkAlbumPassword($album, $hint)) {
@@ -4406,11 +4412,13 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 function checkAccess(&$hint = NULL, &$show = NULL) {
 	global $_current_album, $_current_search, $_gallery, $_gallery_page,
 	$_CMS_current_page, $_CMS_current_article;
+
 	if (GALLERY_SECURITY != 'public') { // only registered users allowed
 		$show = true; //	therefore they will need to supply their user id if something fails below
 	} else if (is_null($show)) {
 		$show = $_gallery->getUserLogonField();
 	}
+
 	if ($_gallery->isUnprotectedPage(stripSuffix($_gallery_page)))
 		return true;
 	if (npg_loggedin()) {

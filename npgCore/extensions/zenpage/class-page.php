@@ -249,7 +249,9 @@ class Page extends CMSItems {
 				return $authType;
 			} else {
 				$user = $pageobj->getUser();
-				$show = (!empty($user));
+				if (!empty($user)) {
+					$show = true;
+				}
 				$hint = $pageobj->getPasswordHint();
 				return false;
 			}
