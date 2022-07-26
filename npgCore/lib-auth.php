@@ -543,6 +543,7 @@ class _Authority {
 		$rights = 0;
 		$criteria = array('`pass`=' => $authCode, '`id`=' => (int) $id, '`valid`=' => 1);
 		$user = $this->getAnAdmin($criteria);
+
 		if (is_object($user)) {
 			//	force new logon to update password hash if his algorithm is deprecated
 			list($strength, $name) = self::getHashAlgorithm($user->getData());
@@ -555,6 +556,7 @@ class _Authority {
 				return $rights;
 			}
 		}
+
 		$_current_admin_obj = NULL;
 		if (DEBUG_LOGIN) {
 			debugLog("checkAuthorization: no match");
@@ -1347,7 +1349,7 @@ class _Authority {
 	 * @param string $hint optional hint for the password
 	 *
 	 */
-	function printLoginForm($redirect = null, $logo = true, $showUserField = true, $deprecated = NULL, $hint = '') {
+	function printLoginForm($redirect = null, $logo = true, $showUserField = true, $deprecated = NULL, $hint = NULL) {
 		global $_login_error, $_captcha, $_gallery;
 
 		if (is_null($logo)) {
@@ -1357,7 +1359,6 @@ class _Authority {
 			$redirect = getRequestURI();
 		}
 		$redirect = npgFilters::apply('login_redirect_link', $redirect);
-
 		if (is_null($showUserField)) {
 			$showUserField = $_gallery->getUserLogonField();
 		}
