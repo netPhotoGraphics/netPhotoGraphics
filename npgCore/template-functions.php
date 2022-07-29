@@ -4347,13 +4347,13 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 	global $_gallery, $_gallery_page, $_CMS_current_page, $_CMS_current_category, $_CMS_current_article;
 	if (in_context(NPG_SEARCH)) { // search page
 		$hash = getOption('search_password');
-		if (getOption('search_user') != '')
+		if (!getOption('search_user'))
 			$show = true;
 		$hint = get_language_string(getOption('search_hint'));
 		$authType = 'search_auth';
 		if (empty($hash)) {
 			$hash = $_gallery->getPassword();
-			if ($_gallery->getUser() != '')
+			if (!$_gallery->getUser())
 				$show = true;
 			$hint = $_gallery->getPasswordHint();
 			$authType = 'gallery_auth';
@@ -4364,19 +4364,25 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 	} else if (!is_null($_CMS_current_article)) {
 		$authType = $_CMS_current_article->checkAccess($hint, $show);
 		return $authType;
+	} else if (!is_null($_CMS_current_page)) {
+		$authType = $_CMS_current_page->checkAccess($hint, $show);
+		return $authType;
+	} else if (!is_null($_CMS_current_category)) {
+		$authType = $_CMS_current_category->checkAccess($hint, $show);
+		return $authType;
 	} else if (isset($_GET['album'])) { // album page
 		list($album, $image) = rewrite_get_album_image('album', 'image');
 		if ($authType = checkAlbumPassword($album, $hint)) {
 			return $authType;
 		} else {
 			$alb = newAlbum($album);
-			if ($alb->getUser() != '')
+			if (!$alb->getUser())
 				$show = true;
 			return false;
 		}
 	} else { // other page
 		$hash = $_gallery->getPassword();
-		if ($_gallery->getUser() != '') {
+		if (!$_gallery->getUser()) {
 			$show = true;
 		}
 		$hint = $_gallery->getPasswordHint();
@@ -4406,11 +4412,13 @@ function checkForGuest(&$hint = NULL, &$show = NULL) {
 function checkAccess(&$hint = NULL, &$show = NULL) {
 	global $_current_album, $_current_search, $_gallery, $_gallery_page,
 	$_CMS_current_page, $_CMS_current_article;
+
 	if (GALLERY_SECURITY != 'public') { // only registered users allowed
 		$show = true; //	therefore they will need to supply their user id if something fails below
 	} else if (is_null($show)) {
 		$show = $_gallery->getUserLogonField();
 	}
+
 	if ($_gallery->isUnprotectedPage(stripSuffix($_gallery_page)))
 		return true;
 	if (npg_loggedin()) {
@@ -4453,7 +4461,7 @@ function checkAccess(&$hint = NULL, &$show = NULL) {
  *
  * @since 1.1.3
  */
-function printPasswordForm($_password_hint, $_password_showuser = NULL, $_password_showProtected = true, $password_redirect = NULL, $showLogo = NULL) {
+function printPasswordForm($password_hint, $password_showuser = NULL, $password_showProtected = true, $password_redirect = NULL, $showLogo = NULL) {
 	global $_login_error, $_password_form_printed, $_current_search, $_gallery, $_gallery_page,
 	$_current_album, $_current_image, $theme, $_CMS_current_page, $_authority;
 	if ($_password_form_printed)
@@ -4478,7 +4486,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 	?>
 	<div id="passwordform">
 		<?php
-		if ($_password_showProtected && !$_login_error) {
+		if ($password_showProtected && !$_login_error) {
 			?>
 			<p>
 				<?php echo gettext("The page you are trying to view is password protected."); ?>
@@ -4491,7 +4499,7 @@ function printPasswordForm($_password_hint, $_password_showuser = NULL, $_passwo
 			<a href="<?php echo $loginlink; ?>" title="<?php echo $logintext; ?>"><?php echo $logintext; ?></a>
 			<?php
 		} else {
-			$_authority->printLoginForm($password_redirect, $showLogo, $_password_showuser, NULL, $_password_hint);
+			$_authority->printLoginForm($password_redirect, $showLogo, $password_showuser, NULL, $password_hint);
 		}
 		?>
 	</div>
@@ -4587,7 +4595,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

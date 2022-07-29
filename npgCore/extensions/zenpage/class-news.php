@@ -315,7 +315,11 @@ class Article extends CMSItems {
 			if ($catobj->checkforGuest($hint, $show) || $catobj->subRights()) {
 				return true;
 			}
+			if (!$hint) {
+				$hint = $catobj->getPasswordHint();
+			}
 		}
+
 		return false;
 	}
 

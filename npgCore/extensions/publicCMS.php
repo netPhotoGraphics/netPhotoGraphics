@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Normally a <em>private</em> gallery is not accessable to anyone but the registered
+ * Normally a <em>private</em> gallery is not accessible to anyone but the registered
  * users. There is a gallery option to expose particular pages (such as the index.php page
  * or the register.php page) to site visitors.
  *
@@ -9,7 +9,7 @@
  * to include CMS items such as specific <em>pages</em> or article <em>categories</em>. (This is probably
  * not very useful unless the <code>index.php</code> script is also made public in the gallery options!)
  *
- * Any CMS <em>page</em> or <em>category</em> you select in the options will be accessable by not logged in site
+ * Any CMS <em>page</em> or <em>category</em> you select in the options will be accessible by not logged in site
  * visitors. In addition, articles that are not in a <em>category</em> can also be accessed.
  * (Public sites also have this behavior--password protection only applies to defined
  * CMS <em>categories</em>.)
