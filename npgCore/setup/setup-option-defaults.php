@@ -32,7 +32,11 @@ if (isset($_GET['debug'])) {
 } else {
 	$debug = '';
 }
-if (defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false) {
+if ($test_release = getOption('markRelease_state')) {
+	$test_release = strpos($test_release, '-DEBUG');
+}
+$testRelease = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
+if ($testRelease) {
 	$fullLog = '&fullLog';
 } else {
 	$fullLog = false;

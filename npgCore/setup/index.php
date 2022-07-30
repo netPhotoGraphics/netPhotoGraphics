@@ -541,7 +541,10 @@ if (!isset($_setupCurrentLocale_result) || empty($_setupCurrentLocale_result)) {
 	if (DEBUG_LOCALE)
 		debugLog('$_setupCurrentLocale_result = ' . $_setupCurrentLocale_result);
 }
-$testRelease = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false;
+if ($test_release = getOption('markRelease_state')) {
+	$test_release = strpos($test_release, '-DEBUG');
+}
+$testRelease = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
 
 $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"));
 clearstatcache();
@@ -1686,7 +1689,7 @@ clearstatcache();
 												'AND TABLE_NAME = "' . trim(prefix('albums'), '`') . '" ' .
 												'AND COLUMN_NAME = "title"';
 								$result = query_single_row($sql);
-								if (array_pop($result) == 'utf8mb4_unicode_ci') {
+								if ($result && array_pop($result) == 'utf8mb4_unicode_ci') {
 									$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 									$_config_contents = configFile::update('UTF-8', 'utf8mb4', $_config_contents);
 									configFile::store($_config_contents);
