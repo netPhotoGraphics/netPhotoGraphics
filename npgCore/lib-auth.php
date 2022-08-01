@@ -459,7 +459,7 @@ class _Authority {
 			$selector[] = $select['field'] . $select['op'] . $value;
 		}
 		$sql = 'SELECT `user`, `valid` FROM ' . prefix('administrators') . ' WHERE ' . implode(' AND ', $selector);
-		$admin = query_single_row($sql);
+		$admin = query_single_row($sql, false);
 
 		if ($admin) {
 			return self::newAdministrator($admin['user'], $admin['valid']);
@@ -517,16 +517,6 @@ class _Authority {
 			debugLogBacktrace("checkAuthorization($authCode, $id)");
 		}
 
-		$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1', false);
-		if (empty($row)) {
-			if (DEBUG_LOGIN) {
-				debugLog("checkAuthorization: no admins");
-			}
-			$_current_admin_obj = new npg_Administrator('', 1);
-			$_current_admin_obj->set('id', 0);
-			$_current_admin_obj->reset = true;
-			return ADMIN_RIGHTS;
-		}
 		if (is_object($_current_admin_obj) && $_current_admin_obj->reset) {
 			if (DEBUG_LOGIN) {
 				debugLog("checkAuthorization: reset request");
@@ -1335,6 +1325,18 @@ class _Authority {
 			} else {
 				clearNPGCookie(AUTHCOOKIE);
 			}
+		} else {
+			global $_current_admin_obj;
+			$row = query_single_row('SELECT `id` FROM ' . prefix('administrators') . 'WHERE `valid`=1', false);
+			if (empty($row)) {
+				if (DEBUG_LOGIN) {
+					debugLog("checkAuthorization: no admins");
+				}
+				$_current_admin_obj = new npg_Administrator('', 1);
+				$_current_admin_obj->set('id', 0);
+				$_current_admin_obj->reset = true;
+				return ADMIN_RIGHTS;
+			}
 		}
 		return NULL;
 	}
@@ -1879,7 +1881,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
