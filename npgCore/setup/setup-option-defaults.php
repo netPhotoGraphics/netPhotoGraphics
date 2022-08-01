@@ -100,9 +100,7 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 }
 
 $thirdParty = $deprecated = false;
-setOptionDefault('deprecated_functions_signature', NULL);
 //set plugin default options by instantiating the options interface
-setOptionDefault('deprecated_functions_signature', NULL);
 $plugins = getPluginFiles('*.php');
 $plugins = array_keys($plugins);
 $plugin_links = array();
@@ -171,7 +169,7 @@ foreach ($themes as $key => $theme) {
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
 $list = range(0, strlen($salt) - 1);
 if (!isset($setOptions['extra_auth_hash_text'])) {
-// setup a hash seed
+	// setup a hash seed
 	$auth_extratext = "";
 	shuffle($list);
 	for ($i = 0; $i < 30; $i++) {
@@ -1171,13 +1169,20 @@ if (!empty($themes) || !empty($userPlugins)) {
 		if ($current['signature'] != $prior['signature'] || !empty($newThemes) | !empty($newPlugins)) {
 			setOption('deprecated_functions_signature', serialize($current));
 			enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
-			setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
+			if (!empty($prior['signature'])) {
+				setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
+			}
 		}
 	}
 }
 
 $compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
-$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), getSerializedArray(getOption('zenphotoCompatibilityPack_signature')));
+$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+if (empty($compatibilityWas)) {
+	$compatibilityWas = $compatibilityIs;
+} else {
+	$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), $compatibilityWas);
+}
 $newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $_npg_plugins);
 $newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
 
