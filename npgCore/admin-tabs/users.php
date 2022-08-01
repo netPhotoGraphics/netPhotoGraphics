@@ -716,8 +716,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -726,7 +726,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -926,8 +926,7 @@ echo $refresh;
 
 														<p>
 															<?php echo gettext("Email"); ?><br />
-															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_email-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_email]"
-																		 value="<?php echo html_encode($userobj->getEmail()); ?>"<?php if (in_array('email', $no_change)) echo ' disabled="disabled"'; ?> />
+															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_email-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_email]" value="<?php echo html_encode($userobj->getEmail()); ?>"<?php if (in_array('email', $no_change)) echo ' disabled="disabled"'; ?>  readonly onfocus="this.removeAttribute('readonly');" />
 														</p>
 														<?php
 														if ($userobj->getEmail() && npgFilters::has_filter('sendmail')) {
