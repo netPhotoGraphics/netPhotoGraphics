@@ -127,46 +127,50 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					break;
 				/** restore the setup files ************************************************** */
 				case 'restore_setup':
-					XSRFdefender('restore_setup');
-					list($diff, $needs) = checkSignature(2);
-					if (empty($needs)) {
-						$class = 'messagebox fade-message';
-						$msg = gettext('Setup files restored.');
-					} else {
-						npgFilters::apply('log_setup', false, 'restore', implode(', ', $needs));
-						$class = 'errorbox fade-message';
-						$msg = gettext('Setup files restore failed.');
+					if (npgFunctions::hasPrimaryScripts()) {
+						XSRFdefender('restore_setup');
+						list($diff, $needs) = checkSignature(2);
+						if (empty($needs)) {
+							$class = 'messagebox fade-message';
+							$msg = gettext('Setup files restored.');
+						} else {
+							npgFilters::apply('log_setup', false, 'restore', implode(', ', $needs));
+							$class = 'errorbox fade-message';
+							$msg = gettext('Setup files restore failed.');
+						}
 					}
 					break;
 
 				/** protect the setup files ************************************************** */
 				case 'protect_setup':
-					XSRFdefender('protect_setup');
-					chdir(CORE_SERVERPATH . 'setup/');
-					$list = safe_glob('*.php');
-					$exempt = array('setup-functions.php', 'icon.php');
+					if (npgFunctions::hasPrimaryScripts()) {
+						XSRFdefender('protect_setup');
+						chdir(CORE_SERVERPATH . 'setup/');
+						$list = safe_glob('*.php');
+						$exempt = array('setup-functions.php', 'icon.php');
 
-					$rslt = array();
-					foreach ($list as $component) {
-						if (in_array($component, $exempt)) { // some plugins may need these.
-							continue;
+						$rslt = array();
+						foreach ($list as $component) {
+							if (in_array($component, $exempt)) { // some plugins may need these.
+								continue;
+							}
+							chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
+							if (rename(CORE_SERVERPATH . 'setup/' . $component, CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx')) {
+								chmod(CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
+							} else {
+								chmod(CORE_SERVERPATH . 'setup/' . $component, FILE_MOD);
+								$rslt[] = $component;
+							}
 						}
-						chmod(CORE_SERVERPATH . 'setup/' . $component, 0777);
-						if (rename(CORE_SERVERPATH . 'setup/' . $component, CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx')) {
-							chmod(CORE_SERVERPATH . 'setup/' . stripSuffix($component) . '.xxx', FILE_MOD);
+						if (empty($rslt)) {
+							npgFilters::apply('log_setup', true, 'protect', gettext('protected'));
+							$class = 'messagebox fade-message';
+							$msg = gettext('Setup files protected.');
 						} else {
-							chmod(CORE_SERVERPATH . 'setup/' . $component, FILE_MOD);
-							$rslt[] = $component;
+							npgFilters::apply('log_setup', false, 'protect', implode(', ', $rslt));
+							$class = 'errorbox fade-message';
+							$msg = gettext('Protecting setup files failed.');
 						}
-					}
-					if (empty($rslt)) {
-						npgFilters::apply('log_setup', true, 'protect', gettext('protected'));
-						$class = 'messagebox fade-message';
-						$msg = gettext('Setup files protected.');
-					} else {
-						npgFilters::apply('log_setup', false, 'protect', implode(', ', $rslt));
-						$class = 'errorbox fade-message';
-						$msg = gettext('Protecting setup files failed.');
 					}
 					break;
 
