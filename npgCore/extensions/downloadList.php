@@ -7,7 +7,7 @@
  * The download folder can be relative to your installation  root (<i>foldername</i>) or external to it (<i>../foldername</i>).
  * By default the <var>%UPLOAD_FOLDER%</var> folder is chosen so you can use the file manager to manage those files.
  *
- * You can also override that folder by using the <var>printdownloadList()</var> function parameters directly. Additionally
+ * You can also override that folder by using the <var>printDownloadList()</var> function parameters directly. Additionally
  * you can set a downloadlink to a specific file directly by using <code>printDownloadURL(<i>path-to-file</i>);<code>.
  *
  * Use <var>printDownloadAlbumZipURL()</var> function to create a zipfile of an album <i>on the fly</i>.
@@ -68,7 +68,7 @@ class DownloadList {
 	function getOptionsSupported() {
 		$options = array(gettext('Download directory') => array('key' => 'downloadList_directory', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 2,
-						'desc' => gettext("This download folder can be relative to your installation (<em>foldername</em>) or external to it (<em>../foldername</em>)! You can override this setting by using the parameter of the printdownloadList() directly on calling.")),
+						'desc' => gettext("This download folder can be relative to your installation (<em>foldername</em>) or external to it (<em>../foldername</em>)! You can override this setting by using the parameter of the printDownloadList() directly on calling.")),
 				gettext('Show filesize of download items') => array('key' => 'downloadList_showfilesize', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 3,
 						'desc' => ''),
@@ -441,11 +441,11 @@ class AlbumZip {
  * @param array $excludesuffixes an array of file suffixes (without trailing dot to exclude from the list (e.g. "jpg")
  * @param string $sort 'asc" or "desc" (default) for alphabetical ascending or descending list
  */
-function printdownloadList($dir = '', $listtype = 'ol', $filters = array(), $excludesuffixes = '', $sort = 'desc') {
+function printDownloadList($dir = '', $listtype = 'ol', $filters = array(), $excludesuffixes = '', $sort = 'desc') {
 	if (!($listtype == 'ol' || $listtype == 'ul')) {
 		$listtype = 'ol';
 	}
-	$files = getdownloadList($dir, $filters, $excludesuffixes, $sort);
+	$files = getDownloadList($dir, $filters, $excludesuffixes, $sort);
 	echo '<' . $listtype . ' class="downloadList">';
 	DownloadList::printListArray($files, $listtype);
 	echo '</' . $listtype . '>';
@@ -463,7 +463,7 @@ function printdownloadList($dir = '', $listtype = 'ol', $filters = array(), $exc
  * @param string $sort 'asc" or "desc" (default) for alphabetical ascending or descending list
  * @return array
  */
-function getdownloadList($dir8, $filters8, $excludesuffixes, $sort) {
+function getDownloadList($dir8, $filters8, $excludesuffixes, $sort) {
 	$filters = Array('Thumbs.db');
 	foreach ($filters8 as $key => $file) {
 		$filters[$key] = internalToFilesystem($file);
@@ -499,7 +499,7 @@ function getdownloadList($dir8, $filters8, $excludesuffixes, $sort) {
 		if (isset($file[0]) && $file[0] != '.') { //	exclude "hidden" files
 			if (is_dir(internalToFilesystem($dir) . '/' . $file)) {
 				$dirN = filesystemToInternal($dir) . "/" . filesystemToInternal($file);
-				$dir_array[$file] = getdownloadList($dirN, $filters8, $excludesuffixes, $sort);
+				$dir_array[$file] = getDownloadList($dirN, $filters8, $excludesuffixes, $sort);
 			} else {
 				if (!in_array(getSuffix($file), $excludesuffixes)) {
 					$dir_array[$file] = $dir . '/' . filesystemToInternal($file);

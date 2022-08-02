@@ -167,8 +167,8 @@ if (!defined('WEBPATH'))
 				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
 			}
 			?>
-	<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
-<?php npgFilters::apply('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

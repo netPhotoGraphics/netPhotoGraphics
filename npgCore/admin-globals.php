@@ -52,7 +52,6 @@ if (abs(OFFSET_PATH) != 2) {
 			}
 		}
 
-
 		foreach ($enabled as $extension => $plugin) {
 			$priority = $plugin['priority'];
 			if ($priority & $mask) {

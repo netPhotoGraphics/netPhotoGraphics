@@ -159,6 +159,7 @@ $filelist = array_slice($pluginlist, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PA
 echo "\n</head>";
 echo "\n<body>";
 printLogoAndLinks();
+
 echo "\n" . '<div id="main">';
 
 printTabs();

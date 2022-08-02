@@ -16,7 +16,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-functions.php');
 npg_session_start();
 
 //Google API PHP Library includes
-require_once(CORE_SERVERPATH .  PLUGIN_FOLDER . '/common/googleAPI/autoload.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/common/googleAPI/autoload.php');
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
 $client_id = getOption('googleLogin_ClientID');
 $client_secret = getOption('googleLogin_ClientSecret');
