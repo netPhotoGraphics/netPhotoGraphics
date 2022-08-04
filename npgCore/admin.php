@@ -255,7 +255,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 				/** default ****************************************************************** */
 				default:
 					$func = preg_replace('~\(.*\);*~', '', $action);
-					if (in_array($func, $_admin_button_actions)) {
+					if (is_array($_admin_button_actions) && in_array($func, $_admin_button_actions)) {
 						call_user_func($action);
 					}
 					break;
