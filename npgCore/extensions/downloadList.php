@@ -400,7 +400,7 @@ class AlbumZip {
 		}
 		self::AddAlbum($album, $fromcache, $subalbums, 0);
 		if (class_exists('ZipArchive')) {
-			$zipfileFS = tempnam('', 'zip');
+			$zipfileFS = stripSuffix(tempnam(sys_get_temp_dir(), 'zip')) . '.zip';
 			$zip = new ZipArchive;
 			$zip->open($zipfileFS, ZipArchive::CREATE);
 			foreach ($_zip_list as $path => $file) {
