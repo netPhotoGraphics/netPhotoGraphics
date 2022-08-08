@@ -716,8 +716,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -726,7 +726,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -777,13 +777,15 @@ echo $refresh;
 																$msg .= ' ' . gettext('This is the master user account. If you delete it another user will be promoted to master user.');
 															}
 															?>
-															<span class="floatright">
+															<span class="floatright padded">
 																<?php
 																if (!$pending && $_current_admin_obj && $user['user'] != $_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo getAdminLink('admin-tabs/users.php'); ?>?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
-																			 <?php echo BULLSEYE_BLUE; ?>
+
+																		<?php echo BULLSEYE_BLUE; ?>
+
 																	</a>
 																	<?php
 																} else {
@@ -791,7 +793,7 @@ echo $refresh;
 																}
 																?>
 															</span>
-															<span class="floatright">
+															<span class="floatright padded">
 																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
 																	 title="<?php echo gettext('Delete this user.'); ?>" style="color: #c33;">
 																		 <?php echo WASTEBASKET; ?>
@@ -800,7 +802,7 @@ echo $refresh;
 															<?php
 															if (isset($user['lastaccess'])) {
 																?>
-																<div class="floatright">
+																<div class="floatright padded">
 																	<?php
 																	$online = $user['lastaccess'];
 																	if ($online > $stamp) {
@@ -809,7 +811,7 @@ echo $refresh;
 																		printf('Last visited %1$s', formattedDate(DATE_FORMAT, $online));
 																	}
 																	?>
-																	&nbsp;&nbsp;&nbsp;&nbsp;
+
 																	</span>
 																	<?php
 																}
