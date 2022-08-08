@@ -23,7 +23,7 @@
  *
  * 		In particular, there should be array elements for:
  * 				'id' (unique), 'valid' , 'user' (unique),	'pass',	'name', 'email', 'rights',
- * 				'group', 'other_credentials', 'lastloggedin' and 'date
+ * 				'group', 'other_credentials', 'lastloggedin', 'lastaccess', and 'date
  *
  * 		So long as all these indices are populated it should not matter when and where
  * 		the data is stored.

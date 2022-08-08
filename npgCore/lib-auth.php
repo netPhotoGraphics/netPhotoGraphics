@@ -17,7 +17,7 @@ class _Authority {
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
 	static $supports_version = 4;
-	//NOTE: if you add to $hashList you must add the alfrithm handling to the passwordHash() function
+//NOTE: if you add to $hashList you must add the alfrithm handling to the passwordHash() function
 	static $hashList = array('md5' => 0, 'sha1' => 1, 'pbkdf2*' => 2, 'pbkdf2' => 3, 'Bcrypt' => 4, 'Argon2i' => 5, 'Argon2id' => 6);
 
 	/**
@@ -46,7 +46,7 @@ class _Authority {
 					if (isset(self::$hashList[ucfirst(PASSWORD_DEFAULT)])) {
 						define('PASSWORD_FUNCTION_DEFAULT', self::$hashList[ucfirst(PASSWORD_DEFAULT)]);
 					} else {
-						//	we need to add a new hash algorithm to the list!
+//	we need to add a new hash algorithm to the list!
 						define('PASSWORD_FUNCTION_DEFAULT', end(self::$hashList));
 					}
 				}
@@ -100,7 +100,7 @@ class _Authority {
 	protected static function getHashList($fullList = false) {
 		$full = $encodings = array_reverse(self::$hashList);
 
-		//	deprecate encodings
+//	deprecate encodings
 		unset($encodings['pbkdf2*']);
 		if (!defined('PASSWORD_ARGON2ID')) {
 			unset($encodings['Argon2id']);
@@ -288,7 +288,7 @@ class _Authority {
 				$hash = sha1($user . $pass . HASH_SEED);
 				break;
 			case 2:
-				//	deprecated because of possible "+" in the text
+//	deprecated because of possible "+" in the text
 				$hash = base64_encode(self::pbkdf2($pass, $user . HASH_SEED));
 				break;
 			case 3:
@@ -413,7 +413,7 @@ class _Authority {
 		if (empty($list)) {
 			$sql = 'SELECT ' .
 							// per requirements from class-auth return the following fields
-							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `date`' .
+							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `lastaccess`, `date`' .
 							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
 			$admins = query($sql, false);
 			if ($admins) {
@@ -535,7 +535,7 @@ class _Authority {
 		$user = $this->getAnAdmin($criteria);
 
 		if (is_object($user)) {
-			//	force new logon to update password hash if his algorithm is deprecated
+//	force new logon to update password hash if his algorithm is deprecated
 			list($strength, $name) = self::getHashAlgorithm($user->getData());
 			if ($strength >= PASSWORD_FUNCTION_DEFAULT) {
 				$_current_admin_obj = $user;
@@ -586,7 +586,7 @@ class _Authority {
 			}
 
 			if ($userobj && $type < PASSWORD_FUNCTION_DEFAULT) {
-				//	update his password hash to more modern one
+//	update his password hash to more modern one
 				$userobj->setPass($pass);
 				$userobj->save();
 			}
@@ -686,15 +686,15 @@ class _Authority {
 						$newrights = $currentrights['ALL_RIGHTS']['value'];
 					} else {
 						if ($newrights & $currentrights['MANAGE_ALL_ALBUM_RIGHTS']['value']) {
-							// these are lock-step linked!
+// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ALBUM_RIGHTS']['value'];
 						}
 						if ($newrights & $currentrights['MANAGE_ALL_NEWS_RIGHTS']['value']) {
-							// these are lock-step linked!
+// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ZENPAGE_NEWS_RIGHTS']['value'];
 						}
 						if ($newrights & $currentrights['MANAGE_ALL_PAGES_RIGHTS']['value']) {
-							// these are lock-step linked!
+// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ZENPAGE_PAGES_RIGHTS']['value'];
 						}
 					}
@@ -1102,7 +1102,7 @@ class _Authority {
 					$ref = sha1($request_date . $user . $tuser['pass']);
 					if ($ref === $ticket) {
 						if (time() <= ($request_date + (3 * 24 * 60 * 60))) {
-							// limited time offer
+// limited time offer
 							$_current_admin_obj = new npg_Administrator($user, 1);
 							$_current_admin_obj->reset = true;
 						}
@@ -1289,7 +1289,7 @@ class _Authority {
 		$_pre_authorization = array();
 		npg_session_destroy();
 
-		//	try to prevent browser, etc. from using logged-on versions of pages
+//	try to prevent browser, etc. from using logged-on versions of pages
 		if (getOption('SecureLogout')) {
 			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
 		} else {
@@ -1319,7 +1319,7 @@ class _Authority {
 			}
 			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
 			if ($loggedin) {
-				//	refresh the cookie so if he visits often enough it is persistent
+//	refresh the cookie so if he visits often enough it is persistent
 				setNPGCookie(AUTHCOOKIE, $cookie);
 				return $loggedin;
 			} else {
@@ -1881,7 +1881,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1924,17 +1924,17 @@ class _Authority {
 		$hl = strlen(hash($a, false, true)); # Hash length
 		$kb = ceil($kl / $hl); # Key blocks to compute
 		$dk = ''; # Derived key
-		# Create key
+# Create key
 		for ($block = 1; $block <= $kb; $block++) {
-			# Initial hash for this block
+# Initial hash for this block
 			$ib = $b = hash_hmac($a, $s . pack('N', $block), $p, true);
-			# Perform block iterations
+# Perform block iterations
 			for ($i = 1; $i < $c; $i++)
-			# XOR each iterate
+# XOR each iterate
 				$ib ^= ($b = hash_hmac($a, $b, $p, true));
 			$dk .= $ib; # Append iterated block
 		}
-		# Return derived key of correct length
+# Return derived key of correct length
 		return substr($dk, 0, $kl);
 	}
 
@@ -1979,7 +1979,7 @@ class _Administrator extends PersistentObject {
 				$new_rights = ALL_RIGHTS;
 				$this->master = true;
 			} else {
-				// make sure that the "hidden" gateway rights are set for managing objects
+// make sure that the "hidden" gateway rights are set for managing objects
 				if ($rights & MANAGE_ALL_ALBUM_RIGHTS) {
 					$new_rights = $new_rights | ALBUM_RIGHTS;
 				}
