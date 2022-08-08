@@ -67,7 +67,12 @@ class contactformOptions {
 
 	function getOptionsSupported() {
 		global $_captcha;
-		$mailinglist = explode(';', getOption("contactform_mailaddress"));
+		$mailinglist = getOption("contactform_mailaddress");
+		if ($mailinglist) {
+			$mailinglist = explode(';', $mailinglist);
+		} else {
+			$mailinglist = array();
+		}
 		array_walk($mailinglist, 'contactformOptions::trim_value');
 		setOption('contactform_mailaddress', implode(';', $mailinglist));
 		$list = array(gettext("required") => "required", gettext("show") => "show", gettext("omitted") => "omitted");

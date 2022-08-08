@@ -108,8 +108,6 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 			debugLog(gettext('GitHub repository not accessible. ') . $e);
 		}
 	}
-	preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
-	$newestVersion = $matches[1];
 
 	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
 	if (isset($_GET['update_check'])) {

@@ -20,7 +20,10 @@ require_once(dirname(__DIR__) . '/initialize-basic.php');
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;
 
-$fullLog = defined('TEST_RELEASE') && TEST_RELEASE || strpos(getOption('markRelease_state'), '-DEBUG') !== false;
+if ($test_release = getOption('markRelease_state')) {
+	$test_release = strpos($test_release, '-DEBUG');
+}
+$fullLog = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
 
 setupLog(sprintf(gettext('Mod_rewrite setup started')), $fullLog);
 

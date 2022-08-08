@@ -1761,22 +1761,24 @@ function getAlbumArray($albumstring, $includepaths = false) {
  * @return string
  */
 function getAlbumInherited($folder, $field, &$id) {
-	$folders = explode('/', filesystemToInternal($folder));
-	$album = array_shift($folders);
-	$like = ' LIKE ' . db_quote(db_LIKE_escape($album));
-	foreach ($folders as $folder) {
-		$album .= '/' . $folder;
-		$like .= ' OR `folder` LIKE ' . db_quote(db_LIKE_escape($album));
-	}
-	$sql = 'SELECT `id`, `' . $field . '` FROM ' . prefix('albums') . ' WHERE `folder`' . $like;
-	$result = query_full_array($sql);
-	if (!is_array($result))
-		return '';
-	while (count($result) > 0) {
-		$try = array_pop($result);
-		if (!empty($try[$field])) {
-			$id = $try['id'];
-			return $try[$field];
+	if ($folder) {
+		$folders = explode('/', filesystemToInternal($folder));
+		$album = array_shift($folders);
+		$like = ' LIKE ' . db_quote(db_LIKE_escape($album));
+		foreach ($folders as $folder) {
+			$album .= '/' . $folder;
+			$like .= ' OR `folder` LIKE ' . db_quote(db_LIKE_escape($album));
+		}
+		$sql = 'SELECT `id`, `' . $field . '` FROM ' . prefix('albums') . ' WHERE `folder`' . $like;
+		$result = query_full_array($sql);
+		if (!is_array($result))
+			return '';
+		while (count($result) > 0) {
+			$try = array_pop($result);
+			if (!empty($try[$field])) {
+				$id = $try['id'];
+				return $try[$field];
+			}
 		}
 	}
 	return '';

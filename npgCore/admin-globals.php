@@ -31,7 +31,7 @@ define('UPLOAD_ERR_BLOCKED', -2);
 npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
-$_admin_button_actions = $_admin_menu = array();
+$_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
 	if (TEST_RELEASE) {
@@ -51,7 +51,6 @@ if (abs(OFFSET_PATH) != 2) {
 					break;
 			}
 		}
-
 
 		foreach ($enabled as $extension => $plugin) {
 			$priority = $plugin['priority'];

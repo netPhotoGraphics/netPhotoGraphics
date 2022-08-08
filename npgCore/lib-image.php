@@ -614,7 +614,10 @@ class imageProcessing {
 				}
 			}
 		}
-		return substr(trim($rotation, '!'), 0, 1);
+		if ($rotation) {
+			$rotation = substr(trim($rotation, '!'), 0, 1);
+		}
+		return (int) $rotation;
 	}
 
 	/**

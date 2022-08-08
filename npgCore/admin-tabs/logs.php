@@ -18,6 +18,7 @@ if (isset($_GET['tab']) && isset($logtabs[$_GET['tab']])) {
 } else {
 	$logname = $subtab = $_admin_menu['logs']['default'];
 }
+
 $baseName = preg_replace('~-\d*$~', '', $logname);
 
 if (getOption($baseName . '_log_encryption')) {

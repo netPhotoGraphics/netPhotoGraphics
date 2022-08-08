@@ -137,7 +137,9 @@ $legacyReplacements = array(
 		'@subpackage' => '@pluginCategory',
 		'class-mimetypes.php' => 'lib-MimeTypes.php',
 		'isImagePhoto\(\)' => '$_current_image->isPhoto()',
-		'isImageVideo\(\)' => '$_current_image->isVideo()'
+		'isImageVideo\(\)' => '$_current_image->isVideo()',
+		'getdownloadList\(' => 'getDownloadList(',
+		'printdownloadList\(' => 'printDownloadList('
 );
 
 class zenPhotoCompatibilityPack {

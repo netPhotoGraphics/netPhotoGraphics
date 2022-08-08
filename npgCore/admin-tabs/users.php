@@ -777,13 +777,15 @@ echo $refresh;
 																$msg .= ' ' . gettext('This is the master user account. If you delete it another user will be promoted to master user.');
 															}
 															?>
-															<span class="floatright">
+															<span class="floatright padded">
 																<?php
 																if (!$pending && $_current_admin_obj && $user['user'] != $_current_admin_obj->getUser()) {
 																	?>
 																	<a href="<?php echo getAdminLink('admin-tabs/users.php'); ?>?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
-																			 <?php echo BULLSEYE_BLUE; ?>
+
+																		<?php echo BULLSEYE_BLUE; ?>
+
 																	</a>
 																	<?php
 																} else {
@@ -791,7 +793,7 @@ echo $refresh;
 																}
 																?>
 															</span>
-															<span class="floatright">
+															<span class="floatright padded">
 																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
 																	 title="<?php echo gettext('Delete this user.'); ?>" style="color: #c33;">
 																		 <?php echo WASTEBASKET; ?>
@@ -800,7 +802,7 @@ echo $refresh;
 															<?php
 															if (isset($user['lastaccess'])) {
 																?>
-																<div class="floatright">
+																<div class="floatright padded">
 																	<?php
 																	$online = $user['lastaccess'];
 																	if ($online > $stamp) {
@@ -809,7 +811,7 @@ echo $refresh;
 																		printf('Last visited %1$s', formattedDate(DATE_FORMAT, $online));
 																	}
 																	?>
-																	&nbsp;&nbsp;&nbsp;&nbsp;
+
 																	</span>
 																	<?php
 																}
@@ -926,8 +928,7 @@ echo $refresh;
 
 														<p>
 															<?php echo gettext("Email"); ?><br />
-															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_email-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_email]"
-																		 value="<?php echo html_encode($userobj->getEmail()); ?>"<?php if (in_array('email', $no_change)) echo ' disabled="disabled"'; ?> />
+															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_email-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_email]" value="<?php echo html_encode($userobj->getEmail()); ?>"<?php if (in_array('email', $no_change)) echo ' disabled="disabled"'; ?>  readonly onfocus="this.removeAttribute('readonly');" />
 														</p>
 														<?php
 														if ($userobj->getEmail() && npgFilters::has_filter('sendmail')) {
