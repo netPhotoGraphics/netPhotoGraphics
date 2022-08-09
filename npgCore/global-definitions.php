@@ -18,6 +18,7 @@ $v = explode("\n", file_get_contents(__DIR__ . '/version.php'));
 foreach ($v as $line) {
 	if (strpos($line, 'define') !== false) {
 		eval($line); // Include the version info avoiding captured PHP script.
+		break;
 	}
 }
 
@@ -29,13 +30,15 @@ $v = explode('-', NETPHOTOGRAPHICS_VERSION);
 define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
 unset($v);
 
-if (!defined('SORT_FLAG_CASE'))
+if (!defined('SORT_FLAG_CASE')) {
 	define('SORT_FLAG_CASE', 0);
-if (!defined('SORT_NATURAL'))
+}
+if (!defined('SORT_NATURAL')) {
 	define('SORT_NATURAL', 0);
-if (!defined('SORT_LOCALE_STRING'))
+}
+if (!defined('SORT_LOCALE_STRING')) {
 	define('SORT_LOCALE_STRING', 0);
-
+}
 define('NEWLINE', "\n");
 
 define('SCRIPTPATH', str_replace('\\', '/', dirname(__DIR__)));
