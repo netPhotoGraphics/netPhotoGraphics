@@ -178,7 +178,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 				case 'download_update':
 					XSRFdefender('install_update');
 					$msg = FALSE;
-					if ($action == 'download_update') {
+					if ($action === 'download_update') {
 						$newestVersionURI = getOption('getUpdates_latest');
 						if ($msg = getRemoteFile($newestVersionURI, SERVERPATH)) {
 							$found = file_exists($file = SERVERPATH . '/' . basename($newestVersionURI));

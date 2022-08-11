@@ -1148,7 +1148,7 @@ class _Authority {
 							$_loggedin = $user->getRights();
 						}
 
-						$_loggedin = npgFilters::apply('admin_login_attempt', $_loggedin, $post_user, $post_pass, $user);
+						$_loggedin = npgFilters::apply('admin_login_attempt', $_loggedin, $post_user, $post_pass, $user ? $user : gettext('N/A'));
 						if ($_loggedin) {
 							self::logUser($user);
 							$_current_admin_obj = $user;
@@ -1881,7 +1881,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

@@ -288,7 +288,7 @@ class ipBlocker {
 		global $_current_admin_obj;
 		self::getLock();
 		$suspend = self::getList('Suspend');
-		if ($suspend && npg_loggedin() && !$_current_admin_obj->transient) {
+		if ($suspend && $_current_admin_obj && !$_current_admin_obj->transient) {
 			$ip = getUserIP();
 			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
 			query($sql);
