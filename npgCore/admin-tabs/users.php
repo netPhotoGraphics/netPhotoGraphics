@@ -263,6 +263,7 @@ if (isset($_GET['action'])) {
 							if (isset($userlist[$i]['createAlbum'])) {
 								$userobj->createPrimealbum();
 							}
+
 							npgFilters::apply('save_admin_data', $userobj, $i, $alter);
 
 							if (!($error && $_current_admin_obj->getID() <= 0)) { //	new install and password problems, leave with no admin
@@ -716,8 +717,8 @@ echo $refresh;
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -726,7 +727,7 @@ echo $refresh;
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
