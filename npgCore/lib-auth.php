@@ -17,7 +17,7 @@ class _Authority {
 	protected $master_userObj = NULL;
 	static $preferred_version = 4;
 	static $supports_version = 4;
-//NOTE: if you add to $hashList you must add the alfrithm handling to the passwordHash() function
+	//NOTE: if you add to $hashList you must add the alfrithm handling to the passwordHash() function
 	static $hashList = array('md5' => 0, 'sha1' => 1, 'pbkdf2*' => 2, 'pbkdf2' => 3, 'Bcrypt' => 4, 'Argon2i' => 5, 'Argon2id' => 6);
 
 	/**
@@ -1881,7 +1881,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">

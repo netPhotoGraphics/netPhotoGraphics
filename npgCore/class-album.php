@@ -1926,8 +1926,29 @@ class dynamicAlbum extends AlbumBase {
 class TransientAlbum extends AlbumBase {
 
 	function __construct($folder8, $cache = true) {
-		$this->instantiate('albums', array('folder' => $this->name), 'folder', true, true);
-		$this->exists = false;
+		parent::__construct($folder8, $cache);
+		$this->transient = true;
+	}
+
+	function setSubalbum($subalbum) {
+		$this->subalbums[] = $subalbum;
+	}
+
+	function getAlbums($page = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
+		global $_gallery;
+		if (is_null($sorttype)) {
+			$sorttype = $this->getSortType('album');
+		}
+		if (is_null($sortdirection)) {
+			$sortdirection = $this->getSortDirection('album');
+		}
+		$sortdirection = $sortdirection && strtolower($sortdirection) != 'asc';
+
+		$key = $this->getAlbumSortKey($sorttype);
+		$this->subalbums = $_gallery->sortAlbumArray($this, $this->subalbums, $key, $sortdirection, $mine);
+		$this->lastsubalbumsort = $sorttype . $sortdirection;
+
+		return parent::getAlbums($page);
 	}
 
 }

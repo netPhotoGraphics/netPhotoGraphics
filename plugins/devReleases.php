@@ -27,7 +27,6 @@ use Milo\Github;
 $devVersionURI = getOption('getDEVUpdates_latest');
 
 if (isset($_GET['action'])) {
-	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
@@ -43,6 +42,7 @@ if (isset($_GET['action'])) {
 	}
 	if ($_GET['action'] == 'install_dev') {
 		XSRFdefender('install_update');
+		admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 		if ($msg = getRemoteFile($devVersionURI, SERVERPATH)) {
 			$found = file_exists($file = SERVERPATH . '/' . basename($devVersionURI));
 			if ($found) {
