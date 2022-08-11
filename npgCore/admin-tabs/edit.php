@@ -823,9 +823,21 @@ echo "\n</head>";
 				<div class="tabbox">
 					<?php
 					consolidatedEditMessages('');
-					$albums = getNestedAlbumList($_gallery, $album_nesting);
+					if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+						$consider = $_gallery;
+					} else {
+						$managed = $_current_admin_obj->getObjects();
+						$consider = new TransientAlbum('holder', FALSE);
+						foreach ($managed as $obj) {
+							if ($obj['type'] === 'albums') {
+								$consider->setSubalbum($obj['data']);
+							}
+						}
+					}
+
+					$albums = getNestedAlbumList($consider, $album_nesting);
 					if (count($albums) > 0) {
-						if (npg_loggedin(ADMIN_RIGHTS) && (count($albums)) > 1) {
+						if (count($albums) > 1) {
 
 							printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
 
