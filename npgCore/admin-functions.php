@@ -5479,12 +5479,6 @@ function admin_securityChecks($rights, $return) {
 	$returnurl = urldecode($return);
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
-
-
-		var_dump(displayRights($rights), displayRights($_loggedin));
-		$x = 1 / 0;
-		exit();
-
 		// prevent nefarious access to this page.
 		$uri = mb_parse_url($returnurl);
 		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
