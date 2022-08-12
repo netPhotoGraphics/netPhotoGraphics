@@ -730,7 +730,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param obj $curAlbum Optional object of the album to start with
 	 * @param int $rights Rights constant to filter album access by.
 	 */
-	function genAlbumList($curAlbum = NULL, $rights = UPLOAD_RIGHTS) {
+	function genAlbumList($curAlbum = NULL, $rights = UPLOAD_RIGHTS | MANAGED_OBJECT_RIGHTS_UPLOAD) {
 		global $_gallery;
 		$list = array();
 		if (is_null($curAlbum)) {
