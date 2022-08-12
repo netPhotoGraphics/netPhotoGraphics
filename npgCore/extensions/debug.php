@@ -47,10 +47,12 @@ if (isset($_GET['markRelease'])) {
 	if ($test_release = getOption('markRelease_state')) {
 		$test_release = strpos($test_release, '-DEBUG');
 	}
-	$testRelease = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
-	if (!$testRelease) {
-		$version = debug::version(false);
-		debug::updateVersion($version);
+	if ($test_release) {
+		if (strpos(NETPHOTOGRAPHICS_VERSION, '-DEBUG') === FALSE) {
+			//	update the version.php script to contain the debug settings
+			$version = debug::version(false);
+			debug::updateVersion($version);
+		}
 	}
 }
 
