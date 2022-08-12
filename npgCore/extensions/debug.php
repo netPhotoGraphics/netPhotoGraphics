@@ -161,6 +161,7 @@ class debug {
 		$version = self::version(false);
 		if (TEST_RELEASE && NETPHOTOGRAPHICS_VERSION != $version) {
 			self::updateVersion($version);
+			setOption('markRelease_state', $version);
 		}
 	}
 

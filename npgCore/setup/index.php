@@ -1793,34 +1793,34 @@ clearstatcache();
 							}
 							?>
 							<div id ="golink" class="delayshow"<?php echo (CURL_ENABLED) ? '' : ' style="display:none;"'; ?>>
-							<?php
-							if ($query && !$noclones) {
-								?>
-									<p class="warning">
-									<?php printf(gettext('You may <a href="%1$s">administer your gallery</a> once all clones have completed setup.'), getAdminLink('admin.php') . $query); ?>
-									</p>
-										<?php
-									} else {
-										?>
-									<p>
-									<?php printf(gettext('You may now <a href="%1$s">administer your gallery</a>.'), getAdminLink('admin.php') . $query); ?>
-									</p>
-										<?php
-									}
-									?>
-							</div>
 								<?php
-								switch ($autorun) {
-									case false:
-										break;
-									case 'gallery':
-									case 'admin':
-										$autorun = getAdminLink('admin.php') . $query;
-										break;
-									default:
-										break;
+								if ($query && !$noclones) {
+									?>
+									<p class="warning">
+										<?php printf(gettext('You may <a href="%1$s">administer your gallery</a> once all clones have completed setup.'), getAdminLink('admin.php') . $query); ?>
+									</p>
+									<?php
+								} else {
+									?>
+									<p>
+										<?php printf(gettext('You may now <a href="%1$s">administer your gallery</a>.'), getAdminLink('admin.php') . $query); ?>
+									</p>
+									<?php
 								}
 								?>
+							</div>
+							<?php
+							switch ($autorun) {
+								case false:
+									break;
+								case 'gallery':
+								case 'admin':
+									$autorun = getAdminLink('admin.php') . $query;
+									break;
+								default:
+									break;
+							}
+							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script type="text/javascript">
 								function launchAdmin() {
@@ -1847,12 +1847,12 @@ clearstatcache();
 		?>
 								}
 							</script>
-		<?php
-	} else if (db_connect($_conf_vars, false)) {
-		$task = '';
-		if (setupUserAuthorized() || $blindInstall) {
-			if (!empty($dbmsg)) {
-				?>
+							<?php
+						} else if (db_connect($_conf_vars, false)) {
+							$task = '';
+							if (setupUserAuthorized() || $blindInstall) {
+								if (!empty($dbmsg)) {
+									?>
 									<h2><?php echo $dbmsg; ?></h2>
 									<?php
 								}
@@ -1880,28 +1880,28 @@ clearstatcache();
 							if ($stop) {
 								?>
 								<div class="error">
-								<?php
-								if (npg_loggedin()) {
-									echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
-								} else {
-									echo gettext('You must be logged in to run setup.');
-								}
-								?>
-								</div>
 									<?php
-									$_authority->printLoginForm('', false);
-								} else {
-									if (!empty($task) && substr($task, 0, 1) != '&') {
-										$task = '&' . $task;
+									if (npg_loggedin()) {
+										echo gettext("You need <em>USER ADMIN</em> rights to run setup.");
+									} else {
+										echo gettext('You must be logged in to run setup.');
 									}
-									$task = html_encode($task);
 									?>
+								</div>
+								<?php
+								$_authority->printLoginForm('', false);
+							} else {
+								if (!empty($task) && substr($task, 0, 1) != '&') {
+									$task = '&' . $task;
+								}
+								$task = html_encode($task);
+								?>
 								<form id="setup" action="<?php echo WEBPATH . '/' . CORE_FOLDER, '/setup/index.php?checked' . $task . $mod; ?>" method="post"<?php echo $hideGoButton; ?> >
 									<input type="hidden" name="setUTF8URI" id="setUTF8URI" value="internal" />
 									<input type="hidden" name="xsrfToken" value="<?php echo setupXSRFToken(); ?>" />
-			<?php
-			if ($autorun) {
-				?>
+									<?php
+									if ($autorun) {
+										?>
 										<input type="hidden" id="autorun" name="autorun" value="<?php echo html_encode($autorun); ?>" />
 										<?php
 									}
@@ -1912,44 +1912,44 @@ clearstatcache();
 									<br class="clearall" />
 									<br />
 								</form>
-			<?php
-		}
-		if ($autorun) {
-			?>
+								<?php
+							}
+							if ($autorun) {
+								?>
 								<script type="text/javascript">
 									$('#submitbutton').hide();
 									$('#setup').submit();
 								</script>
-			<?php
-		}
-	} else {
-		?>
+								<?php
+							}
+						} else {
+							?>
 							<div class="error">
 								<h3><?php echo gettext("database did not connect"); ?></h3>
 								<p>
-		<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
+									<?php echo gettext("If you have not created the database yet, now would be a good time."); ?>
 								</p>
 							</div>
-		<?php
-	}
-} else {
-	// The config file hasn't been created yet. Show the steps.
-	?>
-						<div class="error">
-						<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
-						</div>
 							<?php
 						}
-
-						if ($blindInstall) {
-							@ob_end_clean();
-						}
+					} else {
+						// The config file hasn't been created yet. Show the steps.
 						?>
+						<div class="error">
+							<?php echo sprintf(gettext('The %1$s file does not exist.'), CONFIGFILE); ?>
+						</div>
+						<?php
+					}
+
+					if ($blindInstall) {
+						@ob_end_clean();
+					}
+					?>
 					<br class="clearall" />
 			</div><!-- content -->
-<?php
-printSetupFooter($setup_checked);
-?>
+			<?php
+			printSetupFooter($setup_checked);
+			?>
 		</div><!-- main -->
 	</body>
 </html>
