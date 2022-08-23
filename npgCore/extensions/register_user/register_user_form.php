@@ -5,6 +5,7 @@
  * @package plugins/register_user
  */
 if (class_exists('_Authority')) {
+	require_once(CORE_SERVERPATH . 'admin-globals.php');
 	npg_Authority::printPasswordFormJS(true);
 	$action = preg_replace('/\?verify=(.*)/', '', getRequestURI());
 	?>
