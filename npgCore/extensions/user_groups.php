@@ -114,10 +114,14 @@ class user_groups {
 
 	static function groupList($userobj, $i, $background, $current, $template) {
 		global $_authority;
-		$group = $userobj->getGroup();
 		$adminGroups = $_authority->getAdministrators('groups');
 		$membership = $groups = array();
-		$hisgroups = explode(',', $userobj->getGroup());
+		$hisgroups = $userobj->getGroup();
+		if ($hisgroups) {
+			$hisgroups = explode(',', $userobj->getGroup());
+		} else {
+			$hisgroups = array();
+		}
 
 		$userid = $userobj->getUser();
 		$adminGroups = sortMultiArray($adminGroups, 'user');
