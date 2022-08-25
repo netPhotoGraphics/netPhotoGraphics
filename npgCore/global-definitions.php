@@ -83,7 +83,7 @@ define('EXIF_FIELD_TYPE', 6);
 define('EXIF_FIELD_LINKED', 7);
 
 define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
-define('CASE_INSENSITIVE', file_exists(strtoupper(__FILE__)));
+define('CASE_INSENSITIVE', file_exists(dirname(__FILE__) . '/VERSION.PHP'));
 
 $_debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
 $_debug = $_debug[1];

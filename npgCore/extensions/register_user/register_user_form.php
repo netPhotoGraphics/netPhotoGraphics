@@ -5,6 +5,7 @@
  * @package plugins/register_user
  */
 if (class_exists('_Authority')) {
+	require_once(CORE_SERVERPATH . 'admin-globals.php');
 	npg_Authority::printPasswordFormJS(true);
 	$action = preg_replace('/\?verify=(.*)/', '', getRequestURI());
 	?>
@@ -20,12 +21,14 @@ if (class_exists('_Authority')) {
 					<?php
 					if ($emailid = getOption('register_user_email_is_id')) {
 						echo gettext("Email<strong>*</strong> (this will be your user id)");
+						$transform = ' style="text-transform: lowercase;"';
 					} else {
 						echo gettext("User ID") . '<strong>*</strong>';
+						$transform = '';
 					}
 					?>
 				</label>
-				<input type="text" id="adminuser" name="user" value="<?php echo html_encode($user); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox"/>
+				<input type="text" id="adminuser" name="user" value="<?php echo html_encode($user); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox" <?php echo $transform; ?> />
 			</p>
 			<?php npg_Authority::printPasswordForm(NULL, false, NULL, false, $flag = '<strong>*</strong>'); ?>
 			<p>
@@ -37,7 +40,7 @@ if (class_exists('_Authority')) {
 				?>
 				<p>
 					<label for="admin_email"><?php echo gettext("Email"); ?><?php if (!$emailid) echo '<strong>*</strong>'; ?></label>
-					<input type="text" id="admin_email" name="admin_email" value="<?php echo html_encode($admin_e); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox"/>
+					<input type="text" id="admin_email" name="admin_email" value="<?php echo html_encode($admin_e); ?>" size="<?php echo TEXT_INPUT_SIZE; ?>" class="inputbox" style="text-transform: lowercase;" />
 				</p>
 				<?php
 			}

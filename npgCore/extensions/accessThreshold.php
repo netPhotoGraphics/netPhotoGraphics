@@ -111,12 +111,13 @@ class accessThreshold {
 
 	static function admin_tabs($tabs) {
 		global $_current_admin_obj;
+
 		if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
-			$subtabs = $tabs['admin']['subtabs'];
-			$subtabs[gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=admin&tab=access';
-			$tabs['admin']['text'] = gettext("admin");
-			$tabs['admin']['link'] = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users';
-			$tabs['admin']['subtabs'] = $subtabs;
+			$tabs['logs']['subtabs'][gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=logs&tab=access';
+			if (!$tabs['logs']['default']) {
+				$tabs['logs']['default'] = gettext("access");
+				$tabs['logs']['link'] = getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php') . '?page=logs&tab=access';
+			}
 		}
 		return $tabs;
 	}

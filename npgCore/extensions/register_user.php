@@ -294,7 +294,8 @@ function printRegistrationForm($thanks = NULL) {
 	$userobj = NULL;
 	// handle any postings
 	if (isset($_GET['verify'])) {
-		$params = sanitize(unserialize(pack("H*", trim($_GET['verify']), '.')));
+		$params = sanitize(unserialize(pack("H*", trim($_GET['verify']))));
+		$params['email'] = strtolower($parms['email']);
 		// expung the verify query string as it will cause us to come back here if login fails.
 		unset($_GET['verify']);
 		$_link = explode('?', getRequestURI());
@@ -352,7 +353,6 @@ function printRegistrationForm($thanks = NULL) {
 			$_notify = 'not_verified'; // User ID no longer exists
 		}
 	}
-
 	if (isset($_GET['login'])) { //presumably the user failed to login....
 		$_notify = 'loginfailed';
 	}
