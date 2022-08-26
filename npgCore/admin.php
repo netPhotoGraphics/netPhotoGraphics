@@ -216,8 +216,11 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					if (file_exists(SERVERPATH . '/extract.php')) {
 						chmod(SERVERPATH . '/extract.php', 0777);
 						clearstatcache();
-						header('HTTP/1.0 303 See Other');
-						header("Status: 303 See Other");
+						header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+						header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+						header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+						header("Cache-Control: post-check=0, pre-check=0", false);
+						header("Pragma: no-cache");
 						header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
 						exit();
 					} else {

@@ -17,6 +17,11 @@ require_once(dirname(__DIR__) . '/global-definitions.php');
 
 clearstatcache();
 $chmod = fileperms(dirname(__DIR__)) & 0666;
+
+if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
+	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
+}
+
 $_initial_session_path = session_save_path();
 
 require_once(dirname(__DIR__) . '/functions.php');
@@ -87,15 +92,14 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 }
 $_SESSION['save_session_path'] = session_save_path();
 
+clearstatcache();
+
 $en_US = dirname(__DIR__) . '/locale/en_US/';
 if (!file_exists($en_US)) {
 	mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
 	mkdir($en_US, $chmod | 0311);
 }
 
-if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
-	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
-}
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak')) {
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/' . stripSuffix(CONFIGFILE) . '.bak'); //	remove any old backup file
 }
