@@ -19,7 +19,7 @@ class npgMutex {
 				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}
 			if (!is_dir($folder)) {
-				mkdir_recursive($folder, fileperms(__DIR__) & 0666 | 311);
+				mkdir_recursive($folder, (fileperms(__DIR__) & 0666) | 311);
 			}
 
 			if ($concurrent > 1) {
