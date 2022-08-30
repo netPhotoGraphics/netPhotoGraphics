@@ -162,7 +162,6 @@ class GDPR_required {
 		global $_GDPR_acknowledge_loaded;
 		if ($_GDPR_acknowledge_loaded) {
 			setOption('GDPR_text', gettext('Check to acknowledge the site usage policy.'), false);
-			setOption('GDPR_acknowledge', 1, false);
 			if (is_null($target)) {
 				if (isset($_GET['from'])) {
 					$target = sanitizeRedirect($_GET['from']);
@@ -173,7 +172,14 @@ class GDPR_required {
 			}
 			?>
 			<form name="GDPR_form" id="GDPR" method = "post" action="<?php echo html_encode($target); ?>">
-				<?php policySubmitButton(ARROW_RIGHT_BLUE . ' ' . gettext('Continue to site'), 'GDPR_button'); ?>
+				<?php
+				if (!getOption('GDPR_acknowledge')) { //	Auto-ACK
+					?>
+					<input id="GDPR_acknowledge" type="hidden" name="policy_acknowledge" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					<?php
+				}
+				policySubmitButton(ARROW_RIGHT_BLUE . ' ' . gettext('Continue to site'), 'GDPR_button');
+				?>
 			</form>
 			<?php
 		} else {
