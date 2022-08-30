@@ -89,7 +89,6 @@ function printLanguageSelector($flags = NULL) {
 	}
 
 	$languages = i18n::generateLanguageList();
-	$disallow = getSerializedArray(getOption('locale_disallowed'));
 
 	if (isset($_REQUEST['locale'])) {
 		$locale = sanitize($_REQUEST['locale']);
@@ -106,95 +105,97 @@ function printLanguageSelector($flags = NULL) {
 			<?php
 		}
 	}
-	if (is_null($flags)) {
-		$flags = getOption('dynamic_locale_visual');
-	}
-	$request = mb_parse_url(getRequestURI());
-	if (isset($request['query'])) {
-		$query = explode('&', $request['query']);
-		$uri['query'] = '';
-		foreach ($query as $key => $str) {
-			if (preg_match('/^locale\s*=/', $str)) {
-				unset($query[$key]);
+	if (count($languages) > 1) { //	no need for a selector if there is only one choice
+		if (is_null($flags)) {
+			$flags = getOption('dynamic_locale_visual');
+		}
+		$request = mb_parse_url(getRequestURI());
+		if (isset($request['query'])) {
+			$query = explode('&', $request['query']);
+			$uri['query'] = '';
+			foreach ($query as $key => $str) {
+				if (preg_match('/^locale\s*=/', $str)) {
+					unset($query[$key]);
+				}
+			}
+			if (empty($query)) {
+				unset($request['query']);
+			} else {
+				$request['query'] = implode('&', $query);
 			}
 		}
-		if (empty($query)) {
-			unset($request['query']);
+		if (isset($request['path'])) {
+			$uri = pathurlencode($request['path']);
 		} else {
-			$request['query'] = implode('&', $query);
+			$uri = NULL;
 		}
-	}
-	if (isset($request['path'])) {
-		$uri = pathurlencode($request['path']);
-	} else {
-		$uri = NULL;
-	}
-	$separator = '?';
-	if (isset($request['query'])) {
-		$uri .= '?' . $request['query'];
-		$separator = '&';
-	}
+		$separator = '?';
+		if (isset($request['query'])) {
+			$uri .= '?' . $request['query'];
+			$separator = '&';
+		}
 
-	if ($flags) {
-		ksort($languages, SORT_LOCALE_STRING);
-		?>
-		<ul class="flags">
-			<?php
-			foreach ($languages as $text => $lang) {
-				$current = $lang == $dynamic_locale;
-				$flag = getLanguageFlag($lang);
-				if ($current) {
-					$path = $uri . $separator . 'locale=';
-				} else {
-					$path = dynamic_locale::localLink($uri, $separator, $lang);
-				}
-				if ($current) {
-					?>
-					<li class="currentLanguage">
-						<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
-					</li>
-					<?php
-				} else {
-					?>
-					<li>
-						<a href="<?php echo html_encode($path); ?>" >
-							<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
-						</a>
-					</li>
-					<?php
-				}
-			}
+		if ($flags) {
+			ksort($languages, SORT_LOCALE_STRING);
 			?>
-		</ul>
-		<?php
-	} else {
-		$languages = array_merge(array('' => ''), $languages);
-		?>
-		<div class="languageSelect">
-			<form id="language_change" action="#" method="post">
-				<select id="dynamic-locale" class="languageSelector" name="locale" onchange="window.location = $('#dynamic-locale option:selected').val()">
-					<?php
-					foreach ($languages as $text => $lang) {
-						$current = $lang == $dynamic_locale;
-						if ($lang) {
-							$path = dynamic_locale::localLink($uri, $separator, $lang);
-						} else {
-							$path = $uri . $separator . 'locale=';
-						}
+			<ul class="flags">
+				<?php
+				foreach ($languages as $text => $lang) {
+					$current = $lang == $dynamic_locale;
+					$flag = getLanguageFlag($lang);
+					if ($current) {
+						$path = $uri . $separator . 'locale=';
+					} else {
+						$path = dynamic_locale::localLink($uri, $separator, $lang);
+					}
+					if ($current) {
 						?>
-						<option value="<?php echo html_encode($path); ?>"<?php if ($current) echo ' selected="selected"'; ?>>
-						<span class="locale_name">
-							<?php echo html_encode($text); ?>
-						</span>
-						</option>
+						<li class="currentLanguage">
+							<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
+						</li>
+						<?php
+					} else {
 						?>
+						<li>
+							<a href="<?php echo html_encode($path); ?>" >
+								<img src="<?php echo $flag; ?>" alt="<?php echo $text; ?>" width="24" height="16" title="<?php echo $text; ?>" />
+							</a>
+						</li>
 						<?php
 					}
-					?>
-				</select>
-			</form>
-		</div>
-		<?php
+				}
+				?>
+			</ul>
+			<?php
+		} else {
+			$languages = array_merge(array('' => ''), $languages);
+			?>
+			<div class="languageSelect">
+				<form id="language_change" action="#" method="post">
+					<select id="dynamic-locale" class="languageSelector" name="locale" onchange="window.location = $('#dynamic-locale option:selected').val()">
+						<?php
+						foreach ($languages as $text => $lang) {
+							$current = $lang == $dynamic_locale;
+							if ($lang) {
+								$path = dynamic_locale::localLink($uri, $separator, $lang);
+							} else {
+								$path = $uri . $separator . 'locale=';
+							}
+							?>
+							<option value="<?php echo html_encode($path); ?>"<?php if ($current) echo ' selected="selected"'; ?>>
+							<span class="locale_name">
+								<?php echo html_encode($text); ?>
+							</span>
+							</option>
+							?>
+							<?php
+						}
+						?>
+					</select>
+				</form>
+			</div>
+			<?php
+		}
 	}
 }
 
