@@ -612,7 +612,7 @@ function getOptionContent() {
 						<td class="option_name"><?php echo gettext("Usage policy"); ?></td>
 						<td class="option_value">
 							<label>
-								<input type="checkbox" name="GDPR_acknowledge" value="1" <?php checked(1, getOption('GDPR_acknowledge')); ?> onclick="$('#GDR_Details').toggle();<?php if (!extensionEnabled('GDPR_required')) echo '$(\'#GDPR_clear\').toggle();'; ?>" />
+								<input type="checkbox" name="GDPR_acknowledge" value="1" <?php checked(1, getOption('GDPR_acknowledge')); ?> onclick="<?php if (!extensionEnabled('GDPR_required')) echo '$(\'#GDR_Details\').toggle();$(\'#GDPR_clear\').toggle();'; ?>" />
 								<?php echo gettext('require acknowledgement'); ?>
 							</label>
 							<p id="GDPR_clear" <?php if (!(getOption('GDPR_acknowledge') || extensionEnabled('GDPR_required'))) echo ' style="display:none"'; ?>>
@@ -621,7 +621,7 @@ function getOptionContent() {
 									<?php echo gettext('clear remembered acknowledgements'); ?>
 								</label>
 							</p>
-							<div id="GDR_Details" <?php if (!GetOption('GDPR_acknowledge')) echo ' style="display:none"'; ?>>
+							<div id="GDR_Details" <?php if (!(GetOption('GDPR_acknowledge') || extensionEnabled('GDPR_required'))) echo ' style="display:none"'; ?>>
 
 								<?php echo gettext('policy URL'); ?>
 								<input type="text" class="fullwidth" name="GDPR_URL" value="<?php echo getOption('GDPR_URL'); ?>" />
