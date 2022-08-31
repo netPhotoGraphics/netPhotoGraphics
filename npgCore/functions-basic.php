@@ -1010,7 +1010,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	}
 	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' .
 					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
-	query($sql, false);
+	query($sql);
 
 	if (!isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $default;

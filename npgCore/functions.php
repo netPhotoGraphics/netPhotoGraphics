@@ -1983,21 +1983,20 @@ function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = f
 
 	$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`ownerid`,`theme`,`creator`,`value`) VALUES (' . db_quote($key) . ',' . $id . ',' . db_quote($theme) . ',' . db_quote($creator) . ',';
 	if (is_null($value)) {
-		$sql .= 'NULL';
-		$value = 'NULL';
+		$value_db = 'NULL';
 	} else {
 		if (is_bool($value)) {
 			$value = (int) $value;
 		}
-		$value = db_quote($value);
-		$sql .= $value;
+		$value_db = db_quote($value);
 	}
-	$sql .= ')';
+	$sql .= $value_db . ')' . ' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator);
 	if (!$default) {
-		$sql .= ' ON DUPLICATE KEY UPDATE `value`=' . $value . ', `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
+		$sql .= ', `value`=' . $value_db;
 	}
-	$updated = query($sql, false);
-	if ($updated) {
+	query($sql . ';');
+
+	if (!$default || !isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $value;
 	}
 }
