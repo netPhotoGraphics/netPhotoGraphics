@@ -34,6 +34,7 @@ function caseInsensitiveOS() {
  */
 function getResidentFiles($folder, $exclude) {
 	global $_resident_files;
+	clearstatcache();
 	$dir = opendir($folder);
 	while (($file = readdir($dir)) !== false) {
 		$file = str_replace('\\', '/', $file);
