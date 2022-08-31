@@ -967,7 +967,7 @@ function getOptionOwner() {
 	$bt = debug_backtrace();
 	$b = reset($bt); // this function
 	$b = next($bt); //the setOption... function
-//$b now has the calling file/line# of the setOption... function
+	//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
 	if (array_pop($matches) == 'themeoptions.php') {
