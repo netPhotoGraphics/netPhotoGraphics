@@ -162,7 +162,9 @@ class GDPR_required {
 		global $_GDPR_acknowledge_loaded;
 		if ($_GDPR_acknowledge_loaded) {
 			setOption('GDPR_text', gettext('Check to acknowledge the site usage policy.'), false);
-			setOption('GDPR_acknowledge', 1, false);
+			if (!getOption('GDPR_acknowledge')) { //	Auto-ACK
+				recordPolicyACK(NULL, true);
+			}
 			if (is_null($target)) {
 				if (isset($_GET['from'])) {
 					$target = sanitizeRedirect($_GET['from']);

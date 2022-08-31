@@ -202,7 +202,7 @@ function deleteZenpageObj($obj, $redirect = false) {
 	$result = $obj->remove();
 	if ($result) {
 		if ($redirect) {
-			if (strpos($redirect, '?' > 0)) {
+			if (strpos($redirect, '?') > 0) {
 				$redirect .= '&deleted';
 			} else {
 				$redirect .= '?deleted';

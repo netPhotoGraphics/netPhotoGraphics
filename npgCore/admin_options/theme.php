@@ -516,7 +516,7 @@ function getOptionContent() {
 					}
 					if (count($supportedOptions) > 0) {
 						?>
-						<div class="colwidth breakpoint columnbreak">
+						<div class="colwidth breakpoint">
 							<p>
 								<em><?php printf(gettext('The following are options specifically implemented by %s.'), $theme['name']); ?></em>
 							</p>
@@ -529,6 +529,7 @@ function getOptionContent() {
 						<?php
 					}
 					?>
+					<br clear="all">
 				</div>
 				<p>
 					<?php
