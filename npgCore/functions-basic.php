@@ -967,7 +967,7 @@ function getOptionOwner() {
 	$bt = debug_backtrace();
 	$b = reset($bt); // this function
 	$b = next($bt); //the setOption... function
-//$b now has the calling file/line# of the setOption... function
+	//$b now has the calling file/line# of the setOption... function
 	$creator = replaceScriptPath($b['file']);
 	$matches = explode('/', $creator);
 	if (array_pop($matches) == 'themeoptions.php') {
@@ -1010,7 +1010,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	}
 	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' .
 					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
-	query($sql, false);
+	query($sql);
 
 	if (!isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $default;

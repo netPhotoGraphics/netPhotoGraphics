@@ -284,7 +284,7 @@ function shortenContent($articlecontent, $shorten = TRUNCATE_LENGTH, $shortenind
 			$count = $count + $add;
 		}
 
-		//tidy up the html--probably dropped a few closing tags!
+		//	tidy up the html--probably dropped a few closing tags!
 		$articlecontent = trim(cleanHTML($short));
 	}
 
@@ -1662,7 +1662,7 @@ function byteConvert($bytes) {
  * @return mixed
  */
 function dateTimeConvert($datetime, $raw = false) {
-// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
+	// Convert 'yyyy:mm:dd hh:mm:ss' to 'yyyy-mm-dd hh:mm:ss' for Windows' strtotime compatibility
 	$datetime = preg_replace('/(\d{4}):(\d{2}):(\d{2})/', ' \1-\2-\3', $datetime);
 	$time = strtotime($datetime);
 	if ($time == -1 || $time === false)
@@ -1983,21 +1983,22 @@ function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = f
 
 	$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`ownerid`,`theme`,`creator`,`value`) VALUES (' . db_quote($key) . ',' . $id . ',' . db_quote($theme) . ',' . db_quote($creator) . ',';
 	if (is_null($value)) {
-		$sql .= 'NULL';
-		$value = 'NULL';
+		$value_db = 'NULL';
 	} else {
 		if (is_bool($value)) {
 			$value = (int) $value;
 		}
-		$value = db_quote($value);
-		$sql .= $value;
+		$value_db = db_quote($value);
 	}
-	$sql .= ')';
-	if (!$default) {
-		$sql .= ' ON DUPLICATE KEY UPDATE `value`=' . $value . ', `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
+	$sql .= $value_db . ')' . ' ON DUPLICATE KEY UPDATE ';
+	if ($default) {
+		$sql .= '`theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
+	} else {
+		$sql .= '`value` = ' . $value_db . ';';
 	}
-	$updated = query($sql, false);
-	if ($updated) {
+	query($sql);
+
+	if (!$default || !isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $value;
 	}
 }
@@ -2036,7 +2037,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 		$theme = $_gallery->getCurrentTheme();
 	}
 	// album-theme order of preference is: Album theme => Theme => album => general
-	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme`="") ORDER BY `theme` DESC, `id` DESC';
+	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme` = "") ORDER BY `theme` DESC, `id` DESC';
 	$db = query_single_row($sql);
 	if (empty($db)) {
 		return NULL;

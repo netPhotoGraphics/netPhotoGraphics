@@ -119,6 +119,9 @@ class GDPR_required {
 				$parts = explode('?', getRequestURI());
 				if ($link == $parts[0]) {
 					$_GDPR_acknowledge_loaded = true;
+					if (!getOption('GDPR_acknowledge')) { //	Auto-ACK
+						recordPolicyACK(NULL, true);
+					}
 				} else {
 					$goodBots = explode(',', strtolower(getOption('GDPR_Bots_Allowed')));
 					if (isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -162,9 +165,6 @@ class GDPR_required {
 		global $_GDPR_acknowledge_loaded;
 		if ($_GDPR_acknowledge_loaded) {
 			setOption('GDPR_text', gettext('Check to acknowledge the site usage policy.'), false);
-			if (!getOption('GDPR_acknowledge')) { //	Auto-ACK
-				recordPolicyACK(NULL, true);
-			}
 			if (is_null($target)) {
 				if (isset($_GET['from'])) {
 					$target = sanitizeRedirect($_GET['from']);
