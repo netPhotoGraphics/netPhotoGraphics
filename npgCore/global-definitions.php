@@ -1,5 +1,7 @@
 <?php
 
+const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
+
 Define('PHP_MIN_VERSION', '5.6');
 Define('PHP_MIN_SUPPORTED_VERSION', '7.3');
 Define('PHP_DESIRED_VERSION', '7.4');

@@ -110,7 +110,7 @@ class GDPR_required {
 	 */
 
 	static function page($themeScript, $requested_object) {
-		global $_current_admin_obj, $_GDPR_acknowledge_loaded;
+		global $_GDPR_acknowledge_loaded;
 		if (!checkAccess($hint, $show)) { // password form will be shown!
 			return $themeScript;
 		}

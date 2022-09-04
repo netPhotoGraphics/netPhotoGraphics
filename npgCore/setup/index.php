@@ -1214,9 +1214,8 @@ clearstatcache();
 							primeMark(gettext('netPhotoGraphics files'));
 							clearstatcache();
 							set_time_limit(120);
-							$stdExclude = Array('Thumbs.db', 'readme.md', 'data', '.', '..');
 							$base = SERVERPATH . '/';
-							getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, $stdExclude);
+							getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, stdExclude);
 							if (CASE_INSENSITIVE) {
 								$res = array_search(strtolower($base . CORE_FOLDER . '/netPhotoGraphics.package'), $_resident_files);
 								$base = strtolower($base);
@@ -1281,7 +1280,7 @@ clearstatcache();
 										$folders[$component] = $component;
 										unset($installed_files[$key]);
 										if (dirname($value) == THEMEFOLDER) {
-											getResidentFiles($base . $value, $stdExclude);
+											getResidentFiles($base . $value, stdExclude);
 										}
 									} else {
 										if ($updatechmod) {

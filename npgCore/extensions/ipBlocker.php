@@ -380,7 +380,7 @@ class ipBlocker {
 				$frequency = $frequency / $count;
 				$minInterval = 3600 / $threshold;
 				if ($frequency < $minInterval) {
-					npgFilters::apply('security_misc', 4, $type, 'ipBlocker', getRequestURI());
+					npgFilters::apply('access_control', 4, $type, 'ipBlocker', getRequestURI());
 					$suspend[$ip] = time();
 					self::setList('Suspend', $suspend);
 					$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
