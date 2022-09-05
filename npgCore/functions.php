@@ -1996,7 +1996,7 @@ function setThemeOption($key, $value, $album = NULL, $theme = NULL, $default = f
 	} else {
 		$sql .= '`value` = ' . $value_db . ';';
 	}
-	query($sql);
+	query($sql, false);
 
 	if (!$default || !isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $value;
