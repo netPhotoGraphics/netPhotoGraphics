@@ -30,26 +30,9 @@ if (getOption('security_log_encryption')) {
 npgFilters::register('admin_allow_access', 'security_logger::adminGate'); //
 npgFilters::register('federated_login_attempt', 'security_logger::federatedLoginlogger'); //	this is a surgote to "admin_login_attemt'
 
-if (security_logger::register('admin_login_attempt', 'security_logger::adminLoginlogger'))
-	npgFilters::register('admin_login_attempt', 'security_logger::adminLoginlogger');
-if (security_logger::register('guest_login_attempt', 'security_logger::guestLoginlogger'))
-	npgFilters::register('guest_login_attempt', 'security_logger::guestLoginlogger');
-if (security_logger::register('authorization_cookie', 'security_logger::adminCookie', 0))
-	npgFilters:: register('authorization_cookie', 'security_logger::adminCookie', 0);
-if (security_logger::register('admin_managed_albums_access', 'security_logger::adminAlbumGate'))
-	npgFilters:: register('admin_managed_albums_access', 'security_logger::adminAlbumGate');
-if (security_logger::register('save_user_complete', 'security_logger::userSave'))
-	npgFilters:: register('save_user_complete', 'security_logger::userSave');
-if (security_logger::register('admin_XSRF_access', 'security_logger::admin_XSRF_access'))
-	npgFilters:: register('admin_XSRF_access', 'security_logger::admin_XSRF_access');
-if (security_logger::register('admin_log_actions', 'security_logger::log_action'))
-	npgFilters:: register('admin_log_actions', 'security_logger::log_action');
-if (security_logger::register('log_setup', 'security_logger::log_setup'))
-	npgFilters:: register('log_setup', 'security_logger::log_setup');
-if (security_logger::register('security_misc', 'security_logger::security_misc'))
-	npgFilters:: register('security_misc', 'security_logger::security_misc');
-if (security_logger::register('policy_ack', 'security_logger::policy_ack'))
-	npgFilters:: register('policy_ack', 'security_logger::policy_ack');
+foreach (security_logger::$typelist as $what => $where) {
+	security_logger::register($what, $where);
+}
 
 /**
  * Option handler class
@@ -57,15 +40,29 @@ if (security_logger::register('policy_ack', 'security_logger::policy_ack'))
  */
 class security_logger {
 
+	public static $typelist = array(
+			'access_control' => 'security_logger::access_control',
+			'admin_log_actions' => 'security_logger::log_action',
+			'admin_login_attempt' => 'security_logger::adminLoginlogger',
+			'admin_managed_albums_access' => 'security_logger::adminAlbumGate',
+			'admin_XSRF_access' => 'security_logger::admin_XSRF_access',
+			'authorization_cookie' => 'security_logger::adminCookie',
+			'guest_login_attempt' => 'security_logger::guestLoginlogger',
+			'log_setup' => 'security_logger::log_setup',
+			'policy_ack' => 'security_logger::policy_ack',
+			'save_user_complete' => 'security_logger::userSave',
+			'security_misc' => 'security_logger::security_misc'
+	);
+
 	/**
 	 * class instantiation function
 	 *
 	 * @return security_logger
 	 */
 	function __construct() {
-		global $plugin_is_filter, $_securityLoggerList, $_securityLoggerLogging;
+		global $plugin_is_filter, $_securityLoggerLogging;
 		if (OFFSET_PATH == 2) {
-			foreach ($_securityLoggerList as $what => $where) {
+			foreach (self::$typelist as $what => $where) {
 				if (!is_null($_securityLoggerLogging[$where])) {
 					setOptionDefault($where, $_securityLoggerLogging[$where]);
 				}
@@ -85,11 +82,11 @@ class security_logger {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		global $_securityLoggerList, $_securityLoggerLogging;
+		global $_securityLoggerLogging;
 
 		return array(
 				gettext('Logging filters') => array('key' => '', 'type' => OPTION_TYPE_CHECKBOX_UL,
-						'checkboxes' => $_securityLoggerList,
+						'checkboxes' => self::$typelist,
 						'desc' => sprintf(gettext('The logging actions for the selected filters will be processed. Further details on these filters can be found in the <a href="%1$s">filter documentation</a>.'), getAdminLink(PLUGIN_FOLDER . '/debug/admin_tab.php') . '?page=development&tab=filters#Admin_Security')
 				),
 				gettext('Record failed admin access') => array('key' => 'logger_access_log_type', 'type' => OPTION_TYPE_RADIO,
@@ -106,9 +103,10 @@ class security_logger {
 	}
 
 	static function register($what, $where) {
-		global $_securityLoggerLogging, $_securityLoggerList;
-		$_securityLoggerList[$what] = $where;
-		return $_securityLoggerLogging[$where] = getOption($where) || is_null(getOption($where));
+		global $_securityLoggerLogging;
+		if ($_securityLoggerLogging[$where] = getOption($where) || is_null(getOption($where))) {
+			npgFilters::register($what, $where);
+		}
 	}
 
 	static function getFields() {
@@ -471,6 +469,19 @@ class security_logger {
 	 * @param string $txt
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
+		list($user, $name) = security_logger::populate_user();
+		security_logger::logger((int) $success, $user, $name, $requestor, $auth, $txt);
+		return $success;
+	}
+
+	/**
+	 * Log access control actions
+	 * @param bool $success
+	 * @param string $requestor
+	 * @param string $auth
+	 * @param string $txt
+	 */
+	static function access_control($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
 		security_logger::logger((int) $success, $user, $name, $requestor, $auth, $txt);
 		return $success;
