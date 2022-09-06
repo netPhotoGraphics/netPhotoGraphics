@@ -55,15 +55,12 @@
 				<li><a title="Security Admin filters" href="#Admin_Security">Security</a></li>
 		</ul>
 		</li>
-		<li><a title="Comment filters" href="#Comment">Comment filters</a>
-		</li>
-		<li><a title="Media filters" href="#Media">Media filters</a>
-		</li>
 		<li><a title="Miscellaneous filters" href="#Miscellaneous">Miscellaneous filters</a>
 		</li>
 		<li><a title="Object filters" href="#Object">Object filters</a>
 		<ul>
 				<li><a title="CMS Object filters" href="#Object_CMS">CMS</a></li>
+				<li><a title="Comment Object filters" href="#Object_Comment">Comment</a></li>
 				<li><a title="Media Object filters" href="#Object_Media">Media</a></li>
 				<li><a title="Miscellaneous Object filters" href="#Object_Miscellaneous">Miscellaneous</a></li>
 				<li><a title="Root_class Object filters" href="#Object_Root_class">Root_class</a></li>
@@ -339,7 +336,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>mass_edit_selector</strong></span>(<em>array</em>)</p>
-					<!-- description(Admin.Media)-mass_edit_selector --><p></p><!--e-->
+					<!-- description(Admin.Media)-mass_edit_selector --><p>Allows a plugin to place items in the <em>mass edit selector</em> area.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
@@ -587,56 +584,12 @@
 					<br />
 				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
-	<h5><span id="Comment"></span>Comment filters</h5>
-	<!-- classhead Comment --><p></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_form_data</strong></span>(<em>array</em>)</p>
-					<!-- description(Comment.Miscellaneous)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/comment_form.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_post</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Comment.Miscellaneous)-comment_post --><p>Invoked when a comment has been posted.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/comment_form/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>handle_comment</strong></span>(<em>bool</em>)</p>
-					<!-- description(Comment.Miscellaneous)-handle_comment --><p>The hook for comment handling. Invoked from the controller to process comments.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/controller.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
-	<h5><span id="Media"></span>Media filters</h5>
-	<!-- classhead Media --><p></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>image_processor_uri</strong></span>(<em>var, var, var, var</em>)</p>
-					<!-- description(Media.Miscellaneous)-image_processor_uri --><p>Called whenever an image processor URI is created for an image reference. Can be used, for instance, to note and then cache these images.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions-basic.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
 	<h5><span id="Miscellaneous"></span>Miscellaneous filters</h5>
 	<!-- classhead Miscellaneous --><p></p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_consentscripts</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_consentscripts --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_consentscripts --><p>Allows plugins to add to the <em>cookieconsent</em> Java Scripts to allow or block.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
@@ -645,7 +598,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_externalconsentscripts</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_externalconsentscripts --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_externalconsentscripts --><p>Allows plugins to add to the <em>cookieconsent</em> external Java Scripts to allow or block.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
@@ -683,7 +636,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>mail_form</strong></span>(<em>string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-mail_form --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-mail_form --><p>Allows plugins to modify the default <em>mail form</em>.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/functions.php</li>
@@ -790,6 +743,37 @@
 					<br />
 				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
+			<h6 class="filter subclass"><span id="Object_Comment"></span>Comment</h6>
+			<!-- subclasshead Object.Comment --><p class="subclass"></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_form_data</strong></span>(<em>array</em>)</p>
+					<!-- description(Object.Comment)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_post</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Object.Comment)-comment_post --><p>Invoked when a comment has been posted.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form/functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>handle_comment</strong></span>(<em>bool</em>)</p>
+					<!-- description(Object.Comment)-handle_comment --><p>The hook for comment handling. Invoked from the controller to process comments.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/controller.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
 			<h6 class="filter subclass"><span id="Object_Media"></span>Media</h6>
 			<!-- subclasshead Object.Media --><p class="subclass">These filters apply to "media" objects.</p><!--e-->
 			<ul class="filterdetail">
@@ -867,6 +851,15 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/class-image.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>image_processor_uri</strong></span>(<em>var, var, var, var</em>)</p>
+					<!-- description(Object.Media)-image_processor_uri --><p>Called whenever an image processor URI is created for an image reference. Can be used, for instance, to note and then cache these images.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/functions-basic.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -958,7 +951,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>isPublicCategory</strong></span>(<em>bool, var</em>)</p>
-					<!-- description(Object.Miscellaneous)-isPublicCategory --><p></p><!--e-->
+					<!-- description(Object.Miscellaneous)-isPublicCategory --><p>Allows plugins to public access to certain categories even when a site is <em>private</em>.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/zenpage/class-news.php</li>
@@ -1268,15 +1261,6 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_image_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-custom_image_thumb_html --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/enlighten/home.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>feature_plugin_load</strong></span>(<em></em>)</p>
 					<!-- description(Theme.Script)-feature_plugin_load --><p>Applied just before feature plugins are loaded for the front-end. Allows a CLASS plugin to take FEATURE actions.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1318,16 +1302,6 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/index.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_album_image_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-standard_album_image_html --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/garland/image_gallery/functions.php</li>
-						<li class="call_list"><em>theme</em>/spellflight/image_gallery/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->

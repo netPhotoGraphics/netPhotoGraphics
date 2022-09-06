@@ -50,7 +50,6 @@ if (!defined('WEBPATH'))
 									<a href="<?php echo $link; ?>">
 										<?php
 										$html = "<img src='$thumb' width='255' height='75'/>";
-										$html = npgFilters::apply('custom_image_thumb_html', $html);
 										if (ENCODING_FALLBACK) {
 											$html = "<picture>\n<source srcset=\"" . html_encode($i->getCustomImage(array('width' => 255, 'height' => 75, 'cw' => 255, 'ch' => 75, 'thumb' => TRUE), FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 										}
