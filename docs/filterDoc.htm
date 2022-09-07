@@ -74,10 +74,6 @@
 		</ul>
 		</li>
 		<li><a title="Theme filters" href="#Theme">Theme filters</a>
-		<ul>
-				<li><a title="Miscellaneous Theme filters" href="#Theme_Miscellaneous">Miscellaneous</a></li>
-				<li><a title="Script Theme filters" href="#Theme_Script">Script</a></li>
-		</ul>
 		</li>
 		<li><a title="Upload filters" href="#Upload">Upload filters</a>
 		</li>
@@ -408,9 +404,9 @@
 					<!-- description(Admin.Miscellaneous)-admin_note --><p>This filter is invoked at the head of each admin page to allow a filter to place a note there.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list"><em>plugin</em>/zenphotocompatibilitypack/legacyconverter.php</li>
 						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
 						<li class="call_list">npgcore/admin-tabs/albumsort.php</li>
-						<li class="call_list">npgcore/admin-tabs/dynamic-album.php</li>
 						<li>...</li>
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->
@@ -671,11 +667,29 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>setupTheme</strong></span>(<em>var</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-setupTheme --><p>Allows a plugin to override the <em>theme</em> that will be used to display WEB pages.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>site_upgrade_xml</strong></span>(<em>var</em>)</p>
 					<!-- description(Miscellaneous.Miscellaneous)-site_upgrade_xml --><p>Allows plugins to add files to those processed by the site_upgrade plugin.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/site_upgrade.php (2)</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>software_information</strong></span>(<em>var, var, var</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-software_information --><p>This filter is used to display the installation information HTML comment at the end of each page load.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/index.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -1235,21 +1249,6 @@
 			</ul><!-- filterdetail -->
 	<h5><span id="Theme"></span>Theme filters</h5>
 	<!-- classhead Theme --><p>These filters should be called from all themes. They provide a way for the core and for plugins to add HTML content to the theme.</p><!--e-->
-			<h6 class="filter subclass"><span id="Theme_Miscellaneous"></span>Miscellaneous</h6>
-			<!-- subclasshead Theme.Miscellaneous --><p class="subclass"></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>content_macro</strong></span>(<em>array</em>)</p>
-					<!-- description(Theme.Miscellaneous)-content_macro --><p>Allows plugins and themes to provide macros for data substitutions.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
-			<h6 class="filter subclass"><span id="Theme_Script"></span>Script</h6>
-			<!-- subclasshead Theme.Script --><p class="subclass"></p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>colorbox_themepath</strong></span>(<em>string</em>)</p>
@@ -1257,6 +1256,15 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/colorbox_js.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>content_macro</strong></span>(<em>array</em>)</p>
+					<!-- description(Theme.Script)-content_macro --><p>Allows plugins and themes to provide macros for data substitutions.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -1281,24 +1289,6 @@
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>load_theme_script</strong></span>(<em>var, var</em>)</p>
 					<!-- description(Theme.Script)-load_theme_script --><p>Allows for overriding the script loaded for a particular theme page.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/index.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>setupTheme</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-setupTheme --><p>Allows a plugin to override the <em>theme</em> that will be used to display WEB pages.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>software_information</strong></span>(<em>var, var, var</em>)</p>
-					<!-- description(Theme.Script)-software_information --><p>This filter is used to display the installation information HTML comment at the end of each page load.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/index.php</li>
