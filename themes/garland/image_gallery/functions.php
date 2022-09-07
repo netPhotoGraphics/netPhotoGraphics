@@ -10,7 +10,8 @@ class imagegallery {
 	function __construct() {
 		//	all the images on one page following the album pages
 		setOption('images_per_page', NULL, false);
-		setOption('thumb_transition', false, false);;
+		setOption('thumb_transition', false, false);
+		;
 	}
 
 	function theme_head($_themeroot) {
@@ -126,7 +127,6 @@ class imagegallery {
 												<a href="<?php echo html_encode(getDefaultSizedImage()); ?>">
 													<?php
 													$html = '<img src="' . html_encode(getImageThumb()) . 'class="image' . $lastImage . '"	 alt="' . html_encode(getImageDesc()) . '">';
-													$html = npgFilters::apply('standard_album_image_html', $html);
 													if (ENCODING_FALLBACK) {
 														$html = "<picture>\n<source srcset=\"" . html_encode(getImageThumb(FALLBACK_SUFFIX)) . "\">\n" . $html . "</picture>\n";
 													}

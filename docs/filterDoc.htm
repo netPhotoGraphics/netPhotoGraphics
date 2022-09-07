@@ -48,24 +48,19 @@
 	<ul>
 		<li><a title="Admin filters" href="#Admin">Admin filters</a>
 		<ul>
+				<li><a title="CMS Admin filters" href="#Admin_CMS">CMS</a></li>
 				<li><a title="Comment Admin filters" href="#Admin_Comment">Comment</a></li>
 				<li><a title="Media Admin filters" href="#Admin_Media">Media</a></li>
 				<li><a title="Miscellaneous Admin filters" href="#Admin_Miscellaneous">Miscellaneous</a></li>
 				<li><a title="Security Admin filters" href="#Admin_Security">Security</a></li>
 		</ul>
 		</li>
-		<li><a title="CMS filters" href="#CMS">CMS filters</a>
-		</li>
-		<li><a title="Comment filters" href="#Comment">Comment filters</a>
-		</li>
-		<li><a title="Media filters" href="#Media">Media filters</a>
-		</li>
-		<li><a title="Miscellaneous filters" href="#Miscellaneous">Miscellaneous filters</a>
-		</li>
 		<li><a title="Miscellaneous filters" href="#Miscellaneous">Miscellaneous filters</a>
 		</li>
 		<li><a title="Object filters" href="#Object">Object filters</a>
 		<ul>
+				<li><a title="CMS Object filters" href="#Object_CMS">CMS</a></li>
+				<li><a title="Comment Object filters" href="#Object_Comment">Comment</a></li>
 				<li><a title="Media Object filters" href="#Object_Media">Media</a></li>
 				<li><a title="Miscellaneous Object filters" href="#Object_Miscellaneous">Miscellaneous</a></li>
 				<li><a title="Root_class Object filters" href="#Object_Root_class">Root_class</a></li>
@@ -73,6 +68,10 @@
 		</ul>
 		</li>
 		<li><a title="Template filters" href="#Template">Template filters</a>
+		<ul>
+				<li><a title="AdminToolbox Template filters" href="#Template_AdminToolbox">AdminToolbox</a></li>
+				<li><a title="Miscellaneous Template filters" href="#Template_Miscellaneous">Miscellaneous</a></li>
+		</ul>
 		</li>
 		<li><a title="Theme filters" href="#Theme">Theme filters</a>
 		</li>
@@ -85,6 +84,136 @@
 <br clear="all"><!-- Begin filter descriptions -->
 	<h5><span id="Admin"></span>Admin filters</h5>
 	<!-- classhead Admin --><p>These filters allow for the extension of the administrator interface.</p><!--e-->
+			<h6 class="filter subclass"><span id="Admin_CMS"></span>CMS</h6>
+			<!-- subclasshead Admin.CMS --><p class="subclass"></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>bulk_article_actions</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-bulk_article_actions --><p>Allow filtering of the "article" tab bulk action items.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/news.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>bulk_category_actions</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-bulk_category_actions --><p>Allow filtering of the "category" tab bulk action items.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/categories.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>bulk_page_actions</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-bulk_page_actions --><p>Allow filtering of the "page" tab bulk action items.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/pages.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>edit_article_custom</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-edit_article_custom --><p>Allows a plugin to manage custom data for Article articles. This invocation is for when the news article is presented for editing.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>edit_category_custom</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-edit_category_custom --><p>Allows a plugin to manage custom data for CMS categories. This invocation is for when the category is presented for editing.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>edit_cms_utilities</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-edit_cms_utilities --><p>Allows a plugin to place items in the <em>Utilities</em> area of the edit page for CMS objects.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>edit_page_custom</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.CMS)-edit_page_custom --><p>Allows a plugin to manage custom data for CMS pages. This invocation is for when the page object is presented for editing.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>processBulkCMSSave</strong></span>(<em>string, var, var</em>)</p>
+					<!-- description(Admin.CMS)-processBulkCMSSave --><p>Allow processing of the "category", "article", and "page" tab bulk action saves.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>save_article_data</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-save_article_data --><p>Allows a plugin to manage custom data for news articles. This invocation is for when the article is saved.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>save_category_data</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-save_category_data --><p>Applied just before the CMS Category save() method is called.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>save_page_data</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.CMS)-save_page_data --><p>Allows a plugin to manage image data for page. This invocation is for when the page is saved.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>update_article</strong></span>(<em>string, var, var</em>)</p>
+					<!-- description(Admin.CMS)-update_article --><p>Invoked when a news article is updated.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>update_category</strong></span>(<em>string, var, var</em>)</p>
+					<!-- description(Admin.CMS)-update_category --><p>Invoked when a CMS category is updated.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>update_page</strong></span>(<em>string, var, var</em>)</p>
+					<!-- description(Admin.CMS)-update_page --><p>Invoked when a CMS page is updated.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
 			<h6 class="filter subclass"><span id="Admin_Comment"></span>Comment</h6>
 			<!-- subclasshead Admin.Comment --><p class="subclass"></p><!--e-->
 			<ul class="filterdetail">
@@ -93,6 +222,26 @@
 					<!-- description(Admin.Comment)-bulk_comment_actions --><p>Allow filtering of the "comment" tab bulk action items.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form/admin-comments.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_approve</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.Comment)-comment_approve --><p>Invoked when an administrator marks a comment.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/admin-functions.php</li>
+						<li class="call_list">npgcore/extensions/comment_form/admin-comments.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_disapprove</strong></span>(<em>var</em>)</p>
+					<!-- description(Admin.Comment)-comment_disapprove --><p>Invoked when an administrator marks a comment as SPAM.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/admin-functions.php</li>
 						<li class="call_list">npgcore/extensions/comment_form/admin-comments.php</li>
 					</ul><!-- calls -->
 					<br />
@@ -109,17 +258,6 @@
 						<li class="call_list">npgcore/admin-tabs/albumsort.php</li>
 						<li class="call_list">npgcore/admin-tabs/dynamic-album.php</li>
 						<li class="call_list">npgcore/admin-tabs/edit.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_note</strong></span>(<em>string, string</em>)</p>
-					<!-- description(Admin.Media)-admin_note --><p>This filter is invoked at the head of each admin page to allow a filter to place a note there.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
-						<li class="call_list">npgcore/admin-tabs/albumsort.php</li>
-						<li class="call_list">npgcore/admin-tabs/dynamic-album.php</li>
 						<li>...</li>
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->
@@ -194,7 +332,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>mass_edit_selector</strong></span>(<em>array</em>)</p>
-					<!-- description(Admin.Media)-mass_edit_selector --><p></p><!--e-->
+					<!-- description(Admin.Media)-mass_edit_selector --><p>Allows a plugin to place items in the <em>mass edit selector</em> area.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
@@ -225,24 +363,6 @@
 			<h6 class="filter subclass"><span id="Admin_Miscellaneous"></span>Miscellaneous</h6>
 			<!-- subclasshead Admin.Miscellaneous --><p class="subclass"></p><!--e-->
 			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_XSRF_access</strong></span>(<em>bool, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-admin_XSRF_access --><p>Invoked when an attempt at Cross Site Reference Forgery is detected.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_allow_access</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-admin_allow_access --><p>Allows mitigation of the normal back-end security checks.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_close</strong></span>(<em></em>)</p>
 					<!-- description(Admin.Miscellaneous)-admin_close --><p>Allows plugins to place html in the footer area of admin pages</p><!--e-->
@@ -280,13 +400,15 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_log_actions</strong></span>(<em>bool, var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-admin_log_actions --><p>Reports when a log has been deleted, cleared, or downloaded.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>admin_note</strong></span>(<em>string, string</em>)</p>
+					<!-- description(Admin.Miscellaneous)-admin_note --><p>This filter is invoked at the head of each admin page to allow a filter to place a note there.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/logs.php (3)</li>
+						<li class="call_list"><em>plugin</em>/zenphotocompatibilitypack/legacyconverter.php</li>
+						<li class="call_list">npgcore/admin-tabs/album_masedit.php</li>
+						<li class="call_list">npgcore/admin-tabs/albumsort.php</li>
+						<li>...</li>
 					</ul><!-- calls -->
-					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_overview</strong></span>(<em></em>)</p>
@@ -307,6 +429,15 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_theme_buttons</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Admin.Miscellaneous)-admin_theme_buttons --><p>Allows a filter to insert buttons in the Theme tab actions column.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/admin-tabs/themes.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_utilities_buttons</strong></span>(<em>array</em>)</p>
 					<!-- description(Admin.Miscellaneous)-admin_utilities_buttons --><p>Allows plugins to add buttons to the admin utilities box on the <em>overview</em> page.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -317,78 +448,11 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_approve</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-comment_approve --><p>Invoked when an administrator marks a comment.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-functions.php</li>
-						<li class="call_list">npgcore/extensions/comment_form/admin-comments.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_disapprove</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-comment_disapprove --><p>Invoked when an administrator marks a comment as SPAM.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-functions.php</li>
-						<li class="call_list">npgcore/extensions/comment_form/admin-comments.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>log_setup</strong></span>(<em>bool, string, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-log_setup --><p>Invoked when <span class="tt">setup</span> creates the setup log.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin.php (3)</li>
-						<li class="call_list">npgcore/setup/index.php</li>
-						<li class="call_list">npgcore/setup/setupcomplete.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>new_article</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-new_article --><p>Invoked when a new CMS article is created.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>new_category</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-new_category --><p>Invoked when a new CMS category is created.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>new_page</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-new_page --><p>Invoked when a new CMS page is created.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>processBulkAlbumsSave</strong></span>(<em>string, var</em>)</p>
 					<!-- description(Admin.Miscellaneous)-processBulkAlbumsSave --><p>Allow processing of the "albums" tab bulk action saves.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>processBulkCMSSave</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-processBulkCMSSave --><p>Allow processing of the "category", "article", and "page" tab bulk action saves.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -420,66 +484,21 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_article_data</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-save_article_data --><p>Allows a plugin to manage custom data for news articles. This invocation is for when the article is saved.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>theme_editor</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Admin.Miscellaneous)-theme_editor --><p>Allows a plugin to register as "Theme editor". See elFinder for an example.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_category_data</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-save_category_data --><p>Applied just before the CMS Category save() method is called.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_page_data</strong></span>(<em>var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-save_page_data --><p>Allows a plugin to manage image data for page. This invocation is for when the page is saved.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>update_article</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-update_article --><p>Invoked when a news article is updated.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>update_category</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-update_category --><p>Invoked when a CMS category is updated.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>update_page</strong></span>(<em>string, var, var</em>)</p>
-					<!-- description(Admin.Miscellaneous)-update_page --><p>Invoked when a CMS page is updated.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+						<li class="call_list">npgcore/admin-tabs/themes.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 			<h6 class="filter subclass"><span id="Admin_Security"></span>Security</h6>
-			<!-- subclasshead Admin.Security --><!--e-->
+			<!-- subclasshead Admin.Security --><p class="subclass"></p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>access_control</strong></span>(<em>number, var, string, string</em>)</p>
-					<!-- description(Admin.Security)-access_control --><p></p><!--e-->
+					<!-- description(Admin.Security)-access_control --><p>Provides logging of site access suspension actions.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/accessthreshold.php (2)</li>
@@ -490,6 +509,15 @@
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_XSRF_access</strong></span>(<em>bool, var</em>)</p>
 					<!-- description(Admin.Security)-admin_XSRF_access --><p>Invoked when an attempt at Cross Site Reference Forgery is detected.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_allow_access</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Admin.Security)-admin_allow_access --><p>Allows mitigation of the normal back-end security checks.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-functions.php</li>
@@ -515,22 +543,20 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_managed_albums_access</strong></span>(<em>bool, var</em>)</p>
-					<!-- description(Admin.Security)-admin_managed_albums_access --><p>This filter allows a plugin to intervene when a request to edit an album is being denied for insufficient permissions.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/albumsort.php</li>
-						<li class="call_list">npgcore/admin-tabs/dynamic-album.php</li>
-						<li class="call_list">npgcore/admin-tabs/edit.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>authorization_cookie</strong></span>(<em>var, var, var</em>)</p>
-					<!-- description(Admin.Security)-authorization_cookie --><p>Allows a plugin to override cookie based authorization credentials.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>alt_login_handler</strong></span>(<em>array</em>)</p>
+					<!-- description(Admin.Security)-alt_login_handler --><p>Allows filters to provide links to alternate logon handlers. This list is presented as a selection list on the logon form as alternates to the provided process.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/lib-auth.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>federated_login_attempt</strong></span>(<em>bool, var, var</em>)</p>
+					<!-- description(Admin.Security)-federated_login_attempt --><p>Invoked when a user logs on via a federated_Logon plugin. (As opposed to logging on through the normal authentication mechanism.)</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/common/oauth/oauthlogin.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -540,38 +566,6 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>log_setup</strong></span>(<em>bool, string, var</em>)</p>
-					<!-- description(Admin.Security)-log_setup --><p>Invoked when <span class="tt">setup</span> creates the setup log.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin.php (3)</li>
-						<li class="call_list">npgcore/setup/index.php</li>
-						<li class="call_list">npgcore/setup/setupcomplete.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>policy_ack</strong></span>(<em>bool, string, number, var</em>)</p>
-					<!-- description(Admin.Security)-policy_ack --><p>Used for logging acknowledgment of the site usage policy or user consent to cookie use.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/users.php</li>
-						<li class="call_list">npgcore/admin_options/general.php</li>
-						<li class="call_list">npgcore/extensions/cookieconsent/ajaxhandler.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>save_user_complete</strong></span>(<em>string, var, string</em>)</p>
-					<!-- description(Admin.Security)-save_user_complete --><p>Invoked after the userObj->save() method has been called. Used primarily for logging that a user has been updated.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/users.php (2)</li>
-						<li class="call_list">npgcore/extensions/user_groups/user_groups-tab.php (3)</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -586,177 +580,12 @@
 					<br />
 				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
-	<h5><span id="CMS"></span>CMS filters</h5>
-	<!-- classhead CMS --><p></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>bulk_article_actions</strong></span>(<em>var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-bulk_article_actions --><p>Allow filtering of the "article" tab bulk action items.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/news.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>bulk_category_actions</strong></span>(<em>var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-bulk_category_actions --><p>Allow filtering of the "category" tab bulk action items.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/categories.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>bulk_page_actions</strong></span>(<em>var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-bulk_page_actions --><p>Allow filtering of the "page" tab bulk action items.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/pages.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>edit_article_custom</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-edit_article_custom --><p>Allows a plugin to manage custom data for Article articles. This invocation is for when the news article is presented for editing.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>edit_category_custom</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-edit_category_custom --><p>Allows a plugin to manage custom data for CMS categories. This invocation is for when the category is presented for editing.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>edit_page_custom</strong></span>(<em>string, var</em>)</p>
-					<!-- description(CMS.Miscellaneous)-edit_page_custom --><p>Allows a plugin to manage custom data for CMS pages. This invocation is for when the page object is presented for editing.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
-	<h5><span id="Comment"></span>Comment filters</h5>
-	<!-- classhead Comment --><p></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_form_data</strong></span>(<em>array</em>)</p>
-					<!-- description(Comment.Miscellaneous)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/comment_form.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>comment_post</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Comment.Miscellaneous)-comment_post --><p>Invoked when a comment has been posted.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/comment_form/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>handle_comment</strong></span>(<em>bool</em>)</p>
-					<!-- description(Comment.Miscellaneous)-handle_comment --><p>The hook for comment handling. Invoked from the controller to process comments.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/controller.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
-	<h5><span id="Media"></span>Media filters</h5>
-	<!-- classhead Media --><p></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_album_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Media.Miscellaneous)-custom_album_thumb_html --><p>Allows plugins to alter the HTML for an album thumbnail reference.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/image_album_statistics.php</li>
-						<li class="call_list">npgcore/template-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>edit_cms_utilities</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Media.Miscellaneous)-edit_cms_utilities --><p>Allows a plugin to place items in the <em>Utilities</em> area of the edit page for CMS objects.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/zenpage/edit.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>image_processor_uri</strong></span>(<em>var, var, var, var</em>)</p>
-					<!-- description(Media.Miscellaneous)-image_processor_uri --><p>Called whenever an image processor URI is created for an image reference. Can be used, for instance, to note and then cache these images.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions-basic.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
 	<h5><span id="Miscellaneous"></span>Miscellaneous filters</h5>
 	<!-- classhead Miscellaneous --><p></p><!--e-->
-			<h6 class="filter subclass"><span id="Miscellaneous_"></span></h6>
-			<!-- subclasshead Miscellaneous. --><!--e-->
 			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>access_control</strong></span>(<em>number, var, string, string</em>)</p>
-					<!-- description(Miscellaneous.)-access_control --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/accessthreshold.php (2)</li>
-						<li class="call_list">npgcore/extensions/ipblocker.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_stripSuffix($_gallery_page)</strong></span>(<em></em>)</p>
-					<!-- description(Miscellaneous.)-admin_toolbox_stripSuffix($_gallery_page) --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/template-functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>zenphotoCompatibility</strong></span>(<em>string</em>)</p>
-					<!-- description(Miscellaneous.)-zenphotoCompatibility --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/comment_form.php</li>
-						<li class="call_list">npgcore/extensions/contact_form.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-			</ul><!-- filterdetail -->
-			<h6 class="filter subclass"><span id="Miscellaneous_Miscellaneous"></span>Miscellaneous</h6>
-			<!-- subclasshead Miscellaneous.Miscellaneous --><p class="subclass"></p><!--e-->
-			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>content_macro</strong></span>(<em>array</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-content_macro --><p>Allows plugins and themes to provide macros for data substitutions.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_consentscripts</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_consentscripts --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_consentscripts --><p>Allows plugins to add to the <em>cookieconsent</em> Java Scripts to allow or block.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
@@ -765,7 +594,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>cookieconsent_externalconsentscripts</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_externalconsentscripts --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-cookieconsent_externalconsentscripts --><p>Allows plugins to add to the <em>cookieconsent</em> external Java Scripts to allow or block.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/cookieconsent.php</li>
@@ -782,15 +611,6 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>feature_plugin_load</strong></span>(<em></em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-feature_plugin_load --><p>Applied just before feature plugins are loaded for the front-end. Allows a CLASS plugin to take FEATURE actions.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/index.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>installation_information</strong></span>(<em></em>)</p>
 					<!-- description(Miscellaneous.Miscellaneous)-installation_information --><p>Allows plugins to show items in the "Installation Information" section of the overview page.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -800,30 +620,22 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>load_request</strong></span>(<em>string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-load_request --><p>Invoked by the front-end when a page is being loaded. The filter may cause the page load to be aborted.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>log_setup</strong></span>(<em>bool, string, var</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-log_setup --><p>Invoked when <span class="tt">setup</span> creates the setup log.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list">npgcore/lib-controller.php</li>
+						<li class="call_list">npgcore/admin.php (3)</li>
+						<li class="call_list">npgcore/setup/index.php</li>
+						<li class="call_list">npgcore/setup/setupcomplete.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>mail_form</strong></span>(<em>string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-mail_form --><p></p><!--e-->
+					<!-- description(Miscellaneous.Miscellaneous)-mail_form --><p>Allows plugins to modify the default <em>mail form</em>.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>security_misc</strong></span>(<em>bool, string, string, string</em>)</p>
-					<!-- description(Miscellaneous.Miscellaneous)-security_misc --><p>Provides a general mechanism to place information into the security log.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/cron_runner.php</li>
-						<li class="call_list">npgcore/extensions/site_upgrade/site_upgrade.php (3)</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -901,9 +713,81 @@
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>zenphotoCompatibility</strong></span>(<em>string</em>)</p>
+					<!-- description(Miscellaneous.Miscellaneous)-zenphotoCompatibility --><p>Loads <em>zenphoto</em> globals when the compatibility pack is enabled.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form.php</li>
+						<li class="call_list">npgcore/extensions/contact_form.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
 			</ul><!-- filterdetail -->
 	<h5><span id="Object"></span>Object filters</h5>
 	<!-- classhead Object --><p>These filters provide modifications to the behavior of object methods.</p><!--e-->
+			<h6 class="filter subclass"><span id="Object_CMS"></span>CMS</h6>
+			<!-- subclasshead Object.CMS --><p class="subclass"></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>new_article</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Object.CMS)-new_article --><p>Invoked when a new CMS article is created.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>new_category</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Object.CMS)-new_category --><p>Invoked when a new CMS category is created.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>new_page</strong></span>(<em>string, var</em>)</p>
+					<!-- description(Object.CMS)-new_page --><p>Invoked when a new CMS page is created.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/zenpage/admin-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
+			<h6 class="filter subclass"><span id="Object_Comment"></span>Comment</h6>
+			<!-- subclasshead Object.Comment --><p class="subclass"></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_form_data</strong></span>(<em>array</em>)</p>
+					<!-- description(Object.Comment)-comment_form_data --><p>Allows plugins to modify the data shown on comment forms.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>comment_post</strong></span>(<em>var, var</em>)</p>
+					<!-- description(Object.Comment)-comment_post --><p>Invoked when a comment has been posted.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/comment_form/functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>handle_comment</strong></span>(<em>bool</em>)</p>
+					<!-- description(Object.Comment)-handle_comment --><p>The hook for comment handling. Invoked from the controller to process comments.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/controller.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
 			<h6 class="filter subclass"><span id="Object_Media"></span>Media</h6>
 			<!-- subclasshead Object.Media --><p class="subclass">These filters apply to "media" objects.</p><!--e-->
 			<ul class="filterdetail">
@@ -937,6 +821,27 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>custom_album_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-custom_album_thumb_html --><p>Allows plugins to alter the HTML for an album thumbnail reference.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/image_album_statistics.php</li>
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, string</em>)</p>
+					<!-- description(Object.Media)-custom_image_html --><p>Allows plugins to alter the HTML for an image reference.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/ardoise/functions.php</li>
+						<li class="call_list"><em>theme</em>/effervescence+/functions.php</li>
+						<li class="call_list"><em>theme</em>/masonry/index.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>image_filter</strong></span>(<em>var</em>)</p>
 					<!-- description(Object.Media)-image_filter --><p>Allow a plugin to remove files from the list of images found in an album so that they are not treated as images.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -960,6 +865,15 @@
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/class-image.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>image_processor_uri</strong></span>(<em>var, var, var, var</em>)</p>
+					<!-- description(Object.Media)-image_processor_uri --><p>Called whenever an image processor URI is created for an image reference. Can be used, for instance, to note and then cache these images.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/functions-basic.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -994,6 +908,39 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_album_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-standard_album_thumb_html --><p>Allows a plugin to modify the HTML used to reference an album thumb.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/garland/album.php (2)</li>
+						<li class="call_list"><em>theme</em>/garland/image.php (2)</li>
+						<li class="call_list"><em>theme</em>/garland/summary.php (2)</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_image_html</strong></span>(<em>var, string</em>)</p>
+					<!-- description(Object.Media)-standard_image_html --><p>Allows a plugin to modify the HTML used to reference an image.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/mobile/image.php</li>
+						<li class="call_list"><em>theme</em>/npgmobile/image.php</li>
+						<li class="call_list">npgcore/class-image.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>standard_image_thumb_html</strong></span>(<em>var</em>)</p>
+					<!-- description(Object.Media)-standard_image_thumb_html --><p>Allows a plugin to modify the HTML used to reference an image thumb.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/garland/favorites.php (2)</li>
+						<li class="call_list"><em>theme</em>/spellflight/favorites.php (2)</li>
+						<li class="call_list">npgcore/extensions/tinymce/pasteobj/pasteobj.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>standard_video_html</strong></span>(<em>var</em>)</p>
 					<!-- description(Object.Media)-standard_video_html --><p>Allows a plugin to modify the HTML used to reference a video.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1018,7 +965,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>isPublicCategory</strong></span>(<em>bool, var</em>)</p>
-					<!-- description(Object.Miscellaneous)-isPublicCategory --><p></p><!--e-->
+					<!-- description(Object.Miscellaneous)-isPublicCategory --><p>Allows plugins to public access to certain categories even when a site is <em>private</em>.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/extensions/zenpage/class-news.php</li>
@@ -1144,10 +1091,12 @@
 			</ul><!-- filterdetail -->
 	<h5><span id="Template"></span>Template filters</h5>
 	<!-- classhead Template --><p>These filters modify behavior of the functions that support themes.</p><!--e-->
+			<h6 class="filter subclass"><span id="Template_AdminToolbox"></span>AdminToolbox</h6>
+			<!-- subclasshead Template.AdminToolbox --><p class="subclass">Filters to add content to the Admin Toolbox menu</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_album</strong></span>(<em>var</em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_album --><p>Allows plugins to insert links into the <em>album</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_album --><p>Allows plugins to insert links into the <em>album</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1156,7 +1105,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_close</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_close --><p>This filter is applied just before the Admin Toolbox "logout" link is emitted.</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_close --><p>This filter is applied just before the Admin Toolbox "logout" link is emitted.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1165,7 +1114,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_gallery</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_gallery --><p>Allows plugins to insert links into the <em>gallery</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_gallery --><p>Allows plugins to insert links into the <em>gallery</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1174,7 +1123,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_global</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_global --><p>Allows plugins to insert links into the <em>general</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_global --><p>Allows plugins to insert links into the <em>general</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1183,7 +1132,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_image</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_image --><p>Allows plugins to insert links into the <em>image</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_image --><p>Allows plugins to insert links into the <em>image</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1192,7 +1141,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_news</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_news --><p>Allows plugins to insert links into the <em>news</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_news --><p>Allows plugins to insert links into the <em>news</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1201,7 +1150,7 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_pages</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_pages --><p>Allows plugins to insert links into the <em>pages</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_pages --><p>Allows plugins to insert links into the <em>pages</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
@@ -1210,10 +1159,33 @@
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_search</strong></span>(<em></em>)</p>
-					<!-- description(Template.Miscellaneous)-admin_toolbox_search --><p>Allows plugins to insert links into the <em>search</em> part of the "admin toolbox".</p><!--e-->
+					<!-- description(Template.AdminToolbox)-admin_toolbox_search --><p>Allows plugins to insert links into the <em>search</em> part of the "admin toolbox".</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_toolbox_stripSuffix($_gallery_page)</strong></span>(<em></em>)</p>
+					<!-- description(Template.AdminToolbox)-admin_toolbox_stripSuffix($_gallery_page) --><p>Allows plugins to insert links into  the "admin toolbox" when the page is a custom page.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/template-functions.php</li>
+					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+			</ul><!-- filterdetail -->
+			<h6 class="filter subclass"><span id="Template_Miscellaneous"></span>Miscellaneous</h6>
+			<!-- subclasshead Template.Miscellaneous --><p class="subclass"></p><!--e-->
+			<ul class="filterdetail">
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>admin_upload_process</strong></span>(<em>string</em>)</p>
+					<!-- description(Template.Miscellaneous)-admin_upload_process --><p>Allows plugins to modify the folder where an upload will place images.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/extensions/uploader_http/uploader.php</li>
+						<li class="call_list">npgcore/extensions/uploader_jquery/server/php/index.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
@@ -1234,6 +1206,17 @@
 						<li class="call_list">npgcore/template-functions.php</li>
 					</ul><!-- calls -->
 					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>getLink</strong></span>(<em>string, string, string</em>)</p>
+					<!-- description(Template.Miscellaneous)-getLink --><p>Called each time a URL is generated.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list"><em>theme</em>/mobile/functions.php</li>
+						<li class="call_list"><em>theme</em>/npgmobile/functions.php</li>
+						<li class="call_list">npgcore/class-album.php</li>
+						<li>...</li>
+					</ul><!-- calls -->
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>isMyItemToView</strong></span>(<em>string</em>)</p>
@@ -1268,15 +1251,6 @@
 	<!-- classhead Theme --><p>These filters should be called from all themes. They provide a way for the core and for plugins to add HTML content to the theme.</p><!--e-->
 			<ul class="filterdetail">
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_theme_buttons</strong></span>(<em>var, var</em>)</p>
-					<!-- description(Theme.Script)-admin_theme_buttons --><p>Allows a filter to insert buttons in the Theme tab actions column.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/themes.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>colorbox_themepath</strong></span>(<em>string</em>)</p>
 					<!-- description(Theme.Script)-colorbox_themepath --><p>allows overriding the path of the "custom" colorbox theme. getPlugin() will be called with this path to get the reference to the css when the selected colorbox theme is set to "custom".</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1286,35 +1260,31 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_image_html</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Theme.Script)-custom_image_html --><p>Allows plugins to alter the HTML for an image reference.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>content_macro</strong></span>(<em>array</em>)</p>
+					<!-- description(Theme.Script)-content_macro --><p>Allows plugins and themes to provide macros for data substitutions.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/ardoise/functions.php</li>
-						<li class="call_list"><em>theme</em>/effervescence+/functions.php</li>
-						<li class="call_list"><em>theme</em>/masonry/index.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>custom_image_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-custom_image_thumb_html --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/enlighten/home.php</li>
+						<li class="call_list">npgcore/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>getLink</strong></span>(<em>string, string, string</em>)</p>
-					<!-- description(Theme.Script)-getLink --><p>Called each time a URL is generated.</p><!--e-->
+					<p class="filterdef"><span class="inlinecode"><strong>feature_plugin_load</strong></span>(<em></em>)</p>
+					<!-- description(Theme.Script)-feature_plugin_load --><p>Applied just before feature plugins are loaded for the front-end. Allows a CLASS plugin to take FEATURE actions.</p><!--e-->
 					<p class="calls">Invoked from:</p>
 					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/mobile/functions.php</li>
-						<li class="call_list"><em>theme</em>/npgmobile/functions.php</li>
-						<li class="call_list">npgcore/class-album.php</li>
-						<li>...</li>
+						<li class="call_list">npgcore/index.php</li>
 					</ul><!-- calls -->
+					<br />
+				</li><!-- filterdetail -->
+				<li class="filterdetail">
+					<p class="filterdef"><span class="inlinecode"><strong>load_request</strong></span>(<em>string</em>)</p>
+					<!-- description(Theme.Script)-load_request --><p>Invoked by the front-end when a page is being loaded. The filter may cause the page load to be aborted.</p><!--e-->
+					<p class="calls">Invoked from:</p>
+					<ul><!-- calls -->
+						<li class="call_list">npgcore/lib-controller.php</li>
+					</ul><!-- calls -->
+					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>load_theme_script</strong></span>(<em>var, var</em>)</p>
@@ -1324,49 +1294,6 @@
 						<li class="call_list">npgcore/index.php</li>
 					</ul><!-- calls -->
 					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_album_image_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-standard_album_image_html --><p></p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/garland/image_gallery/functions.php</li>
-						<li class="call_list"><em>theme</em>/spellflight/image_gallery/functions.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_album_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-standard_album_thumb_html --><p>Allows a plugin to modify the HTML used to reference an album thumb.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/garland/album.php (2)</li>
-						<li class="call_list"><em>theme</em>/garland/image.php (2)</li>
-						<li class="call_list"><em>theme</em>/garland/summary.php (2)</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_image_html</strong></span>(<em>var, string</em>)</p>
-					<!-- description(Theme.Script)-standard_image_html --><p>Allows a plugin to modify the HTML used to reference an image.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/mobile/image.php</li>
-						<li class="call_list"><em>theme</em>/npgmobile/image.php</li>
-						<li class="call_list">npgcore/class-image.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>standard_image_thumb_html</strong></span>(<em>var</em>)</p>
-					<!-- description(Theme.Script)-standard_image_thumb_html --><p>Allows a plugin to modify the HTML used to reference an image thumb.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list"><em>theme</em>/garland/favorites.php (2)</li>
-						<li class="call_list"><em>theme</em>/spellflight/favorites.php (2)</li>
-						<li class="call_list">npgcore/extensions/tinymce/pasteobj/pasteobj.php</li>
-						<li>...</li>
-					</ul><!-- calls -->
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>themeSwitcher_Controllink</strong></span>(<em>var</em>)</p>
@@ -1409,15 +1336,6 @@
 					</ul><!-- calls -->
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>theme_editor</strong></span>(<em>string, var</em>)</p>
-					<!-- description(Theme.Script)-theme_editor --><p>Allows a plugin to register as "Theme editor". See elFinder for an example.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/admin-tabs/themes.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>theme_head</strong></span>(<em></em>)</p>
 					<!-- description(Theme.Script)-theme_head --><p>Invoked by all themes just after the &lt;head&gt; HTML tag.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1442,16 +1360,6 @@
 	<h5><span id="Upload"></span>Upload filters</h5>
 	<!-- classhead Upload --><p>These filters are used to implement upload handlers.</p><!--e-->
 			<ul class="filterdetail">
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_upload_process</strong></span>(<em>string</em>)</p>
-					<!-- description(Upload.Miscellaneous)-admin_upload_process --><p>Allows plugins to modify the folder where an upload will place images.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/uploader_http/uploader.php</li>
-						<li class="call_list">npgcore/extensions/uploader_jquery/server/php/index.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
 				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>check_upload_quota</strong></span>(<em>string, var</em>)</p>
 					<!-- description(Upload.Miscellaneous)-check_upload_quota --><p>Invoked when images are being uploaded. The filter ay return an error indication. If so, the upload is aborted.</p><!--e-->
@@ -1532,24 +1440,6 @@
 					<br />
 				</li><!-- filterdetail -->
 				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>admin_login_attempt</strong></span>(<em>var, var, var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-admin_login_attempt --><p>Reports logon attempts.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/lib-auth.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>alt_login_handler</strong></span>(<em>array</em>)</p>
-					<!-- description(User_management.Miscellaneous)-alt_login_handler --><p>Allows filters to provide links to alternate logon handlers. This list is presented as a selection list on the logon form as alternates to the provided process.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/lib-auth.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
 					<p class="filterdef"><span class="inlinecode"><strong>authorization_cookie</strong></span>(<em>var, var, var</em>)</p>
 					<!-- description(User_management.Miscellaneous)-authorization_cookie --><p>Allows a plugin to override cookie based authorization credentials.</p><!--e-->
 					<p class="calls">Invoked from:</p>
@@ -1574,24 +1464,6 @@
 					<ul><!-- calls -->
 						<li class="call_list">npgcore/admin-tabs/users.php</li>
 						<li class="call_list">npgcore/extensions/user_groups/user_groups-tab.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>federated_login_attempt</strong></span>(<em>bool, var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-federated_login_attempt --><p>Invoked when a user logs on via a federated_Logon plugin. (As opposed to logging on through the normal authentication mechanism.)</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/extensions/common/oauth/oauthlogin.php</li>
-					</ul><!-- calls -->
-					<br />
-				</li><!-- filterdetail -->
-				<li class="filterdetail">
-					<p class="filterdef"><span class="inlinecode"><strong>guest_login_attempt</strong></span>(<em>var, var, var, var</em>)</p>
-					<!-- description(User_management.Miscellaneous)-guest_login_attempt --><p>Invoked when a visitor logs on with a guest password.</p><!--e-->
-					<p class="calls">Invoked from:</p>
-					<ul><!-- calls -->
-						<li class="call_list">npgcore/functions.php</li>
 					</ul><!-- calls -->
 					<br />
 				</li><!-- filterdetail -->
