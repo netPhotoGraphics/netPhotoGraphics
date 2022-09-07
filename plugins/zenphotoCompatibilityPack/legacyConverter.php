@@ -19,7 +19,7 @@ admin_securityChecks(THEMES_RIGHTS, currentRelativeURL());
  * enumerates the files in folder(s)
  * @param $folder
  */
-function getResidentFiles($folder) {
+function getFiles($folder) {
 	global $_resident_files;
 	$localfiles = array();
 	$localfolders = array();
@@ -30,7 +30,7 @@ function getResidentFiles($folder) {
 				$file = str_replace('\\', '/', $file);
 				$key = $folder . '/' . $file;
 				if (is_dir($folder . '/' . $file)) {
-					$localfolders = array_merge($localfolders, getResidentFiles($folder . '/' . $file));
+					$localfolders = array_merge($localfolders, getFiles($folder . '/' . $file));
 				} else {
 					if (getSuffix($key) == 'php') {
 						$localfiles[] = $key;
@@ -64,13 +64,13 @@ if (isset($_GET['action'])) {
 	$files = array();
 	if (isset($_POST['themes'])) {
 		foreach ($_POST['themes'] as $theme) {
-			$themeFiles = getResidentFiles(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
+			$themeFiles = getFiles(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme);
 			$files = array_merge($files, $themeFiles);
 		}
 	}
 	if (isset($_POST['plugins'])) {
 		foreach ($_POST['plugins'] as $plugin) {
-			$pluginFiles = getResidentFiles(USER_PLUGIN_SERVERPATH . $plugin);
+			$pluginFiles = getFiles(USER_PLUGIN_SERVERPATH . $plugin);
 			$pluginFiles[] = USER_PLUGIN_SERVERPATH . $plugin . '.php';
 			$files = array_merge($files, $pluginFiles);
 		}
