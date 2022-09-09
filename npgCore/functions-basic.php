@@ -12,27 +12,6 @@
 // force UTF-8 Ø
 
 /**
- * Common error reporting for query errors
- * @param type $sql
- */
-function dbErrorReport($sql) {
-	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
-}
-
-/**
- * Returns a properly quoted string for DB queries
- * @param type $string
- * @return type
- */
-function db_quote($string) {
-	if ($string) {
-		$string = db_escape($string);
-	}
-	return $string = "'" . $string . "'";
-	;
-}
-
-/**
  * Returns the viewer's IP address
  * Deals with transparent proxies
  *
@@ -423,6 +402,27 @@ function query($sql, $errorstop = true) {
 	return $result;
 }
 
+/**
+ * Common error reporting for query errors
+ * @param type $sql
+ */
+function dbErrorReport($sql) {
+	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
+}
+
+/**
+ * Returns a properly quoted string for DB queries
+ * @param type $string
+ * @return type
+ */
+function db_quote($string) {
+	if ($string) {
+		$string = db_escape($string);
+	}
+	return $string = "'" . $string . "'";
+	;
+}
+
 /*
  * returns the connected database name
  */
@@ -431,6 +431,14 @@ function db_name() {
 	return getOption('mysql_database');
 }
 
+/**
+ * returns the count of items in $table[$field] that satisfy the $clause
+ *
+ * @param type $table
+ * @param type $clause
+ * @param type $field
+ * @return int
+ */
 function db_count($table, $clause = NULL, $field = "*") {
 	$sql = 'SELECT COUNT(' . $field . ') FROM ' . prefix($table) . ' ' . $clause;
 	$result = query_single_row($sql);
