@@ -390,11 +390,6 @@ function getSetClause($new_unique_set) {
  */
 function query($sql, $errorstop = true) {
 	global $_DB_connection;
-
-	if (TEST_RELEASE && !$errorstop && is_null($_DB_connection)) {
-		debugLogBacktrace('Query() before database connection; $errorstop=' . int($errorstop));
-	}
-
 	$result = class_exists('npgFilters') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
 		$result = db_query($sql, $_DB_connection && $errorstop);
