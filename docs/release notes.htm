@@ -88,11 +88,12 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.16.03</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.16.04</h2>
 <h2>General</h2>
 <p>The site will be automatically closed when the <em>extract.php</em> script is unzipping files. This is done by closing the site when there is an <em>extract.php</em> script present in the root folder of the installation. The extract process removes this script upon completion. <strong>BUT</strong>, if for some reason the script is left in the root folder, the site will be closed. The only way to access the administrative pages in that case is by using a direct file (not rewritten) link to <code>npgCore/admin.php</code>.</p>
 <p>If the site has clone installations, running <em>setup </em>on the primary site will automatically launch <em>setup </em>for the clone sites. Many browsers will automatically block popups. This blocking will inhibit the clone site setup execution. You can typically enable popups for a particular site. You should add your primary site the the popups allowed list so that the clone installs can automatically be run.</p>
-<p><strong>netPhotoGraphics</strong> is now compatible with PHP version 8.0.</p>
+<p>As predicted, the <em>zp-core</em> and <em>zp-extensions</em> folders have been renamed to <em>npgCore </em>and <em>extensions </em>respectively. When used in URLs, the <em>npgCore </em>folder is simply <em>npg</em> and the user plugin folder is <em>extensions.</em></p>
+<p><strong>netPhotoGraphics</strong> is now compatible with PHP version 8.1.</p>
 <p>E-Mails sent by <strong>netPhotoGraphics</strong> are now HTML encoded. In addition, there is now a customizable e-mail "form" that will be used when sending the mails. The standard template is a simple form with the sites branding logo (or the <strong>netPhotoGraphic</strong> logo if none is defined), the body of the e-mail, and "--The Administrator" as a signature. You can view and edit this template on the new "forms" option tab. If you update the form it will be stored in the <em>plugins/forms</em> folder and not overridden on subsequent updates. </p>
 <p>A "mail" button has been added for each user who has an e-mail address.  You can use this to send e-mail to individual users.</p>
 <h2>Album, Image and User editing</h2>
