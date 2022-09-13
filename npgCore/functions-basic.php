@@ -12,27 +12,6 @@
 // force UTF-8 Ø
 
 /**
- * Common error reporting for query errors
- * @param type $sql
- */
-function dbErrorReport($sql) {
-	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
-}
-
-/**
- * Returns a properly quoted string for DB queries
- * @param type $string
- * @return type
- */
-function db_quote($string) {
-	if ($string) {
-		$string = db_escape($string);
-	}
-	return $string = "'" . $string . "'";
-	;
-}
-
-/**
  * Returns the viewer's IP address
  * Deals with transparent proxies
  *
@@ -410,11 +389,33 @@ function getSetClause($new_unique_set) {
  * @param type $errorstop
  */
 function query($sql, $errorstop = true) {
+	global $_DB_connection;
 	$result = class_exists('npgFilters') ? npgFilters::apply('database_query', NULL, $sql) : NULL;
 	if (is_null($result)) {
-		$result = db_query($sql, $errorstop);
+		$result = db_query($sql, $_DB_connection && $errorstop);
 	}
 	return $result;
+}
+
+/**
+ * Common error reporting for query errors
+ * @param type $sql
+ */
+function dbErrorReport($sql) {
+	trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
+}
+
+/**
+ * Returns a properly quoted string for DB queries
+ * @param type $string
+ * @return type
+ */
+function db_quote($string) {
+	if ($string) {
+		$string = db_escape($string);
+	}
+	return $string = "'" . $string . "'";
+	;
 }
 
 /*
@@ -425,6 +426,14 @@ function db_name() {
 	return getOption('mysql_database');
 }
 
+/**
+ * returns the count of items in $table[$field] that satisfy the $clause
+ *
+ * @param type $table
+ * @param type $clause
+ * @param type $field
+ * @return int
+ */
 function db_count($table, $clause = NULL, $field = "*") {
 	$sql = 'SELECT COUNT(' . $field . ') FROM ' . prefix($table) . ' ' . $clause;
 	$result = query_single_row($sql);
@@ -1010,7 +1019,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	}
 	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' .
 					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
-	query($sql, false);
+	query($sql);
 
 	if (!isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $default;
@@ -1989,7 +1998,7 @@ function primeOptions() {
 		$_options[strtolower($name)] = $value;
 	}
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
-	$rslt = query($sql, false);
+	$rslt = query($sql);
 	if ($rslt) {
 		while ($option = db_fetch_assoc($rslt)) {
 			$_options[strtolower($option['name'])] = $option['value'];
@@ -2050,12 +2059,12 @@ function setOption($key, $value, $persistent = true) {
 			$v = db_quote($value);
 		}
 		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ') ON DUPLICATE KEY UPDATE `value`=' . $v;
-		$result = query($sql, false);
+		$result = query($sql);
 		if ($result) {
 			if (array_key_exists($keylc, $_conf_options_associations)) {
 				$configKey = $_conf_options_associations[$keylc];
 				if ($_conf_vars[$configKey] !== $value) {
-//	it is stored in the config file, update that too
+					//	it is stored in the config file, update that too
 					require_once(CORE_SERVERPATH . 'lib-config.php');
 					$_configMutex->lock();
 					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);

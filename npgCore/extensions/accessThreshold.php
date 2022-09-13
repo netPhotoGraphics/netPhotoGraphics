@@ -146,7 +146,7 @@ if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
 }
 
-if (!$me = $_current_admin_obj && !$_current_admin_obj->transient) {
+if (!isset($_current_admin_obj) || (!$me = $_current_admin_obj && !$_current_admin_obj->transient)) {
 	$me = getUserIP() == getOption('accessThreshold_Owner');
 } else {
 	if ($_current_admin_obj->master) {

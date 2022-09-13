@@ -5905,16 +5905,17 @@ function getLogTabs() {
 function getPluginTabs() {
 	/* categories */
 	$pluginCategoryNames = array(
-			'admin' => gettext('Admin support'),
-			'development' => gettext('Development'),
-			'example' => gettext('Example'),
-			'mail' => gettext('Mail'),
-			'media' => gettext('Media'),
-			'misc' => gettext('Misc'),
-			'security' => gettext('Security'),
-			'theme' => gettext('Theme support'),
-			'tools' => gettext('Tools'),
-			'users' => gettext('Users')
+			'admin'	=>	gettext('admin support'),
+			'development'	=>	gettext('development'),
+			'example'	=>	gettext('example'),
+			'mail'	=>	gettext('mail'),
+			'media'	=>	gettext('media'),
+			'misc'	=>	gettext('misc'),
+			'netphotographics'	=>	gettext('netPhotoGraphics'),
+			'security'	=>	gettext('Security'),
+			'theme'	=>	gettext('theme support'),
+			'tools'	=>	gettext('tools'),
+			'users'	=>	gettext('users')
 	);
 	$classXlate = array(
 			'all' => gettext('all'),

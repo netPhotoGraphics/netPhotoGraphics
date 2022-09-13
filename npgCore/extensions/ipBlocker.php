@@ -62,7 +62,25 @@ class ipBlocker {
 	 */
 	function __construct() {
 
-		if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+			if (OFFSET_PATH == 2) {
+				//fix error in options saving
+				$block = self::getList('Block');
+				$suspend = self::getList('Suspend');
+				$update = false;
+				foreach ($suspend as $key => $range) {
+					if (is_array($range)) {
+						unset($suspend[$key]);
+						$block[] = $range;
+						$update = true;
+					}
+				}
+				if ($update) {
+					self::setList('Suspend', $suspend);
+					self::setList('Block', $block);
+				}
+			}
+		} else {
 			$optons = [];
 			$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 1;
 			$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold') ? getOption('ipBlocker_threshold') : 10;
@@ -120,7 +138,7 @@ class ipBlocker {
 //						'desc' => gettext('Access will be suspended if there are more than this many theme page requests.')),
 				'addl' => array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
 						'order' => 4,
-						'desc' => gettext('Requests older than the 60 minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
+						'desc' => gettext('Requests older than the <em>Cool off</em> minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
 				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'value' => $options['ipBlocker_timeout'],
@@ -165,7 +183,7 @@ class ipBlocker {
 
 		switch ($option) {
 			case 'ipBlocker_IP':
-				$list = self::getList('Suspend');
+				$list = self::getList('Block');
 				$key = 0;
 				foreach ($list as $key => $range) {
 					?>
@@ -252,7 +270,7 @@ class ipBlocker {
 				}
 			}
 		}
-		self::setList('Suspend', $list);
+		self::setList('Block', $list);
 
 		$optons = [];
 		$options['ipBlocker_type'] = getOption('ipBlocker_type');
@@ -457,12 +475,12 @@ class ipBlocker {
 	 * Checks if ip is in the ipBlocker_list list and responds as per ipBlocker_type
 	 * @return 0,1
 	 */
-	static function blocked() {
-		$list = self::getList('ipBlocker_list');
+	static function blocked($ip) {
+		$list = self::getList('Block');
 		if (!empty($list)) {
+			$ip = self::cononicalIP($ip);
 			$options = self::getList('Options');
-			$gate = $allow = $optons['ipBlocker_type'];
-			$ip = self::cononicalIP(getUserIP());
+			$gate = $allow = $options['ipBlocker_type'];
 			foreach ($list as $range) {
 				if ($ip >= $range['start'] && $ip <= $range['end']) {
 					$gate = !$allow;
@@ -479,12 +497,12 @@ class ipBlocker {
 	 * Checks the suspension list for the ip
 	 * @return boolean
 	 */
-	static function suspended() {
+	static function suspended($ip) {
 		self::getLock();
 		$suspend = self::getList('Suspend');
 		$result = false;
 		if (!empty($suspend)) {
-			if (array_key_exists($ip = getUserIP(), $suspend)) {
+			if (array_key_exists($ip, $suspend)) {
 				if ($suspend[$ip] < (time() - $suspend['ipBlocker_timeout'] * 60)) {
 					// cooloff period passed
 					unset($suspend[$ip]);
@@ -503,7 +521,8 @@ class ipBlocker {
 	 * @param bool $check if true the access frequency will be checked
 	 */
 	static function load() {
-		if (self::blocked() || self::suspended()) {
+		$ip = getUserIP();
+		if (self::blocked($ip) || self::suspended($ip)) {
 			if (!self::clear()) {
 				sleep(30);
 				header("HTTP/1.0 503 " . gettext("Unavailable"));
