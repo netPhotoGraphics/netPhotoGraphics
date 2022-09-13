@@ -138,7 +138,7 @@ class ipBlocker {
 //						'desc' => gettext('Access will be suspended if there are more than this many theme page requests.')),
 				'addl' => array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
 						'order' => 4,
-						'desc' => gettext('Requests older than the 60 minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
+						'desc' => gettext('Requests older than the <em>Cool off</em> minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
 				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'value' => $options['ipBlocker_timeout'],
