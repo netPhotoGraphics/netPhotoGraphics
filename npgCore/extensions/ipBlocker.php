@@ -33,7 +33,7 @@
  * @package plugins/ipBlocker
  * @pluginCategory security
  */
-$plugin_is_filter = 10 | CLASS_PLUGIN;
+$plugin_is_filter = 990 | FEATURE_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext("Tools to block hacker access to your site.");
 }
@@ -44,10 +44,6 @@ npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
 npgFilters::register('log_404', 'ipBlocker::handle404');
-npgFilters::register('load_theme_script', 'ipBlocker::load');
-npgFilters::register('admin_headers', 'ipBlocker::clear'); //	if we are logged in we should not be blocked
-
-$_ipBlockerMutex = new npgMutex('bK');
 
 /**
  * Option handler class
@@ -517,17 +513,18 @@ class ipBlocker {
 	}
 
 	/**
-	 * Monitors front end access and excludes access if appropriate
+	 * Monitors site access and excludes access if appropriate
 	 * @param bool $check if true the access frequency will be checked
 	 */
-	static function load() {
-		$ip = getUserIP();
-		if (self::blocked($ip) || self::suspended($ip)) {
+	static function load($ip) {
+		if (($temp = self::suspended($ip)) || self::blocked($ip)) {
 			if (!self::clear()) {
 				sleep(30);
 				header("HTTP/1.0 503 " . gettext("Unavailable"));
 				header("Status: 503 " . gettext("Unavailable"));
-				header("Retry-After: 300");
+				if ($temp) {
+					header("Retry-After: 300");
+				}
 				exit(); //	terminate the script with no output
 			}
 		}
@@ -553,4 +550,12 @@ class ipBlocker {
 		return ltrim($ipc, $sep);
 	}
 
+}
+
+$_ipBlockerMutex = new npgMutex('bK');
+
+if (isset($_current_admin_obj) && !$_current_admin_obj->transient) {
+	ipBlocker::clear();
+} else {
+	ipBlocker::load(getUserIP());
 }

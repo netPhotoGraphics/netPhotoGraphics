@@ -45,29 +45,31 @@ setupLog(sprintf(gettext('Plugin:%s setup started'), $name), $fullLog);
 $__script = 'Plugin:' . $extension;
 $path = getPlugin($extension . '.php');
 $p = file_get_contents($path);
+
+if ($str = isolate('$plugin_is_filter', $p)) {
+	eval($str);
+} else {
+	$plugin_is_filter = 5 | THEME_PLUGIN;
+}
+$priority = $plugin_is_filter & PLUGIN_PRIORITY;
+if ($plugin_is_filter & CLASS_PLUGIN) {
+	$priority .= ' | CLASS_PLUGIN';
+}
+if ($plugin_is_filter & ADMIN_PLUGIN) {
+	$priority .= ' | ADMIN_PLUGIN';
+}
+if ($plugin_is_filter & FEATURE_PLUGIN) {
+	$priority .= ' | FEATURE_PLUGIN';
+}
+if ($plugin_is_filter & THEME_PLUGIN) {
+	$priority .= ' | THEME_PLUGIN';
+}
 if (extensionEnabled($extension)) {
 	//	update the enabled priority
-	if ($str = isolate('$plugin_is_filter', $p)) {
-		eval($str);
-	} else {
-		$plugin_is_filter = 5 | THEME_PLUGIN;
-	}
-	$priority = $plugin_is_filter & PLUGIN_PRIORITY;
-	if ($plugin_is_filter & CLASS_PLUGIN) {
-		$priority .= ' | CLASS_PLUGIN';
-	}
-	if ($plugin_is_filter & ADMIN_PLUGIN) {
-		$priority .= ' | ADMIN_PLUGIN';
-	}
-	if ($plugin_is_filter & FEATURE_PLUGIN) {
-		$priority .= ' | FEATURE_PLUGIN';
-	}
-	if ($plugin_is_filter & THEME_PLUGIN) {
-		$priority .= ' | THEME_PLUGIN';
-	}
-
-	setupLog(sprintf(gettext('Plugin:%s enabled (%2$s)'), $name, $priority), $fullLog);
+	setupLog(sprintf(gettext('Plugin:%s (%2$s) enabled'), $name, $priority), $fullLog);
 	enableExtension($extension, $plugin_is_filter);
+} else {
+	setupLog(sprintf(gettext('Plugin:%s (%2$s) is disabled '), $name, $priority), $fullLog);
 }
 
 $_conf_vars['special_pages'] = array(); //	we want to look only at ones set by this plugin
