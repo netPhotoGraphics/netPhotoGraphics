@@ -86,6 +86,8 @@ if ($_loggedin) {
 		// https: refresh the 'ssl_state' marker for redirection
 		setNPGCookie("ssl_state", "needed", NULL, ['secure' => FALSE]);
 	}
+} else {
+	npgFilters::apply('site_access', getUserIP());
 }
 // Handle a logout action.
 if (isset($_REQUEST['logout']) && $_REQUEST['logout'] > 0) {
