@@ -36,9 +36,6 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
 			setOptionDefault('accessThreshold_Monitor', TRUE);
-			//clear out the recentIP array
-			setOption('accessThreshold_CLEAR', 1);
-			self::handleOptionSave(NULL, NULL);
 		}
 	}
 
@@ -73,6 +70,7 @@ class accessThreshold {
 						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Clear list') => array('key' => 'accessThreshold_CLEAR', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 99,
+						'value' => 0,
 						'desc' => gettext('Clear the access list.'))
 		);
 		return $options;
@@ -99,13 +97,6 @@ class accessThreshold {
 			}
 		}
 		purgeOption('accessThreshold_CLEAR');
-		$recentIP['config'] = array(
-				'accessThreshold_IP_RETENTION' => getOption('accessThreshold_IP_RETENTION'),
-				'accessThreshold_THRESHOLD' => getOption('accessThreshold_THRESHOLD'),
-				'accessThreshold_IP_ACCESS_WINDOW' => getOption('accessThreshold_IP_ACCESS_WINDOW'),
-				'accessThreshold_LocaleCount' => getOption('accessThreshold_LocaleCount'),
-				'accessThreshold_SENSITIVITY' => $sensitivity
-		);
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 	}
 
@@ -168,10 +159,6 @@ if (!$me) {
 	}
 	if (array_key_exists('config', $recentIP)) {
 		$__time = time();
-		$__config = $recentIP['config'];
-		if (!isset($__config['accessThreshold_LocaleCount'])) {
-			$__config['accessThreshold_LocaleCount'] = 5;
-		}
 
 		$full_ip = getUserIP();
 		if (strpos($full_ip, '.') === false) {
@@ -180,11 +167,11 @@ if (!$me) {
 		} else {
 			$separator = '.';
 		}
-		$x = array_slice(explode($separator, $full_ip), 0, $__config['accessThreshold_SENSITIVITY']);
+		$x = array_slice(explode($separator, $full_ip), 0, getOption('accessThreshold_SENSITIVITY'));
 		$ip = implode($separator, $x);
 		unset($x);
 
-		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > $__config['accessThreshold_IP_ACCESS_WINDOW']) {
+		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
 			$recentIP[$ip] = array(
 					'accessed' => array(),
 					'locales' => array(),
@@ -217,7 +204,7 @@ if (!$me) {
 					unset($recentIP[$ip]['locales'][$key]);
 				}
 			}
-			if ($__count > $__config['accessThreshold_LocaleCount']) {
+			if ($__count > getOption('accessThreshold_LocaleCount')) {
 				npgFilters::apply('access_control', 4, 'locales', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 1;
 			}
@@ -235,16 +222,14 @@ if (!$me) {
 				$__interval = 0;
 			}
 			$recentIP[$ip]['interval'] = $__interval;
-			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < $__config['accessThreshold_THRESHOLD']) {
+			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
 				npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
 				$recentIP[$ip]['blocked'] = 2;
 			}
 		}
-		if (count($recentIP) - 1 > $__config['accessThreshold_IP_RETENTION']) {
-			unset($recentIP['config']);
+		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
 			$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
-			$recentIP = array_slice($recentIP, 0, $__config['accessThreshold_IP_RETENTION']);
-			$recentIP['config'] = $__config;
+			$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
 		}
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 		$mu->unlock();
@@ -252,12 +237,10 @@ if (!$me) {
 		unset($ip);
 		unset($full_ip);
 		unset($recentIP);
-		unset($__config);
-		unset($__time);
+		nset($__time);
 		unset($__interval);
 		unset($__previous);
 		unset($__count);
 		unset($__locale);
 	}
 }
-?>
