@@ -78,7 +78,7 @@ class ipBlocker {
 			}
 		} else {
 			$optons = [];
-			$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 1;
+			$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 0;
 			$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold') ? getOption('ipBlocker_threshold') : 10;
 			$options['ipBlocker_404_threshold'] = getOption('ipBlocker_404_threshold') ? getOption('ipBlocker_404_threshold') : 10;
 			$options['ipBlocker_timeout'] = getOption('ipBlocker_timeout') ? getOption('ipBlocker_timeout') : 60;
