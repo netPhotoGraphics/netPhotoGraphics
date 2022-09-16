@@ -36,6 +36,13 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
 			setOptionDefault('accessThreshold_Monitor', TRUE);
+			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+				if (isset($recentIP['config'])) {
+					unset($recentIP['config']);
+					file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+				}
+			}
 		}
 	}
 
