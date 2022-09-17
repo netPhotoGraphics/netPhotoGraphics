@@ -211,6 +211,7 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 						if (!rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
 							$class = 'errorbox';
 							$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
+							break;
 						}
 					}
 					if (file_exists(SERVERPATH . '/extract.php')) {

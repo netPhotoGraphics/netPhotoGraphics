@@ -15,9 +15,6 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 }
 $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 
-$__config = $recentIP['config'];
-unset($recentIP['config']);
-
 switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 	case 'date':
 		$sort = 'accessTime';
@@ -76,7 +73,7 @@ foreach ($recentIP as $ip => $data) {
 	} else {
 		$interval = '&hellip;';
 	}
-	if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - $__config['accessThreshold_IP_ACCESS_WINDOW']) {
+	if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - getOption('accessThreshold_IP_ACCESS_WINDOW')) {
 		$old = 'color:LightGrey;';
 		$legendExpired = '<p>' . gettext('Timestamps that are <span style="color:LightGrey;">grayed out</span> have expired.') . '</p>';
 		;

@@ -60,7 +60,20 @@ class ipBlocker {
 
 		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 			if (OFFSET_PATH == 2) {
-				//fix error in options saving
+				$options = self::getList('Options');
+				if ($options) {
+					//	import from old file based options
+					setOption('ipBlocker_type', $options['ipBlocker_type']);
+					setOption('ipBlocker_threshold', $options['ipBlocker_threshold']);
+					setOption('ipBlocker_404_threshold', $options['ipBlocker_404_threshold']);
+					setOption('ipBlocker_timeout', $options['ipBlocker_timeout']);
+				} else {
+					setOptionDefault('ipBlocker_type', 0);
+					setOptionDefault('ipBlocker_threshold', 10);
+					setOptionDefault('ipBlocker_404_threshold', 10);
+					setOptionDefault('ipBlocker_timeout', 60);
+				}
+				//fix error in list saving
 				$block = self::getList('Block');
 				$suspend = self::getList('Suspend');
 				$update = false;
@@ -76,26 +89,6 @@ class ipBlocker {
 					self::setList('Block', $block);
 				}
 			}
-		} else {
-			$optons = [];
-			$options['ipBlocker_type'] = getOption('ipBlocker_type') ? getOption('ipBlocker_type') == 'allow' : 1;
-			$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold') ? getOption('ipBlocker_threshold') : 10;
-			$options['ipBlocker_404_threshold'] = getOption('ipBlocker_404_threshold') ? getOption('ipBlocker_404_threshold') : 10;
-			$options['ipBlocker_timeout'] = getOption('ipBlocker_timeout') ? getOption('ipBlocker_timeout') : 60;
-			$options['ipBlocker_flood_threshold'] = 240;
-			self::setList('Options', $options);
-
-			purgeOption('ipBlocker_type');
-			purgeOption('ipBlocker_threshold');
-			purgeOption('ipBlocker_404_threshold');
-			purgeOption('ipBlocker_timeout');
-			purgeOption('ipBlocker_forbidden');
-			purgeOption('ipBlocker_list');
-
-			$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="ipBlocker", `subtype`="404" WHERE `type`="ipBlocker_404"';
-			query($sql);
-			$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="ipBlocker", `subtype`="logon" WHERE `type`="ipBlocker_logon"';
-			query($sql);
 		}
 	}
 
@@ -105,39 +98,30 @@ class ipBlocker {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		$options = self::getList('Options');
 		$buttons = array(gettext('Allow') => 1, gettext('Block') => 0);
 		$text = array_flip($buttons);
 		$options = array(
 				gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 10,
-						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[$options['ipBlocker_type']])),
+						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[(int) getOption('ipBlocker_type')])),
 				' ' => array('key' => 'ipBlocker_button', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 20,
 						'desc' => ''),
 				gettext('Action') => array('key' => 'ipBlocker_type', 'type' => OPTION_TYPE_RADIO,
 						'order' => 15,
 						'buttons' => $buttons,
-						'value' => $options['ipBlocker_type'],
 						'desc' => gettext('How the plugin will interpret the IP list.')),
 				gettext('Logon threshold') => array('key' => 'ipBlocker_threshold', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
-						'value' => $options['ipBlocker_threshold'],
 						'desc' => gettext('Admin page requests will be suspended after this many failed tries.')),
 				gettext('404 threshold') => array('key' => 'ipBlocker_404_threshold', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 2,
-						'value' => $options['ipBlocker_404_threshold'],
 						'desc' => gettext('Access will be suspended after this many 404 errors.')),
-//				gettext('Flooding threshold') => array('key' => 'ipBlocker_flood_threshold', 'type' => OPTION_TYPE_NUMBER,
-//						'order' => 3,
-//						'value' => $options['ipBlocker_flood_threshold'],
-//						'desc' => gettext('Access will be suspended if there are more than this many theme page requests.')),
 				'addl' => array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
 						'order' => 4,
 						'desc' => gettext('Requests older than the <em>Cool off</em> minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
 				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
-						'value' => $options['ipBlocker_timeout'],
 						'desc' => gettext('The suspension will be removed after this many minutes.'))
 		);
 		$disabled = !extensionEnabled('ipBlocker');
@@ -239,6 +223,7 @@ class ipBlocker {
 				}
 			}
 		}
+
 		foreach ($list as $key => $range) {
 			if (!array_key_exists('start', $range) || !array_key_exists('end', $range) || $range['start'] > $range['end']) {
 				unset($list[$key]);
@@ -267,23 +252,7 @@ class ipBlocker {
 			}
 		}
 		self::setList('Block', $list);
-
-		$optons = [];
-		$options['ipBlocker_type'] = getOption('ipBlocker_type');
-		$options['ipBlocker_threshold'] = getOption('ipBlocker_threshold');
-		$options['ipBlocker_404_threshold'] = getOption('ipBlocker_404_threshold');
-		$options['ipBlocker_flood_threshold'] = getOption('ipBlocker_flood_threshold');
-		$options['ipBlocker_timeout'] = getOption('ipBlocker_timeout');
-		self::setList('Options', $options);
-
 		self::releaseLock();
-
-		purgeOption('ipBlocker_import');
-		purgeOption('ipBlocker_type');
-		purgeOption('ipBlocker_threshold');
-		purgeOption('ipBlocker_404_threshold');
-		purgeOption('ipBlocker_flood_threshold');
-		purgeOption('ipBlocker_timeout');
 
 		if ($notify)
 			return '&custom=' . $notify;
@@ -356,22 +325,18 @@ class ipBlocker {
 	 * @param string $page ignored
 	 */
 	static function ipGate($type) {
-		$options = self::getList('Options');
-		if (empty($options)) {
-			$threshold = 0;
-		} else {
-			switch ($type) {
-				case 'logon':
-					$threshold = $options['ipBlocker_threshold'];
-					break;
-				case '404':
-					$threshold = $options['ipBlocker_404_threshold'];
-					break;
-				case 'flood':
-					$threshold = $options['ipBlocker_flood_threshold'];
-					break;
-			}
+		switch ($type) {
+			case 'logon':
+				$threshold = getOption('ipBlocker_threshold');
+				break;
+			case '404':
+				$threshold = getOption('ipBlocker_404_threshold');
+				break;
+			case 'flood':
+				$threshold = getOption('ipBlocker_flood_threshold');
+				break;
 		}
+
 		if ($threshold) {
 			self::getLock();
 			$suspend = self::getList('Suspend');
@@ -429,12 +394,6 @@ class ipBlocker {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
 				$_ipBlocker_lists = unserialize($raw);
-			} else {
-				$_ipBlocker_lists['Options']['ipBlocker_type'] = 1;
-				$_ipBlocker_lists['Options']['ipBlocker_threshold'] = 10;
-				$_ipBlocker_lists['Options']['ipBlocker_404_threshold'] = 10;
-				$_ipBlocker_lists['Options']['ipBlocker_timeout'] = 60;
-				$_ipBlocker_lists['Options']['ipBlocker_flood_threshold'] = 240;
 			}
 		}
 		return $_ipBlocker_lists;
@@ -463,6 +422,7 @@ class ipBlocker {
 	private static function setList($which, $list) {
 		global $_ipBlocker_lists;
 		self::getIPBlockerLists();
+		unset($_ipBlocker_lists['Options']);
 		$_ipBlocker_lists[$which] = $list;
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists', serialize($_ipBlocker_lists));
 	}
@@ -475,8 +435,7 @@ class ipBlocker {
 		$list = self::getList('Block');
 		if (!empty($list)) {
 			$ip = self::cononicalIP($ip);
-			$options = self::getList('Options');
-			$gate = $allow = $options['ipBlocker_type'];
+			$gate = $allow = getOption('ipBlocker_type');
 			foreach ($list as $range) {
 				if ($ip >= $range['start'] && $ip <= $range['end']) {
 					$gate = !$allow;
