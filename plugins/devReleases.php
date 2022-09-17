@@ -48,46 +48,19 @@ if (isset($_GET['action'])) {
 			if ($found) {
 				unlink($file);
 			}
-			$class = 'errorbox';
 			purgeOption('getDEVUpdates_lastCheck');
 			purgeOption('getUpdates_lastCheck');
-		} else {
-			$found = safe_glob(SERVERPATH . '/setup-*.zip');
-			if (!empty($found)) {
-				$file = reset($found);
-				if (!unzip($file, SERVERPATH)) {
-					$class = 'errorbox';
-					$msg = gettext('netPhotoGraphics could not extract extract.php.bin from zip file.');
-				} else {
-					unlink(SERVERPATH . '/readme.txt');
-					unlink(SERVERPATH . '/release notes.htm');
-				}
-			}
-			if (file_exists(SERVERPATH . '/extract.php.bin')) {
-				if (isset($file)) {
-					unlink($file);
-				}
-				if (rename(SERVERPATH . '/extract.php.bin', SERVERPATH . '/extract.php')) {
-					header('HTTP/1.0 303 See Other');
-					header("Status: 303 See Other");
-					header('Location: ' . FULLWEBPATH . '/extract.php?unique=' . time());
-					exit();
-				} else {
-					$class = 'errorbox';
-					$msg = gettext('Renaming the <code>extract.php.bin</code> file failed.');
-				}
-			} else {
-				$class = 'errorbox';
-				$msg = gettext('Did not find the <code>extract.php.bin</code> file.');
-			}
-		}
-		if ($msg) {
 			$_SESSION['errormessage'] = $msg;
 			header('HTTP/1.0 303 See Other');
 			header("Status: 303 See Other");
 			header('location: ' . getAdminLink('admin.php') . '?action=session&error');
-			exit();
+		} else {
+			// let the admin script handle the install
+			header('HTTP/1.0 303 See Other');
+			header("Status: 303 See Other");
+			header('location: ' . getAdminLink('admin.php') . '?action=install_update&XSRFTag=' . getXSRFToken('install_update'));
 		}
+		exit();
 	}
 }
 
