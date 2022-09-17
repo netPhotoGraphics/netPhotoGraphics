@@ -58,7 +58,7 @@ if (isset($_GET['action'])) {
 			// let the admin script handle the install
 			header('HTTP/1.0 303 See Other');
 			header("Status: 303 See Other");
-			header('location: ' . getAdminLink('admin.php') . '?action=install_update&XSRFTag=' . getXSRFToken('install_update'));
+			header('location: ' . getAdminLink('admin.php') . '?action=install_update&XSRFToken=' . getXSRFToken('install_update'));
 		}
 		exit();
 	}
@@ -91,7 +91,7 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 class devReleases {
 
 	static function buttons($buttons) {
-		$devVersionURI = getOption('getDEVUpdates_latest');
+		global $devVersionURI;
 		preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
 		$devVersion = $matches[1];
 		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
