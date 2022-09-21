@@ -89,7 +89,7 @@ class favoritesHandler {
 		$all = query_full_array('SELECT `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `subtype`>"" LIMIT 1');
 		if ($disable = !empty($all)) {
 			setOption('favorites_multi', 1);
-			$text .= '<br /><span class = "warningbox">' . gettext('Named favorites are present.') . '</span>';
+			$text .= '<p><span class = "warningbox">' . gettext('Named favorites are present.') . '</p>';
 		}
 
 		$options = array(gettext('Link text') => array('key' => 'favorites_linktext', 'type' => OPTION_TYPE_TEXTBOX,

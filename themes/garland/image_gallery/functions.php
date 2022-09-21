@@ -11,7 +11,6 @@ class imagegallery {
 		//	all the images on one page following the album pages
 		setOption('images_per_page', NULL, false);
 		setOption('thumb_transition', false, false);
-		;
 	}
 
 	function theme_head($_themeroot) {

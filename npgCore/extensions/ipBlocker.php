@@ -511,6 +511,7 @@ class ipBlocker {
 
 }
 
+global $_ipBlocker_lists, $_ipBlockerMutex; //	might be loaded from within a function
 $_ipBlockerMutex = new npgMutex('bK');
 
 if (isset($_current_admin_obj) && !$_current_admin_obj->transient) {
