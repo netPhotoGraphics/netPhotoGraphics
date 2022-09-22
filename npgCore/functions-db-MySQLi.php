@@ -29,7 +29,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		if (is_object($_DB_connection)) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
-		mysqli_report(MYSQLI_REPORT_OFF);
+
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
 			$config['mysql_port'] = ini_get('mysqli.default_port');
 		}
@@ -37,7 +37,11 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$config['mysql_socket'] = ini_get('mysqli.default_socket');
 		}
 
-		for ($i = 1; $i <= MYSQL_CONNECTION_RETRIES; $i++) {
+		//	supress error reports for this loop
+		$er_reporting = error_reporting();
+		error_reporting(0);
+		mysqli_report(MYSQLI_REPORT_OFF);
+		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			$_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], '', $config['mysql_port'], $config['mysql_socket']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
@@ -45,11 +49,13 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				//	we either got connected or the caller is prepaired to deal with the failure
 				break;
 			}
-			sleep($i);
+			sleep(pow(2, $i));
 		}
 	} else {
 		$er = gettext('"extension not loaded"');
 	}
+	error_reporting($er_reporting);
+
 	if (!is_object($_DB_connection)) {
 		if ($errorstop) {
 			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
