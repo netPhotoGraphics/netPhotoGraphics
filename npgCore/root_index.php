@@ -1,5 +1,6 @@
 <?php
 
+clearstatcache();
 $closed = file_exists('ROOT_FOLDER/extract.php');
 if (!$closed) {
 	//	redirect to the admin core?
