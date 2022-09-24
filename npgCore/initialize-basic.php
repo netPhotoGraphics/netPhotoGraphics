@@ -224,8 +224,6 @@ define('MENU_TRUNCATE_INDICATOR', getOption('menu_truncate_indicator'));
 define('GITHUB_ORG', 'netPhotoGraphics');
 define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
 
-define('NPG_LAST_MODIFIED', gmdate('D, d M Y H:i:s', getOption('last_admin_action')) . ' GMT');
-
 define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
 
 $chunk = getOption('PROCESSING_CONCURENCY');

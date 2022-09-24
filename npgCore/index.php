@@ -165,7 +165,6 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("HTTP/1.0 200 OK");
 	header("Status: 200 OK");
-	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	npgFilters::apply('theme_headers');
 	include(internalToFilesystem($_themeScript));
 } else {
