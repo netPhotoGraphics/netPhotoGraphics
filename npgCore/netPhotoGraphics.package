@@ -19545,6 +19545,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/instagramLogin/instagram-login-api.php
 %extensions%/instagramLogin/instagram.php
 %extensions%/instagramLogin/login_button.png
+%extensions%/ipBlocker
+%extensions%/ipBlocker/Private IP Address Ranges.txt
 %extensions%/jPlayer
 %extensions%/jPlayer/js
 %extensions%/jPlayer/js/jplayer.playlist.min.js
@@ -20325,4 +20327,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20327
+20329
