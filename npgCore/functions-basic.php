@@ -203,7 +203,8 @@ function stripSuffix($filename) {
  */
 function sanitize_path($filename) {
 	$filename = strip_tags(str_replace('\\', '/', $filename));
-	$filename = preg_replace(array('/[[:cntrl:]]/', '/\/\/+/', '/\/\.\./', '/\/\./', '/:/', '/</', '/>/', '/\?/', '/\*/', '/\"/', '/\|/', '/\/+$/', '/^\/+/'), '', $filename);
+	$filename = preg_replace(array('/[[:cntrl:]]/', '/\/\.+/', '/^\.+/', '/</', '/>/', '/\?/', '/\*/', '/\"/', '/\|/', '/\/+$/', '/^\/+/'), '', $filename);
+	$filename = preg_replace('/\/\/+/', '/', $filename);
 	return $filename;
 }
 
@@ -215,7 +216,7 @@ function sanitize_path($filename) {
  */
 function sanitize_numeric($num) {
 	if ($num) {
-		$f = filter_var(str_replace(',', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		$f = filter_var(str_replace(', ', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		if ($f) {
 			return (int) round($f);
 		}
@@ -310,19 +311,19 @@ function sanitize_string($input, $sanitize_level) {
 			case 0:
 				return $input;
 			case 2:
-// Strips non-style tags.
+				// Strips non-style tags.
 				$input = sanitize_script($input);
 				return ksesProcess($input, getAllowedTags('style_tags'));
 			case 3:
-// Full sanitation.  Strips all code.
+				// Full sanitation.  Strips all code.
 				return ksesProcess($input, array());
 			case 1:
-// Text formatting sanititation.
+				// Text formatting sanititation.
 				$input = sanitize_script($input);
 				return ksesProcess($input, getAllowedTags('allowed_tags'));
 			case 4:
 			default:
-// for internal use to eliminate security injections
+				// for internal use to eliminate security injections
 				return sanitize_script($input);
 		}
 	}
@@ -452,7 +453,7 @@ function db_count($table, $clause = NULL, $field = "*") {
  */
 function html_decode($string) {
 	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
-// Replace numeric entities because html_entity_decode doesn't do it for us.
+	// Replace numeric entities because html_entity_decode doesn't do it for us.
 	if (function_exists('mb_convert_encoding')) {
 		$string = preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
 			return mb_convert_encoding($m[1], LOCAL_CHARSET, "HTML-ENTITIES");
@@ -520,7 +521,7 @@ function varDebug($args) {
 		$args = array('var' => $args);
 	}
 	$dump = explode("\n", var_export($args, true));
-//get rid of the outer array element
+	//get rid of the outer array element
 	unset($dump[0]);
 	array_pop($dump);
 	$br = '';
@@ -649,7 +650,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-// Get a backtrace.
+	// Get a backtrace.
 	if (is_array($omit)) {
 		$bt = $omit;
 	} else {
@@ -910,7 +911,7 @@ function clearNPGCookie($name) {
  * @return boolean
  */
 function is_serialized($data) {
-// if it isn't a string, it isn't serialized
+	// if it isn't a string, it isn't serialized
 	if (!is_string($data))
 		return false;
 	$data = trim($data);
@@ -1034,9 +1035,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  */
 function loadLocalOptions($albumid, $theme) {
 	global $_options, $_conf_vars;
-//start with the config file
+	//start with the config file
 	$options = $_conf_vars;
-//raw theme options Order is so that Album theme options will override simple theme options
+	//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {
@@ -1113,17 +1114,17 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	global $_rewritten, $_albumHandlers;
 	$ralbum = isset($_GET[$albumvar]) ? trim(sanitize($_GET[$albumvar]), '/') : NULL;
 	$rimage = isset($_GET[$imagevar]) ? sanitize($_GET[$imagevar]) : NULL;
-//	we assume that everything is correct if rewrite rules were not applied
+	//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
 			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
-//has an RW_SUFFIX attached
+					//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);
 					$ralbum = trim(dirname($matches[1]), '/');
 				} else { //	have to figure it out
 					if (Gallery::imageObjectClass($ralbum)) {
-//	it is an image request
+						//	it is an image request
 						$rimage = basename($ralbum);
 						$ralbum = trim(dirname($ralbum), '/');
 					}
@@ -1155,7 +1156,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_cachefileSuffix;
-// this function works in FILESYSTEM_CHARSET, so convert the file names
+	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1174,7 +1175,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 			}
 		}
 	}
-// Set default variable values.
+	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
 	if (getOption('obfuscate_cache')) {
@@ -1225,7 +1226,7 @@ function getImageParameters($args, $album = NULL) {
 	$thumb_crop_height = getOption('thumb_crop_height');
 	$image_default_size = getOption('image_size');
 	$quality = getOption('image_quality');
-// Set up the parameters
+	// Set up the parameters
 	$thumb = $crop = false;
 	extract($args);
 
@@ -1262,7 +1263,7 @@ function getImageParameters($args, $album = NULL) {
 		$height = false;
 	}
 	if (empty($size) && $width == $height) {
-//square image
+		//square image
 		$size = $height;
 		$width = $height = false;
 	}
@@ -1321,7 +1322,7 @@ function getImageParameters($args, $album = NULL) {
 			}
 		}
 	}
-// Return an array of parameters used in image conversion.
+	// Return an array of parameters used in image conversion.
 	$args = array('size' => $size, 'width' => $width, 'height' => $height, 'cw' => $cw, 'ch' => $ch, 'cx' => $cx, 'cy' => $cy, 'quality' => $quality, 'crop' => $crop, 'thumb' => $thumb, 'WM' => $WM, 'adminrequest' => $adminrequest, 'effects' => $effects);
 	return $args;
 }
@@ -1802,7 +1803,7 @@ function getAlbumInherited($folder, $field, &$id) {
  * @return string
  */
 function imageThemeSetup($album) {
-// we need to conserve memory in i.php so loading the classes is out of the question.
+	// we need to conserve memory in i.php so loading the classes is out of the question.
 	$id = 0;
 	$theme = getAlbumInherited(filesystemToInternal($album), 'album_theme', $id);
 	if (empty($theme)) {
