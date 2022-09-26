@@ -1,7 +1,13 @@
 <?php
 
+clearstatcache();
 $closed = file_exists('ROOT_FOLDER/extract.php');
-if (!$closed) {
+if ($closed) {
+	if (isset($_GET['npgUpdate'])) {
+		require('ROOT_FOLDER/extract.php');
+		exit();
+	}
+} else {
 	//	redirect to the admin core?
 	if (array_key_exists('REQUEST_URI', $_SERVER)) {
 		$uri = str_replace('\\', '/', $_SERVER['REQUEST_URI']);

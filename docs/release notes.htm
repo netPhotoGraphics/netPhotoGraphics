@@ -88,7 +88,7 @@
 	</style>
 	</head>
 	<body>
-<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.16.04</h2>
+<h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.00.16.05</h2>
 <h2>General</h2>
 <p>The site will be automatically closed when the <em>extract.php</em> script is unzipping files. This is done by closing the site when there is an <em>extract.php</em> script present in the root folder of the installation. The extract process removes this script upon completion. <strong>BUT</strong>, if for some reason the script is left in the root folder, the site will be closed. The only way to access the administrative pages in that case is by using a direct file (not rewritten) link to <code>npgCore/admin.php</code>.</p>
 <p>If the site has clone installations, running <em>setup </em>on the primary site will automatically launch <em>setup </em>for the clone sites. Many browsers will automatically block popups. This blocking will inhibit the clone site setup execution. You can typically enable popups for a particular site. You should add your primary site the the popups allowed list so that the clone installs can automatically be run.</p>
@@ -113,6 +113,8 @@
 <div style="padding-left: 20px;"><em>class-WebDocs</em></div>
 <div style="padding-left: 20px;"><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filter-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import<br /><br /></em></div>
 <p>They have been moved to the <em>Plugin</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the <em>Plugin</em> will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these <em>Plugins</em> you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
+<p><strong>ipBlocker</strong></p>
+<p>The plugin now looks for import lists within the <code>plugin</code>folder. If your site has uploaded an import list to the <code>uploads</code>folder you will need to move it to the <code>plugins</code>folder for it to be available to the <code>import list</code> option. A list of the standard <em>private </em> IP address ranges in supplied with the distribution.</p>
 <h2>swipe_gestures</h2>
 <p>A new plugin that allows using swipe left and right to move between pages in a sequence on touch screen devices.</p>
 <h2>class-AnyFile</h2>

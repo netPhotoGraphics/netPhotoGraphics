@@ -125,15 +125,10 @@ class ipBlocker {
 						'desc' => gettext('The suspension will be removed after this many minutes.'))
 		);
 		$disabled = !extensionEnabled('ipBlocker');
-		$cwd = getcwd();
-		chdir(SERVERPATH . '/' . UPLOAD_FOLDER);
-		$list = safe_glob('*.txt');
-		chdir($cwd);
+
+		$list = getPluginFiles('*.txt', 'ipBlocker');
 		if ($list) {
-			$files = array('' => '');
-			foreach ($list as $file) {
-				$files[$file] = $file;
-			}
+			$files = array_merge(array('' => ''), $list);
 		} else {
 			$files = array('no text files found' => '');
 			$disabled = true;
@@ -232,7 +227,7 @@ class ipBlocker {
 		}
 		$list = array_unique($list, SORT_REGULAR);
 		if (!empty($_POST[postIndexEncode('ipBlocker_import')])) {
-			$file = SERVERPATH . '/' . UPLOAD_FOLDER . '/' . sanitize_path($_POST[postIndexEncode('ipBlocker_import')]);
+			$file = sanitize_path($_POST[postIndexEncode('ipBlocker_import')]);
 			if (file_exists($file)) {
 				$import = explode("\n", file_get_contents($file));
 				foreach ($import as $ip) {

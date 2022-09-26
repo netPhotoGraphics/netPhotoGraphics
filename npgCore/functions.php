@@ -963,7 +963,6 @@ function setupTheme($album = NULL) {
 	$_gallery->setCurrentTheme($theme, true); //	don't make it permanant if someone saves the gallery
 	$themeindex = getPlugin('index.php', $theme);
 	if (empty($theme) || empty($themeindex)) {
-		header('Last-Modified: ' . NPG_LAST_MODIFIED);
 		header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 		?>
 		<!DOCTYPE html>

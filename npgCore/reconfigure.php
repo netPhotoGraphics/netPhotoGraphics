@@ -79,6 +79,9 @@ function reconfigureAction($mandatory) {
 			require_once(CORE_SERVERPATH . 'admin-globals.php');
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 			header('Content-Type: text/html; charset=UTF-8');
+			header("HTTP/1.0 503 Service Unavailable");
+			header("Status: 503 Service Unavailable");
+			header("Retry-After: 300");
 			?>
 			<!DOCTYPE html>
 			<html xmlns="http://www.w3.org/1999/xhtml">

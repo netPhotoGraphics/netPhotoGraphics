@@ -448,7 +448,6 @@ header("HTTP/1.0 200 OK");
 header("Status: 200 OK");
 header("Cache-Control: no-cache, must-revalidate, no-store, pre-check=0, post-check=0, max-age=0");
 header("Pragma: no-cache");
-header('Last-Modified: ' . NPG_LAST_MODIFIED);
 header("Expires: Thu, 19 Nov 1981 08:52:00 GMT");
 
 if (defined('CHMOD_VALUE')) {

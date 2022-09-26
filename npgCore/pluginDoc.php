@@ -211,7 +211,6 @@ if (!defined('OFFSET_PATH')) {
 		exit();
 	}
 
-	header('Last-Modified: ' . NPG_LAST_MODIFIED);
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 
 	$real_locale = i18n::getUserLocale();
