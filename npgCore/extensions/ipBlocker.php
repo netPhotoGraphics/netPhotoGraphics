@@ -100,6 +100,7 @@ class ipBlocker {
 	function getOptionsSupported() {
 		$buttons = array(gettext('Allow') => 1, gettext('Block') => 0);
 		$text = array_flip($buttons);
+
 		$options = array(
 				gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 10,
@@ -161,12 +162,19 @@ class ipBlocker {
 				$list = self::getList('Block');
 				$key = 0;
 				foreach ($list as $key => $range) {
+					$start = str_replace(' ', '', $range['start']);
+					$start = preg_replace('`\.+`', '.', $start);
+					$start = preg_replace('`::+`', '::', $start);
+
+					$end = str_replace(' ', '', $range['end']);
+					$end = preg_replace('`\.+`', '.', $end);
+					$end = preg_replace('`::+`', '::', $end);
 					?>
-					<input id="ipholder_<?php echo $key; ?>a" type="textbox" size="15" name="ipBlocker_ip_start_<?php echo $key; ?>"
-								 value="<?php echo html_encode(str_replace(' ', '', $range['start'])); ?>" <?php echo $disabled; ?> />
+					<input id="ipholder_<?php echo $key; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $key; ?>"
+								 value="<?php echo html_encode($start); ?>" <?php echo $disabled; ?> />
 					-
-					<input id="ipholder_<?php echo $key; ?>b" type="textbox" size="15" name="ipBlocker_ip_end_<?php echo $key; ?>"
-								 value="<?php echo html_encode(str_replace(' ', '', $range['end'])); ?>" <?php echo $disabled; ?> />
+					<input id="ipholder_<?php echo $key; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $key; ?>"
+								 value="<?php echo html_encode($end); ?>" <?php echo $disabled; ?> />
 					<br />
 					<?php
 				}
@@ -174,10 +182,10 @@ class ipBlocker {
 				while ($i < $key + 4) {
 					$i++;
 					?>
-					<input id="ipholder_<?php echo $i; ?>a" type="textbox" size="15" name="ipBlocker_ip_start_<?php echo $i; ?>"
+					<input id="ipholder_<?php echo $i; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $i; ?>"
 								 value="" <?php echo $disabled; ?> />
 					-
-					<input id="ipholder_<?php echo $i; ?>b" type="textbox" size="15" name="ipBlocker_ip_end_<?php echo $i; ?>"
+					<input id="ipholder_<?php echo $i; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $i; ?>"
 								 value="" <?php echo $disabled; ?> />
 					<br />
 					<?php
@@ -226,6 +234,7 @@ class ipBlocker {
 			}
 		}
 		$list = array_unique($list, SORT_REGULAR);
+		purgeOption('ipBlocker_import');
 		if (!empty($_POST[postIndexEncode('ipBlocker_import')])) {
 			$file = sanitize_path($_POST[postIndexEncode('ipBlocker_import')]);
 			if (file_exists($file)) {
@@ -492,15 +501,18 @@ class ipBlocker {
 	 */
 	static function cononicalIP($ip) {
 		if (str_contains($ip, ':')) {
+			//	ipV6
 			$sep = ':';
+			$ipa = array_slice(explode($sep, $ip . ':::::::'), 0, 8);
 		} else {
 			$sep = '.';
+			$ipa = array_slice(explode($sep, $ip . '...'), 0, 4);
 		}
-		$ipa = explode($sep, $ip);
 		$ipc = '';
 		foreach ($ipa as $sub) {
 			$ipc .= sprintf("%s%' 4s", $sep, $sub);
 		}
+
 		return ltrim($ipc, $sep);
 	}
 
