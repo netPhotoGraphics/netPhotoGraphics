@@ -190,7 +190,6 @@ if (!$me) {
 	}
 
 	$__time = time();
-
 	$full_ip = getUserIP();
 	$ip = accessThreshold::maskIP($full_ip);
 	if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
