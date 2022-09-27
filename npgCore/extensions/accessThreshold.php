@@ -84,15 +84,6 @@ class accessThreshold {
 	}
 
 	static function handleOptionSave($themename, $themealbum) {
-		$x = str_replace(':', '.', getOption('accessThreshold_SENSITIVITY'));
-		$sensitivity = 0;
-		foreach (explode('.', $x) as $v) {
-			if ($v) {
-				$sensitivity++;
-			} else {
-				break;
-			}
-		}
 		if (getOption('accessThreshold_CLEAR')) {
 			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
@@ -118,6 +109,39 @@ class accessThreshold {
 			}
 		}
 		return $tabs;
+	}
+
+	static function maskIP($full_ip) {
+		$sHex = strpos($full_ip, '.') === false;
+		$mask = getOption('accessThreshold_SENSITIVITY');
+		$mHex = strpos($mask, '.') === false;
+		$target = explode('.', str_replace(':', '.', ltrim($full_ip, ':')));
+		$mask = explode('.', str_replace(':', '.', $mask . '.0.0.0.0.0.0.0.0'));
+		foreach ($mask as $key => $m) {
+			if ($mHex) {
+				$m = (int) hexdec($m);
+			} else {
+				$m = (int) $m;
+			}
+			if (isset($target[$key])) {
+				if ($sHex) {
+					$target[$key] = dechex((int) hexdec($target[$key]) & $m);
+				} else {
+					$target[$key] = (int) $target[$key] & $m;
+				}
+			} else {
+				break;
+			}
+		}
+		$c = count($target) - 1;
+		while ($c >= 0) {
+			if ($target[$c]) {
+				break;
+			}
+			unset($target[$c]);
+			$c--;
+		}
+		return implode($sHex ? ':' : '.', $target);
 	}
 
 	static function walk(&$element, $key, $__time) {
@@ -164,90 +188,80 @@ if (!$me) {
 	} else {
 		$recentIP = array();
 	}
-	if (array_key_exists('config', $recentIP)) {
-		$__time = time();
 
-		$full_ip = getUserIP();
-		if (strpos($full_ip, '.') === false) {
-			//ip v6
-			$separator = ':';
-		} else {
-			$separator = '.';
-		}
-		$x = array_slice(explode($separator, $full_ip), 0, getOption('accessThreshold_SENSITIVITY'));
-		$ip = implode($separator, $x);
-		unset($x);
+	$__time = time();
 
-		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
-			$recentIP[$ip] = array(
-					'accessed' => array(),
-					'locales' => array(),
-					'blocked' => 0,
-					'interval' => 0
-			);
-		}
-		$recentIP[$ip]['lastAccessed'] = $__time;
-		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
-			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
-			$mu->unlock();
-			sleep(10);
-			header("HTTP/1.0 503 Service Unavailable");
-			header("Status: 503 Service Unavailable");
-			header("Retry-After: 300");
-			exit(); //	terminate the script with no output
-		} else {
-			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
-			$__locale = i18n::getUserLocale();
-			if (isset($recentIP[$ip]['locales'][$__locale])) {
-				$recentIP[$ip]['locales'][$__locale]['ip'][$full_ip] = $__time;
-			} else {
-				$recentIP[$ip]['locales'][$__locale] = array('time' => $__time, 'ip' => array($full_ip => $__time));
-			}
-
-			$__previous = $__interval = $__count = 0;
-			array_walk($recentIP[$ip]['locales'], 'accessThreshold::walk', $__time);
-			foreach ($recentIP[$ip]['locales'] as $key => $data) {
-				if (is_null($data)) {
-					unset($recentIP[$ip]['locales'][$key]);
-				}
-			}
-			if ($__count > getOption('accessThreshold_LocaleCount')) {
-				npgFilters::apply('access_control', 4, 'locales', 'accessThreshold', getRequestURI());
-				$recentIP[$ip]['blocked'] = 1;
-			}
-
-			$__previous = $__interval = $__count = 0;
-			array_walk($recentIP[$ip]['accessed'], 'accessThreshold::walk', $__time);
-			foreach ($recentIP[$ip]['accessed'] as $key => $data) {
-				if (is_null($data)) {
-					unset($recentIP[$ip]['accessed'][$key]);
-				}
-			}
-			if ($__count > 1) {
-				$__interval = $__interval / $__count;
-			} else {
-				$__interval = 0;
-			}
-			$recentIP[$ip]['interval'] = $__interval;
-			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
-				npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
-				$recentIP[$ip]['blocked'] = 2;
-			}
-		}
-		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
-			$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
-			$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
-		}
+	$full_ip = getUserIP();
+	$ip = accessThreshold::maskIP($full_ip);
+	if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
+		$recentIP[$ip] = array(
+				'accessed' => array(),
+				'locales' => array(),
+				'blocked' => 0,
+				'interval' => 0
+		);
+	}
+	$recentIP[$ip]['lastAccessed'] = $__time;
+	if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 		$mu->unlock();
+		sleep(10);
+		header("HTTP/1.0 503 Service Unavailable");
+		header("Status: 503 Service Unavailable");
+		header("Retry-After: 300");
+		exit(); //	terminate the script with no output
+	} else {
+		$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
+		$__locale = i18n::getUserLocale();
+		if (isset($recentIP[$ip]['locales'][$__locale])) {
+			$recentIP[$ip]['locales'][$__locale]['ip'][$full_ip] = $__time;
+		} else {
+			$recentIP[$ip]['locales'][$__locale] = array('time' => $__time, 'ip' => array($full_ip => $__time));
+		}
 
-		unset($ip);
-		unset($full_ip);
-		unset($recentIP);
-		nset($__time);
-		unset($__interval);
-		unset($__previous);
-		unset($__count);
-		unset($__locale);
+		$__previous = $__interval = $__count = 0;
+		array_walk($recentIP[$ip]['locales'], 'accessThreshold::walk', $__time);
+		foreach ($recentIP[$ip]['locales'] as $key => $data) {
+			if (is_null($data)) {
+				unset($recentIP[$ip]['locales'][$key]);
+			}
+		}
+		if ($__count > getOption('accessThreshold_LocaleCount')) {
+			npgFilters::apply('access_control', 4, 'locales', 'accessThreshold', getRequestURI());
+			$recentIP[$ip]['blocked'] = 1;
+		}
+
+		$__previous = $__interval = $__count = 0;
+		array_walk($recentIP[$ip]['accessed'], 'accessThreshold::walk', $__time);
+		foreach ($recentIP[$ip]['accessed'] as $key => $data) {
+			if (is_null($data)) {
+				unset($recentIP[$ip]['accessed'][$key]);
+			}
+		}
+		if ($__count > 1) {
+			$__interval = $__interval / $__count;
+		} else {
+			$__interval = 0;
+		}
+		$recentIP[$ip]['interval'] = $__interval;
+		if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
+			npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
+			$recentIP[$ip]['blocked'] = 2;
+		}
 	}
+	if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
+		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
+		$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
+	}
+	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+	$mu->unlock();
+
+	unset($ip);
+	unset($full_ip);
+	unset($recentIP);
+	unset($__time);
+	unset($__interval);
+	unset($__previous);
+	unset($__count);
+	unset($__locale);
 }

@@ -503,6 +503,10 @@ class ipBlocker {
 		if (str_contains($ip, ':')) {
 			//	ipV6
 			$sep = ':';
+			if (strpos($ip, '::') !== FALSE) {
+				$colons = str_pad('', 9 - substr_count($ip, ':'), ':');
+				$ip = str_replace('::', $colons, $ip);
+			}
 			$ipa = array_slice(explode($sep, $ip . ':::::::'), 0, 8);
 		} else {
 			$sep = '.';
