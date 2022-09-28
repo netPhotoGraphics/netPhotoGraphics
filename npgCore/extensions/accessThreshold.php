@@ -32,7 +32,11 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_SIGNIFICANT', 10);
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
-			setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
+			if (strpos(getUserIP(), ':') !== FALSE) {
+				setOptionDefault('accessThreshold_SENSITIVITY', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:0');
+			} else {
+				setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
+			}
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
 			setOptionDefault('accessThreshold_Monitor', TRUE);
