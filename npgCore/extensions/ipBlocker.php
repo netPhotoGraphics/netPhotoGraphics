@@ -147,7 +147,7 @@ class ipBlocker {
 	function handleOption($option, $currentValue) {
 		switch ($option) {
 			case 'ipBlocker_IP':
-				$list = self::getList('Block');
+				$list = sortMultiArray(self::getList('Block'), 'start');
 				$key = 0;
 				foreach ($list as $key => $range) {
 					$start = str_replace(' ', '', $range['start']);
