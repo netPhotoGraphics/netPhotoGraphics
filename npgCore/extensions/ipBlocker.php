@@ -125,38 +125,26 @@ class ipBlocker {
 						'order' => 5,
 						'desc' => gettext('The suspension will be removed after this many minutes.'))
 		);
-		$disabled = !extensionEnabled('ipBlocker');
 
 		$list = getPluginFiles('*.txt', 'ipBlocker');
 		if ($list) {
 			$files = array_merge(array('' => ''), $list);
 		} else {
 			$files = array('no text files found' => '');
-			$disabled = true;
 		}
+
 		$options[gettext('Import list')] = array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
 				'order' => 12,
 				'selections' => $files,
 				'nullselection' => '',
-				'disabled' => $disabled,
+				'disabled' => count($files) == 1,
 				'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)
 		);
 
-		if (!extensionEnabled('ipBlocker')) {
-			$options['note'] = array('key' => 'ipBlocker_note', 'type' => OPTION_TYPE_NOTE,
-					'order' => 0,
-					'desc' => '<p class="notebox">' . gettext('IP list ranges cannot be managed with the plugin disabled') . '</p>');
-		}
 		return $options;
 	}
 
 	function handleOption($option, $currentValue) {
-		if (extensionEnabled('ipBlocker')) {
-			$disabled = '';
-		} else {
-			$disabled = ' disabled="disabled"';
-		}
-
 		switch ($option) {
 			case 'ipBlocker_IP':
 				$list = self::getList('Block');
@@ -171,10 +159,10 @@ class ipBlocker {
 					$end = preg_replace('`::+`', '::', $end);
 					?>
 					<input id="ipholder_<?php echo $key; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $key; ?>"
-								 value="<?php echo html_encode($start); ?>" <?php echo $disabled; ?> />
+								 value="<?php echo html_encode($start); ?>" />
 					-
 					<input id="ipholder_<?php echo $key; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $key; ?>"
-								 value="<?php echo html_encode($end); ?>" <?php echo $disabled; ?> />
+								 value="<?php echo html_encode($end); ?>" />
 					<br />
 					<?php
 				}
@@ -183,10 +171,10 @@ class ipBlocker {
 					$i++;
 					?>
 					<input id="ipholder_<?php echo $i; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $i; ?>"
-								 value="" <?php echo $disabled; ?> />
+								 value="" />
 					-
 					<input id="ipholder_<?php echo $i; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $i; ?>"
-								 value="" <?php echo $disabled; ?> />
+								 value="" />
 					<br />
 					<?php
 				}
@@ -522,7 +510,7 @@ class ipBlocker {
 
 }
 
-global $_ipBlocker_lists, $_ipBlockerMutex; //	might be loaded from within a function
+global $_ipBlockerMutex;
 $_ipBlockerMutex = new npgMutex('bK');
 if (extensionEnabled('ipBlocker')) {
 	if (isset($_current_admin_obj) && !$_current_admin_obj->transient) {
