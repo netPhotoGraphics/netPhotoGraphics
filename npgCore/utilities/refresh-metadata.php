@@ -166,9 +166,18 @@ printTabs();
 				<?php
 			}
 		} else {
+			$dateset = '';
+			if ($_gallery->getAlbumUseImagedate()) {
+				$albumobj = newAlbum($folder);
+				if ($albumobj->getNumImages()) {
+					//	there will be an image to set the album date from
+					$dateset = ", `date`=NULL";
+				}
+			}
+
 			if ($type !== 'tab=prune&amp;') {
 				if (!empty($id)) {
-					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . ($_gallery->getAlbumUseImagedate() ? ", `date`=NULL" : '') . " WHERE `id`=$id";
+					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . $dateset . " WHERE `id`=$id";
 					query($sql);
 				}
 				$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0 $albumwhere";
