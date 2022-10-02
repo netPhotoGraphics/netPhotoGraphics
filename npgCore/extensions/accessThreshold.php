@@ -116,9 +116,9 @@ class accessThreshold {
 	}
 
 	static function maskIP($full_ip) {
-		$sHex = strpos($full_ip, '.') === false;
+		$sHex = str_contains($full_ip, ':');
 		$mask = getOption('accessThreshold_SENSITIVITY');
-		$mHex = strpos($mask, '.') === false;
+		$mHex = str_contains($mask, ':');
 		$target = explode('.', str_replace(':', '.', ltrim($full_ip, ':')));
 		$mask = explode('.', str_replace(':', '.', $mask . '.0.0.0.0.0.0.0.0'));
 		foreach ($mask as $key => $m) {
@@ -129,9 +129,17 @@ class accessThreshold {
 			}
 			if (isset($target[$key])) {
 				if ($sHex) {
-					$target[$key] = dechex((int) hexdec($target[$key]) & $m);
+					if (ctype_xdigit($target[$key])) {
+						$target[$key] = dechex((int) hexdec($target[$key]) & $m);
+					} else {
+						$target[$key] = 0;
+					}
 				} else {
-					$target[$key] = (int) $target[$key] & $m;
+					if (ctype_digit($target[$key])) {
+						$target[$key] = (int) $target[$key] & $m;
+					} else {
+						$target[$key] = 0;
+					}
 				}
 			} else {
 				break;
