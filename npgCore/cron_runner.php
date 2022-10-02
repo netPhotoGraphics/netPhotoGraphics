@@ -17,7 +17,7 @@ if (isset($_POST['link'])) {
 	}
 	$_invisible_execute = 1;
 	require_once(__DIR__ . '/functions.php');
-	$link = sanitize($_POST['link']);
+	$link = str_replace(SERVERPATH, '', sanitize($_POST['link']));
 	if (isset($_POST['auth'])) {
 		$auth = sanitize($_POST['auth'], 0);
 		$admin = $_authority->getMasterUser();
@@ -30,7 +30,7 @@ if (isset($_POST['link'])) {
 	require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 	admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
-	npgFilters::apply('security_misc', true, 'cron_runner', 'admin_auth', sprintf('executing %1$s', $link));
+	npgFilters::apply('security_misc', true, 'cron_runner', 'admin_auth', sprintf('executing %1$s', ltrim($link, '/')));
 
 	if (isset($_POST['XSRFTag'])) {
 		$_REQUEST['XSRFToken'] = $_POST['XSRFToken'] = $_GET['XSRFToken'] = getXSRFToken(sanitize($_POST['XSRFTag']));
@@ -40,6 +40,6 @@ if (isset($_POST['link'])) {
 		unset($_REQUEST['XSRFToken']);
 	}
 
-	require_once($link);
+	require_once(SERVERPATH . $link);
 }
 ?>
