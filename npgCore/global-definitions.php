@@ -185,6 +185,7 @@ define('AUTHCOOKIE', 'user_auth' . str_replace('/', '_', WEBPATH));
 define('DESIRED_PHP_EXTENSIONS', array(
 		'bz2',
 		'curl',
+		'ctype',
 		'dom',
 		'exif',
 		'fileinfo',
