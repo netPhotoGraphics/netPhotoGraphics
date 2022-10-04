@@ -1718,7 +1718,7 @@ function restore_context() {
  * @return type
  */
 function getBare($content) {
-	return ksesProcess($content, array());
+	return kses($content, array());
 }
 
 /**
@@ -2584,6 +2584,26 @@ function getMacros() {
 		$_content_macros = npgFilters::apply('content_macro', array());
 	}
 	return $_content_macros;
+}
+
+if (class_exists('tidy')) {
+
+	function cleanHTML($html) {
+		$tidy = new tidy();
+		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
+		$tidy->cleanRepair();
+		return $tidy;
+	}
+
+} else {
+	require_once(CORE_SERVERPATH . 'htmLawed.php');
+
+	function cleanHTML($html) {
+		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
+		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
+		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
+	}
+
 }
 
 class npgFunctions {

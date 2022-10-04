@@ -5,6 +5,14 @@
  */
 require_once(__DIR__ . '/global-definitions.php');
 require_once(__DIR__ . '/class-mutex.php');
+require_once(__DIR__ . '/lib-kses.php');
+require_once(__DIR__ . '/lib-encryption.php');
+require_once(__DIR__ . '/lib-utf8.php');
+if (!function_exists("gettext")) {
+	require_once(__DIR__ . '/php-gettext/gettext.inc');
+}
+
+$_UTF8 = new utf8();
 
 define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 
@@ -17,11 +25,6 @@ if (DISPLAY_ERRORS) {
 } else {
 	ini_set('display_errors', 0);
 }
-
-
-require_once(__DIR__ . '/lib-encryption.php');
-require_once(__DIR__ . '/lib-utf8.php');
-$_UTF8 = new utf8();
 
 set_error_handler("npgErrorHandler");
 set_exception_handler("npgExceptionHandler");
