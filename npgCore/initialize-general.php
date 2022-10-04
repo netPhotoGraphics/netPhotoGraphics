@@ -9,45 +9,7 @@ global $_current_context_stack, $_HTML_cache;
 //	insure the site is secure if that is the site's intent
 httpsRedirect();
 
-if (!function_exists("json_encode")) {
-	// load the drop-in replacement library
-	require_once(__DIR__ . '/lib-json.php');
-}
-
 require_once(__DIR__ . '/lib-filter.php');
-require_once(__DIR__ . '/lib-kses.php');
-
-if (class_exists('tidy')) {
-
-	function cleanHTML($html) {
-		$tidy = new tidy();
-		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
-		$tidy->cleanRepair();
-		return $tidy;
-	}
-
-} else {
-	require_once(CORE_SERVERPATH . 'htmLawed.php');
-
-	function cleanHTML($html) {
-		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
-		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
-		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
-	}
-
-}
-
-if (!function_exists('ctype_digit')) {
-
-	function ctype_digit($digit) {
-		return !preg_match('`[^0-9]`', $digit);
-	}
-
-	function ctype_xdigit($hex) {
-		return !preg_match('`[^a-fA-F0-9]`', $hex);
-	}
-
-}
 
 $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
 $_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.

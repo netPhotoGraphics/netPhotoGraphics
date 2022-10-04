@@ -24,10 +24,6 @@ foreach ($v as $line) {
 	}
 }
 
-if (!function_exists("gettext")) {
-	require_once(__DIR__ . '/php-gettext/gettext.inc');
-}
-
 $v = explode('-', NETPHOTOGRAPHICS_VERSION);
 define('NETPHOTOGRAPHICS_VERSION_CONCISE', $v[0]);
 unset($v);

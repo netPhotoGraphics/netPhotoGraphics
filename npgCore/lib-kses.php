@@ -56,12 +56,12 @@
  * @return type
  */
 function kses($string, $allowed_html, $allowed_protocols = array('http', 'https', 'ftp', 'news', 'nntp', 'telnet',
-		'gopher', 'mailto')) {
+						'gopher', 'mailto')) {
 	$string = kses_no_null($string);
 	$string = kses_js_entities($string);
-// $string = kses_normalize_entities($string); netPhotoGraphics does not want & encoded
+	// $string = kses_normalize_entities($string); netPhotoGraphics does not want & encoded
 	$string = kses_hook($string);
-// $allowed_html = kses_array_lc($allowed_html); netPhotoGraphics insures that these are already lowercase
+	// $allowed_html = kses_array_lc($allowed_html); netPhotoGraphics insures that these are already lowercase
 	return kses_split($string, $allowed_html, $allowed_protocols);
 }
 

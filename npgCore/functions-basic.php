@@ -278,27 +278,6 @@ function sanitize($input_string, $sanitize_level = 3) {
 	return $output_string;
 }
 
-/**
- * Internal "helper" function to apply the tag removal
- *
- * @param string $input_string
- * @param array $allowed_tags
- * @return string
- */
-function ksesProcess($input_string, $allowed_tags) {
-	if (function_exists('kses')) {
-		return kses($input_string, $allowed_tags);
-	} else {
-		$input_string = preg_replace('~<script.*>.*</script>~isU', '', $input_string);
-		$input_string = preg_replace('~<style.*>.*</style>~isU', '', $input_string);
-		$input_string = preg_replace('~<!--.*-->~isU', '', $input_string);
-		$content = strip_tags($input_string);
-		$input_string = str_replace('&nbsp;', ' ', $input_string);
-		$input_string = html_decode($input_string);
-		return $input_string;
-	}
-}
-
 /** returns a sanitized string for the sanitize function
  * @param string $input_string
  * @param string $sanitize_level See sanitize()
@@ -313,14 +292,14 @@ function sanitize_string($input, $sanitize_level) {
 			case 2:
 				// Strips non-style tags.
 				$input = sanitize_script($input);
-				return ksesProcess($input, getAllowedTags('style_tags'));
+				return kses($input, getAllowedTags('style_tags'));
 			case 3:
 				// Full sanitation.  Strips all code.
-				return ksesProcess($input, array());
+				return kses($input, array());
 			case 1:
 				// Text formatting sanititation.
 				$input = sanitize_script($input);
-				return ksesProcess($input, getAllowedTags('allowed_tags'));
+				return kses($input, getAllowedTags('allowed_tags'));
 			case 4:
 			default:
 				// for internal use to eliminate security injections
@@ -2081,10 +2060,29 @@ function setOption($key, $value, $persistent = true) {
 	}
 }
 
+//	PHP fallback functions
+
 if (!function_exists('str_contains')) {
 
 	function str_contains($haystack, $needle) {
 		return $needle !== '' && mb_strpos($haystack, $needle) !== false;
 	}
 
+}
+
+if (!function_exists('ctype_digit')) {
+
+	function ctype_digit($digit) {
+		return !preg_match('`[^0-9]`', $digit);
+	}
+
+	function ctype_xdigit($hex) {
+		return !preg_match('`[^a-fA-F0-9]`', $hex);
+	}
+
+}
+
+if (!function_exists("json_encode")) {
+	// load the drop-in replacement library
+	require_once(__DIR__ . '/lib-json.php');
 }
