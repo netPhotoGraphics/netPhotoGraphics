@@ -8,9 +8,6 @@ require_once(__DIR__ . '/class-mutex.php');
 require_once(__DIR__ . '/lib-kses.php');
 require_once(__DIR__ . '/lib-encryption.php');
 require_once(__DIR__ . '/lib-utf8.php');
-if (!function_exists("gettext")) {
-	require_once(__DIR__ . '/php-gettext/gettext.inc');
-}
 
 $_UTF8 = new utf8();
 
