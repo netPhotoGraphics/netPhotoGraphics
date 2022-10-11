@@ -2062,6 +2062,20 @@ function setOption($key, $value, $persistent = true) {
 
 //	PHP fallback functions
 
+if (!function_exists('str_starts_with')) {
+
+	function str_starts_with($haystack, $needle) {
+		return (string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
+	}
+
+}
+if (!function_exists('str_ends_with')) {
+
+	function str_ends_with($haystack, $needle) {
+		return $needle !== '' && substr($haystack, -strlen($needle)) === (string) $needle;
+	}
+
+}
 if (!function_exists('str_contains')) {
 
 	function str_contains($haystack, $needle) {
@@ -2076,6 +2090,9 @@ if (!function_exists('ctype_digit')) {
 		return !preg_match('`[^0-9]`', $digit);
 	}
 
+}
+if (!function_exists('ctype_xdigit')) {
+
 	function ctype_xdigit($hex) {
 		return !preg_match('`[^a-fA-F0-9]`', $hex);
 	}
@@ -2085,4 +2102,8 @@ if (!function_exists('ctype_digit')) {
 if (!function_exists("json_encode")) {
 	// load the drop-in replacement library
 	require_once(__DIR__ . '/lib-json.php');
+}
+
+if (!function_exists("gettext")) {
+	require_once(__DIR__ . '/php-gettext/gettext.inc');
 }

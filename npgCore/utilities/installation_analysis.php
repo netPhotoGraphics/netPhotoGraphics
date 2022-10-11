@@ -88,6 +88,15 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
+								if (SITE_LOCALE_OPTION) {
+									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
+								} else {
+									echo gettext('<strong>Locale setting has failed</strong>');
+								}
+								?>
+							</li>
+							<li>
+								<?php
 								printf(gettext('Site character set is <strong>%1$s</strong>'), LOCAL_CHARSET);
 								?>
 							</li>
@@ -98,38 +107,6 @@ echo '</head>';
 									echo ', ' . gettext('Image URIs are in <strong>UTF-8</strong>');
 								}
 								?>
-							</li>
-							<li>
-								<?php
-								$permission_names = array(
-										0444 => gettext('readonly'),
-										0644 => gettext('strict'),
-										0664 => gettext('relaxed'),
-										0666 => gettext('loose')
-								);
-								$try = CHMOD_VALUE & 0666 | 4;
-								if (array_key_exists($try, $permission_names)) {
-									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$try], CHMOD_VALUE);
-								} else {
-									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), CHMOD_VALUE);
-								}
-								echo gettext('File permissions:') . ' <strong>' . $value . '</strong>';
-								?>
-							</li>
-							<li>
-								<?php
-								if (SITE_LOCALE_OPTION) {
-									printf(gettext('Current locale setting: <strong>%1$s</strong>'), SITE_LOCALE_OPTION);
-								} else {
-									echo gettext('<strong>Locale setting has failed</strong>');
-								}
-								?>
-							</li>
-							<li>
-								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
-							</li>
-							<li>
-								<?php printf(gettext('Server software: <strong>%1$s</strong>'), html_encode($_SERVER['SERVER_SOFTWARE'])); ?>
 							</li>
 							<li>
 								<?php
@@ -152,8 +129,37 @@ echo '</head>';
 								?>
 							</li>
 							<li>
+								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
+							</li>
+							<li>
+								<?php
+								$permission_names = array(
+										0444 => gettext('readonly'),
+										0644 => gettext('strict'),
+										0664 => gettext('relaxed'),
+										0666 => gettext('loose')
+								);
+								$try = CHMOD_VALUE & 0666 | 4;
+								if (array_key_exists($try, $permission_names)) {
+									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$try], CHMOD_VALUE);
+								} else {
+									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), CHMOD_VALUE);
+								}
+								echo gettext('File permissions:') . ' <strong>' . $value . '</strong>';
+								?>
+							</li>
+							<li>
+								<?php printf(gettext('Server software: <strong>%1$s</strong>'), html_encode($_SERVER['SERVER_SOFTWARE'])); ?>
+							</li>
+							<li>
+								<?php
+								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
+								?>
+							</li>
+							<li>
 								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
 							</li>
+
 							<?php
 							$loaded = get_loaded_extensions();
 							$loaded = array_flip($loaded);
@@ -174,11 +180,6 @@ echo '</head>';
 								<?php
 							}
 							?>
-							<li>
-								<?php
-								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
-								?>
-							</li>
 							<li>
 								<?php
 								$memoryLimit = INI_GET('memory_limit');
@@ -295,6 +296,16 @@ echo '</head>';
 								<?php
 								$dbsoftware = db_software();
 								printf(gettext('%1$s version: <strong>%2$s</strong>'), $dbsoftware['application'], $dbsoftware['version']);
+								echo '&nbsp;&nbsp;';
+								$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+								if ($max['Value'] == 0) {
+									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+								}
+								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
+		(
+				SELECT user " . db_quote($_conf_vars['mysql_user']) . "FROM information_schema.processlist
+		) A GROUP BY " . db_quote($_conf_vars['mysql_user']) . " WITH ROLLUP;");
+								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', $max['Value']), $used['Connections'], $max['Value']);
 								?>
 							</li>
 							<li>
@@ -311,16 +322,7 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-								if ($max['Value'] == 0) {
-									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
-								}
-								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
-		(
-				SELECT user " . db_quote($_conf_vars['mysql_user']) . "FROM information_schema.processlist
-		) A GROUP BY " . db_quote($_conf_vars['mysql_user']) . " WITH ROLLUP;");
 								printf(gettext('Database name: <strong>%1$s</strong>; '), db_name());
-								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', $max['Value']), $used['Connections'], $max['Value']);
 								?>
 							</li>
 							<li>
