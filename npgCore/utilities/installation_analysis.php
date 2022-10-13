@@ -61,30 +61,30 @@ echo '</head>';
 							}
 
 							$graphics_lib = gl_graphicsLibInfo();
-							?>
-							<li>
-								<?php
-								if (file_exists(SERVERPATH . '/docs/release notes.htm')) {
-									?>
-									<script type="text/javascript">
-										<!--
-										$(document).ready(function () {
-											$(".doc").colorbox({
-												close: '<?php echo gettext("close"); ?>',
-												maxHeight: "98%",
-												innerWidth: '560px'
-											});
-										});
-										//-->
-									</script>
-									<?php
-									$notes = '<br /><a href="' . WEBPATH . '/docs/release%20notes.htm" class="doc" title="' . gettext('release notes') . '">' . gettext('notes') . '</a>';
-								} else {
-									$notes = '';
-								}
-								printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION_CONCISE, $official);
-								echo $notes . $source;
+							if (file_exists(SERVERPATH . '/docs/release notes.htm')) {
 								?>
+								<script type="text/javascript">
+									<!--
+									$(document).ready(function () {
+										$(".doc").colorbox({
+											close: '<?php echo gettext("close"); ?>',
+											maxHeight: "98%",
+											innerWidth: '560px'
+										});
+									});
+									//-->
+								</script>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										$notes = '<br /><a href="' . WEBPATH . '/docs/release%20notes.htm" class="doc" title="' . gettext('release notes') . '">' . gettext('notes') . '</a>';
+									} else {
+										$notes = '';
+									}
+									printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION_CONCISE, $official);
+									echo $notes . $source;
+									?>
+								</div>
 							</li>
 							<li>
 								<?php
@@ -149,7 +149,9 @@ echo '</head>';
 								?>
 							</li>
 							<li>
-								<?php printf(gettext('Server software: <strong>%1$s</strong>'), html_encode($_SERVER['SERVER_SOFTWARE'])); ?>
+								<div class="hangng_indent">
+									<?php printf(gettext('Server software: <strong>%1$s</strong>'), html_encode($_SERVER['SERVER_SOFTWARE'])); ?>
+								</div>
 							</li>
 							<li>
 								<?php
@@ -200,94 +202,99 @@ echo '</head>';
 							if (TEST_RELEASE) {
 								?>
 								<li>
-									<?php
-									$erToTxt = array(E_ERROR => 'E_ERROR',
-											E_WARNING => 'E_WARNING',
-											E_PARSE => 'E_PARSE',
-											E_NOTICE => 'E_NOTICE',
-											E_CORE_ERROR => 'E_CORE_ERROR',
-											E_CORE_WARNING => 'E_CORE_WARNING',
-											E_COMPILE_ERROR => 'E_COMPILE_ERROR',
-											E_COMPILE_WARNING => 'E_COMPILE_WARNING',
-											E_USER_ERROR => 'E_USER_ERROR',
-											E_USER_NOTICE => 'E_USER_NOTICE',
-											E_USER_WARNING => 'E_USER_WARNING',
-											E_STRICT => 'E_STRICT',
-											E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
-											E_DEPRECATED => 'E_DEPRECATED',
-											E_USER_DEPRECATED => 'E_USER_DEPRECATED'
-									);
-
-									$reporting = error_reporting();
-									$text = array();
-
-									if ((($reporting | E_NOTICE | E_STRICT) & E_ALL) == E_ALL) {
-										$t = 'E_ALL';
-										$reporting = $reporting ^ E_ALL;
-										if ($reporting & E_STRICT) {
-											$t .= ' ^ E_STRICT';
-											$reporting = $reporting ^ E_STRICT;
-										}
-										if ($reporting & E_NOTICE) {
-											$t .= ' ^ E_NOTICE';
-											$reporting = $reporting ^ E_NOTICE;
-										}
-										$text[] = $t;
-									} else {
-										if (($reporting & E_ALL) == E_ALL) {
-											$text[] = 'E_ALL';
-											$reporting = $reporting ^ E_ALL;
-										}
-									}
-
-									foreach ($erToTxt as $er => $name) {
-										if ($reporting & $er) {
-											$text[] = $name;
-										}
-									}
-									printf(gettext('PHP Error reporting: <strong>%s</strong>'), implode(' | ', $text));
-									if (ini_get('display_errors')) {
-										?>
-										<a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a>
+									<div class="hangng_indent">
 										<?php
-									} else {
-										echo gettext('<em>display_errors</em> is <strong>Off</strong>');
-									}
-									?>
+										$erToTxt = array(E_ERROR => 'E_ERROR',
+												E_WARNING => 'E_WARNING',
+												E_PARSE => 'E_PARSE',
+												E_NOTICE => 'E_NOTICE',
+												E_CORE_ERROR => 'E_CORE_ERROR',
+												E_CORE_WARNING => 'E_CORE_WARNING',
+												E_COMPILE_ERROR => 'E_COMPILE_ERROR',
+												E_COMPILE_WARNING => 'E_COMPILE_WARNING',
+												E_USER_ERROR => 'E_USER_ERROR',
+												E_USER_NOTICE => 'E_USER_NOTICE',
+												E_USER_WARNING => 'E_USER_WARNING',
+												E_STRICT => 'E_STRICT',
+												E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
+												E_DEPRECATED => 'E_DEPRECATED',
+												E_USER_DEPRECATED => 'E_USER_DEPRECATED'
+										);
+
+										$reporting = error_reporting();
+										$text = array();
+
+										if ((($reporting | E_NOTICE | E_STRICT) & E_ALL) == E_ALL) {
+											$t = 'E_ALL';
+											$reporting = $reporting ^ E_ALL;
+											if ($reporting & E_STRICT) {
+												$t .= ' ^ E_STRICT';
+												$reporting = $reporting ^ E_STRICT;
+											}
+											if ($reporting & E_NOTICE) {
+												$t .= ' ^ E_NOTICE';
+												$reporting = $reporting ^ E_NOTICE;
+											}
+											$text[] = $t;
+										} else {
+											if (($reporting & E_ALL) == E_ALL) {
+												$text[] = 'E_ALL';
+												$reporting = $reporting ^ E_ALL;
+											}
+										}
+
+										foreach ($erToTxt as $er => $name) {
+											if ($reporting & $er) {
+												$text[] = $name;
+											}
+										}
+										printf(gettext('PHP Error reporting: <strong>%s</strong>'), implode(' | ', $text));
+										if (ini_get('display_errors')) {
+											?>
+											<a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a>
+											<?php
+										} else {
+											echo gettext('<em>display_errors</em> is <strong>Off</strong>');
+										}
+										?>
+									</div>
 								</li>
 								<?php
 							}
 							?>
 							<li>
 								<?php printf(gettext("Graphics support: <strong>%s</strong>"), $graphics_lib['Library_desc']); ?>
-								<br />&nbsp;&nbsp;&nbsp;
-								<?php
-								unset($graphics_lib['Library']);
-								unset($graphics_lib['Library_desc']);
-								foreach ($graphics_lib as $key => $type) {
-									if (!$type) {
-										unset($graphics_lib[$key]);
+								<div class="indent">
+									<?php
+									unset($graphics_lib['Library']);
+									unset($graphics_lib['Library_desc']);
+									foreach ($graphics_lib as $key => $type) {
+										if (!$type) {
+											unset($graphics_lib[$key]);
+										}
 									}
-								}
-								printf(gettext('supporting: %s'), '<em>' . strtolower(implode(', ', array_keys($graphics_lib))) . '</em>');
-								?>
+									printf(gettext('supporting: %s'), '<em>' . strtolower(implode(', ', array_keys($graphics_lib))) . '</em>');
+									?>
+								</div>
 							</li>
 							<?php
 							if (TEST_RELEASE) {
 								?>
 								<li>
-									<?php
-									echo gettext('Image handlers') . ':<br />';
-									$handlers = array();
-									ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
-									foreach ($_images_classes as $suffix => $handler) {
-										$handlers[$handler][] = $suffix;
-									}
-									ksort($handlers, SORT_NATURAL | SORT_FLAG_CASE);
-									foreach ($handlers as $handler => $suffixes) {
-										echo '&nbsp;&nbsp;&nbsp;<em>' . $handler . '</em>: ' . implode(', ', $suffixes) . '<br />';
-									}
-									?>
+									<div class="hangng_indent">
+										<?php
+										echo gettext('Image handlers') . ':<br />';
+										$handlers = array();
+										ksort($_images_classes, SORT_NATURAL | SORT_FLAG_CASE);
+										foreach ($_images_classes as $suffix => $handler) {
+											$handlers[$handler][] = $suffix;
+										}
+										ksort($handlers, SORT_NATURAL | SORT_FLAG_CASE);
+										foreach ($handlers as $handler => $suffixes) {
+											echo '<em>' . $handler . '</em>: ' . implode(', ', $suffixes) . '<br />';
+										}
+										?>
+									</div>
 								</li>
 								<?php
 							}
@@ -484,8 +491,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-										var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-										$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+							$('.overview_list').height(height);
 </script>
 
 <?php
