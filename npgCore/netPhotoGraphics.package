@@ -20152,9 +20152,10 @@ plugins/zenphotoCompatibilityPack.php
 %core%/js/jQuery/jquery-migrate-3.3.2.js
 %core%/js/jQuery/jquery-migrate-3.3.2.min.js
 %core%/js/jQueryui
-%core%/js/jQueryui/base-1.12.min.css
-%core%/js/jQueryui/jquery-ui-1.12.1.min.js
-%core%/js/jQueryui/jquery-ui-1.12.min.css
+%core%/js/jQueryui/jquery-ui-1.13.2.min.css
+%core%/js/jQueryui/jquery-ui-1.13.2.min.js
+%core%/js/jQueryui/jquery-ui.structure-1.13.2.min.css
+%core%/js/jQueryui/jquery-ui.theme-1.13.2.min.css
 %core%/js/jQueryui/i18n
 %core%/js/jQueryui/i18n/datepicker-af.js
 %core%/js/jQueryui/i18n/datepicker-ar-DZ.js
@@ -20167,6 +20168,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/js/jQueryui/i18n/datepicker-cs.js
 %core%/js/jQueryui/i18n/datepicker-cy-GB.js
 %core%/js/jQueryui/i18n/datepicker-da.js
+%core%/js/jQueryui/i18n/datepicker-de-AT.js
 %core%/js/jQueryui/i18n/datepicker-de.js
 %core%/js/jQueryui/i18n/datepicker-el.js
 %core%/js/jQueryui/i18n/datepicker-en-AU.js
@@ -20230,7 +20232,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/js/jQueryui/i18n/datepicker-zh-CN.js
 %core%/js/jQueryui/i18n/datepicker-zh-HK.js
 %core%/js/jQueryui/i18n/datepicker-zh-TW.js
-%core%/js/jQueryui/i18n/jquery-ui-i18n.js
 %core%/js/jQueryui/images
 %core%/js/jQueryui/images/ui-icons_444444_256x240.png
 %core%/js/jQueryui/images/ui-icons_555555_256x240.png
@@ -20327,4 +20328,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20329
+20330

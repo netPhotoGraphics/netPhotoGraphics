@@ -2184,8 +2184,9 @@ function scriptLoader($script, $inline = 1) {
 }
 
 function load_jQuery_CSS() {
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.12.min.css');
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/base-1.12.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-structure-1.13.2.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-theme-base-1.13.2.min.css');
 }
 
 function load_jQuery_scripts($where, $ui = true) {
@@ -2217,7 +2218,7 @@ function load_jQuery_scripts($where, $ui = true) {
 			break;
 	}
 	if ($ui) {
-		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.12.1.min.js');
+		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js');
 	}
 }
 
