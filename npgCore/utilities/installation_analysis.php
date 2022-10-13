@@ -129,7 +129,9 @@ echo '</head>';
 								?>
 							</li>
 							<li>
-								<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
+								<div class="hangng_indent">
+									<?php echo gettext('Server path:') . ' <strong>' . SERVERPATH . '</strong>'; ?>
+								</div>
 							</li>
 							<li>
 								<?php
@@ -159,7 +161,9 @@ echo '</head>';
 								?>
 							</li>
 							<li>
-								<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
+								<div class="hangng_indent">
+									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
+								</div>
 							</li>
 
 							<?php
@@ -175,9 +179,11 @@ echo '</head>';
 							if (!empty($missing)) {
 								?>
 								<li>
-									<?php
-									printf(gettext('The following desired PHP extensions are not enabled: %s'), rtrim($missing, ', '));
-									?>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('The following desired PHP extensions are not enabled: %s'), rtrim($missing, ', '));
+										?>
+									</div>
 								</li>
 								<?php
 							}
