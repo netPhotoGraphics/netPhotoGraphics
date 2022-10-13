@@ -2186,7 +2186,7 @@ function scriptLoader($script, $inline = 1) {
 function load_jQuery_CSS() {
 	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.css');
 	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-structure-1.13.2.min.css');
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-theme-base-1.13.2.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-theme-1.13.2.min.css');
 }
 
 function load_jQuery_scripts($where, $ui = true) {
