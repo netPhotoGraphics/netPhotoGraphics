@@ -2193,21 +2193,21 @@ function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		default:
 		case 0: //	no migration script
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.1.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.1.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.3.2.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.4.0.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.6.1.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.3.2.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.4.0.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>
