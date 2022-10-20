@@ -45,15 +45,15 @@ if (isset($_GET['markRelease'])) {
 	exit();
 } else {
 	if ($test_release = getOption('markRelease_state')) {
-		$test_release = strpos($test_release, '-DEBUG');
-	}
-	if ($test_release) {
-		if (strpos(NETPHOTOGRAPHICS_VERSION, '-DEBUG') === FALSE) {
-			//	update the version.php script to contain the debug settings
-			$version = debug::version(false);
-			debug::updateVersion($version);
+		if ($test_release) {
+			if ((strpos(NETPHOTOGRAPHICS_VERSION, '-DEBUG') === FALSE) && strpos($test_release, '-DEBUG')) {
+				//	update the version.php script to contain the debug settings
+				$version = debug::version(false);
+				debug::updateVersion($version);
+			}
 		}
 	}
+	unset($test_release);
 }
 
 class debug {
@@ -233,5 +233,3 @@ class debug {
 	}
 
 }
-
-?>
