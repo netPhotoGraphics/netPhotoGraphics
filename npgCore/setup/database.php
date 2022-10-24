@@ -350,7 +350,7 @@ foreach ($template as $tablename => $table) {
 			if ($exists) {
 				if (isset($database[$tablename]['keys'][$key])) {
 					if ($index != $database[$tablename]['keys'][$key]) {
-						setupQuery('LOCK TABLES ' . $tablename . ' WRITE');
+						setupQuery('LOCK TABLES ' . prefix($tablename) . ' WRITE');
 						$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $index['Key_name'] . "`;";
 						if (setupQuery($dropString)) {
 							$_DB_Structure_change = TRUE;
