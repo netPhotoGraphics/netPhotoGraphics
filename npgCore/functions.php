@@ -1036,9 +1036,9 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 			// create a table of only "published" tag assignments
 			$source = 'taglist';
 			query('CREATE TEMPORARY TABLE IF NOT EXISTS taglist (
-														`tagid` int(11) UNSIGNED NOT NULL,
+														`tagid` int UNSIGNED NOT NULL,
 														`type` tinytext,
-														`objectid` int(11) UNSIGNED NOT NULL,
+														`objectid` int UNSIGNED NOT NULL,
 														KEY (tagid),
 														KEY (objectid)
 														) CHARACTER SET utf8 COLLATE utf8_unicode_ci');
