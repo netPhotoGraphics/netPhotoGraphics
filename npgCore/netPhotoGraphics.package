@@ -823,7 +823,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/multiple_layouts.php
 %extensions%/openstreetmap.php
 %extensions%/optionalObjectFields.php
-%extensions%/package_generator.php
 %extensions%/paged_thumbs_nav.php
 %extensions%/panorama.php
 %extensions%/PHPMailer.php
@@ -19626,10 +19625,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/openstreetmap/images/marker-shadow.png
 %extensions%/openstreetmap/images/toggle.png
 %extensions%/openstreetmap/images/toggle.svg
-%extensions%/package_generator
-%extensions%/package_generator/getAllTranslations.php
-%extensions%/package_generator/logo.png
-%extensions%/package_generator/package_generator.php
 %extensions%/panorama
 %extensions%/panorama/jquery.ba-throttle-debounce.min.js
 %extensions%/panorama/jquery.paver.min.js
@@ -20334,4 +20329,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20336
+20331
