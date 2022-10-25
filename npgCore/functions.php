@@ -1041,7 +1041,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 														`objectid` int UNSIGNED NOT NULL,
 														KEY (tagid),
 														KEY (objectid)
-														) CHARACTER SET utf8 COLLATE utf8_unicode_ci');
+														) CHARACTER SET utf8 COLLATE utf8mb3_unicode_ci');
 			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
 			if (class_exists('CMS')) {
 				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));

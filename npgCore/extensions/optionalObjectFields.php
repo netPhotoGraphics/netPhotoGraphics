@@ -117,7 +117,8 @@ class optionalObjectFields extends fieldExtender {
 						'table' => 'images',
 						'name' => 'watermark_use',
 						'desc' => NULL,
-						'type' => 'tinyint',
+						'type' => 'int',
+						'size' => 1,
 						'edit' => NULL,
 						'attribute' => 'UNSIGNED',
 						'default' => 7

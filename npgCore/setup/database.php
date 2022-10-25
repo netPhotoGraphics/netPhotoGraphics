@@ -125,7 +125,7 @@ $npgUpgrade = isset($database['administrators']) && $database['administrators'][
 $disable = array();
 $display = array();
 
-//Add in the enabled image metadata fields
+//	Add in the enabled image metadata fields
 $metadataProviders = array('class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata');
 foreach ($metadataProviders as $source => $handler) {
 	if ($source == 'class-image') {
@@ -294,19 +294,12 @@ foreach ($template as $tablename => $table) {
 
 			if ($exists) {
 				if (array_key_exists($key, $database[$tablename]['fields'])) {
-					switch (str_replace(' unsigned', '', $field['Type'])) {
-						case 'tinyint':
-						case 'smallint':
-						case 'mediumint':
-						case 'int':
-						case 'bigint':
-							$database[$tablename]['fields'][$key]['Type'] = preg_replace('`\(\d*\)`', '', $database[$tablename]['fields'][$key]['Type']);
-							break;
+					if (strpos(strtolower($field['Type']), 'int') !== false) {
+						$database[$tablename]['fields'][$key]['Type'] = preg_replace('`\(\d*\)`', '', $database[$tablename]['fields'][$key]['Type']);
 					}
-					if ($database[$tablename]['fields'][$key]['Collation'] === 'utf8_unicode_ci') {
+					if (isset($database[$tablename]['fields'][$key]['Collation']) && $database[$tablename]['fields'][$key]['Collation'] === 'utf8_unicode_ci') {
 						$database[$tablename]['fields'][$key]['Collation'] = 'utf8mb3_unicode_ci';
 					}
-
 					if ($field != $database[$tablename]['fields'][$key] || array_search($key, $templateorder) != array_search($key, $dborder)) {
 						if (setupQuery($changeString)) {
 							$_DB_Structure_change = TRUE;
