@@ -85,6 +85,9 @@ foreach (getDBTables() as $table) {
 		unset($index['Seq_in_index']);
 		unset($index['Cardinality']);
 		unset($index['Comment']);
+		unset($index['Visible']);
+		unset($index['Expression']);
+
 		if (!$indexComments) {
 			unset($index['Index_comment']);
 		}
@@ -122,7 +125,7 @@ $npgUpgrade = isset($database['administrators']) && $database['administrators'][
 $disable = array();
 $display = array();
 
-//Add in the enabled image metadata fields
+//	Add in the enabled image metadata fields
 $metadataProviders = array('class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata');
 foreach ($metadataProviders as $source => $handler) {
 	if ($source == 'class-image') {
@@ -167,12 +170,12 @@ foreach ($metadataProviders as $source => $handler) {
 					if ($utf8mb4) {
 						$collation = 'utf8mb4_unicode_ci';
 					} else {
-						$collation = 'utf8_unicode_ci';
+						$collation = 'utf8mb3_unicode_ci';
 					}
 					break;
 				case 'number':
 					$type = 'tinytext';
-					$collation = 'utf8_unicode_ci';
+					$collation = 'utf8mb3_unicode_ci';
 					break;
 				case 'datetime':
 					$type = 'datetime';
@@ -231,11 +234,11 @@ if ($utf8mb4) {
 		}
 	}
 } else {
-	// change the template to utf8_unicode_ci
+	// change the template to utf8mb3_unicode_ci
 	foreach ($template as $tablename => $table) {
 		foreach ($table['fields'] as $key => $field) {
 			if ($field['Collation'] == 'utf8mb4_unicode_ci') {
-				$template[$tablename]['fields'][$key]['Collation'] = 'utf8_unicode_ci';
+				$template[$tablename]['fields'][$key]['Collation'] = 'utf8mb3_unicode_ci';
 			}
 		}
 	}
@@ -249,7 +252,7 @@ foreach ($template as $tablename => $table) {
 	} else {
 		$create = array();
 		$create[] = "CREATE TABLE IF NOT EXISTS " . prefix($tablename) . " (";
-		$create[] = "  `id` int(11) UNSIGNED NOT NULL auto_increment,";
+		$create[] = "  `id` int UNSIGNED NOT NULL auto_increment,";
 		$dborder = array();
 	}
 	$after = ' FIRST';
@@ -264,7 +267,9 @@ foreach ($template as $tablename => $table) {
 					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 					break;
 				case 'utf8_unicode_ci':
-					$string .= ' CHARACTER SET utf8 COLLATE utf8_unicode_ci';
+				case 'utf8mb3_unicode_ci':
+					$string .= ' CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci';
+					$field['Collation'] = 'utf8mb3_unicode_ci';
 					break;
 			}
 			if ($field['Null'] === 'NO') {
@@ -289,6 +294,12 @@ foreach ($template as $tablename => $table) {
 
 			if ($exists) {
 				if (array_key_exists($key, $database[$tablename]['fields'])) {
+					if (strpos(strtolower($field['Type']), 'int') !== false) {
+						$database[$tablename]['fields'][$key]['Type'] = preg_replace('`\(\d*\)`', '', $database[$tablename]['fields'][$key]['Type']);
+					}
+					if (isset($database[$tablename]['fields'][$key]['Collation']) && $database[$tablename]['fields'][$key]['Collation'] === 'utf8_unicode_ci') {
+						$database[$tablename]['fields'][$key]['Collation'] = 'utf8mb3_unicode_ci';
+					}
 					if ($field != $database[$tablename]['fields'][$key] || array_search($key, $templateorder) != array_search($key, $dborder)) {
 						if (setupQuery($changeString)) {
 							$_DB_Structure_change = TRUE;
@@ -349,8 +360,14 @@ foreach ($template as $tablename => $table) {
 			}
 			if ($exists) {
 				if (isset($database[$tablename]['keys'][$key])) {
+					unset($database[$tablename]['keys'][$key]['Visible']);
+					unset($database[$tablename]['keys'][$key]['Expression']);
 					if ($index != $database[$tablename]['keys'][$key]) {
-						setupQuery('LOCK TABLES ' . $tablename . ' WRITE');
+
+						var_dump($index, $database[$tablename]['keys'][$key]);
+						exit();
+
+						setupQuery('LOCK TABLES ' . prefix($tablename) . ' WRITE');
 						$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $index['Key_name'] . "`;";
 						if (setupQuery($dropString)) {
 							$_DB_Structure_change = TRUE;
@@ -377,7 +394,7 @@ foreach ($template as $tablename => $table) {
 	}
 	if (!$exists) {
 		$create[] = "  PRIMARY KEY (`id`)";
-		$create[] = ")  CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+		$create[] = ")  CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci;";
 		$create = implode("\n", $create);
 		if (setupQuery($create)) {
 			$_DB_Structure_change = TRUE;

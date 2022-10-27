@@ -81,7 +81,7 @@ class quota_manager extends fieldExtender {
 
 	static function fields() {
 		return array(
-				array('table' => 'images', 'name' => 'filesize', 'desc' => gettext('Stores image disk footprint'), 'type' => 'int', 'size' => 11)
+				array('table' => 'images', 'name' => 'filesize', 'desc' => gettext('Stores image disk footprint'), 'type' => 'int', 'size' => 4)
 		);
 	}
 

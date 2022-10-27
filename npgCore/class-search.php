@@ -1192,7 +1192,7 @@ class SearchEngine {
 		global $_gallery;
 		$weights = $idlist = array();
 		$sql = $allIDs = NULL;
-		if (version_compare(MySQL_VERSION, '8.4', '>=')) {
+		if (version_compare(MySQL_VERSION, '8.0.4', '>=')) {
 			$wordStart = $wordEnd = '\b';
 		} else {
 			$wordStart = '[[:<:]]';

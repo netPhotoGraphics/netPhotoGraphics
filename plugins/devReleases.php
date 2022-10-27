@@ -102,7 +102,7 @@ class devReleases {
 					'category' => gettext('Updates'),
 					'enable' => 2,
 					'button_text' => sprintf(gettext('Install DEV %1$s'), $devVersion),
-					'formname' => 'download_update',
+					'formname' => 'download_Dev_update',
 					'action' => getAdminLink('admin.php') . '?action=install_dev',
 					'icon' => INSTALL,
 					'alt' => '',

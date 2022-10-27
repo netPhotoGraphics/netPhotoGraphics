@@ -168,7 +168,11 @@ function internalToFilesystem($filename) {
  * @return string
  */
 function getSuffix($filename) {
-	return strtolower(substr(strrchr($filename, "."), 1));
+	if ($filename) {
+		return strtolower(substr(strrchr($filename, "."), 1));
+	} else {
+		return '';
+	}
 }
 
 /**
@@ -999,7 +1003,7 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
 	}
 	$sql .= $value . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ')' .
 					' ON DUPLICATE KEY UPDATE `theme`=' . db_quote($theme) . ', `creator`=' . db_quote($creator) . ';';
-	query($sql);
+	query($sql, false);
 
 	if (!isset($_options[strtolower($key)]) || is_null($_options[strtolower($key)])) {
 		$_options[strtolower($key)] = $default;
@@ -1978,7 +1982,7 @@ function primeOptions() {
 		$_options[strtolower($name)] = $value;
 	}
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
-	$rslt = query($sql);
+	$rslt = query($sql, false);
 	if ($rslt) {
 		while ($option = db_fetch_assoc($rslt)) {
 			$_options[strtolower($option['name'])] = $option['value'];
@@ -2039,7 +2043,7 @@ function setOption($key, $value, $persistent = true) {
 			$v = db_quote($value);
 		}
 		$sql = 'INSERT INTO ' . prefix('options') . ' (`name`,`value`,`ownerid`,`theme`,`creator`) VALUES (' . db_quote($key) . ',' . $v . ',0,' . db_quote($theme) . ',' . db_quote($creator) . ') ON DUPLICATE KEY UPDATE `value`=' . $v;
-		$result = query($sql);
+		$result = query($sql, false);
 		if ($result) {
 			if (array_key_exists($keylc, $_conf_options_associations)) {
 				$configKey = $_conf_options_associations[$keylc];

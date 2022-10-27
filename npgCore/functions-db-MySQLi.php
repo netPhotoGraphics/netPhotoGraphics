@@ -291,7 +291,7 @@ function db_software() {
  */
 function db_create() {
 	global $_DB_details;
-	$sql = 'CREATE DATABASE IF NOT EXISTS ' . '`' . $_DB_details['mysql_database'] . '` CHARACTER SET utf8 COLLATE utf8_unicode_ci';
+	$sql = 'CREATE DATABASE IF NOT EXISTS ' . '`' . $_DB_details['mysql_database'] . '` CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci';
 	return db_query($sql, false);
 }
 

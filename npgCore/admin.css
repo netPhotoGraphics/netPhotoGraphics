@@ -41,6 +41,13 @@ body {
 	vertical-align: middle;
 }
 
+.indent{
+	margin-left:2em;
+}
+.hangng_indent {
+	text-indent:-2em;margin-left:2em;
+}
+
 em {
 	color: black;
 }

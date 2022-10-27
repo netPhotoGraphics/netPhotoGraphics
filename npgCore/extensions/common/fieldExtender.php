@@ -102,14 +102,39 @@ class fieldExtender {
 							setOption('adminTagsTab', 1);
 						}
 					} else {
-						switch (strtolower($newfield['type'])) {
+						$newfield['type'] = strtolower($newfield['type']);
+						switch ($newfield['type']) {
 							default:
-								$dbType = strtoupper($newfield['type']);
+								$dbType = $newfield['type'];
 								break;
 							case 'int':
-								$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
+								if ($existng) {
+									$database[$table][$name]['Type'] = preg_replace('`\(\d*\)`', '', $database[$table][$name]['Type']);
+								}
+								if (isset($newfield['size'])) {
+									$size = $newfield['size'];
+								} else {
+									$size = 4;
+								}
+								switch ($size) {
+									case 1:
+										$dbType = 'tinyint';
+										break;
+									case 2:
+										$dbType = 'smallint';
+										break;
+									case 3;
+										$dbType = 'mediumint';
+										break;
+									case 4:
+										$dbType = 'int';
+										break;
+									default:
+										$dbType = 'bigint';
+										break;
+								}
 								if (isset($newfield['attribute'])) {
-									$dbType .= ' ' . $newfield['attribute'];
+									$dbType .= ' ' . strtolower($newfield['attribute']);
 									unset($newfield['attribute']);
 								}
 								break;
@@ -118,7 +143,7 @@ class fieldExtender {
 								break;
 						}
 						if ($existng) {
-							if (strtoupper($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
+							if (strtolower($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
 								$cmd = ' CHANGE `' . $name . '`';
 							} else {
 								$cmd = NULL;
@@ -131,10 +156,12 @@ class fieldExtender {
 						if ($utf8mb4 && ($dbType == 'TEXT' || $dbType == 'LONGTEXT')) {
 							$sql .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 						}
-						if (isset($newfield['attribute']))
+						if (isset($newfield['attribute'])) {
 							$sql .= ' ' . $newfield['attribute'];
-						if (isset($newfield['default']))
+						}
+						if (isset($newfield['default'])) {
 							$sql .= ' DEFAULT ' . $newfield['default'];
+						}
 						$sql .= " COMMENT 'optional_$me'";
 						if ((!$cmd || setupQuery($sql)) && in_array($newfield['table'], array('albums', 'images', 'news', 'news_categories', 'pages'))) {
 							$fields[] = strtolower($newfield['name']);
