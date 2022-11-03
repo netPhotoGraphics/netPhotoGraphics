@@ -116,7 +116,7 @@ class bxslider {
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
+		deprecated_functions::notify(gettext('registerScripts() is no longer used. You may delete the calls.'));
 	}
 
 	static function js() {

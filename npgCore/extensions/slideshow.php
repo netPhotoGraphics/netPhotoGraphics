@@ -164,7 +164,7 @@ class slideshow {
 	 */
 	static function registerScripts($scripts, $theme = NULL) {
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify('registerScripts() is no longer used. You may delete the calls.');
+		deprecated_functions::notify(gettext('registerScripts() is no longer used. You may delete the calls.'));
 	}
 
 	static function getPlayer($album, $controls = false, $width = NULL, $height = NULL) {
@@ -699,7 +699,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 	function printSlideShow($heading = true, $speedctl = false, $albumobj = NULL, $imageobj = NULL, $width = NULL, $height = NULL, $crop = false, $shuffle = false, $linkslides = false, $controls = true) {
 		global $_myFavorites, $_conf_vars, $_gallery, $_gallery_page, $__slideshow_scripts;
 
-		if (!isset($_POST['albumid']) AND ! is_object($albumobj)) {
+		if (!isset($_POST['albumid']) AND!is_object($albumobj)) {
 			echo '<div class="errorbox" id="message"><h2>' . gettext('Invalid linking to the slideshow page.') . '</h2></div>';
 			return;
 		}
@@ -708,7 +708,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 		}
 
 		//getting the image to start with
-		if (!empty($_POST['imagenumber']) AND ! is_object($imageobj)) {
+		if (!empty($_POST['imagenumber']) AND!is_object($imageobj)) {
 			$imagenumber = sanitize_numeric($_POST['imagenumber']) - 1; // slideshows starts with 0, but $_POST['imagenumber'] with 1.
 		} elseif (is_object($imageobj)) {
 			$imagenumber = $imageobj->getIndex();
