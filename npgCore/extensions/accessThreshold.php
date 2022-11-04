@@ -27,9 +27,13 @@ class accessThreshold {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+			if ($max['Value'] == 0) {
+				$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+			}
 			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
-			setOptionDefault('accessThreshold_SIGNIFICANT', 10);
+			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) ($max['Value'] * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			if (strpos(getUserIP(), ':') !== FALSE) {
