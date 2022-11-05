@@ -16,6 +16,7 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 
 switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
+	default:
 	case 'date':
 		$sort = 'accessTime';
 		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
@@ -40,7 +41,7 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		$sort = 'blocked';
 		$recentIP = sortMultiArray($recentIP, array('blocked'), true, true, false, true);
 		break;
-	default:
+	case 'interval':
 		$sort = 'interval';
 		uasort($recentIP, function ($a, $b) {
 			$a_i = $a['interval'];
