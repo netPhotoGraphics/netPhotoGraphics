@@ -27,13 +27,9 @@ class accessThreshold {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-			if ($max['Value'] == 0) {
-				$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
-			}
 			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
-			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) ($max['Value'] * 0.75), 20));
+			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			if (strpos(getUserIP(), ':') !== FALSE) {
@@ -59,7 +55,9 @@ class accessThreshold {
 				gettext('Memory') => array('key' => 'accessThreshold_IP_RETENTION', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'desc' => gettext('The number unique access attempts to keep.')),
-				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_NUMBER,
+				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_SLIDER,
+						'min' => 2,
+						'max' => min((int) (MySQL_CONNECTIONS * 0.75), 20),
 						'order' => 2.5,
 						'desc' => gettext('The minimum number of accesses for the Threshold to be valid.')),
 				gettext('Threshold') => array('key' => 'accessThreshold_THRESHOLD', 'type' => OPTION_TYPE_NUMBER,
