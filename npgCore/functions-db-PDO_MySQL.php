@@ -101,7 +101,16 @@ function db_software() {
 	} else {
 		$matches[0] = '?.?.?';
 	}
-	return array('application' => DATABASE_SOFTWARE, 'required' => DATABASE_MIN_VERSION, 'desired' => DATABASE_DESIRED_VERSION, 'version' => $matches[0]);
+	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
+	if ($max['Value'] == 0) {
+		$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
+	}
+	return array('application' => DATABASE_SOFTWARE,
+			'required' => DATABASE_MIN_VERSION,
+			'desired' => DATABASE_DESIRED_VERSION,
+			'version' => $matches[0], 'connections' =>
+			$max['Value']
+	);
 }
 
 /**

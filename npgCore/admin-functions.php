@@ -780,7 +780,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				line-height: 1.6em;
 			}
 		</style>
-		<span id="slider_display-<?php echo $postkey; ?>" class="nowrap">
+		<span id="slider_display-<?php echo $postkey; ?>" class="slider">
 			<?php echo $text; ?>
 			<input type="hidden" id="<?php echo $postkey; ?>" name="<?php echo $postkey; ?>" size="2" value="<?php echo $v; ?>" onchange="$('#slider-<?php echo $postkey; ?>').slider('value', $('#<?php echo $postkey; ?>').val());"/>
 		</span>
@@ -818,8 +818,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 			});
 			// ]]> -->
 		</script>
-		<div id="slider-<?php echo $postkey; ?>">
-			<div id="<?php echo $postkey; ?>-handle" class="ui-slider-handle"></div>
+		<div style="padding-top: 6px;">
+			<div id="slider-<?php echo $postkey; ?>">
+				<div id="<?php echo $postkey; ?>-handle" class="ui-slider-handle"></div>
+			</div>
 		</div>
 		<br />
 		<?php

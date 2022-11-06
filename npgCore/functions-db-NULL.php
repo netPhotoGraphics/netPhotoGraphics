@@ -140,7 +140,12 @@ function db_close() {
  */
 
 function db_software() {
-	return array('application' => DATABASE_SOFTWARE, 'required' => 'N/A', 'desired' => 'N/A', 'version' => '0.0.0');
+	return array('application' => DATABASE_SOFTWARE,
+			'required' => 'N/A',
+			'desired' => 'N/A',
+			'version' => '0.0.0',
+			'connections' => 0
+	);
 }
 
 /**

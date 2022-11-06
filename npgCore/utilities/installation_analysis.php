@@ -310,15 +310,13 @@ echo '</head>';
 								$dbsoftware = db_software();
 								printf(gettext('%1$s version: <strong>%2$s</strong>'), $dbsoftware['application'], $dbsoftware['version']);
 								echo '&nbsp;&nbsp;';
-								$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-								if ($max['Value'] == 0) {
-									$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
-								}
-								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) . " user, COUNT(1) Connections FROM
-		(
-				SELECT user " . db_quote($_conf_vars['mysql_user']) . "FROM information_schema.processlist
-		) A GROUP BY " . db_quote($_conf_vars['mysql_user']) . " WITH ROLLUP;");
-								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', $max['Value']), $used['Connections'], $max['Value']);
+								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) .
+												" user, COUNT(1) Connections FROM (SELECT user " .
+												db_quote($_conf_vars['mysql_user']) .
+												"FROM information_schema.processlist) A GROUP BY "
+												. db_quote($_conf_vars['mysql_user']) .
+												" WITH ROLLUP;");
+								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', MySQL_CONNECTIONS), $used['Connections'], MySQL_CONNECTIONS);
 								?>
 							</li>
 							<li>
@@ -497,8 +495,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+									$('.overview_list').height(height);
 </script>
 
 <?php
