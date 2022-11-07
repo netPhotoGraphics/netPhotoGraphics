@@ -22,6 +22,7 @@ $plugin_is_filter = 990 | FEATURE_PLUGIN;
 $plugin_description = gettext("Tools to block denial of service attacks.");
 
 $option_interface = 'accessThreshold';
+define('accessThreshold_min_SIGNIFICANT', 2);
 
 class accessThreshold {
 
@@ -29,6 +30,9 @@ class accessThreshold {
 		if (OFFSET_PATH == 2) {
 			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
+			if (getOption('accessThreshold_SIGNIFICANT') > (int) (MySQL_CONNECTIONS * 0.75) || getOption('accessThreshold_SIGNIFICANT') < accessThreshold_min_SIGNIFICANT) {
+				purgeOption('accessThreshold_SIGNIFICANT');
+			}
 			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
@@ -56,8 +60,8 @@ class accessThreshold {
 						'order' => 5,
 						'desc' => gettext('The number unique access attempts to keep.')),
 				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_SLIDER,
-						'min' => 2,
-						'max' => min((int) (MySQL_CONNECTIONS * 0.75), 20),
+						'min' => accessThreshold_min_SIGNIFICANT,
+						'max' => min((int) (MySQL_CONNECTIONS * 0.75), 25),
 						'order' => 2.5,
 						'desc' => gettext('The minimum number of accesses for the Threshold to be valid.')),
 				gettext('Threshold') => array('key' => 'accessThreshold_THRESHOLD', 'type' => OPTION_TYPE_NUMBER,
