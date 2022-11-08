@@ -49,7 +49,6 @@ function getUserID() {
  */
 function npgExceptionHandler($ex) {
 	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), null, $ex->getTrace());
-	die();
 }
 
 /**
@@ -129,8 +128,6 @@ function npgShutDownFunction() {
 	if (function_exists('db_close')) {
 		db_close();
 	}
-
-	exit();
 }
 
 /**
