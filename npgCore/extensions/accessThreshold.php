@@ -223,7 +223,8 @@ if (extensionEnabled('accessThreshold')) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
-			sleep(10);
+			db_close();
+			sleep(30);
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
 			header("Retry-After: 300");
