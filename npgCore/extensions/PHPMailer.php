@@ -106,8 +106,10 @@ use PHPMailer\PHPMailer\Exception;
 function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
 	$result = _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo);
 	//	send to the BCC list
+	$pause = 0;
 	foreach ($bcc_addresses as $name => $email) {
-		sleep(10); //	pase the sends
+		sleep($pause); //	pase the sends
+		$pause = 10;
 		$to = array($name => $email);
 		$r = _PHPMailerSend($to, $subject, $message, $from_mail, $from_name, array(), $replyTo);
 		if ($r) {

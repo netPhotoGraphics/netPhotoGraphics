@@ -52,7 +52,7 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 	$sendList = array_merge($email_list, $bcc_addresses);
 
 	$success = true;
-	$pause = false;
+	$pause = 0;
 	foreach ($sendList as $name => $mail) {
 		if (is_numeric($name)) {
 			$to_mail = $mail;
@@ -61,11 +61,9 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 		}
 		$success = $success && mail($to_mail, $subject, $message, implode("\n", $headers));
 		unset($headers['cc']); //	only  cc on one of the mails
-		if ($pause) { //	do not flood the server
-			sleep(10);
-		} else {
-			$pause = true;
-		}
+		//	do not flood the server
+		sleep($pause);
+		$pause = 10;
 	}
 	if (!$success) {
 		if (!empty($result))
