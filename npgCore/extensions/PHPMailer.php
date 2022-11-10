@@ -104,11 +104,13 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
+	global $_DB_connection, $_DB_details;
 	$result = _PHPMailerSend($email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $replyTo);
 	//	send to the BCC list
 	$pause = 0;
+	db_close(); //	don't sleep with a database connection open!
 	foreach ($bcc_addresses as $name => $email) {
-		sleep($pause); //	pase the sends
+		sleep($pause); //	pause the sends
 		$pause = 10;
 		$to = array($name => $email);
 		$r = _PHPMailerSend($to, $subject, $message, $from_mail, $from_name, array(), $replyTo);
@@ -119,6 +121,7 @@ function _PHPMailer($result, $email_list, $subject, $message, $from_mail, $from_
 			$result .= $r;
 		}
 	}
+	$_DB_connection = db_connect($_DB_details); //	re-connect
 	return $result;
 }
 
