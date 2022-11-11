@@ -124,7 +124,7 @@ if (empty($output)) {
 	$output[] = gettext("No entries exceed the noise level");
 }
 
-printAdminHeader('admin');
+printAdminHeader('logs', 'access');
 echo "\n</head>";
 ?>
 
