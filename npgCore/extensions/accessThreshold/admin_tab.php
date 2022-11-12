@@ -39,7 +39,7 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		break;
 	case'blocked':
 		$sort = 'blocked';
-		$recentIP = sortMultiArray($recentIP, array('blocked'), true, true, false, true);
+		$recentIP = sortMultiArray($recentIP, array('blocked', 'lastAccessed'), true, true, false, true);
 		break;
 	case 'interval':
 		$sort = 'interval';
@@ -66,7 +66,13 @@ $__time = time();
 $ct = 0;
 $legendExpired = $legendBlocked = $legendLocaleBlocked = $legendClick = $legendInvalid = false;
 foreach ($recentIP as $ip => $data) {
-	$ipDisp = $ip;
+	if (strpos($ip, ':') !== false) {
+		$items = 7 - substr_count($ip, ':');
+		$ipDisp = $ip . str_repeat(':····', $items,);
+	} else {
+		$items = 3 - substr_count($ip, '.');
+		$ipDisp = $ip . str_repeat('.···', $items);
+	}
 	$localeBlock = $invalid = '';
 
 	if (isset($data['interval']) && $data['interval']) {
@@ -95,7 +101,7 @@ foreach ($recentIP as $ip => $data) {
 										maxHeight: \'80%\',
 										maxWidth: \'80%\',
 										innerWidth: \'560px\',
-										href:\'ip_list.php?selected_ip=' . $ip . '\'});">' . $ip . '</a>';
+										href:\'ip_list.php?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
 	}
 	if (count($data['accessed']) < 10) {
 		$invalid = 'color:LightGrey;';
