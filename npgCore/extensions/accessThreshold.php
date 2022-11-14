@@ -38,7 +38,6 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			if (!is_int(getOption('accessThreshold_SENSITIVITY'))) {
 				purgeOption('accessThreshold_SENSITIVITY');
-				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize(array()));
 			}
 			if (str_contains(getUserIP(), ':')) {
 				setOptionDefault('accessThreshold_SENSITIVITY', 7);
