@@ -36,10 +36,14 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
-			if (strpos(getUserIP(), ':') !== FALSE) {
-				setOptionDefault('accessThreshold_SENSITIVITY', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:0');
+			if (!is_int(getOption('accessThreshold_SENSITIVITY'))) {
+				purgeOption('accessThreshold_SENSITIVITY');
+				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize(array()));
+			}
+			if (str_contains(getUserIP(), ':')) {
+				setOptionDefault('accessThreshold_SENSITIVITY', 7);
 			} else {
-				setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
+				setOptionDefault('accessThreshold_SENSITIVITY', 3);
 			}
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
@@ -55,6 +59,11 @@ class accessThreshold {
 	}
 
 	function getOptionsSupported() {
+		if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+			$max = 8;
+		} else {
+			$max = 4;
+		}
 		$options = array(
 				gettext('Memory') => array('key' => 'accessThreshold_IP_RETENTION', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
@@ -70,9 +79,11 @@ class accessThreshold {
 				gettext('Window') => array('key' => 'accessThreshold_IP_ACCESS_WINDOW', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => gettext('The access interval is reset if the last access is was more than this many seconds ago.')),
-				gettext('Mask') => array('key' => 'accessThreshold_SENSITIVITY', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Mask') => array('key' => 'accessThreshold_SENSITIVITY', 'type' => OPTION_TYPE_SLIDER,
+						'min' => 1,
+						'max' => $max,
 						'order' => 4,
-						'desc' => gettext('IP mask to determine the IP elements sensitivity')),
+						'desc' => gettext('The number of IP address segments of the address that are considered significant.')),
 				gettext('Locale limit') => array('key' => 'accessThreshold_LocaleCount', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 3,
 						'desc' => sprintf(gettext('Requests will be blocked if more than %d locales are requested.'), getOption('accessThreshold_LocaleCount'))),
@@ -97,15 +108,9 @@ class accessThreshold {
 		if (getOption('accessThreshold_CLEAR')) {
 			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
-		} else {
-			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
-				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
-			} else {
-				$recentIP = array();
-			}
+			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 		}
 		purgeOption('accessThreshold_CLEAR');
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 	}
 
 	static function admin_tabs($tabs) {
@@ -122,44 +127,35 @@ class accessThreshold {
 	}
 
 	static function maskIP($full_ip) {
+		if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+			$drop = 8;
+		} else {
+			$drop = 4;
+		}
+		$drop = $drop - getOption('accessThreshold_SENSITIVITY');
+
 		$sHex = str_contains($full_ip, ':');
-		$mask = getOption('accessThreshold_SENSITIVITY');
-		$mHex = str_contains($mask, ':');
-		$target = explode('.', str_replace(':', '.', ltrim($full_ip, ':')));
-		$mask = explode('.', str_replace(':', '.', $mask . '.0.0.0.0.0.0.0.0'));
-		foreach ($mask as $key => $m) {
-			if ($mHex) {
-				$m = (int) hexdec($m);
-			} else {
-				$m = (int) $m;
-			}
-			if (isset($target[$key])) {
-				if ($sHex) {
-					if (ctype_xdigit($target[$key])) {
-						$target[$key] = dechex((int) hexdec($target[$key]) & $m);
-					} else {
-						$target[$key] = 0;
-					}
-				} else {
-					if (ctype_digit($target[$key])) {
-						$target[$key] = (int) $target[$key] & $m;
-					} else {
-						$target[$key] = 0;
-					}
-				}
-			} else {
-				break;
-			}
+		if ($sHex) {
+			$items = 7 - substr_count(trim($full_ip, ':'), ':');
+			$fill = str_pad('', $items * 2, '0:');
+			$full_ip = trim(str_replace('::', ':' . $fill, $full_ip), ':');
+			$target = explode(':', $full_ip);
+			$base = 8;
+		} else {
+			$target = explode('.', $full_ip);
+			$base = 4;
 		}
-		$c = count($target) - 1;
-		while ($c >= 0) {
-			if ($target[$c]) {
-				break;
-			}
-			unset($target[$c]);
-			$c--;
+
+		While ($drop > 0) {
+			$target[$base - $drop] = '···';
+			$drop--;
 		}
-		return implode($sHex ? ':' : '.', $target);
+
+		if ($sHex) {
+			return implode(':', $target);
+		} else {
+			return implode('.', $target);
+		}
 	}
 
 	static function walk(&$element, $key, $__time) {

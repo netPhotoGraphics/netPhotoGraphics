@@ -66,13 +66,23 @@ $__time = time();
 $ct = 0;
 $legendExpired = $legendBlocked = $legendLocaleBlocked = $legendClick = $legendInvalid = false;
 foreach ($recentIP as $ip => $data) {
-	if (strpos($ip, ':') !== false) {
-		$items = 7 - substr_count($ip, ':');
-		$ipDisp = $ip . str_repeat(':····', $items,);
+	if (str_contains($ip, ':')) {
+		$sep = ':';
 	} else {
-		$items = 3 - substr_count($ip, '.');
-		$ipDisp = $ip . str_repeat('.···', $items);
+		$sep = '.';
 	}
+	if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+		$drop = 8 - getOption('accessThreshold_SENSITIVITY');
+	} else {
+		$drop = 4 - getOption('accessThreshold_SENSITIVITY');
+	}
+
+	$ipDisp = $ip;
+	if (str_contains($ip, ':')) {
+		$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
+		$ipDisp = str_replace(':::', '::', $ipDisp);
+	}
+
 	$localeBlock = $invalid = '';
 
 	if (isset($data['interval']) && $data['interval']) {
