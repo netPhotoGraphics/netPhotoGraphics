@@ -111,7 +111,7 @@ class Video extends Image {
 			}
 			return;
 		}
-		$alts = explode(',', getOption('class-video_videoalt'));
+		$alts = explode(',', strval(getOption('class-video_videoalt')));
 		foreach ($alts as $alt) {
 			$this->videoalt[] = trim(strtolower($alt));
 		}

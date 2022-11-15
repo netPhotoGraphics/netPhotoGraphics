@@ -2229,7 +2229,7 @@ function load_jQuery_scripts($where, $ui = true) {
  * @return string
  */
 function js_encode($this_string) {
-	$this_string = preg_replace("/\r?\n/", "\\n", $this_string);
+	$this_string = preg_replace("/\r?\n/", "\\n", strval($this_string));
 	$this_string = utf8::encode_javascript($this_string);
 	return $this_string;
 }
@@ -2802,6 +2802,7 @@ class npgFunctions {
 				$text = serialize($text);
 			}
 		} else {
+			$text = strval($text);
 			preg_match_all("/href\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $hrefmatch);
 			preg_match_all("/src\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $srcmatch);
 			preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);
