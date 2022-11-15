@@ -120,7 +120,7 @@ class optionalObjectFields extends fieldExtender {
 						'type' => 'tinyint',
 						'edit' => NULL,
 						'attribute' => 'UNSIGNED',
-						'default' => 7
+						'default' => '7'
 				),
 				array(
 						'table' => 'images',
@@ -153,7 +153,7 @@ class optionalObjectFields extends fieldExtender {
 						'name' => 'country',
 						'desc' => gettext('Country'),
 						'type' => 'tinytext', 'size' => 50,
-						'searchDefault' => 1,
+						'searchDefault' => '1',
 						'edit' => 'multilingual'
 				),
 				array(

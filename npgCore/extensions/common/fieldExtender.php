@@ -147,8 +147,22 @@ class fieldExtender {
 								$dbType .= '(' . min(255, $newfield['size']) . ')';
 								break;
 						}
+
+						if (isset($newfield['Default']) && is_null($newfield['default']) || isset($newfield['null']) && $newfield['null']) {
+							$nullSQL = ' NULL';
+							$null = 'YES';
+						} else {
+							$nullSQL = ' NOT NULL';
+							$null = 'NO';
+						}
+
 						if ($existng) {
-							if (strtolower($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
+							if (
+											strtolower($database[$table][$name]['Type']) != $dbType ||
+											isset($newfield['default']) && $database[$table][$name]['Default'] !== $newfield['default'] ||
+											$database[$table][$name]['Null'] !== $null ||
+											$database[$table][$name]['Comment'] != "optional_$me"
+							) {
 								$cmd = ' CHANGE `' . $name . '`';
 							} else {
 								$cmd = NULL;
@@ -164,6 +178,7 @@ class fieldExtender {
 						if (isset($newfield['attribute'])) {
 							$sql .= ' ' . $newfield['attribute'];
 						}
+						$sql .= $nullSQL;
 						if (isset($newfield['default'])) {
 							$sql .= ' DEFAULT ' . $newfield['default'];
 						}
