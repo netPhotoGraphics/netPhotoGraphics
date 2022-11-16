@@ -99,12 +99,24 @@ $_sortby = array(
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
 	if ($_current_admin_obj->reset) {
+		//	There are no valid administrators, allow user creation or backup restore (if possible)
+		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
+		if (count($filelist) > 0) {
+			$link = getAdminLink('utilities/backup_restore.php') . '?tab=backup';
+			$subtabs = array(
+					'users' => 'admin-tabs/users.php?page=admin&tab=users&new',
+					'restore' => 'utilities/backup_restore.php?tab=backup'
+			);
+		} else {
+			$link = getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users&new';
+			$subtabs = NULL;
+		}
 		$_loggedin = USER_RIGHTS;
 		$_admin_menu['admin'] = array(
 				'text' => gettext("admin"),
-				'link' => getAdminLink('admin-tabs/users.php') . '?page=admin&tab=users',
+				'link' => $link,
 				'ordered' => true,
-				'subtabs' => NULL
+				'subtabs' => $subtabs
 		);
 	} else {
 		$admin = $_current_admin_obj->getUser();
@@ -282,13 +294,6 @@ if (isset($_loggedin) && $_loggedin) {
 					'default' => $default);
 			$_admin_menu['overview']['subtabs'][gettext('Database Reference')] = "/" . CORE_FOLDER . '/utilities/database_reference.php?tab=databaseref';
 			$_admin_menu['overview']['subtabs'][gettext('HTTP header inspector')] = "/" . CORE_FOLDER . '/utilities/http_header_inspector.php';
-		}
-
-		if (!$_current_admin_obj->getID()) {
-			$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
-			if (count($filelist) > 0) {
-				$_admin_menu['admin']['subtabs']['restore'] = 'utilities/backup_restore.php?tab=backup';
-			}
 		}
 
 		$_admin_menu = npgFilters::apply('admin_tabs', $_admin_menu);
