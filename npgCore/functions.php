@@ -384,37 +384,59 @@ function lookupSortKey($sorttype, $default, $table) {
 /**
  * Returns a formatted date for output
  *
- * @param string $format the DateTime::format()  format string
- * @param date $dt the date to be output
+ * @param string $format the DateTime::format() format string
+ * @param int $dt the date timestamp to be output
  * @return string
  */
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
 
-	if (strtolower($format) == '%x') {
-		if ($_current_locale && class_exists('IntlDateFormatter')) {
-			//handle "preferred date representation
-			if ($format == '%x') { // local date format
-				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
-			} else {
-				// local time format
-				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::NONE, IntlDateFormatter::SHORT);
-			}
-			if ($formatter === null) {
-				throw new InvalidConfigException(intl_get_error_message());
-			}
-			$fdate = $formatter->format($dt);
-		} else {
-			if ($format == '%x') { // local date format
-				$format = 'n/j/y'; //	default to US standard date format
-			} else {
-				$format = 'H:i:s'; //	default to US standard time format
-			}
+	if ($_current_locale && class_exists('IntlDateFormatter')) {
+		switch ($format) {
+			case '%x': // local preferred date format
+				$formatter = new IntlDateFormatter(
+								$_current_locale,
+								IntlDateFormatter::SHORT,
+								IntlDateFormatter::NONE
+				);
+				break;
+			case '%X': // local preferred time format
+				$formatter = new IntlDateFormatter(
+								$_current_locale,
+								IntlDateFormatter::NONE,
+								IntlDateFormatter::SHORT
+				);
+				break;
+			default: //arbitrary format
+				$formatter = new IntlDateFormatter(
+								$_current_locale,
+								IntlDateFormatter::FULL,
+								IntlDateFormatter::FULL,
+								NULL,
+								NULL,
+								str_replace(array('M', 'D', 'l', 'F'), array('MMM', 'EEE', 'EEEE', 'MMMM'), $format)
+				);
+				break;
 		}
-	}
-	if (!isset($fdate)) {
+		if ($formatter === null) {
+			throw new InvalidConfigException(intl_get_error_message());
+			$fdate = date($format, $dt);
+		}
+		$fdate = $formatter->format($dt);
+	} else {
+		switch ($format) {
+			case '%x': // local preferred date format
+				$format = 'n/j/y'; //	default to US standard date format
+				break;
+			case '%X': // local preferred time format
+				$format = 'H:i:s'; //	default to US standard time format
+				break;
+			default: //arbitrary format
+				break;
+		}
 		$fdate = date($format, $dt);
 	}
+
 	if (function_exists('mb_internal_encoding')) {
 		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
 			return $fdate;
