@@ -392,61 +392,58 @@ function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
 
 	if ($_current_locale && class_exists('IntlDateFormatter')) {
-		switch ($format) {
-			case '%x': // local preferred date format
-				$formatter = new IntlDateFormatter(
-								$_current_locale,
-								IntlDateFormatter::SHORT,
-								IntlDateFormatter::NONE
-				);
-				break;
-			case '%X': // local preferred time format
-				$formatter = new IntlDateFormatter(
-								$_current_locale,
-								IntlDateFormatter::NONE,
-								IntlDateFormatter::SHORT
-				);
-				break;
-			default: //arbitrary format
-				$intlFmt = array(
-						'y' => 'yy',
-						'M' => 'MMM',
-						'D' => 'EEE',
-						'l' => 'EEEE',
-						'F' => 'MMMM',
-						'H' => 'HH',
-						'i' => 'ss',
-						'm' => 'MM',
-						'd' => 'dd'
-				);
-				$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
+		$intlFmt = array(
+				'y' => 'yy',
+				'M' => 'MMM',
+				'D' => 'EEE',
+				'l' => 'EEEE',
+				'F' => 'MMMM',
+				'H' => 'HH',
+				'i' => 'ss',
+				'm' => 'MM',
+				'd' => 'dd'
+		);
 
-				$formatter = new IntlDateFormatter(
-								$_current_locale,
-								IntlDateFormatter::FULL,
-								IntlDateFormatter::FULL,
-								NULL,
-								NULL,
-								$fmt
-				);
-				break;
+		if (str_contains($format, '%x')) { // local preferred date format
+			$formatter = new IntlDateFormatter(
+							$_current_locale,
+							IntlDateFormatter::SHORT,
+							IntlDateFormatter::NONE
+			);
+			$intlFmt['%x'] = $formatter->getPattern();
 		}
+		if (str_contains($format, '%X')) { // local preferred time format
+			$formatter = new IntlDateFormatter(
+							$_current_locale,
+							IntlDateFormatter::NONE,
+							IntlDateFormatter::SHORT
+			);
+			$intlFmt['%X'] = $formatter->getPattern();
+		}
+
+		$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
+		$formatter = new IntlDateFormatter(
+						$_current_locale,
+						IntlDateFormatter::FULL,
+						IntlDateFormatter::FULL,
+						NULL,
+						NULL,
+						$fmt
+		);
+
 		if ($formatter === null) {
 			throw new InvalidConfigException(intl_get_error_message());
 			$fdate = date($format, $dt);
 		}
 		$fdate = $formatter->format($dt);
 	} else {
-		switch ($format) {
-			case '%x': // local preferred date format
-				$format = 'n/j/y'; //	default to US standard date format
-				break;
-			case '%X': // local preferred time format
-				$format = 'H:i:s'; //	default to US standard time format
-				break;
-			default: //arbitrary format
-				break;
+		if (str_contains($format, '%x')) { // local preferred date format
+			$format = str_replace('%x', 'n/j/y', $format); //	default to US standard date format
 		}
+		if (str_contains($format, '%X')) { // local preferred time format
+			$format = str_replace('%X', 'H:i:s', $format); //	default to US standard time format
+		}
+
 		$fdate = date($format, $dt);
 	}
 
