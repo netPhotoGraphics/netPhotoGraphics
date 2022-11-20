@@ -408,13 +408,26 @@ function formattedDate($format, $dt) {
 				);
 				break;
 			default: //arbitrary format
+				$intlFmt = array(
+						'y' => 'yy',
+						'M' => 'MMM',
+						'D' => 'EEE',
+						'l' => 'EEEE',
+						'F' => 'MMMM',
+						'H' => 'HH',
+						'i' => 'ss',
+						'm' => 'MM',
+						'd' => 'dd'
+				);
+				$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
+
 				$formatter = new IntlDateFormatter(
 								$_current_locale,
 								IntlDateFormatter::FULL,
 								IntlDateFormatter::FULL,
 								NULL,
 								NULL,
-								str_replace(array('M', 'D', 'l', 'F'), array('MMM', 'EEE', 'EEEE', 'MMMM'), $format)
+								$fmt
 				);
 				break;
 		}

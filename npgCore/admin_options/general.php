@@ -498,7 +498,8 @@ function getOptionContent() {
 							foreach ($formats as $disp => $fmt) {
 								$formatlist[formattedDate($fmt, $t)] = $fmt;
 							}
-							$formatlist[gettext('Preferred date representation')] = '%x';
+							$formatlist[gettext('Preferred representation: ' . formattedDate('%x', $t))] = '%x';
+
 							if (in_array(DATE_FORMAT, $formatlist)) {
 								$dsp = 'none';
 								$formatlist[gettext('Custom')] = 'custom';
