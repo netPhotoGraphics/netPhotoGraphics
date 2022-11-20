@@ -393,15 +393,20 @@ function formattedDate($format, $dt) {
 
 	if ($_current_locale && class_exists('IntlDateFormatter')) {
 		$intlFmt = array(
+				//	year
 				'y' => 'yy',
+				//	month
 				'M' => 'MMM',
+				'F' => 'MMMM',
+				'm' => 'MM',
+				//	day
 				'D' => 'EEE',
 				'l' => 'EEEE',
-				'F' => 'MMMM',
+				'd' => 'dd',
+				//	hour
 				'H' => 'HH',
-				'i' => 'ss',
-				'm' => 'MM',
-				'd' => 'dd'
+				//	second
+				'i' => 'ss'
 		);
 
 		if (str_contains($format, '%x')) { // local preferred date format
