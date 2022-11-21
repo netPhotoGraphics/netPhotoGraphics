@@ -1172,7 +1172,7 @@ class _Authority {
 					$_REQUEST['logon_step'] = 'challenge';
 					break;
 				case 'captcha':
-					if ($_captcha->checkCaptcha(trim(isset($_POST['code']) ? $_POST['code'] : NULL), sanitize(isset($_POST['code_h']) ? $_POST['code_h'] : NULL, 3))) {
+					if ($_captcha->checkCaptcha(trim(isset($_POST['code']) ? $_POST['code'] : ''), sanitize(isset($_POST['code_h']) ? $_POST['code_h'] : '', 3))) {
 						require_once(__DIR__ . '/load_objectClasses.php'); // be sure that the plugins are loaded for the mail handler
 						if (empty($post_user)) {
 							$requestor = gettext('You are receiving this e-mail because of a password reset request on your gallery.');

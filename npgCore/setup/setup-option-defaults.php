@@ -725,18 +725,19 @@ $strftimeXlate = array(
 		'%R' => 'H:i', // Same as "%H:%M"	Example: 00:35 for 12:35 AM, 16:44 for 4:44 PM
 		'%S' => 's', // Two digit representation of the second	00 through 59
 		'%T' => 'H:i:s', // Same as "%H:%M:%S"	Example: 21:34:17 for 09:34:17 PM
-		'%X' => '%X', // Preferred time representation based on locale, without the date	Example: 03:59:16 or 15:59:16
 		'%z' => 'O', // The time zone offset. Not implemented as described on Windows. See below for more information.	Example: -0500 for US Eastern Time
 		'%Z' => 'T', // The time zone abbreviation. Not implemented as described on Windows. See below for more information.	Example: EST for Eastern Time
 		//Time and Date Stamps	---	---
-		'%c' => '%x', // Preferred date and time stamp based on locale	Example: Tue Feb 5 00:45:10 2009 for February 5, 2009 at 12:45:10 AM
 		'%D' => 'm/d/y', // Same as "%m/%d/%y"	Example: 02/05/09 for February 5, 2009
 		'%F' => 'y-m-d', // Same as "%Y-%m-%d" (commonly used in database datestamps)	Example: 2009-02-05 for February 5, 2009
 		'%s' => 'u', // Unix Epoch Time timestamp (same as the time() function)	Example: 305815200 for September 10, 1979 08:40:00 AM
-		'%x' => '%x', // Preferred date representation based on locale, without the time	Example: 02/05/09 for February 5, 2009
+//	'%X' => '%X', // Preferred time representation based on locale, without the date	Example: 03:59:16 or 15:59:16
+//	'%x' => '%x', // Preferred date representation based on locale, without the time	Example: 02/05/09 for February 5, 2009
+		'%c' => '%x %X', // Preferred date and time stamp based on locale	Example: Tue Feb 5 00:45:10 2009 for February 5, 2009 at 12:45:10 AM
 		//Miscellaneous	---	---
-		'%n' => "\n", //	A newline character ("\n")	---
-		'%t' => "\t" // A Tab character ("\t")	---
+		'%n' => "\n", //	A newline character ("\n")
+		'%t' => "\t", // A Tab character ("\t")
+		'%%' => "%" // A literal percentage character ("%")
 );
 $old = getOption('date_format');
 if ($old) {

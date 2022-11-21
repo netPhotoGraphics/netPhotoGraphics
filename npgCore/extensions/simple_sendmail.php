@@ -29,6 +29,7 @@ if (OFFSET_PATH == 2) {
 npgFilters::register('sendmail', 'simple_sendmail');
 
 function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $from_name, $cc_addresses, $bcc_addresses, $replyTo) {
+	global $_DB_connection, $_DB_details;
 	$headers['from'] = sprintf('From: %1$s <%2$s>', $from_name, $from_mail);
 	if (count($cc_addresses) > 0) {
 		$list = '';
@@ -52,7 +53,8 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 	$sendList = array_merge($email_list, $bcc_addresses);
 
 	$success = true;
-	$pause = false;
+	$pause = 0;
+	db_close(); //	don't sleep with a database connection open!
 	foreach ($sendList as $name => $mail) {
 		if (is_numeric($name)) {
 			$to_mail = $mail;
@@ -61,12 +63,12 @@ function simple_sendmail($result, $email_list, $subject, $message, $from_mail, $
 		}
 		$success = $success && mail($to_mail, $subject, $message, implode("\n", $headers));
 		unset($headers['cc']); //	only  cc on one of the mails
-		if ($pause) { //	do not flood the server
-			sleep(10);
-		} else {
-			$pause = true;
-		}
+		//	do not flood the server
+		sleep($pause);
+		$pause = 10;
 	}
+	$_DB_connection = db_connect($_DB_details); //	re-connect
+
 	if (!$success) {
 		if (!empty($result))
 			$result .= '<br />';

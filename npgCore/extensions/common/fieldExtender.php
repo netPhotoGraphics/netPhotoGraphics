@@ -22,7 +22,7 @@
  * "desc" is the "display name" of the field. If the value is NULL no edit field will show on the admin tab.
  * "type" is the database field type: int, varchar, tinytext, text, mediumtext, etc.
  * "searchDefault" determines if the field is "checked" in the <em>search behavior settings</em> <var>field list</var>.
- * "size" is the byte size of the varchar or int field (it is not needed for other types)
+ * "size" is the byte size of the varchar (it is not needed for other types)
  * "edit" is is how the content is show on the edit tab. Values: multilingual, normal, function. If the value is NULL
  * there will be direct save of the result to the object
  * "function" is the function to call if the edit type is a function
@@ -102,36 +102,41 @@ class fieldExtender {
 							setOption('adminTagsTab', 1);
 						}
 					} else {
-						$newfield['type'] = strtolower($newfield['type']);
-						switch ($newfield['type']) {
+						$dbType = strtolower($newfield['type']);
+						switch ($dbType) {
 							default:
-								$dbType = $newfield['type'];
 								break;
+							case 'tinyint':
+							case 'smallint':
+							case 'mediumint':
 							case 'int':
+							case 'bigint':
 								if ($existng) {
 									$database[$table][$name]['Type'] = preg_replace('`\(\d*\)`', '', $database[$table][$name]['Type']);
 								}
+								//	in case old code is passing a byte size of the int
 								if (isset($newfield['size'])) {
-									$size = $newfield['size'];
-								} else {
-									$size = 4;
-								}
-								switch ($size) {
-									case 1:
-										$dbType = 'tinyint';
-										break;
-									case 2:
-										$dbType = 'smallint';
-										break;
-									case 3;
-										$dbType = 'mediumint';
-										break;
-									case 4:
-										$dbType = 'int';
-										break;
-									default:
-										$dbType = 'bigint';
-										break;
+									require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
+									deprecated_functions::notify(gettext('Use the MySQL Integer Types (https://dev.mysql.com/doc/refman/8.0/en/integer-types.html) rather than passing a byte size.'), sprintf('%1$s:%2$s "size"', $newfield['table'], $newfield['name']));
+									if ($dbType === 'int') {
+										switch ($newfield['size']) {
+											case 1:
+												$dbType = 'tinyint';
+												break;
+											case 2:
+												$dbType = 'smallint';
+												break;
+											case 3;
+												$dbType = 'mediumint';
+												break;
+											case 4:
+												$dbType = 'int';
+												break;
+											default:
+												$dbType = 'bigint';
+												break;
+										}
+									}
 								}
 								if (isset($newfield['attribute'])) {
 									$dbType .= ' ' . strtolower($newfield['attribute']);
@@ -139,11 +144,25 @@ class fieldExtender {
 								}
 								break;
 							case 'varchar':
-								$dbType = strtoupper($newfield['type']) . '(' . min(255, $newfield['size']) . ')';
+								$dbType .= '(' . min(255, $newfield['size']) . ')';
 								break;
 						}
+
+						if (isset($newfield['Default']) && is_null($newfield['default']) || isset($newfield['null']) && $newfield['null']) {
+							$nullSQL = ' NULL';
+							$null = 'YES';
+						} else {
+							$nullSQL = ' NOT NULL';
+							$null = 'NO';
+						}
+
 						if ($existng) {
-							if (strtolower($database[$table][$name]['Type']) != $dbType || empty($database[$table][$name]['Comment'])) {
+							if (
+											strtolower($database[$table][$name]['Type']) != $dbType ||
+											isset($newfield['default']) && $database[$table][$name]['Default'] !== $newfield['default'] ||
+											$database[$table][$name]['Null'] !== $null ||
+											$database[$table][$name]['Comment'] != "optional_$me"
+							) {
 								$cmd = ' CHANGE `' . $name . '`';
 							} else {
 								$cmd = NULL;
@@ -159,6 +178,7 @@ class fieldExtender {
 						if (isset($newfield['attribute'])) {
 							$sql .= ' ' . $newfield['attribute'];
 						}
+						$sql .= $nullSQL;
 						if (isset($newfield['default'])) {
 							$sql .= ' DEFAULT ' . $newfield['default'];
 						}

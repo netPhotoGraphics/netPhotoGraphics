@@ -463,7 +463,7 @@ function getTimezones() {
 		foreach ($timezones as $key => $zones) {
 			foreach ($zones as $id => $zone) {
 				/**
-				 * Only get time zones explicitely not part of "Others".
+				 * Only get time zones explicitly not part of "Others".
 				 * @see http://www.php.net/manual/en/timezones.others.php
 				 */
 				if ($zone['timezone_id']) {

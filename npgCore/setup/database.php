@@ -363,10 +363,6 @@ foreach ($template as $tablename => $table) {
 					unset($database[$tablename]['keys'][$key]['Visible']);
 					unset($database[$tablename]['keys'][$key]['Expression']);
 					if ($index != $database[$tablename]['keys'][$key]) {
-
-						var_dump($index, $database[$tablename]['keys'][$key]);
-						exit();
-
 						setupQuery('LOCK TABLES ' . prefix($tablename) . ' WRITE');
 						$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $index['Key_name'] . "`;";
 						if (setupQuery($dropString)) {

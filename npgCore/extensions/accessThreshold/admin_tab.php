@@ -16,6 +16,7 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 
 switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
+	default:
 	case 'date':
 		$sort = 'accessTime';
 		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
@@ -38,9 +39,9 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		break;
 	case'blocked':
 		$sort = 'blocked';
-		$recentIP = sortMultiArray($recentIP, array('blocked'), true, true, false, true);
+		$recentIP = sortMultiArray($recentIP, array('blocked', 'lastAccessed'), true, true, false, true);
 		break;
-	default:
+	case 'interval':
 		$sort = 'interval';
 		uasort($recentIP, function ($a, $b) {
 			$a_i = $a['interval'];
@@ -65,7 +66,23 @@ $__time = time();
 $ct = 0;
 $legendExpired = $legendBlocked = $legendLocaleBlocked = $legendClick = $legendInvalid = false;
 foreach ($recentIP as $ip => $data) {
+	if (str_contains($ip, ':')) {
+		$sep = ':';
+	} else {
+		$sep = '.';
+	}
+	if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+		$drop = 8 - getOption('accessThreshold_SENSITIVITY');
+	} else {
+		$drop = 4 - getOption('accessThreshold_SENSITIVITY');
+	}
+
 	$ipDisp = $ip;
+	if (str_contains($ip, ':')) {
+		$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
+		$ipDisp = str_replace(':::', '::', $ipDisp);
+	}
+
 	$localeBlock = $invalid = '';
 
 	if (isset($data['interval']) && $data['interval']) {
@@ -94,7 +111,7 @@ foreach ($recentIP as $ip => $data) {
 										maxHeight: \'80%\',
 										maxWidth: \'80%\',
 										innerWidth: \'560px\',
-										href:\'ip_list.php?selected_ip=' . $ip . '\'});">' . $ip . '</a>';
+										href:\'ip_list.php?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
 	}
 	if (count($data['accessed']) < 10) {
 		$invalid = 'color:LightGrey;';
@@ -123,7 +140,7 @@ if (empty($output)) {
 	$output[] = gettext("No entries exceed the noise level");
 }
 
-printAdminHeader('admin');
+printAdminHeader('logs', 'access');
 echo "\n</head>";
 ?>
 

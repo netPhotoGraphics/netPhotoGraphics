@@ -353,7 +353,7 @@ class cookieConsent {
 	 * @since ZenphotoCMS 1.5.8
 	 */
 	static function printExternalConsentJS() {
-		$option = trim(getOption('zpcookieconsent_externalscripts'));
+		$option = trim(strval(getOption('zpcookieconsent_externalscripts')));
 		$scripts = npgFilters::apply('cookieconsent_externalconsentscripts', $option, cookieconsent::checkConsent());
 		if (!empty($scripts)) {
 			$array = explode(',', $scripts);

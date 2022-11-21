@@ -432,9 +432,11 @@ class imageProcessing {
 				}
 			}
 
-			$imgEffects = explode(',', $effects);
-			if (in_array('gray', $imgEffects)) {
-				gl_imageGray($newim);
+			if (is_string($effects)) {
+				$imgEffects = explode(',', $effects);
+				if (in_array('gray', $imgEffects)) {
+					gl_imageGray($newim);
+				}
 			}
 
 			if ($watermark_image && $watermark_image != NO_WATERMARK) {

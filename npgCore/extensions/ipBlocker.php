@@ -470,6 +470,7 @@ class ipBlocker {
 	static function load($ip) {
 		if (($temp = self::suspended($ip)) || self::blocked($ip)) {
 			if (!self::clear()) {
+				db_close();
 				sleep(30);
 				header("HTTP/1.0 503 " . gettext("Unavailable"));
 				header("Status: 503 " . gettext("Unavailable"));

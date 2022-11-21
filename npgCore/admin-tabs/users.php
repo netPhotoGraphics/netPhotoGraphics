@@ -304,12 +304,15 @@ if (isset($_GET['action'])) {
 		exit();
 	}
 }
-$refresh = false;
 
 if ($_current_admin_obj->reset) {
 	if (isset($_GET['saved'])) {
 		$refresh = '<meta http-equiv="refresh" content="3; url=admin.php" />';
+	} else {
+		$refresh = isset($_GET['new']);
 	}
+} else {
+	$refresh = false;
 }
 
 if (!$_current_admin_obj && $_current_admin_obj->getID()) {
@@ -320,7 +323,9 @@ if (!$_current_admin_obj && $_current_admin_obj->getID()) {
 }
 
 printAdminHeader($_current_tab);
-echo $refresh;
+if (is_string($refresh)) {
+	echo $refresh;
+}
 ?>
 <script type='text/javascript'>
 	var visible = false;

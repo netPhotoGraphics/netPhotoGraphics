@@ -384,37 +384,84 @@ function lookupSortKey($sorttype, $default, $table) {
 /**
  * Returns a formatted date for output
  *
- * @param string $format the DateTime::format()  format string
- * @param date $dt the date to be output
+ * @param string $format the DateTime::format() format string
+ * @param int $dt the date timestamp to be output
  * @return string
  */
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
 
-	if (strtolower($format) == '%x') {
-		if ($_current_locale && class_exists('IntlDateFormatter')) {
-			//handle "preferred date representation
-			if ($format == '%x') { // local date format
-				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
-			} else {
-				// local time format
-				$formatter = new IntlDateFormatter($_current_locale, IntlDateFormatter::NONE, IntlDateFormatter::SHORT);
-			}
-			if ($formatter === null) {
-				throw new InvalidConfigException(intl_get_error_message());
-			}
-			$fdate = $formatter->format($dt);
-		} else {
-			if ($format == '%x') { // local date format
-				$format = 'n/j/y'; //	default to US standard date format
-			} else {
-				$format = 'H:i:s'; //	default to US standard time format
-			}
+	if ($_current_locale && class_exists('IntlDateFormatter')) {
+		$intlFmt = array(
+				//	year
+				'Y' => 'yyyy',
+				'y' => 'yy',
+				//	month
+				'F' => 'MMMM',
+				'M' => 'MMM',
+				'm' => 'MM',
+				'j' => 'M',
+				//	day
+				'l' => 'EEEE',
+				'D' => 'EEE',
+				'd' => 'dd',
+				'z' => 'D',
+				//	hour
+				'H' => 'HH',
+				'G' => 'H',
+				'g' => 'h',
+				'h' => 'KK',
+				//	minutes
+				'i' => 'mm',
+				//	second
+				's' => 'ss',
+				//	time zone
+				'e' => 'z'
+		);
+
+		if (str_contains($format, '%x')) { // local preferred date format
+			$formatter = new IntlDateFormatter(
+							$_current_locale,
+							IntlDateFormatter::SHORT,
+							IntlDateFormatter::NONE
+			);
+			$intlFmt['%x'] = $formatter->getPattern();
 		}
-	}
-	if (!isset($fdate)) {
+		if (str_contains($format, '%X')) { // local preferred time format
+			$formatter = new IntlDateFormatter(
+							$_current_locale,
+							IntlDateFormatter::NONE,
+							IntlDateFormatter::SHORT
+			);
+			$intlFmt['%X'] = $formatter->getPattern();
+		}
+
+		$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
+		$formatter = new IntlDateFormatter(
+						$_current_locale,
+						IntlDateFormatter::FULL,
+						IntlDateFormatter::FULL,
+						NULL,
+						NULL,
+						$fmt
+		);
+
+		if ($formatter === null) {
+			throw new InvalidConfigException(intl_get_error_message());
+			$fdate = date($format, $dt);
+		}
+		$fdate = $formatter->format($dt);
+	} else {
+		if (str_contains($format, '%x')) { // local preferred date format
+			$format = str_replace('%x', 'n/j/y', $format); //	default to US standard date format
+		}
+		if (str_contains($format, '%X')) { // local preferred time format
+			$format = str_replace('%X', 'H:i:s', $format); //	default to US standard time format
+		}
+
 		$fdate = date($format, $dt);
 	}
+
 	if (function_exists('mb_internal_encoding')) {
 		if (($charset = mb_internal_encoding()) == LOCAL_CHARSET) {
 			return $fdate;
@@ -2229,7 +2276,7 @@ function load_jQuery_scripts($where, $ui = true) {
  * @return string
  */
 function js_encode($this_string) {
-	$this_string = preg_replace("/\r?\n/", "\\n", $this_string);
+	$this_string = preg_replace("/\r?\n/", "\\n", strval($this_string));
 	$this_string = utf8::encode_javascript($this_string);
 	return $this_string;
 }
@@ -2802,6 +2849,7 @@ class npgFunctions {
 				$text = serialize($text);
 			}
 		} else {
+			$text = strval($text);
 			preg_match_all("/href\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $hrefmatch);
 			preg_match_all("/src\s*=\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))/is", $text, $srcmatch);
 			preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);

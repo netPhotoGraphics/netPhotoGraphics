@@ -498,14 +498,15 @@ function getOptionContent() {
 							foreach ($formats as $disp => $fmt) {
 								$formatlist[formattedDate($fmt, $t)] = $fmt;
 							}
-							$formatlist[gettext('Preferred date representation')] = '%x';
+							$formatlist[gettext('Preferred representation: ' . formattedDate('%x', $t))] = '%x';
+
 							if (in_array(DATE_FORMAT, $formatlist)) {
 								$dsp = 'none';
 								$formatlist[gettext('Custom')] = 'custom';
 								$cv = DATE_FORMAT;
 							} else {
 								$dsp = 'block';
-								$formatlist[sprintf(gettext('custom: %1$s'), formattedDate(DATE_FORMAT, time()))] = 'custom';
+								$formatlist[sprintf(gettext('custom: %1$s'), formattedDate(DATE_FORMAT, $t))] = 'custom';
 								$cv = 'custom';
 							}
 							?>

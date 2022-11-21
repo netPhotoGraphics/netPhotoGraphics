@@ -216,7 +216,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since  1.0.0
 	 */
 	function printAdminFooter($addl = '') {
-		global $_adminScript_timer;
+		global $_adminScript_timer, $_server_timezone;
 		?>
 		<div id="footer">
 			<span id="footer_left">
@@ -234,7 +234,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				| <a href="https://forum.netPhotoGraphics.org" title="<?php echo gettext('Forum'); ?>"><?php echo gettext('Forum'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
-				| <?php printf(gettext('Server date: %s'), date('Y-m-d H:i:s')); ?>
+				| <?php
+				//	we assume no  use of formatted dates past this point as we are done generating the admin page
+				date_default_timezone_set($_server_timezone);
+				printf(gettext('Server date: %s %2$s'), date('Y-m-d H:i:s'), $_server_timezone);
+				?>
 			</span>
 		</div>
 		<script type="text/javascript">
@@ -780,7 +784,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				line-height: 1.6em;
 			}
 		</style>
-		<span id="slider_display-<?php echo $postkey; ?>" class="nowrap">
+		<span id="slider_display-<?php echo $postkey; ?>" class="slider">
 			<?php echo $text; ?>
 			<input type="hidden" id="<?php echo $postkey; ?>" name="<?php echo $postkey; ?>" size="2" value="<?php echo $v; ?>" onchange="$('#slider-<?php echo $postkey; ?>').slider('value', $('#<?php echo $postkey; ?>').val());"/>
 		</span>
@@ -818,8 +822,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 			});
 			// ]]> -->
 		</script>
-		<div id="slider-<?php echo $postkey; ?>">
-			<div id="<?php echo $postkey; ?>-handle" class="ui-slider-handle"></div>
+		<div style="padding-top: 6px;">
+			<div id="slider-<?php echo $postkey; ?>">
+				<div id="<?php echo $postkey; ?>-handle" class="ui-slider-handle"></div>
+			</div>
 		</div>
 		<br />
 		<?php
@@ -5568,8 +5574,8 @@ function fullText($string1, $string2) {
  */
 function dateDiff($date1, $date2, $page) {
 	$separators = array('', '-', '-', ' ', ':', ':');
-	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date1, $matches1);
-	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', $date2, $matches2);
+	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', strval($date1), $matches1);
+	preg_match('/(.*)-(.*)-(.*) (.*):(.*):(.*)/', strval($date2), $matches2);
 	if (empty($matches1)) {
 		$matches1 = array(0, 0, 0, 0, 0, 0, 0);
 	}

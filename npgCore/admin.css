@@ -711,7 +711,7 @@ table.options tr td {
 .option_desc {
 	vertical-align: top;
 	text-align:left;
-	padding: 5px;
+	padding-left: 25px;
 }
 
 .option_desc_hidden {
@@ -1165,6 +1165,10 @@ input.tags {
 
 .overview-section .commentbody {
 	font-size: 100%;
+}
+
+.slider {
+	white-space: nowrap;
 }
 
 #slider-password_strength {

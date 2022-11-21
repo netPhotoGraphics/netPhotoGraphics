@@ -107,6 +107,7 @@ if (!function_exists('db_query')) {
 }
 $software = db_software();
 define('MySQL_VERSION', $software['version']);
+define('MySQL_CONNECTIONS', $software['connections']);
 
 if (!$__initialDBConnection && OFFSET_PATH != 2) {
 	_setup(13);

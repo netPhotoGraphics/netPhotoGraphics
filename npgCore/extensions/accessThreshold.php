@@ -22,6 +22,7 @@ $plugin_is_filter = 990 | FEATURE_PLUGIN;
 $plugin_description = gettext("Tools to block denial of service attacks.");
 
 $option_interface = 'accessThreshold';
+define('accessThreshold_min_SIGNIFICANT', 2);
 
 class accessThreshold {
 
@@ -29,13 +30,19 @@ class accessThreshold {
 		if (OFFSET_PATH == 2) {
 			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
-			setOptionDefault('accessThreshold_SIGNIFICANT', 10);
+			if (getOption('accessThreshold_SIGNIFICANT') > (int) (MySQL_CONNECTIONS * 0.75) || getOption('accessThreshold_SIGNIFICANT') < accessThreshold_min_SIGNIFICANT) {
+				purgeOption('accessThreshold_SIGNIFICANT');
+			}
+			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 5);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
-			if (strpos(getUserIP(), ':') !== FALSE) {
-				setOptionDefault('accessThreshold_SENSITIVITY', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:0');
+			if (!is_int(getOption('accessThreshold_SENSITIVITY'))) {
+				purgeOption('accessThreshold_SENSITIVITY');
+			}
+			if (str_contains(getUserIP(), ':')) {
+				setOptionDefault('accessThreshold_SENSITIVITY', 7);
 			} else {
-				setOptionDefault('accessThreshold_SENSITIVITY', '255.255.255.0');
+				setOptionDefault('accessThreshold_SENSITIVITY', 3);
 			}
 			setOptionDefault('accessThreshold_LocaleCount', 5);
 			setOptionDefault('accessThreshold_LIMIT', 100);
@@ -51,11 +58,18 @@ class accessThreshold {
 	}
 
 	function getOptionsSupported() {
+		if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+			$max = 8;
+		} else {
+			$max = 4;
+		}
 		$options = array(
 				gettext('Memory') => array('key' => 'accessThreshold_IP_RETENTION', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
 						'desc' => gettext('The number unique access attempts to keep.')),
-				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_NUMBER,
+				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_SLIDER,
+						'min' => accessThreshold_min_SIGNIFICANT,
+						'max' => min((int) (MySQL_CONNECTIONS * 0.75), 25),
 						'order' => 2.5,
 						'desc' => gettext('The minimum number of accesses for the Threshold to be valid.')),
 				gettext('Threshold') => array('key' => 'accessThreshold_THRESHOLD', 'type' => OPTION_TYPE_NUMBER,
@@ -64,13 +78,15 @@ class accessThreshold {
 				gettext('Window') => array('key' => 'accessThreshold_IP_ACCESS_WINDOW', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 1,
 						'desc' => gettext('The access interval is reset if the last access is was more than this many seconds ago.')),
-				gettext('Mask') => array('key' => 'accessThreshold_SENSITIVITY', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Selectivity') => array('key' => 'accessThreshold_SENSITIVITY', 'type' => OPTION_TYPE_SLIDER,
+						'min' => 1,
+						'max' => $max,
 						'order' => 4,
-						'desc' => gettext('IP mask to determine the IP elements sensitivity')),
+						'desc' => gettext('The number of IP address segments of the address that are considered significant.') . ' ' . sprintf(gettext('For instance %1$s would consolidate all hosts on a subnet. %2$s would consolidate the subnet and its hosts.'), $max - 1, $max - 2)),
 				gettext('Locale limit') => array('key' => 'accessThreshold_LocaleCount', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 3,
-						'desc' => sprintf(gettext('Requests will be blocked if more than %d locales are requested.'), getOption('accessThreshold_LocaleCount'))),
-				gettext('Limit') => array('key' => 'accessThreshold_LIMIT', 'type' => OPTION_TYPE_NUMBER,
+						'desc' => sprintf(gettext('Requests will be blocked if more than %d locales are requested within 10 minutes.'), getOption('accessThreshold_LocaleCount'))),
+				gettext('Display') => array('key' => 'accessThreshold_LIMIT', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 6,
 						'desc' => sprintf(gettext('The top %d accesses will be displayed.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Owner') => array('key' => 'accessThreshold_Owner', 'type' => OPTION_TYPE_TEXTBOX,
@@ -91,15 +107,9 @@ class accessThreshold {
 		if (getOption('accessThreshold_CLEAR')) {
 			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
-		} else {
-			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
-				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
-			} else {
-				$recentIP = array();
-			}
+			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 		}
 		purgeOption('accessThreshold_CLEAR');
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 	}
 
 	static function admin_tabs($tabs) {
@@ -116,44 +126,35 @@ class accessThreshold {
 	}
 
 	static function maskIP($full_ip) {
+		if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+			$drop = 8;
+		} else {
+			$drop = 4;
+		}
+		$drop = $drop - getOption('accessThreshold_SENSITIVITY');
+
 		$sHex = str_contains($full_ip, ':');
-		$mask = getOption('accessThreshold_SENSITIVITY');
-		$mHex = str_contains($mask, ':');
-		$target = explode('.', str_replace(':', '.', ltrim($full_ip, ':')));
-		$mask = explode('.', str_replace(':', '.', $mask . '.0.0.0.0.0.0.0.0'));
-		foreach ($mask as $key => $m) {
-			if ($mHex) {
-				$m = (int) hexdec($m);
-			} else {
-				$m = (int) $m;
-			}
-			if (isset($target[$key])) {
-				if ($sHex) {
-					if (ctype_xdigit($target[$key])) {
-						$target[$key] = dechex((int) hexdec($target[$key]) & $m);
-					} else {
-						$target[$key] = 0;
-					}
-				} else {
-					if (ctype_digit($target[$key])) {
-						$target[$key] = (int) $target[$key] & $m;
-					} else {
-						$target[$key] = 0;
-					}
-				}
-			} else {
-				break;
-			}
+		if ($sHex) {
+			$items = 7 - substr_count(trim($full_ip, ':'), ':');
+			$fill = str_pad('', $items * 2, '0:');
+			$full_ip = trim(str_replace('::', ':' . $fill, $full_ip), ':');
+			$target = explode(':', $full_ip);
+			$base = 8;
+		} else {
+			$target = explode('.', $full_ip);
+			$base = 4;
 		}
-		$c = count($target) - 1;
-		while ($c >= 0) {
-			if ($target[$c]) {
-				break;
-			}
-			unset($target[$c]);
-			$c--;
+
+		While ($drop > 0) {
+			$target[$base - $drop] = '···';
+			$drop--;
 		}
-		return implode($sHex ? ':' : '.', $target);
+
+		if ($sHex) {
+			return implode(':', $target);
+		} else {
+			return implode('.', $target);
+		}
 	}
 
 	static function walk(&$element, $key, $__time) {
@@ -217,7 +218,8 @@ if (extensionEnabled('accessThreshold')) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
-			sleep(10);
+			db_close();
+			sleep(30);
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
 			header("Retry-After: 300");
