@@ -118,7 +118,7 @@ class user_groups {
 		$membership = $groups = array();
 		$hisgroups = $userobj->getGroup();
 		if ($hisgroups) {
-			$hisgroups = explode(',', $userobj->getGroup());
+			$hisgroups = explode(',', $hisgroups);
 		} else {
 			$hisgroups = array();
 		}

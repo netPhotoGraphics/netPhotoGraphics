@@ -394,19 +394,29 @@ function formattedDate($format, $dt) {
 	if ($_current_locale && class_exists('IntlDateFormatter')) {
 		$intlFmt = array(
 				//	year
+				'Y' => 'yyyy',
 				'y' => 'yy',
 				//	month
-				'M' => 'MMM',
 				'F' => 'MMMM',
+				'M' => 'MMM',
 				'm' => 'MM',
+				'j' => 'M',
 				//	day
-				'D' => 'EEE',
 				'l' => 'EEEE',
+				'D' => 'EEE',
 				'd' => 'dd',
+				'z' => 'D',
 				//	hour
 				'H' => 'HH',
+				'G' => 'H',
+				'g' => 'h',
+				'h' => 'KK',
+				//	minutes
+				'i' => 'mm',
 				//	second
-				'i' => 'ss'
+				's' => 'ss',
+				//	time zone
+				'e' => 'z'
 		);
 
 		if (str_contains($format, '%x')) { // local preferred date format

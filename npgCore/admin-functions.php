@@ -216,7 +216,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since  1.0.0
 	 */
 	function printAdminFooter($addl = '') {
-		global $_adminScript_timer;
+		global $_adminScript_timer, $_server_timezone;
 		?>
 		<div id="footer">
 			<span id="footer_left">
@@ -234,7 +234,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				| <a href="https://forum.netPhotoGraphics.org" title="<?php echo gettext('Forum'); ?>"><?php echo gettext('Forum'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
-				| <?php printf(gettext('Server date: %s'), date('Y-m-d H:i:s')); ?>
+				| <?php
+				//	we assume no  use of formatted dates past this point as we are done generating the admin page
+				date_default_timezone_set($_server_timezone);
+				printf(gettext('Server date: %s %2$s'), date('Y-m-d H:i:s'), $_server_timezone);
+				?>
 			</span>
 		</div>
 		<script type="text/javascript">

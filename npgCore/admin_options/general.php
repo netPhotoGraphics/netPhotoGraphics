@@ -506,7 +506,7 @@ function getOptionContent() {
 								$cv = DATE_FORMAT;
 							} else {
 								$dsp = 'block';
-								$formatlist[sprintf(gettext('custom: %1$s'), formattedDate(DATE_FORMAT, time()))] = 'custom';
+								$formatlist[sprintf(gettext('custom: %1$s'), formattedDate(DATE_FORMAT, $t))] = 'custom';
 								$cv = 'custom';
 							}
 							?>
