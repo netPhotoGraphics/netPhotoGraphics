@@ -400,11 +400,11 @@ function formattedDate($format, $dt) {
 				'F' => 'MMMM',
 				'M' => 'MMM',
 				'm' => 'MM',
-				'j' => 'M',
 				//	day
 				'l' => 'EEEE',
 				'D' => 'EEE',
 				'd' => 'dd',
+				'j' => 'd',
 				'z' => 'D',
 				//	hour
 				'H' => 'HH',
