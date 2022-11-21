@@ -384,21 +384,21 @@ function lookupSortKey($sorttype, $default, $table) {
 /**
  * Returns a formatted date for output
  *
- * @param string $format the DateTime::format() format string
+ * @param string $format the DateTime::format string (https://www.php.net/manual/en/datetime.format.php)
  * @param int $dt the date timestamp to be output
  * @return string
  */
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
-
-	if ($_current_locale && class_exists('IntlDateFormatter')) {
+	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
+	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZcrU')) {
 		$intlFmt = array(
 				//	year
-				'Y' => 'yyyy',
 				'y' => 'yy',
+				'Y' => 'yyyy',
 				//	month
-				'F' => 'MMMM',
 				'M' => 'MMM',
+				'F' => 'MMMM',
 				'm' => 'MM',
 				//	day
 				'l' => 'EEEE',
@@ -409,16 +409,18 @@ function formattedDate($format, $dt) {
 				//	hour
 				'H' => 'HH',
 				'G' => 'H',
-				'g' => 'h',
 				'h' => 'KK',
+				'g' => 'h',
 				//	minutes
 				'i' => 'mm',
 				//	second
 				's' => 'ss',
 				//	time zone
-				'e' => 'z'
+				'e' => 'vv',
+				'O' => 'xx',
+				'P' => 'Z',
+				'T' => 'z'
 		);
-
 		if (str_contains($format, '%x')) { // local preferred date format
 			$formatter = new IntlDateFormatter(
 							$_current_locale,
@@ -436,6 +438,7 @@ function formattedDate($format, $dt) {
 			$intlFmt['%X'] = $formatter->getPattern();
 		}
 
+		//	convert from dateTimeFormatter:format to IntlDateFormatter::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime)
 		$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
 		$formatter = new IntlDateFormatter(
 						$_current_locale,
@@ -458,7 +461,6 @@ function formattedDate($format, $dt) {
 		if (str_contains($format, '%X')) { // local preferred time format
 			$format = str_replace('%X', 'H:i:s', $format); //	default to US standard time format
 		}
-
 		$fdate = date($format, $dt);
 	}
 
