@@ -57,7 +57,7 @@ function saveOptions() {
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
 	$limit = sanitize_numeric($_POST['imageProcessorConcurrency']);
-	setOption('PROCESSING_CONCURENCY', $limit);
+	setOption('PROCESSING_CONCURRENCY', $limit);
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {
@@ -549,13 +549,8 @@ function getOptionContent() {
 						<td class="option_name"><?php echo gettext("Caching concurrency"); ?></td>
 						<td class="option_value">
 							<?php
-							$max_connections = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-							if ($max_connections['Value'] && $max_connections['Value'] < 62) {
-								$max = $max_connections['Value'] - 2;
-							} else {
-								$max = 60;
-							}
-							putSlider(gettext('limit'), 'imageProcessorConcurrency', 1, $max, PROCESSING_CONCURENCY);
+							$max = min(CONCURRENCY_MAX, 60);
+							putSlider('', 'imageProcessorConcurrency', 1, $max, PROCESSING_CONCURRENCY);
 							?>
 						</td>
 						<td class="option_desc">
@@ -761,7 +756,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																			 togglePassword('');" />
+																	 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 

@@ -177,6 +177,9 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 $_themeScript_timer['theme load'] = microtime();
 npgFilters::apply('software_information', $_themeScript, $_loaded_plugins, $_index_theme);
 db_close(); // close the database as we are done
+if (isset($_siteMutex)) { //	unlock the thread mutex if it has been instantiated
+	$_siteMutex->unlock();
+}
 if (TEST_RELEASE) {
 	echo "\n";
 
