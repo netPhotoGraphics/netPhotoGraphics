@@ -213,7 +213,7 @@ define('UNIQUE_IMAGE', getOption('unique_image_prefix') && MOD_REWRITE);
 define('UTF8_IMAGE_URI', getOption('UTF8_image_URI'));
 define('MEMBERS_ONLY_COMMENTS', getOption('comment_form_members_only'));
 
-define('HASH_SEED', getOption('extra_auth_hash_text'));
+define('HASH_SEED', strval(getOption('extra_auth_hash_text')));
 
 define('IP_TIED_COOKIES', getOption('IP_tied_cookies'));
 

@@ -4066,7 +4066,7 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = false,
 	} else {
 		$button = ' title="' . $buttontext . '"';
 	}
-	if (preg_match('!\/(.*)[\.png|\.jpg|\.jpeg|\.gif]$!', $buttonSource)) {
+	if ($buttonSource && preg_match('!\/(.*)[\.png|\.jpg|\.jpeg|\.gif]$!', $buttonSource)) {
 		$buttonSource = 'src="' . $buttonSource . '" alt="' . $buttontext . '"';
 		$type = 'image';
 	} else {

@@ -165,7 +165,7 @@ printLogoAndLinks();
 								?>
 								<label for="date"><?php echo gettext("Date/Time:"); ?></label>
 								<input type="text" size="18" name="date" value="<?php echo $date; ?>" />
-								<label for="date"><?php echo gettext("ID:"); ?></label>
+								<label for="ip"><?php echo gettext("ID:"); ?></label>
 								<input type="text" size="18" name="ip" value="<?php echo html_encode($IP); ?>" />
 								<?php
 								$_comment_form_save_post = $commentarr;
