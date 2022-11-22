@@ -23,17 +23,17 @@ class Controller {
 				case 'news':
 					$redirectURL = _NEWS_;
 					if (isset($query['category'])) {
-						$obj = newCategory(trim($query['category'], '/'), false);
+						$obj = newCategory(trim(strval($query['category']), '/'), false);
 						if (!$obj->loaded)
 							return '';
 						$redirectURL = $obj->getLink();
 						unset($query['category']);
 					} else if (isset($query['date'])) {
-						$redirectURL = _NEWS_ARCHIVE_ . '/' . trim($query['date'], '/') . '/';
+						$redirectURL = _NEWS_ARCHIVE_ . '/' . trim(strval($query['date']), '/') . '/';
 						unset($query['date']);
 					}
 					if (isset($query['title'])) {
-						$obj = newArticle(trim($query['title'], '/'), false);
+						$obj = newArticle(trim(strval($query['title']), '/'), false);
 						if (!$obj->loaded)
 							return '';
 						$redirectURL = $obj->getLink();
@@ -42,7 +42,7 @@ class Controller {
 					break;
 				case 'pages':
 					if (isset($query['title'])) {
-						$obj = newPage(trim($query['title'], '/'), false);
+						$obj = newPage(trim(strval($query['title']), '/'), false);
 						if (!$obj->loaded)
 							return '';
 						$redirectURL = $obj->getLink();
@@ -52,7 +52,7 @@ class Controller {
 				case'search':
 					$redirectURL = _SEARCH_;
 					if (isset($query['date'])) {
-						$redirectURL = _ARCHIVE_ . '/' . trim($query['date'], '/') . '/';
+						$redirectURL = _ARCHIVE_ . '/' . trim(strval($query['date']), '/') . '/';
 						unset($query['date']);
 					} else if (isset($query['searchfields']) && $query['searchfields'] == 'tags') {
 						$redirectURL = _TAGS_;
@@ -67,7 +67,7 @@ class Controller {
 					}
 					break;
 				default:
-					$redirectURL = getCustomPageURL(trim($query['p'], '/'));
+					$redirectURL = getCustomPageURL(trim(strval($query['p']), '/'));
 					break;
 			}
 			unset($query['p']);
@@ -452,10 +452,10 @@ class Controller {
 		global $_CMS_current_article, $_CMS_current_category, $_post_date;
 		if (isset($request['date'])) {
 			add_context(ZENPAGE_NEWS_DATE);
-			$_post_date = sanitize(trim($request['date'], '/'));
+			$_post_date = sanitize(trim(strval($request['date']), '/'));
 		}
 		if (isset($request['category'])) {
-			$titlelink = sanitize(trim($request['category'], '/'));
+			$titlelink = sanitize(trim(strval($request['category']), '/'));
 			$_CMS_current_category = new Category($titlelink);
 			if ($_CMS_current_category->loaded) {
 				add_context(ZENPAGE_NEWS_CATEGORY);
@@ -466,7 +466,7 @@ class Controller {
 			}
 		}
 		if (isset($request['title'])) {
-			$titlelink = sanitize(trim($request['title'], '/'));
+			$titlelink = sanitize(trim(strval($request['title']), '/'));
 			$sql = 'SELECT `id` FROM ' . prefix('news') . ' WHERE `titlelink`=' . db_quote($titlelink) . ' LIMIT 1';
 			$found = query($sql);
 			if ($found && $found->num_rows > 0) {
@@ -504,7 +504,7 @@ class Controller {
 						return self::load_search();
 					case 'pages':
 						if (class_exists('CMS') && $_CMS->pages_enabled) {
-							return self::load_zenpage_pages(sanitize(trim(isset($_GET['title']) ? $_GET['title'] : NULL, '/')));
+							return self::load_zenpage_pages(sanitize(trim(isset($_GET['title']) ? strval($_GET['title']) : '', '/')));
 						}
 						return false;
 					case 'news':

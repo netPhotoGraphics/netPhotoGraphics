@@ -33,8 +33,8 @@ switch (isset($_GET['tab']) ? $_GET['tab'] : NULL) {
 		}
 
 		if (isset($_GET['selection'])) {
-			setNPGCookie('groupsTab_groupCount', GROUPS_PER_PAGE, 3600 * 24 * 365 * 10);
 			define('GROUPS_PER_PAGE', max(1, sanitize_numeric($_GET['selection'])));
+			setNPGCookie('groupsTab_groupCount', GROUPS_PER_PAGE, 3600 * 24 * 365 * 10);
 		} else {
 			if ($s = sanitize_numeric(getNPGCookie('groupsTab_groupCount'))) {
 				define('GROUPS_PER_PAGE', $s);
@@ -114,7 +114,7 @@ if (isset($_GET['action'])) {
 							//have to update any users who have this group designate.
 							$groupname = $group->getUser();
 							foreach ($admins as $admin) {
-								$hisgroups = explode(',', $admin['group']);
+								$hisgroups = explode(',', strval($admin['group']));
 								if (in_array($groupname, $hisgroups)) {
 									$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
 									user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
