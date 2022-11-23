@@ -391,7 +391,7 @@ function lookupSortKey($sorttype, $default, $table) {
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
 	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
-	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZcrU')) {
+	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZU')) {
 		$intlFmt = array(
 				//	year
 				'y' => 'yy',
@@ -419,7 +419,10 @@ function formattedDate($format, $dt) {
 				'e' => 'vv',
 				'O' => 'xx',
 				'P' => 'Z',
-				'T' => 'z'
+				'T' => 'z',
+				//	formatted dates
+				'r' => 'E, d MMM yyyy HH:mm:ss xx',
+				'c' => 'yyyy-MM-dd\'T\'HH:mm:ss xx'
 		);
 		if (str_contains($format, '%x')) { // local preferred date format
 			$formatter = new IntlDateFormatter(
