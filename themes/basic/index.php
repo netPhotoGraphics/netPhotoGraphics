@@ -98,7 +98,7 @@ if (!defined('WEBPATH'))
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
 			if (extensionEnabled('daily-summary')) {
-				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
 			}
 			if (extensionEnabled('contact_form')) {
 				printCustomPageURL(gettext('Contact us'), 'contact', '', '', ' | ');

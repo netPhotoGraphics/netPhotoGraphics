@@ -2640,7 +2640,7 @@ if (class_exists('tidy')) {
 
 	function cleanHTML($html) {
 		$tidy = new tidy();
-		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
+		$tidy->parseString(strval($html), array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
 		$tidy->cleanRepair();
 		return $tidy;
 	}
@@ -2650,7 +2650,7 @@ if (class_exists('tidy')) {
 
 	function cleanHTML($html) {
 		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
-		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
+		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', strval($html));
 		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
 	}
 
