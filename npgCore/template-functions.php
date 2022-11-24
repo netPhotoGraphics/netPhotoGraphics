@@ -1447,7 +1447,7 @@ function printParentBreadcrumb($before = NULL, $between = NULL, $after = NULL, $
  *  */
 function printHomeLink($before = '', $after = '', $title = NULL, $class = false, $id = NULL) {
 	global $_gallery;
-	$site = rtrim($_gallery->getWebsiteURL(), '/');
+	$site = rtrim(strval($_gallery->getWebsiteURL()), '/');
 	if (!empty($site)) {
 		$name = $_gallery->getWebsiteTitle();
 		if (empty($name)) {
@@ -4595,7 +4595,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
