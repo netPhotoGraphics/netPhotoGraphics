@@ -163,10 +163,16 @@ if ($_REQUEST['origin'] == 'upload') {
 	}
 
 	if ($albumRequest) { //	"upload here"
-		$edit_list = array();
-		$junkFiles = safe_glob(getAlbumFolder(SERVERPATH) . '/' . $albumRequest . '*.*');
+		$album = newAlbum($albumAlias);
+		$edit_list = $album->getImages(0);
+
+		$hide_list = array();
+		$junkFiles = safe_glob(getAlbumFolder(SERVERPATH) . '/' . $albumRequest . '*', GLOB_MARK);
 		foreach ($junkFiles as $key => $path) {
-			$edit_list[] = preg_quote(basename($path));
+			$file = basename($path);
+			if (!in_array($file, $edit_list)) {
+				$hide_list[] = preg_quote($file);
+			}
 		}
 
 		$opts['roots'][1] = array(
@@ -194,19 +200,23 @@ if ($_REQUEST['origin'] == 'upload') {
 								'read' => true,
 								'write' => false,
 								'locked' => true
+						),
+						array(
+								'pattern' => '/.(' . implode('$|', $hide_list) . '$)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => false,
+								'write' => false,
+								'hidden' => true,
+								'locked' => true
+						),
+						array(
+								'pattern' => '/.(' . implode('\/|', $hide_list) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => false,
+								'write' => false,
+								'hidden' => true,
+								'locked' => true
 						)
 				)
 		);
-
-		if (!empty($junkFiles)) {
-			$opts['roots'][2]['attributes'][] = array(// files in the album root that don't belong
-					'pattern' => '/.(' . implode('$|', $junkFiles) . '$)/' . $i, // Dont write or delete
-					'read' => false,
-					'write' => false,
-					'hidden' => true,
-					'locked' => true
-			);
-		}
 	}
 
 	if ($rights & UPLOAD_RIGHTS) {
