@@ -20,6 +20,11 @@ if (isset($_REQUEST['themeEdit'])) {
 	$theme = false;
 	$title = gettext('File Manager');
 }
+if (isset($_REQUEST['album'])) {
+	$album = sanitize($_GET['album']);
+} else {
+	$album = false;
+}
 scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/elfinder.min.css');
 scriptLoader(PLUGIN_SERVERPATH . 'elFinder/css/theme.css');
 scriptLoader(PLUGIN_SERVERPATH . 'elFinder/js/elfinder.min.js');
@@ -56,6 +61,11 @@ echo "\n</head>";
 									'XSRFToken': '<?php echo getXSRFToken('elFinder'); ?>',
 									'user_auth': '<?php echo getNPGCookie(AUTHCOOKIE); ?>',
 <?php
+if ($album && npg_loggedin(ALBUM_RIGHTS)) {
+	?>
+										'albumEdit': '<?php echo $album; ?>',
+	<?php
+}
 if ($theme) {
 	if (npg_loggedin(THEMES_RIGHTS) && is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme)) {
 		?>

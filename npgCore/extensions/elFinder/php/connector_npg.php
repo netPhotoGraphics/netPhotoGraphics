@@ -77,6 +77,7 @@ $sidecars = npgFilters::apply('upload_filetypes', array());
 $validSuffix = array_keys($_images_classes);
 $validSuffix = array_merge($validSuffix, $sidecars);
 
+$themeRequest = $albumRequest = false;
 if ($_REQUEST['origin'] == 'upload') {
 	$themeAlias = sprintf(gettext('Themes (%s)'), THEMEFOLDER);
 	if (isset($_REQUEST['themeEdit'])) {
@@ -90,7 +91,15 @@ if ($_REQUEST['origin'] == 'upload') {
 			}
 		}
 	} else {
-		$themeRequest = '';
+		if (isset($_REQUEST['albumEdit'])) {
+			$rights = 0;
+			$albumRequest = sanitize($_REQUEST['albumEdit']);
+			if (npg_loggedin(ALBUM_RIGHTS)) {
+				$albumAlias = $albumRequest;
+				$albumRequest .= '/';
+				$rights = ALBUM_RIGHTS;
+			}
+		}
 	}
 
 	if (CASE_INSENSITIVE) { //	ignore case on case insensitive file systems!
@@ -136,21 +145,68 @@ if ($_REQUEST['origin'] == 'upload') {
 				'tmbBgColor' => 'transparent',
 				'accessControl' => 'access',
 				'acceptedName' => '/^[^\.].*$/',
-				'attributes' => $attr = array(
-		array(
-				'pattern' => '/.(' . implode('$|', $theme_list) . '$)/' . $i, // Dont write or delete to this but subfolders and files
-				'read' => true,
-				'write' => false,
-				'locked' => true
-		),
-		array(
-				'pattern' => '/.(' . implode('\/|', $theme_list) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
-				'read' => true,
-				'write' => false,
-				'locked' => true
-		)
+				'attributes' => array(
+						array(
+								'pattern' => '/.(' . implode('$|', $theme_list) . '$)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => true,
+								'write' => false,
+								'locked' => true
+						),
+						array(
+								'pattern' => '/.(' . implode('\/|', $theme_list) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => true,
+								'write' => false,
+								'locked' => true
+						)
 				)
 		);
+	}
+
+	if ($albumRequest) { //	"upload here"
+		$edit_list = array();
+		$junkFiles = safe_glob(getAlbumFolder(SERVERPATH) . '/' . $albumRequest . '*.*');
+		foreach ($junkFiles as $key => $path) {
+			$edit_list[] = preg_quote(basename($path));
+		}
+
+		$opts['roots'][1] = array(
+				'driver' => 'LocalFileSystem',
+				'startPath' => getAlbumFolder(SERVERPATH) . '/' . $albumRequest,
+				'path' => getAlbumFolder(SERVERPATH) . '/' . $albumRequest,
+				'URL' => getAlbumFolder(WEBPATH) . '/' . $albumRequest,
+				'alias' => $albumAlias,
+				'mimeDetect' => 'internal',
+				'tmbPath' => '.tmb',
+				'utf8fix' => true,
+				'tmbCrop' => false,
+				'tmbBgColor' => 'transparent',
+				'accessControl' => 'accessImage',
+				'acceptedName' => '/^[^\.].*$/',
+				'attributes' => array(
+						array(
+								'pattern' => '/.(' . implode('$|', $edit_list) . '$)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => true,
+								'write' => false,
+								'locked' => true
+						),
+						array(
+								'pattern' => '/.(' . implode('\/|', $edit_list) . '\/)/' . $i, // Dont write or delete to this but subfolders and files
+								'read' => true,
+								'write' => false,
+								'locked' => true
+						)
+				)
+		);
+
+		if (!empty($junkFiles)) {
+			$opts['roots'][2]['attributes'][] = array(// files in the album root that don't belong
+					'pattern' => '/.(' . implode('$|', $junkFiles) . '$)/' . $i, // Dont write or delete
+					'read' => false,
+					'write' => false,
+					'hidden' => true,
+					'locked' => true
+			);
+		}
 	}
 
 	if ($rights & UPLOAD_RIGHTS) {
