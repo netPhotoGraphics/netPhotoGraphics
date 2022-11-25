@@ -163,15 +163,18 @@ if ($_REQUEST['origin'] == 'upload') {
 	}
 
 	if ($albumRequest) { //	"upload here"
-		$album = newAlbum($albumAlias);
-		$edit_list = $album->getImages(0);
+		$hide_list = $edit_list = array();
 
-		$hide_list = array();
+		$album = newAlbum($albumAlias);
+		foreach ($album->getImages(0) as $key => $file) {
+			$edit_list[] = preg_quote($file);
+		}
+
 		$junkFiles = safe_glob(getAlbumFolder(SERVERPATH) . '/' . $albumRequest . '*', GLOB_MARK);
 		foreach ($junkFiles as $key => $path) {
-			$file = basename($path);
+			$file = preg_quote(basename($path));
 			if (!in_array($file, $edit_list)) {
-				$hide_list[] = preg_quote($file);
+				$hide_list[] = $file;
 			}
 		}
 
