@@ -17,7 +17,7 @@ class configFile {
 	 */
 	static function update($item, $value, $_config_contents, $quote = true) {
 		if ($quote) {
-			$value = "'" . addslashes($value) . "'";
+			$value = "'" . addslashes(strval($value)) . "'";
 		}
 		$i = strpos($_config_contents, $item);
 		if ($i === false) {

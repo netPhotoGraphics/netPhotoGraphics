@@ -391,7 +391,7 @@ function lookupSortKey($sorttype, $default, $table) {
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
 	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
-	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZcrU')) {
+	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZU')) {
 		$intlFmt = array(
 				//	year
 				'y' => 'yy',
@@ -419,7 +419,10 @@ function formattedDate($format, $dt) {
 				'e' => 'vv',
 				'O' => 'xx',
 				'P' => 'Z',
-				'T' => 'z'
+				'T' => 'z',
+				//	formatted dates
+				'r' => 'E, d MMM yyyy HH:mm:ss xx',
+				'c' => 'yyyy-MM-dd\'T\'HH:mm:ss xx'
 		);
 		if (str_contains($format, '%x')) { // local preferred date format
 			$formatter = new IntlDateFormatter(
@@ -2640,7 +2643,7 @@ if (class_exists('tidy')) {
 
 	function cleanHTML($html) {
 		$tidy = new tidy();
-		$tidy->parseString($html, array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
+		$tidy->parseString(strval($html), array('preserve-entities' => TRUE, 'indent' => TRUE, 'markup' => TRUE, 'show-body-only' => TRUE, 'wrap' => 0, 'quote-marks' => TRUE), 'utf8');
 		$tidy->cleanRepair();
 		return $tidy;
 	}
@@ -2650,7 +2653,7 @@ if (class_exists('tidy')) {
 
 	function cleanHTML($html) {
 		//htmLawed does not deal well with non-breaking spaces, so replace them with the html entity
-		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', $html);
+		$html = str_replace(html_entity_decode('&nbsp;'), '&nbsp;', strval($html));
 		return htmLawed($html, array('tidy' => '2s2n', 'unique_ids' => 0, 'style_pass' => 1));
 	}
 

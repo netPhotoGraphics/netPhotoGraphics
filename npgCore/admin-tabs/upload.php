@@ -18,6 +18,10 @@ if (isset($_GET['page'])) {
 } else {
 	$link = $_admin_menu['upload']['link'];
 	if (strpos($link, 'admin-tabs/upload.php') == false) {
+
+		if (isset($_GET)) {
+			$link .= '&' . http_build_query($_GET);
+		}
 		header('location: ' . $link);
 		exit();
 	}

@@ -36,6 +36,10 @@ $_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' =>
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$_conf_vars = getConfig();
 }
+if (OFFSET_PATH === 0 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
+	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
+	$_siteMutex->lock();
+}
 
 if (!defined('CHMOD_VALUE')) {
 	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
@@ -227,19 +231,18 @@ define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
 
 define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
 
-$chunk = getOption('PROCESSING_CONCURENCY');
-if (!$chunk) {
-	$chunk = 15;
-}
-if ($__initialDBConnection) {
-	$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections"', FALSE);
-	if (is_array($max)) {
-		if ($max['Value'] && $max['Value'] < $chunk + 2) {
-			$chunk = $max['Value'] - 2;
-		}
-	}
-	unset($max);
-}
-define('PROCESSING_CONCURENCY', $chunk);
-unset($chunk);
+define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
 
+$chunk = getOption('PROCESSING_CONCURRENCY');
+if (!$chunk) {
+	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
+}
+define('PROCESSING_CONCURRENCY', $chunk);
+
+$chunk = getOption('THREAD_CONCURRENCY');
+if (!$chunk) {
+	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
+}
+define('THREAD_CONCURRENCY', $chunk);
+
+unset($chunk);

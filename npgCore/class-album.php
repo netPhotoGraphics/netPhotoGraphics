@@ -278,7 +278,7 @@ class AlbumBase extends MediaObject {
 			$type = $this->get('subalbum_sort_type');
 		}
 		if (empty($type)) {
-// using inherited type, so use inherited direction
+			// using inherited type, so use inherited direction
 			$parentalbum = $this->getParent();
 			if (is_null($parentalbum)) {
 				if ($what == 'image') {

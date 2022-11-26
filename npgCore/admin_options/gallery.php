@@ -17,6 +17,8 @@ function saveOptions() {
 	$_gallery->setDesc(process_language_string_save('Gallery_description', EDITOR_SANITIZE_LEVEL));
 	$_gallery->setWebsiteTitle(process_language_string_save('website_title', 2));
 	$_gallery->setLogonWelcome(process_language_string_save('logon_welcome', EDITOR_SANITIZE_LEVEL));
+	$limit = sanitize_numeric($_POST['threadConcurrency']);
+	setOption('THREAD_CONCURRENCY', $limit);
 	$_gallery->setSiteLogo(sanitize_path($_POST['sitelogoimage']));
 	$_gallery->setSiteLogoTitle(process_language_string_save('sitelogotitle', EDITOR_SANITIZE_LEVEL));
 	$_gallery->setCopyright(process_language_string_save('sitecopyright', EDITOR_SANITIZE_LEVEL));
@@ -62,7 +64,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="gallery" />
 			<input type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -274,7 +276,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-																 togglePassword('');" /><?php echo gettext('Show'); ?>
+														 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 
 								<br />
@@ -326,6 +328,25 @@ function getOptionContent() {
 								<?php echo INFORMATION_BLUE; ?>
 								<div class="option_desc_hidden">
 									<?php echo gettext('If you place a message here it will be shown on the login form above the password pad box.'); ?>
+								</div>
+							</span>
+						</td>
+					</tr>
+					<tr class="optionSet">
+						<td class="option_name"><?php echo gettext("Thread concurrency"); ?></td>
+						<td class="option_value">
+							<?php
+							$max = min(CONCURRENCY_MAX, 60);
+							putSlider('', 'threadConcurrency', 1, $max, THREAD_CONCURRENCY);
+							?>
+						</td>
+						<td class="option_desc">
+							<span class="option_info">
+								<?php echo INFORMATION_BLUE; ?>
+								<div class="option_desc_hidden">
+									<?php
+									echo gettext('Limit to the number of front-end scripts that will execute concurrently.');
+									?>
 								</div>
 							</span>
 						</td>
