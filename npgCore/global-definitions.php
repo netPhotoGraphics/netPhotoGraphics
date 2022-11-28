@@ -3,8 +3,8 @@
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
 Define('PHP_MIN_VERSION', '5.6');
-Define('PHP_MIN_SUPPORTED_VERSION', '7.3');
-Define('PHP_DESIRED_VERSION', '7.4');
+Define('PHP_MIN_SUPPORTED_VERSION', '7.4');
+Define('PHP_DESIRED_VERSION', '8.0');
 
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));

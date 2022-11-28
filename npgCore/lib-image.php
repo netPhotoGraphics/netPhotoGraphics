@@ -557,8 +557,8 @@ class imageProcessing {
 		if (!getOption('watermark_allow_upscale')) {
 			$r = min(1, $r);
 		}
-		$nw = round($watermark_width * $r);
-		$nh = round($watermark_height * $r);
+		$nw = (int) ceil($watermark_width * $r);
+		$nh = (int) ceil($watermark_height * $r);
 		if (($nw != $watermark_width) || ($nh != $watermark_height)) {
 			$new_watermark = gl_createImage($nw, $nh, FALSE);
 			if (gl_resampleImage($new_watermark, $watermark, 0, 0, 0, 0, $nw, $nh, $watermark_width, $watermark_height)) {
@@ -569,8 +569,8 @@ class imageProcessing {
 			}
 		}
 		// Position Overlay in Bottom Right
-		$dest_x = max(0, floor(($imw - $nw) * $offset_w));
-		$dest_y = max(0, floor(($imh - $nh) * $offset_h));
+		$dest_x = (int) max(0, floor(($imw - $nw) * $offset_w));
+		$dest_y = (int) max(0, floor(($imh - $nh) * $offset_h));
 		if (DEBUG_IMAGE)
 			debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
 		if (!gl_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
