@@ -137,6 +137,7 @@ foreach ($metadataProviders as $source => $handler) {
 	}
 
 	$exifvars = $handler::getMetadataFields();
+	ksort($exifvars, SORT_FLAG_CASE | SORT_NATURAL);
 
 	foreach ($exifvars as $key => $exifvar) {
 		if (!is_null(getOption($key))) {

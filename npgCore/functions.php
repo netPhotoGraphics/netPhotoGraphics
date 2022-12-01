@@ -2734,7 +2734,7 @@ class npgFunctions {
 				$exifvars = array_merge($exifvars, $handler::getMetadataFields());
 			}
 		}
-		$exifvars = sortMultiArray($exifvars, 2, false, true, false, true);
+		$exifvars = sortMultiArray($exifvars, 2, false, true, true, true);
 		if ($default) {
 			return $exifvars;
 		}
