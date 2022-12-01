@@ -162,7 +162,7 @@ class mobileTheme {
 			if (MOD_REWRITE) {
 				$link = '?mobileTheme=' . $enable;
 			} else {
-				global $_gallery_page, $_current_images, $_current_album, $_CMS_current_article, $_CMS_current_category, $_CMS_current_page;
+				global $_gallery_page, $_current_image, $_current_album, $_CMS_current_article, $_CMS_current_category, $_CMS_current_page;
 				switch ($_gallery_page) {
 					case 'index.php':
 						$link = 'index.php?mobileTheme=' . $enable;

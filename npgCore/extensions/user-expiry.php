@@ -253,15 +253,14 @@ class user_expiry {
 					$credentials[] = 'expiry';
 					$credentials[] = 'email';
 					$credentials = array_unique($credentials);
+					$userobj->setCredentials($credentials);
+					$userobj->setValid(1);
+					$userobj->set('lastloggedin', date('Y-m-d H:i:s'));
+					$userobj->save();
+					npg_Authority::logUser($userobj);
+					header("Location: " . getAdminLink('admin.php'));
+					exit();
 				}
-				$userobj->setCredentials($credentials);
-				$userobj->setValid(1);
-				$userobj->set('lastloggedin', date('Y-m-d H:i:s'));
-				$userobj->save();
-
-				npg_Authority::logUser($userobj);
-				header("Location: " . getAdminLink('admin.php'));
-				exit();
 			}
 		}
 		if (user_expiry::checkPasswordRenew()) {

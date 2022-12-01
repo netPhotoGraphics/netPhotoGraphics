@@ -157,9 +157,9 @@ class _SimpleSpam {
 
 	function getWords($text, $notUnique = false) {
 		if ($notUnique) {
-			return preg_split("/[\W]+/", strtolower(strip_tags($text)));
+			return preg_split("/[\W]+/", strtolower(strip_tags(strval($text))));
 		} else {
-			return array_unique(preg_split("/[\W]+/", strtolower(strip_tags($text))));
+			return array_unique(preg_split("/[\W]+/", strtolower(strip_tags(strval($text)))));
 		}
 	}
 
