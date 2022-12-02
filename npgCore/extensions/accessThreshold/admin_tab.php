@@ -52,8 +52,10 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 				return 1;
 			} else if ($b_i === 0) {
 				return -1;
+			} else if ($a_i < $b_i) {
+				return -1;
 			}
-			return strnatcmp($a_i, $b_i);
+			return 1;
 		});
 		break;
 }
