@@ -39,8 +39,8 @@ require_once(__DIR__ . '/class-mutex.php');
 $limit = 15;
 if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	if (isset($conf['PROCESSING_CONCURRENCY'])) {
-		$limit = $conf['PROCESSING_CONCURRENCY'];
+	if (isset($conf['THREAD_CONCURRENCY'])) {
+		$limit = $conf['THREAD_CONCURRENCY'];
 	}
 	unset($conf);
 }

@@ -233,12 +233,6 @@ define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
 
 define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
 
-$chunk = getOption('PROCESSING_CONCURRENCY');
-if (!$chunk) {
-	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
-}
-define('PROCESSING_CONCURRENCY', $chunk);
-
 $chunk = getOption('THREAD_CONCURRENCY');
 if (!$chunk) {
 	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);

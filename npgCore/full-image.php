@@ -236,8 +236,6 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		}
 	} else {
 		//	have to create the image
-		$iMutex = new npgMutex('i', PROCESSING_CONCURRENCY);
-		$iMutex->lock();
 		$newim = gl_imageGet($image_path);
 		if ($rotate) {
 			$newim = imageProcessing::transform($newim, $rotate);
@@ -246,7 +244,6 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			$newim = imageProcessing::watermarkImage($newim, $watermark_use_image, $image_path);
 		}
 
-		$iMutex->unlock();
 		if (!gl_imageOutputt($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
 			debugLog('full-image failed to create:' . $image);
 		}

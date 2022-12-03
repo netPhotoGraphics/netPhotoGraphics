@@ -104,7 +104,7 @@ function loadAlbum($album) {
 		if ($count) {
 			echo '{ ';
 			if (CURL_ENABLED) {
-				$sections = array_chunk($needsCaching, PROCESSING_CONCURRENCY, true);
+				$sections = array_chunk($needsCaching, min(10, THREAD_CONCURRENCY - 1), true);
 				foreach ($sections as $block) {
 					set_time_limit(200);
 					$uriList = array();

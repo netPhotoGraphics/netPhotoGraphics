@@ -56,8 +56,6 @@ function saveOptions() {
 	setOption('full_image_quality', sanitize($_POST['fullimagequality'], 3));
 	setOption('cache_full_image', (int) isset($_POST['cache_full_image']));
 	setOption('protect_full_image', sanitize($_POST['protect_full_image'], 3));
-	$limit = sanitize_numeric($_POST['imageProcessorConcurrency']);
-	setOption('PROCESSING_CONCURRENCY', $limit);
 	$processNotify = processCredentials('protected_image');
 	if ($processNotify) {
 		if ($notify) {
@@ -541,25 +539,6 @@ function getOptionContent() {
 									<p><?php echo gettext("If <em>allow upscale</em> is not checked the watermark will not be made larger than the original watermark image."); ?></p>
 									<p><?php printf(gettext('Custom watermarks should be placed in the <code>/%s/watermarks/</code> folder. The images must be in png-24 format.'), USER_PLUGIN_FOLDER); ?></p>
 
-								</div>
-							</span>
-						</td>
-					</tr>
-					<tr class="optionSet">
-						<td class="option_name"><?php echo gettext("Caching concurrency"); ?></td>
-						<td class="option_value">
-							<?php
-							$max = min(CONCURRENCY_MAX, 60);
-							putSlider('', 'imageProcessorConcurrency', 1, $max, PROCESSING_CONCURRENCY);
-							?>
-						</td>
-						<td class="option_desc">
-							<span class="option_info">
-								<?php echo INFORMATION_BLUE; ?>
-								<div class="option_desc_hidden">
-									<?php
-									echo gettext('Cache processing worker limit.') . '<p class="notebox">' . gettext('More workers will get the job done faster so long as your server does not get swamped or run out of memory.') . '</p>';
-									?>
 								</div>
 							</span>
 						</td>
