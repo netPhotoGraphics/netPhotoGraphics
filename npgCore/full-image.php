@@ -23,7 +23,7 @@ if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SER
 		}
 		unset($conf);
 	}
-	$iMutex = new npgMutex('i', $limit);
+	$iMutex = new npgMutex('i', min(5, $limit));
 	$iMutex->lock();
 	unset($limit);
 }
