@@ -8,8 +8,26 @@
  * @package core
  */
 // force UTF-8 Ø
-if (!defined('OFFSET_PATH'))
-	define('OFFSET_PATH', 1);
+if (!defined('OFFSET_PATH')) {
+	define('OFFSET_PATH', -1);
+}
+require_once(__DIR__ . '/global-definitions.php');
+require_once(__DIR__ . '/class-mutex.php');
+
+if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SERVERPATH))) {
+	$limit = 5;
+	if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+		eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+		if (isset($conf['THREAD_CONCURRENCY'])) {
+			$limit = $conf['THREAD_CONCURRENCY'];
+		}
+		unset($conf);
+	}
+	$iMutex = new npgMutex('i', $limit);
+	$iMutex->lock();
+	unset($limit);
+}
+
 require_once(__DIR__ . "/functions.php");
 require_once(__DIR__ . "/lib-image.php");
 
@@ -251,6 +269,9 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			//	from the cachemanager cache image generator
 			require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 			sendImage(0, 'i.php');
+			if (isset($iMutex)) {
+				$iMutex->unlock();
+			}
 			exit();
 		}
 	}
@@ -272,6 +293,9 @@ if (!is_null($cache_path)) {
 		header("HTTP/1.0 301 Moved Permanently");
 		header("Status: 301 Moved Permanently");
 		header('Location: ' . FULLWEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file)));
+	}
+	if (isset($iMutex)) {
+		$iMutex->unlock();
 	}
 	exit();
 }

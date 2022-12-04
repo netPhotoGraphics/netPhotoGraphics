@@ -17,7 +17,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'clear_rating') {
 
 	if (session_id() == '') {
 		// force session cookie to be secure when in https
-		if (secureServer()) {
+		if (PROTOCOL == 'https') {
 			$CookieInfo = session_get_cookie_params();
 			session_set_cookie_params($CookieInfo['lifetime'], $CookieInfo['path'], $CookieInfo['domain'], TRUE);
 		}

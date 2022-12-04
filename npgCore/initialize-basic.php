@@ -36,7 +36,7 @@ $_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' =>
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$_conf_vars = getConfig();
 }
-if (OFFSET_PATH === 0 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
+if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
 	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
 	$_siteMutex->lock();
 }
@@ -171,15 +171,6 @@ foreach ($_cachefileSuffix as $key => $type) {
 		$_images_classes[$_supported_images[] = strtolower($key)] = 'Image';
 	}
 }
-
-if (secureServer()) {
-	define('PROTOCOL', 'https');
-} else {
-	define('PROTOCOL', 'http');
-}
-
-define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
-define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 
 if (!defined('COOKIE_PERSISTENCE')) {
 	$persistence = getOption('cookie_persistence');

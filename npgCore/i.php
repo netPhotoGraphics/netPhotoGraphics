@@ -31,22 +31,24 @@
 
 
 if (!defined('OFFSET_PATH')) {
-	define('OFFSET_PATH', 2);
+	define('OFFSET_PATH', -1);
 }
 require_once(__DIR__ . '/global-definitions.php');
 require_once(__DIR__ . '/class-mutex.php');
 
-$limit = 15;
-if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	if (isset($conf['THREAD_CONCURRENCY'])) {
-		$limit = $conf['THREAD_CONCURRENCY'];
+if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SERVERPATH))) {
+	$limit = 5;
+	if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+		eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+		if (isset($conf['THREAD_CONCURRENCY'])) {
+			$limit = $conf['THREAD_CONCURRENCY'];
+		}
+		unset($conf);
 	}
-	unset($conf);
+	$iMutex = new npgMutex('i', $limit);
+	$iMutex->lock();
+	unset($limit);
 }
-$iMutex = new npgMutex('i', $limit);
-$iMutex->lock();
-unset($limit);
 
 require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
@@ -188,7 +190,9 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	}
 	$fmt = filemtime($newfile);
 }
-$iMutex->unlock();
+if (isset($iMutex)) {
+	$iMutex->unlock();
+}
 
 $protocol = FULLWEBPATH;
 $path = $protocol . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($newfilename));

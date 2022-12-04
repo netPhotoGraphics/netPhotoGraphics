@@ -82,7 +82,7 @@ if ($_loggedin) {
 	if (!$_current_admin_obj->reset) {
 		$_current_admin_obj->updateLastAccess(TRUE);
 	}
-	if (secureServer()) {
+	if (PROTOCOL == 'https') {
 		// https: refresh the 'ssl_state' marker for redirection
 		setNPGCookie("ssl_state", "needed", NULL, ['secure' => FALSE]);
 	}

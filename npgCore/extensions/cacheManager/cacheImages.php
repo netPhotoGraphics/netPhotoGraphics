@@ -104,12 +104,12 @@ function loadAlbum($album) {
 		if ($count) {
 			echo '{ ';
 			if (CURL_ENABLED) {
-				$sections = array_chunk($needsCaching, min(10, THREAD_CONCURRENCY - 1), true);
+				$sections = array_chunk($needsCaching, min(5, THREAD_CONCURRENCY - 1), true);
 				foreach ($sections as $block) {
 					set_time_limit(200);
 					$uriList = array();
 					foreach ($block as $key => $img) {
-						$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl';
+						$uriList[$key] = FULLHOSTPATH . preg_replace('~\&cached=\d+\&~', '&', $img['uri']) . '&returncheckmark&curl=' . sha1(CORE_SERVERPATH);
 					}
 					$checks = new ParallelCURL($uriList);
 					$rsp = $checks->getResults();
