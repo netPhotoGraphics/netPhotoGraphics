@@ -45,8 +45,8 @@ if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SER
 		}
 		unset($conf);
 	}
-	$iMutex = new npgMutex('i', min(5, $limit));
-	$iMutex->lock();
+	$_siteMutex = new npgMutex('i', min(5, $limit));
+	$_siteMutex->lock();
 	unset($limit);
 }
 
@@ -190,8 +190,8 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	}
 	$fmt = filemtime($newfile);
 }
-if (isset($iMutex)) {
-	$iMutex->unlock();
+if (isset($_siteMutex)) {
+	$_siteMutex->unlock();
 }
 
 $protocol = FULLWEBPATH;
