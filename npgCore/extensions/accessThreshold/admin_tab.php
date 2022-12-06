@@ -17,6 +17,7 @@ $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER 
 
 switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 	default:
+		$_POST['data_sortby'] = 'date';
 	case 'date':
 		$sort = 'accessTime';
 		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
@@ -113,7 +114,7 @@ foreach ($recentIP as $ip => $data) {
 										maxHeight: \'80%\',
 										maxWidth: \'80%\',
 										innerWidth: \'560px\',
-										href:\'ip_list.php?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
+										href:\'' . getAdminLink(PLUGIN_FOLDER . '/accessThreshold/ip_list.php') . '?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
 	}
 	if (count($data['accessed']) < 10) {
 		$invalid = 'color:LightGrey;';
