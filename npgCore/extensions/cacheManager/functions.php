@@ -26,7 +26,7 @@ function getImageProcessorURIFromCacheName($match, $watermarks) {
 			}
 		}
 		if (!isset($set['w']) && !isset($set['h']) && !isset($set['s'])) {
-			if (!isset($set['wm']) && in_array($check, $watermarks)) {
+			if (!isset($set['wmk']) && in_array($check, $watermarks)) {
 				$set['wmk'] = $check;
 			} else if ($check == 'thumb') {
 				$set['t'] = true;

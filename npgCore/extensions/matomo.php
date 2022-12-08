@@ -130,7 +130,7 @@ class matomoStats {
 	 */
 	static function script($exclude = NULL) {
 		if (empty($exclude) || (!in_array('matomo_tag', $exclude))) {
-			$url = getOption('matomo_url');
+			$url = strval(getOption('matomo_url'));
 			$id = getOption('matomo_id');
 			$sitedomain = trim(getOption('matomo_sitedomain'));
 			?>
@@ -212,7 +212,7 @@ class matomoStats {
 	 */
 	static function getOptOutiFrame() {
 		$userlocale = substr(i18n::getUserLocale(), 0, 2);
-		$url = getOption('matomo_url');
+		$url = strval(getOption('matomo_url'));
 		$src = $url . '/index.php?module=CoreAdminHome&action=optOut&language=' . $userlocale;
 		return '<iframe style="border: 0; height: 200px; width: 100%;" src="' . $src . '"></iframe>';
 	}
