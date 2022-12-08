@@ -49,7 +49,7 @@ function getImageProcessorURIFromCacheName($match, $watermarks) {
 	return array($image, getImageArgs($set));
 }
 
-function getTitle($table, $row) {
+function getItemTitle($table, $row) {
 	switch ($table) {
 		case 'images':
 			$album = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $row['albumid']);
