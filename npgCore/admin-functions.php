@@ -943,7 +943,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				if (isset($row['key'])) {
 					$key = $row['key'];
 				} else {
-					$key = NULL;
+					$key = rand(); //	so there are no duplicate IDs
 				}
 				$postkey = postIndexEncode($key);
 				$optionID = $whom . '_' . $key;
@@ -988,7 +988,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if ($db) {
 						$v = $db['value'];
 					} else {
-						$v = NULL;
+						$v = false;
 					}
 				}
 
