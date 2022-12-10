@@ -19601,7 +19601,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/menu_manager/menu_tab.php
 %extensions%/menu_manager/menu_tab_edit.php
 %extensions%/mobileTheme
-%extensions%/mobileTheme/Mobile_Detect.php
+%extensions%/mobileTheme/MobileDetect.php
 %extensions%/openstreetmap
 %extensions%/openstreetmap/Control.MiniMap.min.css
 %extensions%/openstreetmap/Control.MiniMap.min.js
