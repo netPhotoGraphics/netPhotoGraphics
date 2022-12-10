@@ -208,9 +208,9 @@ class mobileTheme {
 
 }
 
-require_once(PLUGIN_SERVERPATH . 'mobileTheme/Mobile_Detect.php');
+require_once(PLUGIN_SERVERPATH . 'mobileTheme/MobileDetect.php');
 
-class mobile extends Mobile_Detect {
+class mobile extends \Detection\MobileDetect {
 
 	function __construct() {
 		parent::__construct();
@@ -220,7 +220,7 @@ class mobile extends Mobile_Detect {
 	 * (non-PHPdoc)
 	 * @see Mobile_Detect::isMobile()
 	 */
-	function isMobile($userAgent = NULL, $httpHeaders = NULL) {
+	public function isMobile($userAgent = null, $httpHeaders = null): bool {
 		if (getOption('mobileTheme_test') || isset($_GET['mobile'])) {
 			return true;
 		}
@@ -231,7 +231,7 @@ class mobile extends Mobile_Detect {
 	 * (non-PHPdoc)
 	 * @see Mobile_Detect::isTablet()
 	 */
-	function isTablet($userAgent = NULL, $httpHeaders = NULL) {
+	public function isTablet(string $userAgent = null, array $httpHeaders = null): bool {
 		if (getOption('mobileTheme_test') == 'tablet' || isset($_GET['mobile']) && $_GET['mobile'] == 'tablet') {
 			return true;
 		}
