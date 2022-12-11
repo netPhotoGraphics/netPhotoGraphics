@@ -52,6 +52,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	$multi = getOption('multi_lingual');
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("Content-Security-Policy: default-src " . FULLWEBPATH . "/ 'unsafe-inline' 'unsafe-eval'; img-src 'self'");
+	header("Content-Security-Policy: content-src https://translate.googleapis.com/");
 	header('X-Frame-Options: deny');
 	header('X-Content-Type-Options: nosniff');
 	header('Referrer-Policy: origin');
