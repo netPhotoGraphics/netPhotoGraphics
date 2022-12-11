@@ -40,6 +40,10 @@ class rss_options {
 			setOptionDefault('RSS_cache_expire', 86400);
 			setOptionDefault('RSS_hitcounter', 1);
 			setOptionDefault('RSS_title', 'both');
+			if (!file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/rss-closed.xml')) {
+				require_once(PLUGIN_SERVERPATH . 'site_upgrade.php');
+				site_upgrade::updateXML(array('rss-closed.xml' => 'RSS'));
+			}
 		}
 	}
 
@@ -715,36 +719,36 @@ class RSS extends feed {
 					<lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
 					<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 					<generator>netPhotoGraphics RSS Generator</generator>
-					<?php
-					foreach ($feeditems as $feeditem) {
-						switch ($this->feedtype) {
-							case 'gallery':
-								$item = $this->getItemGallery($feeditem);
-								break;
-							case 'news':
-								$item = $this->getItemNews($feeditem);
-								break;
-							case 'pages':
-								$item = $this->getitemPages($feeditem, getOption('RSS_truncate_length'));
-								break;
-							case 'comments':
-								$item = $this->getitemComments($feeditem);
-								break;
-							default:
-								$item = $feeditem;
-								break;
-						}
-						?>
+			<?php
+			foreach ($feeditems as $feeditem) {
+				switch ($this->feedtype) {
+					case 'gallery':
+						$item = $this->getItemGallery($feeditem);
+						break;
+					case 'news':
+						$item = $this->getItemNews($feeditem);
+						break;
+					case 'pages':
+						$item = $this->getitemPages($feeditem, getOption('RSS_truncate_length'));
+						break;
+					case 'comments':
+						$item = $this->getitemComments($feeditem);
+						break;
+					default:
+						$item = $feeditem;
+						break;
+				}
+				?>
 						<item>
 							<title><![CDATA[<?php echo $item['title']; ?>]]></title>
 							<link><?php echo html_encode($item['link']); ?></link>
 							<description><![CDATA[<?php echo $item['desc']; ?>]]></description>
-							<?php
-							if (!empty($item['enclosure'])) {
-								echo $item['enclosure']; //prints xml as well
-							}
-							if (!empty($item['category'])) {
-								?>
+				<?php
+				if (!empty($item['enclosure'])) {
+					echo $item['enclosure']; //prints xml as well
+				}
+				if (!empty($item['category'])) {
+					?>
 								<category><![CDATA[<?php echo $item['category']; ?>]]></category>
 								<?php
 							}
@@ -758,9 +762,9 @@ class RSS extends feed {
 							<guid><?php echo html_encode($item['link']); ?></guid>
 							<pubDate><?php echo html_encode($item['pubdate']); ?></pubDate>
 						</item>
-						<?php
-					} // foreach
-					?>
+				<?php
+			} // foreach
+			?>
 				</channel>
 			</rss>
 			<?php

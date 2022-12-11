@@ -38,9 +38,10 @@ $plugin_is_filter = defaultExtension(900 | FEATURE_PLUGIN);
 $plugin_description = gettext('Utility to divert access to the gallery to a screen saying the site is upgrading.');
 $plugin_notice = (MOD_REWRITE) ? false : gettext('<em>mod_rewrite</em> is not enabled. This plugin may not work without rewrite redirection if the upgrade is significantly different than the running release.');
 
-$_site_filelist = array(
+define('SITE_UPGRADE_FILELIST', array(
 		'closed.htm' => '+', // copy and update define
 		'closed.php' => '*' // copy and update
+				)
 );
 
 class site_upgrade {
@@ -117,13 +118,13 @@ class site_upgrade {
 	}
 
 	static function button($buttons) {
-		global $_conf_vars, $_site_filelist;
+		global $_conf_vars;
 		$state = isset($_conf_vars['site_upgrade_state']) ? $_conf_vars['site_upgrade_state'] : NULL;
 
 		$update = false;
 		$hash = getSerializedArray(getOption('site_upgrade_hash'));
 
-		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
+		foreach (npgFilters::apply('site_upgrade_xml', SITE_UPGRADE_FILELIST) as $name => $source) {
 			if (file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name)) {
 				if (!isset($hash[$name]) || $hash[$name] != md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name))) {
 					$update = true;
@@ -213,12 +214,12 @@ class site_upgrade {
 		return $buttons;
 	}
 
-	static function updateXML() {
-		global $_site_filelist, $_gallery;
+	static function updateXML($files) {
+		global $_gallery;
 		mkdir_recursive(USER_PLUGIN_SERVERPATH . 'site_upgrade/', FOLDER_MOD);
 		setOptionDefault('site_upgrade_hash', NULL);
 		$hash = array();
-		foreach (npgFilters::apply('site_upgrade_xml', $_site_filelist) as $name => $source) {
+		foreach ($files as $name => $source) {
 			switch ($source) {
 				case '*':
 					$data = file_get_contents(PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
@@ -281,16 +282,19 @@ switch (OFFSET_PATH) {
 		npgFilters::register('admin_utilities_buttons', 'site_upgrade::button');
 		npgFilters::register('installation_information', 'site_upgrade::status');
 		npgFilters::register('admin_note', 'site_upgrade::note');
+
 		if (isset($_GET['refreshHTML'])) {
 			XSRFdefender('site_upgrade_refresh');
-			site_upgrade::updateXML();
+			site_upgrade::updateXML(npgFilters::apply('site_upgrade_xml', SITE_UPGRADE_FILELIST));
 			$_GET['report'] = gettext('site_upgrade files Restored to original.');
 		}
 		break;
 	case 2:
-		$_site_filelist = array(
-				'closed.php' => '*' // copy and update just this file
-		);
-		site_upgrade::updateXML();
+		$_SITE_UPGRADE_FILELIST = SITE_UPGRADE_FILELIST;
+		if (file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/closed.htm')) {
+			unset($_SITE_UPGRADE_FILELIST['closed.htm']);
+		}
+		site_upgrade::updateXML($_SITE_UPGRADE_FILELIST);
+		unset($_SITE_UPGRADE_FILELIST);
 		break;
 }
