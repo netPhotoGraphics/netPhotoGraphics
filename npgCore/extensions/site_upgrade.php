@@ -217,7 +217,6 @@ class site_upgrade {
 	static function updateXML($files) {
 		global $_gallery;
 		mkdir_recursive(USER_PLUGIN_SERVERPATH . 'site_upgrade/', FOLDER_MOD);
-		setOptionDefault('site_upgrade_hash', NULL);
 		$hash = array();
 		foreach ($files as $name => $source) {
 			switch ($source) {
@@ -263,7 +262,19 @@ class site_upgrade {
 			file_put_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name, $data);
 			$hash[$name] = md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name));
 		}
+		$prior = getSerializedArray(getOption('site_upgrade_hash'));
+		$hash = array_merge($prior, $hash);
 		setOption('site_upgrade_hash', serialize($hash));
+	}
+
+	static function replace($name) {
+		$prior = getSerializedArray(getOption('site_upgrade_hash'));
+		if (isset($prior[$name]) && file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name)) {
+			$hash = md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name));
+			return $hash = $prior[$name];
+		} else {
+			return true;
+		}
 	}
 
 }
@@ -290,11 +301,10 @@ switch (OFFSET_PATH) {
 		}
 		break;
 	case 2:
-		$_SITE_UPGRADE_FILELIST = SITE_UPGRADE_FILELIST;
-		if (file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/closed.htm')) {
-			unset($_SITE_UPGRADE_FILELIST['closed.htm']);
+		foreach (SITE_UPGRADE_FILELIST as $file => $type) {
+			if (site_upgrade::replace($file)) {
+				site_upgrade::updateXML(array($file => $type));
+			}
 		}
-		site_upgrade::updateXML($_SITE_UPGRADE_FILELIST);
-		unset($_SITE_UPGRADE_FILELIST);
 		break;
 }
