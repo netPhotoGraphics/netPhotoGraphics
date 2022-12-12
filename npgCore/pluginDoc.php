@@ -40,6 +40,7 @@ function processDocBlock($docBlock) {
 	$markup = array(
 			'&amp;gt;' => '>',
 			'&amp;lt;' => '<',
+			'&amp;nbsp;' => '&nbsp;',
 			'&amp;percnt;' => '%',
 			'&lt;i&gt;' => '<em>',
 			'&lt;/i&gt;' => '</em>',
