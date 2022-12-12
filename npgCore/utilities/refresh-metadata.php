@@ -167,7 +167,7 @@ printTabs();
 			}
 		} else {
 			$dateset = '';
-			if ($_gallery->getAlbumUseImagedate()) {
+			if (!empty($folder) && $_gallery->getAlbumUseImagedate()) {
 				$albumobj = newAlbum($folder);
 				if ($albumobj->getNumImages()) {
 					//	there will be an image to set the album date from

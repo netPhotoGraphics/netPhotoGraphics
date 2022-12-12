@@ -55,6 +55,7 @@ class VideoJS extends html5Player {
 	public $name = 'VideoJS';
 	public $width = '';
 	public $height = '';
+	public $playersize = '';
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {

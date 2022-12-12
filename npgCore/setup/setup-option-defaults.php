@@ -1053,15 +1053,16 @@ setOptionDefault('search_within', 1);
 
 setOptionDefault('debug_log_size', 5000000);
 
-renameOption('imageProcessorConcurrency', 'PROCESSING_CONCURRENCY');
-setOptionDefault('PROCESSING_CONCURRENCY', PROCESSING_CONCURRENCY);
-if (!array_key_exists('PROCESSING_CONCURRENCY', $_conf_vars)) {
+if (array_key_exists('PROCESSING_CONCURRENCY', $_conf_vars)) {
 	$_configMutex->lock();
 	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-	$_config_contents = configFile::update('PROCESSING_CONCURRENCY', PROCESSING_CONCURRENCY, $_config_contents);
+	$_config_contents = preg_replace('~\$conf\[\'PROCESSING_CONCURRENCY\'\].*\n~i', '', $_config_contents);
 	configFile::store($_config_contents);
 	$_configMutex->unlock();
 }
+purgeOption('PROCESSING_CONCURRENCY');
+purgeOption('imageProcessorConcurrency');
+
 if (!array_key_exists('THREAD_CONCURRENCY', $_conf_vars)) {
 	$_configMutex->lock();
 	$_config_contents = @file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);

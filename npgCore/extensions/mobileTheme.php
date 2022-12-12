@@ -162,7 +162,7 @@ class mobileTheme {
 			if (MOD_REWRITE) {
 				$link = '?mobileTheme=' . $enable;
 			} else {
-				global $_gallery_page, $_current_images, $_current_album, $_CMS_current_article, $_CMS_current_category, $_CMS_current_page;
+				global $_gallery_page, $_current_image, $_current_album, $_CMS_current_article, $_CMS_current_category, $_CMS_current_page;
 				switch ($_gallery_page) {
 					case 'index.php':
 						$link = 'index.php?mobileTheme=' . $enable;
@@ -208,9 +208,9 @@ class mobileTheme {
 
 }
 
-require_once(PLUGIN_SERVERPATH . 'mobileTheme/Mobile_Detect.php');
+require_once(PLUGIN_SERVERPATH . 'mobileTheme/MobileDetect.php');
 
-class mobile extends Mobile_Detect {
+class mobile extends \Detection\MobileDetect {
 
 	function __construct() {
 		parent::__construct();
@@ -220,7 +220,7 @@ class mobile extends Mobile_Detect {
 	 * (non-PHPdoc)
 	 * @see Mobile_Detect::isMobile()
 	 */
-	function isMobile($userAgent = NULL, $httpHeaders = NULL) {
+	public function isMobile($userAgent = null, $httpHeaders = null): bool {
 		if (getOption('mobileTheme_test') || isset($_GET['mobile'])) {
 			return true;
 		}
@@ -231,7 +231,7 @@ class mobile extends Mobile_Detect {
 	 * (non-PHPdoc)
 	 * @see Mobile_Detect::isTablet()
 	 */
-	function isTablet($userAgent = NULL, $httpHeaders = NULL) {
+	public function isTablet(string $userAgent = null, array $httpHeaders = null): bool {
 		if (getOption('mobileTheme_test') == 'tablet' || isset($_GET['mobile']) && $_GET['mobile'] == 'tablet') {
 			return true;
 		}

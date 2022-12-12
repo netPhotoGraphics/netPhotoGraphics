@@ -95,7 +95,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 								if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 									$link = npgFunctions::updateImageProcessorLink($uri);
 									$url = '<span><img src="' . $link . '" height="20" width="20" alt="X" /></span>';
-									$title = getTitle($table, $row) . ' ' . gettext('image processor reference');
+									$title = getItemTitle($table, $row) . ' ' . gettext('image processor reference');
 									if (CURL_ENABLED) {
 										$rslt = curlRequest(FULLHOSTPATH . $link . '&returncheckmark&curl');
 										if (is_numeric($rslt)) {
@@ -205,7 +205,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 									$uri = getImageURI($args, dirname($image), basename($image), NULL);
 									if (strpos($uri, '/' . CORE_FOLDER . '/i.') !== false) {
 										$fixed++;
-										$title = getTitle($table, $row);
+										$title = getItemTitle($table, $row);
 										if (CURL_ENABLED) {
 											$rslt = curlRequest(FULLHOSTPATH . $uri . '&returncheckmark&curl');
 											if (is_numeric($rslt)) {

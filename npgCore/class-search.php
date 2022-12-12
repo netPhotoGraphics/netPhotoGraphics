@@ -31,8 +31,8 @@ class SearchEngine {
 	protected $dynalbumname = NULL;
 	protected $searchprivatetags = NULL;
 	public $album = NULL;
-	protected $words;
-	protected $dates;
+	protected $words = false;
+	protected $dates = false;
 	protected $search_no_albums = false; // omit albums
 	protected $search_no_images = false; // omit images
 	protected $search_no_pages = false; // omit pages
@@ -111,6 +111,7 @@ class SearchEngine {
 
 		if (isset($_REQUEST['words'])) {
 			$this->words = self::decode(sanitize($_REQUEST['words'], 4));
+			$this->dates = false;
 		} else {
 			$this->words = false;
 			if (isset($_REQUEST['date'])) { // words & dates are mutually exclusive

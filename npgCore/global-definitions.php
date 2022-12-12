@@ -174,6 +174,29 @@ unset($matches);
 unset($const_webpath);
 unset($const_serverpath);
 
+if (isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
+	$protocol = 'https';
+} else if (!(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
+	$protocol = 'https';
+} else if (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == "https") {
+	$protocol = 'https';
+} else if (isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] )) {
+	$protocol = 'https';
+} else if (isset($_SERVER['HTTP_FORWARDED']) && preg_match("/^(.+[,;])?\s*proto=https\s*([,;].*)$/", strtolower($_SERVER['HTTP_FORWARDED']))) {
+	$protocol = 'https';
+} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ('https' == strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']))) {
+	$protocol = 'https';
+} else {
+	$protocol = 'http';
+}
+define('PROTOCOL', $protocol);
+unset($protocol);
+
+define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
+define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
+
+define('SESSION_NAME', 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
+
 define('FALLBACK_SUFFIX', 'webp');
 define('CURL_ENABLED', function_exists('curl_init'));
 define('AUTHCOOKIE', 'user_auth' . str_replace('/', '_', WEBPATH));

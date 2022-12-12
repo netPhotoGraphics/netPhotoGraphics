@@ -116,7 +116,6 @@ class Video extends Image {
 			$this->videoalt[] = trim(strtolower($alt));
 		}
 		$this->sidecars = $_supported_images;
-		$this->video = true;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 
 		// This is where the magic happens...

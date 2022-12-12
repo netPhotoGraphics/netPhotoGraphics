@@ -42,7 +42,6 @@ if (!defined('LC_MESSAGES')) {
 require('streams.php');
 require('gettext.php');
 
-
 // Variables
 
 global $text_domains, $default_domain, $LC_CATEGORIES, $EMULATEGETTEXT, $CURRENTLOCALE;
@@ -96,18 +95,18 @@ function get_list_of_locales($locale) {
 			if ($modifier) {
 				if ($country) {
 					if ($charset)
-						array_push($locale_names, "${lang}_$country.$charset@$modifier");
-					array_push($locale_names, "${lang}_$country@$modifier");
+						array_push($locale_names, "{$lang}_$country.$charset@$modifier");
+					array_push($locale_names, "{$lang}_$country@$modifier");
 				} elseif ($charset)
-					array_push($locale_names, "${lang}.$charset@$modifier");
+					array_push($locale_names, "{$lang}.$charset@$modifier");
 				array_push($locale_names, "$lang@$modifier");
 			}
 			if ($country) {
 				if ($charset)
-					array_push($locale_names, "${lang}_$country.$charset");
-				array_push($locale_names, "${lang}_$country");
+					array_push($locale_names, "{$lang}_$country.$charset");
+				array_push($locale_names, "{$lang}_$country");
 			} elseif ($charset)
-				array_push($locale_names, "${lang}.$charset");
+				array_push($locale_names, "{$lang}.$charset");
 			array_push($locale_names, $lang);
 		}
 
@@ -164,7 +163,7 @@ function locale_emulation() {
  */
 function _check_locale_and_function($function = false) {
 	global $EMULATEGETTEXT;
-	if ($function and ! function_exists($function))
+	if ($function and!function_exists($function))
 		return false;
 	return !$EMULATEGETTEXT;
 }
@@ -227,7 +226,7 @@ function _setlocale($category, $locale) {
 	} else {
 		if (function_exists('setlocale')) {
 			$ret = setlocale($category, $locale);
-			if (($locale == '' and ! $ret) or // failed setting it by env
+			if (($locale == '' and!$ret) or // failed setting it by env
 							( $locale != '' and $ret != $locale)) { // failed setting it
 				// Failed setting it according to environment.
 				$CURRENTLOCALE = _get_default_locale($locale);

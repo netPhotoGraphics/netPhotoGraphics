@@ -646,7 +646,7 @@ function renameOption($oldKey, $newKey) {
  * Emits the code for running plugins and themes to set their default options
  *
  * If the installation has the PHP CURL module configured CURL will be used
- * to fetch blocks of PROCESSING_CONCURRENCY items in parallel.
+ * to fetch blocks of THREAD_CONCURRENCY items in parallel.
  *
  * @param string $urls list of URLs to fetch
  * @return boolean true if there was an error
@@ -657,7 +657,7 @@ function optionCheck($urls) {
 		foreach ($urls as $whom => $url) {
 			$urls[$whom] = $url . '&curl';
 		}
-		$sections = array_chunk($urls, PROCESSING_CONCURRENCY, true);
+		$sections = array_chunk($urls, min(10, THREAD_CONCURRENCY - 1), true);
 		foreach ($sections as $block) {
 			$checks = new ParallelCURL($block);
 			$rsp = $checks->getResults();

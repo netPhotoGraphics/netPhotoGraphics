@@ -299,11 +299,9 @@ class Image extends MediaObject {
 		$this->albumnamealbum = $this->album = &$album;
 		if ($album->name == '') {
 			$this->webpath = ALBUM_FOLDER_WEBPATH . $filename;
-			$this->encwebpath = ALBUM_FOLDER_WEBPATH . rawurlencode($filename);
 			$this->localpath = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($filename);
 		} else {
 			$this->webpath = ALBUM_FOLDER_WEBPATH . $album->name . "/" . $filename;
-			$this->encwebpath = ALBUM_FOLDER_WEBPATH . pathurlencode($album->name) . "/" . rawurlencode($filename);
 			$this->localpath = $album->localpath . $fileFS;
 		}
 		$this->imagefolder = $this->albumlink = $this->albumname = $album->name;
@@ -314,7 +312,6 @@ class Image extends MediaObject {
 		}
 		$this->comments = null;
 		$this->filemtime = filemtime($this->localpath);
-		$this->imagetype = strtolower(get_class($this)) . 's';
 		$date = $this->get('date');
 		if (!$date || $date == '0000-00-00 00:00:00') {
 			$this->set('date', date('Y-m-d H:i:s', $this->filemtime));

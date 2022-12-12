@@ -263,7 +263,7 @@ class dynamic_locale {
 		if (($lang != BASE_LOCALE) && $l = $_locale_Subdomains[$lang]) {
 			$host = $l . '.' . $host;
 		}
-		if (secureServer()) {
+		if (PROTOCOL == 'https') {
 			$host = 'https://' . $host;
 		} else {
 			$host = 'http://' . $host;

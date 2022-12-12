@@ -400,6 +400,7 @@ function formattedDate($format, $dt) {
 				'M' => 'MMM',
 				'F' => 'MMMM',
 				'm' => 'MM',
+				'n' => 'M',
 				//	day
 				'l' => 'EEEE',
 				'D' => 'EEE',
@@ -409,12 +410,15 @@ function formattedDate($format, $dt) {
 				//	hour
 				'H' => 'HH',
 				'G' => 'H',
-				'h' => 'KK',
+				'h' => 'hh',
 				'g' => 'h',
 				//	minutes
 				'i' => 'mm',
 				//	second
 				's' => 'ss',
+				//	am/pm
+				'a' => 'b',
+				'A' => 'a',
 				//	time zone
 				'e' => 'vv',
 				'O' => 'xx',
@@ -2734,7 +2738,7 @@ class npgFunctions {
 				$exifvars = array_merge($exifvars, $handler::getMetadataFields());
 			}
 		}
-		$exifvars = sortMultiArray($exifvars, 2, false, true, false, true);
+		$exifvars = sortMultiArray($exifvars, 2, false, true, true, true);
 		if ($default) {
 			return $exifvars;
 		}

@@ -26,7 +26,7 @@ function getImageProcessorURIFromCacheName($match, $watermarks) {
 			}
 		}
 		if (!isset($set['w']) && !isset($set['h']) && !isset($set['s'])) {
-			if (!isset($set['wm']) && in_array($check, $watermarks)) {
+			if (!isset($set['wmk']) && in_array($check, $watermarks)) {
 				$set['wmk'] = $check;
 			} else if ($check == 'thumb') {
 				$set['t'] = true;
@@ -49,7 +49,7 @@ function getImageProcessorURIFromCacheName($match, $watermarks) {
 	return array($image, getImageArgs($set));
 }
 
-function getTitle($table, $row) {
+function getItemTitle($table, $row) {
 	switch ($table) {
 		case 'images':
 			$album = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $row['albumid']);

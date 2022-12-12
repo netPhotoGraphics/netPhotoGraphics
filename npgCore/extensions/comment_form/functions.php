@@ -350,9 +350,9 @@ function comment_form_addComment($commentobj, $name, $email, $website, $comment,
 	}
 	$type = $receiver->table;
 	$receiver->getComments();
-	$name = trim($name);
-	$email = trim($email);
-	$website = trim($website);
+	$name = trim(strval($name));
+	$email = trim(strval($email));
+	$website = trim(strval($website));
 	// Let the comment have trailing line breaks and space? Nah...
 	// Also (in)validate HTML here, and in $name.
 	$comment = trim($comment);

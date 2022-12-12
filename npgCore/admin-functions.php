@@ -52,6 +52,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	$multi = getOption('multi_lingual');
 	header('Content-Type: text/html; charset=' . LOCAL_CHARSET);
 	header("Content-Security-Policy: default-src " . FULLWEBPATH . "/ 'unsafe-inline' 'unsafe-eval'; img-src 'self'");
+	header("Content-Security-Policy: content-src https://translate.googleapis.com/");
 	header('X-Frame-Options: deny');
 	header('X-Content-Type-Options: nosniff');
 	header('Referrer-Policy: origin');
@@ -943,7 +944,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				if (isset($row['key'])) {
 					$key = $row['key'];
 				} else {
-					$key = NULL;
+					$key = rand(); //	so there are no duplicate IDs
 				}
 				$postkey = postIndexEncode($key);
 				$optionID = $whom . '_' . $key;
@@ -988,7 +989,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					if ($db) {
 						$v = $db['value'];
 					} else {
-						$v = NULL;
+						$v = false;
 					}
 				}
 

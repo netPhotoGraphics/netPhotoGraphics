@@ -201,7 +201,7 @@ function processDocBlock($docBlock) {
 }
 
 if (!defined('OFFSET_PATH')) {
-	define('OFFSET_PATH', 2);
+	define('OFFSET_PATH', 2); //	So plugins are not automatically loaded
 	define('SETUP_PLUGIN', TRUE); //	so the descriptions of class plugins are active
 	require_once(__DIR__ . '/admin-globals.php');
 	require_once(CORE_SERVERPATH . 'template-functions.php');
@@ -222,6 +222,8 @@ if (!defined('OFFSET_PATH')) {
 	} else {
 		$pluginToBeDocPath = PLUGIN_SERVERPATH . '' . $extension . '.php';
 	}
+
+	//	starrt with a clean slate
 	$plugin_description = '';
 	$plugin_notice = '';
 	$plugin_disable = '';
@@ -398,7 +400,7 @@ if (!defined('OFFSET_PATH')) {
 								new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 							}
 						</script>
-						<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+						<script type="text/javascript" src="//translate.googleapis.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 					</div>
 					<br class="clearall" />
 

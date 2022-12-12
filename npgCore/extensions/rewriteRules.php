@@ -120,13 +120,12 @@ if ($ruleFile) {
 
 npgFilters::register('admin_tabs', 'rewriteRules::tabs', 100);
 
-
 require_once(CORE_SERVERPATH . 'lib-config.php');
 
 class rewriteRules {
 
-	private $_config_contents_a;
-	private $_config_contents_b;
+	private $_cfg_a;
+	private $_cfg_b;
 	private $conf_vars = array();
 	private $plugin_vars = array();
 

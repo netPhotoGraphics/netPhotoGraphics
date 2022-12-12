@@ -89,6 +89,7 @@ class fieldExtender {
 			}
 			$current = $fields = $searchDefault = array();
 			if (extensionEnabled($me)) { //need to update the database tables.
+				$newfields = sortMultiArray($newfields, array('table', 'name'), false, true, true, true);
 				foreach ($newfields as $newfield) {
 					$table = $newfield['table'];
 					$name = $newfield['name'];
@@ -183,6 +184,7 @@ class fieldExtender {
 							$sql .= ' DEFAULT ' . $newfield['default'];
 						}
 						$sql .= " COMMENT 'optional_$me'";
+
 						if ((!$cmd || setupQuery($sql)) && in_array($newfield['table'], array('albums', 'images', 'news', 'news_categories', 'pages'))) {
 							$fields[] = strtolower($newfield['name']);
 						}

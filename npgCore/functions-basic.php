@@ -688,37 +688,13 @@ function debugLogVar($var) {
 }
 
 /**
- * Checks to see if access was through a secure protocol
- *
- * @return bool
- */
-function secureServer() {
-	global $_conf_vars;
-	if (isset($_conf_vars['server_protocol']) && $_conf_vars['server_protocol'] == 'https') {
-		return true;
-	} else if (!(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
-		return true;
-	} else if (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == "https") {
-		return true;
-	} else if (isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] )) {
-		return true;
-	} else if (isset($_SERVER['HTTP_FORWARDED']) && preg_match("/^(.+[,;])?\s*proto=https\s*([,;].*)$/", strtolower($_SERVER['HTTP_FORWARDED']))) {
-		return true;
-	} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && ('https' == strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']))) {
-		return true;
-	}
-	return false;
-}
-
-/**
  *
  * Starts a session (perhaps a secure one)
  */
 function npg_session_start() {
 	global $_conf_vars;
-	$sessionName = 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE);
 
-	if (($id = session_id()) && session_name() == $sessionName) {
+	if (($id = session_id()) && session_name() == SESSION_NAME) {
 		if (!defined('npg_SID')) {
 			define('npg_SID', session_id());
 		}
@@ -727,7 +703,7 @@ function npg_session_start() {
 		if ($id) {
 			session_abort(); //	close existing session which has different name
 		}
-		session_name($sessionName);
+		session_name(SESSION_NAME);
 		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
@@ -742,7 +718,7 @@ function npg_session_start() {
 				'lifetime' => 0,
 				'path' => WEBPATH . '/',
 				'domain' => $_SERVER['HTTP_HOST'],
-				'secure' => secureServer(),
+				'secure' => PROTOCOL == 'https',
 				'httponly' => TRUE,
 				'samesite' => 'Strict'
 		);
@@ -844,7 +820,7 @@ function setNPGCookie($name, $value, $time = NULL, $uniqueoptions = array()) {
 							'domain' => '',
 							'httponly' => TRUE,
 							'samesite' => 'Strict',
-							'secure' => secureServer()
+							'secure' => PROTOCOL == 'https'
 					), $uniqueoptions);
 
 	if (DEBUG_LOGIN) {
