@@ -40,8 +40,6 @@ function processDocBlock($docBlock) {
 	$markup = array(
 			'&amp;gt;' => '>',
 			'&amp;lt;' => '<',
-			'&amp;nbsp;' => '&nbsp;',
-			'&amp;percnt;' => '%',
 			'&lt;i&gt;' => '<em>',
 			'&lt;/i&gt;' => '</em>',
 			'&lt;em&gt;' => '<em>',
@@ -186,7 +184,9 @@ function processDocBlock($docBlock) {
 						}
 					}
 				}
-				$line = strtr(html_encode($line), array_merge($tags, $markup));
+
+				$line = preg_replace('~\&amp;(\w+);~i', '&\1;', html_encode($line));
+				$line = strtr($line, array_merge($tags, $markup));
 				$doc .= $line . " \n";
 				$empty = false;
 			}

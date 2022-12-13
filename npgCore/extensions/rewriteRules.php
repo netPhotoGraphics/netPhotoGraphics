@@ -43,11 +43,11 @@
  *
  * #### Definitions
  * 	<br />
- * 	Define %REWRITE_RULES%						=>	"rules-list"
+ * 	Define %REWRITE_RULES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;&nbsp;"rules-list"
  * 	<br />
- * 	Define &percnt;PLUGIN_PATH&percnt;						=>	PLUGIN_PATH
+ * 	Define &percnt;PLUGIN_PATH&percnt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;&nbsp;PLUGIN_PATH
  * 	<br />
- * 	define %BREAKING_NEWS%						=>	str_replace(WEBPATH.'/', '', <span class="nowrap">newCategory("Breaking-news")->getLink(1)</span>);
+ * 	define %BREAKING_NEWS%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;&nbsp;str_replace(WEBPATH.'/', '', <span class="nowrap">newCategory("Breaking-news")->getLink(1)</span>);
  *
  * </code>
  * The first Define associates the token <code>%REWRITE_RULES%</code> with the string <code>rules-list</code>
@@ -63,23 +63,23 @@
  *
  * 	#### Rewrite rule cause "rules-list" to redirect to the rewriteRules admin page
  * 	<br />
- * 	RewriteRule ^%REWRITE_RULES%/*$										&percnt;CORE_PATH&percnt;/&percnt;PLUGIN_PATH&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
+ * 	RewriteRule ^%REWRITE_RULES%/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&percnt;CORE_PATH&percnt;/&percnt;PLUGIN_PATH&percnt;/rewriteRules/admin_tab.php [NC,L,QSA]
  *
  * 	### Rewite rule to cause "back-end" to redirect to the admin overview page
  * 	<br />
- * 	RewriteRule ^back-end/*$													&percnt;CORE_PATH&percnt;/admin.php [NC,L,QSA]
+ * 	RewriteRule ^back-end/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&percnt;CORE_PATH&percnt;/admin.php [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "contact-us" to redirect to the theme "contact" script
  * 	<br />
- * 	RewriteRule ^contact-us/*$												index.php?p=contact [NC,L,QSA]
+ * 	RewriteRule ^contact-us/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.php?p=contact [NC,L,QSA]
  * 	<br /><br />
  * 	### Rewite rule to cause "breaking-news" to redirect to the theme "Breaking-news" category page.
  * 	<br />
- * 	RewriteRule ^breaking-news/*$											%BREAKING_NEWS% [NC]	#Note: the pattern match is case insensitive
+ * 	RewriteRule ^breaking-news/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%BREAKING_NEWS% [NC]	#Note: the pattern match is case insensitive
  * 	<br /><br />
  * 	### Rewite rule to cause redirect the "register-me" link as permanantly moved (R=301) to the theme registration page
  * 	<br />
- * 	RewriteRule ^register-me/*$												%REGISTER_USER% [R=301]
+ * 	RewriteRule ^register-me/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%REGISTER_USER% [R=301]
  * 	<br /><br />
  * 	### Rewite rules to cause any link in the "iambad" tree to be rejected as forbidden
  * 	<br />
@@ -87,9 +87,9 @@
  * 	<br />
  * 	### (the existing path is passed through untouched)
  * 	<br />
- * 	RewriteRule ^iambad/(.*)/*$												- [F]
+ * 	RewriteRule ^iambad/(.*)/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [F]
  * 	<br />
- * 	RewriteRule ^iambad/*$														- [F]
+ * 	RewriteRule ^iambad/*$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [F]
  * </code>
  *
  *
