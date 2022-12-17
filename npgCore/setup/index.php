@@ -690,25 +690,17 @@ clearstatcache();
 							}
 
 							primeMark(gettext('Display_errors'));
-							switch (strtolower(@ini_get('display_errors'))) {
-								case 0:
-								case 'off':
-								case 'stderr':
-									$display = true;
+							if (filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN)) {
+								if ($testRelease || ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) & ACK_DISPLAY_ERRORS)) {
+									$display = -1;
 									$aux = '';
-									break;
-								case 1:
-								case 'on':
-								case 'stdout':
-								default:
-									if ($testRelease || ((isset($_conf_vars['security_ack']) ? $_conf_vars['security_ack'] : NULL) & ACK_DISPLAY_ERRORS)) {
-										$display = -1;
-										$aux = '';
-									} else {
-										$display = 0;
-										$aux = ' ' . acknowledge(ACK_DISPLAY_ERRORS);
-									}
-									break;
+								} else {
+									$display = 0;
+									$aux = ' ' . acknowledge(ACK_DISPLAY_ERRORS);
+								}
+							} else {
+								$display = true;
+								$aux = '';
 							}
 							checkmark($display, gettext('PHP <code>display_errors</code>'), sprintf(gettext('PHP <code>display_errors</code> [is enabled]'), $display), gettext('This setting may result in PHP error messages being displayed on WEB pages. These displays may contain sensitive information about your site.') . $aux, $display && !$testRelease);
 

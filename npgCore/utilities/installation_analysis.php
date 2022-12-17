@@ -254,8 +254,8 @@ echo '</head>';
 												$text[] = $name;
 											}
 										}
-										printf(gettext('PHP Error reporting: <strong>%s</strong>'), implode(' | ', $text));
-										if (ini_get('display_errors')) {
+										printf(gettext('PHP Error reporting: <strong>%s</strong> '), implode(' | ', $text));
+										if (filter_var(ini_get('display_errors'), FILTER_VALIDATE_BOOLEAN)) {
 											?>
 											<a title="<?php echo gettext('PHP error messages may be displayed on WEB pages. This may disclose site sensitive information.'); ?>"><?php echo gettext('<em>display_errors</em> is <strong>On</strong>') ?></a>
 											<?php
