@@ -132,7 +132,7 @@ class matomoStats {
 		if (empty($exclude) || (!in_array('matomo_tag', $exclude))) {
 			$url = strval(getOption('matomo_url'));
 			$id = getOption('matomo_id');
-			$sitedomain = trim(getOption('matomo_sitedomain'));
+			$sitedomain = trim(strval(getOption('matomo_sitedomain')));
 			?>
 			<!-- Matomo -->
 			<script type="text/javascript">
