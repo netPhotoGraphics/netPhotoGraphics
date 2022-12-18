@@ -98,14 +98,16 @@ function db_software() {
 	if (is_object($_DB_connection)) {
 		$dbversion = trim($_DB_connection->getAttribute(PDO::ATTR_SERVER_VERSION));
 		preg_match('/[0-9,\.]*/', $dbversion, $matches);
-
 		$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_user_connections";');
-		if ($max['Value'] == 0) {
+		if (isset($max['Value']) || $max['Value'] == 0) {
 			$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 		}
-	} else {
+	}
+	if (!isset($matches[0])) {
 		$matches[0] = '?.?.?';
-		$max['Value'] = 10;
+	}
+	if (!isset($max['Value'])) {
+		$max = array('Value' => 10);
 	}
 	return array('application' => DATABASE_SOFTWARE,
 			'required' => DATABASE_MIN_VERSION,
