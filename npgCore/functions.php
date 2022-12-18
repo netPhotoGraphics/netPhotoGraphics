@@ -396,11 +396,14 @@ function formattedDate($format, $dt) {
 				//	year
 				'y' => 'yy',
 				'Y' => 'yyyy',
+				'o' => 'yyyy',
 				//	month
 				'M' => 'MMM',
 				'F' => 'MMMM',
 				'm' => 'MM',
 				'n' => 'M',
+				// week
+				'W' => 'w',
 				//	day
 				'l' => 'EEEE',
 				'D' => 'EEE',
@@ -423,6 +426,7 @@ function formattedDate($format, $dt) {
 				'e' => 'vv',
 				'O' => 'xx',
 				'P' => 'Z',
+				'p' => 'xxx',
 				'T' => 'z',
 				//	formatted dates
 				'r' => 'E, d MMM yyyy HH:mm:ss xx',
