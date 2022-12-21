@@ -210,7 +210,7 @@ class slideshow {
 		$validtypes = array('jpg', 'jpeg', 'gif', 'png');
 		$slideshow .= '
 				<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				$(document).ready(function(){
 				$(function() {
 				var ThisGallery = "' . html_encode($albumobj->getTitle()) . '";
@@ -335,7 +335,7 @@ class slideshow {
 		});
 
 		});	// Documentready()
-		// ]]> -->
+		
 		</script>
 		<div id="slideshow" style="height:' . ($wrapperheight + 40) . 'px; width:' . $wrapperwidth . 'px;">
 		';

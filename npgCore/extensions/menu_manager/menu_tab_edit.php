@@ -44,7 +44,7 @@ $menuset = checkChosenMenuset();
 		?>
 		<div id="content">
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				function handleSelectorChange(type) {
 					$('#add,#titlelabel,#link_row,#link,#link_label,#visible_row,#show_visible,#span_row').show();
 					$('#include_li_label, #menu_aux_row, #desc_row').hide();

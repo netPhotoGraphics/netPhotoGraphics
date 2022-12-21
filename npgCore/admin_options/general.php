@@ -138,7 +138,7 @@ function getOptionContent() {
 	global $_gallery, $_server_timezone, $_UTF8, $_authority;
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		var oldselect = '<?php echo SITE_LOCALE; ?>';
 		function radio_click(id) {
 			if ($('#r_' + id).prop('checked')) {
@@ -155,7 +155,7 @@ function getOptionContent() {
 			}
 		}
 
-		// ]]> -->
+		
 	</script>
 	<div id="tab_gallery" class="tabbox">
 		<?php
@@ -574,7 +574,7 @@ function getOptionContent() {
 						</td>
 						<td class="option_desc">
 							<script type="text/javascript">
-								// <!-- <![CDATA[
+								
 								function resetallowedtags() {
 									$('#allowed_tags').val(<?php
 							$t = getOption('allowed_tags_default');
@@ -595,7 +595,7 @@ function getOptionContent() {
 	}
 	?>);
 								}
-								// ]]> -->
+								
 							</script>
 							<span class="option_info">
 								<?php echo INFORMATION_BLUE; ?>

@@ -207,7 +207,7 @@ function getOptionContent() {
 	?>
 
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function checkMeta(cls) {
 			$('.' + cls).prop('checked', 'checked');
 		}
@@ -247,7 +247,7 @@ function getOptionContent() {
 				}
 			});
 		});
-		// ]]> -->
+		
 	</script>
 
 	<div id="tab_image" class="tabbox">

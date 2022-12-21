@@ -255,7 +255,7 @@ npg_Authority::printPasswordFormJS();
 		extraWidth = $('.rightcolumn').width() + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 50;
 		resizeTable();
 	}, false);
-	// ]]> -->
+	
 </script>
 <?php
 npgFilters::apply('texteditor_config', 'photo');

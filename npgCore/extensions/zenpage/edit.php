@@ -178,7 +178,7 @@ $tagsort = 'alpha';
 			buttonImageOnly: true
 		});
 	});
-	// ]]> -->
+	
 </script>
 <?php npg_Authority::printPasswordFormJS(); ?>
 </head>
@@ -682,7 +682,7 @@ $tagsort = 'alpha';
 													</p>
 													<p>
 														<script type="text/javascript">
-															// <!-- <![CDATA[
+															
 															$(function () {
 																$("#expiredate").datepicker({
 																	dateFormat: 'yy-mm-dd',
@@ -692,7 +692,7 @@ $tagsort = 'alpha';
 																	buttonImageOnly: true
 																});
 															});
-															// ]]> -->
+															
 														</script>
 
 														<?php echo gettext("Expiration date"); ?>  <small>(YYYY-MM-DD)</small>

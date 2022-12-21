@@ -85,7 +85,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 		}
 		return false;
 	}
-	// ]]> -->
+	
 </script>
 
 <?php

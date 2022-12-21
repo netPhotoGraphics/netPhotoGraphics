@@ -131,12 +131,12 @@ class themeSwitcher {
 		$scripts = preg_replace('~//\s*\]\]>\s*-->\s*\s</script>?~', '', $scripts);
 		?>
 		<script type="text/javascript">/* themeSwitcher */
-			// <!-- <![CDATA[
+			
 			function switchTheme(reloc) {
 				window.location = reloc.replace(/%t/, encodeURIComponent($('#themeSwitcher').val()));
 			}
 		<?php echo $scripts; ?>
-			// ]]> -->
+			
 		</script>
 		<?php
 		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));

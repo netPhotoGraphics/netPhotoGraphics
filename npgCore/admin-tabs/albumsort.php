@@ -76,7 +76,7 @@ printAdminHeader('edit', 'sort');
 	function cancelSort() {
 		$('#images').sortable('cancel');
 	}
-	// ]]> -->
+	
 </script>
 <?php
 echo "\n</head>";

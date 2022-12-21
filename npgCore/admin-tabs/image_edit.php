@@ -338,7 +338,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									$expirationdate = $image->getExpireDate();
 									?>
 									<script type="text/javascript">
-										// <!-- <![CDATA[
+										
 										$(function () {
 											$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({
 												dateFormat: 'yy-mm-dd',
@@ -368,7 +368,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												}
 											});
 										});
-										// ]]> -->
+										
 									</script>
 									<br class="clearall" />
 									<p>

@@ -430,12 +430,12 @@ if (OFFSET_PATH) {
 					$favList = array_slice($list, 1);
 					?>
 					<script type="text/javascript">
-						// <!-- <![CDATA[
+						
 						var _favList = ['<?php echo implode("','", $favList); ?>'];
 						$(function () {
 							$('.favorite_instance').tagSuggest({tags: _favList})
 						});
-						// ]]> -->
+						
 					</script>
 					<?php
 				}

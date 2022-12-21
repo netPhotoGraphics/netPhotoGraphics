@@ -193,7 +193,7 @@ class _Authority {
 				?>
 				<input type="hidden" size="3" id="password_strength" name="password_strength" value="<?php echo getOption('password_strength'); ?>" />
 				<script type="text/javascript">
-					// <!-- <![CDATA[
+					
 					function sliderColor(strength) {
 						d = 512 / 30;	//	color gradient steps
 						r = (30 - strength) * d;
@@ -224,7 +224,7 @@ class _Authority {
 						$('#password_strength_display').html(strength);
 						sliderColor(strength);
 					});
-					// ]]> -->
+					
 				</script>
 				<div id="slider-password_strength">
 					<div id="strength-handle" class="ui-slider-handle"></div>
@@ -1567,7 +1567,7 @@ class _Authority {
 						} else {
 							?>
 							<script type="text/javascript">
-								// <!-- <![CDATA[
+								
 								var handlers = [];
 					<?php
 					$list = '<select id="logon_choices" onchange="changeHandler(handlers[$(this).val()]);">' .
@@ -1591,7 +1591,7 @@ class _Authority {
 									var script = handler.shift();
 									window.location = script + '?' + handler.join('&');
 								}
-								// ]]> -->
+								
 							</script>
 							<?php
 						}
@@ -1720,7 +1720,7 @@ class _Authority {
 	static function printPasswordFormJS($all = false) {
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 		<?php
 		if (OFFSET_PATH || $all) {
 			?>
@@ -1841,7 +1841,7 @@ class _Authority {
 					$('.password_field_' + id).show();
 				}
 			}
-			// ]]> -->
+			
 		</script>
 		<?php
 	}

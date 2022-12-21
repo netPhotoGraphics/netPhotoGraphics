@@ -154,11 +154,11 @@ class cmsFilters {
 	static function switcher_head($list) {
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			function switchCMS(checked) {
 				window.location = '?cmsSwitch=' + checked;
 			}
-			// ]]> -->
+			
 		</script>
 		<?php
 		return $list;

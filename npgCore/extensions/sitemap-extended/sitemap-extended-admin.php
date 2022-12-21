@@ -63,7 +63,7 @@ if (isset($_GET['generatesitemaps'])) {
 scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 ?>
 <script type="text/javascript">
-	// <!-- <![CDATA[
+	
 	window.addEventListener('load', function () {
 		/*	$(".colorbox").colorbox({
 		 iframe: false,
@@ -74,7 +74,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 		 close: '<?php echo gettext("close"); ?>'
 		 }); */
 	}, false);
-	// ]]> -->
+	
 </script>
 <?php
 echo '</head>';
@@ -148,11 +148,11 @@ echo '</head>';
 						sitemap::generateIndexCacheFile();
 						?>
 						<script type="text/javascript">
-							// <!-- <![CDATA[
+							
 							window.addEventListener('load', function () {
 								window.location = "<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>";
 							}, false);
-							// ]]> -->
+							
 						</script>
 						<?php
 					}

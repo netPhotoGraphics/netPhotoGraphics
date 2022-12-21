@@ -12,7 +12,7 @@ if (!defined('WEBPATH'))
 		scriptLoader($_themeroot . '/style.css');
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			window.addEventListener('load', function () {
 				$(".colorbox").colorbox({
 					inline: true,
@@ -29,7 +29,7 @@ if (!defined('WEBPATH'))
 					}
 				});
 			}, false);
-			// ]]> -->
+			
 		</script>
 
 		<?php

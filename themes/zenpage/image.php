@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		if (npgFilters::has_filter('theme_head', 'colorbox::css')) {
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				window.addEventListener('load', function () {
 					$(".colorbox").colorbox({
 						inline: true,
@@ -32,7 +32,7 @@ if (!defined('WEBPATH'))
 						}
 					});
 				}, false);
-				// ]]> -->
+				
 			</script>
 		<?php } ?>
 		<?php if (class_exists('RSS')) printRSSHeaderLink('Album', getAlbumTitle()); ?>

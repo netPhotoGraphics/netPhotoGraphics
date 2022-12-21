@@ -100,7 +100,7 @@ updatePublished('news');
 		}
 	}
 
-	// ]]> -->
+	
 </script>
 
 </head>

@@ -205,11 +205,11 @@ if (function_exists('printAddThis')) {
 			scriptLoader($_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				$(document).ready(function () {
 					$("a.thickbox").colorbox({maxWidth: "90%", maxHeight: "90%", photo: true});
 				});
-				// ]]> -->
+				
 			</script>
 
 		<?php } ?>

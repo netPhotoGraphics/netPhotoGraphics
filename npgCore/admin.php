@@ -331,7 +331,7 @@ printAdminHeader('overview');
 scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
 ?>
 <script type="text/javascript">
-	// <!-- <![CDATA[
+	
 	$(function () {
 		$('#overviewboxes').masonry({
 			// options
@@ -339,7 +339,7 @@ scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
 			columnWidth: 560
 		});
 	});
-	// ]]> -->
+	
 </script>
 <?php
 echo "\n</head>";

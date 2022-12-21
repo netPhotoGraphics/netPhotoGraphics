@@ -94,7 +94,7 @@ zenpageJSCSS();
 			}
 		});
 	}, false);
-	// ]]> -->
+	
 </script>
 </head>
 <body>

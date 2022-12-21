@@ -27,7 +27,7 @@ class Utils {
 function printZDSearchToggleJS() {
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function toggleExtraElements(category, show) {
 			if (show) {
 				jQuery('.' + category + '_showless').show();
@@ -39,7 +39,7 @@ function printZDSearchToggleJS() {
 				jQuery('.' + category + '_extrashow').hide();
 			}
 		}
-		// ]]> -->
+		
 	</script>
 	<?php
 }
@@ -94,7 +94,7 @@ function printZDRoundedCornerJS() {
 		window.addEventListener('load', function () {
 			$(".album,#slideshowlink a,textarea,#exif_link a").corner("keep 5px");
 		}, false);
-		// ]]> -->
+		
 	</script>
 	<?php
 }

@@ -100,7 +100,7 @@ npgFilters::apply('texteditor_config', 'admin_comments');
 			return true;
 		}
 	}
-	// ]]> -->
+	
 </script>
 <?php
 echo "\n</head>";

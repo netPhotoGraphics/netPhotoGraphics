@@ -70,7 +70,7 @@ printLogoAndLinks();
 		}
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			// Array of album names for javascript functions.
 			var albumArray = new Array(
 <?php
@@ -80,7 +80,7 @@ foreach ($albumlist as $key => $value) {
 	$separator = ", ";
 }
 ?>);
-			// ]]> -->
+			
 		</script>
 		<?php npgFilters::apply('admin_note', 'upload', 'images'); ?>
 		<h1><?php echo gettext("Upload Images"); ?></h1>
@@ -164,7 +164,7 @@ foreach ($albumlist as $key => $value) {
 				seoFriendlyJS();
 				?>
 				<script type="text/javascript">
-					// <!-- <![CDATA[
+					
 					function buttonstate(good) {
 						$('#albumtitleslot').val($('#albumtitle').val());
 						$('#publishalbumslot').val($('#publishalbum').prop('checked'));
@@ -185,7 +185,7 @@ foreach ($albumlist as $key => $value) {
 						var state = albumSwitch(sel, true, '<?php echo addslashes(gettext('That name is already used.')); ?>', '<?php echo addslashes(gettext('This upload has to have a folder. Type a title or folder name to continue...')); ?>');
 						buttonstate(state);
 					}
-					// ]]> -->
+					
 				</script>
 				<div id="albumselect">
 
@@ -347,7 +347,7 @@ foreach ($albumlist as $key => $value) {
 	}
 	?>
 						buttonstate($('#folderdisplay').val() != '');
-						// ]]> -->
+						
 					</script>
 					<?php
 				} else {
