@@ -384,7 +384,7 @@ function lookupSortKey($sorttype, $default, $table) {
 /**
  * Returns a formatted date for output
  *
- * @param string $format the DateTime::format string (https://www.php.net/manual/en/datetime.format.php)
+ * @param string $format the DateTimeInterface::format string (https://www.php.net/manual/en/datetime.format.php)
  * @param int $dt the date timestamp to be output
  * @return string
  */
@@ -461,8 +461,8 @@ function formattedDate($format, $dt) {
 		  }
 		  }
 		 */
-		//	convert from dateTimeFormatter:format (https://www.php.net/manual/en/datetime.format.php)
-		//	to ::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime)
+		//	convert from DateTimeInterface::formatformat (https://www.php.net/manual/en/datetime.format.php)
+		//	to IntlDateTimeFormat::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime)
 		$fmt = '';
 		$i = -1;
 		$l = strlen($format);
@@ -526,19 +526,15 @@ function formattedDate($format, $dt) {
 
 			if ($formatter === null) {
 				throw new InvalidConfigException(intl_get_error_message());
-				$fdate = date($format, $dt);
+			} else {
+				$fdate = $formatter->format($dt);
 			}
-			$fdate = $formatter->format($dt);
 		}
 	}
 
-	if (!isset($fdate)) { //	did not use the IntlDateFormatter
-		if (str_contains($format, '%x')) { // local preferred date format
-			$format = str_replace('%x', 'n/j/y', $format); //	default to US standard date format
-		}
-		if (str_contains($format, '%X')) { // local preferred time format
-			$format = str_replace('%X', 'H:i:s', $format); //	default to US standard time format
-		}
+	if (!isset($fdate)) { //	did not use the IntlDateFormatter, fall back to DateTimeInterface::format
+		$format = str_replace('%x', 'n/j/y', $format); //	local preferred date format--default to US standard date format
+		$format = str_replace('%X', 'H:i:s', $format); //	local preferred time format--default to US standard time format
 		$fdate = date($format, $dt);
 	}
 
