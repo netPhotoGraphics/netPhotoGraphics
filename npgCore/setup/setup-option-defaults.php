@@ -913,6 +913,7 @@ if (!file_exists(SERVERPATH . '/favicon.ico')) {
 	if ($ico_L == $ico || $ico_20 == $ico | $ico == $ico_Low) {
 		unlink(SERVERPATH . '/favicon.ico');
 		copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
+		setupLog(gettext('<span class="logwarning">Site <em>favicon.ico</em> updated.</span>'), true);
 	}
 }
 
