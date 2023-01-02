@@ -621,7 +621,7 @@ class xmpMetadata {
 	 */
 	static function getMetadataFields() {
 		$fields = array(
-				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'ZP Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
+				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'XMPAperatureValue' => array('XMP', '<exif:ApertureValue>', gettext('Aperture Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
 				'XMPContrast' => array('XMP', '<exif:Contrast>', gettext('Contrast Setting'), false, 52, true, 'string', false),
@@ -740,6 +740,8 @@ class xmpMetadata {
 	private static function to_string($meta) {
 		if (is_array($meta)) {
 			$meta = implode(',', $meta);
+		} else {
+			$meta = strval($meta);
 		}
 		return trim($meta);
 	}
