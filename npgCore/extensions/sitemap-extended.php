@@ -282,7 +282,7 @@ class sitemap {
 				$date = $obj->getDatetime();
 				break;
 			case 'mtime':
-				$date = date(DATE_ISO8601, $obj->get('mtime'));
+				$date = date('Y-m-d H:i:s', $obj->get('mtime'));
 				if ($date == 0) {
 					$date = $obj->getDatetime();
 				}
