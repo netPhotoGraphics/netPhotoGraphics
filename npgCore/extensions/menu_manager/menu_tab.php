@@ -172,7 +172,7 @@ printSortableHead();
 						return true;
 					}
 				}
-				// ]]> -->
+				
 			</script>
 			<?php
 			npgFilters::apply('admin_note', 'menu', '');

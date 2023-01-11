@@ -65,7 +65,7 @@ if ($pasteObjEnabled = array_search('pasteobj', $MCEplugins)) {
 }
 ?>
 <script type="text/javascript">
-	// <!-- <![CDATA[
+	
 <?php
 if ($pasteObjEnabled) {
 	?>
@@ -214,5 +214,5 @@ if (getOption('dirtyform_enable') > 1) {
 
 
 	});
-	// ]]> -->
+	
 </script>

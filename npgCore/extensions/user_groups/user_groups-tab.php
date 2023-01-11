@@ -588,7 +588,7 @@ echo '</head>' . "\n";
 								}
 								return true;
 							}
-							// ]]> -->
+							
 						</script>
 						<br class="clearall" />
 						<?php

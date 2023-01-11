@@ -171,7 +171,7 @@ class user_groups {
 		$grouppart .= "</ul>\n";
 		$grouppart .= '
 		<script type="text/javascript">
-			// <!-- <![CDATA[' . "\n";
+			' . "\n";
 		if ($primealbum = $userobj->getAlbum()) {
 			//	allow editing of primary album management
 			$grouppart .= '

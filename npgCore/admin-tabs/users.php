@@ -1155,7 +1155,7 @@ if (is_string($refresh)) {
 							}
 							return true;
 						}
-						// ]]> -->
+						
 					</script>
 
 					<br class="clearall" />

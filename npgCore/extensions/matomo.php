@@ -132,7 +132,7 @@ class matomoStats {
 		if (empty($exclude) || (!in_array('matomo_tag', $exclude))) {
 			$url = strval(getOption('matomo_url'));
 			$id = getOption('matomo_id');
-			$sitedomain = trim(getOption('matomo_sitedomain'));
+			$sitedomain = trim(strval(getOption('matomo_sitedomain')));
 			?>
 			<!-- Matomo -->
 			<script type="text/javascript">
@@ -183,7 +183,7 @@ class matomoStats {
 				(function () {
 					var u = "//<?php echo str_replace(array('http://', 'https://'), '', $url); ?>/";
 					_paq.push(['setTrackerUrl', u + 'matomo.php']);
-					_paq.push(['setSiteId', <?php echo $id; ?>]);
+					_paq.push(['setSiteId', '<?php echo $id; ?>']);
 					var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
 					g.type = 'text/javascript';
 					g.defer = true;

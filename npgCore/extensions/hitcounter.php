@@ -88,7 +88,7 @@ class hitcounter {
 			case 'hitcounter_set_defaults':
 				?>
 				<script type="text/javascript">
-					// <!-- <![CDATA[
+					
 					var reset = "<?php echo $this->defaultbots; ?>";
 					function hitcounter_defaults() {
 						$('#hitcounter_ignoreIPList').val('');
@@ -97,7 +97,7 @@ class hitcounter {
 						$('#__hitcounter_ignoreSearchCrawlers_enable').prop('checked', false);
 						$('#__hitcounter_searchCrawlerList').val(reset);
 					}
-					// ]]> -->
+					
 				</script>
 				<label><input id="hitcounter_reset_button" type="button" value="<?php echo gettext('Defaults'); ?>" onclick="hitcounter_defaults();" /></label>
 				<?php
@@ -107,7 +107,7 @@ class hitcounter {
 				<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX; ?>'text-hitcounter_ignoreIPList" value="0" />
 				<input type="text" size="30" id="hitcounter_ignoreIPList" name="hitcounter_ignoreIPList" value="<?php echo html_encode($currentValue); ?>" />
 				<script type="text/javascript">
-					// <!-- <![CDATA[
+					
 					function hitcounter_insertIP() {
 						if ($('#hitcounter_ignoreIPList').val() == '') {
 							$('#hitcounter_ignoreIPList').val('<?php echo getUserID(); ?>');
@@ -122,7 +122,7 @@ class hitcounter {
 							$('#hitcounter_ip_button').prop('disabled', false);
 						}
 					});
-					// ]]> -->
+					
 				</script>
 				<label><input id="hitcounter_ip_button" type="button" value="<?php echo gettext('Insert my IP'); ?>" onclick="hitcounter_insertIP();" disabled="disabled" /></label>
 				<?php

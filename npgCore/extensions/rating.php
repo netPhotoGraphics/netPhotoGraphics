@@ -166,9 +166,9 @@ class jquery_rating {
 		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.rating.js');
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo getOption('rating_star_size'); ?>};
-			// ]]> -->
+			
 		</script>
 		<?php
 	}
@@ -394,7 +394,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 		<?php echo $msg; ?>
 	</span>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		var recast<?php echo $unique; ?> = <?php printf('%u', $recast && $oldrating); ?>;
 		window.addEventListener('load', function () {
 			$('#star_rating<?php echo $unique; ?> :radio.star').rating('select', '<?php echo $starselector; ?>');
@@ -440,7 +440,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 				$('#vote<?php echo $unique; ?>').html('<?php echo gettext('nothing to submit'); ?>');
 			}
 		}
-		// ]]> -->
+		
 	</script>
 	<?php
 }

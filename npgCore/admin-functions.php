@@ -70,6 +70,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	<!DOCTYPE html>
 	<html<?php i18n::htmlLanguageCode(); ?>>
 		<head>
+			<link rel="icon" type="image/x-icon" href="<?php echo FULLWEBPATH; ?>/favicon.ico">
 			<?php
 			printStandardMeta();
 			load_jQuery_CSS();
@@ -102,7 +103,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+
 				function setClean(id) {
 					$('form#' + id).removeClass('tinyDirty');
 				}
@@ -153,7 +154,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	?>
 
 				}, false);
-				// ]]> -->
+
 			</script>
 			<?php
 			npgFilters::apply('admin_head');
@@ -191,7 +192,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					})
 					var original_order = $('ul.page-list').nestedSortable('serialize');
 				}, false);
-				// ]]> -->
+
 			</script>
 			<!--Nested Sortables End-->
 			<?php
@@ -791,7 +792,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		</span>
 
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+
 			$(function () {
 				var handle = $("#<?php echo $postkey; ?>-handle");
 				$("#slider-<?php echo $postkey; ?>").slider({
@@ -821,7 +822,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				});
 				$("#<?php echo $postkey; ?>").val($("#slider-<?php echo $postkey; ?>").slider("value"));
 			});
-			// ]]> -->
+
 		</script>
 		<div style="padding-top: 6px;">
 			<div id="slider-<?php echo $postkey; ?>">
@@ -1239,12 +1240,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 											?>
 										</ul>
 										<script type="text/javascript">
-											// <!-- <![CDATA[
+
 											function <?php echo $key; ?>_all() {
 												var check = $('#all_<?php echo $key; ?>').prop('checked');
 												$('.all_<?php echo $key; ?>').prop('checked', check);
 											}
-											// ]]> -->
+
 										</script>
 										<label class="floatright">
 											<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" />
@@ -1296,12 +1297,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 									?>
 								</ul>
 								<script type="text/javascript">
-									// <!-- <![CDATA[
+
 									function <?php echo $key; ?>_all() {
 										var check = $('#all_<?php echo $key; ?>').prop('checked');
 										$('.all_<?php echo $key; ?>').prop('checked', check);
 									}
-									// ]]> -->
+
 								</script>
 								<label class="floatright">
 									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
@@ -1338,12 +1339,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 									?>
 								</ul>
 								<script type="text/javascript">
-									// <!-- <![CDATA[
+
 									function <?php echo $key; ?>_all() {
 										var check = $('#all_<?php echo $key; ?>').prop('checked');
 										$('.all_<?php echo $key; ?>').prop('checked', check);
 									}
-									// ]]> -->
+
 								</script>
 								<label class="floatright">
 									<input type="checkbox" name="all_<?php echo $key; ?>" id="all_<?php echo $key; ?>" class="all_<?php echo $key; ?>" onclick="<?php echo $key; ?>_all();" <?php if ($all) echo ' checked="checked"'; ?>/>
@@ -1359,14 +1360,14 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<td class="option_value">
 								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'text-' . $postkey; ?>" value="1" />
 								<script type="text/javascript">
-									// <!-- <![CDATA[
+
 									window.addEventListener('load', function () {
 										$('#__<?php echo $key; ?>').spectrum({
 											preferredFormat: "hex",
 											color: $('#__<?php echo $key; ?>').val()
 										});
 									}, false);
-									// ]]> -->
+
 								</script>
 								<input type="text" id="__<?php echo $key; ?>" name="<?php echo $postkey; ?>"	value="<?php echo $v; ?>" />
 							</td>
@@ -2035,7 +2036,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
-				<a onclick="$('#menu_selections').hide(); $('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+				<a onclick="$('#menu_selections').hide();
+						$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<?php
 					foreach ($stuff as $item => $name) {
@@ -2501,7 +2503,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										<script type="text																	/javascript">
 											// <																	!-- <![CDATA[
 											updateThumbPreview(document.getElementById('th																umbselect'));
-											// ]]> -->
+
 										</script>
 										<?php
 									}
@@ -2606,7 +2608,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$expirationdate = $album->getExpireDate();
 						?>
 						<script type="text/javascript">
-							// <!-- <![CDATA[
+
 							$(function () {
 								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
 									dateFormat: 'yy-mm-dd',
@@ -2636,7 +2638,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 								});
 							});
-							// ]]> -->
+
 						</script>
 						<br class="clearall">
 						<p>
@@ -4948,7 +4950,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 			});
 			}
 			}
-			// ]]> -->
+
 		</script>
 		<?php
 	}
@@ -5337,7 +5339,7 @@ function stripTableRows($custom) {
 function codeblocktabsJS() {
 	?>
 	<script type="text/javascript" charset="utf-8">
-						// <!-- <![CDATA[
+
 						$(function () {
 						var tabContainers = $('div.tabs > div');
 										$('.first').addClass('selected');
@@ -5359,7 +5361,7 @@ function codeblocktabsJS() {
 						'</div>');
 						cbclick(num, id);
 		}
-		// ]]> -->
+
 	</script>
 	<?php
 }

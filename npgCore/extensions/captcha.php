@@ -96,7 +96,7 @@ class captcha {
 			<?php echo $captcha['html']; ?>
 		</span>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			var path = '<?php echo $matches[1]; ?>';
 			window.addEventListener('load', function () {
 				$('#__npg_captcha_font').change(function () {
@@ -120,7 +120,7 @@ class captcha {
 					$('#npg_captcha_image_loc').html(nbase);
 				});
 			}, false);
-			// ]]> -->
+			
 		</script>
 		<?php
 	}

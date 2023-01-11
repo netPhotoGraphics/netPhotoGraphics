@@ -298,7 +298,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 			</tr>
 
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				function setTagged(state) {
 					if (state) {
 						$('#album_tag').show();
@@ -308,7 +308,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 						$('#album_tag').hide();
 					}
 				}
-				// ]]> -->
+				
 			</script>
 
 			<tr>

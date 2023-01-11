@@ -384,90 +384,157 @@ function lookupSortKey($sorttype, $default, $table) {
 /**
  * Returns a formatted date for output
  *
- * @param string $format the DateTime::format string (https://www.php.net/manual/en/datetime.format.php)
+ * @param string $format the DateTimeInterface::format string (https://www.php.net/manual/en/datetime.format.php)
  * @param int $dt the date timestamp to be output
  * @return string
  */
 function formattedDate($format, $dt) {
 	global $_UTF8, $_current_locale;
+	$format = strval($format);
+
 	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
-	if (class_exists('IntlDateFormatter') && !strpbrk(str_replace(array('%x', '%X'), '', $format), 'SwtLXxuvpZU')) {
+	if (class_exists('IntlDateFormatter')) {
 		$intlFmt = array(
+				//	no equivalent
+				'S' => 0x00, //	English ordinal suffix for the day of the month, 2 characters
+				't' => 0x00, //	Number of days in the given month
+				'L' => 0x00, //	Whether it's a leap year
+				'X' => 0x00, //	An expanded full numeric representation of a year, at least 4 digits, with - for years BCE, and + for years CE.
+				'x' => 0x00, //	An expanded full numeric representation if requried, or a standard full numeral representation if possible (like Y). At least four digits. Years BCE are prefixed with a -. Years beyond (and including) 10000 are prefixed by a +.
+				'B' => 0x00, //	Swatch Internet time
+				'u' => 0x00, //	Microseconds.
+				'v' => 0x00, //	Milliseconds. Same note applies as for u.
+				'I' => 0x00, //	Whether or not the date is in daylight saving time
+				'Z' => 0x00, //	Timezone offset in seconds.
+				'U' => 0x00, //	Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
 				//	year
-				'y' => 'yy',
-				'Y' => 'yyyy',
+				'y' => 'yy', //	A two digit representation of a year
+				'Y' => 'yyyy', //	A full numeric representation of a year, at least 4 digits, with - for years BCE.
+				'o' => 'yyyy', //	ISO 8601 week-numbering year.
 				//	month
-				'M' => 'MMM',
-				'F' => 'MMMM',
-				'm' => 'MM',
-				'n' => 'M',
+				'M' => 'MMM', //	A short textual representation of a month, three letters
+				'F' => 'MMMM', //	A full textual representation of a month, such as January or March
+				'm' => 'MM', //	Numeric representation of a month, with leading zeros
+				'n' => 'M', //	Numeric representation of a month, without leading zeros
 				//	day
-				'l' => 'EEEE',
-				'D' => 'EEE',
-				'd' => 'dd',
-				'j' => 'd',
-				'z' => 'D',
+				'l' => 'EEEE', //	Day of the month without leading zeros
+				'D' => 'EEE', //	A textual representation of a day, three letters
+				'd' => 'dd', //	Day of the month, 2 digits with leading zeros
+				'j' => 'd', //	Day of the month without leading zeros
+				'z' => 'D', //	The day of the year (starting from 0)
 				//	hour
-				'H' => 'HH',
-				'G' => 'H',
-				'h' => 'hh',
-				'g' => 'h',
+				'H' => 'HH', //	24-hour format of an hour with leading zeros
+				'G' => 'H', //	24-hour format of an hour without leading zeros
+				'h' => 'hh', //	12-hour format of an hour with leading zeros
+				'g' => 'h', //	12-hour format of an hour without leading zeros
 				//	minutes
-				'i' => 'mm',
+				'i' => 'mm', //	Minutes with leading zeros
 				//	second
-				's' => 'ss',
+				's' => 'ss', //	Seconds with leading zeros
 				//	am/pm
-				'a' => 'b',
-				'A' => 'a',
+				'a' => 'b', //	Lowercase Ante meridiem and Post meridiem
+				'A' => 'a', //	Uppercase Ante meridiem and Post meridiem
 				//	time zone
-				'e' => 'vv',
-				'O' => 'xx',
-				'P' => 'Z',
-				'T' => 'z',
+				'e' => 'vv', //	Timezone identifier
+				'O' => 'xx', //	Difference to Greenwich time (GMT) without colon between hours and minutes
+				'P' => 'Z', //	Difference to Greenwich time (GMT) with colon between hours and minutes
+				'p' => 'XX', //	The same as P, but returns Z instead of +00:00 (available as of PHP 8.0.0)
+				'T' => 'z', //	Timezone abbreviation, if known; otherwise the GMT offset.
+				// week
+				'N' => 'e', //	ISO 8601 numeric representation of the day of the week
+				'w' => 'e', //	Numeric representation of the day of the week
+				'W' => 'w', //	ISO 8601 week number of year, weeks starting on Monday
 				//	formatted dates
-				'r' => 'E, d MMM yyyy HH:mm:ss xx',
-				'c' => 'yyyy-MM-dd\'T\'HH:mm:ss xx'
-		);
-		if (str_contains($format, '%x')) { // local preferred date format
-			$formatter = new IntlDateFormatter(
-							$_current_locale,
-							IntlDateFormatter::SHORT,
-							IntlDateFormatter::NONE
-			);
-			$intlFmt['%x'] = $formatter->getPattern();
-		}
-		if (str_contains($format, '%X')) { // local preferred time format
-			$formatter = new IntlDateFormatter(
-							$_current_locale,
-							IntlDateFormatter::NONE,
-							IntlDateFormatter::SHORT
-			);
-			$intlFmt['%X'] = $formatter->getPattern();
-		}
-
-		//	convert from dateTimeFormatter:format to IntlDateFormatter::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime)
-		$fmt = str_replace(array_keys($intlFmt), $intlFmt, $format);
-		$formatter = new IntlDateFormatter(
-						$_current_locale,
-						IntlDateFormatter::FULL,
-						IntlDateFormatter::FULL,
-						NULL,
-						NULL,
-						$fmt
+				'r' => 'E, d MMM yyyy HH:mm:ss xx', //	» RFC 2822/» RFC 5322 formatted date
+				'c' => 'yyyy-MM-dd\'T\'HH:mm:ss xx' //	ISO 8601 date
 		);
 
-		if ($formatter === null) {
-			throw new InvalidConfigException(intl_get_error_message());
-			$fdate = date($format, $dt);
+		/**
+		  //check the array for recursion issues
+		  $x = $intlFmt;
+		  While (!empty($x)) {
+		  $if = reset($x);
+		  $df = array_key_first($x);
+		  array_pop($x);
+		  if ($if && array_key_exists($if[0], $intlFmt)) {
+		  trigger_error($df . '=>' . $if . ' is a problem', E_USER_ERROR);
+		  }
+		  }
+		 */
+		//	convert from DateTimeInterface::formatformat (https://www.php.net/manual/en/datetime.format.php)
+		//	to IntlDateTimeFormat::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime)
+		$fmt = '';
+		$i = -1;
+		$l = strlen($format);
+
+		while (++$i < $l) {
+			if (array_key_exists($format[$i], $intlFmt)) {
+				if ($intlFmt[$format[$i]] === 0x00) { //	no equivalent
+					$fmt = false;
+					break;
+				} else {
+					$fmt .= $intlFmt[$format[$i]];
+				}
+			} else {
+				if ($format[$i] == '\\' && $i + 1 < $l) { //	escape next character
+					if (substr($fmt, -1) == '\'') {
+						$fmt = substr($fmt, 0, -1);
+					} else {
+						$fmt .= '\'';
+					}
+					$fmt .= $format[++$i] . '\'';
+				} else if ($format[$i] == '%' && $i + 1 < $l && strtolower($format[$i + 1]) == 'x') {
+					switch ($format[++$i]) {
+						case 'X': // local preferred time format
+							$formatter = new IntlDateFormatter(
+											$_current_locale,
+											IntlDateFormatter::NONE,
+											IntlDateFormatter::SHORT
+							);
+							$fmt .= $formatter->getPattern();
+							break;
+						case 'x': // local preferred date format
+							$formatter = new IntlDateFormatter(
+											$_current_locale,
+											IntlDateFormatter::SHORT,
+											IntlDateFormatter::NONE
+							);
+							$fmt .= $formatter->getPattern();
+							break;
+					}
+				} else if (preg_match('`[a-zA-Z]`', $format[$i])) { //	escape and pass thru
+					if (substr($fmt, -1) == '\'') {
+						$fmt = substr($fmt, 0, -1);
+					} else {
+						$fmt .= '\'';
+					}
+					$fmt .= $format[$i] . '\'';
+				} else {
+					$fmt .= $format[$i];
+				}
+			}
 		}
-		$fdate = $formatter->format($dt);
-	} else {
-		if (str_contains($format, '%x')) { // local preferred date format
-			$format = str_replace('%x', 'n/j/y', $format); //	default to US standard date format
+		if ($fmt) {
+			$formatter = new IntlDateFormatter(
+							$_current_locale,
+							IntlDateFormatter::FULL,
+							IntlDateFormatter::FULL,
+							NULL,
+							NULL,
+							$fmt
+			);
+
+			if ($formatter === null) {
+				throw new InvalidConfigException(intl_get_error_message());
+			} else {
+				$fdate = $formatter->format($dt);
+			}
 		}
-		if (str_contains($format, '%X')) { // local preferred time format
-			$format = str_replace('%X', 'H:i:s', $format); //	default to US standard time format
-		}
+	}
+
+	if (!isset($fdate)) { //	did not use the IntlDateFormatter, fall back to DateTimeInterface::format
+		$format = str_replace('%x', 'n/j/y', $format); //	local preferred date format--default to US standard date format
+		$format = str_replace('%X', 'H:i:s', $format); //	local preferred time format--default to US standard time format
 		$fdate = date($format, $dt);
 	}
 
@@ -2360,14 +2427,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript" >
-				// <!-- <![CDATA[
+				
 				$.ajax({
 					type: 'POST',
 					cache: false,
 					data: '<?php echo $paramlist; ?>',
 					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
 				});
-				// ]]> -->
+				
 			</script>
 			<?php
 		}

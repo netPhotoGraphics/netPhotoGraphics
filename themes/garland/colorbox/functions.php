@@ -19,7 +19,7 @@ class ga_colorbox {
 	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			window.addEventListener('load', function () {
 			$("a.thickbox").colorbox({
 			maxWidth: "98%",
@@ -31,7 +31,7 @@ class ga_colorbox {
 							}
 			});
 			}, false);
-			// ]]> -->
+			
 		</script>
 		<?php
 	}

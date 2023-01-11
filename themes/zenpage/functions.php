@@ -8,7 +8,7 @@
 function printZDSearchToggleJS() {
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function toggleExtraElements(category, show) {
 			if (show) {
 				jQuery('.' + category + '_showless').show();
@@ -20,7 +20,7 @@ function printZDSearchToggleJS() {
 				jQuery('.' + category + '_extrashow').hide();
 			}
 		}
-		// ]]> -->
+		
 	</script>
 	<?php
 }

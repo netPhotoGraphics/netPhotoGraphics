@@ -43,7 +43,7 @@ if (!OFFSET_PATH) {
 function switcher_head($ignore) {
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function switchPersonality() {
 			personality = $('#themePersonality').val();
 			window.location = '?themePersonality=' + personality;
@@ -53,7 +53,7 @@ function switcher_head($ignore) {
 			window.location = '?themeMenu=' + personality;
 		}
 
-		// ]]> -->
+		
 	</script>
 	<?php
 	return $ignore;

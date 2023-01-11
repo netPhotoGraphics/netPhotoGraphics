@@ -34,6 +34,7 @@ function printVersion() {
 function printThemeHeadItems() {
 	printStandardMeta();
 	?>
+	<link rel="icon" type="image/x-icon" href="<?php echo FULLWEBPATH; ?>/favicon.ico">
 	<title><?php echo getHeadTitle(getOption('theme_head_separator'), getOption('theme_head_listparents')); ?></title>
 	<?php
 	scriptLoader(CORE_SERVERPATH . 'button.css');
@@ -67,14 +68,14 @@ function adminToolbox() {
 		if (npg_loggedin(UPLOAD_RIGHTS) && in_array($_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+
 				function newAlbum(folder, albumtab) {
 					var album = prompt('<?php echo gettext('New album name?'); ?>', '<?php echo gettext('new album'); ?>');
 					if (album) {
 						window.location = '<?php echo getAdminLink('admin-tabs/edit.php'); ?>?action=newalbum&folder=' + encodeURIComponent(folder) + '&name=' + encodeURIComponent(album) + '&albumtab=' + albumtab + '&XSRFToken=<?php echo getXSRFToken('newalbum'); ?>';
 					}
 				}
-				// ]]> -->
+
 			</script>
 			<?php
 		}
@@ -243,7 +244,7 @@ function adminToolbox() {
 							// and a delete link
 							?>
 							<script type="text/javascript">
-								// <!-- <![CDATA[
+
 								function confirmAlbumDelete() {
 									if (confirm("<?php echo gettext("Are you sure you want to delete this entire album?"); ?>")) {
 										if (confirm("<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>")) {
@@ -251,7 +252,7 @@ function adminToolbox() {
 														}
 													}
 												}
-												// ]]> -->
+
 							</script>
 							<li>
 								<a href="javascript:confirmAlbumDelete();" title="<?php echo gettext('Delete the album'); ?>"><?php echo gettext('Delete album'); ?></a>
@@ -4216,7 +4217,7 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = false,
 				?>
 			</div>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+
 				var within = <?php echo (int) $within; ?>;
 				$("input[name='search_within']").change(function () {
 					within = (within + 1) & 1;
@@ -4258,7 +4259,7 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = false,
 					$('.SEARCH_checkall').prop('checked', check);
 				}
 
-				// ]]> -->
+
 			</script>
 		</form>
 	</div><!-- end of search form -->

@@ -16,7 +16,7 @@ if (!defined('WEBPATH'))
 		if (npgFilters::has_filter('theme_head', 'colorbox::css') && getOption('protect_full_image') != 'Download') {
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				window.addEventListener('load', function () {
 					$(".colorbox").colorbox({
 						inline: true,
@@ -33,7 +33,7 @@ if (!defined('WEBPATH'))
 						}
 					});
 				}, false);
-				// ]]> -->
+				
 			</script>
 		<?php } ?>
 		<?php if (class_exists('RSS')) printRSSHeaderLink('Gallery', gettext('Gallery')); ?>

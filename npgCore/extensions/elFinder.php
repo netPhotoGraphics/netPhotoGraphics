@@ -99,7 +99,7 @@ function elFinder_tinymce($discard) {
 	$MCEspecial ['file_picker_callback'] = 'elFinderBrowser';
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function elFinderBrowser(callback, value, meta) {
 			var windowManagerURL = '<?php echo $file; ?>&type=' + meta.type,
 							windowManagerCSS = '<style type="text/css">' +
@@ -137,7 +137,7 @@ function elFinder_tinymce($discard) {
 			);
 			return false;
 		}
-		// ]]> -->
+		
 	</script>
 
 	<?php

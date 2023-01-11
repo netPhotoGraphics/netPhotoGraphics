@@ -229,7 +229,7 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 		return true;
 	}
 	;
-	// ]]> -->
+	
 </script>
 </head>
 <body>
@@ -311,14 +311,14 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 
 					<!-- set the initial view for the preview -->
 					<script type="text/javascript" >
-						// <!-- <![CDATA[
+						
 						jQuery('#preview').css({
 							width: '<?php echo round($cropwidth / $iW * $sizedwidth); ?>px',
 							height: '<?php echo round($cropheight / $iH * $sizedheight); ?>px',
 							marginLeft: '-<?php echo round($cropwidth / $iW * $iX); ?>px',
 							marginTop: '-<?php echo round($cropheight / $iH * $iY); ?>px'
 						});
-						// ]]> -->
+						
 					</script>
 					<br class="clearall" />
 				</div><!-- block -->

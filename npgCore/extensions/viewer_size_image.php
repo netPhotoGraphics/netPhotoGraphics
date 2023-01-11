@@ -141,7 +141,7 @@ if ($plugin_disable) {
 			$cookiepath = '/';
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 		<?php
 		$selector = getOption('viewer_size_image_radio') == 1;
 		if ($selector) {
@@ -169,7 +169,7 @@ if ($plugin_disable) {
 			<?php
 		}
 		?>
-			// ]]> -->
+			
 		</script>
 		<div>
 			<?php

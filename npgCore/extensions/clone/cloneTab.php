@@ -180,7 +180,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						$path = str_replace(WEBPATH, '/', SERVERPATH);
 						?>
 						<script type="text/javascript">
-							// <!-- <![CDATA[
+							
 							var prime = '<?php echo SERVERPATH; ?>/';
 							function buttonAction(data) {
 								$('#newDir').val(data);
@@ -199,7 +199,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								$('#cloneWebPath').val('<?php echo $urlpath; ?>' + newinstall);
 							}
 							window.addEventListener('load', folderChange, false);
-							// ]]> -->
+							
 						</script>
 						<form name="changeDir" id="changeDir" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/cloneTab.php'); ?>?tab=clone" method="post">
 							<input type="hidden" name="path" id="newDir" value = "" />

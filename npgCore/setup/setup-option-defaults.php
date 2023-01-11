@@ -903,16 +903,19 @@ foreach ($all as $aux) {
 
 query('DELETE FROM ' . prefix('options') . ' WHERE  `name` ="search_space_is_OR"', false);
 
-if (!file_exists(SERVERPATH . '/favicon.ico')) {
-	copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
-} else {
-	$ico = md5_file(SERVERPATH . '/favicon.ico');
-	$ico_L = '2a479b69ab8479876cb5a7e6384e7a85'; //	hash of legacy zenphoto favicon
-	$ico_20 = '8eac492afff6cbb0d3f1e4b913baa8a3'; //	hash of zenphoto20 favicon
-	if ($ico_L == $ico || $ico_20 == $ico) {
+if (file_exists(SERVERPATH . '/favicon.ico')) {
+	$replace = array(
+			'2a479b69ab8479876cb5a7e6384e7a85', //	hash of legacy zenphoto favicon
+			'8eac492afff6cbb0d3f1e4b913baa8a3', //	hash of zenphoto20 favicon
+			'6221c9f071b8347592701c632ffd85c7' //	hash of low resolution nPG favicon
+	);
+	if (in_array(md5_file(SERVERPATH . '/favicon.ico'), $replace)) {
 		unlink(SERVERPATH . '/favicon.ico');
 		copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
+		setupLog('<span class="logwarning">' . gettext('Site <em>favicon.ico</em> updated.') . '</span>', true);
 	}
+} else {
+	copy(CORE_SERVERPATH . 'images/favicon.ico', SERVERPATH . '/favicon.ico');
 }
 
 setOptionDefault('fullsizeimage_watermark', getOption('fullimage_watermark'));

@@ -19,7 +19,7 @@ class ef_colorbox {
 	function theme_head($_themeroot) {
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			window.addEventListener('load', function () {
 				$("a.thickbox").colorbox({
 					maxWidth: "98%",
@@ -28,7 +28,7 @@ class ef_colorbox {
 					close: '<?php echo gettext("close"); ?>'
 				});
 			}, false);
-			// ]]> -->
+			
 		</script>
 		<?php
 	}

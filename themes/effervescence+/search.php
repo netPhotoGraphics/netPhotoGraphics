@@ -21,7 +21,7 @@ $backgroundImagePath = "";
 
 		<?php $handler->theme_head($_themeroot); ?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			function toggleExtraElements(category, show) {
 				if (show) {
 					jQuery('.' + category + '_showless').show();
@@ -33,7 +33,7 @@ $backgroundImagePath = "";
 					jQuery('.' + category + '_extrashow').hide();
 				}
 			}
-			// ]]> -->
+			
 		</script>
 	</head>
 

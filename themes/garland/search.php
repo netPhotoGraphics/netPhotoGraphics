@@ -16,7 +16,7 @@ if (!defined('WEBPATH'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
 		<script type="text/javascript">
-			// <!-- <![CDATA[
+			
 			function toggleExtraElements(category, show) {
 				if (show) {
 					jQuery('.' + category + '_showless').show();
@@ -28,7 +28,7 @@ if (!defined('WEBPATH'))
 					jQuery('.' + category + '_extrashow').hide();
 				}
 			}
-			// ]]> -->
+			
 		</script>
 	</head>
 	<body class="sidebars">

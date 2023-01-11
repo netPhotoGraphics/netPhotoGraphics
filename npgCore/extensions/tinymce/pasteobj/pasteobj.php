@@ -117,7 +117,7 @@ function getIPSizedImage($size, $image) {
 			}
 			?>
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				var link = '<?php echo $link; ?>';
 				var link2 = '<?php echo $link2; ?>';
 				var alt1 = '<?php echo addslashes($alt1); ?>'.replace(/"/g, '\\"');
@@ -238,7 +238,7 @@ function getIPSizedImage($size, $image) {
 
 				window.addEventListener('load', pasteobjchange, false);
 
-				// ]]> -->
+				
 			</script>
 			<h3>
 				<?php

@@ -96,7 +96,7 @@ updatePublished('pages');
 		}
 	}
 
-	// ]]> -->
+	
 </script>
 
 </head>

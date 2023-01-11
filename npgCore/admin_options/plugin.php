@@ -90,9 +90,9 @@ function getOptionContent() {
 		?>
 		<div id="tab_plugin" class="tabbox">
 			<script type="text/javascript">
-				// <!-- <![CDATA[
+				
 				var optionholder = new Array();
-				// ]]> -->
+				
 			</script>
 
 			<?php

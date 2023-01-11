@@ -103,7 +103,7 @@ function EF_head() {
 	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function blurAnchors() {
 			if (document.getElementsByTagName) {
 				var a = document.getElementsByTagName("a");
@@ -114,7 +114,7 @@ function EF_head() {
 				}
 			}
 		}
-		// ]]> -->
+		
 	</script>
 	<?php
 }
@@ -136,7 +136,7 @@ function iconColor($icon) {
 function switcher_head($ignore) {
 	?>
 	<script type="text/javascript">
-		// <!-- <![CDATA[
+		
 		function switchColors() {
 			personality = $('#themeColor').val();
 			window.location = '?themeColor=' + personality;
@@ -149,7 +149,7 @@ function switcher_head($ignore) {
 			personality = $('#themeMenu').val();
 			window.location = '?themeMenu=' + personality;
 		}
-		// ]]> -->
+		
 	</script>
 	<?php
 	return $ignore;

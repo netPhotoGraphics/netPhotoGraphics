@@ -15,7 +15,7 @@ define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
 
 ini_set('session.use_strict_mode', 1);
 
-// Set error reporting.
+// Set error reporting
 error_reporting(E_ALL | E_STRICT);
 if (DISPLAY_ERRORS) {
 	ini_set('display_errors', 1);

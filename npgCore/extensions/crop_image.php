@@ -356,7 +356,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 		return confirm('<?php echo gettext('Are you sure you want to permanently alter this image?'); ?>');
 	}
 
-	// ]]> -->
+	
 </script>
 </head>
 <body>

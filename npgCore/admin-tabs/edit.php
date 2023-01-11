@@ -568,7 +568,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 				tags: imagedbfields
 			});
 		});
-		// ]]> -->
+		
 	</script>
 	<?php
 }
@@ -613,7 +613,7 @@ if ($subtab == 'imageinfo') {
 ?>
 		resizeTable();
 	}, false);
-	// ]]> -->
+	
 </script>
 
 <?php

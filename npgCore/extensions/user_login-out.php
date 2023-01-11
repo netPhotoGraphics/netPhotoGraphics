@@ -110,7 +110,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 						}
 						?>
 						<script type="text/javascript">
-							// <!-- <![CDATA[
+							
 							window.addEventListener('load', function () {
 							$(".logonlink").colorbox({
 							inline: true,
@@ -136,7 +136,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 							});
 							}
 							, false);
-							// ]]> -->
+							
 						</script>
 						<?php
 						if ($before) {

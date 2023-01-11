@@ -271,14 +271,14 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 					if ($recurse) {
 						?>
 						<script type="text/javascript">
-							// <!-- <![CDATA[
+							
 							$.ajax({
 								type: 'POST',
 								cache: false,
 								url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setup_permissions_changer.php',
 								data: 'folder=<?php echo $path; ?>&key=<?php echo sha1(filemtime(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)); ?>'
 							});
-							// ]]> -->
+							
 						</script>
 						<?php
 					}
