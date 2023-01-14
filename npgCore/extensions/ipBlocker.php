@@ -232,15 +232,10 @@ class ipBlocker {
 		if (isset($_ipBlocker_list)) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
-				$_ipBlocker_list = unserialize($raw);
-				if (isset($_ipBlocker_list['Block'])) {
-					$_ipBlocker_list = $_ipBlocker_list['Block'];
-				} else {
-					$_ipBlocker_list = array();
-				}
+				return unserialize($raw);
 			}
 		}
-		return $_ipBlocker_list;
+		return array();
 	}
 
 	/**
