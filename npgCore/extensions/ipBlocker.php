@@ -229,7 +229,7 @@ class ipBlocker {
 	 */
 	private static function getList() {
 		global $_ipBlocker_list;
-		if (isset($_ipBlocker_list)) {
+		if (!isset($_ipBlocker_list)) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
 				return unserialize($raw);
