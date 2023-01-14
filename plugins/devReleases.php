@@ -24,25 +24,17 @@ require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
 
 use Milo\Github;
 
-$devVersionURI = getOption('getDEVUpdates_latest');
-
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
 		purgeOption('getUpdates_lastCheck');
-		header('Clear-Site-Data: "cache"');
-		header("Cache-Control: no-cache; private; no-store; must-revalidate"); // HTTP 1.1.
-		header("Pragma: no-cache"); // HTTP 1.0.
-		header("Expires: 0"); // Proxies.
-		header('HTTP/1.0 303 See Other');
-		header("Status: 303 See Other");
-		header('location: ' . getAdminLink('admin.php') . '?update_check');
-		exit();
+		$_GET['update_check'] = true;
 	}
 	if ($_GET['action'] == 'install_dev') {
 		XSRFdefender('install_update');
 		admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
+		$devVersionURI = getOption('getDEVUpdates_latest');
 		if ($msg = getRemoteFile($devVersionURI, SERVERPATH)) {
 			$found = file_exists($file = SERVERPATH . '/' . basename($devVersionURI));
 			if ($found) {
@@ -91,8 +83,7 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 class devReleases {
 
 	static function buttons($buttons) {
-		global $devVersionURI;
-		preg_match('~[^\d]*(.*)~', stripSuffix(basename($devVersionURI)), $matches);
+		preg_match('~[^\d]*(.*)~', stripSuffix(basename(getOption('getDEVUpdates_latest'))), $matches);
 		$devVersion = $matches[1];
 		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
 
