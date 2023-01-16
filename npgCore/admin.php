@@ -314,9 +314,7 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 			debugLog(gettext('GitHub repository not accessible. ') . $e);
 		}
 	}
-}
 
-if (npgFunctions::hasPrimaryScripts()) {
 	$newestVersionURI = getOption('getUpdates_latest');
 	$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
 }
