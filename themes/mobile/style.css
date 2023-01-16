@@ -1,5 +1,6 @@
 body {
 	background-color: black !important;
+	color: lightgray;
 }
 
 .content-primary {
@@ -9,6 +10,9 @@ body {
 	margin-top: 0px;
 }
 
+code {
+	color: lightcyan;
+}
 
 #latest {
 	margin: 0;
@@ -53,16 +57,17 @@ ul.pagelist li {
 .comment,
 ul.taglist li a,
 .catlist li a,
+#collapsible-lists a,
 #collapsible-lists li a,
 #tagcloud a,
 .archive a,
 #archive a,
-h2.breadcrumb a,
 ul.pagelist li a,
 a.slideshowlink {
 	font-weight: normal;
 	text-decoration: none;
 	border: 1px solid #dddddd;
+	color: black;
 	background-color:  white;
 	padding: 3px 6px 3px 6px;
 	-moz-border-radius: 5px 5px 5px 5px;
@@ -82,26 +87,45 @@ ul.taglist li a,
 .disabled_nav {
 	display: none;
 }
-#admin_tb_data a:hover,
 
+a {
+	text-decoration: none;
+	color: lightcyan;
+}
+a:hover{
+	color: black;
+	background-color: lightgray;
+}
+a:active {
+	color: black;
+	background-color: darkgray;
+}
+.menu_customlink a {
+	color: black;
+}
+.menu_customlink a:hover,
+#admin_tb_data a:hover,
+h1 a:hover,
 ul.taglist li a:hover,
 #collapsible-lists li a:hover,
 #tagcloud a:hover,
 .archive a:hover,
 #archive a:hover,
-h2.breadcrumb a:hover,
+
 ul.pagelist li a:hover,
 a.slideshowlink:hover {
 	text-decoration: none;
 	background-color: lightgray;
 }
+.menu_customlink a:active,
 #admin_tb a:active,
+h1 a:active,
 ul.taglist li a:active,
 #collapsible-lists li a:active,
 #tagcloud a:active,
 .archive a:active,
 #archive a:active,
-h2.breadcrumb a:active,
+
 ul.pagelist li a:active,
 ul.pagelist li a:active,
 a.slideshowlink:active {
@@ -248,12 +272,15 @@ h4 {
 
 }
 
-
+ul > li {
+	list-style: none;
+}
 
 ul.archive {
 	margin-left: -10px;
 
 }
+
 ul.archive > li {
 	list-style: none;
 	margin: 20px 0 20px -30px;
@@ -414,4 +441,3 @@ li.rsslink {
 .npg-logo, .npg-logo a {
 	text-decoration: none;
 }
-

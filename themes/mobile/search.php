@@ -75,7 +75,7 @@ if (!defined('WEBPATH'))
 						</h3>
 						<?php
 					}
-					if ($_current_page == 1) { //test of zenpage searches
+					if ($_current_page == 1) { //test of CMS searches
 						if ($numpages > 0) {
 							$number_to_show = 5;
 							$c = 0;
