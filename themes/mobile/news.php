@@ -67,6 +67,8 @@ if (class_exists('CMS')) {
 						} else {
 							printNewsPageListWithNav(gettext('next »'), gettext('« prev'), true, 'pagelist', true, 7);
 							?>
+							<br clear="all">
+							<br />
 							<ul data-role="listview" data-inset="true" data-theme="a" class="ui-listview ui-group-theme-a">
 								<?php while (next_news()): ?>
 									<li>
@@ -79,6 +81,7 @@ if (class_exists('CMS')) {
 								endwhile;
 								?>
 							</ul>
+							<br clear="all">
 							<?php
 							printNewsPageListWithNav(gettext('next »'), gettext('« prev'), true, 'pagelist', true, 7);
 						}
@@ -92,8 +95,8 @@ if (class_exists('CMS')) {
 				<?php jqm_printBacktoTopLink(); ?>
 				<?php jqm_printFooterNav(); ?>
 			</div><!-- /page -->
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

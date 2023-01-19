@@ -1,32 +1,16 @@
 <?php
 /**
- * The plugin provides two services:
- * <ol>
- * 	<li>IP address filtering</li>
- * 	<li>Detection of <i>password probing</i> attempts
- * </ol>
+ * The plugin provides IP address filtering:
  *
- * <b>IP address filtering:</b>
- *
- * Allows/Denies access to the gallery to specified IP address ranges
+ * Allows/Denies access to the gallery to specified IP address ranges.
  * Detects repeated failed login attempts and blocks access to the IP address used
  * in these attempts.
  *
- * This does not block access to validated users, only anonymous visitors. But
- * a user will have to log on via the admin pages if out of the IP ranges as
- * he will get a Forbidden error on any front-end page including a logon form
+ * IP addresses may be supplied in a text file, one IP range per line. Upload the text file to the <i>%USER_PLUGIN_FOLDER%/ipBlocker/</i> folder. An IP range is a starting IP and ending IP separated by a hyphen. E.g. <var>192.168.0.0-192.168.1.255</var>.
  *
- * <b>Password probing:</b>
+ * If you accidentally block your own IP address you will have to remove the <i>%DATA_FOLDER%/ipBlockerLists</i> file
+ * to clear out any block ranges.
  *
- * Hackers often use <i>probing</i> or <i>password guessing</i> to attempt to breach your site
- * This plugin can help to throttle these attacks. It works by monitoring failed logon attempts.
- * If a defined threashold is exceeded by requests from a particular IP
- * address, further access attempts from that IP accress will be ignored until a timeout has expired.
- *
- * <b>IP list importing</b>
- *
- * IP addresses may be supplied in a text file, one IP per line. Upload the text file to the <i>%UPLOAD_FOLDER%</i> folder.
-
  * @author Stephen Billard (sbillard)
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
@@ -35,15 +19,10 @@
  */
 $plugin_is_filter = 990 | FEATURE_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_description = gettext("Tools to block hacker access to your site.");
+	$plugin_description = gettext("Tool to block hacker access to your site.");
 }
 
 $option_interface = 'ipBlocker';
-
-npgFilters::register('admin_login_attempt', 'ipBlocker::login', 0);
-npgFilters::register('federated_login_attempt', 'ipBlocker::login', 0);
-npgFilters::register('guest_login_attempt', 'ipBlocker::login', 0);
-npgFilters::register('log_404', 'ipBlocker::handle404');
 
 /**
  * Option handler class
@@ -60,33 +39,24 @@ class ipBlocker {
 
 		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 			if (OFFSET_PATH == 2) {
-				$options = self::getList('Options');
-				if ($options) {
-					//	import from old file based options
-					setOption('ipBlocker_type', $options['ipBlocker_type']);
-					setOption('ipBlocker_threshold', $options['ipBlocker_threshold']);
-					setOption('ipBlocker_404_threshold', $options['ipBlocker_404_threshold']);
-					setOption('ipBlocker_timeout', $options['ipBlocker_timeout']);
-				} else {
-					setOptionDefault('ipBlocker_type', 0);
-					setOptionDefault('ipBlocker_threshold', 10);
-					setOptionDefault('ipBlocker_404_threshold', 10);
-					setOptionDefault('ipBlocker_timeout', 60);
-				}
-				//fix error in list saving
-				$block = self::getList('Block');
-				$suspend = self::getList('Suspend');
-				$update = false;
-				foreach ($suspend as $key => $range) {
-					if (is_array($range)) {
-						unset($suspend[$key]);
-						$block[] = $range;
-						$update = true;
+				$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="ipBlocker"';
+				query($sql);
+
+				purgeOption('ipBlocker_type');
+				purgeOption('ipBlocker_threshold');
+				purgeOption('ipBlocker_404_threshold');
+				purgeOption('ipBlocker_timeout');
+
+				if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+					$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
+					$_ipBlocker_list = unserialize($raw);
+					if (isset($_ipBlocker_list['Suspend']) || isset($_ipBlocker_list['Options']) || isset($_ipBlocker_list['Block'])) {
+						if (isset($_ipBlocker_list['Block'])) {
+							self::setList($_ipBlocker_list['Block']);
+						} else {
+							self::setList(array());
+						}
 					}
-				}
-				if ($update) {
-					self::setList('Suspend', $suspend);
-					self::setList('Block', $block);
 				}
 			}
 		}
@@ -100,45 +70,28 @@ class ipBlocker {
 	function getOptionsSupported() {
 		$buttons = array(gettext('Allow') => 1, gettext('Block') => 0);
 		$text = array_flip($buttons);
-
-		$options = array(
-				gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
-						'order' => 10,
-						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[(int) getOption('ipBlocker_type')])),
-				' ' => array('key' => 'ipBlocker_button', 'type' => OPTION_TYPE_CUSTOM,
-						'order' => 20,
-						'desc' => ''),
-				gettext('Action') => array('key' => 'ipBlocker_type', 'type' => OPTION_TYPE_RADIO,
-						'order' => 15,
-						'buttons' => $buttons,
-						'desc' => gettext('How the plugin will interpret the IP list.')),
-				gettext('Logon threshold') => array('key' => 'ipBlocker_threshold', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 1,
-						'desc' => gettext('Admin page requests will be suspended after this many failed tries.')),
-				gettext('404 threshold') => array('key' => 'ipBlocker_404_threshold', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 2,
-						'desc' => gettext('Access will be suspended after this many 404 errors.')),
-				'addl' => array('key' => 'note', 'type' => OPTION_TYPE_NOTE,
-						'order' => 4,
-						'desc' => gettext('Requests older than the <em>Cool off</em> minutes are not counted. If a threshold value is zero, the blocking is disabled.')),
-				gettext('Cool off') => array('key' => 'ipBlocker_timeout', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 5,
-						'desc' => gettext('The suspension will be removed after this many minutes.'))
-		);
-
 		$list = getPluginFiles('*.txt', 'ipBlocker');
 		if ($list) {
 			$files = array_merge(array('' => ''), $list);
 		} else {
 			$files = array('no text files found' => '');
 		}
-
-		$options[gettext('Import list')] = array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
-				'order' => 12,
-				'selections' => $files,
-				'nullselection' => '',
-				'disabled' => count($files) == 1,
-				'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE)
+		$options = array(
+				gettext('Action') => array('key' => 'ipBlocker_type', 'type' => OPTION_TYPE_RADIO,
+						'order' => 5,
+						'buttons' => $buttons,
+						'desc' => gettext('How the plugin will interpret the IP list.')),
+				gettext('IP list') => array('key' => 'ipBlocker_IP', 'type' => OPTION_TYPE_CUSTOM,
+						'order' => 10,
+						'desc' => sprintf(gettext('List of IP ranges to %s.'), $text[(int) getOption('ipBlocker_type')])),
+				' ' => array('key' => 'ipBlocker_button', 'type' => OPTION_TYPE_CUSTOM,
+						'order' => 30),
+				gettext('Import list') => array('key' => 'ipBlocker_import', 'type' => OPTION_TYPE_SELECTOR,
+						'order' => 20,
+						'selections' => $files,
+						'nullselection' => '',
+						'disabled' => count($files) == 1,
+						'desc' => sprintf(gettext('Import an external IP list. <p class="notebox"><strong>NOTE:</strong> If this list is large it may exceed the capacity of netPhotoGraphics and %s to process and store the results.'), DATABASE_SOFTWARE))
 		);
 
 		return $options;
@@ -147,24 +100,28 @@ class ipBlocker {
 	function handleOption($option, $currentValue) {
 		switch ($option) {
 			case 'ipBlocker_IP':
-				$list = sortMultiArray(self::getList('Block'), 'start');
 				$key = 0;
-				foreach ($list as $key => $range) {
-					$start = str_replace(' ', '', $range['start']);
-					$start = preg_replace('`\.+`', '.', $start);
-					$start = preg_replace('`::+`', '::', $start);
+				$list = self::getList();
+				if (!empty($list)) {
+					$list = sortMultiArray(self::getList(), 'start');
 
-					$end = str_replace(' ', '', $range['end']);
-					$end = preg_replace('`\.+`', '.', $end);
-					$end = preg_replace('`::+`', '::', $end);
-					?>
-					<input id="ipholder_<?php echo $key; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $key; ?>"
-								 value="<?php echo html_encode($start); ?>" />
-					-
-					<input id="ipholder_<?php echo $key; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $key; ?>"
-								 value="<?php echo html_encode($end); ?>" />
-					<br />
-					<?php
+					foreach ($list as $key => $range) {
+						$start = str_replace(' ', '', $range['start']);
+						$start = preg_replace('`\.+`', '.', $start);
+						$start = preg_replace('`::+`', '::', $start);
+
+						$end = str_replace(' ', '', $range['end']);
+						$end = preg_replace('`\.+`', '.', $end);
+						$end = preg_replace('`::+`', '::', $end);
+						?>
+						<input id="ipholder_<?php echo $key; ?>a" type="textbox" size="35" name="ipBlocker_ip_start_<?php echo $key; ?>"
+									 value="<?php echo html_encode($start); ?>" />
+						-
+						<input id="ipholder_<?php echo $key; ?>b" type="textbox" size="35" name="ipBlocker_ip_end_<?php echo $key; ?>"
+									 value="<?php echo html_encode($end); ?>" />
+						<br />
+						<?php
+					}
 				}
 				$i = $key;
 				while ($i < $key + 4) {
@@ -222,6 +179,7 @@ class ipBlocker {
 			}
 		}
 		$list = array_unique($list, SORT_REGULAR);
+
 		purgeOption('ipBlocker_import');
 		if (!empty($_POST[postIndexEncode('ipBlocker_import')])) {
 			$file = sanitize_path($_POST[postIndexEncode('ipBlocker_import')]);
@@ -243,123 +201,13 @@ class ipBlocker {
 				}
 			}
 		}
-		self::setList('Block', $list);
+		self::setList($list);
 		self::releaseLock();
 
 		if ($notify)
 			return '&custom=' . $notify;
 		else
 			return false;
-	}
-
-	/**
-	 * Clears out the suspension list for an ip, for instance when an admin logs
-	 * on with that ip
-	 *
-	 * @global object $_current_admin_obj
-	 * @return boolean
-	 */
-	static function clear() {
-		global $_current_admin_obj;
-		self::getLock();
-		$suspend = self::getList('Suspend');
-		if ($suspend && $_current_admin_obj && !$_current_admin_obj->transient) {
-			$ip = getUserIP();
-			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
-			query($sql);
-
-			if (array_key_exists($ip, $suspend)) {
-				unset($suspend[$ip]);
-				if (empty($suspend)) {
-					$suspend = array();
-				}
-				self::setList('Suspend', $suspend);
-			}
-			$result = true;
-		} else {
-			$result = false;
-		}
-		self::releaseLock();
-		return $result;
-	}
-
-	/**
-	 * Monitors Login attempts and suspends of past failure threshold
-	 * @param bit true if login is successful
-	 * @param string $user ignored
-	 * @param string $pass ignored
-	 */
-	static function login($loggedin, $user, $pass = NULL, $auth = NULL) {
-		if ($loggedin) {
-			self::clear();
-		} else {
-			self::ipGate('logon');
-			self::load();
-		}
-		return $loggedin;
-	}
-
-	/**
-	 * causes 404 errors to be monitored for abuse
-	 *
-	 * @param type $log ignored
-	 * @param type $data ignored
-	 * @return type
-	 */
-	static function handle404($log, $data) {
-		self::ipGate('404');
-		return $log;
-	}
-
-	/**
-	 * Checks if ip should be suspended
-	 * @param bool $allow ignored
-	 * @param string $page ignored
-	 */
-	static function ipGate($type) {
-		switch ($type) {
-			case 'logon':
-				$threshold = getOption('ipBlocker_threshold');
-				break;
-			case '404':
-				$threshold = getOption('ipBlocker_404_threshold');
-				break;
-			case 'flood':
-				$threshold = getOption('ipBlocker_flood_threshold');
-				break;
-		}
-
-		if ($threshold) {
-			self::getLock();
-			$suspend = self::getList('Suspend');
-			$ip = self::cononicalIP(getUserIP());
-			//	clean out expired attempts
-			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="ipBlocker" AND `aux` < ' . db_quote(time() - 3600);
-			query($sql);
-			//	add this attempt
-			$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("ipBlocker",' . db_quote($type) . ', ' . db_quote(time()) . ',' . db_quote($ip) . ')';
-			query($sql);
-			//	check how many times this has happened recently
-			$sql = 'SELECT `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="ipBlocker" AND `subtype`=' . db_quote($type) . ' AND `data`=' . db_quote($ip) . ' ORDER BY `aux`';
-			$instances = query_full_array($sql);
-			$frequency = 0;
-			$count = count($instances);
-			if ($count > 5) {
-				for ($i = 1; $i < $count; $i++) {
-					$frequency = $frequency + $instances[$i]['aux'] - $instances[$i - 1]['aux'];
-				}
-				$frequency = $frequency / $count;
-				$minInterval = 3600 / $threshold;
-				if ($frequency < $minInterval) {
-					npgFilters::apply('access_control', 4, $type, 'ipBlocker', getRequestURI());
-					$suspend[$ip] = time();
-					self::setList('Suspend', $suspend);
-					$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type` ="ipBlocker" AND `data`=' . db_quote($ip);
-					query($sql);
-				}
-			}
-			self::releaseLock();
-		}
 	}
 
 	private static function getLock() {
@@ -379,28 +227,13 @@ class ipBlocker {
 	 * @global array $_ipBlocker_lists
 	 * @return array
 	 */
-	private static function getIPBlockerLists() {
-		global $_ipBlocker_lists;
-
-		if (empty($_ipBlocker_lists)) {
+	private static function getList() {
+		global $_ipBlocker_list;
+		if (!isset($_ipBlocker_list)) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
-				$_ipBlocker_lists = unserialize($raw);
+				return unserialize($raw);
 			}
-		}
-		return $_ipBlocker_lists;
-	}
-
-	/**
-	 * Fetches ipBlocker lists (avoid database)
-	 *
-	 * @param string $which the name of the list
-	 * @return array
-	 */
-	private static function getList($which) {
-		$lists = self::getIPBlockerLists();
-		if (isset($lists[$which])) {
-			return $lists[$which];
 		}
 		return array();
 	}
@@ -411,12 +244,8 @@ class ipBlocker {
 	 * @param string $which the name of the list
 	 * @param array $list the content of the list
 	 */
-	private static function setList($which, $list) {
-		global $_ipBlocker_lists;
-		self::getIPBlockerLists();
-		unset($_ipBlocker_lists['Options']);
-		$_ipBlocker_lists[$which] = $list;
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists', serialize($_ipBlocker_lists));
+	private static function setList($list) {
+		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists', serialize($list));
 	}
 
 	/**
@@ -424,7 +253,7 @@ class ipBlocker {
 	 * @return 0,1
 	 */
 	static function blocked($ip) {
-		$list = self::getList('Block');
+		$list = self::getList();
 		if (!empty($list)) {
 			$ip = self::cononicalIP($ip);
 			$gate = $allow = getOption('ipBlocker_type');
@@ -441,44 +270,16 @@ class ipBlocker {
 	}
 
 	/**
-	 * Checks the suspension list for the ip
-	 * @return boolean
-	 */
-	static function suspended($ip) {
-		self::getLock();
-		$suspend = self::getList('Suspend');
-		$result = false;
-		if (!empty($suspend)) {
-			if (array_key_exists($ip, $suspend)) {
-				if ($suspend[$ip] < (time() - $suspend['ipBlocker_timeout'] * 60)) {
-					// cooloff period passed
-					unset($suspend[$ip]);
-					self::setList('Suspend', $suspend);
-				}
-			} else {
-				$result = true;
-			}
-		}
-		self::releaseLock();
-		return $result;
-	}
-
-	/**
 	 * Monitors site access and excludes access if appropriate
 	 * @param bool $check if true the access frequency will be checked
 	 */
 	static function load($ip) {
-		if (($temp = self::suspended($ip)) || self::blocked($ip)) {
-			if (!self::clear()) {
-				db_close();
-				sleep(30);
-				header("HTTP/1.0 503 " . gettext("Unavailable"));
-				header("Status: 503 " . gettext("Unavailable"));
-				if ($temp) {
-					header("Retry-After: 300");
-				}
-				exit(); //	terminate the script with no output
-			}
+		if (self::blocked($ip)) {
+			db_close();
+			sleep(30);
+			header("HTTP/1.0 503 " . gettext("Unavailable"));
+			header("Status: 503 " . gettext("Unavailable"));
+			exit(); //	terminate the script with no output
 		}
 	}
 
@@ -514,9 +315,19 @@ class ipBlocker {
 global $_ipBlockerMutex;
 $_ipBlockerMutex = new npgMutex('bK');
 if (extensionEnabled('ipBlocker')) {
-	if (isset($_current_admin_obj) && !$_current_admin_obj->transient) {
-		ipBlocker::clear();
+	$ip = getUserIP();
+	if (!isset($_current_admin_obj) || (!$me = $_current_admin_obj && !$_current_admin_obj->transient)) {
+		$me = getUserIP() == getOption('accessThreshold_Owner');
 	} else {
-		ipBlocker::load(getUserIP());
+		if ($_current_admin_obj->master) {
+			if (getOption('accessThreshold_Owner') != $ip) {
+				//	keep it mostly current if the user does not have a static IP
+				setOption('accessThreshold_Owner', $ip);
+			}
+		}
+	}
+
+	if (!$me) {
+		ipBlocker::load($ip);
 	}
 }

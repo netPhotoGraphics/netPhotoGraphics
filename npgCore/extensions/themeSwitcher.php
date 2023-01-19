@@ -126,17 +126,29 @@ class themeSwitcher {
 		global $_themeSwitcherThemelist;
 		ob_start();
 		$_themeSwitcherThemelist = npgFilters::apply('themeSwitcher_head', $_themeSwitcherThemelist);
+		$js = '';
 		$scripts = ob_get_clean();
-		$scripts = preg_replace('~<script.*text/javascript.*>\s*//\s*<!--.*CDATA\[?~', '', $scripts);
-		$scripts = preg_replace('~//\s*\]\]>\s*-->\s*\s</script>?~', '', $scripts);
+		do {
+			$s = $scripts;
+			$scripts = preg_replace('~\n\s*\n~', "\n", $scripts);
+		} while ($scripts != $s);
+		if (preg_match_all('~<script.*[type=\"text/javascript\"]*.*>([^<]*)</script>~', $scripts, $matches)) {
+
+			foreach ($matches[0] as $match) {
+				$scripts = str_replace($match, '', $scripts);
+			}
+
+			foreach ($matches[1] as $match) {
+				$js .= $match;
+			}
+		}
+		echo $scripts;
 		?>
 		<script type="text/javascript">/* themeSwitcher */
-			
 			function switchTheme(reloc) {
 				window.location = reloc.replace(/%t/, encodeURIComponent($('#themeSwitcher').val()));
 			}
-		<?php echo $scripts; ?>
-			
+		<?php echo $js; ?>
 		</script>
 		<?php
 		scriptLoader(getPlugin('themeSwitcher/themeSwitcher.css'));

@@ -64,12 +64,12 @@ function printSoftwareLink() {
 function switcher_head($ignore) {
 	?>
 	<script type="text/javascript">
-		
+
 		function switchColors() {
 			personality = $('#themeColor').val();
 			window.location = '?themeColor=' + personality;
 		}
-		
+
 	</script>
 	<?php
 	return $ignore;

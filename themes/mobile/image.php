@@ -92,7 +92,6 @@ if (!defined('WEBPATH'))
 						printRating();
 						echo '</div>';
 					}
-
 					simpleMap::printMap();
 					if (function_exists('printCommentForm')) {
 						echo '<hr />';
