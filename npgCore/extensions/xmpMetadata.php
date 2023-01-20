@@ -679,6 +679,7 @@ class xmpMetadata {
 				'custom_data' => '<zp:CustomData',
 				'codeblock' => '<zp:Codeblock>'
 		);
+
 		foreach (self::getMetadataFields()as $field => $item) {
 			$desiredtags[$field] = $item[1];
 		}
@@ -687,8 +688,8 @@ class xmpMetadata {
 			$s = strpos($xmpdata, '<');
 			$e = strpos($xmpdata, '>', $s);
 			$tag = substr($xmpdata, $s, $e - $s + 1);
-			$xmpdata = substr($xmpdata, $e + 1);
 			$key = array_search($tag, $desiredtags);
+			$xmpdata = substr($xmpdata, $e + 1);
 			if ($key !== false) {
 				$close = str_replace('<', '</', $tag);
 				$e = strpos($xmpdata, $close);
@@ -714,7 +715,7 @@ class xmpMetadata {
 			} else { // look for shorthand elements
 				if (strpos($tag, '<rdf:Description') !== false) {
 					$meta = substr($tag, 17); // strip off the description tag leaving the elements
-					while (preg_match('/^[a-zA-z0-9_]+\:[a-zA-z0-9_]+\=".*"/', $meta, $element)) {
+					while (preg_match('/^[a-zA-z0-9_]+\:[a-zA-z0-9_]+\=".*?"/', $meta, $element)) {
 						$item = $element[0];
 						$meta = trim(substr($meta, strlen($item)));
 						$i = strpos($item, '=');
@@ -834,7 +835,7 @@ class xmpMetadata {
 	 */
 	private static function extractXMP($metadata_path) {
 		$f = file_get_contents($metadata_path);
-		if (preg_match('~<.*?xmpmeta~', $f, $m)) {
+		if (preg_match('~<[a-z]*:*xmpmeta~', $f, $m)) {
 			$open = $m[0];
 			$close = str_replace('<', '</', $open);
 			$j = strpos($f, $open);
