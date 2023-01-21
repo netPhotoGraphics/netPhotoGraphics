@@ -354,6 +354,9 @@ class openStreetMap {
 	public $zoomcontrolpos = NULL;
 	public $showscale = NULL;
 	public $showcursorpos = NULL;
+	public $layerscontrolpos = NULL;
+	public $cluster_showcoverage_on_hover = NULL;
+	public $showlayerscontrol = NULL;
 
 	/**
 	 * The current image or album object if not passing custom geodata
