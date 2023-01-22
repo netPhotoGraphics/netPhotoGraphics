@@ -187,7 +187,7 @@ class cacheManager {
 		$result = query('SELECT `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
 		$key = 0;
 		while ($row = db_fetch_assoc($result)) {
-			$owner = $row['aux'];
+			$owner = strval($row['aux']);
 			$data = getSerializedArray($row['data']);
 			$index = $data['theme'];
 			if (array_key_exists('album', $data) && $data['album']) {
@@ -203,7 +203,7 @@ class cacheManager {
 
 		foreach ($custom as $ownerdata) {
 			$a = reset($ownerdata);
-			$ownerid = $owner = $a['theme'];
+			$ownerid = $owner = strval($a['theme']);
 			if (array_key_exists('class', $a)) {
 				$type = $a['class'];
 			} else {
