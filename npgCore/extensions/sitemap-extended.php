@@ -175,7 +175,7 @@ class sitemap {
 				gettext('Google - URL to image license') => array('key' => 'sitemap_license', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 12,
 						'multilingual' => FALSE,
-						'desc' => gettext('Optional. Used only if the Google extension is checked. Must be an absolute URL address of the form: ' . FULLWEBPATH . '/license.html.')),
+						'desc' => sprintf(gettext('Optional. Used only if the Google extension is checked. Must be an absolute URL address of the form: %1$s/license.html.'), FULLWEBPATH)),
 				gettext('Sitemap processing chunk') => array('key' => 'sitemap_processing_chunk', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 13,
 						'desc' => gettext('The number of albums that will be processed for each sitemap file. Lower this value if you get script timeouts when creating the files.'))

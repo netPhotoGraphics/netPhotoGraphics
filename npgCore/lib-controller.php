@@ -406,7 +406,7 @@ class Controller {
 		if (!is_object($_current_image) || !$_current_image->exists) {
 			return false;
 		}
-		$_current_image->albumanmealbum = $album;
+		$_current_image->albumnamealbum = $album;
 
 		add_context(NPG_IMAGE | NPG_ALBUM);
 		return $_current_image;

@@ -671,24 +671,25 @@ class xmpMetadata {
 	 */
 	private static function extract($xmpdata) {
 		$desiredtags = array(
-				'owner' => '<zp:Owner>',
-				'thumb' => '<zp:Thumbnail>',
-				'watermark' => '<zp:Watermark>',
-				'watermark_use' => '<zp:Watermark_use>',
-				'watermark_thumb' => '<zp:Watermark_thumb>',
-				'custom_data' => '<zp:CustomData',
-				'codeblock' => '<zp:Codeblock>'
+				'owner' => '<zp:owner>',
+				'thumb' => '<zp:thumbnail>',
+				'watermark' => '<zp:watermark>',
+				'watermark_use' => '<zp:watermark_use>',
+				'watermark_thumb' => '<zp:watermark_thumb>',
+				'custom_data' => '<zp:customData',
+				'codeblock' => '<zp:codeblock>'
 		);
+
 		foreach (self::getMetadataFields()as $field => $item) {
-			$desiredtags[$field] = $item[1];
+			$desiredtags[$field] = strtolower($item[1]);
 		}
 		$xmp_parsed = array();
 		while (!empty($xmpdata)) {
 			$s = strpos($xmpdata, '<');
 			$e = strpos($xmpdata, '>', $s);
 			$tag = substr($xmpdata, $s, $e - $s + 1);
+			$key = array_search(strtolower($tag), $desiredtags);
 			$xmpdata = substr($xmpdata, $e + 1);
-			$key = array_search($tag, $desiredtags);
 			if ($key !== false) {
 				$close = str_replace('<', '</', $tag);
 				$e = strpos($xmpdata, $close);
@@ -714,13 +715,13 @@ class xmpMetadata {
 			} else { // look for shorthand elements
 				if (strpos($tag, '<rdf:Description') !== false) {
 					$meta = substr($tag, 17); // strip off the description tag leaving the elements
-					while (preg_match('/^[a-zA-z0-9_]+\:[a-zA-z0-9_]+\=".*"/', $meta, $element)) {
+					while (preg_match('~^[a-zA-z0-9_]+\:[a-zA-z0-9_]+\=".*?"~i', $meta, $element)) {
 						$item = $element[0];
 						$meta = trim(substr($meta, strlen($item)));
 						$i = strpos($item, '=');
 						$tag = '<' . substr($item, 0, $i) . '>';
 						$v = self::decode(trim(substr($item, $i + 2, -1)));
-						$key = array_search($tag, $desiredtags);
+						$key = array_search(strtolower($tag), $desiredtags);
 						if ($key !== false) {
 							$xmp_parsed[$key] = trim($v);
 						}
@@ -834,7 +835,7 @@ class xmpMetadata {
 	 */
 	private static function extractXMP($metadata_path) {
 		$f = file_get_contents($metadata_path);
-		if (preg_match('~<.*?xmpmeta~', $f, $m)) {
+		if (preg_match('~<[a-z]*:*xmpmeta~i', $f, $m)) {
 			$open = $m[0];
 			$close = str_replace('<', '</', $open);
 			$j = strpos($f, $open);

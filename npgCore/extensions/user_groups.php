@@ -35,7 +35,6 @@ class user_groups {
 		$templates = false;
 		$objects = $primeObjects;
 		$custom = array();
-		$oldgroups = $userobj->getGroup();
 		$oldrights = $userobj->getRights();
 		$oldobjects = $userobj->getObjects();
 		$rights = 0;

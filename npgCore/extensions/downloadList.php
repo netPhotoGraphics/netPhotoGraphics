@@ -70,11 +70,9 @@ class DownloadList {
 						'order' => 2,
 						'desc' => gettext("This download folder can be relative to your installation (<em>foldername</em>) or external to it (<em>../foldername</em>)! You can override this setting by using the parameter of the printDownloadList() directly on calling.")),
 				gettext('Show filesize of download items') => array('key' => 'downloadList_showfilesize', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 3,
-						'desc' => ''),
+						'order' => 3),
 				gettext('Show download counter of download items') => array('key' => 'downloadList_showdownloadcounter', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 4,
-						'desc' => ''),
+						'order' => 4),
 				gettext('Files to exclude from the download list') => array('key' => 'downloadList_excludesuffixes', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 5,
 						'desc' => gettext('A list of file suffixes to exclude. Separate with comma and omit the dot (e.g "jpg").')),
@@ -150,7 +148,7 @@ class DownloadList {
 							 name="disclose_password_downloadList"
 							 id="disclose_password_downloadList"
 							 onclick="passwordClear('_downloadList');
-									 togglePassword('_downloadList');">
+											 togglePassword('_downloadList');">
 							 <?php echo gettext('Show'); ?>
 			</label>
 			<br />
@@ -273,11 +271,11 @@ class DownloadList {
 		}
 		?>
 		<script type="text/javascript">
-			
+
 			window.addEventListener('load', function () {
 				alert('<?php printf(gettext('File “%s” was not found.'), $file); ?>');
 			}, false);
-			
+
 		</script>
 		<?php
 	}

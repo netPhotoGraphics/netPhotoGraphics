@@ -131,7 +131,12 @@ if (isset($_GET['action'])) {
 								foreach ($groupelement['userlist'] as $list) {
 									$username = $list['checked'];
 									$userobj = $_authority->getAnAdmin(array('`user`=' => $username, '`valid`>=' => 1));
-									$hisgroups = explode(',', $userobj->getGroup());
+									$hisgroups = $userobj->getGroup();
+									if ($hisgroups) {
+										$hisgroups = explode(',', $hisgroups);
+									} else {
+										$hisgroups = array();
+									}
 									if (!in_array($groupname, $hisgroups)) {
 										$hisgroups[] = $groupname;
 										$userobj->setGroup(implode(',', $hisgroups));
@@ -588,7 +593,7 @@ echo '</head>' . "\n";
 								}
 								return true;
 							}
-							
+
 						</script>
 						<br class="clearall" />
 						<?php
