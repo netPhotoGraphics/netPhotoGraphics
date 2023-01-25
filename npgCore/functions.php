@@ -1571,7 +1571,6 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 	}
 
 	uasort($data, function ($a, $b) use ($field, $nat, $case) {
-		global $coll;
 		$retval = 0;
 		foreach ($field as $fieldname) {
 			if ($retval == 0) {
@@ -1619,7 +1618,7 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
  * @return array
  */
 function getNotViewableAlbums() {
-	global $_not_viewable_album_list;
+	static $_not_viewable_album_list;
 	if (npg_loggedin(ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS))
 		return array(); //admins can see all
 	if (is_null($_not_viewable_album_list)) {
@@ -2427,14 +2426,14 @@ function cron_starter($script, $params, $offsetPath, $inline = false) {
 			$_HTML_cache->abortHTMLCache(true);
 			?>
 			<script type="text/javascript" >
-				
+
 				$.ajax({
 					type: 'POST',
 					cache: false,
 					data: '<?php echo $paramlist; ?>',
 					url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/cron_runner.php' ?>'
 				});
-				
+
 			</script>
 			<?php
 		}
@@ -2703,7 +2702,7 @@ function applyMacros($text) {
 }
 
 function getMacros() {
-	global $_content_macros;
+	static $_content_macros;
 	if (is_null($_content_macros)) {
 		$_content_macros = npgFilters::apply('content_macro', array());
 	}

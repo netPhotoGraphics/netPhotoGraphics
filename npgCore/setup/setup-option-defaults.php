@@ -106,6 +106,9 @@ $plugins = array_keys($plugins);
 $plugin_links = array();
 $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 localeSort($plugins);
+$package = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics.package');
+preg_match_all('~' . USER_PLUGIN_FOLDER . '/([^/]*).php~', $package, $matches);
+$npgPlugins = $matches[1];
 
 foreach ($plugins as $key => $extension) {
 	$class = 0;
@@ -1165,7 +1168,7 @@ $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'))
 if ($displayErrors) {
 	$autorun = false;
 }
-$userPlugins = array_diff($plugins, $_npg_plugins);
+$userPlugins = array_diff($plugins, $npgPlugins);
 if (!empty($themes) || !empty($userPlugins)) {
 	//	There are either un-distributed themes or un-distributed plugins present
 	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
@@ -1195,7 +1198,7 @@ if (empty($compatibilityWas)) {
 } else {
 	$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), $compatibilityWas);
 }
-$newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $_npg_plugins);
+$newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $npgPlugins);
 $newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
 
 if (!empty($newPlugins) || !empty($newThemes)) {
