@@ -153,11 +153,9 @@
  */
 function intel2Moto($intel) {
 	static $cache = array();
-	$intel = strval($intel);
 	if (isset($cache[$intel])) {
 		return $cache[$intel];
 	}
-
 	$cache[$intel] = '';
 	$len = strlen($intel);
 	if ($len > 1000) { // an unreasonable length, override it.
@@ -1275,6 +1273,13 @@ function read_exif_data_raw($path, $verbose) {
 
 	if (hexdec($offset) > 8)
 		$unknown = fread($in, hexdec($offset) - 8); // fixed this bug in 1.3
+
+
+
+
+
+
+
 
 
 
