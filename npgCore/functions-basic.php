@@ -1628,7 +1628,7 @@ function mb_parse_url($url) {
  * @return sting
  */
 function getAlbumFolder($root = SERVERPATH) {
-	global $_album_folder;
+	static $_album_folder;
 	if (is_null($_album_folder)) {
 		if (empty(getOption('album_folder'))) {
 			setOption('album_folder', $_album_folder = '/' . ALBUMFOLDER . '/');
@@ -1684,7 +1684,7 @@ function switchLog($log) {
  * @param string $point location identifier
  */
 function instrument($point) {
-	global $_run_timer;
+	static $_run_timer;
 	$now = microtime(true);
 	if (empty($_run_timer)) {
 		$delta = '';

@@ -72,9 +72,6 @@ function formatOlympusData($type, $tag, $intel, $data) {
 
 	} else if ($type == "URATIONAL" || $type == "SRATIONAL") {
 		$data = unRational($data, $type, $intel);
-		if ($intel == 1)
-			$data = intel2Moto($data);
-
 		if ($tag == "0204") { //DigitalZoom
 			$data = $data . "x";
 		}
@@ -160,7 +157,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 	$result['SubIFD']['MakerNote']['MakerNoteNumTags'] = $ntags;
 
 	//loop thru all tags  Each field is 12 bytes
-	for ($i = 0; $i < $ntags; $i ++) {
+	for ($i = 0; $i < $ntags; $i++) {
 		//2 byte tag
 		$tag = bin2hex(substr($block, $place, 2));
 		$place += 2;
@@ -177,7 +174,7 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 
 		//4 byte count of number of data units
 		$count = bin2hex(substr($block, $place, 4));
-		$place+=4;
+		$place += 4;
 		if ($intel == 1)
 			$count = intel2Moto($count);
 		$bytesofdata = $size * hexdec($count);
@@ -185,7 +182,6 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 		//4 byte value of data or pointer to data
 		$value = substr($block, $place, 4);
 		$place += 4;
-
 
 		if ($bytesofdata <= 4) {
 			$data = substr($value, 0, $bytesofdata);
@@ -197,10 +193,11 @@ function parseOlympus($block, &$result, $seek, $globalOffset) {
 			if (isset($GLOBALS['exiferFileSize']) && $v == 0 && $bytesofdata < $GLOBALS['exiferFileSize']) {
 				$data = fread($seek, $bytesofdata);
 			} else {
-				$result['Errors'] = $result['Errors'] ++;
+				$result['Errors'] = $result['Errors']++;
 				$data = '';
 			}
 		}
+
 		$formated_data = formatOlympusData($type, $tag, $intel, $data);
 
 		if ($result['VerboseOutput'] == 1) {

@@ -137,11 +137,12 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 
 	$_imagick_format_whitelist = array(
 			'BMP' => 'jpg', 'BMP2' => 'jpg', 'BMP3' => 'jpg',
-			'GIF' => 'gif', 'GIF87' => 'gif',
 			'JPG' => 'jpg', 'JPEG' => 'jpg',
+			'TIFF' => 'jpg', 'TIFF64' => 'jpg',
+			'GIF' => 'gif', 'GIF87' => 'gif',
 			'PNG' => 'png', 'PNG8' => 'png', 'PNG24' => 'png', 'PNG32' => 'png',
-			FALLBACK_SUFFIX => FALLBACK_SUFFIX,
-			'TIFF' => 'jpg', 'TIFF64' => 'jpg'
+			'WEBP' => 'webp',
+			'AVIF' => 'avif'
 	);
 
 	$_imagick = new Imagick();
