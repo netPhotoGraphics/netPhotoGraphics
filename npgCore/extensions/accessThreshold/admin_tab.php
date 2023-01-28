@@ -61,9 +61,17 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		break;
 }
 define('SENSITIVITY', getOption('accessThreshold_SIGNIFICANT'));
-$slice = ceil(min(count($recentIP), getOption('accessThreshold_LIMIT')) / 3) * 3;
-$recentIP = array_slice($recentIP, 0, $slice);
-$rows = ceil(count($recentIP) / 3);
+$rows = ceil(getOption('accessThreshold_LIMIT') / 3);
+$slice = $rows * 3;
+$pages = ceil(count($recentIP) / $slice);
+
+if (isset($_GET['subpage'])) {
+	$start = sanitize_numeric($_GET['subpage']) - 1;
+} else {
+	$start = 0;
+}
+
+$recentIP = array_slice($recentIP, $start * $slice, $slice);
 
 $output = array();
 $__time = time();
@@ -178,6 +186,7 @@ echo "\n</head>";
 						</span>
 					</form>
 					<br style="clearall">
+					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access', ''); ?></span>
 					<br />
 					<?php
 					foreach ($output as $row) {
@@ -185,6 +194,7 @@ echo "\n</head>";
 					}
 					?>
 					<br style="clearall">
+					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access', ''); ?></span>
 					<?php
 					echo $legendExpired;
 					echo $legendInvalid;

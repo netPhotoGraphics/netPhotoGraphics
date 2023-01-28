@@ -88,7 +88,7 @@ class accessThreshold {
 						'desc' => sprintf(gettext('Requests will be blocked if more than %d locales are requested within 10 minutes.'), getOption('accessThreshold_LocaleCount'))),
 				gettext('Display') => array('key' => 'accessThreshold_LIMIT', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 6,
-						'desc' => sprintf(gettext('The top %d accesses will be displayed.'), getOption('accessThreshold_LIMIT'))),
+						'desc' => sprintf(gettext('Show %d accesses per page.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Owner') => array('key' => 'accessThreshold_Owner', 'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 7,
 						'desc' => sprintf(gettext('Requests from this IP will be ignored.') . ' <span class="logwarning">' . gettext('If your IP address is dynamically assigned you may need to update this on a regular basis.') . '</span>', getOption('accessThreshold_LIMIT'))),
@@ -105,9 +105,8 @@ class accessThreshold {
 
 	static function handleOptionSave($themename, $themealbum) {
 		if (getOption('accessThreshold_CLEAR')) {
-			$recentIP = array();
 			setOption('accessThreshold_Owner', getUserIP());
-			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize(array()));
 		}
 		purgeOption('accessThreshold_CLEAR');
 	}
