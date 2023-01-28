@@ -60,6 +60,7 @@ switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
 		});
 		break;
 }
+define('SENSITIVITY', getOption('accessThreshold_SIGNIFICANT'));
 $slice = ceil(min(count($recentIP), getOption('accessThreshold_LIMIT')) / 3) * 3;
 $recentIP = array_slice($recentIP, 0, $slice);
 $rows = ceil(count($recentIP) / 3);
@@ -94,8 +95,8 @@ foreach ($recentIP as $ip => $data) {
 		$interval = '&hellip;';
 	}
 	if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - getOption('accessThreshold_IP_ACCESS_WINDOW')) {
-		$old = 'color:LightGrey;';
-		$legendExpired = '<p>' . gettext('Timestamps that are <span style="color:LightGrey;">grayed out</span> have expired.') . '</p>';
+		$old = 'color:DarkGray;';
+		$legendExpired = '<p>' . gettext('Timestamps that are <span style="color:DarkGray;">grayed out</span> have expired.') . '</p>';
 		;
 	} else {
 		$old = '';
@@ -116,9 +117,9 @@ foreach ($recentIP as $ip => $data) {
 										innerWidth: \'560px\',
 										href:\'' . getAdminLink(PLUGIN_FOLDER . '/accessThreshold/ip_list.php') . '?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
 	}
-	if (count($data['accessed']) < 10) {
-		$invalid = 'color:LightGrey;';
-		$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:LightGrey;">grayed out</span> have insufficient data to be valid.') . '</p>';
+	if (count($data['accessed']) < SENSITIVITY) {
+		$invalid = 'color:DarkGray;';
+		$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:DarkGray;">grayed out</span> have insufficient data to be valid.') . '</p>';
 	}
 	$row = $ct % $rows;
 	$out = '<span style="width:33%;float:left;';

@@ -34,7 +34,7 @@ class accessThreshold {
 				purgeOption('accessThreshold_SIGNIFICANT');
 			}
 			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
-			setOptionDefault('accessThreshold_THRESHOLD', 5);
+			setOptionDefault('accessThreshold_THRESHOLD', 20);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
 			if (!is_int(getOption('accessThreshold_SENSITIVITY'))) {
 				purgeOption('accessThreshold_SENSITIVITY');
