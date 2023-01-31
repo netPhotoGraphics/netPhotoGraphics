@@ -100,7 +100,7 @@ npgFilters::apply('texteditor_config', 'admin_comments');
 			return true;
 		}
 	}
-	
+
 </script>
 <?php
 echo "\n</head>";
@@ -245,7 +245,7 @@ printLogoAndLinks();
 				// Set up some view option variables.
 				if (isset($_GET['fulltext']) && $_GET['fulltext']) {
 					$fulltext = true;
-					$fulltexturl = '?fulltext = 1';
+					$fulltexturl = '?fulltext=1';
 				} else {
 					$fulltext = false;
 					$fulltexturl = '';
@@ -359,7 +359,7 @@ printLogoAndLinks();
 						if ($totalpages > 1) {
 							?>
 							<span align="center">
-								<?php adminPageNav($pagenum, $totalpages, '  admin-comments.php ', $fulltexturl); ?>
+								<?php adminPageNav($pagenum, $totalpages, 'admin-comments.php', $fulltexturl); ?>
 							</span>
 							<?php
 						}
