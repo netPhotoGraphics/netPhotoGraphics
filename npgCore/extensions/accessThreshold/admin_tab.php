@@ -15,9 +15,9 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 }
 $recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 
-switch (isset($_POST['data_sortby']) ? $_POST['data_sortby'] : '') {
+switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 	default:
-		$_POST['data_sortby'] = 'date';
+		$_REQUEST['data_sortby'] = 'date';
 	case 'date':
 		$sort = 'accessTime';
 		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
@@ -175,6 +175,7 @@ echo "\n</head>";
 				?>
 				<div class="tabbox">
 					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
+						<input type="hidden" name="data_sortyb" value="<?php echo $_REQUEST['data_sortby']; ?>" >
 						<span class="nowrap">
 							<?php echo gettext('Sort by:'); ?>
 							<select id="sortselect" name="data_sortby" onchange="this.form.submit();">
@@ -186,7 +187,7 @@ echo "\n</head>";
 						</span>
 					</form>
 					<br style="clearall">
-					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access', ''); ?></span>
+					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access&data_sortby=' . $_REQUEST['data_sortby'], ''); ?></span>
 					<br />
 					<?php
 					foreach ($output as $row) {
@@ -194,7 +195,7 @@ echo "\n</head>";
 					}
 					?>
 					<br style="clearall">
-					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access', ''); ?></span>
+					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access&data_sortby=' . $_REQUEST['data_sortby'], ''); ?></span>
 					<?php
 					echo $legendExpired;
 					echo $legendInvalid;
