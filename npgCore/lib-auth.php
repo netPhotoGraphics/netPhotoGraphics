@@ -193,9 +193,9 @@ class _Authority {
 				?>
 				<input type="hidden" size="3" id="password_strength" name="password_strength" value="<?php echo getOption('password_strength'); ?>" />
 				<script type="text/javascript">
-					
+
 					function sliderColor(strength) {
-						d = 512 / 30;	//	color gradient steps
+						d = 512 / 30; //	color gradient steps
 						r = (30 - strength) * d;
 						g = strength * d;
 						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
@@ -224,7 +224,6 @@ class _Authority {
 						$('#password_strength_display').html(strength);
 						sliderColor(strength);
 					});
-					
 				</script>
 				<div id="slider-password_strength">
 					<div id="strength-handle" class="ui-slider-handle"></div>
@@ -1567,7 +1566,7 @@ class _Authority {
 						} else {
 							?>
 							<script type="text/javascript">
-								
+
 								var handlers = [];
 					<?php
 					$list = '<select id="logon_choices" onchange="changeHandler(handlers[$(this).val()]);">' .
@@ -1591,7 +1590,7 @@ class _Authority {
 									var script = handler.shift();
 									window.location = script + '?' + handler.join('&');
 								}
-								
+
 							</script>
 							<?php
 						}
@@ -1720,7 +1719,7 @@ class _Authority {
 	static function printPasswordFormJS($all = false) {
 		?>
 		<script type="text/javascript">
-			
+
 		<?php
 		if (OFFSET_PATH || $all) {
 			?>
@@ -1785,7 +1784,7 @@ class _Authority {
 							$(inputb).prop('disabled', false);
 							passwordMatch(id);
 						}
-						d = 512 / 30;	//	color gradient steps
+						d = 512 / 30; //	color gradient steps
 						r = (30 - strength) * d;
 						g = strength * d;
 						url = 'linear-gradient(rgb(' + Math.round(Math.min(r - d, 255)) + ',' + Math.round(Math.min(g - d, 255)) + ',0), rgb(' + Math.round(Math.min(r, 255)) + ',' + Math.round(Math.min(g, 255)) + ',0))';
@@ -1841,7 +1840,7 @@ class _Authority {
 					$('.password_field_' + id).show();
 				}
 			}
-			
+
 		</script>
 		<?php
 	}
@@ -1872,7 +1871,7 @@ class _Authority {
 			<label for="pass<?php echo $id; ?>_text" id="strength<?php echo $id; ?>">
 				<?php echo gettext("Password") . $flag; ?>
 			</label>
-			<span class="disclose_password_show" style="float: right !important; padding-right: 15px;">
+			<span id="show_disclose_password<?php echo $id; ?>" class="disclose_password_show" style="float: right !important; padding-right: 15px; display: none;">
 				<label>
 					<?php echo gettext('Show'); ?>
 					<input type="checkbox"
@@ -1889,7 +1888,8 @@ class _Authority {
 							 name="<?php printf($format, 'pass', $id); ?>" value="<?php echo $x; ?>"
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
-							 onclick="passwordClear('<?php echo $id; ?>');"
+							 onclick="passwordClear('<?php echo $id; ?>');
+											 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>
