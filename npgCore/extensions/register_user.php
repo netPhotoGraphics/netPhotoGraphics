@@ -34,8 +34,6 @@ $_conf_vars['special_pages'][] = array('definition' => '%REGISTER_USER%', 'rewri
 
 $_conf_vars['special_pages'][] = array('rewrite' => '%REGISTER_USER%', 'rule' => '^%REWRITE%/*$		index.php?p=' . 'register' . ' [NC,L,QSA]');
 
-require_once(CORE_SERVERPATH . 'admin-globals.php');
-
 /**
  * Plugin class
  *
