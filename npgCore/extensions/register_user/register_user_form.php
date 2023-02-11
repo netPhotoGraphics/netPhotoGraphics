@@ -5,7 +5,9 @@
  * @package plugins/register_user
  */
 if (class_exists('_Authority')) {
-	require_once(CORE_SERVERPATH . 'admin-globals.php');
+	if (!defined('TEXT_INPUT_SIZE')) {
+		define('TEXT_INPUT_SIZE', 48);
+	}
 	npg_Authority::printPasswordFormJS(true);
 	$action = preg_replace('/\?verify=(.*)/', '', getRequestURI());
 	?>
