@@ -1849,7 +1849,7 @@ class _Authority {
 	 * provides the form for password handling
 	 *
 	 * @param int $id id number for when there are multiple forms on a page
-	 * @param bool $pad if true the password will have dummy asterix filled in
+	 * @param bool $pad if true the password will have dummy asterisk filled in
 	 * @param bool $disable for disabling the field
 	 * @param bool $required if a password is required
 	 * @param string $flag to "flag" the field as required
