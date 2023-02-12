@@ -361,6 +361,7 @@ require_once(CORE_SERVERPATH . 'lib-MimeTypes.php');
 class RSS extends feed {
 
 	protected $feed = 'RSS';
+	protected $feeditems = NULL;
 
 	/**
 	 * Creates a feed object from the URL parameters fetched

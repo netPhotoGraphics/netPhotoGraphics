@@ -16,7 +16,7 @@ if (!defined('WEBPATH'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
 		<script type="text/javascript">
-			
+
 			function toggleExtraElements(category, show) {
 				if (show) {
 					jQuery('.' + category + '_showless').show();
@@ -28,7 +28,7 @@ if (!defined('WEBPATH'))
 					jQuery('.' + category + '_extrashow').hide();
 				}
 			}
-			
+
 		</script>
 	</head>
 	<body>
@@ -228,12 +228,12 @@ if (!defined('WEBPATH'))
 			<?php printCustomPageURL(gettext("Archive View"), "archive"); ?> |
 			<?php
 			if (extensionEnabled('daily-summary')) {
-				printDailySummaryLink(gettext('Daily summary'), '', ' | ');
+				printDailySummaryLink(gettext('Daily summary'), '', '', ' | ');
 			}
 			?>
 			<?php printSoftwareLink(); ?>
-<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
+			<?php if (function_exists('printUserLogin_out')) printUserLogin_out(" | "); ?>
 		</div>
 	</body>
-<?php npgFilters::apply('theme_body_close'); ?>
+	<?php npgFilters::apply('theme_body_close'); ?>
 </html>

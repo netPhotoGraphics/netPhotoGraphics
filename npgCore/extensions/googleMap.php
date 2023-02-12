@@ -297,7 +297,7 @@ function get_instance() {
  * @param function $callback optional callback function to set map options.
  */
 function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $callback = NULL) {
-	global $_current_album, $_current_image, $_x, $_y, $_z, $_n;
+	global $_gallery_page, $_current_album, $_current_image, $_current_search, $_x, $_y, $_z, $_n;
 
 	/* API keys are required post June 2016 */
 	if (!getOption('gmap_map_api_key')) {
@@ -312,14 +312,22 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 
 	/* controls of parameters */
 	if (is_null($obj)) {
-		if (is_null($_current_image)) {
-			$obj = $_current_album;
-		} else {
-			$obj = $_current_image;
+
+		switch ($_gallery_page) {
+			case 'image.php':
+				$obj = $_current_image;
+				break;
+			case 'album.php':
+			case 'favorites.php':
+				$obj = $_current_album;
+			case 'search.php':
+				$obj = $_current_search;
+				break;
 		}
-	}
-	if (is_null($obj)) {
-		return false;
+
+		if (is_null($obj)) {
+			return false;
+		}
 	}
 	if (is_object($obj)) {
 		$type = $obj->table;
