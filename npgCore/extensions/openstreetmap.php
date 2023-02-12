@@ -495,7 +495,7 @@ class openStreetMap {
 	 * @param obj Image or album object If set this object is used and $geodatat is ignored if set as well
 	 */
 	function __construct($geodata = NULL, $obj = NULL) {
-		global $_gallery_page, $_current_album, $_current_image;
+		global $_gallery_page, $_current_album, $_current_image, $_current_search;
 
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
 		if (is_object($obj)) {
@@ -527,47 +527,54 @@ class openStreetMap {
 					case 'album.php':
 					case 'favorites.php':
 						$this->obj = $_current_album;
+						$this->mode = 'cluster';
+						break;
 					case 'search.php':
+						$this->obj = $_current_search;
 						$this->mode = 'cluster';
 						break;
 				}
 			}
 		}
-		$this->center = $this->getCenter();
-		$this->fitbounds = $this->getFitBounds();
-		$this->geodata = $this->getGeoData();
-		$this->width = getOption('osmap_width');
-		$this->height = getOption('osmap_height');
-		$this->zoom = getOption('osmap_zoom');
-		$this->minzoom = getOption('osmap_minzoom');
-		$this->maxzoom = getOption('osmap_maxzoom');
-		$this->zoomcontrolpos = getOption('osmap_zoomcontrolpos');
-		$this->defaultlayer = $this->setMapTiles(getOption('osmap_defaultlayer'));
-		$this->clusterradius = getOption('osmap_clusterradius');
-		$this->cluster_showcoverage_on_hover = getOption('osmap_cluster_showcoverage_on_hover');
-		$this->markerpopup_title = getOption('osmap_markerpopup_title');
-		$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
-		$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
-		$this->showlayerscontrol = getOption('osmap_showlayerscontrol');
-		// generate an array of selected layers
-		$layerslist = self::$tileProviders;
-		$selectedlayerslist = array();
-		foreach ($layerslist as $layer => $layer_dbname) {
-			if (getOption($layer_dbname)) {
-				$selectedlayerslist[$layer] = $layer;
+
+		if ($this->obj) {
+
+			$this->center = $this->getCenter();
+			$this->fitbounds = $this->getFitBounds();
+			$this->geodata = $this->getGeoData();
+			$this->width = getOption('osmap_width');
+			$this->height = getOption('osmap_height');
+			$this->zoom = getOption('osmap_zoom');
+			$this->minzoom = getOption('osmap_minzoom');
+			$this->maxzoom = getOption('osmap_maxzoom');
+			$this->zoomcontrolpos = getOption('osmap_zoomcontrolpos');
+			$this->defaultlayer = $this->setMapTiles(getOption('osmap_defaultlayer'));
+			$this->clusterradius = getOption('osmap_clusterradius');
+			$this->cluster_showcoverage_on_hover = getOption('osmap_cluster_showcoverage_on_hover');
+			$this->markerpopup_title = getOption('osmap_markerpopup_title');
+			$this->markerpopup_desc = getOption('osmap_markerpopup_desc');
+			$this->markerpopup_thumb = getOption('osmap_markerpopup_thumb');
+			$this->showlayerscontrol = getOption('osmap_showlayerscontrol');
+			// generate an array of selected layers
+			$layerslist = self::$tileProviders;
+			$selectedlayerslist = array();
+			foreach ($layerslist as $layer => $layer_dbname) {
+				if (getOption($layer_dbname)) {
+					$selectedlayerslist[$layer] = $layer;
+				}
 			}
+			// remove default Layer from layers list
+			unset($selectedlayerslist[$this->defaultlayer]);
+			$this->layerslist = $selectedlayerslist;
+			$this->layerscontrolpos = getOption('osmap_layerscontrolpos');
+			$this->showscale = getOption('osmap_showscale');
+			$this->showcursorpos = getOption('osmap_showcursorpos');
+			$this->showminimap = getOption('osmap_showminimap');
+			$this->minimap_width = getOption('osmap_minimap_width');
+			$this->minimap_height = getOption('osmap_minimap_height');
+			$this->minimap_zoom = getOption('osmap_minimap_zoom');
+			$this->hide = getOption('osmap_display');
 		}
-		// remove default Layer from layers list
-		unset($selectedlayerslist[$this->defaultlayer]);
-		$this->layerslist = $selectedlayerslist;
-		$this->layerscontrolpos = getOption('osmap_layerscontrolpos');
-		$this->showscale = getOption('osmap_showscale');
-		$this->showcursorpos = getOption('osmap_showcursorpos');
-		$this->showminimap = getOption('osmap_showminimap');
-		$this->minimap_width = getOption('osmap_minimap_width');
-		$this->minimap_height = getOption('osmap_minimap_height');
-		$this->minimap_zoom = getOption('osmap_minimap_zoom');
-		$this->hide = getOption('osmap_display');
 	}
 
 	/**
@@ -655,7 +662,6 @@ class openStreetMap {
 	 * @return array
 	 */
 	function getGeoData() {
-		global $_current_image, $_current_album;
 		$geodata = array();
 		if (!is_null($this->geodata)) {
 			return $this->geodata;
@@ -669,10 +675,7 @@ class openStreetMap {
 				break;
 			case 'single-cluster':
 			case 'cluster':
-				$albgeodata = $this->getAlbumGeodata($this->obj);
-				if (!empty($albgeodata)) {
-					$geodata = $albgeodata;
-				}
+				$geodata = $this->getAlbumGeodata($this->obj);
 				break;
 		}
 		if (empty($geodata)) {
@@ -741,7 +744,7 @@ class openStreetMap {
 	 * @return array
 	 */
 	function getCenter() {
-		//$this->center = array(53.18, 10.38); //demotest
+//$this->center = array(53.18, 10.38); //demotest
 		if (!is_null($this->center)) {
 			return $this->center;
 		}
@@ -779,11 +782,11 @@ class openStreetMap {
 					break;
 			}
 		} else {
-			//fallback if no geodata at all
+//fallback if no geodata at all
 			$this->center = FALSE; // not null as we don't need to re-do if there is nothing
 		}
 
-		// fallback if geodata was somehow wrong
+// fallback if geodata was somehow wrong
 		if (empty($this->center) || empty($this->center[0]) || empty($this->center[1])) {
 			$this->center = FALSE;
 		}
@@ -800,7 +803,7 @@ class openStreetMap {
 		$maptile = explode('.', $this->layer);
 		switch ($maptile[0]) {
 			case 'MapBox':
-				// should be Mapbox but follow leaflet-providers behavior
+// should be Mapbox but follow leaflet-providers behavior
 				return "L.tileLayer.provider('" . $maptile[0] . "', {"
 								. "id: '" . strtolower($this->layer) . "', "
 								. "accessToken: '" . getOption('osmap_mapbox_accesstoken') . "'"
@@ -1059,39 +1062,42 @@ function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $map
 
 	$map = new openStreetMap($geodata, $obj);
 
-	if (!is_null($width)) {
-		$map->width = $width;
-	}
-	if (!is_null($height)) {
-		$map->height = $height;
-	}
-	if (!is_null($mapcenter)) {
-		$map->center = $mapcenter;
-	}
-	if (!is_null($zoom)) {
-		$map->zoom = $zoom;
-	}
-	if (!is_null($fitbounds)) {
-		$map->fitbounds = $fitbounds;
-	}
-	if (!is_null($class)) {
-		$map->class = $class;
-	}
-	if (!is_null($mapnumber)) {
-		$map->mapnumber = $mapnumber;
-	}
-	if ($minimap) {
-		$map->showminimap = true;
-	}
-	if ($id) {
-		$map->mapid = $id;
-	}
-	if ($hide) {
-		$map->hide = $hide;
-	}
-	if (!is_null($text)) {
-		$map->label = $text;
-	}
+	if ($map->geodata) {
 
-	$map->printMap();
+		if (!is_null($width)) {
+			$map->width = $width;
+		}
+		if (!is_null($height)) {
+			$map->height = $height;
+		}
+		if (!is_null($mapcenter)) {
+			$map->center = $mapcenter;
+		}
+		if (!is_null($zoom)) {
+			$map->zoom = $zoom;
+		}
+		if (!is_null($fitbounds)) {
+			$map->fitbounds = $fitbounds;
+		}
+		if (!is_null($class)) {
+			$map->class = $class;
+		}
+		if (!is_null($mapnumber)) {
+			$map->mapnumber = $mapnumber;
+		}
+		if ($minimap) {
+			$map->showminimap = true;
+		}
+		if ($id) {
+			$map->mapid = $id;
+		}
+		if ($hide) {
+			$map->hide = $hide;
+		}
+		if (!is_null($text)) {
+			$map->label = $text;
+		}
+
+		$map->printMap();
+	}
 }
