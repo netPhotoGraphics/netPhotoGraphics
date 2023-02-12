@@ -248,8 +248,17 @@ function printContactForm($subject_override = '') {
 
 		// CAPTCHA start
 		if (getOption("contactform_captcha")) {
-			$code_ok = trim(isset($_POST['code_h']) ? sanitize($_POST['code_h']) : NULL);
-			$code = trim(isset($_POST['code']) ? sanitize($_POST['code']) : NULL);
+			if (isset($_POST['code_h'])) {
+				$code_ok = trim(sanitize($_POST['code_h']));
+			} else {
+				$code_ok = NULL;
+			}
+			if (isset($_POST['code'])) {
+				$code = trim(sanitize($_POST['code']));
+			} else {
+				$code = NULL;
+			}
+
 			if (!$_captcha->checkCaptcha($code, $code_ok)) {
 				$error[] = gettext("CAPTCHA verification.");
 			} // no ticket
