@@ -164,6 +164,7 @@ class ExternalFeed extends feed {
 
 	protected $feed = 'externalFeed';
 	protected $key;
+	protected $feeditems = NULL;
 
 	/**
 	 * Creates a feed object from the URL parameters fetched only
