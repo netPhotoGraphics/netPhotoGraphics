@@ -1082,6 +1082,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/googleAPI/firebase/php-jwt/LICENSE
 %extensions%/common/googleAPI/firebase/php-jwt/src
 %extensions%/common/googleAPI/firebase/php-jwt/src/BeforeValidException.php
+%extensions%/common/googleAPI/firebase/php-jwt/src/CachedKeySet.php
 %extensions%/common/googleAPI/firebase/php-jwt/src/ExpiredException.php
 %extensions%/common/googleAPI/firebase/php-jwt/src/JWK.php
 %extensions%/common/googleAPI/firebase/php-jwt/src/JWT.php
@@ -20329,4 +20330,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20331
+20332
