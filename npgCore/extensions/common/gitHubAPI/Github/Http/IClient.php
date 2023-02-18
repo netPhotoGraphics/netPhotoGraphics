@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\Http;
 
 
@@ -10,21 +12,15 @@ namespace Milo\Github\Http;
  */
 interface IClient
 {
-	/**
-	 * @return Response
-	 */
-	function request(Request $request);
+	function request(Request $request): Response;
 
 	/**
-	 * @param  callable|NULL
-	 * @return self
+	 * @param ?callable(Request $request): void  $callback
 	 */
-	function onRequest($callback);
+	function onRequest(?callable $callback): static;
 
 	/**
-	 * @param  callable|NULL
-	 * @return self
+	 * @param ?callable(Response $response): void  $callback
 	 */
-	function onResponse($callback);
-
+	function onResponse(?callable $callback): static;
 }

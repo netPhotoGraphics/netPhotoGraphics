@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\Storages;
 
 use Milo\Github;
@@ -10,31 +12,21 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class SessionStorage extends Github\Sanity implements ISessionStorage
+class SessionStorage implements ISessionStorage
 {
-	const SESSION_KEY = 'milo.github-api';
+	use Github\Strict;
 
-	/** @var string */
-	private $sessionKey;
+	public const SESSION_KEY = 'milo.github-api';
 
 
-	/**
-	 * @param  string
-	 */
-	public function __construct($sessionKey = self::SESSION_KEY)
+	public function __construct(
+		private string $sessionKey = self::SESSION_KEY
+	) {}
+
+
+	public function set(string $name, mixed $value): static
 	{
-		$this->sessionKey = $sessionKey;
-	}
-
-
-	/**
-	 * @param  string
-	 * @param  mixed
-	 * @return self
-	 */
-	public function set($name, $value)
-	{
-		if ($value === NULL) {
+		if ($value === null) {
 			return $this->remove($name);
 		}
 
@@ -45,42 +37,25 @@ class SessionStorage extends Github\Sanity implements ISessionStorage
 	}
 
 
-	/**
-	 * @param  string
-	 * @return mixed
-	 */
-	public function get($name)
+	public function get(string $name): mixed
 	{
 		$this->check(__METHOD__);
-
-		return isset($_SESSION[$this->sessionKey][$name])
-			? $_SESSION[$this->sessionKey][$name]
-			: NULL;
+		return $_SESSION[$this->sessionKey][$name] ?? null;
 	}
 
 
-	/**
-	 * @param  string
-	 * @return self
-	 */
-	public function remove($name)
+	public function remove(string $name): static
 	{
 		$this->check(__METHOD__);
-
 		unset($_SESSION[$this->sessionKey][$name]);
-
 		return $this;
 	}
 
 
-	/**
-	 * @param  string
-	 */
-	private function check($method)
+	private function check(string $method): void
 	{
 		if (!isset($_SESSION)) {
 			trigger_error("Start session before using $method().", E_USER_WARNING);
 		}
 	}
-
 }

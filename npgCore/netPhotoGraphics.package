@@ -1042,7 +1042,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/gitHubAPI/Github/exceptions.php
 %extensions%/common/gitHubAPI/Github/Helpers.php
 %extensions%/common/gitHubAPI/Github/Paginator.php
-%extensions%/common/gitHubAPI/Github/Sanity.php
+%extensions%/common/gitHubAPI/Github/Strict.php
 %extensions%/common/gitHubAPI/Github/Http
 %extensions%/common/gitHubAPI/Github/Http/AbstractClient.php
 %extensions%/common/gitHubAPI/Github/Http/CachedClient.php

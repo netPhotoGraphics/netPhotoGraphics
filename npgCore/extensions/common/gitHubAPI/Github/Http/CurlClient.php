@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -12,29 +14,24 @@ use Milo\Github;
  */
 class CurlClient extends AbstractClient
 {
-	/** @var array|NULL */
-	private $options;
-
 	/** @var resource */
 	private $curl;
 
 
 	/**
-	 * @param  array  cURL options {@link http://php.net/manual/en/function.curl-setopt.php}
-	 *
+	 * @param  ?array $options  cURL options {@link http://php.net/manual/en/function.curl-setopt.php}
 	 * @throws Github\LogicException
 	 */
-	public function __construct(array $options = NULL)
-	{
+	public function __construct(
+		private ?array $options = null,
+	) {
 		if (!extension_loaded('curl')) {
 			throw new Github\LogicException('cURL extension is not loaded.');
 		}
-
-		$this->options = $options;
 	}
 
 
-	protected function setupRequest(Request $request)
+	protected function setupRequest(Request $request): void
 	{
 		parent::setupRequest($request);
 		$request->addHeader('Connection', 'keep-alive');
@@ -42,11 +39,9 @@ class CurlClient extends AbstractClient
 
 
 	/**
-	 * @return Response
-	 *
 	 * @throws BadResponseException
 	 */
-	protected function process(Request $request)
+	protected function process(Request $request): Response
 	{
 		$headers = [];
 		foreach ($request->getHeaders() as $name => $value) {
@@ -63,26 +58,26 @@ class CurlClient extends AbstractClient
 		];
 
 		$hardOptions = [
-			CURLOPT_FOLLOWLOCATION => FALSE, # Github sets the Location header for 201 code too and redirection is not required for us
+			CURLOPT_FOLLOWLOCATION => false, # Github sets the Location header for 201 code too and redirection is not required for us
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => $request->getMethod(),
 			CURLOPT_NOBODY => $request->isMethod(Request::HEAD),
 			CURLOPT_URL => $request->getUrl(),
 			CURLOPT_HTTPHEADER => $headers,
-			CURLOPT_RETURNTRANSFER => TRUE,
+			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_POSTFIELDS => $request->getContent(),
-			CURLOPT_HEADER => FALSE,
-			CURLOPT_HEADERFUNCTION => function($curl, $line) use (& $responseHeaders, & $last) {
+			CURLOPT_HEADER => false,
+			CURLOPT_HEADERFUNCTION => function($curl, $line) use (&$responseHeaders, &$last) {
 				if (strncasecmp($line, 'HTTP/', 5) === 0) {
 					/** @todo Set proxy response as Response::setPrevious($proxyResponse)? */
 					# The HTTP/x.y may occur multiple times with proxy (HTTP/1.1 200 Connection Established)
 					$responseHeaders = [];
 
-				} elseif (in_array(substr($line, 0, 1), [' ', "\t"], TRUE)) {
+				} elseif (in_array(substr($line, 0, 1), [' ', "\t"], true)) {
 					$responseHeaders[$last] .= ' ' . trim($line);  # RFC2616, 2.2
 
 				} elseif ($line !== "\r\n") {
-					list($name, $value) = explode(':', $line, 2);
+					[$name, $value] = explode(':', $line, 2);
 					$responseHeaders[$last = trim($name)] = trim($value);
 				}
 
@@ -96,27 +91,26 @@ class CurlClient extends AbstractClient
 
 		if (!$this->curl) {
 			$this->curl = curl_init();
-			if ($this->curl === FALSE) {
+			if ($this->curl === false) {
 				throw new BadResponseException('Cannot init cURL handler.');
 			}
 		}
 
 		$result = curl_setopt_array($this->curl, $hardOptions + ($this->options ?: []) + $softOptions);
-		if ($result === FALSE) {
+		if ($result === false) {
 			throw new BadResponseException('Setting cURL options failed: ' . curl_error($this->curl), curl_errno($this->curl));
 		}
 
 		$content = curl_exec($this->curl);
-		if ($content === FALSE) {
+		if ($content === false) {
 			throw new BadResponseException(curl_error($this->curl), curl_errno($this->curl));
 		}
 
 		$code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-		if ($code === FALSE) {
+		if ($code === false) {
 			throw new BadResponseException('HTTP status code is missing:' . curl_error($this->curl), curl_errno($this->curl));
 		}
 
-		return new Response($code, $responseHeaders, $content);
+		return new Response((int) $code, $responseHeaders, $content);
 	}
-
 }

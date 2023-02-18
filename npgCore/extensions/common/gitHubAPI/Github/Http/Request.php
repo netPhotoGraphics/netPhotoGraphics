@@ -1,8 +1,8 @@
 <?php
 
-namespace Milo\Github\Http;
+declare(strict_types=1);
 
-use Milo\Github;
+namespace Milo\Github\Http;
 
 
 /**
@@ -13,7 +13,7 @@ use Milo\Github;
 class Request extends Message
 {
 	/** HTTP request method */
-	const
+	public const
 		DELETE = 'DELETE',
 		GET = 'GET',
 		HEAD = 'HEAD',
@@ -22,74 +22,42 @@ class Request extends Message
 		PUT = 'PUT';
 
 
-	/** @var string */
-	private $method;
-
-	/** @var string */
-	private $url;
-
-
-	/**
-	 * @param  string
-	 * @param  string
-	 * @param  array
-	 * @param  string|NULL
-	 */
-	public function __construct($method, $url, array $headers = [], $content = NULL)
-	{
-		$this->method = $method;
-		$this->url = $url;
+	public function __construct(
+		private string $method,
+		private string $url,
+		array $headers = [],
+		string $content = null
+	) {
 		parent::__construct($headers, $content);
 	}
 
 
-	/**
-	 * @param  string
-	 * @return bool
-	 */
-	public function isMethod($method)
+	public function isMethod(string $method): bool
 	{
 		return strcasecmp($this->method, $method) === 0;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getMethod()
+	public function getMethod(): string
 	{
 		return $this->method;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getUrl()
+	public function getUrl(): string
 	{
 		return $this->url;
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  string
-	 * @return self
-	 */
-	public function addHeader($name, $value)
+	public function addHeader(string $name, ?string $value): static
 	{
 		return parent::addHeader($name, $value);
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  string|NULL
-	 * @return self
-	 */
-	public function setHeader($name, $value)
+	public function setHeader(string $name, ?string $value): static
 	{
 		return parent::setHeader($name, $value);
 	}
-
 }
