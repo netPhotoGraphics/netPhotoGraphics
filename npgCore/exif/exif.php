@@ -542,8 +542,7 @@ function unRational($data, $type, $intel) {
 		$top = $top - 4294967296; // this makes the number signed instead of unsigned
 	if ($bottom != 0)
 		$data = $top / $bottom;
-	else
-	if ($top == 0)
+	else if ($top == 0)
 		$data = 0;
 	else
 		$data = $top . '/' . $bottom;
@@ -974,11 +973,11 @@ function formatData($type, $tag, $intel, $data) {
  */
 function formatExposure($data) {
 	if (strpos($data, '/') === false) {
-		$data = str_replace(',', '.', $data); // deal with European decimal separator
+		$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
 		if ($data >= 1) {
 			return round($data, 2) . ' ' . '!sec!';
 		} else {
-			return convertToFraction(floatval($data)) . ' !sec!';
+			return convertToFraction($data) . ' !sec!';
 		}
 	} else {
 		return '!bulb!';
@@ -1273,6 +1272,8 @@ function read_exif_data_raw($path, $verbose) {
 
 	if (hexdec($offset) > 8)
 		$unknown = fread($in, hexdec($offset) - 8); // fixed this bug in 1.3
+
+
 
 
 
