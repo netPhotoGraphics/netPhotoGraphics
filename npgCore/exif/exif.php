@@ -545,7 +545,7 @@ function unRational($data, $type, $intel) {
 	} else if ($top == 0) {
 		$data = 0;
 	} else {
-		$data = $top . '/' . $bottom;
+		$data = 2147483647; //	divide by 0. Rturn "infinity"
 	}
 	return $data;
 }
