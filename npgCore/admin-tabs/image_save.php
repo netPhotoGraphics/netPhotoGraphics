@@ -76,10 +76,10 @@ if (isset($_POST['checkForPostTruncation'])) {
 									$rotation = 4;
 									break;
 								case 6:
-									$rotation = 5;
+									$rotation = 7;
 									break;
 								case 8:
-									$rotation = 7;
+									$rotation = 5;
 									break;
 							}
 						}

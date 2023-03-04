@@ -651,15 +651,15 @@ class imageProcessing {
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 270;
 				break;
-			case 6: // left: image is on its side.
-				$rotate = 270;
+			case 6: // right: image is on its side.
+				$rotate = 90;
 				break;
 			case 7: // right-mirror: image has been flipped back-to-front and is on its far side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 90;
 				break;
-			case 8: // right: image is on its far side.
-				$rotate = 90;
+			case 8: // left: image is on its far side.
+				$rotate = 270;
 				break;
 		}
 		if ($rotate) {
