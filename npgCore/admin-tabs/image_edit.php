@@ -530,19 +530,9 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										$rotation = substr(trim($image->get('rotation'), '!'), 0, 1);
 										?>
 										<hr />
-										<?php echo gettext("Rotation:"); ?>
+										<?php echo gettext("Orientation:"); ?>
 										<br />
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
-										<label class="checkboxlabel">
-											<input type="checkbox" id="mirror-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-mirror" value="<?php echo IMG_FLIP_HORIZONTAL; ?>" <?php
-											if ($rotation == 2 || $rotation == 4 || $rotation == 5 || $rotation == 7) {
-												echo ' checked="checked"';
-											}
-											echo $disablerotate
-											?> />
-														 <?php echo gettext('Mirror'); ?>
-										</label>
-										<br class="clearall" />
 										<label class="checkboxlabel">
 											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
 											if ($rotation <= 2) {
@@ -579,6 +569,17 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											?> />
 														 <?php echo gettext('Flip'); ?>
 										</label>
+										<br class="clearall" />
+										<label class="checkboxlabel">
+											<input type="checkbox" id="mirror-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-mirror" value="<?php echo IMG_FLIP_HORIZONTAL; ?>" <?php
+											if ($rotation == 2 || $rotation == 4 || $rotation == 5 || $rotation == 7) {
+												echo ' checked="checked"';
+											}
+											echo $disablerotate
+											?> />
+														 <?php echo gettext('Mirror'); ?>
+										</label>
+
 										<?php
 									}
 									?>

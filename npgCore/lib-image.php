@@ -626,8 +626,7 @@ class imageProcessing {
 	 * performs image transformations based on $rotation
 	 *
 	 * @param resource $im
-	 * @param int $rotation from the EXIF data
-	 * @param int $rotation
+	 * @param int $rotation orientation from the EXIF data
 	 * @return resource
 	 */
 	static function transform($im, $rotation) {
@@ -640,14 +639,14 @@ class imageProcessing {
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 0;
 				break;
-			case 3: // flip: image is upside down.
+			case 3: // flip (rotate 180 degrees): image is upside down.
 				$rotate = 180;
 				break;
-			case 4: // flip-mirror: image has been flipped back-to-front and is upside down.
+			case 4: // flip (rotate 180 degrees)-mirror: image has been flipped back-to-front and is upside down.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 180;
 				break;
-			case 5: // left-mirror: image has been flipped back-to-front and is on its side.
+			case 5: // left-mirror: image has been flipped back-to-front and is on its far side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
 				$rotate = 270;
 				break;
