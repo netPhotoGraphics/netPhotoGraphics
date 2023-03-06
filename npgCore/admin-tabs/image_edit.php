@@ -530,11 +530,11 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										$rotation = substr(trim($image->get('rotation'), '!'), 0, 1);
 										?>
 										<hr />
-										<?php echo gettext("Orientation:"); ?>
+										<?php echo gettext("Rotation:"); ?>
 										<br />
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
+											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="1" <?php
 											if ($rotation <= 2) {
 												echo ' checked="checked"';
 											}

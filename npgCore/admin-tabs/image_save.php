@@ -62,13 +62,20 @@ if (isset($_POST['checkForPostTruncation'])) {
 					if (isset($_POST[$i . '-oldrotation']) && isset($_POST[$i . '-rotation'])) {
 						$oldrotation = (int) $_POST[$i . '-oldrotation'];
 						$r = $rotation = (int) $_POST[$i . '-rotation'];
-						$flip = isset($_POST[$i . '-flip']) && $_POST[$i . '-flip'];
 						$mirror = isset($_POST[$i . '-mirror']) && $_POST[$i . '-mirror'];
-						if ($flip && $mirror) {
-							$rotation = 4;
-						} else if ($mirror) {
+						/*
+						 * 	none					1 = Horizontal (normal)
+						 * 	none&mirror		2 = Mirror horizontal
+						 * 	flip					3 = Rotate 180
+						 * 	flip&mirror		4 = Mirror vertical
+						 * 	left&mirror		5 = Mirror horizontal and rotate 270 CW
+						 * 	right					6 = Rotate 90 CW
+						 * 	right&mirror	7 = Mirror horizontal and rotate 90 CW
+						 * 	left					8 = Rotate 270 CW
+						 */
+						if ($mirror) {
 							switch ($rotation) {
-								case 0:
+								default:
 								case 1:
 									$rotation = 2;
 									break;

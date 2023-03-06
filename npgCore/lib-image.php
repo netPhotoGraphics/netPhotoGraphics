@@ -631,38 +631,32 @@ class imageProcessing {
 	 */
 	static function transform($im, $rotation) {
 		switch ($rotation) {
-			default: // none
+			default:
 			case 1: // the correct orientation, no adjustment is required.
-				$rotate = 0;
 				break;
-			case 2: // mirror: image has been flipped back-to-front.
+			case 2: // image has been flipped back-to-front.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 0;
 				break;
-			case 3: // flip (rotate 180 degrees): image is upside down.
-				$rotate = 180;
+			case 3: // image is upside down.
+				$im = gl_rotateImage($im, 180);
 				break;
-			case 4: // flip (rotate 180 degrees)-mirror: image has been flipped back-to-front and is upside down.
+			case 4: // image has been flipped back-to-front and is upside down.
+				$im = gl_imageFlip($im, IMG_FLIP_VERTICAL);
+				break;
+			case 5: // image has been flipped back-to-front and is on its side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 180;
+				$im = gl_rotateImage($im, 270);
 				break;
-			case 5: // left-mirror: image has been flipped back-to-front and is on its far side.
+			case 6: // image is on its back side.
+				$im = gl_rotateImage($im, 90);
+				break;
+			case 7: // image has been flipped back-to-front and is on its back side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 270;
+				$im = gl_rotateImage($im, 90);
 				break;
-			case 6: // right: image is on its side.
-				$rotate = 90;
+			case 8: // image is on its side.
+				$im = gl_rotateImage($im, 270);
 				break;
-			case 7: // right-mirror: image has been flipped back-to-front and is on its far side.
-				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 90;
-				break;
-			case 8: // left: image is on its far side.
-				$rotate = 270;
-				break;
-		}
-		if ($rotate) {
-			$im = gl_rotateImage($im, $rotate);
 		}
 		return $im;
 	}
