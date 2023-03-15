@@ -531,22 +531,22 @@ function validSize($bytesofdata) {
 function unRational($data, $type, $intel) {
 	$data = bin2hex($data);
 	if ($intel == 1) {
-		$data = intel2Moto($data);
-		$top = hexdec(substr($data, 8, 8)); // intel stores them bottom-top
-		$bottom = hexdec(substr($data, 0, 8)); // intel stores them bottom-top
+		$data = intel2Moto($data); //	NOTE: this also swaps top & bottom
+		$top = hexdec(substr($data, 8, 8));
+		$bottom = hexdec(substr($data, 0, 8));
 	} else {
-		$top = hexdec(substr($data, 0, 8)); // motorola stores them top-bottom
-		$bottom = hexdec(substr($data, 8, 8)); // motorola stores them top-bottom
+		$top = hexdec(substr($data, 0, 8));
+		$bottom = hexdec(substr($data, 8, 8));
 	}
 	if ($type == 'SRATIONAL' && $top > 2147483647)
 		$top = $top - 4294967296; // this makes the number signed instead of unsigned
-	if ($bottom != 0)
+	if ($bottom != 0) {
 		$data = $top / $bottom;
-	else
-	if ($top == 0)
+	} else if ($top == 0) {
 		$data = 0;
-	else
-		$data = $top . '/' . $bottom;
+	} else {
+		$data = 2147483647; //	divide by 0. Return "infinity"
+	}
 	return $data;
 }
 
@@ -974,11 +974,11 @@ function formatData($type, $tag, $intel, $data) {
  */
 function formatExposure($data) {
 	if (strpos($data, '/') === false) {
-		$data = str_replace(',', '.', $data); // deal with European decimal separator
+		$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
 		if ($data >= 1) {
 			return round($data, 2) . ' ' . '!sec!';
 		} else {
-			return convertToFraction(floatval($data)) . ' !sec!';
+			return convertToFraction($data) . ' !sec!';
 		}
 	} else {
 		return '!bulb!';
@@ -1273,6 +1273,11 @@ function read_exif_data_raw($path, $verbose) {
 
 	if (hexdec($offset) > 8)
 		$unknown = fread($in, hexdec($offset) - 8); // fixed this bug in 1.3
+
+
+
+
+
 
 
 

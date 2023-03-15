@@ -545,7 +545,7 @@ class Image extends MediaObject {
 			/* Image Rotation */
 			$rotation = self::fetchMetadata('EXIFOrientation');
 			if ($rotation) {
-				$rotation = substr(trim(self::fetchMetadata('EXIFOrientation'), '!'), 0, 1);
+				$rotation = substr(trim($rotation, '!'), 0, 1);
 			} else {
 				$rotation = 0;
 			}

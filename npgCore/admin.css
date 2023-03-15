@@ -1967,6 +1967,10 @@ span.tagMatches span {
 	width: 18.4em;
 }
 
+.box-edit select {
+	max-width: 100%;
+}
+
 /*sidebar vertical buttons */
 .box-edit.npgButton a{
 	width: 90% !important;

@@ -626,43 +626,37 @@ class imageProcessing {
 	 * performs image transformations based on $rotation
 	 *
 	 * @param resource $im
-	 * @param int $rotation from the EXIF data
-	 * @param int $rotation
+	 * @param int $rotation orientation from the EXIF data
 	 * @return resource
 	 */
 	static function transform($im, $rotation) {
 		switch ($rotation) {
-			default: // none
-				$rotate = 0;
+			default:
+			case 1: // the correct orientation, no adjustment is required.
 				break;
-			case 2: // mirrored
+			case 2: // image has been flipped back-to-front.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 0;
 				break;
-			case 3:// upside-down
-				$rotate = 180;
+			case 3: // image is upside down.
+				$im = gl_rotateImage($im, 180);
 				break;
-			case 4: // upside-down mirrored
-				$im = gl_imageFlip($im, IMG_FLIP_BOTH);
-				$rotate = 0;
+			case 4: // image has been flipped back-to-front and is upside down.
+				$im = gl_imageFlip($im, IMG_FLIP_VERTICAL);
 				break;
-			case 5: // 90 CCW mirrored
+			case 5: // image has been flipped back-to-front and is on its side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 270;
+				$im = gl_rotateImage($im, 270);
 				break;
-			case 6: // 90 CCW
-				$rotate = 270;
+			case 6: // image is on its back side.
+				$im = gl_rotateImage($im, 90);
 				break;
-			case 7: // 90 CW mirrored
+			case 7: // image has been flipped back-to-front and is on its back side.
 				$im = gl_imageFlip($im, IMG_FLIP_HORIZONTAL);
-				$rotate = 90;
+				$im = gl_rotateImage($im, 90);
 				break;
-			case 8: // 90 CCW
-				$rotate = 90;
+			case 8: // image is on its side.
+				$im = gl_rotateImage($im, 270);
 				break;
-		}
-		if ($rotate) {
-			$im = gl_rotateImage($im, $rotate);
 		}
 		return $im;
 	}

@@ -125,6 +125,7 @@ class feed {
 				echo file_get_contents($cachefilepath);
 				exit();
 			} else {
+				clearstatcache();
 				if (file_exists($cachefilepath)) {
 					chmod($cachefilepath, 0777);
 					unlink($cachefilepath);

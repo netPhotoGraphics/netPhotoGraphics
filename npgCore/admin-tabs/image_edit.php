@@ -338,7 +338,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									$expirationdate = $image->getExpireDate();
 									?>
 									<script type="text/javascript">
-										
+
 										$(function () {
 											$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({
 												dateFormat: 'yy-mm-dd',
@@ -368,7 +368,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												}
 											});
 										});
-										
+
 									</script>
 									<br class="clearall" />
 									<p>
@@ -534,7 +534,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										<br />
 										<input type="hidden" name="<?php echo $currentimage; ?>-oldrotation" value="<?php echo $rotation; ?>" />
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="0" <?php
+											<input type="radio" id="rotation_none-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="1" <?php
 											if ($rotation <= 2) {
 												echo ' checked="checked"';
 											}
@@ -543,8 +543,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 														 <?php echo gettext('None'); ?>
 										</label>
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
-											if ($rotation == 7 || $rotation == 8) {
+											<input type="radio" id="rotation_90-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
+											if ($rotation == 6 || $rotation == 7) {
 												echo ' checked="checked"';
 											}
 											echo $disablerotate
@@ -552,8 +552,8 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 														 <?php echo gettext('Right'); ?>
 										</label>
 										<label class="checkboxlabel">
-											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="6" <?php
-											if ($rotation == 5 || $rotation == 6) {
+											<input type="radio" id="rotation_270-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-rotation" value="8" <?php
+											if ($rotation == 5 || $rotation == 8) {
 												echo ' checked="checked"';
 											}
 											echo $disablerotate
@@ -569,6 +569,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											?> />
 														 <?php echo gettext('Flip'); ?>
 										</label>
+										<br class="clearall" />
 										<label class="checkboxlabel">
 											<input type="checkbox" id="mirror-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-mirror" value="<?php echo IMG_FLIP_HORIZONTAL; ?>" <?php
 											if ($rotation == 2 || $rotation == 4 || $rotation == 5 || $rotation == 7) {
@@ -578,6 +579,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											?> />
 														 <?php echo gettext('Mirror'); ?>
 										</label>
+
 										<?php
 									}
 									?>
