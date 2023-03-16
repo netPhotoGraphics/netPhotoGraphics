@@ -621,9 +621,9 @@ function printNewsDatesDropdown() {
 					$year = "no date";
 					$month = "";
 				} else {
-					$dt = date('Y-F', strtotime($key));
-					$year = substr($dt, 0, 4);
-					$month = substr($dt, 5);
+					$dt = strtotime($key);
+					$year = formattedDate('Y', $dt);
+					$month = formattedDate('F', $dt);
 				}
 				if (isset($_GET['category'])) {
 					$catlink = "&amp;category=" . sanitize($_GET['category']);

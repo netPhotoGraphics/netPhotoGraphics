@@ -240,7 +240,7 @@ function sanitizeDate($date) {
 		while ($count < count($format)) {
 			array_pop($format);
 		}
-		return date(trim(implode('', $format), '-:'), $timestamp);
+		return formattedDate(trim(implode('', $format), '-:'), $timestamp);
 	}
 	return FALSE;
 }

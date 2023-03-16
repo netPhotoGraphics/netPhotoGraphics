@@ -1298,7 +1298,7 @@ function printSearchBreadcrumb($between = NULL, $class = false, $search = NULL, 
 		echo '<span class="betweentext">' . html_encode($between) . '</span>';
 		if ($format) {
 			$d = strtotime($d);
-			$d = date($format, $d);
+			$d = formattedDate($format, $d);
 		}
 		echo $d;
 	} else {
@@ -3807,9 +3807,9 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = date('Y-F', strtotime($key));
-			$year = substr($dt, 0, 4);
-			$month = substr($dt, 5);
+			$dt = strtotime($key);
+			$year = formattedDate('Y', $dt);
+			$month = formattedDate('F', $dt);
 		}
 
 		if ($lastyear != $year) {
@@ -4596,7 +4596,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

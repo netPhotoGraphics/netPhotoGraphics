@@ -249,7 +249,7 @@ class site_upgrade {
 									'category' => 'suspend',
 									'media_content' => '',
 									'media_thumbnail' => '',
-									'pubdate' => date("r", time()),
+									'pubdate' => formattedDate("r", time()),
 									'desc' => sprintf(gettext('The %s feed is currently not available.'), $source)
 							)
 					);

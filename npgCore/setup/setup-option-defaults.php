@@ -485,7 +485,7 @@ foreach ($showDefaultThumbs as $key => $value) {
 }
 setOption('album_tab_showDefaultThumbs', serialize($showDefaultThumbs));
 
-setOptionDefault('time_zone', date('T'));
+setOptionDefault('time_zone', formattedDate('T'));
 
 if (isset($_GET['mod_rewrite'])) {
 	?>

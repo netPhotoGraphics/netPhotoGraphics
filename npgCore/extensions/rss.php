@@ -651,9 +651,9 @@ class RSS extends feed {
 		}
 		//date
 		if ($this->mode != "albums") {
-			$feeditem['pubdate'] = date("r", strtotime($item->getPublishDate()));
+			$feeditem['pubdate'] = formattedDate("r", strtotime($item->getPublishDate()));
 		} else {
-			$feeditem['pubdate'] = date("r", strtotime($albumobj->getPublishDate()));
+			$feeditem['pubdate'] = formattedDate("r", strtotime($albumobj->getPublishDate()));
 		}
 		return $feeditem;
 	}
@@ -687,7 +687,7 @@ class RSS extends feed {
 		$feeditem['link'] = PROTOCOL . '://' . $this->host . $link;
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
-		$feeditem['pubdate'] = date("r", strtotime($item['date']));
+		$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 
 		return $feeditem;
 	}
@@ -717,8 +717,8 @@ class RSS extends feed {
 					<atom:link href="<?php echo PROTOCOL; ?>://<?php echo $this->host; ?><?php echo html_encode(getRequestURI()); ?>" rel="self"	type="application/rss+xml" />
 					<description><![CDATA[<?php echo html_encode(getBare($_gallery->getDesc($this->locale))); ?>]]></description>
 					<language><?php echo $this->locale_xml; ?></language>
-					<pubDate><?php echo date("r", time()); ?></pubDate>
-					<lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
+					<pubDate><?php echo formattedDate("r", time()); ?></pubDate>
+					<lastBuildDate><?php echo formattedDate("r", time()); ?></lastBuildDate>
 					<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 					<generator>netPhotoGraphics RSS Generator</generator>
 					<?php

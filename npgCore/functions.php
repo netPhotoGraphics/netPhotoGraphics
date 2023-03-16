@@ -388,9 +388,12 @@ function lookupSortKey($sorttype, $default, $table) {
  * @param int $dt the date timestamp to be output
  * @return string
  */
-function formattedDate($format, $dt) {
+function formattedDate($format, $dt = NULL) {
 	global $_UTF8, $_current_locale;
 	$format = strval($format);
+	if (is_null($dt)) {
+		$dt = time();
+	}
 
 	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
 	if (class_exists('IntlDateFormatter')) {
