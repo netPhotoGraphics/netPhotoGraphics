@@ -304,6 +304,10 @@ class ipBlocker {
 		}
 		$ipc = '';
 		foreach ($ipa as $sub) {
+			$sub = ltrim($sub, '0');
+			if (empty($sub)) {
+				$sub = '0';
+			}
 			$ipc .= sprintf("%s%' 4s", $sep, $sub);
 		}
 
