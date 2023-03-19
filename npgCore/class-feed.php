@@ -121,17 +121,17 @@ class feed {
 		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
-			if (file_exists($cachefilepath) AND time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
-				echo file_get_contents($cachefilepath);
-				exit();
-			} else {
-				clearstatcache();
-				if (file_exists($cachefilepath)) {
+			clearstatcache();
+			if (file_exists($cachefilepath)) {
+				if (time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
+					echo file_get_contents($cachefilepath);
+					exit();
+				} else {
 					chmod($cachefilepath, 0777);
 					unlink($cachefilepath);
 				}
-				ob_start();
 			}
+			ob_start();
 		}
 	}
 

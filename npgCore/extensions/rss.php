@@ -703,11 +703,11 @@ class RSS extends feed {
 		}
 
 		if (is_array($feeditems)) {
-			//NOTE: feeditems are complete HTML so necessarily must have been properly endoded by the server function!
+			//NOTE: feeditems are complete HTML so necessarily must have been properly encoded by the server function!
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache(PLUGIN_SERVERPATH . 'rss/rss.css');
+			$this->startCache();
 			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">

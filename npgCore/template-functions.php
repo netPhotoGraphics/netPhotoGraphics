@@ -2538,7 +2538,6 @@ function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata'
 		return;
 	}
 
-
 	if (is_null($title)) {
 		$title = gettext('Image Info');
 	}
