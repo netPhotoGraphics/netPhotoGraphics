@@ -178,14 +178,45 @@ class flag_thumbnail {
 		);
 	}
 
-	protected static function image($html, $which, $where) {
-		$img = getPlugin($which);
+	protected static function text($what) {
+		switch ($what) {
+			case 'new':
+				$inline = 'style="position: absolute;top: 10px;right: 6px;"';
+				break;
+			case 'geodata':
+				$inline = 'style="position: absolute;bottom: 10px;right: 6px;"';
+				break;
+			case 'locked':
+				$inline = 'style="position: absolute;bottom: 10px;left: 6px;"';
+				break;
+			case 'unpublished':
+				$inline = 'style="position: absolute;top: 10px;left: 6px;"';
+				break;
+		}
+		return '<span class="textasflag flag_thumbnail_' . $what . '" ' . $inline . '>' . getOption('flag_thumbnail_' . $what . '_text') . "</span>\n";
+	}
+
+	protected static function image($what) {
+		$img = getPlugin(get_class() . '/' . getOption('flag_thumbnail_' . $what . '_icon'));
 		$size = gl_imageDims($img);
 		$wide = $size['width'];
 		$high = $size['height'];
+		switch ($what) {
+			case 'new':
+				$inline = 'position: absolute;top: 4px;right: 4px;';
+				break;
+			case 'geodata':
+				$inline = 'position: absolute;bottom: 4px;right: 4px;';
+				break;
+			case 'locked':
+				$inline = 'position: absolute;bottom: 4px;left: 4px;';
+				break;
+			case 'unpublished':
+				$inline = 'position: absolute;top: 4px;left: 4px;';
+				break;
+		}
 		$img = str_replace(SERVERPATH, WEBPATH, $img);
-		$html .= '<img src="' . $img . '" class="imageasflag" width="' . $wide . 'px" height="' . $high . 'px" alt="" style="max-width:' . $wide . 'px; position: ' . $where . '" />' . "\n";
-		return $html;
+		return '<img src="' . $img . '" class="imageasflag flag_thumbnail_' . $what . '" width="' . $wide . 'px" height="' . $high . 'px" alt="" style="max-width:' . $wide . 'px; ' . $inline . '" />' . "\n";
 	}
 
 	protected static function insert_class($html_original) {
@@ -215,9 +246,9 @@ class flag_thumbnail {
 			$age = (time() - $imagedatestamp);
 			if ($age <= $not_older_as) {
 				if (getOption('flag_thumbnail_use_text')) {
-					$html .= '<span class="textasnewflag" style="position: absolute;top: 10px;right: 6px;">' . getOption('flag_thumbnail_new_text') . "</span>\n";
+					$html .= self::text('new');
 				} else {
-					$html = self::image($html, get_class() . '/' . getOption('flag_thumbnail_new_icon'), 'absolute;top: 4px;right: 4px;');
+					$html .= self::image('new');
 				}
 			}
 		}
@@ -228,9 +259,9 @@ class flag_thumbnail {
 			if (is_object($obj) && isImageClass($obj)) {
 				if ($obj->getGPSLatitude() && $obj->getGPSLongitude()) {
 					if (getOption('flag_thumbnail_use_text')) {
-						$html .= '<span class="textasnewflag" style="position: absolute;bottom: 10px;right: 6px;">' . getOption('flag_thumbnail_use_text') . "</span>\n";
+						$html .= self::text('geodata');
 					} else {
-						$html = self::image($html, get_class() . '/' . getOption('flag_thumbnail_geodata_icon'), 'absolute;bottom: 4px;right: 4px;');
+						$html .= self::image('geodata');
 					}
 				}
 			}
@@ -242,16 +273,16 @@ class flag_thumbnail {
 
 			if ($locked && getOption('flag_thumbnail_flag_locked')) {
 				if (getOption('flag_thumbnail_use_text')) {
-					$html .= '<span class="textasnewflag" style="position: absolute;bottom: 10px;left: 4px;">' . getOption('flag_thumbnail_locked_text') . "</span>\n";
+					$html .= self::text('locked');
 				} else {
-					$html = self::image($html, get_class() . '/' . getOption('flag_thumbnail_locked_icon'), 'absolute;bottom: 4px;left: 4px;');
+					$html .= self::image('locked');
 				}
 			}
 			if ($unpublished && getOption('flag_thumbnail_flag_unpublished')) {
 				if (getOption('flag_thumbnail_use_text')) {
-					$html .= '<span class="textasnewflag" style="position: absolute;top: 10px;left: 4px;">' . getOption('flag_thumbnail_unpublished_text') . "</span>\n";
+					$html .= self::text('unpublished');
 				} else {
-					$html = self::image($html, get_class() . '/' . getOption('flag_thumbnail_unpublished_icon'), 'absolute;top: 4px;left: 4px;');
+					$html .= self::image('unpublished');
 				}
 			}
 		}
