@@ -1,0 +1,37 @@
+/**
+*	Standard flag_thumbnail positioning CSS
+*	Override by placing your edited version in the PLUGINS/flag_thumbnail folder
+*	or your theme folder/flag_thumbnail folder
+*/
+/*
+    Created on : Mar 21, 2023, 3:50:03 PM
+    Author     : Stephen
+*/
+
+/*	css for Icons */
+.imageasflag_new {
+	position: absolute;top: 4px;right: 4px;
+}
+.imageasflag_geodata {
+	position: absolute;bottom: 4px;right: 4px;
+}
+.imageasflag_locked {
+	position: absolute;bottom: 4px;left: 4px;
+}
+.imageasflag_unpublished {
+	position: absolute;top: 4px;left: 4px;
+}
+
+/*	css for text annotations */
+.textasflag_new {
+	position: absolute;top: 10px;right: 6px;
+}
+.textasflag_geodata {
+	position: absolute;bottom: 10px;right: 6px;
+}
+.textasflag_locked {
+	position: absolute;bottom: 10px;left: 6px;
+}
+.textasflag_unpublished {
+	position: absolute;top: 10px;left: 6px;
+}

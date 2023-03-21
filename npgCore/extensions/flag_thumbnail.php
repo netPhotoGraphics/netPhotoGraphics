@@ -31,6 +31,7 @@ npgFilters::register('standard_image_thumb_html', 'flag_thumbnail::std_image_thu
 npgFilters::register('standard_album_thumb_html', 'flag_thumbnail::std_album_thumbs', 99);
 npgFilters::register('custom_album_thumb_html', 'flag_thumbnail::custom_album_thumbs', 99);
 npgFilters::register('custom_image_html', 'flag_thumbnail::custom_images', 99);
+npgFilters::register('theme_head', 'flag_thumbnail::css');
 
 /**
  * Plugin option handling class
@@ -193,7 +194,7 @@ class flag_thumbnail {
 				$inline = 'style="position: absolute;top: 10px;left: 6px;"';
 				break;
 		}
-		return '<span class="textasflag flag_thumbnail_' . $what . '" ' . $inline . '>' . getOption('flag_thumbnail_' . $what . '_text') . "</span>\n";
+		return '<span class="textasflag_' . $what . '" ' . $inline . '>' . getOption('flag_thumbnail_' . $what . '_text') . "</span>\n";
 	}
 
 	protected static function image($what) {
@@ -201,22 +202,8 @@ class flag_thumbnail {
 		$size = gl_imageDims($img);
 		$wide = $size['width'];
 		$high = $size['height'];
-		switch ($what) {
-			case 'new':
-				$inline = 'position: absolute;top: 4px;right: 4px;';
-				break;
-			case 'geodata':
-				$inline = 'position: absolute;bottom: 4px;right: 4px;';
-				break;
-			case 'locked':
-				$inline = 'position: absolute;bottom: 4px;left: 4px;';
-				break;
-			case 'unpublished':
-				$inline = 'position: absolute;top: 4px;left: 4px;';
-				break;
-		}
 		$img = str_replace(SERVERPATH, WEBPATH, $img);
-		return '<img src="' . $img . '" class="imageasflag flag_thumbnail_' . $what . '" width="' . $wide . 'px" height="' . $high . 'px" alt="" style="max-width:' . $wide . 'px; ' . $inline . '" />' . "\n";
+		return '<img src="' . $img . '" class="imageasflag_' . $what . '" width="' . $wide . 'px" height="' . $high . 'px" alt="" style="max-width:' . $wide . 'px;" />' . "\n";
 	}
 
 	protected static function insert_class($html_original) {
@@ -289,6 +276,11 @@ class flag_thumbnail {
 		$html = '<span class="flag_thumbnail" style="position:relative; display:block;">' . "\n" . trim($html) . "\n</span>\n";
 
 		return $html;
+	}
+
+	static function css() {
+		$css = getPlugin('flag_thumbnail/thumbnail.css', TRUE);
+		scriptLoader($css);
 	}
 
 	static function custom_images($html, $thumb = FALSE) {
