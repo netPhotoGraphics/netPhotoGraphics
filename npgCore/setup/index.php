@@ -52,7 +52,8 @@ if (isset($_REQUEST['autorun'])) {
 	}
 	$autorunq = '&autorun=' . $autorun;
 } else {
-	$displayLimited = $autorun = $autorunq = false;
+	$displayLimited = $autorun = false;
+	$autorunq = 'false';
 }
 
 if (file_exists(SERVERPATH . '/zp-core')) {
@@ -287,18 +288,11 @@ if ($updatechmod = isset($_REQUEST['chmod_permissions'])) {
 	}
 }
 if ($updatechmod || $newconfig) {
-	if ($updatechmod || isset($_conf_vars['CHMOD'])) {
-		$chmodval = "\$conf['CHMOD']";
-	} else {
-		$chmodval = sprintf('0%o', $chmod);
-	}
+	$chmodval = sprintf('0%o', $chmod);
 	if ($updatechmod) {
-		$_config_contents = configFile::update('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
-		if (strpos($_config_contents, "if (!defined('CHMOD_VALUE')) {") !== false) {
-			$_config_contents = preg_replace("|if\s\(!defined\('CHMOD_VALUE'\)\)\s{\sdefine\(\'CHMOD_VALUE\'\,(.*)\);\s}|", "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n", $_config_contents);
-		} else {
-			$i = strpos($_config_contents, "/** Do not edit below this line. **/");
-			$_config_contents = substr($_config_contents, 0, $i) . "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n" . substr($_config_contents, $i);
+		$_config_contents = configFile::update('CHMOD', $chmodval, $_config_contents, false);
+		if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
+			$_config_contents = preg_replace("|if\s*\(!defined\('CHMOD_VALUE'\)\)\s*{\n*\s*define\(\'CHMOD_VALUE\'\,(.*)\);\s*\n*}\n*|i", "", $_config_contents);
 		}
 	}
 	$update_config = true;
@@ -834,7 +828,7 @@ clearstatcache();
 									$chmodselector = '<form action="#">' .
 													'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
 													'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
-													'<input type="hidden" name="debug" value="' . $debug . '">' .
+													'<input type="hidden" name="debug" value="' . intval($debug) . '">' .
 													sprintf(gettext('Set File permissions to %s'), permissionsSelector($permission_names, $chmod)) .
 													'</form>';
 								} else {
