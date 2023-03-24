@@ -1986,15 +1986,16 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 				$authType = $try['authType'];
 				$check_auth = $try['check_auth'];
 				$check_user = $try['check_user'];
-				$info = password_get_info($check_auth);
-				if ($info['algo']) {
-					$success = password_verify($post_pass, $check_auth);
-					$authCookie = $check_auth;
-					if (DEBUG_LOGIN)
-						debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
-					break;
+				if (!empty($check_auth)) {
+					$info = password_get_info($check_auth);
+					if ($info['algo']) {
+						$success = password_verify($post_pass, $check_auth);
+						$authCookie = $check_auth;
+						if (DEBUG_LOGIN)
+							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+						break;
+					}
 				}
-
 				if (!isset($alternates)) {
 					$alternates = array();
 					for ($hi = 0; $hi <= 3; $hi++) {
