@@ -53,7 +53,7 @@ if (isset($_REQUEST['autorun'])) {
 	$autorunq = '&autorun=' . $autorun;
 } else {
 	$displayLimited = $autorun = false;
-	$autorunq = 'false';
+	$autorunq = '';
 }
 
 if (file_exists(SERVERPATH . '/zp-core')) {
@@ -1445,7 +1445,6 @@ clearstatcache();
 							$Apache = stristr($_SERVER['SERVER_SOFTWARE'], "apache");
 							$Nginx = stristr($_SERVER['SERVER_SOFTWARE'], "nginx");
 							$htfile = SERVERPATH . '/.htaccess';
-							$copyaccess = false;
 							if (file_exists($htfile)) {
 								$ht = trim(file_get_contents($htfile));
 							} else {
@@ -1845,7 +1844,7 @@ clearstatcache();
 									<?php
 								}
 								$task = "update" . $debugq . $autorunq;
-								if ($copyaccess) {
+								if (isset($copyaccess)) {
 									$task .= '&copyhtaccess';
 								}
 							}

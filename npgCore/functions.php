@@ -2182,8 +2182,13 @@ function getDBTables() {
 		$result = array();
 		while ($row = db_fetch_assoc($resource)) {
 			$table = reset($row);
-			$table = substr($table, strlen($prefix));
-			$tables[] = $table;
+			if (empty($prefix)) {
+				$tables[] = $table;
+			} else {
+				if (strpos($table, $prefix) === 0) {
+					$tables[] = substr($table, strlen($prefix));
+				}
+			}
 		}
 		db_free_result($resource);
 	}

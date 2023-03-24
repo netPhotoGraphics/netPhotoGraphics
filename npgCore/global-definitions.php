@@ -104,13 +104,6 @@ unset($_debug);
 
 $_conf_options_associations = $_options = array();
 $_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
-// Including the config file more than once is OK, and avoids $conf missing.
-
-if (file_exists(dirname(dirname(__FILE__)) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	eval('?>' . file_get_contents(dirname(dirname(__FILE__)) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	$_conf_vars = $conf;
-	unset($conf);
-}
 
 $_DB_details = array(
 		'mysql_host' => 'not connected',
@@ -163,6 +156,12 @@ if ($matches) {
 	if (!defined('OFFSET_PATH')) {
 		define('OFFSET_PATH', 0);
 	}
+}
+
+if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	$_conf_vars = $conf;
+	unset($conf);
 }
 
 if (isset($_conf_vars['WEBPATH'])) {
