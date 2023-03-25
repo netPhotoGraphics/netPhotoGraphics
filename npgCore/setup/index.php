@@ -16,7 +16,11 @@ define('OFFSET_PATH', 2);
 require_once(dirname(__DIR__) . '/global-definitions.php');
 
 clearstatcache();
-$chmod = fileperms(dirname(__DIR__)) & 0666;
+if (defined('CHMOD_VALUE')) {
+	$chmod = CHMOD_VALUE;
+} else {
+	$chmod = fileperms(dirname(__DIR__)) & 0666;
+}
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
@@ -135,7 +139,7 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg');
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	$newconfig = true;
+	$update_config = true;
 	copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
@@ -286,14 +290,14 @@ if ($updatechmod = isset($_REQUEST['chmod_permissions'])) {
 	} else {
 		$updatechmod = false;
 	}
+} if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
+	$updatechmod = true;
 }
-if ($updatechmod || $newconfig) {
-	$chmodval = sprintf('0%o', $chmod);
-	if ($updatechmod) {
-		$_config_contents = configFile::update('CHMOD', $chmodval, $_config_contents, false);
-		if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
-			$_config_contents = preg_replace("|if\s*\(!defined\('CHMOD_VALUE'\)\)\s*{\n*\s*define\(\'CHMOD_VALUE\'\,(.*)\);\s*\n*}\n*|i", "", $_config_contents);
-		}
+
+if ($updatechmod) {
+	$_config_contents = configFile::update('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
+	if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
+		$_config_contents = preg_replace("|if\s*\(!defined\('CHMOD_VALUE'\)\)\s*{\n*\s*define\(\'CHMOD_VALUE\'\,(.*)\);\s*\n*}\n*|i", "", $_config_contents);
 	}
 	$update_config = true;
 }
