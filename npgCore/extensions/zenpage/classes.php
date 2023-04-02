@@ -12,7 +12,7 @@
 define('SHORTENINDICATOR', $shortenindicator = getOption('CMS_textshorten_indicator'));
 define('SHORTEN_LENGTH', getOption('CMS_text_length'));
 define('READ_MORE', getOption("CMS_read_more"));
-define('ARTICLES_PER_PAGE', getOption("CMS_articles_per_page"));
+define('ARTICLES_PER_PAGE', max(1, getOption("CMS_articles_per_page")));
 
 class CMS {
 
