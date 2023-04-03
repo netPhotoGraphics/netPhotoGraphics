@@ -127,8 +127,8 @@ class feed {
 					echo file_get_contents($cachefilepath);
 					exit();
 				} else {
-					chmod($cachefilepath, 0777);
-					unlink($cachefilepath);
+					@chmod($cachefilepath, 0777);
+					@unlink($cachefilepath);
 				}
 			}
 			ob_start();
