@@ -435,7 +435,7 @@ class imageProcessing {
 			if (is_string($effects)) {
 				$imgEffects = explode(',', $effects);
 				if (in_array('gray', $imgEffects)) {
-					gl_imageGray($newim);
+					$newim = gl_imageGray($newim);
 				}
 			}
 

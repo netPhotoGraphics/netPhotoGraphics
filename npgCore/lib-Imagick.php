@@ -543,9 +543,8 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	 */
 	function gl_imageGray($image) {
 		$image->setType(Imagick::IMGTYPE_GRAYSCALE);
-		$image->setImageColorspace(Imagick::COLORSPACE_GRAY);
+		$image->transformImageColorspace(Imagick::COLORSPACE_GRAY);
 		$image->setImageProperty('exif:ColorSpace', Imagick::IMGTYPE_GRAYSCALE);
-
 		return $image;
 	}
 
