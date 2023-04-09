@@ -32,7 +32,7 @@ if (isset($_GET['mergedrss'])) {
 	header("Content-type: text/xml");
 
 	// set an arbitrary feed date
-	$RSS_date = date("r", mktime(10, 0, 0, 9, 8, 2010));
+	$RSS_date = formattedDate("r", mktime(10, 0, 0, 9, 8, 2010));
 	if (isset($_GET['lang'])) {
 		$locale = sanitize($_GET['lang']);
 	} else {

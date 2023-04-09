@@ -116,7 +116,9 @@ class cmsFilters {
 						),
 						'desc' => gettext('Select the CMS features you wish to use on your site.')
 				),
-				gettext('Articles per page (theme)') => array('key' => 'CMS_articles_per_page', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Articles per page (theme)') => array('key' => 'CMS_articles_per_page', 'type' => OPTION_TYPE_SLIDER,
+						'min' => 1,
+						'max' => 25,
 						'order' => 0.5,
 						'desc' => gettext("How many news articles you want to show per page on the news or news category pages.")),
 				gettext('News article text length') => array('key' => 'CMS_text_length', 'type' => OPTION_TYPE_NUMBER,
@@ -154,11 +156,11 @@ class cmsFilters {
 	static function switcher_head($list) {
 		?>
 		<script type="text/javascript">
-			
+
 			function switchCMS(checked) {
 				window.location = '?cmsSwitch=' + checked;
 			}
-			
+
 		</script>
 		<?php
 		return $list;

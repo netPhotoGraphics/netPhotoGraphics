@@ -304,6 +304,10 @@ class ipBlocker {
 		}
 		$ipc = '';
 		foreach ($ipa as $sub) {
+			$sub = ltrim($sub, '0');
+			if (empty($sub)) {
+				$sub = '0';
+			}
 			$ipc .= sprintf("%s%' 4s", $sep, $sub);
 		}
 
@@ -317,7 +321,7 @@ $_ipBlockerMutex = new npgMutex('bK');
 if (extensionEnabled('ipBlocker')) {
 	$ip = getUserIP();
 	if (!isset($_current_admin_obj) || (!$me = $_current_admin_obj && !$_current_admin_obj->transient)) {
-		$me = getUserIP() == getOption('accessThreshold_Owner');
+		$me = $ip == getOption('accessThreshold_Owner');
 	} else {
 		if ($_current_admin_obj->master) {
 			if (getOption('accessThreshold_Owner') != $ip) {
@@ -326,7 +330,6 @@ if (extensionEnabled('ipBlocker')) {
 			}
 		}
 	}
-
 	if (!$me) {
 		ipBlocker::load($ip);
 	}

@@ -25,16 +25,16 @@ if ($_current_DailySummary->getTotalItems()) {
 	<?php
 	while (next_DailySummaryItem()) {
 		?>
-		<b><a href="<?php echo getDailySummaryUrl(); ?>"><?php echo date("F j", strtotime(getDailySummaryDate())); ?></a></b>
+		<b><a href="<?php echo getDailySummaryUrl(); ?>"><?php echo formattedDate("F j", strtotime(getDailySummaryDate())); ?></a></b>
 		<p><img border="0" src="<?php echo getCustomDailySummaryThumb(array('size' => getOption('thumb_size'))); ?>" alt="<?php echo getDailySummaryTitle() ?>" /></p>
 		<p><?php printf(gettext('Title: %s'), getDailySummaryTitle()); ?></p>
 		<p><?php printf(gettext('Description: %s'), getDailySummaryDesc()); ?></p>
 		<p><?php printf(gettext('Albums: %s'), getDailySummaryAlbumNameText()); ?></p>
-		<p><?php printf(gettext('Uploaded date: %s'), date("F j", strtotime(getDailySummaryModifiedDate()))); ?></p>
+		<p><?php printf(gettext('Uploaded date: %s'), formattedDate("F j", strtotime(getDailySummaryModifiedDate()))); ?></p>
 		<p><?php printf(gettext('Image count: %s'), getDailySummaryNumImages()); ?></p>
 		<p><?php
 			echo gettext('Link: ');
-			printDailySummaryUrl("See all photos", "Date: " . date("F j", strtotime(getDailySummaryDate())), "extra class", getDailySummaryDate());
+			printDailySummaryUrl("See all photos", "Date: " . formattedDate("F j", strtotime(getDailySummaryDate())), "extra class", getDailySummaryDate());
 			?></p>
 
 		<p><?php echo gettext('Ordered album list with album links:'); ?></p>

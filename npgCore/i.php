@@ -38,8 +38,8 @@ require_once(__DIR__ . '/class-mutex.php');
 
 if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SERVERPATH))) {
 	$limit = 5;
-	if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-		eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	if (file_exists(CORE_SERVERPATH . DATA_FOLDER . '/' . CONFIGFILE)) {
+		eval('?>' . file_get_contents(CORE_SERVERPATH . DATA_FOLDER . '/' . CONFIGFILE));
 		if (isset($conf['THREAD_CONCURRENCY'])) {
 			$limit = $conf['THREAD_CONCURRENCY'];
 		}

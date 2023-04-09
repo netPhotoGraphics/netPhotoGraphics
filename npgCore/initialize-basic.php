@@ -29,20 +29,13 @@ register_shutdown_function('npgShutDownFunction');
 $_configMutex = new npgMutex('cF');
 $_mutex = new npgMutex();
 
-$_conf_options_associations = $_options = array();
-$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
-// Including the config file more than once is OK, and avoids $conf missing.
-
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	$_conf_vars = getConfig();
-}
 if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
 	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
 	$_siteMutex->lock();
 }
 
 if (!defined('CHMOD_VALUE')) {
-	define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
+	define('CHMOD_VALUE', isset($_conf_vars['CHMOD']) ? $_conf_vars['CHMOD'] : fileperms(__DIR__) & 0666);
 }
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
 define('FILE_MOD', CHMOD_VALUE & 0666 | 0400);

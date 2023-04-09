@@ -617,9 +617,9 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 			$year = "no date";
 			$month = "";
 		} else {
-			$dt = date('Y-F', strtotime($key));
-			$year = substr($dt, 0, 4);
-			$month = substr($dt, 5);
+			$dt = strtotime($key);
+			$year = formattedDate('Y', $dt);
+			$month = formattedDate('F', $dt);
 		}
 		if ($lastyear != $year) {
 			$lastyear = $year;
@@ -633,7 +633,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 		if ($yearsonly) {
 			$datetosearch = $key;
 		} else {
-			$datetosearch = date('Y-F', strtotime($key));
+			$datetosearch = $year . '-' . $month;
 		}
 		if (getCurrentNewsArchive('plain') == $datetosearch) {
 			$active = $activeclass;
@@ -666,7 +666,7 @@ function getCurrentNewsArchive($mode = 'formatted', $format = 'F Y') {
 		$archivedate = $_post_date;
 		if ($mode == "formatted") {
 			$archivedate = strtotime($archivedate);
-			$archivedate = date($format, $archivedate);
+			$archivedate = formattedDate($format, $archivedate);
 		}
 		return $archivedate;
 	}

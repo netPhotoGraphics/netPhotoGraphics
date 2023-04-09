@@ -651,9 +651,9 @@ class RSS extends feed {
 		}
 		//date
 		if ($this->mode != "albums") {
-			$feeditem['pubdate'] = date("r", strtotime($item->getPublishDate()));
+			$feeditem['pubdate'] = formattedDate("r", strtotime($item->getPublishDate()));
 		} else {
-			$feeditem['pubdate'] = date("r", strtotime($albumobj->getPublishDate()));
+			$feeditem['pubdate'] = formattedDate("r", strtotime($albumobj->getPublishDate()));
 		}
 		return $feeditem;
 	}
@@ -687,7 +687,7 @@ class RSS extends feed {
 		$feeditem['link'] = PROTOCOL . '://' . $this->host . $link;
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
-		$feeditem['pubdate'] = date("r", strtotime($item['date']));
+		$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 
 		return $feeditem;
 	}
@@ -703,11 +703,11 @@ class RSS extends feed {
 		}
 
 		if (is_array($feeditems)) {
-			//NOTE: feeditems are complete HTML so necessarily must have been properly endoded by the server function!
+			//NOTE: feeditems are complete HTML so necessarily must have been properly encoded by the server function!
 
 			header('Content-Type: application/xml');
 			$this->hitcounter();
-			$this->startCache(PLUGIN_SERVERPATH . 'rss/rss.css');
+			$this->startCache();
 			echo '<?xml-stylesheet type="text/css" href="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/rss/rss.css" ?>' . "\n";
 			?>
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
@@ -717,8 +717,8 @@ class RSS extends feed {
 					<atom:link href="<?php echo PROTOCOL; ?>://<?php echo $this->host; ?><?php echo html_encode(getRequestURI()); ?>" rel="self"	type="application/rss+xml" />
 					<description><![CDATA[<?php echo html_encode(getBare($_gallery->getDesc($this->locale))); ?>]]></description>
 					<language><?php echo $this->locale_xml; ?></language>
-					<pubDate><?php echo date("r", time()); ?></pubDate>
-					<lastBuildDate><?php echo date("r", time()); ?></lastBuildDate>
+					<pubDate><?php echo formattedDate("r", time()); ?></pubDate>
+					<lastBuildDate><?php echo formattedDate("r", time()); ?></lastBuildDate>
 					<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 					<generator>netPhotoGraphics RSS Generator</generator>
 					<?php

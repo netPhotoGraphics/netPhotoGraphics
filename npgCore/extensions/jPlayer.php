@@ -142,11 +142,7 @@ class jPlayer extends html5Player {
 			 */
 		}
 
-		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = current($skins);
-		if (!file_exists($skin)) {
-			$skin = PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
-		}
+		$skin = self::getSkin();
 		$skinCSS = file_get_contents($skin);
 		preg_match_all('~\.(jp-video-(\d+)p)\s+\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
 		$which = array_search(getOption('jplayer_size'), $matches[1]);
@@ -169,12 +165,8 @@ class jPlayer extends html5Player {
 		 * If you need different sizes than you need to make your own skin (see the skin option for info about that)
 		 */
 
-		$skin = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = current($skin);
-		if (!file_exists($skin)) {
-			$skin = PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
-		}
+
+		$skin = self::getSkin();
 		$skinCSS = file_get_contents($skin);
 		preg_match_all('~\.(jp-video-(\d+)p)\s*\{\s*.*width\:\s*(\d+)px;~', $skinCSS, $matches);
 		foreach ($matches[2] as $k => $h) {
@@ -229,11 +221,7 @@ class jPlayer extends html5Player {
 	}
 
 	static function CSS() {
-		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
-		$skin = strval(reset($skins));
-		if (!file_exists($skin)) {
-			$skin = PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
-		}
+		$skin = self::getSkin();
 		scriptLoader($skin);
 	}
 
@@ -243,6 +231,15 @@ class jPlayer extends html5Player {
 
 	static function playlistJS() {
 		scriptLoader(PLUGIN_SERVERPATH . 'jPlayer/js/jplayer.playlist.min.js');
+	}
+
+	static function getSkin() {
+		$skins = getPluginFiles('*.css', 'jPlayer/skin/' . getOption('jplayer_skin'));
+		$skin = strval(reset($skins));
+		if (!file_exists($skin)) {
+			$skin = PLUGIN_SERVERPATH . 'jPlayer/skin/light/jplayer.light.css';
+		}
+		return($skin);
 	}
 
 	/**

@@ -388,9 +388,12 @@ function lookupSortKey($sorttype, $default, $table) {
  * @param int $dt the date timestamp to be output
  * @return string
  */
-function formattedDate($format, $dt) {
+function formattedDate($format, $dt = NULL) {
 	global $_UTF8, $_current_locale;
 	$format = strval($format);
+	if (is_null($dt)) {
+		$dt = time();
+	}
 
 	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
 	if (class_exists('IntlDateFormatter')) {
@@ -1983,15 +1986,16 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 				$authType = $try['authType'];
 				$check_auth = $try['check_auth'];
 				$check_user = $try['check_user'];
-				$info = password_get_info($check_auth);
-				if ($info['algo']) {
-					$success = password_verify($post_pass, $check_auth);
-					$authCookie = $check_auth;
-					if (DEBUG_LOGIN)
-						debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
-					break;
+				if (!empty($check_auth)) {
+					$info = password_get_info($check_auth);
+					if ($info['algo']) {
+						$success = password_verify($post_pass, $check_auth);
+						$authCookie = $check_auth;
+						if (DEBUG_LOGIN)
+							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+						break;
+					}
 				}
-
 				if (!isset($alternates)) {
 					$alternates = array();
 					for ($hi = 0; $hi <= 3; $hi++) {
@@ -2179,8 +2183,13 @@ function getDBTables() {
 		$result = array();
 		while ($row = db_fetch_assoc($resource)) {
 			$table = reset($row);
-			$table = substr($table, strlen($prefix));
-			$tables[] = $table;
+			if (empty($prefix)) {
+				$tables[] = $table;
+			} else {
+				if (strpos($table, $prefix) === 0) {
+					$tables[] = substr($table, strlen($prefix));
+				}
+			}
 		}
 		db_free_result($resource);
 	}

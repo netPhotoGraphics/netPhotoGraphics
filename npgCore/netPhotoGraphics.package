@@ -19508,6 +19508,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/flag_thumbnail/GPS.png
 %extensions%/flag_thumbnail/lock.png
 %extensions%/flag_thumbnail/new.png
+%extensions%/flag_thumbnail/thumbnail.css
 %extensions%/forms
 %extensions%/forms/mailForm.htm
 %extensions%/galleryArticles
@@ -20330,4 +20331,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20332
+20333

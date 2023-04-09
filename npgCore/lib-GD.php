@@ -302,9 +302,9 @@ if (!function_exists('gl_graphicsLibInfo')) {
 
 					// When the masked pixels differ less from the original
 					// than the threshold specifies, they are set to their original value.
-					$rNew = (abs($rOrig - $rBlur) >= $threshold) ? max(0, min(255, ($amount * ($rOrig - $rBlur)) + $rOrig)) : $rOrig;
-					$gNew = (abs($gOrig - $gBlur) >= $threshold) ? max(0, min(255, ($amount * ($gOrig - $gBlur)) + $gOrig)) : $gOrig;
-					$bNew = (abs($bOrig - $bBlur) >= $threshold) ? max(0, min(255, ($amount * ($bOrig - $bBlur)) + $bOrig)) : $bOrig;
+					$rNew = round((abs($rOrig - $rBlur) >= $threshold) ? max(0, min(255, ($amount * ($rOrig - $rBlur)) + $rOrig)) : $rOrig);
+					$gNew = round((abs($gOrig - $gBlur) >= $threshold) ? max(0, min(255, ($amount * ($gOrig - $gBlur)) + $gOrig)) : $gOrig);
+					$bNew = round((abs($bOrig - $bBlur) >= $threshold) ? max(0, min(255, ($amount * ($bOrig - $bBlur)) + $bOrig)) : $bOrig);
 
 					if (($rOrig != $rNew) || ($gOrig != $gNew) || ($bOrig != $bNew)) {
 						$pixCol = ImageColorAllocate($img, $rNew, $gNew, $bNew);
@@ -441,6 +441,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					imagesetpixel($image, $x, $y, ImageColorAllocate($image, $gray, $gray, $gray));
 				}
 			}
+			return $image;
 		}
 
 		/**

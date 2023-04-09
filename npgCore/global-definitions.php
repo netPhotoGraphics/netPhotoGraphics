@@ -102,6 +102,9 @@ define('TESTING_MODE', strpos($_debug, 'TESTING'));
 
 unset($_debug);
 
+$_conf_options_associations = $_options = array();
+$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
+
 $_DB_details = array(
 		'mysql_host' => 'not connected',
 		'mysql_database' => 'not connected',
@@ -154,21 +157,31 @@ if ($matches) {
 		define('OFFSET_PATH', 0);
 	}
 }
-$const_webpath = rtrim($const_webpath, '/');
-if ($const_webpath == '.') {
-	$const_webpath = '';
+
+if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
+	$_conf_vars = $conf;
+	unset($conf);
 }
 
-if (!defined('SERVERPATH')) {
+if (isset($_conf_vars['WEBPATH'])) {
+	define('WEBPATH', $_conf_vars['WEBPATH']);
+} else {
+	$const_webpath = rtrim($const_webpath, '/');
+	if ($const_webpath == '.') {
+		$const_webpath = '';
+	}
+	define('WEBPATH', $const_webpath);
+}
+
+if (isset($_conf_vars['SERVERPATH'])) {
+	define('SERVERPATH', $_conf_vars['SERVERPATH']);
+} else {
 	define('SERVERPATH', $const_serverpath);
 }
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
 define('PLUGIN_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/');
 define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
-
-if (!defined('WEBPATH')) {
-	define('WEBPATH', $const_webpath);
-}
 
 unset($matches);
 unset($const_webpath);

@@ -121,17 +121,17 @@ class feed {
 		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
-			if (file_exists($cachefilepath) AND time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
-				echo file_get_contents($cachefilepath);
-				exit();
-			} else {
-				clearstatcache();
-				if (file_exists($cachefilepath)) {
-					chmod($cachefilepath, 0777);
-					unlink($cachefilepath);
+			clearstatcache();
+			if (file_exists($cachefilepath)) {
+				if (time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
+					echo file_get_contents($cachefilepath);
+					exit();
+				} else {
+					@chmod($cachefilepath, 0777);
+					@unlink($cachefilepath);
 				}
-				ob_start();
 			}
+			ob_start();
 		}
 	}
 
@@ -526,7 +526,7 @@ class feed {
 		$feeditem['category'] = '';
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
-		$feeditem['pubdate'] = date("r", strtotime($obj->getPublishDate()));
+		$feeditem['pubdate'] = formattedDate("r", strtotime($obj->getPublishDate()));
 		return $feeditem;
 	}
 
@@ -548,7 +548,7 @@ class feed {
 				$title = get_language_string($item['title']);
 				$obj = newImage(array('folder' => $item['folder'], 'filename' => $item['filename']));
 				$link = $obj->getlink();
-				$feeditem['pubdate'] = date("r", strtotime($item['date']));
+				$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 				$category = get_language_string($item['albumtitle']);
 				$website = $item['website'];
 				$title = $category . ": " . $title;
@@ -557,7 +557,7 @@ class feed {
 			case 'albums':
 				$obj = newAlbum($item['folder']);
 				$link = rtrim($obj->getLink(), '/');
-				$feeditem['pubdate'] = date("r", strtotime($item['date']));
+				$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 				$title = get_language_string($item['albumtitle']);
 				$website = $item['website'];
 				$commentpath = PROTOCOL . '://' . $this->host . $link . "#_comment_id_" . $item['id'];
@@ -565,7 +565,7 @@ class feed {
 			case 'news':
 			case 'pages':
 				if (class_exists('CMS')) {
-					$feeditem['pubdate'] = date("r", strtotime($item['date']));
+					$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 					$category = '';
 					$title = get_language_string($item['title']);
 					$titlelink = $item['titlelink'];

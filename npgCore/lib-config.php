@@ -19,18 +19,17 @@ class configFile {
 		if ($quote) {
 			$value = "'" . addslashes(strval($value)) . "'";
 		}
-		$i = strpos($_config_contents, $item);
-		if ($i === false) {
+		if (preg_match('~\$conf\[[\'"]' . $item . '[\'"]\]~', $_config_contents, $matches, PREG_OFFSET_CAPTURE)) {
+			$i = $matches[0][1];
+			$j = strpos($_config_contents, "\n", $i);
+			$_config_contents = substr($_config_contents, 0, $i) . '$conf[\'' . $item . '\'] = ' . $value . ';' . substr($_config_contents, $j);
+		} else {
 			$parts = preg_split('~\/\*.*Do not edit below this line.*\*\/~', $_config_contents);
 			if (isset($parts[1])) {
 				$_config_contents = $parts[0] . "\$conf['" . $item . "'] = " . $value . ";\n/** Do not edit below this line. **/" . $parts[1];
 			} else {
 				trigger_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
 			}
-		} else {
-			$i = strpos($_config_contents, '=', $i);
-			$j = strpos($_config_contents, "\n", $i);
-			$_config_contents = substr($_config_contents, 0, $i) . '= ' . $value . ';' . substr($_config_contents, $j);
 		}
 		return $_config_contents;
 	}

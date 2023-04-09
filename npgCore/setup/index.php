@@ -16,7 +16,11 @@ define('OFFSET_PATH', 2);
 require_once(dirname(__DIR__) . '/global-definitions.php');
 
 clearstatcache();
-$chmod = fileperms(dirname(__DIR__)) & 0666;
+if (defined('CHMOD_VALUE')) {
+	$chmod = CHMOD_VALUE;
+} else {
+	$chmod = fileperms(dirname(__DIR__)) & 0666;
+}
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
@@ -52,7 +56,8 @@ if (isset($_REQUEST['autorun'])) {
 	}
 	$autorunq = '&autorun=' . $autorun;
 } else {
-	$displayLimited = $autorun = $autorunq = false;
+	$displayLimited = $autorun = false;
+	$autorunq = '';
 }
 
 if (file_exists(SERVERPATH . '/zp-core')) {
@@ -134,7 +139,7 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	unlink(SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg');
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	$newconfig = true;
+	$update_config = true;
 	copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
@@ -285,21 +290,14 @@ if ($updatechmod = isset($_REQUEST['chmod_permissions'])) {
 	} else {
 		$updatechmod = false;
 	}
+} if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
+	$updatechmod = true;
 }
-if ($updatechmod || $newconfig) {
-	if ($updatechmod || isset($_conf_vars['CHMOD'])) {
-		$chmodval = "\$conf['CHMOD']";
-	} else {
-		$chmodval = sprintf('0%o', $chmod);
-	}
-	if ($updatechmod) {
-		$_config_contents = configFile::update('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
-		if (strpos($_config_contents, "if (!defined('CHMOD_VALUE')) {") !== false) {
-			$_config_contents = preg_replace("|if\s\(!defined\('CHMOD_VALUE'\)\)\s{\sdefine\(\'CHMOD_VALUE\'\,(.*)\);\s}|", "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n", $_config_contents);
-		} else {
-			$i = strpos($_config_contents, "/** Do not edit below this line. **/");
-			$_config_contents = substr($_config_contents, 0, $i) . "if (!defined('CHMOD_VALUE')) { define('CHMOD_VALUE', " . $chmodval . "); }\n" . substr($_config_contents, $i);
-		}
+
+if ($updatechmod) {
+	$_config_contents = configFile::update('CHMOD', sprintf('0%o', $chmod), $_config_contents, false);
+	if (strpos($_config_contents, "defined('CHMOD_VALUE'") !== false) {
+		$_config_contents = preg_replace("|if\s*\(!defined\('CHMOD_VALUE'\)\)\s*{\n*\s*define\(\'CHMOD_VALUE\'\,(.*)\);\s*\n*}\n*|i", "", $_config_contents);
 	}
 	$update_config = true;
 }
@@ -834,7 +832,7 @@ clearstatcache();
 									$chmodselector = '<form action="#">' .
 													'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
 													'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
-													'<input type="hidden" name="debug" value="' . $debug . '">' .
+													'<input type="hidden" name="debug" value="' . intval($debug) . '">' .
 													sprintf(gettext('Set File permissions to %s'), permissionsSelector($permission_names, $chmod)) .
 													'</form>';
 								} else {
@@ -1451,7 +1449,6 @@ clearstatcache();
 							$Apache = stristr($_SERVER['SERVER_SOFTWARE'], "apache");
 							$Nginx = stristr($_SERVER['SERVER_SOFTWARE'], "nginx");
 							$htfile = SERVERPATH . '/.htaccess';
-							$copyaccess = false;
 							if (file_exists($htfile)) {
 								$ht = trim(file_get_contents($htfile));
 							} else {
@@ -1851,7 +1848,7 @@ clearstatcache();
 									<?php
 								}
 								$task = "update" . $debugq . $autorunq;
-								if ($copyaccess) {
+								if (isset($copyaccess)) {
 									$task .= '&copyhtaccess';
 								}
 							}
