@@ -33,19 +33,18 @@ function saveOptions() {
 		}
 	}
 
-	if ($newloc != $oldloc) {
-		$oldDisallow = getSerializedArray(getOption('locale_disallowed'));
-		if (!empty($newloc) && isset($oldDisallow[$newloc])) {
+	$oldDisallow = getSerializedArray(getOption('locale_disallowed'));
+	if (!empty($newloc) && isset($oldDisallow[$newloc])) {
+		$notify .= '&local_failed=' . $newloc;
+	} else {
+		clearNPGCookie('dynamic_locale'); // clear the language cookie
+		$result = i18n::setLocale($newloc);
+		if (!empty($newloc) && ($result === false)) {
 			$notify .= '&local_failed=' . $newloc;
-		} else {
-			clearNPGCookie('dynamic_locale'); // clear the language cookie
-			$result = i18n::setLocale($newloc);
-			if (!empty($newloc) && ($result === false)) {
-				$notify .= '&local_failed=' . $newloc;
-			}
-			setOption('locale', $newloc);
 		}
+		setOption('locale', $newloc);
 	}
+
 	setOption('locale_disallowed', serialize($disallow));
 
 	setOption('mod_rewrite', (int) isset($_POST['mod_rewrite']));
@@ -138,7 +137,7 @@ function getOptionContent() {
 	global $_gallery, $_server_timezone, $_UTF8, $_authority;
 	?>
 	<script type="text/javascript">
-		
+
 		var oldselect = '<?php echo SITE_LOCALE; ?>';
 		function radio_click(id) {
 			if ($('#r_' + id).prop('checked')) {
@@ -155,7 +154,7 @@ function getOptionContent() {
 			}
 		}
 
-		
+
 	</script>
 	<div id="tab_gallery" class="tabbox">
 		<?php
@@ -574,7 +573,7 @@ function getOptionContent() {
 						</td>
 						<td class="option_desc">
 							<script type="text/javascript">
-								
+
 								function resetallowedtags() {
 									$('#allowed_tags').val(<?php
 							$t = getOption('allowed_tags_default');
@@ -595,7 +594,7 @@ function getOptionContent() {
 	}
 	?>);
 								}
-								
+
 							</script>
 							<span class="option_info">
 								<?php echo INFORMATION_BLUE; ?>
