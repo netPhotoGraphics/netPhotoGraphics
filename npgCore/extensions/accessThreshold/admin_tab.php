@@ -100,7 +100,11 @@ foreach ($recentIP as $ip => $data) {
 	if (isset($data['interval']) && $data['interval']) {
 		$interval = sprintf('%.1f', $data['interval']);
 	} else {
-		$interval = '&hellip;';
+		if (isset($data['blocked']) && $data['blocked']) {
+			$interval = '0.0';
+		} else {
+			$interval = '&hellip;';
+		}
 	}
 	if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - getOption('accessThreshold_IP_ACCESS_WINDOW')) {
 		$old = 'color:DarkGray;';
