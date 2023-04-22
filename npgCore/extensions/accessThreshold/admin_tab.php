@@ -45,8 +45,16 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 	case 'interval':
 		$sort = 'interval';
 		uasort($recentIP, function ($a, $b) {
-			$a_i = $a['interval'];
-			$b_i = $b['interval'];
+			if (is_array($a)) {
+				$a_i = $a['interval'];
+			} else {
+				return -1;
+			}
+			if (is_array($b)) {
+				$b_i = $b['interval'];
+			} else {
+				return 1;
+			}
 			if ($a_i === $b_i) {
 				return 0;
 			} else if ($a_i === 0) {
@@ -77,80 +85,83 @@ $output = array();
 $__time = time();
 $ct = 0;
 $legendExpired = $legendBlocked = $legendLocaleBlocked = $legendClick = $legendInvalid = false;
+
 foreach ($recentIP as $ip => $data) {
-	if (str_contains($ip, ':')) {
-		$sep = ':';
-	} else {
-		$sep = '.';
-	}
-	if (str_contains(getOption('accessThreshold_Owner'), ':')) {
-		$drop = 8 - getOption('accessThreshold_SENSITIVITY');
-	} else {
-		$drop = 4 - getOption('accessThreshold_SENSITIVITY');
-	}
+	if (is_array($data)) {
+		if (str_contains($ip, ':')) {
+			$sep = ':';
+		} else {
+			$sep = '.';
+		}
+		if (str_contains(getOption('accessThreshold_Owner'), ':')) {
+			$drop = 8 - getOption('accessThreshold_SENSITIVITY');
+		} else {
+			$drop = 4 - getOption('accessThreshold_SENSITIVITY');
+		}
 
-	$ipDisp = $ip;
-	if (str_contains($ip, ':')) {
-		$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
-		$ipDisp = str_replace(':::', '::', $ipDisp);
-	}
+		$ipDisp = $ip;
+		if (str_contains($ip, ':')) {
+			$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
+			$ipDisp = str_replace(':::', '::', $ipDisp);
+		}
 
-	$localeBlock = $invalid = '';
+		$localeBlock = $invalid = '';
 
-	if (isset($data['interval']) && $data['interval']) {
-		$interval = sprintf('%.1f', $data['interval']);
-	} else {
+		if (isset($data['interval']) && $data['interval']) {
+			$interval = sprintf('%.1f', $data['interval']);
+		} else {
+			if (isset($data['blocked']) && $data['blocked']) {
+				$interval = '0.0';
+			} else {
+				$interval = '&hellip;';
+			}
+		}
+		if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - getOption('accessThreshold_IP_ACCESS_WINDOW')) {
+			$old = 'color:DarkGray;';
+			$legendExpired = '<p>' . gettext('Timestamps that are <span style="color:DarkGray;">grayed out</span> have expired.') . '</p>';
+			;
+		} else {
+			$old = '';
+		}
 		if (isset($data['blocked']) && $data['blocked']) {
-			$interval = '0.0';
-		} else {
-			$interval = '&hellip;';
-		}
-	}
-	if (isset($data['lastAccessed']) && $data['lastAccessed'] < $__time - getOption('accessThreshold_IP_ACCESS_WINDOW')) {
-		$old = 'color:DarkGray;';
-		$legendExpired = '<p>' . gettext('Timestamps that are <span style="color:DarkGray;">grayed out</span> have expired.') . '</p>';
-		;
-	} else {
-		$old = '';
-	}
-	if (isset($data['blocked']) && $data['blocked']) {
-		if ($data['blocked'] == 1) {
-			$localeBlock = '<span style="color:red;">&sect;</span> ';
-			$legendLocaleBlocked = $localeBlock . gettext('blocked because of <em>locale</em> abuse.');
-		} else {
-			$invalid = 'color:red;';
-			$legendBlocked = gettext('Address with intervals that are <span style="color:Red;">red</span> have been blocked. ');
-		}
-		$legendClick = '<br />&nbsp;&nbsp;&nbsp;' . gettext('Click on the address for a list of IPs and <em>locales</em> seen.');
-		$ipDisp = '<a onclick="$.colorbox({
+			if ($data['blocked'] == 1) {
+				$localeBlock = '<span style="color:red;">&sect;</span> ';
+				$legendLocaleBlocked = $localeBlock . gettext('blocked because of <em>locale</em> abuse.');
+			} else {
+				$invalid = 'color:red;';
+				$legendBlocked = gettext('Address with intervals that are <span style="color:Red;">red</span> have been blocked. ');
+			}
+			$legendClick = '<br />&nbsp;&nbsp;&nbsp;' . gettext('Click on the address for a list of IPs and <em>locales</em> seen.');
+			$ipDisp = '<a onclick="$.colorbox({
 										close: \'' . gettext("close") . '\',
 										maxHeight: \'80%\',
 										maxWidth: \'80%\',
 										innerWidth: \'560px\',
 										href:\'' . getAdminLink(PLUGIN_FOLDER . '/accessThreshold/ip_list.php') . '?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
-	}
-	if (count($data['accessed']) < SENSITIVITY) {
-		$invalid = 'color:DarkGray;';
-		$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:DarkGray;">grayed out</span> have insufficient data to be valid.') . '</p>';
-	}
-	$row = $ct % $rows;
-	$out = '<span style="width:33%;float:left;';
-	if ($even = floor($ct / $rows) % 2) {
-		$out .= 'background-color:WhiteSmoke;';
-	}
+		}
+		if (count($data['accessed']) < SENSITIVITY) {
+			$invalid = 'color:DarkGray;';
+			$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:DarkGray;">grayed out</span> have insufficient data to be valid.') . '</p>';
+		}
+		$row = $ct % $rows;
+		$out = '<span style="width:33%;float:left;';
+		if ($even = floor($ct / $rows) % 2) {
+			$out .= 'background-color:WhiteSmoke;';
+		}
 
-	$out .= '">' . "\n";
-	$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $localeBlock . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
-	$out .= '  <span style="width:48%;float:left;' . $old . '">' . date('Y-m-d H:i:s', $data['lastAccessed']) . '</span>' . "\n";
-	$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
-	$out .= "</span>\n";
+		$out .= '">' . "\n";
+		$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $localeBlock . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
+		$out .= '  <span style="width:48%;float:left;' . $old . '">' . date('Y-m-d H:i:s', $data['lastAccessed']) . '</span>' . "\n";
+		$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
+		$out .= "</span>\n";
 
-	if (isset($output[$row])) {
-		$output[$row] .= $out;
-	} else {
-		$output[$row] = $out;
+		if (isset($output[$row])) {
+			$output[$row] .= $out;
+		} else {
+			$output[$row] = $out;
+		}
+		$ct++;
 	}
-	$ct++;
 }
 if (empty($output)) {
 	$output[] = gettext("No entries exceed the noise level");
