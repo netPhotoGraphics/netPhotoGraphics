@@ -19,9 +19,11 @@
  */
 function getUserIP() {
 	if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		return sanitize($_SERVER['HTTP_X_FORWARDED_FOR']);
+		if ($ip = filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6)) {
+			return $ip;
+		}
 	}
-	return sanitize($_SERVER['REMOTE_ADDR']);
+	return filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6);
 }
 
 /**

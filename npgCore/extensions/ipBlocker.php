@@ -103,7 +103,7 @@ class ipBlocker {
 				$key = 0;
 				$list = self::getList();
 				if (!empty($list)) {
-					$list = sortMultiArray(self::getList(), 'start');
+					$list = array_values(sortMultiArray(self::getList(), 'start'));
 
 					foreach ($list as $key => $range) {
 						$start = str_replace(' ', '', $range['start']);
@@ -171,7 +171,6 @@ class ipBlocker {
 				}
 			}
 		}
-
 		foreach ($list as $key => $range) {
 			if (!array_key_exists('start', $range) || !array_key_exists('end', $range) || $range['start'] > $range['end']) {
 				unset($list[$key]);
