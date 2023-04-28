@@ -34,7 +34,7 @@ $conf['mysql_database'] = '';       // Supply the name the database
 
 // If you're sharing the database with other tables, use a prefix to be safe.
 
-$conf['mysql_prefix'] = ".";
+$conf['mysql_prefix'] = '.';
 $conf['db_client'] = '';						//	database client info from last setup run
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ $conf['album_folder_class'] = 'std';
 // Server Protocol
 // un-comment to force the connection protocol.
 
-// $conf['server_protocol'] = "http";
+// $conf['server_protocol'] = 'http';
 
 // Use "https" if you use an HTTPS server (a "https://..." url)
 // Otherwise you should leave it at "http"
