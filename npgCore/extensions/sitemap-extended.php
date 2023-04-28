@@ -279,19 +279,19 @@ class sitemap {
 		switch ($option) {
 			case 'date':
 			default:
-				$date = $obj->getDatetime();
+				$date = strtotime($obj->getDatetime());
 				break;
 			case 'mtime':
-				$date = date('Y-m-d H:i:s', $obj->get('mtime'));
-				if ($date == 0) {
-					$date = $obj->getDatetime();
+				$date = $obj->get('mtime');
+				if (empty($date)) {
+					$date = strtotime($obj->getDatetime());
 				}
 				break;
 			case 'lastchange':
-				$date = $obj->getLastChange();
+				$date = strtotime($obj->getLastChange());
 				break;
 		}
-		return $date;
+		return formattedDate(DateTimeInterface ::ATOM, $date);
 	}
 
 	/**
