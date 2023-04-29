@@ -26,6 +26,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	global $_DB_connection, $_DB_details;
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysqli_connect')) {
+		$denied = array(1044, 1045, 1698, 3118, 3878, 3955);
 		if (is_object($_DB_connection)) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
@@ -45,8 +46,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], '', $config['mysql_port'], $config['mysql_socket']);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
-			if (empty($errorstop) || is_object($_DB_connection)) {
-				//	we either got connected or the caller is prepaired to deal with the failure
+			if (empty($errorstop) || is_object($_DB_connection) || in_array($e, $denied)) {
 				break;
 			}
 			sleep(pow(2, $i));
