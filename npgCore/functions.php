@@ -395,7 +395,7 @@ function formattedDate($format, $dt = NULL) {
 		$dt = time();
 	}
 
-	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format
+	//	use intlDateFormatter object if it exists and $format is convetable to IntlDateTimeFormat::format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/)
 	if (class_exists('IntlDateFormatter')) {
 		$intlFmt = array(
 				//	no equivalent
@@ -424,7 +424,7 @@ function formattedDate($format, $dt = NULL) {
 				'D' => 'EEE', //	A textual representation of a day, three letters
 				'd' => 'dd', //	Day of the month, 2 digits with leading zeros
 				'j' => 'd', //	Day of the month without leading zeros
-				'z' => 'D', //	The day of the year (starting from 0)
+				'z' => 'D', //	The day of the year (starting from 1!)
 				//	hour
 				'H' => 'HH', //	24-hour format of an hour with leading zeros
 				'G' => 'H', //	24-hour format of an hour without leading zeros
@@ -438,18 +438,18 @@ function formattedDate($format, $dt = NULL) {
 				'a' => 'b', //	Lowercase Ante meridiem and Post meridiem
 				'A' => 'a', //	Uppercase Ante meridiem and Post meridiem
 				//	time zone
-				'e' => 'vv', //	Timezone identifier
+				'e' => 'VV', //	Timezone identifier
 				'O' => 'xx', //	Difference to Greenwich time (GMT) without colon between hours and minutes
-				'P' => 'Z', //	Difference to Greenwich time (GMT) with colon between hours and minutes
-				'p' => 'XX', //	The same as P, but returns Z instead of +00:00 (available as of PHP 8.0.0)
+				'P' => 'xxx', //	Difference to Greenwich time (GMT) with colon between hours and minutes
+				'p' => 'XXX', //	The same as P, but returns Z instead of +00:00 (available as of PHP 8.0.0)
 				'T' => 'z', //	Timezone abbreviation, if known; otherwise the GMT offset.
 				// week
-				'N' => 'e', //	ISO 8601 numeric representation of the day of the week
-				'w' => 'e', //	Numeric representation of the day of the week
+				'N' => 'e', //	ISO 8601 numeric representation of the day of the week [start is locale dependent!]
+				'w' => 'c', //	Numeric representation of the day of the week [start is locale dependent!]
 				'W' => 'w', //	ISO 8601 week number of year, weeks starting on Monday
 				//	formatted dates
 				'r' => 'E, d MMM yyyy HH:mm:ss xx', //	» RFC 2822/» RFC 5322 formatted date
-				'c' => 'yyyy-MM-dd\'T\'HH:mm:ss xx' //	ISO 8601 date
+				'c' => 'yyyy-MM-dd\'T\'HH:mm:ssxxx' //	ISO 8601 date
 		);
 
 		/**

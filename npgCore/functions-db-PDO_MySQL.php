@@ -27,6 +27,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	$_DB_last_result = NULL;
 	if (class_exists('PDO')) {
+		$denied = array(1044, 1045, 1698, 3118, 3878, 3955);
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
 		$username = $config['mysql_user'];
@@ -51,7 +52,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				break;
 			} catch (PDOException $e) {
 				$_DB_last_result = $e;
-				if (empty($errorstop) || $i >= MYSQL_CONNECTION_RETRIES) {
+				if (empty($errorstop) || in_array($e, $denied) || $i >= MYSQL_CONNECTION_RETRIES) {
 					if ($errorstop) {
 						trigger_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ': ' . $e->getMessage()), $errorstop);
 					}
