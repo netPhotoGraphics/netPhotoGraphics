@@ -261,7 +261,7 @@ class scriptlessSocialsharing {
 			$buttons[] = array(
 					'class' => 'sharingicon-whatsapp',
 					'title' => 'Whatsapp',
-					'url' => 'WhatsApp://send?text=' . $url
+					'url' => 'https://wa.me/?text=' . $url
 			);
 		}
 		if (getOption('scriptless_socialsharing_digg')) {
