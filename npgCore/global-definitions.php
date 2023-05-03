@@ -159,9 +159,11 @@ if ($matches) {
 }
 
 if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+	$level = error_reporting(0); //	just incase there is an error in the file
 	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 	$_conf_vars = $conf;
 	unset($conf);
+	error_reporting($level);
 }
 
 if (isset($_conf_vars['WEBPATH'])) {
