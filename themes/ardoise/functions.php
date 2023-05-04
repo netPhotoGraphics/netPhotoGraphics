@@ -19,7 +19,6 @@ if (!OFFSET_PATH) {
 	setOption('comment_form_pagination', false, false); // force this option of comment_form, to avoid JS conflits
 	setOption('tinymce_comments', null, false); // force this option to disable tinyMCE for comment form
 
-	$_zenpage_enabled = class_exists('CMS');
 	$_current_page_check = 'my_checkPageValidity';
 }
 $themecolors = array('light', 'dark');
@@ -43,12 +42,12 @@ function switcher_head($ignore) {
 	}
 	?>
 	<script type="text/javascript">
-		
+
 		function switchColors() {
 			personality = $('#themeColor').val();
 			window.location = '?themeColor=' + personality;
 		}
-		
+
 	</script>
 	<?php
 	return $ignore;
