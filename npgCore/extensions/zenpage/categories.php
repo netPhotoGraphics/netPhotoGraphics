@@ -61,8 +61,6 @@ if (empty($reports)) {
 	exit();
 }
 
-$_CMS = new CMS();
-
 printAdminHeader('news', 'categories');
 npgFilters::apply('texteditor_config', 'CMS');
 printSortableHead();
@@ -94,7 +92,7 @@ zenpageJSCSS();
 			}
 		});
 	}, false);
-	
+
 </script>
 </head>
 <body>

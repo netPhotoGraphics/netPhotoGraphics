@@ -115,7 +115,6 @@ if ($redirect) {
  * reporting code so is impractical. Instead we will presume that all that needs to be restarted
  * is the CMS object.
  */
-$_CMS = new CMS();
 
 printAdminHeader($page, $tab);
 npgFilters::apply('texteditor_config', 'CMS');
@@ -178,7 +177,7 @@ $tagsort = 'alpha';
 			buttonImageOnly: true
 		});
 	});
-	
+
 </script>
 <?php npg_Authority::printPasswordFormJS(); ?>
 </head>
@@ -529,7 +528,7 @@ $tagsort = 'alpha';
 																				 name="disclose_password"
 																				 id="disclose_password"
 																				 onclick="passwordClear('');
-																									 togglePassword('');">
+																						 togglePassword('');">
 																				 <?php echo gettext('Show'); ?>
 																</label>
 																<br />
@@ -620,9 +619,9 @@ $tagsort = 'alpha';
 																 id="show"
 																 value="1" <?php checkIfChecked($result->getShow()); ?>
 																 onclick="$('#pubdate').val('');
-																			 $('#expiredate').val('');
-																			 $('#pubdate').css('color', 'black');
-																			 $('.expire').html('');"
+																		 $('#expiredate').val('');
+																		 $('#pubdate').css('color', 'black');
+																		 $('.expire').html('');"
 																 />
 													<?php echo gettext("Published"); ?></label>
 
@@ -682,7 +681,7 @@ $tagsort = 'alpha';
 													</p>
 													<p>
 														<script type="text/javascript">
-															
+
 															$(function () {
 																$("#expiredate").datepicker({
 																	dateFormat: 'yy-mm-dd',
@@ -692,7 +691,7 @@ $tagsort = 'alpha';
 																	buttonImageOnly: true
 																});
 															});
-															
+
 														</script>
 
 														<?php echo gettext("Expiration date"); ?>  <small>(YYYY-MM-DD)</small>
@@ -783,12 +782,12 @@ $tagsort = 'alpha';
 													?>
 													<label class="checkboxlabel">
 														<input type="radio" id="copy_object" name="copy_delete_object" value="copy" onclick="$('#copyfield').show();
-																		$('#deletemsg').hide();" />
+																$('#deletemsg').hide();" />
 																	 <?php echo gettext("Copy"); ?>
 													</label>
 													<label class="checkboxlabel">
 														<input type="radio" id="delete_object" name="copy_delete_object" value="delete" onclick="deleteConfirm('delete_object', '', '<?php addslashes(printf(gettext('Are you sure you want to delete this %s?'), $deleteitem)); ?>');
-																		$('#copyfield').hide();" />
+																$('#copyfield').hide();" />
 																	 <?php echo gettext('delete'); ?>
 													</label>
 													<br class="clearall" />
