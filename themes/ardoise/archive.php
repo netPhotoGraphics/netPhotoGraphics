@@ -13,7 +13,7 @@
 					<h4><?php echo gettext('Gallery'); ?></h4>
 					<?php printAllDates('archive', 'year', 'month', 'desc'); ?>
 				</td>
-				<?php if ($_zenpage_enabled && hasNews()) { ?>
+				<?php if (class_exists('CMS') && hasNews()) { ?>
 					<td id="newsarchive">
 						<h4><?php echo NEWS_LABEL; ?></h4>
 						<?php printNewsArchive('archive', 'year', 'month', 'archive-active', false, 'desc'); ?>

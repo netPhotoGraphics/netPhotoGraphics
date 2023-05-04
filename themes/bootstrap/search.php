@@ -20,7 +20,7 @@
 	$total_gallery = $numimages + $numalbums;
 
 	$numnews = $numpages = 0;
-	if ($_zenpage_enabled && !isArchive()) {
+	if (class_exists('CMS') && !isArchive()) {
 		if ($_zenpage_news_enabled) {
 			$numnews = getNumNews();
 		}
@@ -86,7 +86,7 @@
 
 	printPageListWithNav('«', '»', false, true, 'pagination pagination-sm margin-top-reset', NULL, true, 7);
 
-	if (($_zenpage_enabled) /* && ($_current_page == 1) */) {	//test of CMS searches
+	if ((class_exists('CMS')) /* && ($_current_page == 1) */) {	//test of CMS searches
 		if ($_zenpage_news_enabled && ($numnews > 0)) {
 			?>
 			<h4 class="margin-top-double margin-bottom-double"><strong><?php printf(gettext('Articles (%s)'), $numnews); ?></strong></h4>

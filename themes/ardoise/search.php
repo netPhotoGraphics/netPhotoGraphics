@@ -9,7 +9,7 @@ $numimages = getNumImages();
 $numalbums = getNumAlbums();
 $total1 = $numimages + $numalbums;
 
-if ($_zenpage_enabled && !isArchive()) {
+if (class_exists('CMS') && !isArchive()) {
 	$numnews = getNumNews();
 	$numpages = getNumPages();
 } else {

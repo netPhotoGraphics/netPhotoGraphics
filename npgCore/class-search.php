@@ -279,27 +279,6 @@ class SearchEngine {
 	}
 
 	/**
-	 * converts old style bitmask field spec into field list array
-	 *
-	 * @param bit $fields
-	 * @return array
-	 */
-	protected function numericFields($fields) {
-		debugLogBacktrace(gettext('Numeric search fields are deprecated'));
-		if ($fields == 0)
-			$fields = 0x0fff;
-		if ($fields & 0x01)
-			$list[$this->search_structure['title']] = 'title';
-		if ($fields & 0x02)
-			$list[$this->search_structure['desc']] = 'desc';
-		if ($fields & 0x04)
-			$list[$this->search_structure['tags']] = 'tags';
-		if ($fields & 0x08)
-			$list[$this->search_structure['filename']] = 'filename';
-		return $list;
-	}
-
-	/**
 	 * creates a search query from the search words
 	 *
 	 * @param bool $long set to false to omit albumname and page parts
@@ -453,15 +432,11 @@ class SearchEngine {
 						$this->whichdates = $v;
 						break;
 					case 'searchfields':
-						if (is_numeric($v)) {
-							$this->fieldList = $this->numericFields($v);
-						} else {
-							$this->fieldList = array();
-							$list = explode(',', strtolower($v));
-							foreach ($this->search_structure as $key => $row) {
-								if (in_array(strtolower($key), $list)) {
-									$this->fieldList[] = $key;
-								}
+						$this->fieldList = array();
+						$list = explode(',', strtolower($v));
+						foreach ($this->search_structure as $key => $row) {
+							if (in_array(strtolower($key), $list)) {
+								$this->fieldList[] = $key;
 							}
 						}
 						break;
@@ -864,11 +839,7 @@ class SearchEngine {
 		$fields = array();
 		if (isset($_REQUEST['searchfields'])) {
 			$fs = sanitize($_REQUEST['searchfields']);
-			if (is_numeric($fs)) {
-				$fields = array_flip($this->numericFields($fs));
-			} else {
-				$fields = explode(',', $fs);
-			}
+			$fields = explode(',', $fs);
 		} else {
 			foreach ($_REQUEST as $key => $value) {
 				if (strpos($key, 'SEARCH_') !== false) {

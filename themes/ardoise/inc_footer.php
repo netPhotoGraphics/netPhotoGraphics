@@ -15,7 +15,7 @@
 	<?php } ?>
 
 	<div id="foot-left">
-		<?php if ((extensionEnabled('rss')) && ((getOption('RSS_album_image')) || (($_zenpage_enabled) && (getOption('RSS_articles'))))) { ?>
+		<?php if ((extensionEnabled('rss')) && ((getOption('RSS_album_image')) || ((class_exists('CMS')) && (getOption('RSS_articles'))))) { ?>
 			<div id="rsslinks">
 				<?php
 				$rss = false;
@@ -23,7 +23,7 @@
 					printRSSLink('Gallery', '', gettext('Images'), '', false, 'rss');
 					$rss = true;
 				}
-				if (($_zenpage_enabled) && (getOption('RSS_articles'))) {
+				if ((class_exists('CMS')) && (getOption('RSS_articles'))) {
 					if ($rss) {
 						$separ = ' | ';
 					} else {
@@ -63,7 +63,7 @@
 			<?php
 			if (($_gallery_page == 'image.php') ||
 							(($_gallery_page == 'album.php') && (getOption('use_galleriffic')) && (getNumImages() > 0)) ||
-							(($_zenpage_enabled) && (is_NewsArticle()))) {
+							((class_exists('CMS')) && (is_NewsArticle()))) {
 				?>
 				<img id="icon-help" src="<?php echo $_themeroot; ?>/images/help.png" title="<?php echo gettext('You can browse with the arrows keys of your keyboard'); ?>" alt="help" />
 			<?php } ?>

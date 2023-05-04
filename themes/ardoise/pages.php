@@ -1,5 +1,5 @@
 <?php 
-if ($_zenpage_enabled) {
+if (class_exists('CMS')) {
 	include ('inc_header.php');
 ?>
 
