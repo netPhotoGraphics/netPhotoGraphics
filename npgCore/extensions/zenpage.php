@@ -72,12 +72,14 @@ npgFilters::register('themeSwitcher_head', 'cmsFilters::switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
 npgFilters::register('load_theme_script', 'cmsFilters::switcher_setup', 99);
 
-require_once(PLUGIN_SERVERPATH . 'zenpage/classes.php');
-require_once(PLUGIN_SERVERPATH . 'zenpage/class-news.php');
-require_once(PLUGIN_SERVERPATH . 'zenpage/class-page.php');
-require_once(PLUGIN_SERVERPATH . 'zenpage/class-category.php');
-
-$_CMS = new CMS();
+if (extensionEnabled('Zenpage') && (!isset($_GET['cmsSwitch']) || $_GET['cmsSwitch'] == 'true')) {
+	require_once(PLUGIN_SERVERPATH . 'zenpage/classes.php');
+	require_once(PLUGIN_SERVERPATH . 'zenpage/class-news.php');
+	require_once(PLUGIN_SERVERPATH . 'zenpage/class-page.php');
+	require_once(PLUGIN_SERVERPATH . 'zenpage/class-category.php');
+	require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
+	$_CMS = new CMS();
+}
 
 class cmsFilters {
 
@@ -169,16 +171,19 @@ class cmsFilters {
 	static function switcher_controllink($theme) {
 		global $_gallery_page;
 		if ($_gallery_page == 'pages.php' || $_gallery_page == 'news.php') {
-			$disabled = ' disabled="disalbed"';
+			$settings = ' disabled="disalbed" ';
 		} else {
-			$disabled = '';
+			$settings = '';
+		}
+		if (getOption('themeSwitcher_zenpage_switch')) {
+			$settings .= 'checked="checked" ';
 		}
 		if (getPlugin('pages.php', $theme)) { // it supports zenpage
 			?>
 			<span id="themeSwitcher_zenpage" title="<?php echo gettext("Enable Zenpage CMS plugin"); ?>">
 				<label>
 					Zenpage
-					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1"<?php if (class_exists('CMS')) echo $disabled . ' checked="checked"'; ?> onclick="switchCMS(this.checked);" />
+					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1"<?php if (class_exists('CMS')) echo $settings; ?>onclick="switchCMS(this.checked);" />
 				</label>
 			</span>
 			<?php
@@ -187,20 +192,10 @@ class cmsFilters {
 	}
 
 	static function switcher_setup($ignore) {
-		global $_CMS;
-		if (class_exists('themeSwitcher') && themeSwitcher::active()) {
-			if (isset($_GET['cmsSwitch'])) {
-				setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
-				if (!$cmsSwitch) {
-					enableExtension('zenpage', 0, false);
-				}
-			}
+		if (isset($_GET['cmsSwitch'])) {
+			setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
 		}
-		if (class_exists('CMS')) {
-			require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
-		} else {
-			unset($GLOBALS['_CMS']);
-		}
+
 		return $ignore;
 	}
 
