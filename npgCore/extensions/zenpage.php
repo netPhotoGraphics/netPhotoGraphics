@@ -70,9 +70,12 @@ npgFilters::register('admin_toolbox_news', 'cmsFilters::admin_toolbox_news');
 npgFilters::register('admin_toolbox_pages', 'cmsFilters::admin_toolbox_pages');
 npgFilters::register('themeSwitcher_head', 'cmsFilters::switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
-npgFilters::register('load_theme_script', 'cmsFilters::switcher_setup', 99);
 
-if (extensionEnabled('Zenpage') && (!isset($_GET['cmsSwitch']) || $_GET['cmsSwitch'] == 'true')) {
+if (isset($_GET['cmsSwitch'])) {
+	setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
+}
+
+if (extensionEnabled('Zenpage') && (OFFSET_PATH || getOption('themeSwitcher_zenpage_switch'))) {
 	require_once(PLUGIN_SERVERPATH . 'zenpage/classes.php');
 	require_once(PLUGIN_SERVERPATH . 'zenpage/class-news.php');
 	require_once(PLUGIN_SERVERPATH . 'zenpage/class-page.php');
@@ -189,14 +192,6 @@ class cmsFilters {
 			<?php
 		}
 		return $theme;
-	}
-
-	static function switcher_setup($ignore) {
-		if (isset($_GET['cmsSwitch'])) {
-			setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
-		}
-
-		return $ignore;
 	}
 
 	// zenpage filters
