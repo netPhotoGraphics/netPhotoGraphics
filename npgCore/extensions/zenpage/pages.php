@@ -77,8 +77,6 @@ if (empty($reports)) {
 	exit();
 }
 
-$_CMS = new CMS();
-
 printAdminHeader('pages');
 printSortableHead();
 zenpageJSCSS();
@@ -96,7 +94,7 @@ updatePublished('pages');
 		}
 	}
 
-	
+
 </script>
 
 </head>

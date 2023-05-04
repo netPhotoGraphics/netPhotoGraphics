@@ -72,16 +72,18 @@ npgFilters::register('themeSwitcher_head', 'cmsFilters::switcher_head');
 npgFilters::register('themeSwitcher_Controllink', 'cmsFilters::switcher_controllink', 0);
 
 if (isset($_GET['cmsSwitch'])) {
-	setOption('themeSwitcher_zenpage_switch', $cmsSwitch = (int) ($_GET['cmsSwitch'] == 'true'));
+	setNPGCookie('themeSwitcher_zenpage_off', $cmsSwitch = (int) ($_GET['cmsSwitch'] != 'true'));
 }
 
-if (extensionEnabled('Zenpage') && (OFFSET_PATH || getOption('themeSwitcher_zenpage_switch'))) {
+if (extensionEnabled('Zenpage') && (OFFSET_PATH || !extensionEnabled('themeSwitcher') || !getNPGCookie('themeSwitcher_zenpage_off'))) {
 	require_once(PLUGIN_SERVERPATH . 'zenpage/classes.php');
 	require_once(PLUGIN_SERVERPATH . 'zenpage/class-news.php');
 	require_once(PLUGIN_SERVERPATH . 'zenpage/class-page.php');
 	require_once(PLUGIN_SERVERPATH . 'zenpage/class-category.php');
-	require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
 	$_CMS = new CMS();
+	if (OFFSET_PATH == 0) {
+		require_once(PLUGIN_SERVERPATH . 'zenpage/template-functions.php');
+	}
 }
 
 class cmsFilters {
@@ -178,7 +180,7 @@ class cmsFilters {
 		} else {
 			$settings = '';
 		}
-		if (getOption('themeSwitcher_zenpage_switch')) {
+		if (!getNPGCookie('themeSwitcher_zenpage_off')) {
 			$settings .= 'checked="checked" ';
 		}
 		if (getPlugin('pages.php', $theme)) { // it supports zenpage
