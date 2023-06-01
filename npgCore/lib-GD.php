@@ -61,7 +61,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		$_gd_freetype_fonts = array(0);
 
 		$imgtypes = imagetypes();
-		$_lib_GD_info['AVIF'] = ($imgtypes & IMG_AVIF) ? 'avif' : false;
+		$_lib_GD_info['AVIF'] = defined('IMG_AVIF') && ($imgtypes & IMG_AVIF) ? 'avif' : false;
 		$_lib_GD_info['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
 		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
