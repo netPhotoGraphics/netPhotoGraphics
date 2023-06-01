@@ -53,14 +53,15 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		$info = gd_info();
 		$_lib_GD_info['Library'] = 'GD';
 		$_lib_GD_info['Library_desc'] = sprintf('PHP GD library <em>%s</em>', $info['GD Version']);
-		$_lib_GD_info['FreeType'] = $info['FreeType Support'];
-		define('GD_FREETYPE', (bool) $_lib_GD_info['FreeType']);
-		unset($_lib_GD_info['FreeType']);
+		define('GD_FREETYPE', (bool) $info['FreeType Support']);
+		unset($info['FreeType Support']);
+
 		define('GD_FREETYPE_SAMPLE', 'The quick brown fox jumps over the lazy dog');
 		define('GD_FREETYPE_SAMPLE_CHARS', strlen('GD_FREETYPE_SAMPLE'));
 		$_gd_freetype_fonts = array(0);
 
 		$imgtypes = imagetypes();
+		$_lib_GD_info['AVIF'] = ($imgtypes & IMG_AVIF) ? 'avif' : false;
 		$_lib_GD_info['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
 		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
@@ -96,7 +97,10 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagecreatefromgif($imgfile);
 				case 'webp':
 					return imagecreatefromwebp($imgfile);
+				case 'avif':
+					return imagecreatefromavif($imgfile);
 			}
+
 			return false;
 		}
 
@@ -127,6 +131,8 @@ if (!function_exists('gl_graphicsLibInfo')) {
 					return imagegif($im, $filename);
 				case 'webp':
 					return imagewebp($im, $filename);
+				case 'avif':
+					return imageavif($im, $filename, $qual);
 			}
 			return false;
 		}
