@@ -61,6 +61,7 @@ echo '</head>';
 							}
 
 							$graphics_lib = gl_graphicsLibInfo();
+							ksort($graphics_lib);
 							if (file_exists(SERVERPATH . '/docs/release notes.htm')) {
 								?>
 								<script type="text/javascript">
@@ -495,8 +496,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+							$('.overview_list').height(height);
 </script>
 
 <?php
