@@ -68,7 +68,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 
 		foreach ($info as $what => $enabled) {
 			$imgtype = substr($what, 0, strpos($what, ' '));
-			$_lib_GD_info[$imgtype] = $enabled;
+			$_lib_GD_info[strtoupper($imgtype)] = $enabled;
 		}
 		/* Synonyms */
 		$_lib_GD_info['JPG'] = $_lib_GD_info['JPEG'];
