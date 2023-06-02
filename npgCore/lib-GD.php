@@ -68,11 +68,16 @@ if (!function_exists('gl_graphicsLibInfo')) {
 
 		foreach ($info as $what => $enabled) {
 			$imgtype = substr($what, 0, strpos($what, ' '));
-			$_lib_GD_info[strtoupper($imgtype)] = $enabled;
+			$_lib_GD_info[strtoupper($imgtype)] = $enabled ? strtolower($imgtype) : false;
+		}
+		if (isset($_lib_GD_info['JPEG']) && $_lib_GD_info['JPEG']) {
+			//	backwards compatibility
+			$_lib_GD_info['JPEG'] = 'jpg';
 		}
 		/* Synonyms */
 		$_lib_GD_info['JPG'] = $_lib_GD_info['JPEG'];
 		$_lib_GD_info['WBM'] = $_lib_GD_info['WBMP'];
+		ksort($_lib_GD_info);
 
 		unset($info);
 

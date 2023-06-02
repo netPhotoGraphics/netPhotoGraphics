@@ -207,7 +207,7 @@ function getOptionContent() {
 	?>
 
 	<script type="text/javascript">
-		
+
 		function checkMeta(cls) {
 			$('.' + cls).prop('checked', 'checked');
 		}
@@ -247,7 +247,7 @@ function getOptionContent() {
 				}
 			});
 		});
-		
+
 	</script>
 
 	<div id="tab_image" class="tabbox">
@@ -545,6 +545,14 @@ function getOptionContent() {
 					</tr>
 					<?php
 					$cachesuffix = array_unique($_cachefileSuffix);
+					//	we don't want to cache to these formats
+					unset($cachesuffix['XBM']);
+					unset($cachesuffix['XPM']);
+					unset($cachesuffix['TGA']);
+					unset($cachesuffix['GIF']);
+					unset($cachesuffix['BMP']);
+					unset($cachesuffix['WBMP']);
+					unset($cachesuffix['WBM']);
 					if (in_array(FALLBACK_SUFFIX, $cachesuffix)) {
 						if (MOD_REWRITE) {
 							if (getOption('encoding_fallback')) {
