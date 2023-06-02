@@ -32,6 +32,7 @@ class mimeTypes {
 			'asx' => 'video/x-ms-asf',
 			'au' => 'audio/basic',
 			'avi' => 'video/avi',
+			'avif' => 'image/avif',
 			'avs' => 'video/avs-video',
 			'bcpio' => 'application/x-bcpio',
 			'bin' => 'application/octet-stream',
@@ -369,6 +370,7 @@ class mimeTypes {
 			'texi' => 'application/x-texinfo',
 			'texinfo' => 'application/x-texinfo',
 			'text' => 'text/plain',
+			'tga' => 'image/tga',
 			'tgz' => 'application/gnutar',
 			'tif' => 'image/tiff',
 			'tr' => 'application/x-troff',
@@ -466,8 +468,8 @@ class mimeTypes {
 	);
 
 	static function getType($suffix) {
-		if (array_key_exists($suffix, self::mime_types)) {
-			return self::mime_types[$suffix];
+		if (array_key_exists($suffix, self::$mime_types)) {
+			return self::$mime_types[$suffix];
 		} else {
 			return 'application/octet-stream';
 		}
