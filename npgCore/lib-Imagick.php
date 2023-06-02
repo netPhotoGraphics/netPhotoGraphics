@@ -210,7 +210,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 	 * @param int $qual
 	 * @return bool
 	 */
-	function gl_imageOutputt($im, $type, $filename = NULL, $qual = 75) {
+	function gl_imageOutput($im, $type, $filename = NULL, $qual = 75) {
 		$interlace = getOption('image_interlace');
 		$qual = max(min($qual, 100), 0);
 

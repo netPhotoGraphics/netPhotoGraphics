@@ -82,6 +82,6 @@ for ($i = 0; $i < $len; $i++) {
 $rectangle = gl_colorAllocate($image, 48, 57, 85);
 gl_drawRectangle($image, 0, 0, $w - 1, $h - 1, $rectangle);
 
-gl_imageOutputt($image, 'png', NULL);
+gl_imageOutput($image, 'png', NULL);
 ?>
 

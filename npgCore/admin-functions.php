@@ -4029,7 +4029,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					gl_writeString($im, $font, $x + 1, $y + 1, $text, $ink);
 					gl_writeString($im, $font, $x, $y, $text, $ink);
 					// Save new theme image
-					gl_imageOutputt($im, 'png', $themeimage);
+					gl_imageOutput($im, 'png', $themeimage);
 				}
 			}
 		} else {

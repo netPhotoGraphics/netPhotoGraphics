@@ -277,7 +277,7 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			$newim = imageProcessing::watermarkImage($newim, $watermark_use_image, $image_path);
 		}
 
-		if (!gl_imageOutputt($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
+		if (!gl_imageOutput($newim, $suffix, $cache_path, $quality) && DEBUG_IMAGE) {
 			debugLog('full-image failed to create:' . $image);
 		}
 		if (isset($_GET['returncheckmark'])) {
