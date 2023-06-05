@@ -20,8 +20,8 @@ $(document).ready(function () {
 		}
 	});
 	$('footer a[href="https://netPhotoGraphics.org"]')
-		.attr('target', '_blank')
-		.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
+					.attr('target', '_blank')
+					.append('&nbsp;<small><span class="small glyphicon glyphicon-new-window"></span></small>');
 	$('#photo-part').addClass('text-lowercase');
 
 	/* buttons */
@@ -79,8 +79,7 @@ $(document).ready(function () {
 		$('#loginform button[type="reset"]').addClass('margin-left-small');
 		$('#loginform fieldset input').addClass('form-control');
 		$('#loginform #disclose_password')
-						.removeClass('form-control')
-						.parent().wrap('<div class="checkbox"></div>');
+						.removeClass('form-control');
 		$('#loginform br').remove();
 		$('#loginform #user').focus();
 		if ($('#loginform .alert').length) {

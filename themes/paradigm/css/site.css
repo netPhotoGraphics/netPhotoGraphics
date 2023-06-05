@@ -545,3 +545,7 @@ ul.pagelist li.prev {
 ul.pagelist li.next {
 	margin-left: 10px;
 }
+
+#loginform .show_checkbox {
+	top: -2.9em;
+}

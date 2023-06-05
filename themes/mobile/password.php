@@ -28,12 +28,6 @@ if (!defined('WEBPATH'))
 				padding:10px;
 				text-align:left;
 			}
-			#loginform .show_checkbox {
-				float:right;
-				position:relative;
-				top:0.2em;
-				left:-55px;
-			}
 			#loginform input.textfield {
 				margin:0px;
 				width:270px;

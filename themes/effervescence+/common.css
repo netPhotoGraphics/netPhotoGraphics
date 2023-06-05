@@ -250,7 +250,6 @@ input#code {
 #loginform .show_checkbox {
 	color: black !important;
 	background-color: #F7F8F9;
-	top: 1.35em !important;
 }
 
 #loginform input[type="text"], #loginform input[type="password"] {
