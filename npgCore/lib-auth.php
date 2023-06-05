@@ -1609,11 +1609,11 @@ class _Authority {
 									<?php
 								}
 								?>
-								<label class="show_checkbox">
-									<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
-									<?php echo gettext('Show') ?>
-								</label>
 								<fieldset class="login_input"><legend><?php echo gettext("Password"); ?></legend>
+									<label class="show_checkbox">
+										<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
+										<?php echo gettext('Show') ?>
+									</label>
 									<input class="textfield" name="pass" id="pass" type="password"  />
 								</fieldset>
 								<br />
@@ -1880,7 +1880,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1889,7 +1889,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-											 $('#show_disclose_password<?php echo $id; ?>').show();"
+									 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>

@@ -23,13 +23,14 @@ Login form basic styling
 #loginform .show_checkbox {
 	float: right;
 	position:relative;
-	top: 1.15em;
-	left:-15px;
+	top: -1.9em;
+	height: 0;
+	z-index: 999999;
 }
 
 #loginform input.textfield {
 	margin: 0px;
-	width:270px;
+	width: 97%;
 	font-size: medium;
 	padding: 4px;
 }
@@ -46,7 +47,7 @@ Login form basic styling
 }
 
 #logon_box fieldset {
-	width: 322px;
+	width: 310px;
 	text-align: left;
 }
 
@@ -62,19 +63,3 @@ Login form basic styling
 	display: inline !important;
 	height: 35px !important;
 }
-
-#logon_box input#user,
-#logon_box input#pass {
-	width: 300px;
-}
-
-#loginform button[type] {
-	display: inline !important;
-	height: 35px !important;
-}
-
-#logon_box input#user,
-#logon_box input#pass {
-	width: 300px;
-}
-
