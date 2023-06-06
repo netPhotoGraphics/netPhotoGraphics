@@ -155,7 +155,7 @@ class _Authority {
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
 						'order' => 3,
 						'selections' => $encodings,
-						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($display)) . '</code>') . '<br />&dagger; ' . gettest('The current default algorithm.') . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
+						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($display)) . '</code>') . '<br />&dagger; ' . gettext('The current default algorithm.') . '<br />' . gettext('Note: The <code>default</code> choice is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
@@ -1880,7 +1880,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1889,7 +1889,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-									 $('#show_disclose_password<?php echo $id; ?>').show();"
+											 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>

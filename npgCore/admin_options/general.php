@@ -180,7 +180,7 @@ function getOptionContent() {
 		if (isset($_GET['Invalid_email_format'])) {
 			echo '<div class="errorbox">';
 			echo "<h2>" .
-			gettext("Invaid email address") .
+			gettext("Invalid email address") .
 			"</h2>";
 			echo gettext("The gallery email address is not valid.");
 			echo '</div>';
