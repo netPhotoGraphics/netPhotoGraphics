@@ -51,25 +51,34 @@ if (!function_exists('gl_graphicsLibInfo')) {
 	if (extension_loaded('gd')) { // only define the functions if we have the proper versions
 		$_lib_GD_info = array();
 		$info = gd_info();
+		ksort($info);
+
 		$_lib_GD_info['Library'] = 'GD';
 		$_lib_GD_info['Library_desc'] = sprintf('PHP GD library <em>%s</em>', $info['GD Version']);
+		unset($info['GD Version']);
+
 		define('GD_FREETYPE', (bool) $info['FreeType Support']);
 		unset($info['FreeType Support']);
+		unset($info['FreeType Linkage']);
+		unset($info['JIS-mapped Japanese Font Support']);
 
 		define('GD_FREETYPE_SAMPLE', 'The quick brown fox jumps over the lazy dog');
 		define('GD_FREETYPE_SAMPLE_CHARS', strlen('GD_FREETYPE_SAMPLE'));
 		$_gd_freetype_fonts = array(0);
 
-		$imgtypes = imagetypes();
-		$_lib_GD_info['AVIF'] = defined('IMG_AVIF') && ($imgtypes & IMG_AVIF) ? 'avif' : false;
-		$_lib_GD_info['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
-		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
-		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
-		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
-		$_lib_GD_info['WBM'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
-		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
-		$_lib_GD_info['WEBP'] = ($imgtypes & IMG_WEBP) ? 'webp' : false;
-		unset($imgtypes);
+		foreach ($info as $what => $enabled) {
+			$imgtype = substr($what, 0, strpos($what, ' '));
+			$_lib_GD_info[strtoupper($imgtype)] = $enabled ? strtolower($imgtype) : false;
+		}
+		if (isset($_lib_GD_info['JPEG']) && $_lib_GD_info['JPEG']) {
+			//	backwards compatibility
+			$_lib_GD_info['JPEG'] = 'jpg';
+		}
+		/* Synonyms */
+		$_lib_GD_info['JPG'] = $_lib_GD_info['JPEG'];
+		$_lib_GD_info['WBM'] = $_lib_GD_info['WBMP'];
+		ksort($_lib_GD_info);
+
 		unset($info);
 
 		if (DEBUG_IMAGE)
@@ -77,7 +86,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 
 		/**
 		 * Takes an image filename and returns a GD Image using the correct function
-		 * for the image's format (imagecreatefrom*). Supports JPEG, GIF, and PNG.
+		 * for the image's format (imagecreatefrom*).
 		 * @param string $imagefile the full path and filename of the image to load.
 		 * @return image the loaded GD image object.
 		 *
@@ -85,22 +94,17 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		function gl_imageGet($imgfile) {
 			$ext = getSuffix($imgfile);
 			switch ($ext) {
-				case 'png':
-					return imagecreatefrompng($imgfile);
 				case 'wbm':
-				case 'wbmp':
-					return imagecreatefromwbmp($imgfile);
-				case 'jpeg':
+					$ext = 'wbmp';
+					break;
 				case 'jpg':
-					return imagecreatefromjpeg($imgfile);
-				case 'gif':
-					return imagecreatefromgif($imgfile);
-				case 'webp':
-					return imagecreatefromwebp($imgfile);
-				case 'avif':
-					return imagecreatefromavif($imgfile);
+					$ext = 'jpeg';
+					break;
 			}
-
+			$creator = 'imagecreatefrom' . $ext;
+			if (function_exists($creator)) {
+				return $creator($imgfile);
+			}
 			return false;
 		}
 
@@ -112,7 +116,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 * @param string $filename
 		 * @param int $qual
 		 */
-		function gl_imageOutputt($im, $type, $filename = NULL, $qual = 75) {
+		function gl_imageOutput($im, $type, $filename = NULL, $qual = 75) {
 			$qual = max(min($qual, 100), 0);
 			if (getOption('image_interlace')) {
 				imageinterlace($im, true);
@@ -121,18 +125,16 @@ if (!function_exists('gl_graphicsLibInfo')) {
 				case 'png':
 					$qual = max(0, 9 - round($qual / 10));
 					return imagepng($im, $filename, $qual);
-				case 'wbm':
-				case 'wbmp':
-					return imagewbmp($im, $filename);
 				case 'jpeg':
 				case 'jpg':
 					return imagejpeg($im, $filename, $qual);
-				case 'gif':
-					return imagegif($im, $filename);
-				case 'webp':
-					return imagewebp($im, $filename);
 				case 'avif':
 					return imageavif($im, $filename, $qual);
+				default:
+					$imageOutput = 'image' . $type;
+					if (function_exists($imageOutput)) {
+						return $imageOutput($im, $filename);
+					}
 			}
 			return false;
 		}

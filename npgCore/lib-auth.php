@@ -155,7 +155,7 @@ class _Authority {
 				gettext('Password hash algorithm') => array('key' => 'strong_hash', 'type' => OPTION_TYPE_ORDERED_SELECTOR,
 						'order' => 3,
 						'selections' => $encodings,
-						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($display)) . '</code>') . '<br />&dagger; The current default algorithm.' . '<br />' . gettext('Note: The <code>default</code> choice  is designed to change over time as new and stronger algorithms are added to PHP.')),
+						'desc' => sprintf(gettext('The hashing algorithm to be used. In order of robustness the choices are %s'), '<code>' . implode('</code> > <code>', array_keys($display)) . '</code>') . '<br />&dagger; ' . gettext('The current default algorithm.') . '<br />' . gettext('Note: The <code>default</code> choice is designed to change over time as new and stronger algorithms are added to PHP.')),
 				gettext('Enable Challenge phrase') => array('key' => 'challenge_foil_enabled', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 5,
 						'desc' => gettext('Check to allow password reset by challenge phrase responses.'))
@@ -1609,11 +1609,11 @@ class _Authority {
 									<?php
 								}
 								?>
-								<label class="show_checkbox">
-									<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
-									<?php echo gettext('Show') ?>
-								</label>
 								<fieldset class="login_input"><legend><?php echo gettext("Password"); ?></legend>
+									<label class="show_checkbox">
+										<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
+										<?php echo gettext('Show') ?>
+									</label>
 									<input class="textfield" name="pass" id="pass" type="password"  />
 								</fieldset>
 								<br />

@@ -760,13 +760,12 @@ class Gallery {
 
 			/* Look for image records where the file no longer exists. While at it, check for images with IPTC data to update the DB */
 
-			$start = array_sum(explode(" ", microtime())); // protect against too much processing.
 			if (!empty($restart)) {
 				$restartwhere = ' WHERE `id`>' . $restart . ' AND `mtime`=0';
 			} else {
 				$restartwhere = ' WHERE `mtime`=0';
 			}
-			define('RECORD_LIMIT', 5);
+			define('RECORD_LIMIT', 50);
 			$sql = 'SELECT `id`, `albumid`, `filename`, `mtime` FROM ' . prefix('images') . $restartwhere . ' ORDER BY `id` LIMIT ' . (RECORD_LIMIT + 2);
 			$images = query($sql);
 			if ($images) {

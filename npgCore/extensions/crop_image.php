@@ -174,7 +174,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 	gl_resampleImage($newim, $timg, 0, 0, $cx, $cy, $cw, $ch, $cw, $ch, getSuffix($imagename));
 	chmod($imgpath, 0777);
 	unlink($imgpath);
-	if (gl_imageOutputt($newim, getSuffix($imgpath), $imgpath, $quality)) {
+	if (gl_imageOutput($newim, getSuffix($imgpath), $imgpath, $quality)) {
 		if (DEBUG_IMAGE)
 			debugLog('image_crop Finished:' . basename($imgpath));
 	} else {

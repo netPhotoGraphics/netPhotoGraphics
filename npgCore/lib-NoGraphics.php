@@ -46,7 +46,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		return false;
 	}
 
-	function gl_imageOutputt($im, $type, $filename = NULL, $qual = 75) {
+	function gl_imageOutput($im, $type, $filename = NULL, $qual = 75) {
 		return false;
 	}
 

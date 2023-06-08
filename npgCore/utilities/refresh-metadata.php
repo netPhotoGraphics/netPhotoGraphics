@@ -32,14 +32,12 @@ XSRFdefender('refresh');
 $_admin_menu = $_SESSION['navigation_tabs']; //	Remembered since we are not loading all the plugins
 
 $imageid = '';
-if (isset($_GET['refresh'])) {
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'prune') {
 	if (isset($_GET['id'])) {
 		$imageid = sanitize_numeric($_GET['id']);
 	}
 	$imageid = $_gallery->garbageCollect(true, true, $imageid);
-}
-
-if (isset($_GET['tab']) && $_GET['tab'] == 'prune') {
 	$type = 'tab=prune&amp;';
 	$title = gettext('Refresh Database');
 	$finished = gettext('Finished refreshing the database');
@@ -96,6 +94,7 @@ if (isset($_REQUEST['album'])) {
 	}
 	$albumparm = '&amp;album=' . pathurlencode($folder);
 }
+
 if (isset($_GET['refresh'])) {
 	if (empty($imageid)) {
 		$metaURL = $backurl;
@@ -106,31 +105,29 @@ if (isset($_GET['refresh'])) {
 		$metaURL = $redirecturl = '?' . $type . 'refresh=continue&amp;id=' . $imageid . $albumparm . $ret . '&XSRFToken=' . getXSRFToken('refresh');
 	}
 } else {
-	if ($type !== 'tab=prune&amp;') {
-		if (!empty($folder)) {
-			$album = newAlbum($folder);
-			if (!$album->isMyItem(ALBUM_RIGHTS)) {
-				if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
-					header('Location: ' . getAdminLink('admin.php'));
-					exit();
-				}
-			}
-			$sql = "SELECT `id` FROM " . prefix('albums') . " WHERE `folder`=" . db_quote($folder);
-			$row = query_single_row($sql);
-			$id = $row['id'];
-		}
-
-		if (!empty($id)) {
-			$imagewhere = "WHERE `albumid`=$id";
-			$r = " $folder";
-			$albumwhere = "WHERE `parentid`=$id";
-		}
-	}
 	if (isset($_REQUEST['return']))
 		$ret = sanitize($_REQUEST['return']);
 	if (!empty($ret))
 		$ret = '&amp;return=' . $ret;
 	$metaURL = $starturl = '?' . $type . 'refresh=start' . $albumparm . '&amp;XSRFToken=' . getXSRFToken('refresh') . $ret;
+}
+
+if ($type !== 'tab=prune&amp;') {
+	if (!empty($folder)) {
+		$album = newAlbum($folder);
+		if (!$album->isMyItem(ALBUM_RIGHTS)) {
+			if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
+				header('Location: ' . getAdminLink('admin.php'));
+				exit();
+			}
+		}
+		$sql = "SELECT `id` FROM " . prefix('albums') . " WHERE `folder`=" . db_quote($folder);
+		$row = query_single_row($sql);
+		if ($row) {
+			$id = $row['id'];
+			$r = " $folder";
+		}
+	}
 }
 
 printAdminHeader($tab, 'Refresh');
@@ -150,6 +147,27 @@ printTabs();
 	<div class="tabbox">
 		<?php
 		if (isset($_GET['refresh'])) {
+			$dateset = '';
+			if (!empty($folder) && $_gallery->getAlbumUseImagedate()) {
+				$albumobj = newAlbum($folder);
+				if ($albumobj->getNumImages()) {
+					//	there will be an image to set the album date from
+					$dateset = ", `date`=NULL";
+				}
+			}
+
+			if ($type !== 'tab=prune&amp;') {
+				if (!empty($id)) {
+					$imagewhere = "WHERE `albumid`=$id";
+					$albumwhere = "WHERE `parentid`=$id";
+					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . $dateset . " WHERE `id`=$id";
+					query($sql);
+				}
+				$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0 $albumwhere";
+				query($sql);
+				$sql = "UPDATE " . prefix('images') . " SET `mtime`=0 $imagewhere;";
+				query($sql);
+			}
 			if (empty($imageid)) {
 				?>
 				<h3><?php echo $finished; ?></h3>
@@ -166,25 +184,6 @@ printTabs();
 				<?php
 			}
 		} else {
-			$dateset = '';
-			if (!empty($folder) && $_gallery->getAlbumUseImagedate()) {
-				$albumobj = newAlbum($folder);
-				if ($albumobj->getNumImages()) {
-					//	there will be an image to set the album date from
-					$dateset = ", `date`=NULL";
-				}
-			}
-
-			if ($type !== 'tab=prune&amp;') {
-				if (!empty($id)) {
-					$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0" . $dateset . " WHERE `id`=$id";
-					query($sql);
-				}
-				$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0 $albumwhere";
-				query($sql);
-				$sql = "UPDATE " . prefix('images') . " SET `mtime`=0 $imagewhere;";
-				query($sql);
-			}
 			if (!empty($folder) && empty($id)) {
 				echo "<p> " . sprintf(gettext("<em>%s</em> not found"), $folder) . "</p>";
 			} else {

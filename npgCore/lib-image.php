@@ -448,7 +448,7 @@ class imageProcessing {
 			if (file_exists($newfile)) {
 				chmod($newfile, 0777);
 			}
-			if (gl_imageOutputt($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
+			if (gl_imageOutput($newim, getSuffix($newfile), $newfile, $quality)) { //	successful save of cached image
 				if (!($thumb ) && getOption('ImbedIPTC') && getSuffix($newfilename) == 'jpg' && GRAPHICS_LIBRARY != 'Imagick') { // the imbed function works only with JPEG images
 					global $_images_classes; //	because we are doing the require in a function!
 					require_once(__DIR__ . '/functions.php'); //	it is ok to increase memory footprint now since the image processing is complete
