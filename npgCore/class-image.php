@@ -1565,6 +1565,18 @@ class Image extends MediaObject {
 	}
 
 	/**
+	 * provides aspect ration string for a given width and height.
+	 *
+	 * @param int $width
+	 * @param int $height
+	 * @param string $separator
+	 */
+	static function aspectRatio($imageWidth, $imageHeight, $separator = ':') {
+		$divisor = (int) gmp_gcd($imageWidth, $imageHeight);
+		return $imageWidth / $divisor . ':' . $imageHeight / $divisor;
+	}
+
+	/**
 	 * Returns the filesize in bytes of the full image
 	 *
 	 * @return int|false
