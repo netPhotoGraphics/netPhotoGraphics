@@ -1280,22 +1280,6 @@ function read_exif_data_raw($path, $verbose) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // add 12 to the offset to account for TIFF header
 	if ($result['ValidJpeg'] == 1) {
 		$globalOffset += 12;

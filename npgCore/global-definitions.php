@@ -225,6 +225,7 @@ define('DESIRED_PHP_EXTENSIONS', array(
 		'exif',
 		'fileinfo',
 		'gettext',
+		'gmp',
 		'hash',
 		'iconv',
 		'intl',

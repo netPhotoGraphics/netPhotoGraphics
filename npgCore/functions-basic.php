@@ -2080,6 +2080,24 @@ if (!function_exists('ctype_xdigit')) {
 
 }
 
+if (!function_exists('gmp_gcd')) {
+
+	function gmp_gcd($x, $y) {
+		if ($x == 0 || $y == 0) {
+			return 1;
+		}
+		if ($x < $y) {
+			list($y, $x) = array($x, $y);
+		}
+		if ($x % $y == 0) {
+			return $y;
+		} else {
+			return gmp_gcd($y, $x % $y);
+		}
+	}
+
+}
+
 if (!function_exists("json_encode")) {
 	// load the drop-in replacement library
 	require_once(__DIR__ . '/lib-json.php');
