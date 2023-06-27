@@ -39,11 +39,13 @@ if (function_exists('printSlideShow')) {
 										<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Albums Index'); ?>"><?php printGalleryTitle(); ?></a>
 										<?php
 									}
-									?></a> |
+									?></a> 
 									<?php
 									if (is_null($_current_album)) {
 										$search = new SearchEngine();
-										$params = trim(getNPGCookie('search_params'));
+										if ($params = getNPGCookie('search_params')) {
+											$params = trim($params);
+										}
 										$search->setSearchParams($params);
 										$images = $search->getImages(0);
 										$searchwords = $search->getSearchWords();
@@ -57,7 +59,7 @@ if (function_exists('printSlideShow')) {
 										printAlbumBreadcrumb("", " | ");
 									}
 									?> </span>
-								echo gettext('Slideshow');
+								<?php echo gettext('Slideshow'); ?>
 							</div> <!-- navbar -->
 						</div> <!-- wrapnav -->
 					</div> <!-- galleryheader -->
