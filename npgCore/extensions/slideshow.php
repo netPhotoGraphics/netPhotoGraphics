@@ -210,7 +210,7 @@ class slideshow {
 		$validtypes = array('jpg', 'jpeg', 'gif', 'png');
 		$slideshow .= '
 				<script type="text/javascript">
-				
+
 				$(document).ready(function(){
 				$(function() {
 				var ThisGallery = "' . html_encode($albumobj->getTitle()) . '";
@@ -335,7 +335,7 @@ class slideshow {
 		});
 
 		});	// Documentready()
-		
+
 		</script>
 		<div id="slideshow" style="height:' . ($wrapperheight + 40) . 'px; width:' . $wrapperwidth . 'px;">
 		';
@@ -582,7 +582,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 					?>
 					<script type="text/javascript">
 						window.addEventListener('load', function () {
-							$("a[rel='slideshow']").colorbox({
+							$("a[rel='slideshow_<?php echo $slideshow_instance; ?>']").colorbox({
 								slideshow: true,
 								loop: true,
 								transition: '<?php echo getOption('slideshow_colorbox_transition'); ?>',
@@ -641,11 +641,12 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 								$imagetitle = html_encode(getBare($imgobj->getTitle()));
 							}
 							?>
-							<a href="<?php echo html_encode($imagelink); ?>" rel="slideshow"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
+							<a href="<?php echo html_encode($imagelink); ?>" rel="slideshow_<?php echo $slideshow_instance; ?>"<?php echo $style; ?> title="<?php echo $imagetitle; ?>"><?php echo $linktext; ?></a><?php echo html_encodeTagged($after); ?>
 							<?php
 						}
 					}
 				}
+				$slideshow_instance++;
 				break;
 		}
 	}
