@@ -139,7 +139,10 @@ $legacyReplacements = array(
 		'isImagePhoto\(\)' => '$_current_image->isPhoto()',
 		'isImageVideo\(\)' => '$_current_image->isVideo()',
 		'getdownloadList\(' => 'getDownloadList(',
-		'printdownloadList\(' => 'printDownloadList('
+		'printdownloadList\(' => 'printDownloadList(',
+		'getParentSiteTitle\(' => 'getMainSiteName(',
+		'setParentSiteTitle\(' => 'setMainSiteName(',
+		'SearchEngine::getSearchURL\(' => 'getSearchURL('
 );
 
 class zenPhotoCompatibilityPack {
