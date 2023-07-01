@@ -51,16 +51,8 @@ function isAlbumClass($album) {
  * @return array
  */
 function getNestedAlbumList($subalbum, $maxlevel, $level = array()) {
-	global $_gallery;
-	if (!is_array($level)) {
-		$level = array();
-	}
 	$cur = count($level);
-	if (is_null($subalbum)) {
-		$albums = $_gallery->getAlbums();
-	} else {
-		$albums = $subalbum->getAlbums();
-	}
+	$albums = $subalbum->getAlbums();
 
 	$list = array();
 	foreach ($albums as $analbum) {
