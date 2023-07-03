@@ -1185,12 +1185,15 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	}
 	foreach ($items as $item) {
 		$itemarray = getItemTitleAndURL($item);
+
+		var_dump($itemarray);
+
 		$itemURL = $itemarray['url'];
 		$itemtitle = get_language_string($itemarray['title']);
 		if (isset($item['titletext']) && !empty($item['titletext'])) {
 			$titleattribute = 'title="' . html_encode(get_language_string($item['titletext'])) . '"';
 		} else {
-			$titleattribute = $itemtitle;
+			$titleattribute = 'title="' . $itemtitle . '"';
 		}
 		$level = max(1, count(explode('-', $item['sort_order'])));
 		$process = (($level <= $showsubs && $option == "list") // user wants all the pages whose level is <= to the parameter
