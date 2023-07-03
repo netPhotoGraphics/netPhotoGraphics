@@ -143,6 +143,7 @@ $legacyReplacements = array(
 		'getParentSiteTitle\(' => 'getMainSiteName(',
 		'setParentSiteTitle\(' => 'setMainSiteName(',
 		'SearchEngine::getSearchURL\(' => 'SearchEngine::getURL(',
+		'getSearchURL\(' => 'SearchEngine::getURL(',
 		'getNestedAlbumList\(NULL,' => 'getNestedAlbumList($_gallery,',
 		'getNestedAlbumList\((.*?),\s*(.*?),.*\)' => 'getNestedAlbumList($1, $2)'
 );
