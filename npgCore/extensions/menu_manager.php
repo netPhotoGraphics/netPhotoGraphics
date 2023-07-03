@@ -1185,9 +1185,6 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 	}
 	foreach ($items as $item) {
 		$itemarray = getItemTitleAndURL($item);
-
-		var_dump($itemarray);
-
 		$itemURL = $itemarray['url'];
 		$itemtitle = get_language_string($itemarray['title']);
 		if (isset($item['titletext']) && !empty($item['titletext'])) {
