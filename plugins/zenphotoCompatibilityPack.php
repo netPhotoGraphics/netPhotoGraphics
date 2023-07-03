@@ -142,7 +142,9 @@ $legacyReplacements = array(
 		'printdownloadList\(' => 'printDownloadList(',
 		'getParentSiteTitle\(' => 'getMainSiteName(',
 		'setParentSiteTitle\(' => 'setMainSiteName(',
-		'SearchEngine::getSearchURL\(' => 'getSearchURL('
+		'SearchEngine::getSearchURL\(' => 'SearchEngine::getURL(',
+		'getNestedAlbumList\(NULL,' => 'getNestedAlbumList($_gallery,',
+		'getNestedAlbumList\((.*?),\s*(.*?),.*\)' => 'getNestedAlbumList($1, $2)'
 );
 
 class zenPhotoCompatibilityPack {
