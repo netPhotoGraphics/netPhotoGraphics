@@ -446,7 +446,7 @@ class htmlmetatags {
 									$searchwords = $_current_search->codifySearchString();
 									$searchdate = $_current_search->getSearchDate();
 									$searchfields = $_current_search->getSearchFields(true);
-									$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $_current_page, array('albums' => $_current_search->getAlbumList()));
+									$searchpagepath = SearchEngine::getURL($searchwords, $searchdate, $searchfields, $_current_page, array('albums' => $_current_search->getAlbumList()));
 									$altlink .= $searchpagepath;
 									break;
 								case 'contact.php':

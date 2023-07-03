@@ -739,7 +739,7 @@ function getPageNumURL($page, $total = null) {
 		$searchwords = $_current_search->codifySearchString();
 		$searchdate = $_current_search->getSearchDate();
 		$searchfields = $_current_search->getSearchFields(true);
-		$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $page, array('albums' => $_current_search->getAlbumList()));
+		$searchpagepath = SearchEngine::getURL($searchwords, $searchdate, $searchfields, $page, array('albums' => $_current_search->getAlbumList()));
 		return $searchpagepath;
 	} else if (in_context(NPG_ALBUM)) {
 		return $_current_album->getLink($page);
@@ -1330,7 +1330,7 @@ function getParentBreadcrumb() {
 		if (!is_array($search_album_list)) {
 			$search_album_list = array();
 		}
-		$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $page, array('albums' => $search_album_list));
+		$searchpagepath = SearchEngine::getURL($searchwords, $searchdate, $searchfields, $page, array('albums' => $search_album_list));
 		$dynamic_album = $_current_search->getDynamicAlbum();
 		if (empty($dynamic_album)) {
 			if (empty($searchdate)) {
@@ -3620,7 +3620,7 @@ function printTags($option = 'links', $preText = NULL, $class = false, $separato
 				$separator = "";
 			}
 			if ($option === "links") {
-				$links1 = "<a href=\"" . html_encode(getSearchURL(SearchEngine::searchQuote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\">";
+				$links1 = "<a href=\"" . html_encode(SearchEngine::getURL(SearchEngine::searchQuote($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\">";
 				$links2 = "</a>";
 			} else {
 				$links1 = $links2 = '';
@@ -3704,7 +3704,7 @@ function printAllTagsAs($option, $class = '', $sort = NULL, $counter = FALSE, $l
 					} else {
 						$albumlist = NULL;
 					}
-					$link = getSearchURL(SearchEngine::searchQuote($key), '', 'tags', 0, array('albums' => $albumlist));
+					$link = SearchEngine::getURL(SearchEngine::searchQuote($key), '', 'tags', 0, array('albums' => $albumlist));
 					?>
 					<li>
 						<a href="<?php echo html_encode($link); ?>" rel="nofollow"<?php echo $size; ?>><?php echo str_replace(' ', '&nbsp;', html_encode($key)) . $counter; ?></a>
@@ -3829,7 +3829,7 @@ function printAllDates($class = 'archive', $yearid = 'year', $monthid = 'month',
 		} else {
 			$cl = '';
 		}
-		echo "<li" . $cl . "><a href=\"" . html_encode(getSearchURl('', $datekey, '', 0, array('albums' => $albumlist))) . "\" rel=\"nofollow\">$month ($val)</a></li>\n";
+		echo "<li" . $cl . "><a href=\"" . html_encode(SearchEngine::getURL('', $datekey, '', 0, array('albums' => $albumlist))) . "\" rel=\"nofollow\">$month ($val)</a></li>\n";
 	}
 	echo "</ul>\n</li>\n</ul>\n";
 }
@@ -3902,99 +3902,6 @@ function printCustomPageURL($linktext, $page, $q = '', $prev = '', $next = '', $
  */
 function isArchive() {
 	return isset($_REQUEST['date']);
-}
-
-/**
- * Returns a search URL
- *
- * @param mixed $words the search words target
- * @param mixed $dates the dates that limit the search
- * @param mixed $fields the fields on which to search
- * NOTE: $words and $dates are mutually exclusive and $fields applies only to $words searches
- * @param int $page the page number for the URL
- * @param array $object_list the list of objects to search
- * @return string
- * @since 1.1.3
- */
-function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
-	$urls = array();
-	$rewrite = false;
-	if (MOD_REWRITE) {
-		$rewrite = true;
-		if (is_array($object_list)) {
-			foreach ($object_list as $obj) {
-				if ($obj) {
-					$rewrite = false;
-					break;
-				}
-			}
-		}
-	}
-
-	if ($rewrite) {
-		$url = SEO_WEBPATH . '/' . _SEARCH_ . '/';
-	} else {
-		$url = SEO_WEBPATH . "/index.php";
-		$urls[] = 'p=search';
-	}
-	if ($words) {
-		if (is_array($words)) {
-			foreach ($words as $key => $word) {
-				$words[$key] = SearchEngine::searchQuote($word);
-			}
-			$words = implode(',', $words);
-		}
-		$words = SearchEngine::encode($words);
-		if ($rewrite) {
-			$url .= $words . '/';
-		} else {
-			$urls[] = 'words=' . $words;
-		}
-		if (!empty($fields)) {
-			if (!is_array($fields)) {
-				$fields = explode(',', $fields);
-			}
-			$temp = $fields;
-			if ($rewrite && count($fields) == 1 && reset($temp) == 'tags') {
-				$url = SEO_WEBPATH . '/' . _TAGS_ . '/' . $words . '/';
-			} else {
-				$search = new SearchEngine();
-				$urls[] = $search->getSearchFieldsText($fields, 'searchfields=');
-			}
-		}
-	} else { //	dates
-		if (is_array($dates)) {
-			$dates = implode(',', $dates);
-		}
-		if ($rewrite) {
-			$url = SEO_WEBPATH . '/' . _ARCHIVE_ . '/' . $dates . '/';
-		} else {
-			$urls[] = "date=$dates";
-		}
-	}
-	if ($page > 1) {
-		if ($rewrite) {
-			$url .= $page;
-		} else {
-			$urls[] = "page=$page";
-		}
-	}
-
-	if (is_array($object_list)) {
-		foreach ($object_list as $key => $list) {
-			if (!empty($list)) {
-				if (is_array($list)) {
-					$list = implode(',', $list);
-				}
-				$urls[] = 'in' . $key . '=' . urlencode($list);
-			}
-		}
-	}
-	if (!empty($urls)) {
-		$url .= '?' . implode('&', $urls);
-	}
-
-	return $url;
 }
 
 /**
@@ -4595,7 +4502,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

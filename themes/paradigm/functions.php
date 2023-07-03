@@ -47,7 +47,7 @@ function printTags_zb($option = 'links', $preText = NULL, $class = false, $separ
 				$separator = "";
 			}
 			if ($option === "links") {
-				$links1 = "<a href=\"" . html_encode(getSearchURL(($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\" >";
+				$links1 = "<a href=\"" . html_encode(SearchEngine::getURL(($atag), '', 'tags', 0, array('albums' => $albumlist))) . "\" title=\"" . html_encode($atag) . "\" >";
 				$links2 = "</a>";
 			} else {
 				$links1 = $links2 = '';
@@ -118,7 +118,7 @@ function printAllTagsAs_zb($option, $class = '', $sort = 'abc', $counter = FALSE
 					$albumlist = NULL;
 				}
 				$list .= "\t<li><a href=\"" .
-								html_encode(getSearchURL($key, '', 'tags', 0, array('albums' => $albumlist))) . "\"$size >" .
+								html_encode(SearchEngine::getURL($key, '', 'tags', 0, array('albums' => $albumlist))) . "\"$size >" .
 								$key . $counter . "</a></li>\n";
 			} else {
 				$list .= "\t<li$size>" . $key . $counter . "</li>\n";

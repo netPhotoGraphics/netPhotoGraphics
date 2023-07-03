@@ -779,6 +779,99 @@ class SearchEngine {
 	}
 
 	/**
+	 * Returns a search URL
+	 *
+	 * @param mixed $words the search words target
+	 * @param mixed $dates the dates that limit the search
+	 * @param mixed $fields the fields on which to search
+	 * NOTE: $words and $dates are mutually exclusive and $fields applies only to $words searches
+	 * @param int $page the page number for the URL
+	 * @param array $object_list the list of objects to search
+	 * @return string
+	 * @since 1.1.3
+	 */
+	static function getURL($words, $dates, $fields, $page, $object_list = NULL) {
+		$urls = array();
+		$rewrite = false;
+		if (MOD_REWRITE) {
+			$rewrite = true;
+			if (is_array($object_list)) {
+				foreach ($object_list as $obj) {
+					if ($obj) {
+						$rewrite = false;
+						break;
+					}
+				}
+			}
+		}
+
+		if ($rewrite) {
+			$url = SEO_WEBPATH . '/' . _SEARCH_ . '/';
+		} else {
+			$url = SEO_WEBPATH . "/index.php";
+			$urls[] = 'p=search';
+		}
+		if ($words) {
+			if (is_array($words)) {
+				foreach ($words as $key => $word) {
+					$words[$key] = SearchEngine::searchQuote($word);
+				}
+				$words = implode(',', $words);
+			}
+			$words = SearchEngine::encode($words);
+			if ($rewrite) {
+				$url .= $words . '/';
+			} else {
+				$urls[] = 'words=' . $words;
+			}
+			if (!empty($fields)) {
+				if (!is_array($fields)) {
+					$fields = explode(',', $fields);
+				}
+				$temp = $fields;
+				if ($rewrite && count($fields) == 1 && reset($temp) == 'tags') {
+					$url = SEO_WEBPATH . '/' . _TAGS_ . '/' . $words . '/';
+				} else {
+					$search = new SearchEngine();
+					$urls[] = $search->getSearchFieldsText($fields, 'searchfields=');
+				}
+			}
+		} else { //	dates
+			if (is_array($dates)) {
+				$dates = implode(',', $dates);
+			}
+			if ($rewrite) {
+				$url = SEO_WEBPATH . '/' . _ARCHIVE_ . '/' . $dates . '/';
+			} else {
+				$urls[] = "date=$dates";
+			}
+		}
+		if ($page > 1) {
+			if ($rewrite) {
+				$url .= $page;
+			} else {
+				$urls[] = "page=$page";
+			}
+		}
+
+		if (is_array($object_list)) {
+			foreach ($object_list as $key => $list) {
+				if (!empty($list)) {
+					if (is_array($list)) {
+						$list = implode(',', $list);
+					}
+					$urls[] = 'in' . $key . '=' . urlencode($list);
+				}
+			}
+		}
+		if (!empty($urls)) {
+			$url .= '?' . implode('&', $urls);
+		}
+
+		return $url;
+	}
+
+	/**
 	 * recodes the search words replacing the boolean operators with text versions
 	 *
 	 * @param string $quote how to represent quoted strings
