@@ -1617,7 +1617,7 @@ function printZenpageItemsBreadcrumb($before = NULL, $after = NULL) {
 		} else {
 			$search_obj_list = NULL;
 		}
-		$searchpagepath = getSearchURL($searchwords, $searchdate, $searchfields, $page, $search_obj_list);
+		$searchpagepath = SearchEngine::getURL($searchwords, $searchdate, $searchfields, $page, $search_obj_list);
 		if (empty($searchdate)) {
 			$title = gettext("Return to search");
 			$text = gettext("Search");

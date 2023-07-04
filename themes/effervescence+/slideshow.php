@@ -52,7 +52,7 @@ if (function_exists('printSlideShow')) {
 										$searchdate = $search->getSearchDate();
 										$searchfields = $search->getSearchFields(true);
 										$page = $search->page;
-										$returnpath = getSearchURL($searchwords, $searchdate, $searchfields, $page);
+										$returnpath = SearchEngine::getURL($searchwords, $searchdate, $searchfields, $page);
 										echo '<a href=' . html_encode($returnpath) . '><em>' . gettext('Search') . '</em></a> | ';
 									} else {
 										printParentBreadcrumb();

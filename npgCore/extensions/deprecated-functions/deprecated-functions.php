@@ -406,3 +406,18 @@ function getMimeString($suffix) {
 	deprecated_functions::notify(gettext('Use <code>mimeTypes"::getType()</code> method instead.'));
 	return mimeTypes::getType($suffix);
 }
+
+/**
+ * @depredcated since version 2.00.18
+ *
+ * @param type $words
+ * @param type $dates
+ * @param type $fields
+ * @param type $page
+ * @param type $object_list
+ * @return type
+ */
+function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
+	deprecated_functions::notify(gettext('Use <code>SearchEngine::getURL()</code> method instead.'));
+	return SearchEngine::getURL($words, $dates, $fields, $page, $object_list);
+}

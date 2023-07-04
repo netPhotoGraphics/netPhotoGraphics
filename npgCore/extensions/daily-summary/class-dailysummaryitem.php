@@ -94,7 +94,7 @@ class DailySummaryItem extends Album {
 	}
 
 	function getLink($page = NULL) {
-		return getSearchURL('', $this->linkname, '', 0, NULL);
+		return SearchEngine::getURL('', $this->linkname, '', 0, NULL);
 	}
 
 	function getDailySummaryThumbImage() {
