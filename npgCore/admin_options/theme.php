@@ -161,6 +161,16 @@ function saveOptions() {
 function getOptionContent() {
 	global $_gallery, $_set_theme_album, $optionHandler, $themelist, $themename, $_set_theme_album, $alb, $album, $albumtitle;
 	?>
+	<script type="text/javascript">
+		window.addEventListener('load', function () {
+			customTable = Math.round($('#customOptions').width());
+			if (customTable > table) {
+				table = customTable;
+				$('.colwidth').width(table);
+				setColumns();
+			}
+		}, false);
+	</script>
 	<div id="tab_theme" class="tabbox">
 		<?php
 		if ($optionHandler) {
