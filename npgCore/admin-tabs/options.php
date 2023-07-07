@@ -73,7 +73,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 		}
 		?>
 		<script type="text/javascript">
-			
+
 			$(function () {
 				$('#<?php echo $targetid; ?>').tagSuggest({
 					tags: [
@@ -81,7 +81,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 					]
 				});
 			});
-			
+
 		</script>
 		<?php
 	}
@@ -89,7 +89,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	npg_Authority::printPasswordFormJS();
 	?>
 	<script type="text/javascript">
-		
+
 		var table;
 
 		function setColumns() {
@@ -111,7 +111,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 			$('.colwidth').width(table);
 			setColumns();
 		}, false);
-		
+
 	</script>
 	</head>
 	<body>

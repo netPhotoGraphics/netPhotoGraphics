@@ -488,7 +488,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 */
 		function gl_writeString($image, $font, $x, $y, $string, $color, $angle = 0) {
 			global $_gd_freetype_fonts;
-			if ($font > 0) {
+			if (is_object($font) || $font > 0) {
 				return imagestring($image, $font, $x, $y, $string, $color);
 			} else {
 				$font = abs($font);
@@ -598,7 +598,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 */
 		function gl_imageFontWidth($font) {
 			global $_gd_freetype_fonts;
-			if ($font > 0) {
+			if (is_object($font) || $font > 0) {
 				return imagefontwidth($font);
 			} else {
 				$font = abs($font);
@@ -616,7 +616,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 */
 		function gl_imageFontHeight($font) {
 			global $_gd_freetype_fonts;
-			if ($font > 0) {
+			if (is_object($font) || $font > 0) {
 				return imagefontheight($font);
 			} else {
 				$font = abs($font);

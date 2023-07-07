@@ -28,7 +28,6 @@ if (isset($_GET['f'])) {
 	}
 }
 
-
 if (isset($_GET['p'])) {
 	$size = sanitize_numeric($_GET['p']);
 } else {
@@ -48,7 +47,7 @@ $fw = gl_imageFontWidth($font);
 $fh = gl_imageFontHeight($font);
 
 if (strtoupper(getSuffix($fontname)) == 'TTF') {
-	$leadOffset = - $fh / 4;
+	$leadOffset = - intval($fh / 4);
 	$kernOffset = $fw;
 } else {
 	$leadOffset = 0;
@@ -57,10 +56,10 @@ if (strtoupper(getSuffix($fontname)) == 'TTF') {
 $w = 0;
 $h = $fh = gl_imageFontHeight($font);
 $kerning = min(5, floor($fw / 4) - 1);
-$leading = $fh / 2 - 4;
+$leading = intval($fh / 2 - 4);
 $ink = $lead = $kern = array();
 for ($i = 0; $i < $len; $i++) {
-	$lead[$i] = rand(0, $leading);
+	$lead[$i] = intval(rand(0, $leading));
 	$h = max($h, $fh + $lead[$i] + 5);
 	$kern[$i] = rand(-$kerning, $kerning);
 	$w = $w + $kern[$i] + $fw;
