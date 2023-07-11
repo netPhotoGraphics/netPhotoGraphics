@@ -517,7 +517,7 @@ class feed {
 	protected function getitemPages($item, $len) {
 		$obj = newPage($item['titlelink']);
 		$feeditem['title'] = $feeditem['title'] = get_language_string($obj->getTitle('all'), $this->locale);
-		$feeditem['link'] = $obj->getLink();
+		$feeditem['link'] = FULLHOSTPATH . $obj->getLink();
 		$desc = $obj->getContent($this->locale);
 		$desc = str_replace('//<![CDATA[', '', $desc);
 		$desc = str_replace('//]]>', '', $desc);
@@ -526,7 +526,12 @@ class feed {
 		$feeditem['category'] = '';
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
-		$feeditem['pubdate'] = formattedDate("r", strtotime($obj->getPublishDate()));
+		if ($pubdate = $obj->getPublishDate()) {
+			$feeditem['pubdate'] = formattedDate("r", strtotime($pubdate));
+		} else {
+			$feeditem['pubdate'] = '';
+		}
+
 		return $feeditem;
 	}
 
@@ -552,7 +557,7 @@ class feed {
 				$category = get_language_string($item['albumtitle']);
 				$website = $item['website'];
 				$title = $category . ": " . $title;
-				$commentpath = PROTOCOL . '://' . $this->host . $link . "#_comment_id_" . $item['id'];
+				$commentpath = FULLHOSTPATH . $link . "#_comment_id_" . $item['id'];
 				break;
 			case 'albums':
 				$obj = newAlbum($item['folder']);
@@ -560,7 +565,7 @@ class feed {
 				$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
 				$title = get_language_string($item['albumtitle']);
 				$website = $item['website'];
-				$commentpath = PROTOCOL . '://' . $this->host . $link . "#_comment_id_" . $item['id'];
+				$commentpath = FULLHOSTPATH . $link . "#_comment_id_" . $item['id'];
 				break;
 			case 'news':
 			case 'pages':
@@ -575,7 +580,7 @@ class feed {
 					} else {
 						$obj = newPage($titlelink);
 					}
-					$commentpath = PROTOCOL . '://' . $this->host . html_encode($obj->getLink()) . "#" . $item['id'];
+					$commentpath = FULLHOSTPATH . html_encode($obj->getLink()) . "#" . $item['id'];
 				} else {
 					$commentpath = '';
 				}

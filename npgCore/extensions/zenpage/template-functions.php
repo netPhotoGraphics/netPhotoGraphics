@@ -2165,7 +2165,7 @@ function getLatestZenpageComments($number, $type = "all", $itemID = "") {
 					if ($checkauth && $obj->isMyItem(LIST_RIGHTS)) {
 						$newsshow = '';
 					} else {
-						$excludenews = " AND id != " . $articlecheck['id'];
+						$excludenews = " AND news.id != " . $articlecheck['id'];
 						$newspasswordcheck = $newspasswordcheck . $excludenews;
 					}
 				}
