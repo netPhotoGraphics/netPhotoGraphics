@@ -668,8 +668,9 @@ function getAllAlbums($album = NULL) {
 	global $_current_album, $_gallery;
 	if (is_null($album))
 		$album = $_current_album;
-	if (!is_object($album))
+	if (!is_object($album)) {
 		return;
+	}
 	$list = array();
 	$subalbums = $album->getAlbums(0);
 	if (is_array($subalbums)) {
@@ -678,6 +679,31 @@ function getAllAlbums($album = NULL) {
 			$sub = newAlbum($subalbum);
 			$list = array_merge($list, getAllAlbums($sub));
 		}
+	}
+	return $list;
+}
+
+function getAllImages($album = NULL, $sorttype = NULL, $sortdirection = 'DESC') {
+	global $_current_album;
+	$sortby = trim(lookupSortKey($sorttype, 'filename', 'images'), '`');
+	if (is_null($album))
+		$album = $_current_album;
+	if (!is_object($album)) {
+		return;
+	}
+	$albumsList = getAllAlbums($album);
+	array_unshift($albumsList, $album->name);
+	$list = array();
+	foreach ($albumsList as $subalbums) {
+		$album = newAlbum($subalbums);
+		$images = $album->getImages(0);
+		foreach ($images as $image) {
+			$anImage = newImage($album, $image);
+			$list[] = array('album' => $album->name, 'image' => $image, $sortby => $anImage->get($sortby));
+		}
+	}
+	if ($sortby && !empty($list)) {
+		$list = sortMultiArray($list, $sortby, strtolower($sortdirection) != 'asc');
 	}
 	return $list;
 }
@@ -4502,7 +4528,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
