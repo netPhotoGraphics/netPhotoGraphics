@@ -684,6 +684,15 @@ function getAllAlbums($album = NULL) {
 	return $list;
 }
 
+/**
+ * Returns a list of all images contained in the album and its subalbums recursively
+ *
+ * @global object $_current_album
+ * @param object $album the starting point album
+ * @param string $sorttype the criteria for sorting
+ * @param string $sortdirection "asc" or "desc"
+ * @return array of found images
+ */
 function getAllImages($album = NULL, $sorttype = NULL, $sortdirection = 'DESC') {
 	global $_current_album;
 	$sortby = trim(lookupSortKey($sorttype, 'filename', 'images'), '`');
@@ -4534,7 +4543,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
