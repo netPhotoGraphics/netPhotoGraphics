@@ -581,7 +581,7 @@ class RSS extends feed {
 			$totalimages = $albumobj->getNumImages();
 			$itemlink = $this->host . $albumobj->getLink();
 			$thumb = $albumobj->getAlbumThumbImage();
-			$thumburl = '<img border="0" src="' . PROTOCOL . '://' . $this->host . html_encode($thumb->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($albumobj->getTitle($this->locale)) . '" />';
+			$thumburl = '<img border="0" src="' . FULLHOSTPATH . html_encode($thumb->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($albumobj->getTitle($this->locale)) . '" />';
 			$title = $albumobj->getTitle($this->locale);
 			if ($this->sortorder == "latestupdated") {
 				$filechangedate = filectime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumobj->name));
@@ -610,16 +610,16 @@ class RSS extends feed {
 		} else {
 			$ext = getSuffix($item->localpath);
 			$albumobj = $item->getAlbum();
-			$itemlink = $this->host . $item->getLink();
-			$fullimagelink = $this->host . html_encode($item->getFullImageURL());
-			$thumburl = '<img border="0" src="' . PROTOCOL . '://' . $this->host . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . $item->getTitle($this->locale) . '" /><br />';
+			$itemlink = $item->getLink();
+			$fullimagelink = html_encode($item->getFullImageURL());
+			$thumburl = '<img border="0" src="' . FULLHOSTPATH . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . $item->getTitle($this->locale) . '" /><br />';
 			$title = $item->getTitle($this->locale);
 			$albumtitle = $albumobj->getTitle($this->locale);
 			$datecontent = '<br />Date: ' . formattedDate(DATE_FORMAT, $item->get('mtime'));
 			if ((($ext == "flv") || ($ext == "mp3") || ($ext == "mp4") || ($ext == "3gp") || ($ext == "mov")) AND $this->mode != "album") {
-				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . $datecontent;
+				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . FULLHOSTPATH . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . $datecontent;
 			} else {
-				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . PROTOCOL . '://' . $itemlink . '"><img src="' . PROTOCOL . '://' . $this->host . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($title) . '" /></a>' . $item->getDesc($this->locale) . $datecontent;
+				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . FULLHOSTPATH . $itemlink . '"><img src="' . FULLHOSTPATH . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($title) . '" /></a>' . $item->getDesc($this->locale) . $datecontent;
 			}
 		}
 		// title
@@ -629,12 +629,12 @@ class RSS extends feed {
 			$feeditem['title'] = $imagenumber;
 		}
 		//link
-		$feeditem['link'] = PROTOCOL . '://' . $itemlink;
+		$feeditem['link'] = FULLHOSTPATH . $itemlink;
 
 		// enclosure
 		$feeditem['enclosure'] = '';
 		if (getOption("RSS_enclosure") AND $this->mode != "albums") {
-			$feeditem['enclosure'] = '<enclosure url="' . PROTOCOL . '://' . $fullimagelink . '" type="' . mimeTypes::getType($ext) . '" length="' . filesize($item->localpath) . '" />';
+			$feeditem['enclosure'] = '<enclosure url="' . FULLHOSTPATH . $fullimagelink . '" type="' . mimeTypes::getType($ext) . '" length="' . filesize($item->localpath) . '" />';
 		}
 		//category
 		if ($this->mode != "albums") {
@@ -646,8 +646,8 @@ class RSS extends feed {
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
 		if (getOption("RSS_mediarss") AND $this->mode != "albums") {
-			$feeditem['media_content'] = '<media:content url="' . PROTOCOL . '://' . $fullimagelink . '" type="image/jpeg" />';
-			$feeditem['media_thumbnail'] = '<media:thumbnail url="' . PROTOCOL . '://' . $fullimagelink . '" width="' . $this->imagesize . '"	height="' . $this->imagesize . '" />';
+			$feeditem['media_content'] = '<media:content url="' . FULLHOSTPATH . $fullimagelink . '" type="image/jpeg" />';
+			$feeditem['media_thumbnail'] = '<media:thumbnail url="' . FULLHOSTPATH . $fullimagelink . '" width="' . $this->imagesize . '"	height="' . $this->imagesize . '" />';
 		}
 		//date
 		if ($this->mode != "albums") {
@@ -684,7 +684,7 @@ class RSS extends feed {
 			$feeditem['category'] = html_encode($categories);
 			$feeditem['title'] = $title . ' (' . $categories . ')';
 		}
-		$feeditem['link'] = PROTOCOL . '://' . $this->host . $link;
+		$feeditem['link'] = FULLHOSTPATH . $link;
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
 		$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
@@ -713,7 +713,7 @@ class RSS extends feed {
 			<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 				<channel>
 					<title><![CDATA[<?php echo $this->channel_title; ?>]]></title>
-					<link><?php echo PROTOCOL . '://' . $this->host . WEBPATH; ?></link>
+					<link><?php echo FULLHOSTPATH . WEBPATH; ?></link>
 					<atom:link href="<?php echo PROTOCOL; ?>://<?php echo $this->host; ?><?php echo html_encode(getRequestURI()); ?>" rel="self"	type="application/rss+xml" />
 					<description><![CDATA[<?php echo html_encode(getBare($_gallery->getDesc($this->locale))); ?>]]></description>
 					<language><?php echo $this->locale_xml; ?></language>
