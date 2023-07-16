@@ -666,10 +666,12 @@ function getCurrentPage() {
  */
 function getAllAlbums($album = NULL) {
 	global $_current_album, $_gallery;
-	if (is_null($album))
+	if (is_null($album)) {
 		$album = $_current_album;
-	if (!is_object($album))
+	}
+	if (!is_object($album)) {
 		return;
+	}
 	$list = array();
 	$subalbums = $album->getAlbums(0);
 	if (is_array($subalbums)) {
@@ -677,6 +679,45 @@ function getAllAlbums($album = NULL) {
 			$list[] = $subalbum;
 			$sub = newAlbum($subalbum);
 			$list = array_merge($list, getAllAlbums($sub));
+		}
+	}
+	return $list;
+}
+
+/**
+ * Returns a list of all images contained in the album and its subalbums recursively
+ *
+ * @global object $_current_album
+ * @param object $album the starting point album
+ * @param string $sorttype the criteria for sorting
+ * @param string $sortdirection "asc" or "desc"
+ * @return array of found images
+ */
+function getAllImages($album = NULL, $sorttype = NULL, $sortdirection = 'DESC') {
+	global $_current_album;
+	$sortby = trim(lookupSortKey($sorttype, 'filename', 'images'), '`');
+	if (is_null($album)) {
+		$album = $_current_album;
+	}
+	if (!is_object($album)) {
+		return;
+	}
+	$albumsList = getAllAlbums($album);
+	array_unshift($albumsList, $album->name);
+	$list = array();
+	foreach ($albumsList as $subalbum) {
+		$album = newAlbum($subalbum);
+		$images = $album->getImages(0);
+		foreach ($images as $image) {
+			$anImage = newImage($album, $image);
+			$list[] = array('album' => $album->name, 'image' => $image, $sortby => $anImage->get($sortby));
+		}
+	}
+	if ($sortby && !empty($list)) {
+		if ($sortby == 'RAND()') {
+			shuffle($list);
+		} else {
+			$list = sortMultiArray($list, $sortby, strtolower($sortdirection) != 'asc');
 		}
 	}
 	return $list;

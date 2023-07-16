@@ -349,7 +349,7 @@ class ExternalFeed extends feed {
 		if ($this->mode == "albums") {
 			$albumobj = $item;
 			$totalimages = $albumobj->getNumImages();
-			$itemlink = $this->host . $albumobj->getLink();
+			$itemlink = FULLHOSTPATH . $albumobj->getLink();
 			$thumb = $albumobj->getAlbumThumbImage();
 			$title = $albumobj->getTitle($this->locale);
 
@@ -377,7 +377,7 @@ class ExternalFeed extends feed {
 				$albumobj = $item->getAlbum();
 				$thumb = $item;
 			}
-			$itemlink = $this->host . $item->getLink();
+			$itemlink = $item->getLink();
 			$title = $item->getTitle($this->locale);
 
 			$feeditem['desc'] = $item->getDesc($this->locale);
@@ -386,15 +386,15 @@ class ExternalFeed extends feed {
 		}
 
 		//link
-		$feeditem['link'] = $itemlink;
+		$feeditem['link'] = FULLHOSTPATH . $itemlink;
 
 		//category
 		$feeditem['category'] = html_encode($albumobj->getTitle($this->locale));
 
 		//media content
 
-		$feeditem['media_content'] = '<image url="' . PROTOCOL . '://' . html_encode($thumb->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" />';
-		$feeditem['media_thumbnail'] = '<thumbnail url="' . PROTOCOL . '://' . html_encode($thumb->getThumb()) . '" />';
+		$feeditem['media_content'] = '<image url="' . FULLHOSTPATH . html_encode($thumb->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" />';
+		$feeditem['media_thumbnail'] = '<thumbnail url="' . FULLHOSTPATH . html_encode($thumb->getThumb()) . '" />';
 
 		return $feeditem;
 	}
@@ -427,7 +427,7 @@ class ExternalFeed extends feed {
 			$feeditem['category'] = html_encode($categories);
 			$feeditem['title'] = $title . ' (' . $categories . ')';
 		}
-		$feeditem['link'] = $link;
+		$feeditem['link'] = FULLHOSTPATH . $link;
 		$feeditem['media_content'] = '';
 		$feeditem['media_thumbnail'] = '';
 		$feeditem['pubdate'] = formattedDate("r", strtotime($obj->getPublishDate()));
@@ -513,7 +513,7 @@ class ExternalFeed extends feed {
 				?>
 
 				<channel>
-					<link href="<?php echo PROTOCOL; ?>://<?php echo $this->host; ?><?php echo html_encode(getRequestURI()); ?>" />
+					<link href="<?php echo FULLHOSTPATH . html_encode(getRequestURI()); ?>" />
 					<language><?php echo $this->locale_xml; ?></language>
 					<?php
 					foreach ($feeditems as $feeditem) {
