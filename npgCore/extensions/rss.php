@@ -779,6 +779,7 @@ class RSS extends feed {
 }
 
 function executeRSS() {
+	global $_gallery_page;
 	if (!$_GET['rss']) {
 		$_GET['rss'] = 'gallery';
 	}
