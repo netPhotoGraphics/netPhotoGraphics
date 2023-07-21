@@ -103,7 +103,8 @@ function db_query($sql, $errorstop = true) {
 				while ($row = $result->fetch_assoc()) {
 					$explaination[] = $row;
 				}
-				debugLogVar(["EXPLAIN $sql" => $explaination]);
+				debugLogBacktrace($sql);
+				debugLogVar(["EXPLAIN" => $explaination]);
 			}
 		}
 		if ($result = $_DB_connection->query($sql)) {
@@ -313,7 +314,8 @@ function db_create() {
  */
 function db_permissions() {
 	global $_DB_details;
-	$sql = "SHOW GRANTS;";
+	$sql = "SHOW GRANTS;
+				";
 	$result = db_query($sql, false);
 	if (is_object($result)) {
 		$db_results = array();
@@ -392,7 +394,9 @@ function db_truncate_table($table) {
 }
 
 function db_LIKE_escape($str) {
-	return strtr($str, array('_' => '\\_', '%' => '\\%'));
+	return strtr($str, array('_' => '\\_', '%' => '\\%
+
+				'));
 }
 
 function db_free_result($result) {
