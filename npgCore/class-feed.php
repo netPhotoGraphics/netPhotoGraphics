@@ -487,10 +487,11 @@ class feed {
 						}
 						break;
 					case 'allcomments':
-						$items = getLatestComments($this->itemnumber, 'all');
+						$items_alb = getLatestComments($this->itemnumber, 'album');
+						$items_img = getLatestComments($this->itemnumber, 'image');
 						$items_zenpage = array();
 						if (function_exists('getLatestZenpageComments')) {
-							$items_zenpage = getLatestZenpageComments($this->itemnumber, 'all', $this->id);
+							$items_zenpage = getLatestZenpageComments($this->itemnumber);
 							$items = array_merge($items, $items_zenpage);
 							$items = sortMultiArray($items, 'date', true);
 							$items = array_slice($items, 0, $this->itemnumber);
