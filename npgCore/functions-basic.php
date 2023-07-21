@@ -916,15 +916,11 @@ function getSerializedArray($string) {
 		return array();
 	}
 	if (is_serialized($string)) {
-		try {
-			$strings = unserialize($string, ['allowed_classes' => false]);
-			if (is_array($strings)) {
-				return $strings;
-			}
-			return array($strings);
-		} catch (Exception $e) {
-			debugLogBacktrace($ex->getMessage());
+		$strings = unserialize($string, ['allowed_classes' => false]);
+		if (is_array($strings)) {
+			return $strings;
 		}
+		return array($strings);
 	}
 	return array($string);
 }
