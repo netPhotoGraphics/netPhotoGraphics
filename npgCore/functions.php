@@ -2979,7 +2979,7 @@ class npgFunctions {
 	 * @return string
 	 */
 	static function updateImageProcessorLink($text, $force = false) {
-		if (is_string($text) && preg_match('/^a:[0-9]+:{/', $text)) { //	serialized array
+		if (is_string($text) && is_serialized($text)) {
 			$text = getSerializedArray($text);
 			$serial = true;
 		} else {
