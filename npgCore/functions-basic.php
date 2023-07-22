@@ -920,7 +920,7 @@ function getSerializedArray($string) {
 		if (is_array($strings)) {
 			return $strings;
 		}
-		if ($strings !== false) {
+		if ($strings !== false || $string === 'b:0;') {
 			return array($strings);
 		}
 	}
