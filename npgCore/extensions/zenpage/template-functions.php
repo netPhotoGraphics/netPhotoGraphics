@@ -213,7 +213,12 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
  * @global object $_CMS
  */
 function hasNews() {
-	return getNumNews(TRUE);
+	global $_CMS, $_CMS_current_category;
+	$stack = $_CMS_current_category;
+	$_CMS_current_category = NULL;
+	$c = count($_CMS->getArticles(1));
+	$_CMS_current_category = $stack;
+	return (bool) $c;
 }
 
 /**

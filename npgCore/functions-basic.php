@@ -870,7 +870,7 @@ function clearNPGCookie($name) {
  * @return boolean
  */
 function is_serialized($data) {
-// if it isn't a string, it isn't serialized
+	// if it isn't a string, it isn't serialized
 	if (!is_string($data))
 		return false;
 	$data = trim($data);
@@ -920,7 +920,9 @@ function getSerializedArray($string) {
 		if (is_array($strings)) {
 			return $strings;
 		}
-		return array($strings);
+		if ($strings !== false || $string === 'b:0;') {
+			return array($strings);
+		}
 	}
 	return array($string);
 }

@@ -206,6 +206,7 @@ if (!defined('OFFSET_PATH')) {
 	define('SETUP_PLUGIN', TRUE); //	so the descriptions of class plugins are active
 	require_once(__DIR__ . '/admin-globals.php');
 	require_once(CORE_SERVERPATH . 'template-functions.php');
+	require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 
 	$extension = sanitize($_GET['extension']);
 	if (!in_array($extension, array_keys(getPluginFiles('*.php')))) {
