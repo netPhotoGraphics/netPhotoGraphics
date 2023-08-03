@@ -282,6 +282,7 @@ class cmsFilters {
 		if ($articlestab || $categorystab) {
 			// admin has zenpage rights, provide link to the Zenpage admin tab
 			echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/news.php') . '">' . NEWS_LABEL . '</a></li>';
+			echo '<li><a href="' . getAdminLink(PLUGIN_FOLDER . '/zenpage/categories.php') . '">' . gettext('Categories') . '</a></li>';
 		}
 		if ($pagestab) {
 			echo "<li><a href=\"" . getAdminLink(PLUGIN_FOLDER . '/zenpage/pages.php') . '">' . gettext("Pages") . '</a></li>';
