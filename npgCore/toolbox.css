@@ -51,17 +51,17 @@ Default admin toolbox css
 	color: #036;
 }
 
-#admin_tb a {
-	text-decoration: none;
+#admin_tb a, #admin_tb_data a {
+	text-decoration: none !important;
 }
-#admin_tb a:hover {
+#admin_tb a:hover , #admin_tb_data a:hover{
 	cursor: pointer;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 .adminGear {
 	font-family: Free Serif, Segoe UI Symbol;
 	font-size: 20px;
 }
 .adminGear a:hover {
-	text-decoration: none;
+	text-decoration: none !important;
 }
