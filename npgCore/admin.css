@@ -452,7 +452,7 @@ code {
 }
 
 
-.messagebox, .errorbox, .warningbox, .notebox {
+.messagebox, .errorbox, .warningbox, .notebox .genericbox{
 	width: 94%;
 	padding: 10px 15px 10px 15px;
 	border-width: 1px 1px 2px 1px;
@@ -463,11 +463,11 @@ code {
 	list-style-type: none;
 }
 
-.messagebox li, .errorbox li .warningbox li, .notebox li {
+.messagebox li, .errorbox li .warningbox li, .notebox li .genericbox li{
 	list-style-type: none;
 }
 
-.messagebox h2, .errorbox h2 .warningbox h2, .notebox h2 {
+.messagebox h2, .errorbox h2 .warningbox h2, .notebox h2 .genericbox h2{
 	font-size: 100%;
 	font-weight: bold;
 	margin-bottom: 1em;
@@ -482,6 +482,14 @@ code {
 	color: #006633;
 	font-size: 100%;
 	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+.genericbox {
+	border-color: #8BD37C;
+}
+
+.genericbox h2 {
 	margin-bottom: 1em;
 }
 
@@ -602,7 +610,7 @@ table.bordered th {
 	background-repeat: repeat-x;
 }
 
-.bordered .subhead {
+.bordered subsubhead {
 }
 
 table.bordered tr td {
@@ -860,6 +868,7 @@ table.checkboxes td {
 	background-color: #FAFAFA;
 	border: 1px solid #E5E5E5;
 }
+
 .boxb {
 	padding: 4px;
 	background-color: LightGray;
