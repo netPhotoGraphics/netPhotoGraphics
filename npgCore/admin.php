@@ -396,10 +396,32 @@ $buttonlist = array();
 			}
 		}
 	}
+	if (TEST_RELEASE) {
+		$official = gettext('<em>Debug</em>');
+		$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
+		$v = $debug[0];
+		$debug = explode('_', $debug[1]);
+		array_shift($debug);
+		if (!empty($debug)) {
+			$debug = array_map('strtolower', $debug);
+			$debug = array_map('ucfirst', $debug);
+			$official .= ':</strong> ' . implode(', ', $debug) . '<strong>';
+		}
+	} else {
+		$official = gettext('Production');
+		$v = NETPHOTOGRAPHICS_VERSION;
+	}
 	?>
 	<div id="main">
 		<?php printTabs(); ?>
 		<div id="content">
+			<div id="npgRelease" class="genericbox">
+				<h2 class="subheadline">
+					<a href="<?php echo WEBPATH; ?>/docs/release%20notes.htm" class="doc" title="<?php echo gettext('release notes'); ?>">
+						<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), $v, $official); ?>
+					</a>
+				</h2>
+			</div>
 			<?php
 			/*			 * * HOME ************************************************************************** */
 			/*			 * ********************************************************************************* */
@@ -564,216 +586,195 @@ $buttonlist = array();
 			$buttonlist = array_merge($updates, $buttonlist);
 
 			if (npg_loggedin(OVERVIEW_RIGHTS)) {
-				if (TEST_RELEASE) {
-					$official = gettext('<em>Debug</em>');
-					$debug = explode('-', NETPHOTOGRAPHICS_VERSION);
-					$v = $debug[0];
-					$debug = explode('_', $debug[1]);
-					array_shift($debug);
-					if (!empty($debug)) {
-						$debug = array_map('strtolower', $debug);
-						$debug = array_map('ucfirst', $debug);
-						$official .= ':</strong> ' . implode(', ', $debug) . '<strong>';
-					}
-				} else {
-					$official = gettext('Production');
-					$v = NETPHOTOGRAPHICS_VERSION;
-				}
 				?>
 				<div id="overviewboxes">
-					<div class="box overview-section overview_utilities">
-						<h2 class="h2_bordered">
-							<a href="<?php echo WEBPATH; ?>/docs/release%20notes.htm" class="doc" title="<?php echo gettext('release notes'); ?>">
-								<?php printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), $v, $official); ?>
-							</a>
-						</h2>
-						<?php
-						if (!empty($buttonlist)) {
-							?>
-							<div class="box overview-section overview_utilities">
-								<h2 class="h2_bordered"><?php echo gettext("Utility functions"); ?></h2>
-								<?php
-								$category = '';
-								foreach ($buttonlist as $button) {
+					<?php
+					if (!empty($buttonlist)) {
+						?>
+						<div class="box overview-section overview_utilities">
+							<h2 class="h2_bordered"><?php echo gettext("Utility functions"); ?></h2>
+							<?php
+							$category = '';
+							foreach ($buttonlist as $button) {
 
-									$button_category = $button['category'];
-									$button_icon = $button['icon'];
+								$button_category = $button['category'];
+								$button_icon = $button['icon'];
 
-									$color = '';
-									$disable = false;
-									switch ((int) $button['enable']) {
-										case 0:
-											$disable = ' disabled="disabled"';
-											break;
-										case 2:
-											$color = 'overview_orange';
-											break;
-										case 3:
-											$color = 'overview_red';
-											break;
-										case 4:
-											$color = 'overview_blue"';
-											break;
-									}
-									if ($category != $button_category) {
-										if ($category) {
-											?>
-											</fieldset>
-											<?php
-										}
-										$category = $button_category;
-										?>
-										<fieldset class="overview_utility_buttons_field"><legend><?php echo $category; ?></legend>
-											<?php
-										}
-										?>
-										<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" method="post" class="overview_utility_buttons">
-											<?php
-											if (isset($button['XSRFTag']) && $button['XSRFTag']) {
-												XSRFToken($button['XSRFTag']);
-											}
-											if (isset($button['hidden']) && $button['hidden']) {
-												echo $button['hidden'];
-											}
-											if (isset($button['onclick'])) {
-												$buttonType = 'button';
-												$buttonClick = $button['onclick'];
-											} else {
-												$buttonType = 'submit';
-												$buttonClick = NULL;
-											}
-											if (!empty($button_icon)) {
-												if (strpos($button_icon, 'images/') === 0) {
-													// old style icon image
-													$icon = '<img src="' . $button_icon . '" alt="' . html_encode($button['alt']) . '" />';
-												} else {
-													$icon = $button_icon . ' ';
-												}
-											}
-											if ($disable) {
-												$class = 'fixedwidth tooltip disabled_button';
-											} else {
-												$class = 'fixedwidth tooltip';
-											}
-											?>
-											<div>
-												<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
-											</div><!--buttons -->
-										</form>
-										<?php
-									}
+								$color = '';
+								$disable = false;
+								switch ((int) $button['enable']) {
+									case 0:
+										$disable = ' disabled="disabled"';
+										break;
+									case 2:
+										$color = 'overview_orange';
+										break;
+									case 3:
+										$color = 'overview_red';
+										break;
+									case 4:
+										$color = 'overview_blue"';
+										break;
+								}
+								if ($category != $button_category) {
 									if ($category) {
 										?>
-									</fieldset>
+										</fieldset>
+										<?php
+									}
+									$category = $button_category;
+									?>
+									<fieldset class="overview_utility_buttons_field"><legend><?php echo $category; ?></legend>
+										<?php
+									}
+									?>
+									<form name="<?php echo $button['formname']; ?>"	id="<?php echo $button['formname']; ?>" action="<?php echo $button['action']; ?>" method="post" class="overview_utility_buttons">
+										<?php
+										if (isset($button['XSRFTag']) && $button['XSRFTag']) {
+											XSRFToken($button['XSRFTag']);
+										}
+										if (isset($button['hidden']) && $button['hidden']) {
+											echo $button['hidden'];
+										}
+										if (isset($button['onclick'])) {
+											$buttonType = 'button';
+											$buttonClick = $button['onclick'];
+										} else {
+											$buttonType = 'submit';
+											$buttonClick = NULL;
+										}
+										if (!empty($button_icon)) {
+											if (strpos($button_icon, 'images/') === 0) {
+												// old style icon image
+												$icon = '<img src="' . $button_icon . '" alt="' . html_encode($button['alt']) . '" />';
+											} else {
+												$icon = $button_icon . ' ';
+											}
+										}
+										if ($disable) {
+											$class = 'fixedwidth tooltip disabled_button';
+										} else {
+											$class = 'fixedwidth tooltip';
+										}
+										?>
+										<div>
+											<?php npgButton($buttonType, $icon . ' <span class="overview_buttontext ' . $color . '">' . html_encode($button['button_text']) . '</span>', array('buttonClass' => $class, 'buttonClick' => $buttonClick, 'disable' => $disable, 'buttonTitle' => html_encode($button['title']))); ?>
+										</div><!--buttons -->
+									</form>
 									<?php
 								}
-								?>
-							</div><!-- overview-section -->
-							<?php
-						}
-						?>
-						<div class="box overview-section overiew-gallery-stats">
-							<h2 class="h2_bordered"><?php echo gettext("Gallery Stats"); ?></h2>
-							<ul>
-								<li>
-									<?php
-									$t = $_gallery->getNumAlbums(true);
-									$c = $t - $_gallery->getNumAlbums(true, true);
-									if ($c > 0) {
-										printf(ngettext('<strong>%1$u</strong> Album (%2$u un-published)', '<strong>%1$u</strong> Albums (%2$u un-published)', $t), $t, $c);
-									} else {
-										printf(ngettext('<strong>%u</strong> Album', '<strong>%u</strong> Albums', $t), $t);
-									}
+								if ($category) {
 									?>
-								</li>
-								<li>
-									<?php
-									$t = $_gallery->getNumImages();
-									$c = $t - $_gallery->getNumImages(true);
-									if ($c > 0) {
-										printf(ngettext('<strong>%1$u</strong> Image (%2$u un-published)', '<strong>%1$u</strong> Images (%2$u un-published)', $t), $t, $c);
-									} else {
-										printf(ngettext('<strong>%u</strong> Image', '<strong>%u</strong> Images', $t), $t);
-									}
-									?>
-								</li>
+								</fieldset>
 								<?php
-								if (class_exists('CMS')) {
-									?>
-									<li>
-										<?php printPagesStatistic(); ?>
-									</li>
-									<li>
-										<?php printCategoriesStatistic(); ?>
-									</li>
-									<li>
-										<?php printNewsStatistic(); ?>
-									</li>
-									<?php
-								}
-								?>
-								<li>
-									<?php
-									$t = $_gallery->getNumComments(true);
-									$c = $t - $_gallery->getNumComments(false);
-									if ($c > 0) {
-										printf(ngettext('<strong>%1$u</strong> Comment (%2$u in moderation)', '<strong>%1$u</strong> Comments (%2$u in moderation)', $t), $t, $c);
-									} else {
-										printf(ngettext('<strong>%u</strong> Comment', '<strong>%u</strong> Comments', $t), $t);
-									}
-									?>
-								</li>
-								<li>
-									<?php
-									$t = $_authority->count('allusers');
-									$c = $_authority->count('admin_other');
-									if ($c) {
-										printf(ngettext('<strong>%1$u</strong> User (%2$u expired)', '<strong>%1$u</strong> Users (%2$u expired)', $t), $t, $c);
-									} else {
-										printf(ngettext('<strong>%u</strong> User', '<strong>%u</strong> Users', $t), $t);
-									}
-									?>
-								</li>
-
-								<?php
-								$g = $_authority->count('user_groups');
-								$t = $_authority->count('group_templates');
-								if ($g) {
-									?>
-									<li>
-										<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
-									</li>
-									<?php
-								}
-								if ($t) {
-									?>
-									<li>
-										<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
-									</li>
-									<?php
-								}
-								?>
-							</ul>
-						</div><!-- overview-gallerystats -->
-
+							}
+							?>
+						</div><!-- overview-section -->
 						<?php
-						npgFilters::apply('admin_overview');
-						?>
-					</div><!-- boxouter -->
-				</div><!-- content -->
-				<?php
-			} else {
-				?>
-				<div class="errorbox">
-					<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
-				</div>
-				<?php
-			}
+					}
+					?>
+					<div class="box overview-section overiew-gallery-stats">
+						<h2 class="h2_bordered"><?php echo gettext("Gallery Stats"); ?></h2>
+						<ul>
+							<li>
+								<?php
+								$t = $_gallery->getNumAlbums(true);
+								$c = $t - $_gallery->getNumAlbums(true, true);
+								if ($c > 0) {
+									printf(ngettext('<strong>%1$u</strong> Album (%2$u un-published)', '<strong>%1$u</strong> Albums (%2$u un-published)', $t), $t, $c);
+								} else {
+									printf(ngettext('<strong>%u</strong> Album', '<strong>%u</strong> Albums', $t), $t);
+								}
+								?>
+							</li>
+							<li>
+								<?php
+								$t = $_gallery->getNumImages();
+								$c = $t - $_gallery->getNumImages(true);
+								if ($c > 0) {
+									printf(ngettext('<strong>%1$u</strong> Image (%2$u un-published)', '<strong>%1$u</strong> Images (%2$u un-published)', $t), $t, $c);
+								} else {
+									printf(ngettext('<strong>%u</strong> Image', '<strong>%u</strong> Images', $t), $t);
+								}
+								?>
+							</li>
+							<?php
+							if (class_exists('CMS')) {
+								?>
+								<li>
+									<?php printPagesStatistic(); ?>
+								</li>
+								<li>
+									<?php printCategoriesStatistic(); ?>
+								</li>
+								<li>
+									<?php printNewsStatistic(); ?>
+								</li>
+								<?php
+							}
+							?>
+							<li>
+								<?php
+								$t = $_gallery->getNumComments(true);
+								$c = $t - $_gallery->getNumComments(false);
+								if ($c > 0) {
+									printf(ngettext('<strong>%1$u</strong> Comment (%2$u in moderation)', '<strong>%1$u</strong> Comments (%2$u in moderation)', $t), $t, $c);
+								} else {
+									printf(ngettext('<strong>%u</strong> Comment', '<strong>%u</strong> Comments', $t), $t);
+								}
+								?>
+							</li>
+							<li>
+								<?php
+								$t = $_authority->count('allusers');
+								$c = $_authority->count('admin_other');
+								if ($c) {
+									printf(ngettext('<strong>%1$u</strong> User (%2$u expired)', '<strong>%1$u</strong> Users (%2$u expired)', $t), $t, $c);
+								} else {
+									printf(ngettext('<strong>%u</strong> User', '<strong>%u</strong> Users', $t), $t);
+								}
+								?>
+							</li>
+
+							<?php
+							$g = $_authority->count('user_groups');
+							$t = $_authority->count('group_templates');
+							if ($g) {
+								?>
+								<li>
+									<?php printf(ngettext('<strong>%u</strong> Group', '<strong>%u</strong> Groups', $g), $g); ?>
+								</li>
+								<?php
+							}
+							if ($t) {
+								?>
+								<li>
+									<?php printf(ngettext('<strong>%u</strong> Template', '<strong>%u</strong> Templates', $t), $t); ?>
+								</li>
+								<?php
+							}
+							?>
+						</ul>
+					</div><!-- overview-gallerystats -->
+
+					<?php
+					npgFilters::apply('admin_overview');
+					?>
+				</div><!-- boxouter -->
+			</div><!-- content -->
+			<?php
+		} else {
 			?>
-		</div>
-		<br clear="all">
-		<?php printAdminFooter(); ?>
-	</div><!-- main -->
+			<div class="errorbox">
+				<?php echo gettext('Your user rights do not allow access to administrative functions.'); ?>
+			</div>
+			<?php
+		}
+		?>
+	</div>
+	<br clear="all">
+	<?php printAdminFooter(); ?>
+</div><!-- main -->
 </body>
 <?php
 // to fool the validator
