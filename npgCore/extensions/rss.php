@@ -301,7 +301,7 @@ function getRSSLink($option, $lang = NULL, $addl = NULL) {
 			$link['user'] = (string) $_current_admin_obj->getID();
 			$link['token'] = rss::generateToken($link);
 		}
-		$uri = WEBPATH . '/index.php?' . rtrim(str_replace('=&', '&', http_build_query($link)), '=');
+		$uri = FULLWEBPATH . '/index.php?' . rtrim(str_replace('=&', '&', http_build_query($link)), '=');
 		return $uri;
 	}
 	return NULL;
