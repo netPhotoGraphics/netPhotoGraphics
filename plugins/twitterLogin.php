@@ -86,6 +86,16 @@ class twitterLogin extends oAuthLogin {
 
 	}
 
+	/**
+	 * Provides a list of alternate handlers for logon
+	 * @param $handler_list
+	 */
+	static function alt_login_handler($handler_list) {
+		$link = getAdminLink(USER_PLUGIN_FOLDER . '/twitterLogin/twitter.php');
+		$handler_list['Twitter'] = array('script' => $link, 'params' => array('request=login'));
+		return $handler_list;
+	}
+
 }
 
 ?>
