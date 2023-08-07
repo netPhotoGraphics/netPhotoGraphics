@@ -6059,7 +6059,7 @@ function getPluginTabs() {
 					unset($thirdparty[$plugin]);
 				}
 			}
-			$details[$plugin]['thridparty'] = $tpp;
+			$details[$plugin]['thirdparty'] = $tpp;
 		}
 	}
 
