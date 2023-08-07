@@ -28,6 +28,7 @@
  *
  * @author Stephen Billard (sbillard)
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @deprecated since 2.00.18 no longer supported
  *
  * @package plugins/twitterLogin
  * @pluginCategory users
