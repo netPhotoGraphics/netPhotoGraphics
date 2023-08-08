@@ -48,7 +48,7 @@ class Oauth2 extends \Google\Service
   public $userinfo;
   public $userinfo_v2_me;
   private $base_methods;
-	public $servicePath;
+
   /**
    * Constructs the internal representation of the Oauth2 service.
    *
