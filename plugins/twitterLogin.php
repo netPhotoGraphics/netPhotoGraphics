@@ -11,7 +11,7 @@
  * {@link https://apps.twitter.com/ Twitter Application Management}
  *
  * You will need to set a <i>Callback URL</i> that
- * points to <var>%FULLWEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/twitterLogin/twitter.php</var>
+ * points to <var>%FULLWEBPATH%/%USER_PLUGIN_PATH%/twitterLogin/twitter.php</var>
  *
  * For Twitter to return the user's e-mail address you will need to go to the permissions tab
  * for the app you defined above and check <i>Request email addresses from users</i> under
