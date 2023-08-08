@@ -255,7 +255,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 					$details = $pluginDetails[$extension];
 					$parserr = 0;
 					$plugin_URL = getAdminLink('pluginDoc.php') . '?extension=' . $extension;
-					switch ($details['thridparty']) {
+					switch ($details['thirdparty']) {
 						case 0:
 							$whose = gettext('Official plugin');
 							$ico = '<span class="font_icon"><img src="' . WEBPATH . '/' . CORE_FOLDER . '/images/np_gold.png" alt="logo" title="' . $whose . '" /></span>';
@@ -473,7 +473,7 @@ npgFilters::apply('admin_note', 'plugins', '');
 									</a>
 								</span>
 								<?php
-								if (npgFunctions::hasPrimaryScripts() && ($plugin_default == 'thirdparty' || $plugin_default == 'deprecated')) {
+								if (npgFunctions::hasPrimaryScripts() && ($plugin_default == 'thirdparty' || ($plugin_default == 'deprecated') && $details['thirdparty'])) {
 									?>
 									<span class="icons">
 										<?php

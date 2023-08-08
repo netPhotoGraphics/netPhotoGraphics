@@ -11,7 +11,7 @@
  * {@link https://apps.twitter.com/ Twitter Application Management}
  *
  * You will need to set a <i>Callback URL</i> that
- * points to <var>%FULLWEBPATH%/%CORE_PATH%/%PLUGIN_PATH%/twitterLogin/twitter.php</var>
+ * points to <var>%FULLWEBPATH%/%USER_PLUGIN_PATH%/twitterLogin/twitter.php</var>
  *
  * For Twitter to return the user's e-mail address you will need to go to the permissions tab
  * for the app you defined above and check <i>Request email addresses from users</i> under
@@ -28,6 +28,7 @@
  *
  * @author Stephen Billard (sbillard)
  * @Copyright 2017 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @deprecated since 2.00.18 no longer supported
  *
  * @package plugins/twitterLogin
  * @pluginCategory users
@@ -83,6 +84,16 @@ class twitterLogin extends oAuthLogin {
 	 */
 	function handleOption($option, $currentValue) {
 
+	}
+
+	/**
+	 * Provides a list of alternate handlers for logon
+	 * @param $handler_list
+	 */
+	static function alt_login_handler($handler_list) {
+		$link = getAdminLink(USER_PLUGIN_FOLDER . '/twitterLogin/twitter.php');
+		$handler_list['Twitter'] = array('script' => $link, 'params' => array('request=login'));
+		return $handler_list;
 	}
 
 }

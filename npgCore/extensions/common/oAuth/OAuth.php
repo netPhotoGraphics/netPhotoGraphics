@@ -12,6 +12,7 @@ class OAuthConsumer {
 
 	public $key;
 	public $secret;
+	public $callback_url;
 
 	function __construct($key, $secret, $callback_url = NULL) {
 		$this->key = $key;
@@ -114,8 +115,8 @@ class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod {
 		$request->base_string = $base_string;
 
 		$key_parts = array(
-						$consumer->secret,
-						($token) ? $token->secret : ""
+				$consumer->secret,
+				($token) ? $token->secret : ""
 		);
 
 		$key_parts = OAuthUtil::urlencode_rfc3986($key_parts);
@@ -148,8 +149,8 @@ class OAuthSignatureMethod_PLAINTEXT extends OAuthSignatureMethod {
 	 */
 	public function build_signature($request, $consumer, $token) {
 		$key_parts = array(
-						$consumer->secret,
-						($token) ? $token->secret : ""
+				$consumer->secret,
+				($token) ? $token->secret : ""
 		);
 
 		$key_parts = OAuthUtil::urlencode_rfc3986($key_parts);
@@ -180,13 +181,13 @@ abstract class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod {
 	// (2) fetch via http using a url provided by the requester
 	// (3) some sort of specific discovery code based on request
 	//
-  // Either way should return a string representation of the certificate
+	// Either way should return a string representation of the certificate
 	protected abstract function fetch_public_cert(&$request);
 
 	// Up to the SP to implement this lookup of keys. Possible ideas are:
 	// (1) do a lookup in a table of trusted certs keyed off of consumer
 	//
-  // Either way should return a string representation of the certificate
+	// Either way should return a string representation of the certificate
 	protected abstract function fetch_private_cert(&$request);
 
 	public function build_signature($request, $consumer, $token) {
@@ -299,10 +300,10 @@ class OAuthRequest {
 	 */
 	public static function from_consumer_and_token($consumer, $token, $http_method, $http_url, $parameters = NULL) {
 		@$parameters or $parameters = array();
-		$defaults = array("oauth_version"			 => OAuthRequest::$version,
-						"oauth_nonce"				 => OAuthRequest::generate_nonce(),
-						"oauth_timestamp"		 => OAuthRequest::generate_timestamp(),
-						"oauth_consumer_key" => $consumer->key);
+		$defaults = array("oauth_version" => OAuthRequest::$version,
+				"oauth_nonce" => OAuthRequest::generate_nonce(),
+				"oauth_timestamp" => OAuthRequest::generate_timestamp(),
+				"oauth_consumer_key" => $consumer->key);
 		if ($token)
 			$defaults['oauth_token'] = $token->key;
 
@@ -364,9 +365,9 @@ class OAuthRequest {
 	 */
 	public function get_signature_base_string() {
 		$parts = array(
-						$this->get_normalized_http_method(),
-						$this->get_normalized_http_url(),
-						$this->get_signable_parameters()
+				$this->get_normalized_http_method(),
+				$this->get_normalized_http_url(),
+				$this->get_signable_parameters()
 		);
 
 		$parts = OAuthUtil::urlencode_rfc3986($parts);
@@ -487,7 +488,7 @@ class OAuthRequest {
 class OAuthServer {
 
 	protected $timestamp_threshold = 300; // in seconds, five minutes
-	protected $version = '1.0';			 // hi blaine
+	protected $version = '1.0';		// hi blaine
 	protected $signature_methods = array();
 	protected $data_store;
 
@@ -555,6 +556,7 @@ class OAuthServer {
 	}
 
 	// Internals from here
+
 	/**
 	 * version 1
 	 */
@@ -585,9 +587,9 @@ class OAuthServer {
 
 		if (!in_array($signature_method, array_keys($this->signature_methods))) {
 			throw new OAuthExcept(
-			"Signature method '$signature_method' not supported " .
-			"try one of the following: " .
-			implode(", ", array_keys($this->signature_methods))
+											"Signature method '$signature_method' not supported " .
+											"try one of the following: " .
+											implode(", ", array_keys($this->signature_methods))
 			);
 		}
 		return $this->signature_methods[$signature_method];
@@ -654,14 +656,14 @@ class OAuthServer {
 	private function check_timestamp($timestamp) {
 		if (!$timestamp)
 			throw new OAuthExcept(
-			'Missing timestamp parameter. The parameter is required'
+											'Missing timestamp parameter. The parameter is required'
 			);
 
 		// verify that timestamp is recentish
 		$now = time();
 		if (abs($now - $timestamp) > $this->timestamp_threshold) {
 			throw new OAuthExcept(
-			"Expired timestamp, yours $timestamp, ours $now"
+											"Expired timestamp, yours $timestamp, ours $now"
 			);
 		}
 	}
@@ -672,7 +674,7 @@ class OAuthServer {
 	private function check_nonce($consumer, $token, $nonce, $timestamp) {
 		if (!$nonce)
 			throw new OAuthExcept(
-			'Missing nonce parameter. The parameter is required'
+											'Missing nonce parameter. The parameter is required'
 			);
 
 		// verify that the nonce is uniqueish

@@ -40,7 +40,7 @@ class oAuthLogin {
 		}
 
 		$options = array(
-				gettext('Assign user to') => array('key' => 'twitterLogin_group', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Assign user to') => array('key' => get_called_class() . '_group', 'type' => OPTION_TYPE_SELECTOR,
 						'order' => 0,
 						'selections' => $ordered,
 						'desc' => gettext('The user group to which to map the user.'))

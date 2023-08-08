@@ -643,6 +643,10 @@ plugins/titlelinkMigration/
 plugins/titlelinkMigration/logo.png
 plugins/titlelinkMigration/migrate.php
 plugins/titlelinkMigration.php
+plugins/twitterLogin/
+plugins/twitterLogin/login_button.png
+plugins/twitterLogin/twitter.php
+plugins/twitterLogin.php
 plugins/utf8mb4Migration/
 plugins/utf8mb4Migration/logo.png
 plugins/utf8mb4Migration/migrate.php
@@ -861,7 +865,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/touchPunch.php
 %extensions%/translateButton.php
 %extensions%/trivialSpam.php
-%extensions%/twitterLogin.php
 %extensions%/uploader_http.php
 %extensions%/uploader_jQuery.php
 %extensions%/user-expiry.php
@@ -19956,9 +19959,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/themes/mobile/theme.min.js
 %extensions%/tinymce/themes/silver
 %extensions%/tinymce/themes/silver/theme.min.js
-%extensions%/twitterLogin
-%extensions%/twitterLogin/login_button.png
-%extensions%/twitterLogin/twitter.php
 %extensions%/uploader_http
 %extensions%/uploader_http/httpupload.css
 %extensions%/uploader_http/httpupload.js

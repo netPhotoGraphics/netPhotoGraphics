@@ -9,10 +9,10 @@
  *
  * @package plugins/twitterLogin
  */
-if (!defined('OFFSET_PATH'))
-	define('OFFSET_PATH', 4);
-require_once(dirname(dirname(__DIR__)) . '/admin-functions.php');
-
+if (!defined('OFFSET_PATH')) {
+	define('OFFSET_PATH', 3);
+}
+require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-globals.php");
 npg_session_start();
 
 define('CONSUMER_KEY', getOption('tweet_news_consumer')); // YOUR CONSUMER KEY
@@ -34,16 +34,18 @@ require_once(CORE_SERVERPATH . PLUGIN_FOLDER . "/common/oAuth/twitteroauth.php")
 $error = '';
 
 if (isset($_GET['request'])) {
-//Fresh authentication
+	//Fresh authentication
 	$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-	$request_token = $connection->getRequestToken(OAUTH_CALLBACK);
 
-//Received token info from twitter
-	$_SESSION['token'] = $request_token['oauth_token'];
-	$_SESSION['token_secret'] = $request_token['oauth_token_secret'];
-
-//Any value other than 200 is failure, so continue only if http code is 200
+	//Any value other than 200 is failure, so continue only if http code is 200
 	if ($connection->http_code == '200') {
+
+		$request_token = $connection->getRequestToken(OAUTH_CALLBACK);
+
+		//Received token info from twitter
+		$_SESSION['token'] = $request_token['oauth_token'];
+		$_SESSION['token_secret'] = $request_token['oauth_token_secret'];
+
 		//redirect user to twitter
 		$twitter_url = $connection->getAuthorizeURL($request_token['oauth_token']);
 		header('Location: ' . $twitter_url);
@@ -63,12 +65,12 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['token'] == $_REQUEST['oauth_to
 
 		twitterLogin::credentials($user_data['id'], isset(user_data['email']) ? $user_data['email'] : NULL, $user_data['name'], $_SESSION['redirect']);
 	}
-	if (empty($error)) {
-		$error = gettext('Twitter authorization failed.');
-	}
-
-	session_unset();
-	header('Location: ' . getAdminLink('admin.php') . '?_login_error=' . html_encode($error));
-	exit();
 }
+if (empty($error)) {
+	$error = gettext('Twitter authorization failed.');
+}
+
+session_unset();
+header('Location: ' . getAdminLink('admin.php') . '?_login_error=' . html_encode($error));
+exit();
 ?>

@@ -41,13 +41,12 @@ define('NEWLINE', "\n");
 
 define('SCRIPTPATH', str_replace('\\', '/', dirname(__DIR__)));
 
-//Note: these defines are for web path use only, they are rewritten to CORE_FOLDER and PLUGIN_FOLDER
 define('CORE_PATH', 'npg');
-define('PLUGIN_PATH', 'extensions');
-define('USER_PLUGIN_PATH', 'extensions');
 define('CORE_FOLDER', basename(__DIR__));
+define('PLUGIN_PATH', 'extensions');
 define('PLUGIN_FOLDER', PLUGIN_PATH);
 define('COMMON_FOLDER', PLUGIN_FOLDER . '/common');
+define('USER_PLUGIN_PATH', 'extensions');
 define('USER_PLUGIN_FOLDER', 'plugins');
 define('ALBUMFOLDER', 'albums');
 define('THEMEFOLDER', 'themes');
