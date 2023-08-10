@@ -1088,6 +1088,12 @@ class xmpMetadata {
 					$output = false;
 				}
 
+				if (is_serialized($v)) {
+					$va = getSerializedArray($v);
+					if (count($va) <= 1) {
+						$v = reset($va);
+					}
+				}
 				$v = self::encode($v);
 				$tag = $elementXML;
 				switch ($elementXML) {
