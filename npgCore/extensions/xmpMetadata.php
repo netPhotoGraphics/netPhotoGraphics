@@ -671,13 +671,13 @@ class xmpMetadata {
 	 */
 	private static function extract($xmpdata) {
 		$desiredtags = array(
-				'owner' => '<zp:owner>',
-				'thumb' => '<zp:thumbnail>',
-				'watermark' => '<zp:watermark>',
-				'watermark_use' => '<zp:watermark_use>',
-				'watermark_thumb' => '<zp:watermark_thumb>',
-				'custom_data' => '<zp:customData',
-				'codeblock' => '<zp:codeblock>'
+				'owner' => '<npg:owner>',
+				'thumb' => '<npg:thumbnail>',
+				'watermark' => '<npg:watermark>',
+				'watermark_use' => '<npg:watermark_use>',
+				'watermark_thumb' => '<npg:watermark_thumb>',
+				'custom_data' => '<npg:customData',
+				'codeblock' => '<npg:codeblock>'
 		);
 
 		foreach (self::getMetadataFields()as $field => $item) {
@@ -688,7 +688,8 @@ class xmpMetadata {
 			$s = strpos($xmpdata, '<');
 			$e = strpos($xmpdata, '>', $s);
 			$tag = substr($xmpdata, $s, $e - $s + 1);
-			$key = array_search(strtolower($tag), $desiredtags);
+			//	also handle zenphoto XMP files!
+			$key = array_search(strtolower(preg_replace('~^\<zp:~i', '<npg:', $tag)), $desiredtags);
 			$xmpdata = substr($xmpdata, $e + 1);
 			if ($key !== false) {
 				$close = str_replace('<', '</', $tag);
@@ -931,11 +932,11 @@ class xmpMetadata {
 								switch ($field) {
 									case 'XMPSource':
 										if (!isset($metadata['XMPImageCredit'])) {
-											$this->set('credit', $v);
+											$image->set('credit', $v);
 										}
 										break;
 									case 'XMPImageCredit':
-										$this->set('credit', $v);
+										$image->set('credit', $v);
 										break;
 									case 'XMPImageHeadline':
 										if (getoption('transform_newlines')) {
@@ -1051,13 +1052,13 @@ class xmpMetadata {
 				'country' => '<photoshop:Country>',
 				'title' => '<photoshop:Headline>',
 				'credit' => '<photoshop:Credit>',
-				'thumb' => '<zp:Thumbnail>',
-				'owner' => '<zp:Owner>',
-				'watermark' => '<zp:Watermark>',
-				'watermark_use' => '<zp:Watermark_use>',
-				'watermark_thumb' => '<zp:Watermark_thumb>',
-				'custom_data' => '<zp:CustomData>',
-				'codeblock' => '<zp:Codeblock>',
+				'thumb' => '<npg:Thumbnail>',
+				'owner' => '<npg:Owner>',
+				'watermark' => '<npg:Watermark>',
+				'watermark_use' => '<npg:Watermark_use>',
+				'watermark_thumb' => '<npg:Watermark_thumb>',
+				'custom_data' => '<npg:CustomData>',
+				'codeblock' => '<npg:Codeblock>',
 				'date' => '<exif:DateTimeOriginal>',
 				'rating' => '<MicrosoftPhoto:Rating>'
 		);
@@ -1089,9 +1090,11 @@ class xmpMetadata {
 				}
 
 				if (is_serialized($v)) {
-					$va = getSerializedArray($v);
-					if (count($va) <= 1) {
-						$v = reset($va);
+					if ($elementXML != 'npg:Codeblock') {
+						$va = getSerializedArray($v);
+						if (count($va) <= 1) {
+							$v = reset($va);
+						}
 					}
 				}
 				$v = self::encode($v);
