@@ -83,7 +83,7 @@ if (isset($_GET['action'])) {
 			}
 			$return = sanitize_path($r);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album=' . pathurlencode($return);
 				if (strpos($r, '*') === 0) {
 					$return .= '&tab=subalbuminfo';
 				}
@@ -155,7 +155,7 @@ if (isset($_GET['action'])) {
 				$pg = '';
 				$tab = '';
 			}
-			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . $folder . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
+			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($folder) . $pg . '&tagsort=' . html_encode($tagsort) . $tab);
 			exit();
 			break;
 
@@ -169,7 +169,7 @@ if (isset($_GET['action'])) {
 				$album = sanitize_path($_POST['album']);
 			}
 			Gallery::clearCache($album);
-			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&cleared&album=' . $album);
+			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&cleared&album=' . pathurlencode($album));
 			exit();
 			break;
 		case 'comments':
@@ -179,7 +179,7 @@ if (isset($_GET['action'])) {
 			$album->save();
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album=' . pathurlencode($return);
 				if (strpos($r, '*') === 0) {
 					$return .= '&tab=subalbuminfo';
 				}
@@ -197,7 +197,7 @@ if (isset($_GET['action'])) {
 			$album->save();
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album=' . pathurlencode($return);
 				if (strpos($r, '*') === 0) {
 					$return .= '&tab=subalbuminfo';
 				}
@@ -215,7 +215,7 @@ if (isset($_GET['action'])) {
 			$imgwhere = ' WHERE `albumid`=' . $id;
 			$return = sanitize_path($r = $_GET['return']);
 			if (!empty($return)) {
-				$return = '&album=' . $return;
+				$return = '&album=' . pathurlencode($return);
 				if (strpos($r, '*') === 0) {
 					$return .= '&tab=subalbuminfo';
 				}
@@ -373,7 +373,7 @@ if (isset($_GET['action'])) {
 				if (isset($_POST['totalimages']) && $album->exists) {
 					require_once(CORE_SERVERPATH . 'admin-tabs/image_save.php');
 					if (isset($single)) {
-						$qs_albumsuffix = '&album=' . $album->name . '&singleimage=' . $single;
+						$qs_albumsuffix = '&album=' . pathurlencode($album->name) . '&singleimage=' . $single;
 					}
 				}
 				if (!is_null($returnalbum)) {
@@ -398,7 +398,7 @@ if (isset($_GET['action'])) {
 				}
 				$qs_albumsuffix = '&tab=massedit';
 				if (isset($_GET['album'])) {
-					$qs_albumsuffix = '&album=' . sanitize($_GET['album']) . $qs_albumsuffix;
+					$qs_albumsuffix = '&album=' . pathurlencode(sanitize($_GET['album'])) . $qs_albumsuffix;
 				}
 			}
 
@@ -421,6 +421,7 @@ if (isset($_GET['action'])) {
 				header('Location: ' . $link);
 				exit();
 			}
+
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit' . $qs_albumsuffix . $bulknotify . $notify . $pg . $returntab);
 			exit();
 			break;
@@ -568,7 +569,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 				tags: imagedbfields
 			});
 		});
-		
+
 	</script>
 	<?php
 }
@@ -613,7 +614,7 @@ if ($subtab == 'imageinfo') {
 ?>
 		resizeTable();
 	}, false);
-	
+
 </script>
 
 <?php

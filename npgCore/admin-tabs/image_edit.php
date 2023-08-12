@@ -308,7 +308,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 										?>
 										<tr>
 											<td colspan="100%" style="border-bottom:none;">
-												<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit&tab=imageinfo&album=' . urlencode($album->name) . '&singleimage=' . urlencode($image->filename) . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
+												<a href="<?php echo getAdminLink('admin-tabs/edit.php') . '?page=edit&tab=imageinfo&album=' . pathurlencode($album->name) . '&singleimage=' . urlencode($image->filename) . '&subpage=' . $pagenum; ?>&filter=<?php echo $filter; ?>">
 													<?php echo PENCIL_ICON; ?>
 													<?php echo gettext('Edit all image data'); ?>
 												</a>
