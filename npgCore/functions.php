@@ -107,7 +107,7 @@ function checkObjectsThumb($localpath) {
  * @return string
  */
 function truncate_string($string, $length, $elipsis = '...') {
-	if (mb_strlen($string) > $length) {
+	if ($string && mb_strlen($string) > $length) {
 		$string = mb_substr($string, 0, $length);
 		$pos = mb_strrpos(strtr($string, array('~' => ' ', '!' => ' ', '@' => ' ', '#' => ' ', '$' => ' ', '%' => ' ', '^' => ' ', '&' => ' ', '*' => ' ', '(' => ' ', ')' => ' ', '+' => ' ', '=' => ' ', '-' => ' ', '{' => ' ', '}' => ' ', '[' => ' ', ']' => ' ', '|' => ' ', ':' => ' ', ';' => ' ', '<' => ' ', '>' => ' ', '.' => ' ', '?' => ' ', '/' => ' ', '\\', '\\' => ' ', "'" => ' ', "`" => ' ', '"' => ' ')), ' ');
 		if ($pos === FALSE) {
@@ -219,7 +219,7 @@ function html_encodeTagged($original, $allowScript = true) {
  */
 function shortenContent($articlecontent, $shorten = TRUNCATE_LENGTH, $shortenindicator = NULL) {
 	//conservatve check if the string is too long.
-	if ($shorten && (mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
+	if ($shorten && ($articlecontent && mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
 		if (is_null($shortenindicator)) {
 			$shortenindicator = getOption("CMS_textshorten_indicator");
 		}
