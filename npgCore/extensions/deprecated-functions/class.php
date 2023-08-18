@@ -212,7 +212,7 @@ class deprecated_functions {
 		self::notify($message, $method);
 	}
 
-	static function logZPCore($uri) {
+	static function logCore($uri) {
 		$parts = mb_parse_url($uri);
 		$use = ltrim(str_replace(WEBPATH, '', $parts['path']), '/');
 		$use = strtr($use, array('zp-core/zp-extensions' => 'zp-extensions', 'zp-core/' => ''));

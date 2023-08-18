@@ -321,7 +321,7 @@ if (defined('MOD_REWRITE') && MOD_REWRITE && OFFSET_PATH != 2) {
 	if (strpos($parts['path'], 'zp-core') !== FALSE) {
 		//	deprecated use of zp-core in URL
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions/class.php');
-		deprecated_functions::logZPCore($uri, '');
+		deprecated_functions::logCore($uri, '');
 	}
 }
 
