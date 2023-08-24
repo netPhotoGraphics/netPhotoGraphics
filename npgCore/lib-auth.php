@@ -287,7 +287,7 @@ class _Authority {
 				$hash = sha1($user . $pass . HASH_SEED);
 				break;
 			case 2:
-//	deprecated because of possible "+" in the text
+				//	deprecated because of possible "+" in the text
 				$hash = base64_encode(self::pbkdf2($pass, $user . HASH_SEED));
 				break;
 			case 3:
@@ -585,7 +585,7 @@ class _Authority {
 			}
 
 			if ($userobj && $type < PASSWORD_FUNCTION_DEFAULT) {
-//	update his password hash to more modern one
+				//	update his password hash to more modern one
 				$userobj->setPass($pass);
 				$userobj->save();
 			}
@@ -685,15 +685,15 @@ class _Authority {
 						$newrights = $currentrights['ALL_RIGHTS']['value'];
 					} else {
 						if ($newrights & $currentrights['MANAGE_ALL_ALBUM_RIGHTS']['value']) {
-// these are lock-step linked!
+							// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ALBUM_RIGHTS']['value'];
 						}
 						if ($newrights & $currentrights['MANAGE_ALL_NEWS_RIGHTS']['value']) {
-// these are lock-step linked!
+							// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ZENPAGE_NEWS_RIGHTS']['value'];
 						}
 						if ($newrights & $currentrights['MANAGE_ALL_PAGES_RIGHTS']['value']) {
-// these are lock-step linked!
+							// these are lock-step linked!
 							$newrights = $newrights | $currentrights['ZENPAGE_PAGES_RIGHTS']['value'];
 						}
 					}
@@ -1101,7 +1101,7 @@ class _Authority {
 					$ref = sha1($request_date . $user . $tuser['pass']);
 					if ($ref === $ticket) {
 						if (time() <= ($request_date + (3 * 24 * 60 * 60))) {
-// limited time offer
+							// limited time offer
 							$_current_admin_obj = new npg_Administrator($user, 1);
 							$_current_admin_obj->reset = true;
 						}
@@ -1288,7 +1288,7 @@ class _Authority {
 		$_pre_authorization = array();
 		npg_session_destroy();
 
-//	try to prevent browser, etc. from using logged-on versions of pages
+		//	try to prevent browser, etc. from using logged-on versions of pages
 		if (getOption('SecureLogout')) {
 			header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
 		} else {
@@ -1318,7 +1318,7 @@ class _Authority {
 			}
 			$loggedin = npgFilters::apply('authorization_cookie', $this->checkAuthorization($auth, $id), $auth, $id);
 			if ($loggedin) {
-//	refresh the cookie so if he visits often enough it is persistent
+				//	refresh the cookie so if he visits often enough it is persistent
 				setNPGCookie(AUTHCOOKIE, $cookie);
 				return $loggedin;
 			} else {
@@ -1979,7 +1979,7 @@ class _Administrator extends PersistentObject {
 				$new_rights = ALL_RIGHTS;
 				$this->master = true;
 			} else {
-// make sure that the "hidden" gateway rights are set for managing objects
+				// make sure that the "hidden" gateway rights are set for managing objects
 				if ($rights & MANAGE_ALL_ALBUM_RIGHTS) {
 					$new_rights = $new_rights | ALBUM_RIGHTS;
 				}
@@ -2364,7 +2364,7 @@ class _Administrator extends PersistentObject {
 	 * Creates a "prime" album for the user. Album name is based on the userid
 	 */
 	function createPrimealbum($new = true, $name = NULL) {
-//	create his album
+		//	create his album
 		$t = 0;
 		$ext = '';
 		if (is_null($name)) {

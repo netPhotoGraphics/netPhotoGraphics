@@ -34,7 +34,10 @@ function getUserIP() {
  * @return string
  */
 function getUserID() {
-	global $_themeCript, $_adminCript;
+	global $_themeCript, $_adminCript, $_current_admin_obj;
+	if ($_current_admin_obj) {
+		return $_current_admin_obj->getUser();
+	}
 	$id = getUserIP();
 	if ($_themeCript) {
 		$id = $_themeCript->encrypt($id);
@@ -64,42 +67,40 @@ function npgExceptionHandler($ex) {
  */
 function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $deprecated = null, $trace = 1) {
 	global $_current_admin_obj, $_index_theme;
-// if error has been supressed with an @
+	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
 	}
+	$errorType = array(
+			E_ERROR => gettext('ERROR'),
+			E_WARNING => gettext('WARNING'),
+			E_PARSE => gettext('PARSE ERROR'),
+			E_NOTICE => gettext('NOTICE'),
+			E_CORE_ERROR => gettext('CORE ERROR'),
+			E_CORE_WARNING => gettext('CORE WARNING'),
+			E_COMPILE_ERROR => gettext('COMPILE ERROR'),
+			E_COMPILE_WARNING => gettext('COMPILE WARNING'),
+			E_USER_ERROR => gettext('USER ERROR'),
+			E_USER_WARNING => gettext('USER WARNING'),
+			E_USER_NOTICE => gettext('USER NOTICE'),
+			E_STRICT => gettext('STRICT NOTICE'),
+			E_RECOVERABLE_ERROR => gettext('RECOVERABLE ERROR'),
+			E_DEPRECATED => gettext('DEPRECATED'),
+			E_USER_DEPRECATED => gettext('USER DEPRECATED NOTICE')
+	);
 
-	switch ($errno) {
-		case E_ERROR :
-			$err = gettext('ERROR');
-			break;
-		case E_WARNING:
-			$err = gettext('WARNING');
-			break;
-		case E_NOTICE:
-			$err = gettext('NOTICE');
-			break;
-		case E_USER_ERROR:
-			$err = gettext('USER ERROR');
-			break;
-		case E_USER_WARNING:
-			$err = gettext('USER WARNING');
-			break;
-		case E_USER_NOTICE:
-			$err = gettext('USER NOTICE');
-			break;
-		case E_STRICT:
-			$err = gettext('STRICT NOTICE');
-			break;
-		default:
-			$err = gettext("EXCEPTION ($errno)");
-			$errno = E_ERROR;
+	if (isset($errorType[$errno])) {
+		$err = $errorType[$errno];
+	} else {
+		$err = gettext("EXCEPTION ($errno)");
+		$errno = E_ERROR;
 	}
+
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	debugLogBacktrace($msg, $trace);
 
 	if ($errno == E_ERROR || $errno == E_USER_ERROR) {
-// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
+		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
 			<?php echo html_encode($msg); ?>
