@@ -26,7 +26,7 @@ class imageProcessing {
 			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
 							. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL, 3) . ']'
 							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
-							. "\n\t\t" . "IP: " . getUserID();
+							. "\n\t\t" . "IP: " . getUserIP();
 			if ($newfilename) {
 				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
 			}

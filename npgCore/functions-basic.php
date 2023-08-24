@@ -34,7 +34,10 @@ function getUserIP() {
  * @return string
  */
 function getUserID() {
-	global $_themeCript, $_adminCript;
+	global $_themeCript, $_adminCript, $_current_admin_obj;
+	if ($_current_admin_obj) {
+		return $_current_admin_obj->getUser();
+	}
 	$id = getUserIP();
 	if ($_themeCript) {
 		$id = $_themeCript->encrypt($id);
