@@ -23,18 +23,19 @@ class imageProcessing {
 		if ($debug) {
 			echo '<strong>' . $err . '</strong>';
 		} else {
-			$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
-							. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL, 3) . ']'
-							. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
-							. "\n\t\t" . "IP: " . getUserIP();
-			if ($newfilename) {
-				$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
+			if ($status_text !== '404 Not Found' || DEBUG_404) {
+				$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
+								. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL, 3) . ']'
+								. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
+								. "\n\t\t" . "IP: " . getUserIP();
+				if ($newfilename) {
+					$msg .= "\n\t\t" . sprintf(gettext('Cache: [%s]'), '/' . CACHEFOLDER . '/' . trim(sanitize($newfilename, 3), '/'));
+				}
+				if ($image || $album) {
+					$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
+				}
+				debugLog($msg);
 			}
-			if ($image || $album) {
-				$msg .= "\n\t\t" . sprintf(gettext('Image: [%s]'), sanitize($album . '/' . $image, 3));
-			}
-			debugLog($msg);
-
 			if (!isset($_GET['returncheckmark'])) {
 				header("HTTP/1.0 $status_text");
 				header("Status: $status_text");

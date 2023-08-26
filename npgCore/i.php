@@ -58,7 +58,7 @@ $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageProcessing::error('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('422 Unprocessable Entity', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
 }
 
 // Fix special characters in the album and image names if mod_rewrite is on:
@@ -130,12 +130,12 @@ if (!is_dir(SERVERCACHE)) {
 	mkdir(SERVERCACHE, FOLDER_MOD);
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
-		imageProcessing::error('404 Not Found', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-imagefail.png');
+		imageProcessing::error('422 Unprocessable Entity', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-imagefail.png');
 }
 if (!is_writable(SERVERCACHE)) {
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
-		imageProcessing::error('404 Not Found', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-imagefail.png');
+		imageProcessing::error('422 Unprocessable Entity', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-imagefail.png');
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
@@ -186,7 +186,7 @@ if ($process) { // If the file hasn't been cached yet, create it.
 	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
-		imageProcessing::error('404 Not Found', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
+		imageProcessing::error('422 Unprocessable Entity', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
 	}
 	$fmt = filemtime($newfile);
 }

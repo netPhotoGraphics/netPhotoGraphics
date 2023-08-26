@@ -41,7 +41,7 @@ if ($disposal == 'No access') { // illegal use of the script!
 }
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageProcessing::error('404 Not Found', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('422 Unprocessable Entity', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
 }
 
 list($album8, $image8) = rewrite_get_album_image('a', 'i');
