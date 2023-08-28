@@ -137,7 +137,7 @@ class cacheManager {
 	 * supported options
 	 */
 	function getOptionsSupported() {
-		$options = array(gettext('Image caching sizes') => array('key' => 'cropImage_list', 'type' => OPTION_TYPE_CUSTOM,
+		$options = array(gettext('Custom image caching sizes') => array('key' => 'cropImage_list', 'type' => OPTION_TYPE_CUSTOM,
 						'order' => 1,
 						'desc' => '<p>' .
 						gettext('Cropped images will be made in these parameters if the <em>Create image</em> box is checked. Un-check to box to remove the settings. ' .
@@ -184,11 +184,12 @@ class cacheManager {
 	function handleOption($option, $currentValue) {
 		global $_gallery;
 		$custom = array();
-		$result = query('SELECT `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
+		$result = query('SELECT `id`, `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
 		$key = 0;
 		while ($row = db_fetch_assoc($result)) {
 			$owner = strval($row['aux']);
 			$data = getSerializedArray($row['data']);
+			$data['id'] = $row['id'];
 			$index = $data['theme'];
 			if (array_key_exists('album', $data) && $data['album']) {
 				$index .= '__' . $data['album'];
@@ -209,23 +210,26 @@ class cacheManager {
 			} else {
 				$type = 'legacy';
 			}
-			$disable = ' Disabled="disabled"';
+			$typeTitle = '';
+			$typeClass = $type;
 			switch ($type) {
 				default:
 				case 'legacy':
 				case 'custom':
-					$disable = '';
 					break;
 				case 'theme':
 					if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
-						break;
+						continue 2;
 					}
 				case 'plugin':
 					if (getPlugin($owner . '.php')) {
-						break;
+						continue 2;
 					}
-					$type = 'deprecated'; //	owner no longer exists
-					$disable = '';
+				case 'deprecated':
+					//	owner no longer exists
+					$typeClass = 'deprecated';
+					$typeTitle = 'title="' . gettext('Owner no longer exists') . '"';
+					break;
 			}
 
 			if (array_key_exists('album', $a) && $a['album']) {
@@ -246,20 +250,21 @@ class cacheManager {
 				<a onclick="showTheme('<?php echo $ownerid; ?>');" title="<?php echo gettext('Show'); ?>">
 					<?php
 					echo ARROW_DOWN_GREEN;
-					if ($owner) {
-						$inputclass = 'hidden';
-						echo '<span class="' . $type . '"><em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')</span>';
-						$subtype = isset($ownerdata['album']) ? $ownerdata['album'] : NULL;
-					} else {
-						$inputclass = 'textbox';
-						$subtype = '_custom_';
-						$type = 'custom';
-						echo gettext('add');
-					}
 					?>
 				</a>
 				<?php
-				if ($owner && !$disable) {
+				if ($owner) {
+					$inputclass = 'hidden';
+					echo '<span class="' . $typeClass . '"' . $typeTitle . '><em>' . $owner . $albumdisp . '</em> (' . count($ownerdata), ')</span>';
+					$subtype = isset($ownerdata['album']) ? $ownerdata['album'] : NULL;
+				} else {
+					$inputclass = 'textbox';
+					$subtype = '_custom_';
+					$type = 'custom';
+					echo gettext('add');
+				}
+
+				if ($owner) {
 					?>
 					<span class="displayinlineright"><?php echo gettext('Delete'); ?> <input type="checkbox" onclick="$('.cacheManagerOwner_<?php echo $ownerid; ?>').prop('checked', $(this).prop('checked'))" value="1" /></span>
 					<?php
@@ -291,15 +296,11 @@ class cacheManager {
 							<input type="<?php echo $inputclass; ?>" size="25" name="cacheManager[<?php echo $key; ?>][theme]" value="<?php echo $owner; ?>" />
 							<input type="hidden" name="cacheManager[<?php echo $key; ?>][subtype]" value="<?php echo $subtype; ?>" />
 							<input type="hidden" name="cacheManager[<?php echo $key; ?>][class]" value="<?php echo $type; ?>" />
-							<?php
-							if (!$disable) {
-								?>
-								<span class="displayinlineright"><?php echo gettext('Delete'); ?>
-									<input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" class="cacheManagerOwner_<?php echo $ownerid; ?>" />
-								</span>
-								<?php
-							}
-							?>
+							<input type="hidden" name="cacheManager[<?php echo $key; ?>][id]" value="<?php echo isset($cache['id']) ? $cache['id'] : NULL; ?>" />
+							<span class="displayinlineright"><?php echo gettext('Delete'); ?>
+								<input type="checkbox" name="cacheManager[<?php echo $key; ?>][delete]" value="1" class="cacheManagerOwner_<?php echo $ownerid; ?>" />
+							</span>
+
 							<br />
 							<?php
 							if (isset($cache['wmk'])) {
@@ -318,48 +319,25 @@ class cacheManager {
 								}
 								?>
 								<span class="nowrap"><?php echo $display; ?>
-									<input type="textbox" size="2" name="cacheManager[<?php echo $key; ?>][<?php echo $what; ?>]" value="<?php echo $v; ?>" <?php echo $disable; ?>/>
+									<input type="textbox" size="2" name="cacheManager[<?php echo $key; ?>][<?php echo $what; ?>]" value="<?php echo $v; ?>" />
 								</span>
 								<?php
 							}
 							?>
 							<span class="nowrap"><?php echo gettext('Watermark'); ?>
-								<input type="textbox" size="20" name="cacheManager[<?php echo $key; ?>][wmk]" value="<?php echo $wmk; ?>" <?php echo $disable; ?>/>
-							</span>
-							<br />
-							<span class="nowrap"><?php echo gettext('MaxSpace'); ?>
-								<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"' . $disable; ?> />
-							</span>
-							<span class="nowrap"><?php echo gettext('Thumbnail'); ?>
-								<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"' . $disable; ?> />
-							</span>
-							<span class="nowrap"><?php echo gettext('Grayscale'); ?>
-								<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"' . $disable; ?> />
-							</span>
-							<?php
-							if ($disable) {
-								$key++;
+								<input type="textbox" size="20" name="cacheManager[<?php echo $key; ?>][wmk]" value="<?php echo $wmk; ?>"
+											 </span>
+								<br />
+								<span class="nowrap"><?php echo gettext('MaxSpace'); ?>
+									<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][maxspace]" value="1"<?php if (isset($cache['maxspace']) && $cache['maxspace']) echo ' checked="checked"'; ?> />
+								</span>
+								<span class="nowrap"><?php echo gettext('Thumbnail'); ?>
+									<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][thumb]" value="1"<?php if (isset($cache['thumb']) && $cache['thumb']) echo ' checked="checked"'; ?> />
+								</span>
+								<span class="nowrap"><?php echo gettext('Grayscale'); ?>
+									<input type="checkbox"  name="cacheManager[<?php echo $key; ?>][gray]" value="gray"<?php if (isset($cache['gray']) && $cache['gray']) echo ' checked="checked"'; ?> />
+								</span>
 
-								foreach (array('image_size' => gettext('Size'), 'image_width' => gettext('Width'), 'image_height' => gettext('Height'),
-						'crop_width' => gettext('Crop width'), 'crop_height' => gettext('Crop height'), 'crop_x' => gettext('Crop X axis'),
-						'crop_y' => gettext('Crop Y axis')) as $what => $display) {
-									if (isset($cache[$what])) {
-										$v = $cache[$what];
-									} else {
-										$v = '';
-									}
-									?>
-									<input type="hidden" name="cacheManager[<?php echo $key; ?>][<?php echo $what; ?>]" value="<?php echo $v; ?>" />
-									<?php
-								}
-								?>
-								<input type="hidden" name="cacheManager[<?php echo $key; ?>][wmk]" value="<?php echo $wmk; ?>" />
-								<input type="hidden" name="cacheManager[<?php echo $key; ?>][maxspace]" value="<?php echo (int) (isset($cache['maxspace']) && $cache['maxspace']); ?>" />
-								<input type="hidden" name="cacheManager[<?php echo $key; ?>]thumb]" value="<?php echo (int) (isset($cache['thumb']) && $cache['thumb']); ?>" />
-								<input type="hidden" name="cacheManager[<?php echo $key; ?>]gray]" value="<?php echo (int) (isset($cache['maxspace']) && $cache['gray']); ?>" />
-								<?php
-							}
-							?>
 						</div>
 						<br />
 					</div>
@@ -379,9 +357,11 @@ class cacheManager {
 	 * @return string
 	 */
 	static function handleOptionSave($ownername, $themealbum) {
-		query('DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager"');
-
 		foreach ($_POST['cacheManager'] as $key => $cacheimage) {
+			if ($cacheimage['id']) {
+				$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `id`=' . $cacheimage['id'];
+				query($sql);
+			}
 			if (is_array($cacheimage) && !isset($cacheimage['delete']) && count($cacheimage) > 1) {
 				$subtype = $cacheimage['subtype'];
 				unset($cacheimage['subtype']);
