@@ -275,7 +275,32 @@ if (!CURL_ENABLED) {
 
 			foreach ($custom as $key => $cacheimage) {
 				if (!is_array($enabled) || in_array($key, $enabled)) {
-					$themeid = $cacheimage['theme'];
+					$owner = $themeid = $cacheimage['theme'];
+
+					if (array_key_exists('class', $cacheimage)) {
+						$type = $cacheimage['class'];
+					} else {
+						$type = 'legacy';
+					}
+					switch ($type) {
+						default:
+						case 'legacy':
+						case 'custom':
+							break;
+						case 'theme':
+							if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $owner)) {
+								break;
+							}
+						case 'plugin':
+							if (getPlugin($owner . '.php')) {
+								break;
+							}
+						case 'deprecated';
+							//	owner no longer exists
+							$themeid = '<span class="deprecated" title="' . gettext('Owner no longer exists') . '">' . $themeid . '/>';
+							break;
+					}
+
 					$theme = preg_replace('/[^A-Za-z0-9\-_]/', '', $themeid);
 					if (isset($themes[$theme])) {
 						$themeid = $themes[$theme];

@@ -1188,7 +1188,7 @@ function getImageParameters($args, $album = NULL) {
 	$thumb_crop_height = getOption('thumb_crop_height');
 	$image_default_size = getOption('image_size');
 	$quality = getOption('image_quality');
-// Set up the parameters
+	// Set up the parameters
 	$thumb = $crop = false;
 	extract($args);
 
@@ -1225,7 +1225,7 @@ function getImageParameters($args, $album = NULL) {
 		$height = false;
 	}
 	if (empty($size) && $width == $height) {
-//square image
+		//square image
 		$size = $height;
 		$width = $height = false;
 	}
@@ -1253,10 +1253,10 @@ function getImageParameters($args, $album = NULL) {
 	}
 
 
-	if (!is_null($cx)) {
+	if (is_numeric($cx)) {
 		$cx = (int) round($cx);
 	}
-	if (!is_null($cy)) {
+	if (is_numeric($cy)) {
 		$cy = (int) round($cy);
 	}
 
