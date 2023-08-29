@@ -295,19 +295,19 @@ function sanitize_string($input, $sanitize_level) {
 			case 0:
 				return $input;
 			case 2:
-// Strips non-style tags.
+				// Strips non-style tags.
 				$input = sanitize_script($input);
 				return kses($input, getAllowedTags('style_tags'));
 			case 3:
-// Full sanitation.  Strips all code.
+				// Full sanitation.  Strips all code.
 				return kses($input, array());
 			case 1:
-// Text formatting sanititation.
+				// Text formatting sanititation.
 				$input = sanitize_script($input);
 				return kses($input, getAllowedTags('allowed_tags'));
 			case 4:
 			default:
-// for internal use to eliminate security injections
+				// for internal use to eliminate security injections
 				return sanitize_script($input);
 		}
 	}
@@ -437,7 +437,7 @@ function db_count($table, $clause = NULL, $field = "*") {
  */
 function html_decode($string) {
 	$string = html_entity_decode($string, ENT_QUOTES, LOCAL_CHARSET);
-// Replace numeric entities because html_entity_decode doesn't do it for us.
+	// Replace numeric entities because html_entity_decode doesn't do it for us.
 	if (function_exists('mb_convert_encoding')) {
 		$string = preg_replace_callback("/(&#[0-9]+;)/", function ($m) {
 			return mb_convert_encoding($m[1], LOCAL_CHARSET, "HTML-ENTITIES");
@@ -505,7 +505,7 @@ function varDebug($args) {
 		$args = array('var' => $args);
 	}
 	$dump = explode("\n", var_export($args, true));
-//get rid of the outer array element
+	//get rid of the outer array element
 	unset($dump[0]);
 	array_pop($dump);
 	$br = '';
@@ -634,7 +634,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-// Get a backtrace.
+	// Get a backtrace.
 	if (is_array($omit)) {
 		$bt = $omit;
 	} else {
@@ -708,7 +708,7 @@ function npg_session_start() {
 			session_abort(); //	close existing session which has different name
 		}
 		session_name(SESSION_NAME);
-//	insure that the session data has a place to be saved
+		//	insure that the session data has a place to be saved
 		if (isset($_conf_vars['session_save_path'])) {
 			session_save_path($_conf_vars['session_save_path']);
 		}
@@ -717,7 +717,7 @@ function npg_session_start() {
 			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
 			session_save_path(SERVERPATH . '/PHP_sessions');
 		}
-//	setup session cookie
+		//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
 				'path' => WEBPATH . '/',
@@ -997,9 +997,9 @@ function setOptionDefault($key, $default, $theme = NULL, $creator = NULL) {
  */
 function loadLocalOptions($albumid, $theme) {
 	global $_options, $_conf_vars;
-//start with the config file
+	//start with the config file
 	$options = $_conf_vars;
-//raw theme options Order is so that Album theme options will override simple theme options
+	//raw theme options Order is so that Album theme options will override simple theme options
 	$sql = "SELECT LCASE(`name`) as name, `value`, `ownerid` FROM " . prefix('options') . ' WHERE `theme`=' . db_quote($theme) . ' AND (`ownerid`=0 OR `ownerid`=' . $albumid . ') ORDER BY `ownerid` ASC';
 	$optionlist = query_full_array($sql, false);
 	if (!empty($optionlist)) {
@@ -1076,17 +1076,17 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	global $_rewritten, $_albumHandlers;
 	$ralbum = isset($_GET[$albumvar]) ? trim(sanitize($_GET[$albumvar]), '/') : NULL;
 	$rimage = isset($_GET[$imagevar]) ? sanitize($_GET[$imagevar]) : NULL;
-//	we assume that everything is correct if rewrite rules were not applied
+	//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
 			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
-//has an RW_SUFFIX attached
+					//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);
 					$ralbum = trim(dirname($matches[1]), '/');
 				} else { //	have to figure it out
 					if (Gallery::imageObjectClass($ralbum)) {
-//	it is an image request
+						//	it is an image request
 						$rimage = basename($ralbum);
 						$ralbum = trim(dirname($ralbum), '/');
 					}
@@ -1118,7 +1118,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_cachefileSuffix;
-// this function works in FILESYSTEM_CHARSET, so convert the file names
+	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1137,7 +1137,7 @@ function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 			}
 		}
 	}
-// Set default variable values.
+	// Set default variable values.
 	$postfix = getImageCachePostfix($args);
 
 	if (getOption('obfuscate_cache')) {
@@ -1252,12 +1252,15 @@ function getImageParameters($args, $album = NULL) {
 		}
 	}
 
-
 	if (is_numeric($cx)) {
 		$cx = (int) round($cx);
+	} else {
+		$cx = false;
 	}
 	if (is_numeric($cy)) {
 		$cy = (int) round($cy);
+	} else {
+		$cy = false;
 	}
 
 	if (!empty($cw) || !empty($ch)) {
@@ -1765,7 +1768,7 @@ function getAlbumInherited($folder, $field, &$id) {
  * @return string
  */
 function imageThemeSetup($album) {
-// we need to conserve memory in i.php so loading the classes is out of the question.
+	// we need to conserve memory in i.php so loading the classes is out of the question.
 	$id = 0;
 	$theme = getAlbumInherited(filesystemToInternal($album), 'album_theme', $id);
 	if (empty($theme)) {
@@ -2029,7 +2032,7 @@ function setOption($key, $value, $persistent = true) {
 			if (array_key_exists($keylc, $_conf_options_associations)) {
 				$configKey = $_conf_options_associations[$keylc];
 				if ($_conf_vars[$configKey] !== $value) {
-//	it is stored in the config file, update that too
+					//	it is stored in the config file, update that too
 					require_once(CORE_SERVERPATH . 'lib-config.php');
 					$_configMutex->lock();
 					$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
@@ -2103,7 +2106,7 @@ if (!function_exists('gmp_gcd')) {
 }
 
 if (!function_exists("json_encode")) {
-// load the drop-in replacement library
+	// load the drop-in replacement library
 	require_once(__DIR__ . '/lib-json.php');
 }
 
