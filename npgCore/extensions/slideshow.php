@@ -619,13 +619,13 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 								if ($count == 1) {
 									$style = '';
 								} else {
-									$style = ' style="display:none"';
+									$style = ' style="display:none !important"';
 								}
 							} else {
 								if ($_current_image->filename == $image) {
 									$style = '';
 								} else {
-									$style = ' style="display:none"';
+									$style = ' style="display:none !important"';
 								}
 							}
 							switch (getOption('slideshow_colorbox_imagetype')) {
