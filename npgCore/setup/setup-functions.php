@@ -13,7 +13,7 @@ require_once(dirname(__DIR__) . '/lib-config.php');
 define('SETUPLOG', SERVERPATH . '/' . DATA_FOLDER . '/setup.log');
 
 /**
- * Returns true if we are running on a Windows server
+ * Returns true if we are running on a case insensitive server
  *
  * @return bool
  */
@@ -271,14 +271,14 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 					if ($recurse) {
 						?>
 						<script type="text/javascript">
-							
+
 							$.ajax({
 								type: 'POST',
 								cache: false,
 								url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setup_permissions_changer.php',
 								data: 'folder=<?php echo $path; ?>&key=<?php echo sha1(filemtime(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) . file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)); ?>'
 							});
-							
+
 						</script>
 						<?php
 					}
