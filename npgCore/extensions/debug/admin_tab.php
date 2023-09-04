@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the "tokens" upload tab
+ * This is the DEVELOPMENT tab handler
  *
  * @author Stephen Billard (sbillard)
  *

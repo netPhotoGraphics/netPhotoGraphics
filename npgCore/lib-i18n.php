@@ -111,18 +111,31 @@ class i18n {
 	 */
 	static function setLocale($locale) {
 		global $_RTL_css;
-		$en2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
-		$locale_hyphen = str_replace('_', '-', $locale);
-		$simple = explode('-', $locale_hyphen);
+		$local2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
+		$simple = explode('-', str_replace('_', '-', $locale));
+
+		if (stristr(PHP_OS, 'WIN')) {
+			$locale = implode('-', $simple);
+		} else {
+			$locale = implode('_', $simple);
+		}
+
+		//	with character sets
 		$try[$locale . '.UTF8'] = $locale . '.UTF8';
 		$try[$locale . '.UTF-8'] = $locale . '.UTF-8';
 		$try[$locale . '.@euro'] = $locale . '.@euro';
-		$try[$locale . '.' . $en2] = $locale . '.' . $en2;
+		$try[$locale . '.' . $local2] = $locale . '.' . $local2;
 		$try[$locale . '.' . LOCAL_CHARSET] = $locale . '.' . LOCAL_CHARSET;
+
 		$try[$locale] = $locale;
 		$try[$simple[0]] = $simple[0];
-		$try['NULL'] = NULL;
+
 		$rslt = setlocale(LC_ALL, $try);
+		if (DEBUG_LOCALE) {
+			debugLog("setlocale(" . implode(',', $try) . ") returned: $rslt");
+		}
+
+		$_RTL_css = in_array(substr($rslt, 0, 2), array('fa', 'ar', 'he', 'hi', 'ur'));
 
 		if (function_exists('putenv')) {
 			putenv("LC_ALL=$locale");
@@ -130,15 +143,11 @@ class i18n {
 			putenv("LANGUAGE=$locale");
 		}
 
+		//	nPG standard uses underscore lor locale ids
 		if (function_exists('T_setlocale')) { //	using php-gettext
-			T_setlocale(LC_ALL, $locale);
+			T_setlocale(LC_ALL, str_replace('-', '_', $locale));
 		}
-
-		$_RTL_css = in_array(substr($rslt, 0, 2), array('fa', 'ar', 'he', 'hi', 'ur'));
-		if (DEBUG_LOCALE) {
-			debugLog("setlocale(" . implode(',', $try) . ") returned: $rslt");
-		}
-		return $rslt;
+		return str_replace('-', '_', $rslt);
 	}
 
 	/**

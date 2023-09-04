@@ -719,8 +719,8 @@ clearstatcache();
 								checkMark(-1, '', gettext('Locking the <em>setup</em> mutex failed.'), gettext('Without execution serialization sites may experience <em>race conditions</em> which may be causing errors or inconsistent data.'));
 							}
 							if ($_setupCurrentLocale_result === false) {
-								checkMark(-1, gettext('PHP <code>setlocale()</code>'), ' ' . gettext('PHP <code>setlocale()</code> failed'), gettext("Locale functionality is not implemented on your platform or the specified locale does not exist. Language translation may not work.") . '<br />');
-								echo gettext('You can use the <em>debug</em> plugin to see which locales your server supports.');
+								checkMark(-1, gettext('PHP <code>setlocale()</code>'), ' ' . gettext('PHP <code>setlocale()</code> failed'), gettext("Locale functionality is not implemented on your platform or the specified locale does not exist. Language translation may not work.") . '<br />' .
+												gettext('You can use the <em>debug</em> plugin to see which locales your server supports.'), false);
 							}
 
 							primeMark(gettext('mb_strings'));
