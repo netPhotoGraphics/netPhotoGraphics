@@ -1,10 +1,10 @@
 <?php
 
 clearstatcache();
-$closed = file_exists('ROOT_FOLDER/extract.php');
+$closed = file_exists(__DIR__ . '/extract.php');
 if ($closed) {
 	if (isset($_GET['npgUpdate'])) {
-		require('ROOT_FOLDER/extract.php');
+		require(__DIR__ . '/extract.php');
 		exit();
 	}
 } else {
@@ -61,8 +61,8 @@ if (isset($_SERVER['SCRIPT_FILENAME'])) {
 } else {
 	$_themeScript = __FILE__;
 }
-if (file_exists(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE')) {
-	$_contents = file_get_contents(dirname($_themeScript) . '/DATA_FOLDER/CONFIGFILE');
+if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
+	$_contents = file_get_contents(__DIR__ . '/DATA_FOLDER/CONFIGFILE');
 	if ($_contents) {
 		if (strpos($_contents, '<?php') !== false) {
 			$_contents = '?>' . $_contents;
