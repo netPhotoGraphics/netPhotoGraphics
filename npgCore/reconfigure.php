@@ -16,6 +16,27 @@ if (!defined('OFFSET_PATH')) {
  */
 function reconfigureAction($mandatory) {
 	global $_conf_vars;
+	// do this before we might contaminate state
+	$log = true;
+	switch ($mandatory) {
+		case 11:
+			$reason = gettext('no configuration file');
+			$log = false; // can't log if we don't know where to put the log
+			break;
+		case 12:
+			$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
+			break;
+		case 13:
+			$reason = gettext('database connection failed');
+			break;
+		case 14:
+			$reason = sprintf(gettext('Database failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
+			break;
+		default:
+			$reason = gettext('install signature option not set');
+			$log = false;
+			break;
+	}
 	list($diff, $needs) = checkSignature($mandatory);
 	$diffkeys = array_keys($diff);
 	if ($mandatory) {
@@ -25,29 +46,11 @@ function reconfigureAction($mandatory) {
 			}
 			exit(); //	can't really run setup from an RSS feed.
 		}
-		$log = true;
-		switch ($mandatory) {
-			case 11:
-				$reason = gettext('no configuration file');
-				$log = false; // can't log if we don't know where to put the log
-				break;
-			case 12:
-				$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
-				break;
-			case 13:
-				$reason = gettext('database connection failed');
-				break;
-			case 14:
-				$reason = gettext('database failure');
-				break;
-			default:
-				$reason = gettext('install signature option not set');
-				$log = false;
-				break;
+
+		if ($log) {
+			debugLog(sprintf(gettext('Setup required: %1$s.'), $reason));
 		}
-		if ($reason) {
-			debugLog(sprintf(gettext('Setup required: %1$s.'), $log));
-		}
+
 		if (empty($needs)) {
 			$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 			$p = strpos($dir, CORE_FOLDER);
@@ -74,14 +77,13 @@ function reconfigureAction($mandatory) {
 			$_invisible_execute = 1;
 			require_once(__DIR__ . '/functions-basic.php');
 			require_once(CORE_SERVERPATH . 'initialize-basic.php');
-			require_once(__DIR__ . '/lib-filter.php');
 
 			if (!defined('FULLWEBPATH')) {
 				$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
 				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
 				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 			}
-			require_once(CORE_SERVERPATH . 'admin-globals.php');
+
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 			header('Content-Type: text/html; charset=UTF-8');
 			header("HTTP/1.0 503 Service Unavailable");
