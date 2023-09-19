@@ -1877,7 +1877,7 @@ function checkInstall() {
 	if (OFFSET_PATH != 2) {
 		$i = getOption('netphotographics_install');
 		if ($i != serialize(installSignature())) {
-			_setup((int) ($i === NULL));
+			_setup((int) is_null($i));
 		}
 	}
 }

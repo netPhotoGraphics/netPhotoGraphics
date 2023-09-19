@@ -27,7 +27,7 @@ function reconfigureAction($mandatory) {
 			$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
 			break;
 		case 13:
-			$reason = gettext('database connection failed');
+			$reason = sprintf(gettext('Database connection failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
 			break;
 		case 14:
 			$reason = sprintf(gettext('Database server failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
@@ -69,77 +69,72 @@ function reconfigureAction($mandatory) {
 				$protocol = 'http';
 			}
 			$location = $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir . "/" . CORE_FOLDER . "/setup/index.php?autorun=$where";
-			header("Location: $location");
-			exit();
 		} else {
-			// because we are loading the script from within a function!
-			global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
-			$_invisible_execute = 1;
-			require_once(__DIR__ . '/functions-basic.php');
-			require_once(CORE_SERVERPATH . 'initialize-basic.php');
+			$location = '';
+		}
+		// because we are loading the script from within a function!
+		global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
+		$_invisible_execute = 1;
+		require_once(__DIR__ . '/functions-basic.php');
+		require_once(CORE_SERVERPATH . 'initialize-basic.php');
 
-			if (!defined('FULLWEBPATH')) {
-				$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
-				define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
-				define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
-			}
+		if (!defined('FULLWEBPATH')) {
+			$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
+			define('FULLHOSTPATH', $protocol . "://" . $_SERVER['HTTP_HOST']);
+			define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
+		}
 
-			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-			header('Content-Type: text/html; charset=UTF-8');
-			header("HTTP/1.0 503 Service Unavailable");
-			header("Status: 503 Service Unavailable");
-			header("Retry-After: 300");
-			?>
-			<!DOCTYPE html>
-			<html xmlns="http://www.w3.org/1999/xhtml">
-				<head>
-					<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-					<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
-					<?php reconfigureCS(); ?>
-				</head>
-				<body>
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+		header('Content-Type: text/html; charset=UTF-8');
+		header("HTTP/1.0 503 Service Unavailable");
+		header("Status: 503 Service Unavailable");
+		header("Retry-After: 300");
+		?>
+		<!DOCTYPE html>
+		<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+				<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+				<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
+				<?php reconfigureCS(); ?>
+			</head>
+			<body>
+				<?php
+				if ($_gallery) {
+					printLogoAndLinks();
+				} else {
+					?>
+					<div id="admin_head">
+						<span id="administration">
+							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/admin-logo.png" id="site logo" alt="site_logo" style="height:78px; width:auto;" />
+						</span>
+					</div>
+					<?php
+				}
+				?>
+				<div id="main">
 					<?php
 					if ($_gallery) {
-						printLogoAndLinks();
-					} else {
-						?>
-						<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/admin-logo.png" id="site logo" alt="site_logo" style="height:78px; width:auto;" />
-						<?php
+						printTabs();
 					}
 					?>
-					<div id="main">
-						<?php
-						if ($_gallery) {
-							printTabs();
-						}
-						?>
-						<div id="content">
+					<div id="content">
+						<h1><?php echo gettext('Site unavailable'); ?></h1>
+						<div class="tabbox">
+							<div class="reconfigbox">
+								<?php echo $reason; ?>
+							</div>
 							<?php
-							if ($mandatory == 13) {
-								?>
-								<h1><?php echo gettext('Setup needed'); ?></h1>
-								<div class="tabbox">
-									<?php reconfigurePage($diff, $needs, $mandatory); ?>
-								</div>
-								<?php
-							} else {
-								?>
-								<h1><?php echo gettext('Site unavailable'); ?></h1>
-								<div class="tabbox">
-									<div class="reconfigbox">
-										<?php echo $reason; ?>
-									</div>
-								</div>
-								<?php
+							if ($location) {
+								echo sprintf(gettext('Run <a href=%1$s>setup</a>'), $location);
 							}
 							?>
 						</div>
 					</div>
-				</body>
-			</html>
-			<?php
-			exit();
-		}
+				</div>
+			</body>
+		</html>
+		<?php
+		exit();
 	} else {
 		if (!empty($diff)) {
 			if (class_exists('npgFilters') && npg_loggedin(ADMIN_RIGHTS)) {
@@ -294,7 +289,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where = 'gallery';
 	}
-	if (function_exists('getXSRFToken')) {
+	if (function_exists('getXSRFToken') && defined('npg_SID')) {
 		$token = getXSRFToken('setup');
 		if (isset($_GET['dismiss']) && isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == $token) {
 			setOption('netphotographics_install', serialize(installSignature()));
