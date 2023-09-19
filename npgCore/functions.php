@@ -6,8 +6,8 @@
  *
  */
 // force UTF-8 Ø
-
 require_once(__DIR__ . '/functions-basic.php');
+require_once(__DIR__ . '/lib-i18n.php');
 require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/initialize-general.php');
 

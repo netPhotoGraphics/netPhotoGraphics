@@ -13,8 +13,6 @@ require_once(__DIR__ . '/lib-filter.php');
 
 $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
 $_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.
-require_once(__DIR__ . '/lib-i18n.php');
-
 //encrypt/decrypt constants
 define('SECRET_KEY', getOption('secret_key_text'));
 define('SECRET_IV', getOption('secret_init_vector'));
