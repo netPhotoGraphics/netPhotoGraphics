@@ -25,10 +25,11 @@ function reconfigureAction($mandatory) {
 			}
 			exit(); //	can't really run setup from an RSS feed.
 		}
+		$log = true;
 		switch ($mandatory) {
 			case 11:
-				// no configuration file
-				$reason = FALSE; // can't log if we don't know where to put the log
+				$reason = gettext('no configuration file');
+				$log = false; // can't log if we don't know where to put the log
 				break;
 			case 12:
 				$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
@@ -36,12 +37,16 @@ function reconfigureAction($mandatory) {
 			case 13:
 				$reason = gettext('database connection failed');
 				break;
+			case 14:
+				$reason = gettext('database failure');
+				break;
 			default:
-				$reason = FALSE; //	install signature option not set
+				$reason = gettext('install signature option not set');
+				$log = false;
 				break;
 		}
 		if ($reason) {
-			debugLog(sprintf(gettext('Setup required: %1$s'), $reason));
+			debugLog(sprintf(gettext('Setup required: %1$s.'), $log));
 		}
 		if (empty($needs)) {
 			$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
@@ -101,12 +106,31 @@ function reconfigureAction($mandatory) {
 					}
 					?>
 					<div id="main">
-						<?php if ($_gallery) printTabs(); ?>
+						<?php
+						if ($_gallery) {
+							printTabs();
+						}
+						?>
 						<div id="content">
-							<h1><?php echo gettext('Setup needed'); ?></h1>
-							<div class="tabbox">
-								<?php reconfigurePage($diff, $needs, $mandatory); ?>
-							</div>
+							<?php
+							if ($mandatory == 13) {
+								?>
+								<h1><?php echo gettext('Setup needed'); ?></h1>
+								<div class="tabbox">
+									<?php reconfigurePage($diff, $needs, $mandatory); ?>
+								</div>
+								<?php
+							} else {
+								?>
+								<h1><?php echo gettext('Site unavailable'); ?></h1>
+								<div class="tabbox">
+									<div class="reconfigbox">
+										<?php echo $reason; ?>
+									</div>
+								</div>
+								<?php
+							}
+							?>
 						</div>
 					</div>
 				</body>

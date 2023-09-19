@@ -1021,7 +1021,7 @@ function purgeOption($key, $theme = NULL) {
 	if ($theme) {
 		$sql .= ' AND `theme`=' . db_quote($theme);
 	}
-	query($sql, false);
+	return query($sql, false);
 }
 
 /**
@@ -1972,6 +1972,7 @@ function primeOptions() {
 			$_options[strtolower($option['name'])] = $option['value'];
 		}
 	}
+	return $rslt;
 }
 
 /**
