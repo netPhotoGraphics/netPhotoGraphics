@@ -675,7 +675,7 @@ Standard forms which collect user data will have a policy acknowledgement checkb
 									<?php
 									if (!GALLERY_SESSION) {
 										?>
-										<p><?php printf(gettext('The <em>path</em> to use when storing cookies. (Leave empty to default to <em>%s</em>.)'), WEBPATH ? WEBPATH : '/'); ?></p>
+										<p><?php printf(gettext('The <em>path</em> to use when storing cookies. (Leave empty to default to <em>%s</em>.)'), WEBPATH . '/'); ?></p>
 										<p><?php echo gettext("Set to the time in seconds that cookies should be kept by browsers."); ?></p>
 										<?php
 									}
