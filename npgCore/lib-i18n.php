@@ -75,6 +75,7 @@ class i18n {
 	 */
 	static function generateLanguageList($all = false) {
 		global $_active_languages, $_all_languages;
+		$enabled = getOption('multi_lingual');
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		if (is_null($_all_languages)) {
 			$_active_languages = $_all_languages = array();
@@ -85,7 +86,7 @@ class i18n {
 						if (is_dir($source . $dirname) && (substr($dirname, 0, 1) != '.')) {
 							$language = self::getDisplayName($dirname);
 							$_all_languages[$language] = $dirname;
-							if (!isset($disallow[$dirname])) {
+							if ($enabled && !isset($disallow[$dirname])) {
 								$_active_languages[$language] = $dirname;
 							}
 						}
