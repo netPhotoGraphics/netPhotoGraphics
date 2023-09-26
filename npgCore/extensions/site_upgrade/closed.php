@@ -34,7 +34,7 @@ foreach ($glob as $key => $file) {
 		$path = __DIR__ . '/' . $file;
 		$xml = file_get_contents($path);
 		$xml = preg_replace('~<atom:link href="(.*) rel=~', '<atom:link href="SITEINDEX" rel=', $xml);
-		$xml = preg_replace('~<pubDate>(.*)</pubDate>~', '<pubDate>' . formattedDate("r", time()) . '</pubDate>', $xml);
+		$xml = preg_replace('~<pubDate>(.*)</pubDate>~', '<pubDate>' . date("r", time()) . '</pubDate>', $xml);
 		header('Content-Type: application/xml');
 		echo $xml;
 		exit();
