@@ -62,15 +62,6 @@ if (isset($recentIP[$ip])) {
 					if ($host && $host != $ip) {
 						echo' (' . $host . ')';
 					}
-
-					if (isset($localeList[$ip])) {
-						echo '<ol>';
-						foreach ($localeList[$ip] as $instance => $time) {
-
-							echo '<li>' . $instance . '</li>';
-						}
-						echo '</ol>';
-					}
 					echo '</li>';
 				}
 				?>
