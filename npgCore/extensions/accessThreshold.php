@@ -203,7 +203,8 @@ if (extensionEnabled('accessThreshold')) {
 		$__time = time();
 		$full_ip = getUserIP();
 		$ip = accessThreshold::maskIP($full_ip);
-		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
+		$window = getOption('accessThreshold_IP_ACCESS_WINDOW');
+		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > $window) {
 			$recentIP[$ip] = array(
 					'accessed' => array(),
 					'blocked' => 0,
@@ -215,10 +216,10 @@ if (extensionEnabled('accessThreshold')) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
 			db_close();
-			sleep(30);
+			sleep(getOption('accessThreshold_SIGNIFICANT') * getOption('accessThreshold_THRESHOLD'));
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
-			header("Retry-After: 300");
+			header("Retry-After: $window");
 			exit(); //	terminate the script with no output
 		} else {
 			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
