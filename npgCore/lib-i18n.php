@@ -285,27 +285,31 @@ class i18n {
 	 * @param string $userlocale
 	 */
 	static function validateLocale($userlocale, $source) {
-		if (DEBUG_LOCALE)
-			debugLog("self::validateLocale($userlocale,$source)");
-
 		$locale = NULL;
-		if (!empty($userlocale)) {
-			$userlocale = preg_quote(strtoupper(str_replace('-', '_', $userlocale)));
-			$languageSupport = self::generateLanguageList();
-
-			foreach ($languageSupport as $key => $value) {
-				if (strtoupper($value) == $userlocale) { // we got a match
-					$locale = $value;
-					if (DEBUG_LOCALE)
-						debugLog("locale set from $source: " . $locale);
-					break;
-				} else if (preg_match('+^' . $userlocale . '+', strtoupper($value))) { // we got a partial match
-					$locale = $value;
-					if (DEBUG_LOCALE)
-						debugLog("locale set from $source (partial match): " . $locale);
-					break;
+		$valid = "i18n::validateLocale($userlocale, $source)=>";
+		if (getOption('multi_lingual')) {
+			if (!empty($userlocale)) {
+				$userlocale = preg_quote(strtoupper(str_replace('-', '_', $userlocale)));
+				foreach (self::generateLanguageList() as $key => $value) {
+					if (strtoupper($value) == $userlocale) { // we got a match
+						$locale = $value;
+						$valid .= "locale set from $source: " . $locale;
+						break;
+					} else if (preg_match('+^' . $userlocale . '+', strtoupper($value))) { // we got a partial match
+						$locale = $value;
+						$valid .= "locale set from $source (partial match): " . $locale;
+						break;
+					}
 				}
 			}
+			if (DEBUG_LOCALE && !$locale) {
+				$valid .= "locale not valid";
+			}
+		} else {
+			$valid .= "Mod Rewrite not set";
+		}
+		if (DEBUG_LOCALE) {
+			debugLog($valid);
 		}
 		return $locale;
 	}
@@ -333,37 +337,35 @@ class i18n {
 		} else {
 			if (isset($_SERVER['HTTP_HOST'])) {
 				$matches = explode('.', $_SERVER['HTTP_HOST']);
-			} else {
-				$matches = array(NULL);
+
+				$new_locale = self::validateLocale($matches[0], 'HTTP_HOST');
+				if ($new_locale && getNPGCookie('dynamic_locale')) {
+					clearNPGCookie('dynamic_locale');
+				}
+				if (DEBUG_LOCALE && $new_locale)
+					debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$new_locale");
 			}
-			$new_locale = self::validateLocale($matches[0], 'HTTP_HOST');
-			if ($new_locale && getNPGCookie('dynamic_locale')) {
-				clearNPGCookie('dynamic_locale');
-			}
-			if (DEBUG_LOCALE)
-				debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$new_locale");
 		}
 
 		//	check for a language cookie
 		if (!$new_locale) {
 			$new_locale = self::validateLocale(getNPGCookie('dynamic_locale'), 'dynamic_locale cookie');
-			if (DEBUG_LOCALE)
+			if (DEBUG_LOCALE && $new_locale)
 				debugLog("locale from cookie: " . $new_locale . ';');
 		}
 
 		//	check if the user has a language selected
 		if (!$new_locale && is_object($_current_admin_obj)) {
 			$new_locale = self::validateLocale($_current_admin_obj->getLanguage(), 'user language');
-			;
-			if (DEBUG_LOCALE)
-				debugLog("locale from user: " . $new_locale);
+			if (DEBUG_LOCALE && $new_locale)
+				debugLog("locale from user language: " . $new_locale);
 		}
 
 		//	check the language option
 		if (!$new_locale) {
 			$new_locale = self::validateLocale(getOption('locale'), 'locale option');
-			if (DEBUG_LOCALE)
-				debugLog("locale from option: " . $new_locale);
+			if (DEBUG_LOCALE && $new_locale)
+				debugLog("locale from locale option: " . $new_locale);
 		}
 
 		//check the HTTP accept lang
