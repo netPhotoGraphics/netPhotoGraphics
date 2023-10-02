@@ -75,7 +75,6 @@ class i18n {
 	 */
 	static function generateLanguageList($all = false) {
 		global $_active_languages, $_all_languages;
-		$enabled = getOption('multi_lingual');
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		if (is_null($_all_languages)) {
 			$_active_languages = $_all_languages = array();
@@ -86,7 +85,7 @@ class i18n {
 						if (is_dir($source . $dirname) && (substr($dirname, 0, 1) != '.')) {
 							$language = self::getDisplayName($dirname);
 							$_all_languages[$language] = $dirname;
-							if ($enabled && !isset($disallow[$dirname])) {
+							if (!isset($disallow[$dirname])) {
 								$_active_languages[$language] = $dirname;
 							}
 						}
@@ -287,28 +286,26 @@ class i18n {
 	static function validateLocale($userlocale, $source) {
 		$locale = NULL;
 		$valid = "i18n::validateLocale($userlocale, $source)=>";
-		if (getOption('multi_lingual')) {
-			if (!empty($userlocale)) {
-				$userlocale = preg_quote(strtoupper(str_replace('-', '_', $userlocale)));
-				foreach (self::generateLanguageList() as $key => $value) {
-					if (strtoupper($value) == $userlocale) { // we got a match
-						$locale = $value;
-						$valid .= "locale set from $source: " . $locale;
-						break;
-					} else if (preg_match('+^' . $userlocale . '+', strtoupper($value))) { // we got a partial match
-						$locale = $value;
-						$valid .= "locale set from $source (partial match): " . $locale;
-						break;
-					}
+
+		if (!empty($userlocale)) {
+			$userlocale = preg_quote(strtoupper(str_replace('-', '_', $userlocale)));
+			foreach (self::generateLanguageList() as $key => $value) {
+				if (strtoupper($value) == $userlocale) { // we got a match
+					$locale = $value;
+					$valid .= "locale set from $source: " . $locale;
+					break;
+				} else if (preg_match('+^' . $userlocale . '+', strtoupper($value))) { // we got a partial match
+					$locale = $value;
+					$valid .= "locale set from $source (partial match): " . $locale;
+					break;
 				}
 			}
-			if (DEBUG_LOCALE && !$locale) {
+		}
+
+		if (DEBUG_LOCALE) {
+			if (!$locale) {
 				$valid .= "locale not valid";
 			}
-		} else {
-			$valid .= "Mod Rewrite not set";
-		}
-		if (DEBUG_LOCALE) {
 			debugLog($valid);
 		}
 		return $locale;
