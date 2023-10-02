@@ -23,11 +23,6 @@ if (isset($recentIP[$ip])) {
 		$ipList[] = $instance['ip'];
 	}
 	$ipList = array_unique($ipList);
-	foreach ($recentIP[$ip]['locales'] as $instance => $data) {
-		foreach ($data['ip'] as $ipl => $time) {
-			$localeList[$ipl][$instance] = $time;
-		}
-	}
 }
 ?>
 <!DOCTYPE html>
