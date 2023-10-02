@@ -100,9 +100,10 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 }
 
 $thirdParty = $deprecated = false;
+
+list($plugin_subtabs, $plugin_default, $plugins, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
+
 //set plugin default options by instantiating the options interface
-$plugins = getPluginFiles('*.php');
-$plugins = array_keys($plugins);
 $plugin_links = array();
 $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 localeSort($plugins);
@@ -134,8 +135,18 @@ foreach ($plugins as $key => $extension) {
 				if (is_dir(USER_PLUGIN_SERVERPATH . $extension)) {
 					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
 				}
-				unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
+				if (file_exists(USER_PLUGIN_SERVERPATH . $extension . '.php')) {
+					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
+				}
 				unset($plugins[$key]);
+
+				switch ($extension) {
+					case 'ipBlocker':
+						if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+							unlink(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
+						}
+						break;
+				}
 				continue;
 			}
 		}
