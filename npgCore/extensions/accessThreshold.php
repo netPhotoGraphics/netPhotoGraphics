@@ -36,7 +36,7 @@ class accessThreshold {
 			setOptionDefault('accessThreshold_SIGNIFICANT', min((int) (MySQL_CONNECTIONS * 0.75), 20));
 			setOptionDefault('accessThreshold_THRESHOLD', 20);
 			setOptionDefault('accessThreshold_IP_ACCESS_WINDOW', 3600);
-			if (!is_int(getOption('accessThreshold_SENSITIVITY'))) {
+			if (!is_numeric(getOption('accessThreshold_SENSITIVITY'))) {
 				purgeOption('accessThreshold_SENSITIVITY');
 			}
 			if (str_contains(getUserIP(), ':')) {
@@ -44,7 +44,8 @@ class accessThreshold {
 			} else {
 				setOptionDefault('accessThreshold_SENSITIVITY', 3);
 			}
-			setOptionDefault('accessThreshold_LocaleCount', 5);
+			purgeOption('accessThreshold_LocaleCount');
+
 			setOptionDefault('accessThreshold_LIMIT', 100);
 			setOptionDefault('accessThreshold_Monitor', TRUE);
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
@@ -83,9 +84,6 @@ class accessThreshold {
 						'max' => $max,
 						'order' => 4,
 						'desc' => gettext('The number of IP address segments of the address that are considered significant.') . ' ' . sprintf(gettext('For instance %1$s would consolidate all hosts on a subnet. %2$s would consolidate the subnet and its hosts.'), $max - 1, $max - 2)),
-				gettext('Locale limit') => array('key' => 'accessThreshold_LocaleCount', 'type' => OPTION_TYPE_NUMBER,
-						'order' => 3,
-						'desc' => sprintf(gettext('Requests will be blocked if more than %d locales are requested within 10 minutes.'), getOption('accessThreshold_LocaleCount'))),
 				gettext('Display') => array('key' => 'accessThreshold_LIMIT', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 6,
 						'desc' => sprintf(gettext('Show %d accesses per page.'), getOption('accessThreshold_LIMIT'))),
@@ -205,10 +203,10 @@ if (extensionEnabled('accessThreshold')) {
 		$__time = time();
 		$full_ip = getUserIP();
 		$ip = accessThreshold::maskIP($full_ip);
-		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > getOption('accessThreshold_IP_ACCESS_WINDOW')) {
+		$window = getOption('accessThreshold_IP_ACCESS_WINDOW');
+		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > $window) {
 			$recentIP[$ip] = array(
 					'accessed' => array(),
-					'locales' => array(),
 					'blocked' => 0,
 					'interval' => 0
 			);
@@ -218,32 +216,13 @@ if (extensionEnabled('accessThreshold')) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
 			db_close();
-			sleep(30);
+			sleep(getOption('accessThreshold_SIGNIFICANT') * getOption('accessThreshold_THRESHOLD'));
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
-			header("Retry-After: 300");
+			header("Retry-After: $window");
 			exit(); //	terminate the script with no output
 		} else {
 			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
-			$__locale = i18n::getUserLocale();
-			if (isset($recentIP[$ip]['locales'][$__locale])) {
-				$recentIP[$ip]['locales'][$__locale]['ip'][$full_ip] = $__time;
-			} else {
-				$recentIP[$ip]['locales'][$__locale] = array('time' => $__time, 'ip' => array($full_ip => $__time));
-			}
-
-			$__previous = $__interval = $__count = 0;
-			array_walk($recentIP[$ip]['locales'], 'accessThreshold::walk', $__time);
-			foreach ($recentIP[$ip]['locales'] as $key => $data) {
-				if (is_null($data)) {
-					unset($recentIP[$ip]['locales'][$key]);
-				}
-			}
-			if ($__count > getOption('accessThreshold_LocaleCount')) {
-				npgFilters::apply('access_control', 4, 'locales', 'accessThreshold', getRequestURI());
-				$recentIP[$ip]['blocked'] = 1;
-			}
-
 			$__previous = $__interval = $__count = 0;
 			array_walk($recentIP[$ip]['accessed'], 'accessThreshold::walk', $__time);
 			foreach ($recentIP[$ip]['accessed'] as $key => $data) {

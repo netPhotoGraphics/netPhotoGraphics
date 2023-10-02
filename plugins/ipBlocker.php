@@ -13,6 +13,7 @@
  *
  * @author Stephen Billard (sbillard)
  * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @deprecated since 2.00.18 no longer supported, use .htaccess Deny from instead
  *
  * @package plugins/ipBlocker
  * @pluginCategory security

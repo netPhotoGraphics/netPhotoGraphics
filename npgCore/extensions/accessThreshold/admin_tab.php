@@ -84,7 +84,7 @@ $recentIP = array_slice($recentIP, $start * $slice, $slice);
 $output = array();
 $__time = time();
 $ct = 0;
-$legendExpired = $legendBlocked = $legendLocaleBlocked = $legendClick = $legendInvalid = false;
+$legendExpired = $legendBlocked = $legendClick = $legendInvalid = false;
 
 foreach ($recentIP as $ip => $data) {
 	if (is_array($data)) {
@@ -105,7 +105,7 @@ foreach ($recentIP as $ip => $data) {
 			$ipDisp = str_replace(':::', '::', $ipDisp);
 		}
 
-		$localeBlock = $invalid = '';
+		$invalid = '';
 
 		if (isset($data['interval']) && $data['interval']) {
 			$interval = sprintf('%.1f', $data['interval']);
@@ -124,14 +124,9 @@ foreach ($recentIP as $ip => $data) {
 			$old = '';
 		}
 		if (isset($data['blocked']) && $data['blocked']) {
-			if ($data['blocked'] == 1) {
-				$localeBlock = '<span style="color:red;">&sect;</span> ';
-				$legendLocaleBlocked = $localeBlock . gettext('blocked because of <em>locale</em> abuse.');
-			} else {
-				$invalid = 'color:red;';
-				$legendBlocked = gettext('Address with intervals that are <span style="color:Red;">red</span> have been blocked. ');
-			}
-			$legendClick = '<br />&nbsp;&nbsp;&nbsp;' . gettext('Click on the address for a list of IPs and <em>locales</em> seen.');
+			$invalid = 'color:red;';
+			$legendBlocked = gettext('Address with intervals that are <span style="color:Red;">red</span> have been blocked. ');
+			$legendClick = '<br />&nbsp;&nbsp;&nbsp;' . gettext('Click on the address for a list of IPs.');
 			$ipDisp = '<a onclick="$.colorbox({
 										close: \'' . gettext("close") . '\',
 										maxHeight: \'80%\',
@@ -150,7 +145,7 @@ foreach ($recentIP as $ip => $data) {
 		}
 
 		$out .= '">' . "\n";
-		$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $localeBlock . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
+		$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
 		$out .= '  <span style="width:48%;float:left;' . $old . '">' . date('Y-m-d H:i:s', $data['lastAccessed']) . '</span>' . "\n";
 		$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
 		$out .= "</span>\n";
@@ -214,13 +209,12 @@ echo "\n</head>";
 					<?php
 					echo $legendExpired;
 					echo $legendInvalid;
-					if ($legendBlocked || $legendLocaleBlocked) {
+					if ($legendBlocked) {
 						echo '<p>';
 						echo $legendBlocked;
-						if ($legendBlocked && $legendLocaleBlocked) {
+						if ($legendBlocked) {
 							echo '<br />';
 						}
-						echo $legendLocaleBlocked;
 						echo $legendClick;
 						echo '</p>';
 					}

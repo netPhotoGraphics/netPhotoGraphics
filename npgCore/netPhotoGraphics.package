@@ -634,6 +634,9 @@ plugins
 plugins/cookieInvalidator.php
 plugins/customFieldExtender.php
 plugins/devReleases.php
+plugins/ipBlocker/
+plugins/ipBlocker/Private IP Address Ranges.txt
+plugins/ipBlocker.php
 plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
@@ -814,7 +817,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/http_auth.php
 %extensions%/image_album_statistics.php
 %extensions%/instagramLogin.php
-%extensions%/ipBlocker.php
 %extensions%/jPlayer.php
 %extensions%/lazyLoader.php
 %extensions%/LDAP_auth.php
@@ -19550,8 +19552,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/instagramLogin/instagram-login-api.php
 %extensions%/instagramLogin/instagram.php
 %extensions%/instagramLogin/login_button.png
-%extensions%/ipBlocker
-%extensions%/ipBlocker/Private IP Address Ranges.txt
 %extensions%/jPlayer
 %extensions%/jPlayer/js
 %extensions%/jPlayer/js/jplayer.playlist.min.js
