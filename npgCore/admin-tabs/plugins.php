@@ -115,6 +115,11 @@ if (isset($_GET['action'])) {
 		case 'delete':
 			XSRFdefender('deleteplugin');
 			$plugin = $_GET['plugin'];
+			require_once(USER_PLUGIN_SERVERPATH . $plugin . '.php');
+			if (method_exists($plugin, 'delete')) {
+				call_user_func($plugin . '::delete'); //	plugin deletion cleanup code
+			}
+
 			npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $plugin);
 			unlink(USER_PLUGIN_SERVERPATH . $plugin . '.php');
 			purgeOption('_PLUGIN_' . $plugin);

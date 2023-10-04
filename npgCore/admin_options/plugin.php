@@ -27,7 +27,7 @@ function saveOptions() {
 	}
 
 	if (!isset($_POST['checkForPostTruncation'])) {
-// all plugin options are handled by the custom option code.
+		// all plugin options are handled by the custom option code.
 		$notify = '?post_error';
 	}
 
@@ -90,9 +90,9 @@ function getOptionContent() {
 		?>
 		<div id="tab_plugin" class="tabbox">
 			<script type="text/javascript">
-				
+
 				var optionholder = new Array();
-				
+
 			</script>
 
 			<?php

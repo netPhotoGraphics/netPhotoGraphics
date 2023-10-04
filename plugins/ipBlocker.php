@@ -63,6 +63,12 @@ class ipBlocker {
 		}
 	}
 
+	static function delete() {
+		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
+			unlink(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
+		}
+	}
+
 	/**
 	 * Reports the supported options
 	 *

@@ -139,14 +139,6 @@ foreach ($plugins as $key => $extension) {
 					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
 				}
 				unset($plugins[$key]);
-
-				switch ($extension) {
-					case 'ipBlocker':
-						if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
-							unlink(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
-						}
-						break;
-				}
 				continue;
 			}
 		}
