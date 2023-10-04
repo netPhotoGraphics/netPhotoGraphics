@@ -86,6 +86,15 @@ if (isset($_GET['mod_rewrite'])) {
 	$mod_rewrite_link = false;
 }
 
+
+//	update creator for old zp_core indicators
+$rslt = query('SELECT `id`,`creator` FROM ' . prefix('options') . ' WHERE `creator` LIKE "zp-core/%"');
+if ($rslt) {
+	while ($option = db_fetch_assoc($rslt)) {
+		query('UPDATE ' . prefix('options') . ' SET `creator`="' . str_replace('zp-core/', 'npgCore/', $option['creator']) . '"');
+	}
+}
+
 //effervescence_plus migration
 if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
