@@ -86,6 +86,15 @@ if (isset($_GET['mod_rewrite'])) {
 	$mod_rewrite_link = false;
 }
 
+
+//	update creator for old zp_core indicators
+$rslt = query('SELECT `id`,`creator` FROM ' . prefix('options') . ' WHERE `creator` LIKE "zp-core/%"');
+if ($rslt) {
+	while ($option = db_fetch_assoc($rslt)) {
+		query('UPDATE ' . prefix('options') . ' SET `creator`="' . str_replace('zp-core/', 'npgCore/', $option['creator']) . '"');
+	}
+}
+
 //effervescence_plus migration
 if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
@@ -100,9 +109,10 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 }
 
 $thirdParty = $deprecated = false;
+
+list($plugin_subtabs, $plugin_default, $plugins, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
+
 //set plugin default options by instantiating the options interface
-$plugins = getPluginFiles('*.php');
-$plugins = array_keys($plugins);
 $plugin_links = array();
 $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 localeSort($plugins);
@@ -134,7 +144,9 @@ foreach ($plugins as $key => $extension) {
 				if (is_dir(USER_PLUGIN_SERVERPATH . $extension)) {
 					npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $extension);
 				}
-				unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
+				if (file_exists(USER_PLUGIN_SERVERPATH . $extension . '.php')) {
+					unlink(USER_PLUGIN_SERVERPATH . $extension . '.php');
+				}
 				unset($plugins[$key]);
 				continue;
 			}

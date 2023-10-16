@@ -361,17 +361,15 @@ function getOptionContent() {
 										} else {
 											$flag = WEBPATH . '/' . CORE_FOLDER . '/locale/auto.png';
 										}
-										if (isset($unsupported[$dirname])) {
-											$c_attrs = $r_attrs = ' disabled="disabled"';
+										$strike = isset($unsupported[$dirname]);
+										if (isset($disallow[$dirname])) {
+											$c_attrs = '';
+											$r_attrs = ' disabled="disabled"';
 										} else {
-											if (isset($disallow[$dirname])) {
-												$c_attrs = '';
-												$r_attrs = ' disabled="disabled"';
-											} else {
-												$c_attrs = ' checked="checked"';
-												$r_attrs = '';
-											}
+											$c_attrs = ' checked="checked"';
+											$r_attrs = '';
 										}
+
 
 										if ($dirname == SITE_LOCALE) {
 											$r_attrs = ' checked="checked"';
@@ -398,7 +396,15 @@ function getOptionContent() {
 																 value="<?php echo $dirname; ?>"<?php echo $c_attrs; ?>
 																 onclick="enable_click('<?php echo $dirname; ?>');" />
 													<img src="<?php echo $flag; ?>" alt="<?php echo $languageAlt; ?>" width="24" height="16" />
-													<?php echo $language; ?>
+													<?php
+													if ($strike) {
+														echo '<strike>';
+													}
+													echo $language;
+													if ($strike) {
+														echo '</strike>';
+													}
+													?>
 												</span>
 												<?php echo $languageP; ?>
 											</label>
@@ -425,6 +431,9 @@ function getOptionContent() {
 										echo gettext("Select the preferred language to display text in. (Set to <em>HTTP_Accept_Language</em> to use the language preference specified by the viewer’s browser.)") . ' ';
 										echo gettext('More languages can be found in the netPhotoGraphics <a href="https://github.com/netPhotoGraphics/language-files" />language-files</a> gitHub repository.');
 										?>
+									</p>
+									<?php echo gettext('If a language locale is not supported by your server it is <strike>struckthrough</strike>. Language translations and locale specific features may not be available.'); ?>
+									<p>
 									</p>
 									<p>
 										<?php echo gettext("Set <em>Multi-lingual</em> to enable multiple language input for options that provide theme text."); ?>

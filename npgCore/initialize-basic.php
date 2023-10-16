@@ -109,7 +109,7 @@ define('MySQL_CONNECTIONS', $software['connections']);
 if (!$__initialDBConnection && OFFSET_PATH != 2) {
 	_setup(13);
 }
-if (!primeOptions() & OFFSET_PATH != 2) {
+if (!primeOptions() && OFFSET_PATH != 2) {
 	_setup(14);
 }
 
