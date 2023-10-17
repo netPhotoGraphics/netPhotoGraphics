@@ -872,27 +872,29 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *    OPTION_TYPE_NOTE:									Places a note in the options area. The note will span all three columns
 	 *
 	 */
-	define('OPTION_TYPE_TEXTBOX', 0);
-	define('OPTION_TYPE_CHECKBOX', 1);
-	define('OPTION_TYPE_CUSTOM', 2);
-	define('OPTION_TYPE_TEXTAREA', 3);
-	define('OPTION_TYPE_RADIO', 4);
-	define('OPTION_TYPE_SELECTOR', 5);
-	define('OPTION_TYPE_CHECKBOX_ARRAY', 6);
-	define('OPTION_TYPE_CHECKBOX_UL', 7);
-	define('OPTION_TYPE_COLOR_PICKER', 8);
-	define('OPTION_TYPE_CLEARTEXT', 9);
-	define('OPTION_TYPE_NOTE', 10);
-	define('OPTION_TYPE_PASSWORD', 11);
-	define('OPTION_TYPE_RICHTEXT', 12);
-	define('OPTION_TYPE_NUMBER', 13);
-	define('OPTION_TYPE_SLIDER', 14);
-	define('OPTION_TYPE_ORDERED_SELECTOR', 15);
-	define('OPTION_TYPE_CHECKBOX_ARRAYLIST', 16);
-	define('OPTION_TYPE_CHECKBOX_ULLIST', 17);
-	define('OPTION_TYPE_HIDDEN', 18);
-	define('OPTION_TYPE_CLEARTEXTAREA', 19);
-	define('OPTION_TYPE_CHECKBOX_ARRAY_UL', 20);
+	$c = 0;
+	define('OPTION_TYPE_CUSTOM', $c++);
+	define('OPTION_TYPE_TEXTBOX', $c++);
+	define('OPTION_TYPE_TEXTAREA', $c++);
+	define('OPTION_TYPE_CLEARTEXT', $c++);
+	define('OPTION_TYPE_CLEARTEXTAREA', $c++);
+	define('OPTION_TYPE_RICHTEXT', $c++);
+	define('OPTION_TYPE_RADIO', $c++);
+	define('OPTION_TYPE_SELECTOR', $c++);
+	define('OPTION_TYPE_ORDERED_SELECTOR', $c++);
+	define('OPTION_TYPE_COLOR_PICKER', $c++);
+	define('OPTION_TYPE_NOTE', $c++);
+	define('OPTION_TYPE_VALUE_NOTE', $c++);
+	define('OPTION_TYPE_PASSWORD', $c++);
+	define('OPTION_TYPE_NUMBER', $c++);
+	define('OPTION_TYPE_SLIDER', $c++);
+	define('OPTION_TYPE_CHECKBOX', $c++);
+	define('OPTION_TYPE_CHECKBOX_UL', $c++);
+	define('OPTION_TYPE_CHECKBOX_ARRAY', $c++);
+	define('OPTION_TYPE_CHECKBOX_ARRAYLIST', $c++);
+	define('OPTION_TYPE_CHECKBOX_ARRAY_UL', $c++);
+	define('OPTION_TYPE_CHECKBOX_ULLIST', $c++);
+	define('OPTION_TYPE_HIDDEN', $c++);
 
 	function customOptions($optionHandler, $indent = "", $album = NULL, $showhide = false, $supportedOptions = NULL, $theme = false, $initial = 'none', $plugin = NULL) {
 		if (is_null($supportedOptions)) {
@@ -1005,7 +1007,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					<tr id="tr_<?php echo $optionID; ?>">
 						<?php
 					}
-					if ($type != OPTION_TYPE_NOTE && $type != OPTION_TYPE_HIDDEN) {
+					if ($type != OPTION_TYPE_NOTE && $type != OPTION_TYPE_VALUE_NOTE && $type != OPTION_TYPE_HIDDEN) {
 						?>
 						<td class="option_name">
 							<?php if ($option) echo $indent . $option; ?>
@@ -1017,6 +1019,15 @@ function printAdminHeader($tab, $subtab = NULL) {
 							?>
 							<td class="hidden">
 								<input type="hidden" id="__<?php echo $key; ?>" name="<?php echo $postkey; ?>" value="<?php echo html_encode($v); ?>" />
+							</td>
+							<?php
+							unset($desc); //	supress the "info" icon
+							break;
+						case OPTION_TYPE_VALUE_NOTE:
+							?>
+							<td class="option_name"></td>
+							<td class="option_value">
+								<?php echo $desc; ?>
 							</td>
 							<?php
 							unset($desc); //	supress the "info" icon
