@@ -28,7 +28,6 @@ class accessThreshold {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOption('accessThreshold_Owner', getUserIP()); //	if he ran setup he is the owner.
 			setOptionDefault('accessThreshold_IP_RETENTION', 500);
 			if (getOption('accessThreshold_SIGNIFICANT') > (int) (MySQL_CONNECTIONS * 0.75) || getOption('accessThreshold_SIGNIFICANT') < accessThreshold_min_SIGNIFICANT) {
 				purgeOption('accessThreshold_SIGNIFICANT');
@@ -87,9 +86,6 @@ class accessThreshold {
 				gettext('Display') => array('key' => 'accessThreshold_LIMIT', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 6,
 						'desc' => sprintf(gettext('Show %d accesses per page.'), getOption('accessThreshold_LIMIT'))),
-				gettext('Owner') => array('key' => 'accessThreshold_Owner', 'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 7,
-						'desc' => sprintf(gettext('Requests from this IP will be ignored.') . ' <span class="logwarning">' . gettext('If your IP address is dynamically assigned you may need to update this on a regular basis.') . '</span>', getOption('accessThreshold_LIMIT'))),
 				gettext('Mointor only') => array('key' => 'accessThreshold_Monitor', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 7,
 						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
@@ -103,7 +99,6 @@ class accessThreshold {
 
 	static function handleOptionSave($themename, $themealbum) {
 		if (getOption('accessThreshold_CLEAR')) {
-			setOption('accessThreshold_Owner', getUserIP());
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize(array()));
 		}
 		purgeOption('accessThreshold_CLEAR');
