@@ -70,14 +70,14 @@ define('THEME_PLUGIN', 1024);
 define('PLUGIN_PRIORITY', 1023);
 
 //exif index defines
-define('EXIF_SOURCE', 0);
-define('EXIF_KEY', 1);
-define('EXIF_DISPLAY_TEXT', 2);
-define('EXIF_DISPLAY', 3);
-define('EXIF_FIELD_SIZE', 4);
-define('EXIF_FIELD_ENABLED', 5);
-define('EXIF_FIELD_TYPE', 6);
-define('EXIF_FIELD_LINKED', 7);
+define('METADATA_SOURCE', 0);
+define('METADATA_KEY', 1);
+define('METADATA_DISPLAY_TEXT', 2);
+define('METADATA_DISPLAY', 3);
+define('METADATA_FIELD_SIZE', 4);
+define('METADATA_FIELD_ENABLED', 5);
+define('METADATA_FIELD_TYPE', 6);
+define('METADATA_FIELD_LINKED', 7);
 
 define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(dirname(__FILE__) . '/VERSION.PHP'));

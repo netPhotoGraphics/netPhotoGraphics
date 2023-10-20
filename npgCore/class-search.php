@@ -97,8 +97,8 @@ class SearchEngine {
 
 		//metadata fields
 		foreach ($_exifvars as $field => $row) {
-			if ($row[EXIF_DISPLAY] && $row[EXIF_FIELD_ENABLED]) { //	only those that are "real" and "processed"
-				$this->search_structure[strtolower($field)] = $row[EXIF_DISPLAY_TEXT] . ' {' . $row[EXIF_SOURCE] . '}';
+			if ($row[METADATA_DISPLAY] && $row[METADATA_FIELD_ENABLED]) { //	only those that are "real" and "processed"
+				$this->search_structure[strtolower($field)] = $row[METADATA_DISPLAY_TEXT] . ' {' . $row[METADATA_SOURCE] . '}';
 			}
 		}
 

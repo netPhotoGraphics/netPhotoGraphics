@@ -2822,10 +2822,10 @@ class npgFunctions {
 		$display = getSerializedArray(getOption('metadata_displayed'));
 		foreach ($exifvars as $key => $item) {
 			if (in_array($key, $disable)) {
-				$exifvars[$key][EXIF_DISPLAY] = $exifvars[$key][EXIF_FIELD_ENABLED] = false;
+				$exifvars[$key][METADATA_DISPLAY] = $exifvars[$key][METADATA_FIELD_ENABLED] = false;
 			} else {
-				$exifvars[$key][EXIF_DISPLAY] = isset($display[$key]);
-				$exifvars[$key][EXIF_FIELD_ENABLED] = true;
+				$exifvars[$key][METADATA_DISPLAY] = isset($display[$key]);
+				$exifvars[$key][METADATA_FIELD_ENABLED] = true;
 			}
 		}
 		return $exifvars;

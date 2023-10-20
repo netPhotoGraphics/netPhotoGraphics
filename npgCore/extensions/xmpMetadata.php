@@ -681,7 +681,9 @@ class xmpMetadata {
 		);
 
 		foreach (self::getMetadataFields()as $field => $item) {
-			$desiredtags[$field] = strtolower($item[1]);
+			if ($item[METADATA_FIELD_ENABLED]) {
+				$desiredtags[$field] = strtolower($item[1]);
+			}
 		}
 		$xmp_parsed = array();
 		while (!empty($xmpdata)) {
@@ -923,7 +925,7 @@ class xmpMetadata {
 				if (!empty($metadata)) {
 					$exifVars = self::getMetadataFields();
 					foreach ($metadata as $field => $element) {
-						if (!array_key_exists($field, $exifVars) || $exifVars[$field][EXIF_FIELD_ENABLED]) {
+						if (!array_key_exists($field, $exifVars) || $exifVars[$field][METADATA_FIELD_ENABLED]) {
 							$image->set('hasMetadata', 1);
 							$v = self::to_string($element);
 							if (($key = array_search($field, $import)) !== false) {
@@ -1178,10 +1180,10 @@ function xmpMetadata_enable($enabled) {
 		$display = $disable = array();
 		$exifvars = xmpMetadata::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
+			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
 			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 				$disable[$key] = $key;
 			}
 		}

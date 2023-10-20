@@ -2549,10 +2549,10 @@ function getImageMetaData($image = NULL, $displayonly = true) {
 	$data = $image->getMetaData();
 
 	foreach ($data as $field => $value) { //	remove the empty or not selected to display
-		if ($_exifvars[$field][EXIF_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00') {
+		if ($_exifvars[$field][METADATA_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00') {
 			$value = ''; // really it is empty
 		}
-		if ($displayonly && (!$value || !$_exifvars[$field][EXIF_DISPLAY])) {
+		if ($displayonly && (!$value || !$_exifvars[$field][METADATA_DISPLAY])) {
 			unset($data[$field]);
 		} else {
 			$data[$field] = exifTranslate($value, $field);
@@ -2611,7 +2611,7 @@ function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata'
 			<table>
 				<?php
 				foreach ($exif as $field => $value) {
-					$label = $_exifvars[$field][EXIF_DISPLAY_TEXT];
+					$label = $_exifvars[$field][METADATA_DISPLAY_TEXT];
 					echo "<tr><td class=\"label " . html_encode($field) . "\">$label:</td><td class=\"value\">";
 					echo html_encode(strval($value));
 					echo "</td></tr>\n";

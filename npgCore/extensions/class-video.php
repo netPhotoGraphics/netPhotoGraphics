@@ -415,7 +415,7 @@ class Video extends Image {
 		//see if there are any "enabled" VIDEO fields
 		$process = array();
 		foreach ($_exifvars as $field => $exifvar) {
-			if ($exifvar[EXIF_FIELD_ENABLED] && $exifvar[EXIF_SOURCE] == 'VIDEO') {
+			if ($exifvar[METADATA_FIELD_ENABLED] && $exifvar[METADATA_SOURCE] == 'VIDEO') {
 				$process[$field] = $exifvar;
 			}
 		}
@@ -596,10 +596,10 @@ function class_video_enable($enabled) {
 		$display = $disable = array();
 		$exifvars = Video::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
+			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
 			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 				$disable[$key] = $key;
 			}
 		}
