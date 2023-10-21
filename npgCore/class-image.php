@@ -467,7 +467,6 @@ class Image extends MediaObject {
 				$this->set($field, NULL);
 			}
 
-			$result = array();
 			if (get_class($this) == 'Image') {
 				$localpath = $this->localpath;
 			} else {
@@ -530,7 +529,6 @@ class Image extends MediaObject {
 							$datum = self::getIPTCTagArray($IPTCtags['Keywords'], $iptc);
 							if (is_array($datum)) {
 								$tags = array();
-								$result['tags'] = array();
 								foreach ($datum as $item) {
 									$tags[] = $this->prepIPTCString(sanitize($item, 3), $characterset);
 								}
