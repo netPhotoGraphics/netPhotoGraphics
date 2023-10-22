@@ -86,6 +86,9 @@ function reconfigureAction($mandatory) {
 
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header('Content-Type: text/html; charset=UTF-8');
+		header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
 		header("HTTP/1.0 503 Service Unavailable");
 		header("Status: 503 Service Unavailable");
 		header("Retry-After: 300");
