@@ -177,11 +177,14 @@ if ($alb) {
 $custom = array();
 
 $result = query('SELECT `data` FROM ' . prefix('plugin_storage') . ' WHERE `type` = "cacheManager"');
-while ($row = db_fetch_assoc($result)) {
-	$datarow = getSerializedArray($row['data']);
-	if ($datarow['theme']) {
-		$custom[] = $datarow;
+if ($result) {
+	while ($row = db_fetch_assoc($result)) {
+		$datarow = getSerializedArray($row['data']);
+		if ($datarow['theme']) {
+			$custom[] = $datarow;
+		}
 	}
+	db_free_result($result);
 }
 $custom = sortMultiArray($custom, array('theme', 'album', 'thumb', 'image_size', 'image_width', 'image_height'), false, true, true);
 

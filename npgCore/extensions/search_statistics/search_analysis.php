@@ -31,39 +31,41 @@ $opChars = array('(', ')', '&', '|', '!', ',');
 
 $sql = 'SELECT `subtype`, `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
 $searches = query($sql);
-while ($datum = db_fetch_assoc($searches)) {
-	$element = getSerializedArray($datum['data']);
-	if (is_array($element)) {
-		if (isset($element['iteration'])) {
-			$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
-			query($sql);
-			$nodata = gettext('Search criteria reset.');
-			break;
-		} else {
-			if ($element['success'] === 'cache') {
-				$cacheHits++;
-				if ($criteria_maxvalue < $cacheHits) {
-					$criteria_maxvalue = $cacheHits;
-				}
-			}
-			if (array_key_exists($datum['subtype'], $data)) {
-				$data[$datum['subtype']]['success'] = $data[$datum['subtype']]['success'] || $element['success'];
+if ($searches) {
+	while ($datum = db_fetch_assoc($searches)) {
+		$element = getSerializedArray($datum['data']);
+		if (is_array($element)) {
+			if (isset($element['iteration'])) {
+				$sql = 'DELETE FROM ' . prefix('plugin_storage') . ' WHERE `type`="search_statistics"';
+				query($sql);
+				$nodata = gettext('Search criteria reset.');
+				break;
 			} else {
-				$data[$datum['subtype']] = $element;
-				$ip = $datum['aux'];
-				if (array_key_exists($ip, $sites)) {
-					$sites[$ip]++;
-					if ($criteria_maxvalue < $sites[$ip]) {
-						$criteria_maxvalue = $sites[$ip];
+				if ($element['success'] === 'cache') {
+					$cacheHits++;
+					if ($criteria_maxvalue < $cacheHits) {
+						$criteria_maxvalue = $cacheHits;
 					}
+				}
+				if (array_key_exists($datum['subtype'], $data)) {
+					$data[$datum['subtype']]['success'] = $data[$datum['subtype']]['success'] || $element['success'];
 				} else {
-					$sites[$ip] = 1;
+					$data[$datum['subtype']] = $element;
+					$ip = $datum['aux'];
+					if (array_key_exists($ip, $sites)) {
+						$sites[$ip]++;
+						if ($criteria_maxvalue < $sites[$ip]) {
+							$criteria_maxvalue = $sites[$ip];
+						}
+					} else {
+						$sites[$ip] = 1;
+					}
 				}
 			}
 		}
 	}
+	db_free_result($searches);
 }
-db_free_result($searches);
 
 foreach ($data as $uid => $element) {
 

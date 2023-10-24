@@ -186,17 +186,19 @@ class cacheManager {
 		$custom = array();
 		$result = query('SELECT `id`, `aux`, `data` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" ORDER BY `aux`');
 		$key = 0;
-		while ($row = db_fetch_assoc($result)) {
-			$owner = strval($row['aux']);
-			$data = getSerializedArray($row['data']);
-			$data['id'] = $row['id'];
-			$index = $data['theme'];
-			if (array_key_exists('album', $data) && $data['album']) {
-				$index .= '__' . $data['album'];
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				$owner = strval($row['aux']);
+				$data = getSerializedArray($row['data']);
+				$data['id'] = $row['id'];
+				$index = $data['theme'];
+				if (array_key_exists('album', $data) && $data['album']) {
+					$index .= '__' . $data['album'];
+				}
+				$custom[$index][] = $data;
 			}
-			$custom[$index][] = $data;
+			db_free_result($result);
 		}
-		db_free_result($result);
 
 		ksort($custom, SORT_LOCALE_STRING);
 		$custom[] = array(array('theme' => NULL));

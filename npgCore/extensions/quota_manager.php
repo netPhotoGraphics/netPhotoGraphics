@@ -70,11 +70,13 @@ class quota_manager extends fieldExtender {
 				//	populate the `filesize` field
 				$sql = 'SELECT a.folder, i.filename, i.id FROM ' . prefix('albums') . ' AS a, ' . prefix('images') . ' AS i WHERE i.filesize IS NULL AND a.id = i.albumid;';
 				$result = query($sql);
-				while ($row = db_fetch_assoc($result)) {
-					$size = filesize(SERVERPATH . '/' . ALBUMFOLDER . '/' . $row['folder'] . '/' . $row['filename']);
-					query('UPDATE ' . prefix('images') . ' SET `filesize`=' . $size . ' WHERE `id`=' . $row['id']);
+				if ($result) {
+					while ($row = db_fetch_assoc($result)) {
+						$size = filesize(SERVERPATH . '/' . ALBUMFOLDER . '/' . $row['folder'] . '/' . $row['filename']);
+						query('UPDATE ' . prefix('images') . ' SET `filesize`=' . $size . ' WHERE `id`=' . $row['id']);
+					}
+					db_free_result($result);
 				}
-				db_free_result($result);
 			}
 		}
 	}

@@ -1151,19 +1151,21 @@ class AlbumBase extends MediaObject {
 		}
 		$result = query($sql);
 		$results = array();
-		while ($row = db_fetch_assoc($result)) {
-			$filename = $row['filename'];
-			if (($key = array_search($filename, $images)) !== false) {
-				// the image exists in the filesystem
-				$results[] = $row;
-				unset($images[$key]);
-			} else { // the image no longer exists
-				$id = $row['id'];
-				query("DELETE FROM " . prefix('images') . " WHERE `id`=$id"); // delete the record
-				query("DELETE FROM " . prefix('comments') . " WHERE `type` ='images' AND `ownerid`= '$id'"); // remove image comments
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				$filename = $row['filename'];
+				if (($key = array_search($filename, $images)) !== false) {
+					// the image exists in the filesystem
+					$results[] = $row;
+					unset($images[$key]);
+				} else { // the image no longer exists
+					$id = $row['id'];
+					query("DELETE FROM " . prefix('images') . " WHERE `id`=$id"); // delete the record
+					query("DELETE FROM " . prefix('comments') . " WHERE `type` ='images' AND `ownerid`= '$id'"); // remove image comments
+				}
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 		foreach ($images as $filename) {
 			// these images are not in the database
 			$imageobj = newImage($this, $filename);
@@ -1501,8 +1503,8 @@ class Album extends AlbumBase {
 					$sql = "UPDATE " . prefix('albums') . " SET folder=" . db_quote($newfolder . substr($subrow['folder'], $len)) . " WHERE id=" . $subrow['id'];
 					query($sql);
 				}
+				db_free_result($result);
 			}
-			db_free_result($result);
 			return 0;
 		}
 		return $rslt;
@@ -1562,21 +1564,22 @@ class Album extends AlbumBase {
 		$live = array();
 
 		$files = $this->loadFileNames();
-
-		// Does the filename from the db row match any in the files on disk?
-		while ($row = db_fetch_assoc($result)) {
-			if (!in_array($row['filename'], $files)) {
-				// In the database but not on disk. Kill it.
-				$dead[] = $row['id'];
-			} else if (in_array($row['filename'], $live)) {
-				// Duplicate in the database. Kill it.
-				$dead[] = $row['id'];
-				// Do something else here? Compare titles/descriptions/metadata/update dates to see which is the latest?
-			} else {
-				$live[] = $row['filename'];
+		if ($result) {
+			// Does the filename from the db row match any in the files on disk?
+			while ($row = db_fetch_assoc($result)) {
+				if (!in_array($row['filename'], $files)) {
+					// In the database but not on disk. Kill it.
+					$dead[] = $row['id'];
+				} else if (in_array($row['filename'], $live)) {
+					// Duplicate in the database. Kill it.
+					$dead[] = $row['id'];
+					// Do something else here? Compare titles/descriptions/metadata/update dates to see which is the latest?
+				} else {
+					$live[] = $row['filename'];
+				}
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 
 		if (count($dead) > 0) {
 			$sql = "DELETE FROM " . prefix('images') . " WHERE `id` IN(" . implode(',', $dead) . ")";
@@ -1594,14 +1597,16 @@ class Album extends AlbumBase {
 		$dead = array();
 		$live = array();
 		// Does the dirname from the db row exist on disk?
-		while ($row = db_fetch_assoc($result)) {
-			if (!is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($row['folder'])) || in_array($row['folder'], $live) || substr($row['folder'], -1) == '/' || substr($row['folder'], 0, 1) == '/') {
-				$dead[] = $row['id'];
-			} else {
-				$live[] = $row['folder'];
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				if (!is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($row['folder'])) || in_array($row['folder'], $live) || substr($row['folder'], -1) == '/' || substr($row['folder'], 0, 1) == '/') {
+					$dead[] = $row['id'];
+				} else {
+					$live[] = $row['folder'];
+				}
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 		if (count($dead) > 0) {
 			$sql = "DELETE FROM " . prefix('albums') . " WHERE `id` = '" . array_pop($dead) . "'";
 			$sql2 = "DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid` = '" . array_pop($dead) . "'";

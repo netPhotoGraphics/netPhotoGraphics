@@ -1394,13 +1394,15 @@ class _Authority {
 					$questions[] = get_language_string($question);
 				}
 				$rslt = query('SELECT `challenge_phrase`,`language` FROM ' . prefix('administrators') . ' WHERE `challenge_phrase` IS NOT NULL');
-				while ($row = db_fetch_assoc($rslt)) {
-					if (is_null($row['language']) || $row['language'] == $locale) {
-						$q = getSerializedArray($row['challenge_phrase']);
-						$questions[] = $q['challenge'];
+				if ($rslt) {
+					while ($row = db_fetch_assoc($rslt)) {
+						if (is_null($row['language']) || $row['language'] == $locale) {
+							$q = getSerializedArray($row['challenge_phrase']);
+							$questions[] = $q['challenge'];
+						}
 					}
+					db_free_result($rslt);
 				}
-				db_free_result($rslt);
 				$questions = array_unique($questions);
 				if (!empty($questions)) {
 					shuffle($questions);
@@ -1880,7 +1882,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1889,7 +1891,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-											 $('#show_disclose_password<?php echo $id; ?>').show();"
+									 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>
@@ -2249,10 +2251,12 @@ class _Administrator extends PersistentObject {
 			$old = array();
 			$sql = "SELECT `id`, `objectid`, `type`, `edit` FROM " . prefix('admin_to_object') . ' WHERE `adminid`=' . $id;
 			$result = query($sql, false);
-			while ($row = db_fetch_assoc($result)) {
-				$old[$row['id']] = array($row['objectid'], $row['type'], $row['edit']);
+			if ($result) {
+				while ($row = db_fetch_assoc($result)) {
+					$old[$row['id']] = array($row['objectid'], $row['type'], $row['edit']);
+				}
+				db_free_result($result);
 			}
-			db_free_result($result);
 			foreach ($this->objects as $object) {
 				$edit = MANAGED_OBJECT_MEMBER;
 				if (array_key_exists('edit', $object)) {

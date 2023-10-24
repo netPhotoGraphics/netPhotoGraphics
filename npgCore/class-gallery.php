@@ -608,26 +608,28 @@ class Gallery {
 			$deadalbumthemes = array();
 			// Load the albums from disk
 			$result = query("SELECT `id`, `folder`, `album_theme` FROM " . prefix('albums'));
-			while ($row = db_fetch_assoc($result)) {
-				$albumpath = internalToFilesystem($row['folder']);
-				$albumpath_valid = preg_replace('~/\.*/~', '/', $albumpath);
-				$albumpath_valid = ltrim(trim($albumpath_valid, '/'), './');
-				$illegal = $albumpath != $albumpath_valid;
-				$valid = file_exists(ALBUM_FOLDER_SERVERPATH . $albumpath_valid) && (hasDynamicAlbumSuffix($albumpath_valid) || is_dir(ALBUM_FOLDER_SERVERPATH . $albumpath_valid));
-				if ($valid && $illegal) { // maybe there is only one record so we can fix it.
-					$valid = query('UPDATE ' . prefix('albums') . ' SET `folder`=' . db_quote($albumpath_valid) . ' WHERE `id`=' . $row['id'], false);
-					debugLog(sprintf(gettext('Invalid album folder: %1$s %2$s'), $albumpath, $valid ? gettext('fixed') : gettext('discarded')));
-				}
-				if (!$valid || in_array($row['folder'], $live)) {
-					$dead[] = $row['id'];
-					if ($row['album_theme'] !== '') { // orphaned album theme options table
-						$deadalbumthemes[$row['id']] = $row['folder'];
+			if ($result) {
+				while ($row = db_fetch_assoc($result)) {
+					$albumpath = internalToFilesystem($row['folder']);
+					$albumpath_valid = preg_replace('~/\.*/~', '/', $albumpath);
+					$albumpath_valid = ltrim(trim($albumpath_valid, '/'), './');
+					$illegal = $albumpath != $albumpath_valid;
+					$valid = file_exists(ALBUM_FOLDER_SERVERPATH . $albumpath_valid) && (hasDynamicAlbumSuffix($albumpath_valid) || is_dir(ALBUM_FOLDER_SERVERPATH . $albumpath_valid));
+					if ($valid && $illegal) { // maybe there is only one record so we can fix it.
+						$valid = query('UPDATE ' . prefix('albums') . ' SET `folder`=' . db_quote($albumpath_valid) . ' WHERE `id`=' . $row['id'], false);
+						debugLog(sprintf(gettext('Invalid album folder: %1$s %2$s'), $albumpath, $valid ? gettext('fixed') : gettext('discarded')));
 					}
-				} else {
-					$live[] = $row['folder'];
+					if (!$valid || in_array($row['folder'], $live)) {
+						$dead[] = $row['id'];
+						if ($row['album_theme'] !== '') { // orphaned album theme options table
+							$deadalbumthemes[$row['id']] = $row['folder'];
+						}
+					} else {
+						$live[] = $row['folder'];
+					}
 				}
+				db_free_result($result);
 			}
-			db_free_result($result);
 
 			if (count($dead) > 0) { /* delete the dead albums from the DB */
 				asort($dead);
@@ -895,20 +897,22 @@ class Gallery {
 		$result = query($sql);
 		$results = array();
 		//	check database aganist file system
-		while ($row = db_fetch_assoc($result)) {
-			$folder = $row['folder'];
-			if (($key = array_search($folder, $albums)) !== false) { // album exists in filesystem
-				$results[$row['folder']] = $row;
-				unset($albums[$key]);
-			} else { // album no longer exists
-				$id = $row['id'];
-				query("DELETE FROM " . prefix('albums') . " WHERE `id`=$id"); // delete the record
-				query("DELETE FROM " . prefix('comments') . " WHERE `type` ='images' AND `ownerid`= '$id'"); // remove image comments
-				query("DELETE FROM " . prefix('obj_to_tag') . "WHERE `type`='albums' AND `objectid`=" . $id);
-				query("DELETE FROM " . prefix('albums') . " WHERE `id` = " . $id);
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				$folder = $row['folder'];
+				if (($key = array_search($folder, $albums)) !== false) { // album exists in filesystem
+					$results[$row['folder']] = $row;
+					unset($albums[$key]);
+				} else { // album no longer exists
+					$id = $row['id'];
+					query("DELETE FROM " . prefix('albums') . " WHERE `id`=$id"); // delete the record
+					query("DELETE FROM " . prefix('comments') . " WHERE `type` ='images' AND `ownerid`= '$id'"); // remove image comments
+					query("DELETE FROM " . prefix('obj_to_tag') . "WHERE `type`='albums' AND `objectid`=" . $id);
+					query("DELETE FROM " . prefix('albums') . " WHERE `id` = " . $id);
+				}
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 		foreach ($albums as $folder) { // these albums are not in the database
 			$albumobj = newAlbum($folder);
 			$results[$folder] = $albumobj->getData();

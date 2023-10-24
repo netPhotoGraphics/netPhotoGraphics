@@ -126,31 +126,33 @@ function listDBUses($pattern) {
 		$output = false;
 		$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `codeblock` <> "" and `codeblock` IS NOT NULL and `codeblock`!="a:0:{}"';
 		$result = query($sql);
-		while ($row = db_fetch_assoc($result)) {
-			$codeblocks = getSerializedArray($row['codeblock']);
-			foreach ($codeblocks as $key => $codeblock) {
-				switch ($table) {
-					case 'news':
-					case 'pages':
-						$what = $row['titlelink'] . '::' . $key;
-						break;
-					case 'images':
-						$album = getItemByID('albums', $row['albumid']);
-						if (is_object($album)) {
-							$what = $album->name . ':' . $row['filename'] . '::' . $key;
-						} else {
-							$what = ':' . $row['filename'] . '::' . $key;
-						}
-						break;
-					case 'albums':
-						$what = $row['folder'] . '::' . $key;
-						break;
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				$codeblocks = getSerializedArray($row['codeblock']);
+				foreach ($codeblocks as $key => $codeblock) {
+					switch ($table) {
+						case 'news':
+						case 'pages':
+							$what = $row['titlelink'] . '::' . $key;
+							break;
+						case 'images':
+							$album = getItemByID('albums', $row['albumid']);
+							if (is_object($album)) {
+								$what = $album->name . ':' . $row['filename'] . '::' . $key;
+							} else {
+								$what = ':' . $row['filename'] . '::' . $key;
+							}
+							break;
+						case 'albums':
+							$what = $row['folder'] . '::' . $key;
+							break;
+					}
+					if (formatList($what, $codeblock, $pattern))
+						$output = true;
 				}
-				if (formatList($what, $codeblock, $pattern))
-					$output = true;
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 		if ($output) {
 			echo '</ul>,!-- 4 -->';
 		} else {

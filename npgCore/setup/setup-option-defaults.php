@@ -323,31 +323,33 @@ $where = ltrim($where, ' OR ');
 if (!empty($where)) {
 	$sql = 'SELECT `id` FROM ' . prefix('images') . ' WHERE ' . $where;
 	$result = query($sql);
-	while ($row = db_fetch_assoc($result)) {
-		$img = getItemByID('images', $row['id']);
-		if ($img) {
-			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
-				$data = floatval($img->get($source));
-				if (!empty($data)) {
-					if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
-						$data = -$data;
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$img = getItemByID('images', $row['id']);
+			if ($img) {
+				foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
+					$data = floatval($img->get($source));
+					if (!empty($data)) {
+						if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
+							$data = -$data;
+						}
+						$img->set(substr($source, 4), $data);
 					}
-					$img->set(substr($source, 4), $data);
 				}
-			}
-			$alt = floatval($img->get('EXIFGPSAltitude'));
-			if (!empty($alt)) {
-				$ref = $img->get('EXIFGPSAltitudeRef');
-				if (!is_null($ref) && $ref != 0) {
-					$alt = -$alt;
+				$alt = floatval($img->get('EXIFGPSAltitude'));
+				if (!empty($alt)) {
+					$ref = $img->get('EXIFGPSAltitudeRef');
+					if (!is_null($ref) && $ref != 0) {
+						$alt = -$alt;
+					}
+					$img->set('GPSAltitude', $alt);
 				}
-				$img->set('GPSAltitude', $alt);
+				$img->set('rotation', substr(trim($img->get('EXIFOrientation'), '!'), 0, 1));
+				$img->save();
 			}
-			$img->set('rotation', substr(trim($img->get('EXIFOrientation'), '!'), 0, 1));
-			$img->save();
 		}
+		db_free_result($result);
 	}
-	db_free_result($result);
 }
 
 //	cleanup mutexes
@@ -370,11 +372,13 @@ foreach ($migrate as $file => $theme) {
 	deleteDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
 	$newtheme = lcfirst(substr($theme, 2));
 	$result = query('SELECT `id`, `creator` FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
-	while ($row = db_fetch_assoc($result)) {
-		$newcreator = str_replace($theme, $newtheme, $row['creator']);
-		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$newcreator = str_replace($theme, $newtheme, $row['creator']);
+			query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
+		}
+		db_free_result($result);
 	}
-	db_free_result($result);
 }
 if (in_array($_gallery->getCurrentTheme(), $migrate)) {
 	$_gallery->setCurrentTheme(substr($current_theme, 2));

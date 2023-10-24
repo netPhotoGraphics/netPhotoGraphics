@@ -405,25 +405,27 @@ function addPagesToDatabase($menuset, $base = NULL) {
 	$result = $pagebase;
 	$parents = array('NULL');
 	$query = query("SELECT `title`, `titlelink`, `sort_order`, `show` FROM " . prefix('pages') . " ORDER BY sort_order");
-	while ($item = db_fetch_assoc($query)) {
-		$sorts = explode('-', $item['sort_order']);
-		$level = count($sorts);
-		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $pagebase);
-		$order = $sortbase . implode('-', $sorts);
-		$show = $item['show'];
-		$link = $item['titlelink'];
-		$parent = $parents[$level - 1];
-		$sql = "INSERT INTO " . prefix('menu') . " (`title`, `link`, `type`, `show`,`menuset`,`sort_order`, `parentid`) " .
-						'VALUES (' . db_quote($item['title']) . ',' . db_quote($link) . ',"page",' . $show . ',' . db_quote($menuset) . ',' . db_quote($order) . ',' . $parent . ')';
-		if (query($sql, false)) {
-			$id = db_insert_id();
-		} else {
-			$rslt = query_single_row('SELECT `id` FROM' . prefix('menu') . ' WHERE `type`="page" AND `link`="' . $link . '"');
-			$id = $rslt['id'];
+	if ($query) {
+		while ($item = db_fetch_assoc($query)) {
+			$sorts = explode('-', $item['sort_order']);
+			$level = count($sorts);
+			$sorts[0] = sprintf('%03u', $result = $sorts[0] + $pagebase);
+			$order = $sortbase . implode('-', $sorts);
+			$show = $item['show'];
+			$link = $item['titlelink'];
+			$parent = $parents[$level - 1];
+			$sql = "INSERT INTO " . prefix('menu') . " (`title`, `link`, `type`, `show`,`menuset`,`sort_order`, `parentid`) " .
+							'VALUES (' . db_quote($item['title']) . ',' . db_quote($link) . ',"page",' . $show . ',' . db_quote($menuset) . ',' . db_quote($order) . ',' . $parent . ')';
+			if (query($sql, false)) {
+				$id = db_insert_id();
+			} else {
+				$rslt = query_single_row('SELECT `id` FROM' . prefix('menu') . ' WHERE `type`="page" AND `link`="' . $link . '"');
+				$id = $rslt['id'];
+			}
+			$parents[$level] = $id;
 		}
-		$parents[$level] = $id;
+		db_free_result($result);
 	}
-	db_free_result($result);
 	return $result;
 }
 
@@ -445,24 +447,26 @@ function addCategoriesToDatabase($menuset, $base = NULL) {
 	$result = $categorybase;
 	$parents = array('NULL');
 	$query = query("SELECT `title`, `titlelink`, `sort_order` FROM " . prefix('news_categories') . " ORDER BY sort_order");
-	while ($item = db_fetch_assoc($query)) {
-		$sorts = explode('-', $item['sort_order']);
-		$level = count($sorts);
-		$sorts[0] = sprintf('%03u', $result = $sorts[0] + $categorybase);
-		$order = $sortbase . implode('-', $sorts);
-		$link = $item['titlelink'];
-		$parent = $parents[$level - 1];
-		$sql = "INSERT INTO " . prefix('menu') . " (`title`, `link`, `type`, `show`,`menuset`,`sort_order`,`parentid`) " .
-						'VALUES (' . db_quote($item['title']) . ',' . db_quote($link) . ',"category", 1,' . db_quote($menuset) . ',' . db_quote($order) . ',' . $parent . ')';
-		if (query($sql, false)) {
-			$id = db_insert_id();
-		} else {
-			$rslt = query_single_row('SELECT `id` FROM' . prefix('menu') . ' WHERE `type`="category" AND `link`="' . $link . '"');
-			$id = $rslt['id'];
+	if ($query) {
+		while ($item = db_fetch_assoc($query)) {
+			$sorts = explode('-', $item['sort_order']);
+			$level = count($sorts);
+			$sorts[0] = sprintf('%03u', $result = $sorts[0] + $categorybase);
+			$order = $sortbase . implode('-', $sorts);
+			$link = $item['titlelink'];
+			$parent = $parents[$level - 1];
+			$sql = "INSERT INTO " . prefix('menu') . " (`title`, `link`, `type`, `show`,`menuset`,`sort_order`,`parentid`) " .
+							'VALUES (' . db_quote($item['title']) . ',' . db_quote($link) . ',"category", 1,' . db_quote($menuset) . ',' . db_quote($order) . ',' . $parent . ')';
+			if (query($sql, false)) {
+				$id = db_insert_id();
+			} else {
+				$rslt = query_single_row('SELECT `id` FROM' . prefix('menu') . ' WHERE `type`="category" AND `link`="' . $link . '"');
+				$id = $rslt['id'];
+			}
+			$parents[$level] = $id;
 		}
-		$parents[$level] = $id;
+		db_free_result($result);
 	}
-	db_free_result($result);
 	return $result;
 }
 
