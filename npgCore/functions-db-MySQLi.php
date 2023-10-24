@@ -55,7 +55,6 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		$er = gettext('"extension not loaded"');
 	}
 	error_reporting($er_reporting);
-	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 	if (!is_object($_DB_connection)) {
 		if ($errorstop) {
