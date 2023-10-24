@@ -133,6 +133,7 @@ class externalFeed_options {
 				</div>
 				<?php
 			}
+			db_free_result($result);
 		}
 		if (!$count)
 			echo gettext('No sites registered');

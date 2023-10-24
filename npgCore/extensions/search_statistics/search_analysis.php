@@ -63,6 +63,7 @@ while ($datum = db_fetch_assoc($searches)) {
 		}
 	}
 }
+db_free_result($searches);
 
 foreach ($data as $uid => $element) {
 

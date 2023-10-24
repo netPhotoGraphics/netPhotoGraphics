@@ -199,6 +199,7 @@ function db_list_fields($table) {
 			while ($row = db_fetch_assoc($result)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
+			$result->closeCursor();
 		}
 	}
 	return $_tableFields[$table];

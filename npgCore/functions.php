@@ -1019,6 +1019,7 @@ function updatePublished($table) {
 				$obj->save();
 			}
 		}
+		db_free_result($result);
 	}
 
 	//unpublish items that have expired or are not yet published
@@ -1032,6 +1033,7 @@ function updatePublished($table) {
 				$obj->save();
 			}
 		}
+		db_free_result($result);
 	}
 }
 

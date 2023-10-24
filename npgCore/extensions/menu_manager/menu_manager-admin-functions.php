@@ -423,6 +423,7 @@ function addPagesToDatabase($menuset, $base = NULL) {
 		}
 		$parents[$level] = $id;
 	}
+	db_free_result($result);
 	return $result;
 }
 
@@ -461,6 +462,7 @@ function addCategoriesToDatabase($menuset, $base = NULL) {
 		}
 		$parents[$level] = $id;
 	}
+	db_free_result($result);
 	return $result;
 }
 

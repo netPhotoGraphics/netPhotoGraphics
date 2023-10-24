@@ -128,6 +128,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						}
 					}
 				}
+				db_free_result($result);
 			}
 
 			$sql = 'SELECT * FROM ' . prefix($table) . ' WHERE `' . $field . '` REGEXP "<img.*src\s*=\s*\".*' . CACHEFOLDER . '((\\.|[^\"])*)"';
@@ -246,6 +247,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 						query($sql);
 					}
 				}
+				db_free_result($result);
 			}
 		}
 	}

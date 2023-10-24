@@ -382,6 +382,7 @@ function db_list_fields($table) {
 			while ($row = db_fetch_assoc($result)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
+			mysqli_free_result($result);
 		}
 	}
 	return $_tableFields[$table];

@@ -150,6 +150,7 @@ function listDBUses($pattern) {
 					$output = true;
 			}
 		}
+		db_free_result($result);
 		if ($output) {
 			echo '</ul>,!-- 4 -->';
 		} else {

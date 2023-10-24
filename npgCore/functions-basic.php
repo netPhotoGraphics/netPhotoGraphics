@@ -1971,6 +1971,7 @@ function primeOptions() {
 		while ($option = db_fetch_assoc($rslt)) {
 			$_options[strtolower($option['name'])] = $option['value'];
 		}
+		db_free_result($rslt);
 	}
 	return $rslt;
 }

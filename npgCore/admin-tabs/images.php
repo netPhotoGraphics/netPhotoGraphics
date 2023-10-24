@@ -255,7 +255,7 @@ npg_Authority::printPasswordFormJS();
 		extraWidth = $('.rightcolumn').width() + $('.bulk_checkbox').width() + $('.leftdeatil').width() + 50;
 		resizeTable();
 	}, false);
-	
+
 </script>
 <?php
 npgFilters::apply('texteditor_config', 'photo');
@@ -427,14 +427,16 @@ echo "\n</head>";
 					$albums = array();
 					$sql = 'SELECT `folder` FROM ' . prefix('albums') . ' as a, ' . prefix('images') . 'as i WHERE a.id=i.albumid AND i.owner=' . db_quote($owner = $_current_admin_obj->getUser()) . ' ORDER BY a.folder';
 					$result = query($sql);
-
-					while ($row = db_fetch_assoc($result)) {
-						$folder = $row['folder'];
-						if (isset($albums[$folder])) {
-							$albums[$folder]['image_count']++;
-						} else {
-							$albums[$folder] = array('folder' => $folder, 'image_count' => 1);
+					if ($result) {
+						while ($row = db_fetch_assoc($result)) {
+							$folder = $row['folder'];
+							if (isset($albums[$folder])) {
+								$albums[$folder]['image_count']++;
+							} else {
+								$albums[$folder] = array('folder' => $folder, 'image_count' => 1);
+							}
 						}
+						db_free_result($result);
 					}
 					if (count($albums) > 0) {
 						$list = array();

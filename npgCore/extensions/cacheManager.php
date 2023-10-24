@@ -196,6 +196,7 @@ class cacheManager {
 			}
 			$custom[$index][] = $data;
 		}
+		db_free_result($result);
 
 		ksort($custom, SORT_LOCALE_STRING);
 		$custom[] = array(array('theme' => NULL));

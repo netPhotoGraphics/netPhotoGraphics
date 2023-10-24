@@ -5684,6 +5684,7 @@ function migrateTitleLinks($old, $new) {
 					debugLog(sprintf(gettext('%1$s:%2$s not changed to %3$s (duplicate titlelink.)'), $table, $oldlink, $titlelink));
 				}
 			}
+			db_free_result($result);
 		}
 	}
 	return $count;
