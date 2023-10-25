@@ -400,7 +400,6 @@ function db_quote($string) {
 		$string = db_escape($string);
 	}
 	return $string = "'" . $string . "'";
-	;
 }
 
 /*

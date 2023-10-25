@@ -26,7 +26,16 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	global $_DB_connection, $_DB_details;
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysqli_connect')) {
-		$denied = array(1044, 1045, 1698, 3118, 3878, 3955);
+		mysqli_report(MYSQLI_REPORT_OFF); //	preserve the pre PHP 8.1 setting
+
+		$denied = array(
+				1044, /* invalid user */
+				1045, /* invalid password */
+				1698, /* no password */
+				3118, /* account locked */
+				3878, /* empty password */
+				3955 /* account blocked by password lock */
+		);
 		if (is_object($_DB_connection)) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
@@ -41,7 +50,6 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		//	supress error reports for this loop
 		$er_reporting = error_reporting();
 		error_reporting(0);
-		mysqli_report(MYSQLI_REPORT_OFF);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			$_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], '', $config['mysql_port'], $config['mysql_socket']);
 			$e = mysqli_connect_errno();
