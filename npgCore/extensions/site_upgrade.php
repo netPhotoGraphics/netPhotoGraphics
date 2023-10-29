@@ -37,6 +37,7 @@
 $plugin_is_filter = defaultExtension(900 | FEATURE_PLUGIN);
 $plugin_description = gettext('Utility to divert access to the gallery to a screen saying the site is upgrading.');
 $plugin_notice = (MOD_REWRITE) ? false : gettext('<em>mod_rewrite</em> is not enabled. This plugin may not work without rewrite redirection if the upgrade is significantly different than the running release.');
+$plugin_disable = npgFunctions::hasPrimaryScripts() ? false : gettext('Open and close site from primary installation.');
 
 define('SITE_UPGRADE_FILELIST', array(
 		'closed.htm' => '+', // copy and update define
@@ -182,7 +183,7 @@ class site_upgrade {
 						'rights' => ADMIN_RIGHTS
 				);
 				list($diff, $needs) = checkSignature(0);
-				if (npgFunctions::hasPrimaryScripts() && empty($needs)) {
+				if (empty($needs)) {
 					?>
 					<script type="text/javascript">
 						window.addEventListener('load', function () {
@@ -223,7 +224,7 @@ class site_upgrade {
 				case '*':
 					$data = file_get_contents(PLUGIN_SERVERPATH . 'site_upgrade/' . $name);
 					$defines = array(
-							'SITEINDEX' => FULLWEBPATH . "/index.php",
+							'SITEINDEX' => "/index.php",
 							'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
 							'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
 							'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
