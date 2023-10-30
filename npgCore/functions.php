@@ -2188,7 +2188,7 @@ function getDBTables() {
 			if (empty($prefix)) {
 				$tables[] = $table;
 			} else {
-				if (strpos($table, $prefix) === 0) {
+				if (strpos(strtolower($table), strtolower($prefix)) === 0) {
 					$tables[] = substr($table, strlen($prefix));
 				}
 			}
