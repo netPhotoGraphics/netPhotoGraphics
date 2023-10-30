@@ -598,8 +598,13 @@ function updateRootIndexFile() {
 		rename($index, $index . '.bak');
 	}
 
+	if (is_link(SERVERPATH . '/' . CORE_FOLDER)) {
+		$link = str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER));
+	} else {
+		$link = SERVERPATH . '/' . CORE_FOLDER;
+	}
 	$defines = array(
-			'SITE_ROOT' => str_replace('\\', '/', dirname(readlink(SERVERPATH . '/' . CORE_FOLDER))),
+			'SITE_ROOT' => $link,
 			'CORE_FOLDER' => CORE_FOLDER,
 			'CORE_PATH' => CORE_PATH,
 			'PLUGIN_PATH' => PLUGIN_PATH,
