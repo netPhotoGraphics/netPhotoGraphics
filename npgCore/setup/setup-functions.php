@@ -381,8 +381,9 @@ function setupLog($message, $anyway = false, $reset = false) {
 		$_logCript = NULL;
 	}
 	if ($debug || $anyway) {
-		if (is_object($_mutex))
+		if (is_object($_mutex)) {
 			$_mutex->lock();
+		}
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);
 		}

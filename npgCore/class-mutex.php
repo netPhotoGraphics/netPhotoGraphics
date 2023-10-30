@@ -68,16 +68,20 @@ class npgMutex {
 				try {
 					if (flock($this->mutex, LOCK_EX)) {
 						$this->locked = true;
+						rewind($this->mutex);
 						fwrite($this->mutex, SESSION_NAME . "\n");
 						if (TEST_RELEASE) {
-							rewind($this->mutex);
 							ob_start();
 							debug_print_backtrace();
 							fwrite($this->mutex, ob_get_clean());
 						}
+						fflush($this->mutex);
 					}
 				} catch (Exception $e) {
 					// what can you do, we will just have to run in free mode
+					if (TEST_RELEASE) {
+						debugLog('mutex lock failed: ' . $this->lock);
+					}
 					$this->locked = NULL;
 				}
 			}

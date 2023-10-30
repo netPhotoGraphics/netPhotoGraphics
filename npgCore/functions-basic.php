@@ -114,6 +114,10 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
  * shut-down handler, check for errors
  */
 function npgShutDownFunction() {
+	global $_siteMutex;
+	if (is_object($_siteMutex)) {
+		$_siteMutex->__destruct();
+	}
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_USER_ERROR, E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$file = str_replace('\\', '/', $error['file']);
