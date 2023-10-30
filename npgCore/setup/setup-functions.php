@@ -372,7 +372,7 @@ function permissionsSelector($permission_names, $select) {
 }
 
 function setupLog($message, $anyway = false, $reset = false) {
-	global $debug, $_mutex, $chmod, $_adminCript;
+	global $debug, $_npgMutex, $chmod, $_adminCript;
 
 	$message = preg_replace('~<form.*</form>~is', '', $message);
 	if (getOption('setup_log_encryption')) {
@@ -381,8 +381,8 @@ function setupLog($message, $anyway = false, $reset = false) {
 		$_logCript = NULL;
 	}
 	if ($debug || $anyway) {
-		if (is_object($_mutex)) {
-			$_mutex->lock();
+		if (is_object($_npgMutex)) {
+			$_npgMutex->lock();
 		}
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);
@@ -402,8 +402,8 @@ function setupLog($message, $anyway = false, $reset = false) {
 			chmod(SETUPLOG, LOG_MOD);
 			clearstatcache();
 		}
-		if (is_object($_mutex))
-			$_mutex->unlock();
+		if (is_object($_npgMutex))
+			$_npgMutex->unlock();
 	}
 }
 

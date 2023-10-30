@@ -547,7 +547,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 	}
 
 	if (defined('SERVERPATH')) {
-		global $_mutex;
+		global $_npgMutex;
 		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
 		if (file_exists($path)) {
 			$size = filesize($path);
@@ -555,8 +555,8 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			$size = 0;
 		}
 		$me = getmypid();
-		if (is_object($_mutex))
-			$_mutex->lock();
+		if (is_object($_npgMutex))
+			$_npgMutex->lock();
 		if ($reset || $size == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
 			if (!$reset && $size > 0) {
 				$perms = fileperms($path);
@@ -596,8 +596,8 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			fclose($f);
 			clearstatcache();
 		}
-		if (is_object($_mutex))
-			$_mutex->unlock();
+		if (is_object($_npgMutex))
+			$_npgMutex->unlock();
 	}
 }
 

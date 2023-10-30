@@ -134,7 +134,7 @@ class security_logger {
 	 * @param string $addl more info
 	 */
 	private static function logger($success, $user, $name, $action, $authority, $addl = NULL) {
-		global $_authority, $_mutex, $_logCript;
+		global $_authority, $_npgMutex, $_logCript;
 		$ip = sanitize($_SERVER['REMOTE_ADDR']);
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			$proxy_list = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
@@ -209,7 +209,7 @@ class security_logger {
 
 		$file = SERVERPATH . '/' . DATA_FOLDER . '/security.log';
 		$max = getOption('security_log_size');
-		$_mutex->lock();
+		$_npgMutex->lock();
 		if (file_exists($file) && $max && filesize($file) > $max) {
 			switchLog('security');
 		}
@@ -257,7 +257,7 @@ class security_logger {
 			fclose($f);
 			clearstatcache();
 		}
-		$_mutex->unlock();
+		$_npgMutex->unlock();
 		i18n::setupCurrentLocale($cur_locale); //	restore to whatever was in effect.
 	}
 

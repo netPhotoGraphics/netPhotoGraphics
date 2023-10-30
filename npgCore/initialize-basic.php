@@ -27,7 +27,7 @@ set_error_handler("npgErrorHandler");
 set_exception_handler("npgExceptionHandler");
 register_shutdown_function('npgShutDownFunction');
 $_configMutex = new npgMutex('cF');
-$_mutex = new npgMutex();
+$_npgMutex = new npgMutex();
 
 if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
 	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);

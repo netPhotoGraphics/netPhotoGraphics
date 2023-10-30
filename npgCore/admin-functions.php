@@ -1521,7 +1521,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param int $albumid zero or the album "owning" the theme
 	 */
 	function standardThemeOptions($theme, $album) {
-		global $_mutex;
+		global $_npgMutex;
 		setThemeOption('albums_per_page', 8, $album, $theme, true);
 		setThemeOption('images_per_page', 20, $album, $theme, true);
 		setThemeOption('images_per_row', 5, $album, $theme, true);
@@ -1533,7 +1533,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		setThemeOption('thumb_crop', 1, $album, $theme, true);
 		setThemeOption('thumb_transition', 1, $album, $theme, true);
 
-		$_mutex->lock();
+		$_npgMutex->lock();
 		$knownThemes = getSerializedArray(getOptionFromDB('known_themes'));
 		if (!isset($knownThemes[$theme])) {
 			if (extensionEnabled('themeSwitcher')) {
@@ -1544,7 +1544,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$knownThemes[$theme] = $theme;
 			setOption('known_themes', serialize($knownThemes));
 		}
-		$_mutex->unlock();
+		$_npgMutex->unlock();
 	}
 
 	/**

@@ -79,9 +79,9 @@ class deprecated_functions {
 	 * @param type $msg
 	 */
 	static function log($msg) {
-		global $_mutex;
-		if (is_object($_mutex))
-			$_mutex->lock();
+		global $_npgMutex;
+		if (is_object($_npgMutex))
+			$_npgMutex->lock();
 		$f = fopen(DEPRECATED_LOG, 'a');
 		if ($f) {
 			fwrite($f, $msg . "\n");
@@ -89,8 +89,8 @@ class deprecated_functions {
 			clearstatcache();
 			chmod(DEPRECATED_LOG, LOG_MOD);
 		}
-		if (is_object($_mutex))
-			$_mutex->unlock();
+		if (is_object($_npgMutex))
+			$_npgMutex->unlock();
 	}
 
 	/**

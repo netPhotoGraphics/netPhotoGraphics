@@ -5,13 +5,13 @@
 $optionRights = ADMIN_RIGHTS;
 
 function logSecuritySwitch($log) {
-	global $_adminCript, $_mutex;
+	global $_adminCript, $_npgMutex;
 	$oldLogEncryption = getOption($log . '_log_encryption');
 	setOption($log . '_log_encryption', $newLogEncryption = (int) isset($_POST[$log . '_log_encryption']));
 	if ($oldLogEncryption != $newLogEncryption) {
 		$logfile = SERVERPATH . "/" . DATA_FOLDER . '/' . $log . '.log';
 		if (file_exists($logfile) && filesize($logfile) > 0) {
-			$_mutex->lock();
+			$_npgMutex->lock();
 			$logtext = explode(NEWLINE, file_get_contents($logfile));
 			$header = $logtext[0];
 			$fields = explode("\t", $header);
@@ -24,7 +24,7 @@ function logSecuritySwitch($log) {
 				$logtext[0] = $header; //	restore un-encrypted header
 			}
 			file_put_contents($logfile, rtrim(implode(NEWLINE, $logtext), NEWLINE) . NEWLINE);
-			$_mutex->unlock();
+			$_npgMutex->unlock();
 		}
 	}
 }
