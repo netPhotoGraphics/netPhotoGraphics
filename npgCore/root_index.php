@@ -56,11 +56,7 @@ if ($closed) {
 }
 
 define('OFFSET_PATH', 0);
-if (isset($_SERVER['SCRIPT_FILENAME'])) {
-	$_themeScript = $_SERVER['SCRIPT_FILENAME'];
-} else {
-	$_themeScript = __FILE__;
-}
+
 if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
 	$_contents = file_get_contents(__DIR__ . '/DATA_FOLDER/CONFIGFILE');
 	if ($_contents) {
@@ -75,8 +71,8 @@ if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
 				$_conf_vars = $_zp_conf_vars; //	backward compatibility
 			}
 			if ($closed || isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
-				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
+				if (file_exists('SITE_ROOT/plugins/site_upgrade/closed.php')) {
+					include('SITE_ROOT/plugins/site_upgrade/closed.php');
 				}
 				exit();
 			}
