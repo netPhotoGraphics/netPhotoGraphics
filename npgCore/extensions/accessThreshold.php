@@ -171,6 +171,9 @@ class accessThreshold {
 
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
+	if (OFFSET_PATH == 2) {
+		setOption('accessThreshold_Owner', getUserIP());
+	}
 }
 
 if (extensionEnabled('accessThreshold')) {
