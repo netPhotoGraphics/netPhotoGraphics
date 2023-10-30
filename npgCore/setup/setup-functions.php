@@ -599,9 +599,9 @@ function updateRootIndexFile() {
 	}
 
 	if (is_link(SERVERPATH . '/' . CORE_FOLDER)) {
-		$link = str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER));
+		$link = dirname(str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER)));
 	} else {
-		$link = SERVERPATH . '/' . CORE_FOLDER;
+		$link = SERVERPATH;
 	}
 	$defines = array(
 			'SITE_ROOT' => $link,
