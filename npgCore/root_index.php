@@ -1,10 +1,10 @@
 <?php
 
 clearstatcache();
-$closed = file_exists(__DIR__ . '/extract.php');
+$closed = file_exists('SITE_ROOT/extract.php');
 if ($closed) {
 	if (isset($_GET['npgUpdate'])) {
-		require(__DIR__ . '/extract.php');
+		require( 'SITE_ROOT/extract.php');
 		exit();
 	}
 } else {

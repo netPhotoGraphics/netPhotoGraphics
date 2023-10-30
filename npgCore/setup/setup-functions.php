@@ -598,9 +598,13 @@ function updateRootIndexFile() {
 	}
 
 	$defines = array(
-			'CORE_FOLDER' => CORE_FOLDER, 'CORE_PATH' => CORE_PATH,
-			'PLUGIN_PATH' => PLUGIN_PATH, 'PLUGIN_FOLDER' => PLUGIN_FOLDER,
-			'USER_PLUGIN_PATH' => USER_PLUGIN_PATH, 'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
+			'SITE_ROOT' => str_replace('\\', '/', dirname(readlink(SERVERPATH . '/' . CORE_FOLDER))),
+			'CORE_FOLDER' => CORE_FOLDER,
+			'CORE_PATH' => CORE_PATH,
+			'PLUGIN_PATH' => PLUGIN_PATH,
+			'PLUGIN_FOLDER' => PLUGIN_FOLDER,
+			'USER_PLUGIN_PATH' => USER_PLUGIN_PATH,
+			'USER_PLUGIN_FOLDER' => USER_PLUGIN_FOLDER,
 			'DATA_FOLDER' => DATA_FOLDER,
 			'CONFIGFILE' => CONFIGFILE,
 			'RW_SUFFIX' => preg_quote(getOption('mod_rewrite_suffix'))
