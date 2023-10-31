@@ -295,7 +295,7 @@ switch (OFFSET_PATH) {
 		break;
 	default:
 		npgFilters::register('admin_utilities_buttons', 'site_upgrade::button');
-		npgFilters::register('installation_information', 'site_upgrade::status');
+		npgFilters::register('installation_overview', 'site_upgrade::status');
 		npgFilters::register('admin_note', 'site_upgrade::note');
 
 		if (isset($_GET['refreshHTML'])) {

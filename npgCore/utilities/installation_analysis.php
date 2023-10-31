@@ -371,7 +371,7 @@ echo '</head>';
 								<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), ($_captcha->name) ? $_captcha->name : gettext('none')) ?></li>
 								<?php
 							}
-							npgFilters::apply('installation_information');
+							npgFilters::apply('installation_overview');
 							if (!npgFilters::has_filter('sendmail')) {
 								?>
 								<li style="color:RED"><?php echo gettext('There is no mail handler configured!'); ?></li>
@@ -483,8 +483,8 @@ echo '</head>';
 								?>
 							</ul>
 						</div><!-- filters -->
-
 					</div><!-- overview-info -->
+					<?php npgFilters::apply('installation_information'); ?>
 					<br class="clearall" />
 					<?php
 				}
