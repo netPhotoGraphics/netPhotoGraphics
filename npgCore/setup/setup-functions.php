@@ -598,11 +598,12 @@ function updateRootIndexFile() {
 		rename($index, $index . '.bak');
 	}
 
-	if (is_link(SERVERPATH . '/' . CORE_FOLDER)) {
-		$link = dirname(str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER)));
-	} else {
+	if (npgFunctions::hasPrimaryScripts()) {
 		$link = SERVERPATH;
+	} else {
+		$link = dirname(str_replace('\\', '/', readlink(SERVERPATH . '/' . CORE_FOLDER)));
 	}
+
 	$defines = array(
 			'SITE_ROOT' => $link,
 			'CORE_FOLDER' => CORE_FOLDER,
