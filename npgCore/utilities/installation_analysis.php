@@ -27,7 +27,6 @@ echo '</head>';
 				if (npg_loggedin(ADMIN_RIGHTS)) {
 					?>
 					<div id="overview_left" class="box overview-section overview-install-info">
-
 						<ul>
 							<?php
 							if (TEST_RELEASE) {
@@ -496,7 +495,7 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
 							$('.overview_list').height(height);
 </script>
 
