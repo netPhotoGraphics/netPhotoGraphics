@@ -44,13 +44,14 @@ class npgFilters {
 	 * 				executed in the order in which they were added to the filter)
 	 */
 	static function register($hook, $function_name, $priority = NULL) {
-		global $_filters, $_EnabledPlugins;
+		global $_filters;
+		$plugins = getEnabledPlugins();
 		$bt = debug_backtrace();
 		if (is_array($bt)) {
 			$b = reset($bt);
 			$base = basename($b['file']);
-			if (is_null($priority) && isset($_EnabledPlugins[$b = stripSuffix($base)])) {
-				$priority = $_EnabledPlugins[$b]['priority'] & PLUGIN_PRIORITY;
+			if (is_null($priority) && isset($plugins[$b = stripSuffix($base)])) {
+				$priority = $plugins[$b]['priority'] & PLUGIN_PRIORITY;
 			}
 		} else {
 			$base = 'unknown';

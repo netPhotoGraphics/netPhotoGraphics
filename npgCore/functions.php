@@ -742,22 +742,21 @@ function getPlugin($plugin, $inTheme = FALSE, $webpath = FALSE) {
  * @return array
  */
 function getEnabledPlugins() {
-	global $_EnabledPlugins;
-	if (is_array($_EnabledPlugins)) {
-		return $_EnabledPlugins;
-	}
-	$seenPlugins = $_EnabledPlugins = array();
-	$sortlist = getPluginFiles('*.php');
-	foreach ($sortlist as $extension => $path) {
-		if (!isset($seenPlugins[strtolower($extension)])) { //	in case of filename case sensitivity
-			$seenPlugins[strtolower($extension)] = true;
-			$opt = '_plugin_' . $extension;
-			if ($option = getOption($opt)) {
-				$_EnabledPlugins[$extension] = array('priority' => $option, 'path' => $path);
+	static $_EnabledPlugins = array();
+	if (empty($_EnabledPlugins)) {
+		$seenPlugins = $_EnabledPlugins = array();
+		$sortlist = getPluginFiles('*.php');
+		foreach ($sortlist as $extension => $path) {
+			if (!isset($seenPlugins[strtolower($extension)])) { //	in case of filename case sensitivity
+				$seenPlugins[strtolower($extension)] = true;
+				$opt = '_plugin_' . $extension;
+				if ($option = getOption($opt)) {
+					$_EnabledPlugins[$extension] = array('priority' => $option, 'path' => $path);
+				}
 			}
 		}
+		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
 	}
-	$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
 	return $_EnabledPlugins;
 }
 
