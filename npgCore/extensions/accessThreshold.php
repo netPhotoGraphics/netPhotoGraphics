@@ -165,7 +165,7 @@ class accessThreshold {
 		?>
 		<div class="box overview-section overview-install-info">
 			<div class="overview-list-h3">
-				<h3 class="overview-list-h3">
+				<h3>
 					<?php echo gettext('Site Visits by date'); ?>
 					<span style="float:right!important" title="<?php echo $info; ?>">
 						<?php echo INFORMATION_BLUE; ?>
@@ -190,7 +190,7 @@ class accessThreshold {
 		</div>
 		<div class="box overview-section overview-install-info">
 			<div class="overview-list-h3">
-				<h3 class="overview-list-h3">
+				<h3>
 					<?php echo gettext('Site Visits by IP'); ?>
 					<span style="float:right!important" title="<?php echo $info; ?>">
 						<?php echo INFORMATION_BLUE; ?>

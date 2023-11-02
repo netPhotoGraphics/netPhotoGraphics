@@ -388,7 +388,7 @@ echo '</head>';
 					</div>
 					<div class="box overview-section overview-install-info">
 						<div class="overview-list-h3">
-							<h3 class="overview-list-h3">
+							<h3>
 								<?php printf(ngettext("%u active plugin:", "%u active plugins:", $c), $c); ?>
 							</h3>
 						</div>
