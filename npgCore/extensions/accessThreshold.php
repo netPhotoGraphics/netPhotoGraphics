@@ -130,7 +130,7 @@ class accessThreshold {
 			foreach ($recentIP as $data) {
 				if (isset($data['accessed'])) {
 					foreach ($data['accessed'] as $access) {
-						$date = date('yy-m-d', $access['time']);
+						$date = date('yy-m-d H', $access['time']);
 						if (isset($days[$date])) {
 							$days[$date]++;
 						} else {
