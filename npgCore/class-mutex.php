@@ -52,7 +52,8 @@ class npgMutex {
 			}
 		}
 		//	no free locks, will have to wait...
-		return array_rand($locks);
+		$lock = array_rand($locks);
+		return $lock;
 	}
 
 	function __destruct() {

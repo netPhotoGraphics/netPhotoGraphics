@@ -19,7 +19,7 @@
  * @package plugins/accessThreshold
  * @pluginCategory security
  */
-$plugin_is_filter = 990 | FEATURE_PLUGIN;
+$plugin_is_filter = 990 | CLASS_PLUGIN;
 $plugin_description = gettext("Tools to block denial of service attacks.");
 
 $option_interface = 'accessThreshold';
@@ -313,8 +313,10 @@ if (extensionEnabled('accessThreshold')) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
+			if (is_object($_siteMutex)) {
+				$_siteMutex->unlock();
+			}
 			db_close();
-			sleep(getOption('accessThreshold_SIGNIFICANT') * getOption('accessThreshold_THRESHOLD'));
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
 			header("Retry-After: $window");

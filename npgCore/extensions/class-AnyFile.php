@@ -28,7 +28,7 @@
  * @pluginCategory media
  *
  */
-$plugin_is_filter = 990 | CLASS_PLUGIN;
+$plugin_is_filter = 980 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Provides a means for handling arbitrary file types as "images".');
 }

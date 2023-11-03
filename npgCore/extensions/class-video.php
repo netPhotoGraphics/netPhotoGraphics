@@ -14,7 +14,7 @@
  */
 // force UTF-8 Ø
 
-$plugin_is_filter = defaultExtension(990 | CLASS_PLUGIN);
+$plugin_is_filter = defaultExtension(980 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('The <em>audio-video</em> handler.');
 	$plugin_notice = gettext('This plugin handles <code>mpeg</code> multi-media files. <strong>Note:</strong> native <code>mpeg</code> support requires HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
