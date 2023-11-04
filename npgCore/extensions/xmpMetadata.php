@@ -622,14 +622,14 @@ class xmpMetadata {
 	static function getMetadataFields() {
 		$fields = array(
 				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
-				'XMPAperatureValue' => array('XMP', '<exif:ApertureValue>', gettext('Aperture Value'), false, 52, true, 'string', false),
+				'XMPAperatureValue' => array('XMP', '<exif:AperatureValue>', gettext('Aperature Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
 				'XMPContrast' => array('XMP', '<exif:Contrast>', gettext('Contrast Setting'), false, 52, true, 'string', false),
 				'XMPDateTimeOriginal' => array('XMP', '<exif:DateTimeOriginal>', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
 				'XMPExposureBiasValue' => array('XMP', '<exif:ExposureBiasValue>', gettext('Exposure Compensation'), true, 52, true, 'string', false),
 				'XMPExposureProgram' => array('XMP', '<exif:ExposureProgram>', gettext('Exposure program'), true, 52, true, 'string', false),
 				'XMPExposureTime' => array('XMP', '<exif:ExposureTime>', gettext('Exposure time'), true, 52, true, 'string', false),
-				'XMPFNumber' => array('XMP', '<exif:FNumber>', gettext('Aperture'), true, 52, true, 'string', false),
+				'XMPFNumber' => array('XMP', '<exif:FNumber>', gettext('Aperature'), true, 52, true, 'string', false),
 				'XMPFocalLength' => array('XMP', '<exif:FocalLength>', gettext('Focal Length'), true, 52, true, 'string', false),
 				'XMPGPSAltitude' => array('XMP', '<exif:GPSAltitude>', gettext('Altitude'), false, 52, true, 'number', false),
 				'XMPGPSLatitude' => array('XMP', '<exif:GPSLatitude>', gettext('Latitude'), false, 52, true, 'number', false),
