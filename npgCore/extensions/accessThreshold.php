@@ -19,7 +19,7 @@
  * @package plugins/accessThreshold
  * @pluginCategory security
  */
-$plugin_is_filter = 990 | CLASS_PLUGIN;
+$plugin_is_filter = 990 | FEATURE_PLUGIN;
 $plugin_description = gettext("Tools to block denial of service attacks.");
 
 $option_interface = 'accessThreshold';
