@@ -84,12 +84,13 @@ foreach ($_conf_vars as $name => $value) {
 
 if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db_software']))) {
 	require_once(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php');
-
 	if (is_array($_conf_vars['mysql_user'])) {
-		$which = intdiv(date('i'), round(60 / count($_conf_vars['mysql_user']), 1));
-		$_conf_vars['mysql_user'] = $_conf_vars['mysql_user'][$which];
-		$_conf_vars['mysql_pass'] = $_conf_vars['mysql_pass'][$which];
-		unset($which);
+		$keys = array_keys($_conf_vars['mysql_user']);
+		$user = $keys[intdiv(date('i'), round(60 / count($_conf_vars['mysql_user']), 1))];
+		$_conf_vars['mysql_pass'] = $_conf_vars['mysql_user'][$user];
+		$_conf_vars['mysql_user'] = $user;
+		unset($keys);
+		unset($user);
 	}
 
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array(

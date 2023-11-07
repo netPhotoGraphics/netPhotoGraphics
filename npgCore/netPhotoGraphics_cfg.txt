@@ -26,10 +26,9 @@ $conf['db_software'] = 'MySQLi';		// preferred database
 /** for historical reasons these fields reference mysql even though the database **
  ** might be a different software                                                **/
 
-//	'mysql_user' and 'mysql_pass' may be arrays of strings. This allows for
-//	rotating through user/password pairs to bypass MySQL "max questions" limits
-$conf['mysql_user'] = '';           // Supply your Database user id.
-$conf['mysql_pass'] = '';           // Supply your Database password.
+$conf['mysql_user'] = [''=>''];			// Supply your Database user id and password.
+																		// Use more than one user=>password element to
+																		// deal with MySQL "max questions" issues.
 
 $conf['mysql_host'] = 'localhost';  // Supply the name of your Database server.
 $conf['mysql_port'] = NULL;					// Optional port for the database connection.
