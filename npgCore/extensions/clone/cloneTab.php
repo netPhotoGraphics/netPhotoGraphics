@@ -47,22 +47,17 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 								$saveDB = $_DB_details;
+								$conf = selectDBuser($conf);
 								db_close();
 								//	Setup for the MyBB database
 								$config = array(
 										'mysql_host' => $conf['mysql_host'],
 										'mysql_database' => $conf['mysql_database'],
-										'mysql_prefix' => $conf['mysql_prefix']
+										'mysql_prefix' => $conf['mysql_prefix'],
+										'mysql_user' => $conf['mysql_user'],
+										'mysql_pass' => $conf['mysql_pass']
 								);
-								if (is_array($conf['mysql_user'])) {
-									$keys = array_keys($conf['mysql_user']);
-									$user = $keys[intdiv(date('i'), round(60 / count($conf['mysql_user']), 1))];
-									$config['mysql_pass'] = $conf['mysql_user'][$user];
-									$config['mysql_user'] = $user;
-								} else {
-									$config['mysql_pass'] = $conf['mysql_pass'];
-									$config['mysql_user'] = $conf['mysql_user'];
-								}
+
 								if ($_DB_connection = db_connect($config, false)) {
 									$sql = 'SELECT `value` FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="netphotographics_install"';
 									if ($result = query_single_row($sql, FALSE)) {

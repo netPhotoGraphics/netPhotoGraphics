@@ -35,7 +35,6 @@ if (!defined('OFFSET_PATH')) {
 }
 require_once(__DIR__ . '/global-definitions.php');
 require_once(__DIR__ . '/class-mutex.php');
-require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
 

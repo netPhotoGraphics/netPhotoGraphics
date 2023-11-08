@@ -10,11 +10,13 @@ if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
 
-global $_conf_vars;
-$_options = array();
-
 if (!isset($_SERVER['HTTP_HOST']))
 	die();
+
+global $_conf_vars, $_options;
+$_options = array();
+
+require_once(__DIR__ . '/functions-basic.php');
 
 $v = explode("\n", file_get_contents(__DIR__ . '/version.php'));
 foreach ($v as $line) {
@@ -160,7 +162,7 @@ if ($matches) {
 if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$level = error_reporting(0); //	just incase there is an error in the file
 	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	$_conf_vars = $conf;
+	$_conf_vars = selectDBuser($conf);
 	error_reporting($level);
 	unset($conf);
 	unset($level);

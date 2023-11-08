@@ -354,13 +354,7 @@ ksort($engines, SORT_NATURAL);
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	if (isset($conf)) {
-		$_conf_vars = $conf;
-		if (is_array($_conf_vars['mysql_user'])) {
-			$keys = array_keys($_conf_vars['mysql_user']);
-			$user = $keys[intdiv(date('i'), round(60 / count($_conf_vars['mysql_user']), 1))];
-			$_conf_vars['mysql_pass'] = $_conf_vars['mysql_user'][$user];
-			$_conf_vars['mysql_user'] = $user;
-		}
+		$_conf_vars = selectDBuser($conf);
 	}
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
