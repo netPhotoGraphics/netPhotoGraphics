@@ -1948,20 +1948,6 @@ function installSignature() {
 	);
 }
 
-/**
- * centralize evaluating the config file
- * @global type $_conf_vars
- * @param type $from the config file name
- */
-function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
-	global $_conf_vars;
-	eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
-	if (isset($conf)) {
-		return $conf;
-	}
-	return $_conf_vars;
-}
-
 function primeOptions() {
 	global $_options, $_conf_vars;
 	$_options = array();

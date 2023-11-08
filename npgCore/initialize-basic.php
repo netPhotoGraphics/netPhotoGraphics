@@ -56,8 +56,9 @@ if (!isset($_conf_vars['charset'])) {
 define('LOCAL_CHARSET', $_conf_vars['charset']);
 if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
-	$stdConfig = getConfig(CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
-	$_conf_vars['special_pages'] = $stdConfig['special_pages'];
+	eval('?>' . file_get_contents(CORE_FOLDER . '/netPhotoGraphics_cfg.txt'));
+	$_conf_vars['special_pages'] = $conf['special_pages'];
+	unset($conf);
 }
 
 if (OFFSET_PATH != 2) {

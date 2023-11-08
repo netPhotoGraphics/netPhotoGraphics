@@ -241,11 +241,18 @@ if (isset($_POST['db'])) { //try to update the config file
 	setupXSRFDefender('db');
 	setupLog(gettext("db POST handling"));
 	$update_config = true;
+
 	if (isset($_POST['db_software'])) {
 		$_config_contents = configFile::update('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
 	}
 	if (isset($_POST['db_user'])) {
-		$_config_contents = configFile::update('mysql_user', trim(sanitize($_POST['db_user'], 0)), $_config_contents);
+		$user = trim(sanitize($_POST['db_user'], 0));
+		if (isset($_POST['db_pass'])) {
+			$pass = trim(sanitize($_POST['db_pass'], 0));
+		} else {
+			$pass = '';
+		}
+		$_config_contents = configFile::update('mysql_user', '["' . $user . '" => "' . $pass . '"]', $_config_contents, false);
 	}
 	if (isset($_POST['db_pass'])) {
 		$_config_contents = configFile::update('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $_config_contents);
@@ -348,6 +355,12 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	if (isset($conf)) {
 		$_conf_vars = $conf;
+		if (is_array($_conf_vars['mysql_user'])) {
+			$keys = array_keys($_conf_vars['mysql_user']);
+			$user = $keys[intdiv(date('i'), round(60 / count($_conf_vars['mysql_user']), 1))];
+			$_conf_vars['mysql_pass'] = $_conf_vars['mysql_user'][$user];
+			$_conf_vars['mysql_user'] = $user;
+		}
 	}
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
@@ -1661,7 +1674,6 @@ clearstatcache();
 
 					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
 						$task = '';
 						if (isset($_GET['create'])) {
 							$task = 'create';
