@@ -45,8 +45,8 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							$title = gettext('Visit the site.');
 							$strike = '';
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 								$saveDB = $_DB_details;
+								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 								$conf = selectDBuser($conf);
 								db_close();
 								//	Setup for the MyBB database
