@@ -278,7 +278,7 @@ define('ACK_DISPLAY_ERRORS', 2);
 
 if (isset($_GET['security_ack'])) {
 	setupXSRFDefender('security_ack');
-	$_config_contents = configFile::update('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
+	$_config_contents = configFile::update('security_ack', (isset($_conf_vars['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
 	$update_config = true;
 }
 
@@ -355,6 +355,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	if (isset($conf)) {
 		$_conf_vars = selectDBuser($conf);
+		unset($conf);
 	}
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
@@ -1663,8 +1664,6 @@ clearstatcache();
 					} else {
 						$dbmsg = gettext("database connected");
 					} // system check
-
-
 
 					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
