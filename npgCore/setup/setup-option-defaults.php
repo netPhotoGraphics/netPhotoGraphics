@@ -17,8 +17,6 @@ if (CURL_ENABLED) {
 
 $setOptions = getOptionList();
 
-require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést.cfg');
 if (!file_exists($testFile)) {
 	if (is_link($testFile)) {
