@@ -160,10 +160,11 @@ if ($matches) {
 }
 
 if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	$_conf_vars = selectDBuser($conf);
-	unset($conf);
-	unset($level);
+	require ($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	if (isset($conf)) {
+		$_conf_vars = selectDBuser($conf);
+		unset($conf);
+	}
 }
 
 if (isset($_conf_vars['WEBPATH'])) {
