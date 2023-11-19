@@ -676,7 +676,7 @@ class xmpMetadata {
 				'watermark' => '<npg:watermark>',
 				'watermark_use' => '<npg:watermark_use>',
 				'watermark_thumb' => '<npg:watermark_thumb>',
-				'custom_data' => '<npg:customData',
+				'custom_data' => '<npg:customData>',
 				'codeblock' => '<npg:codeblock>'
 		);
 
