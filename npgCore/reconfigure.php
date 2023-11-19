@@ -75,7 +75,7 @@ function reconfigureAction($mandatory) {
 		// because we are loading the script from within a function!
 		global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
 		$_invisible_execute = 1;
-		require_once(__DIR__ . 'initialize-basic.php');
+		require_once(__DIR__ . '/initialize-basic.php');
 
 		if (!defined('FULLWEBPATH')) {
 			$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';

@@ -1380,10 +1380,11 @@ clearstatcache();
 							checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
 							primeMark(gettext('Installation files'));
 							if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
+								clearstatcache();
 								$systemlist = $filelist = array();
 								$phi_ini_count = $svncount = 0;
 								foreach ($_resident_files as $extra) {
-									if (getSuffix($extra) == 'xxx') {
+									if (getSuffix($extra) == 'xxx' && file_exists($extra)) {
 										unlink($extra); //	presumed to be protected copies of the setup files
 									} else if (strpos($extra, 'php.ini') !== false) {
 										$phi_ini_count++;
