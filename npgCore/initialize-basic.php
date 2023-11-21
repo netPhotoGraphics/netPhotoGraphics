@@ -85,10 +85,10 @@ foreach ($_conf_vars as $name => $value) {
 
 if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db_software']))) {
 	require_once(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php');
-
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array(
 			'db_software' => '',
-			'mysql_user' => ['' => ''],
+			'mysql_user' => '',
+			'mysql_pass' => '',
 			'mysql_host' => '',
 			'mysql_port' => '',
 			'mysql_socket' => '',
