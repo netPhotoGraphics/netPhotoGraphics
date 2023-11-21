@@ -47,15 +47,14 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 								$saveDB = $_DB_details;
 								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-								$conf = selectDBuser($conf);
+
 								db_close();
 								//	Setup for the MyBB database
 								$config = array(
 										'mysql_host' => $conf['mysql_host'],
 										'mysql_database' => $conf['mysql_database'],
 										'mysql_prefix' => $conf['mysql_prefix'],
-										'mysql_user' => $conf['mysql_user'],
-										'mysql_pass' => $conf['mysql_pass']
+										'mysql_user' => $conf['mysql_user']
 								);
 
 								if ($_DB_connection = db_connect($config, false)) {
@@ -232,11 +231,11 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								</a>
 							</span>
 							<span class="icons"<?php
-							if (empty($folderlist))
-								echo
+									if (empty($folderlist))
+										echo
 
-								' style="display:none;"';
-							?>>
+										' style="display:none;"';
+									?>>
 								<a id="downbutton" href="javascript:buttonAction($('#cloneFolder').val());" title="">
 									<?php echo ARROW_DOWN_GREEN; ?>
 								</a>
