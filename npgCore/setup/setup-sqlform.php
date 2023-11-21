@@ -73,14 +73,15 @@ foreach ($engines as $engine) {
 							?>
 						</select></td>
 				</tr>
+				<?php list($user, $pass) = selectDBuser($_conf_vars); ?>
 				<tr id="user" >
 					<td><?php echo gettext("Database user") ?></td>
-					<td><input type="text" size="40" name="db_user"
-										 value="<?php echo $_conf_vars['mysql_user']; ?>" />&nbsp;</td>
+					<td><input type="text" size="40" name="db_user" value="<?php echo $user; ?>" />&nbsp;</td>
 				</tr>
-				<tr id="pass" >
-					<td><?php echo gettext("Database password") ?></td>
-					<td><input type="password" size="40" name="db_pass" value="<?php echo $_conf_vars['mysql_pass']; ?>" />&nbsp;</td>
+				<tr id = "pass" >
+					<td><?php echo gettext("Database password")
+				?></td>
+					<td><input type="password" size="40" name="db_pass" value="<?php echo $pass; ?>" />&nbsp;</td>
 				</tr>
 				<tr id="host" >
 					<td><?php echo gettext("Database host"); ?>

@@ -415,13 +415,9 @@ function db_name() {
 }
 
 function selectDBuser($conf) {
-	if (is_array($conf['mysql_user'])) {
-		$keys = array_keys($conf['mysql_user']);
-		$user = $keys[intdiv(date('i'), round(60 / count($conf['mysql_user']), 1))];
-		$conf['mysql_pass'] = $conf['mysql_user'][$user];
-		$conf['mysql_user'] = $user;
-	}
-	return $conf;
+	$keys = array_keys($conf['mysql_user']);
+	$user = $keys[intdiv(date('i'), round(60 / count($conf['mysql_user']), 1))];
+	return array($user, $conf['mysql_user'][$user]);
 }
 
 /**

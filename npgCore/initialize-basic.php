@@ -88,8 +88,7 @@ if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db
 
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array(
 			'db_software' => '',
-			'mysql_user' => '',
-			'mysql_pass' => '',
+			'mysql_user' => ['' => ''],
 			'mysql_host' => '',
 			'mysql_port' => '',
 			'mysql_socket' => '',

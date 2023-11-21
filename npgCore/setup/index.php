@@ -368,8 +368,7 @@ ksort($engines, SORT_NATURAL);
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	if (isset($conf)) {
-		$_conf_vars = selectDBuser($conf);
-		unset($conf);
+		$_conf_vars = $conf;
 	}
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {

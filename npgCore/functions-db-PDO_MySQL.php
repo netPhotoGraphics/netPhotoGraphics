@@ -35,10 +35,9 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				3878, /* empty password */
 				3955 /* account blocked by password lock */
 		);
+		list($username, $password) = selectDBuser($config);
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
-		$username = $config['mysql_user'];
-		$password = $config['mysql_pass'];
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
 			$port = ini_get('mysqli.default_port');
 		} else {

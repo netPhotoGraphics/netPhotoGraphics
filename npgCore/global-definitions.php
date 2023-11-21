@@ -110,8 +110,7 @@ $_DB_details = array(
 		'mysql_host' => 'not connected',
 		'mysql_database' => 'not connected',
 		'mysql_prefix' => 'not connected',
-		'mysql_user' => '',
-		'mysql_pass' => ''
+		'mysql_user' => ['' => '']
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 5);
@@ -162,7 +161,7 @@ if ($matches) {
 if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	require ($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	if (isset($conf)) {
-		$_conf_vars = selectDBuser($conf);
+		$_conf_vars = $conf;
 		unset($conf);
 	}
 }

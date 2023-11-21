@@ -40,18 +40,25 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
 
+		list($username, $password) = selectDBuser($config);
+		$db = $config['mysql_database'];
+		$hostname = $config['mysql_host'];
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
-			$config['mysql_port'] = ini_get('mysqli.default_port');
+			$port = ini_get('mysqli.default_port');
+		} else {
+			$port = $config['mysql_port'];
 		}
 		if (!isset($config['mysql_socket']) || $config['mysql_socket']) {
-			$config['mysql_socket'] = ini_get('mysqli.default_socket');
+			$socket = ini_get('mysqli.default_socket');
+		} else {
+			$socket = $config['mysql_socket'];
 		}
 
 		//	supress error reports for this loop
 		$er_reporting = error_reporting();
 		error_reporting(0);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
-			$_DB_connection = @mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['mysql_pass'], '', $config['mysql_port'], $config['mysql_socket']);
+			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);
 			$e = mysqli_connect_errno();
 			$er = $e . ': ' . mysqli_connect_error();
 			if (empty($errorstop) || is_object($_DB_connection) || in_array($e, $denied)) {
