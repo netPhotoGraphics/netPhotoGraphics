@@ -360,7 +360,6 @@ $buttonlist = array();
 	printLogoAndLinks();
 
 	if (npg_loggedin(ADMIN_RIGHTS)) {
-
 		$sql = 'SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type` LIKE ' . db_quote('db_orpahned_%') . ' LIMIT 1';
 		$result = query_full_array($sql);
 		if (!empty($result)) {

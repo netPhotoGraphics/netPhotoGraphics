@@ -27,11 +27,17 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	$_DB_last_result = NULL;
 	if (class_exists('PDO')) {
-		$denied = array(1044, 1045, 1698, 3118, 3878, 3955);
+		$denied = array(
+				1044, /* invalid user */
+				1045, /* invalid password */
+				1698, /* no password */
+				3118, /* account locked */
+				3878, /* empty password */
+				3955 /* account blocked by password lock */
+		);
+		list($username, $password) = selectDBuser($config);
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
-		$username = $config['mysql_user'];
-		$password = $config['mysql_pass'];
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
 			$port = ini_get('mysqli.default_port');
 		} else {
@@ -199,6 +205,7 @@ function db_list_fields($table) {
 			while ($row = db_fetch_assoc($result)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
+			$result->closeCursor();
 		}
 	}
 	return $_tableFields[$table];

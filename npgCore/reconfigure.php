@@ -75,8 +75,7 @@ function reconfigureAction($mandatory) {
 		// because we are loading the script from within a function!
 		global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
 		$_invisible_execute = 1;
-		require_once(__DIR__ . '/functions-basic.php');
-		require_once(CORE_SERVERPATH . 'initialize-basic.php');
+		require_once(__DIR__ . '/initialize-basic.php');
 
 		if (!defined('FULLWEBPATH')) {
 			$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
@@ -86,6 +85,9 @@ function reconfigureAction($mandatory) {
 
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header('Content-Type: text/html; charset=UTF-8');
+		header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
+		header("Pragma: no-cache"); // HTTP 1.0.
+		header("Expires: 0"); // Proxies.
 		header("HTTP/1.0 503 Service Unavailable");
 		header("Status: 503 Service Unavailable");
 		header("Retry-After: 300");

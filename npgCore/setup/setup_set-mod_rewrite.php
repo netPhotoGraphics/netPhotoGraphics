@@ -14,7 +14,6 @@ ini_set('display_errors', 1);
 $__script = 'Mod_rewrite';
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
-require_once(dirname(__DIR__) . '/functions-basic.php');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
 list($usec, $sec) = explode(" ", microtime());

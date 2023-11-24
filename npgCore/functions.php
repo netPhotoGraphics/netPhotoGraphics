@@ -6,9 +6,8 @@
  *
  */
 // force UTF-8 Ø
-require_once(__DIR__ . '/functions-basic.php');
-require_once(__DIR__ . '/lib-i18n.php');
 require_once(__DIR__ . '/initialize-basic.php');
+require_once(__DIR__ . '/lib-i18n.php');
 require_once(__DIR__ . '/initialize-general.php');
 
 /**
@@ -742,22 +741,21 @@ function getPlugin($plugin, $inTheme = FALSE, $webpath = FALSE) {
  * @return array
  */
 function getEnabledPlugins() {
-	global $_EnabledPlugins;
-	if (is_array($_EnabledPlugins)) {
-		return $_EnabledPlugins;
-	}
-	$seenPlugins = $_EnabledPlugins = array();
-	$sortlist = getPluginFiles('*.php');
-	foreach ($sortlist as $extension => $path) {
-		if (!isset($seenPlugins[strtolower($extension)])) { //	in case of filename case sensitivity
-			$seenPlugins[strtolower($extension)] = true;
-			$opt = '_plugin_' . $extension;
-			if ($option = getOption($opt)) {
-				$_EnabledPlugins[$extension] = array('priority' => $option, 'path' => $path);
+	static $_EnabledPlugins = array();
+	if (empty($_EnabledPlugins)) {
+		$seenPlugins = $_EnabledPlugins = array();
+		$sortlist = getPluginFiles('*.php');
+		foreach ($sortlist as $extension => $path) {
+			if (!isset($seenPlugins[strtolower($extension)])) { //	in case of filename case sensitivity
+				$seenPlugins[strtolower($extension)] = true;
+				$opt = '_plugin_' . $extension;
+				if ($option = getOption($opt)) {
+					$_EnabledPlugins[$extension] = array('priority' => $option, 'path' => $path);
+				}
 			}
 		}
+		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
 	}
-	$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
 	return $_EnabledPlugins;
 }
 
@@ -1019,6 +1017,7 @@ function updatePublished($table) {
 				$obj->save();
 			}
 		}
+		db_free_result($result);
 	}
 
 	//unpublish items that have expired or are not yet published
@@ -1032,6 +1031,7 @@ function updatePublished($table) {
 				$obj->save();
 			}
 		}
+		db_free_result($result);
 	}
 }
 
@@ -2186,7 +2186,7 @@ function getDBTables() {
 			if (empty($prefix)) {
 				$tables[] = $table;
 			} else {
-				if (strpos($table, $prefix) === 0) {
+				if (strpos(strtolower($table), strtolower($prefix)) === 0) {
 					$tables[] = substr($table, strlen($prefix));
 				}
 			}
@@ -2822,10 +2822,10 @@ class npgFunctions {
 		$display = getSerializedArray(getOption('metadata_displayed'));
 		foreach ($exifvars as $key => $item) {
 			if (in_array($key, $disable)) {
-				$exifvars[$key][EXIF_DISPLAY] = $exifvars[$key][EXIF_FIELD_ENABLED] = false;
+				$exifvars[$key][METADATA_DISPLAY] = $exifvars[$key][METADATA_FIELD_ENABLED] = false;
 			} else {
-				$exifvars[$key][EXIF_DISPLAY] = isset($display[$key]);
-				$exifvars[$key][EXIF_FIELD_ENABLED] = true;
+				$exifvars[$key][METADATA_DISPLAY] = isset($display[$key]);
+				$exifvars[$key][METADATA_FIELD_ENABLED] = true;
 			}
 		}
 		return $exifvars;

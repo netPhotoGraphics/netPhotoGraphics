@@ -98,7 +98,9 @@ if (isset($_GET['purge'])) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
 									$success = false;
 								}
-								chmod($folder . $target, FOLDER_MOD);
+								if (file_exists($folder . $target)) {
+									chmod($folder . $target, FOLDER_MOD);
+								}
 							} else {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
 							}

@@ -103,22 +103,22 @@ function saveOptions() {
 		$exifvars = npgFunctions::exifvars(true);
 
 		foreach ($exifvars as $key => $item) {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
+			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
 			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 				$disable[$key] = $key;
 			}
-			if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
-				if ((int) in_array($key, $oldDisabled) != (int) !$exifvars[$key][EXIF_FIELD_ENABLED]) {
-					$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
+			if ($item[METADATA_FIELD_SIZE]) { // item has data (size != 0)
+				if ((int) in_array($key, $oldDisabled) != (int) !$exifvars[$key][METADATA_FIELD_ENABLED]) {
+					$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
 				}
 			}
 		}
 	} else {
 		foreach ($_exifvars as $key => $item) {
 			if (isset($_POST[$key])) {
-				if ($item[EXIF_FIELD_LINKED] && !$_exifvars[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
+				if ($item[METADATA_FIELD_LINKED] && !$_exifvars[$item[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED]) {
 					$v = 2;
 				} else {
 					$v = sanitize_numeric($_POST[$key]);
@@ -131,26 +131,26 @@ function saveOptions() {
 				case 1: //show
 					$display[$key] = $key;
 				case 0: //hide
-					if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
+					if ($item[METADATA_FIELD_SIZE]) { // item has data (size != 0)
 						if ($disableEmpty) {
 							$sql = "SELECT `id`, $key FROM " . prefix('images') . " WHERE $key IS NOT NULL AND TRIM($key) <> '' LIMIT 1";
 							$found = query($sql, false);
 							if (!$found) {
 								$disable[$key] = $key;
-								$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
+								$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
 							}
 						}
 						if (in_array($key, $oldDisabled)) {
-							$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
-							$enableSource[] = $item[EXIF_SOURCE] . ' Metadata';
+							$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
+							$enableSource[] = $item[METADATA_SOURCE] . ' Metadata';
 						}
 					}
 					break;
 				case 2: //disable
-					if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
+					if ($item[METADATA_FIELD_SIZE]) { // item has data (size != 0)
 						if (!in_array($key, $oldDisabled)) {
-							$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
-							$disableSource[] = $item[EXIF_SOURCE] . ' Metadata';
+							$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
+							$disableSource[] = $item[METADATA_SOURCE] . ' Metadata';
 						}
 					}
 					$disable[$key] = $key;
@@ -159,11 +159,11 @@ function saveOptions() {
 		}
 
 		foreach ($_exifvars as $key => $item) {
-			if ($item[EXIF_FIELD_LINKED]) {
-				$d = $_exifvars[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED];
-				if ($item[EXIF_FIELD_SIZE]) { // item has data (size != 0)
+			if ($item[METADATA_FIELD_LINKED]) {
+				$d = $_exifvars[$item[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED];
+				if ($item[METADATA_FIELD_SIZE]) { // item has data (size != 0)
 					if ($d == in_array($key, $oldDisabled)) {
-						$dbChange[$item[EXIF_SOURCE] . ' Metadata'] = $item[EXIF_SOURCE] . ' Metadata';
+						$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
 					}
 				}
 				if (!$d) {
@@ -216,7 +216,7 @@ function getOptionContent() {
 	<?php
 	$exifstuff = npgFunctions::exifvars(true);
 	foreach ($exifstuff as $key => $data) {
-		if ($data[EXIF_FIELD_LINKED] && !$exifstuff[$data[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
+		if ($data[METADATA_FIELD_LINKED] && !$exifstuff[$data[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED]) {
 			?>
 					$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
 					$('.<?php echo $key; ?>_metaDisable').prop('disabled', 'disabled');
@@ -225,11 +225,11 @@ function getOptionContent() {
 			?>
 					$('.<?php echo $key; ?>_metaDisable').removeAttr('disabled');
 			<?php
-			if (!$data[EXIF_FIELD_ENABLED]) {
+			if (!$data[METADATA_FIELD_ENABLED]) {
 				?>
 						$('#<?php echo $key; ?>_disable').prop('checked', 'checked');
 				<?php
-			} else if (!$data[EXIF_DISPLAY] || !$data[EXIF_FIELD_SIZE]) {
+			} else if (!$data[METADATA_DISPLAY] || !$data[METADATA_FIELD_SIZE]) {
 				?>
 						$('#<?php echo $key; ?>_hide').prop('checked', 'checked');
 				<?php
@@ -815,7 +815,7 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php
 							echo gettext("Metadata");
-							$exifstuff = sortMultiArray($_exifvars, array(EXIF_DISPLAY_TEXT, EXIF_SOURCE));
+							$exifstuff = sortMultiArray($_exifvars, array(METADATA_DISPLAY_TEXT, METADATA_SOURCE));
 							?></td>
 						<td class="option_value">
 							<div id="resizable">
@@ -825,21 +825,21 @@ function getOptionContent() {
 										$checked_show = $checked_hide = $checked_disabled = '';
 										$class_show = ' class="showMeta ' . $key . '_metaDisable"';
 										$class_hide = ' class="hideMeta ' . $key . '_metaDisable"';
-										if ($item[EXIF_FIELD_LINKED] && !$exifstuff[$item[EXIF_FIELD_LINKED]][EXIF_FIELD_ENABLED]) {
+										if ($item[METADATA_FIELD_LINKED] && !$exifstuff[$item[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED]) {
 											$checked_hide = $checked_show = ' disabled="disabled"';
 											$checked_disabled = ' checked="checked" disabled="disabled"';
 										} else {
-											if (!$item[EXIF_FIELD_ENABLED]) {
+											if (!$item[METADATA_FIELD_ENABLED]) {
 												$checked_disabled = ' checked="checked"';
 											} else {
-												if ($item[EXIF_DISPLAY]) {
+												if ($item[METADATA_DISPLAY]) {
 													$checked_show = ' checked="checked"';
 												} else {
 													$checked_hide = ' checked="checked"';
 												}
 											}
 										}
-										if (!$item[EXIF_FIELD_SIZE]) {
+										if (!$item[METADATA_FIELD_SIZE]) {
 											$checked_show = ' disabled="disabled"';
 											$class_show = '';
 											$class_hide = ' class="showMeta hideMeta"';
@@ -859,7 +859,7 @@ function getOptionContent() {
 												<input id="<?php echo $key; ?>_disable" name="<?php echo $key; ?>" type="radio" class="<?php echo $key; ?>_metaDisable"<?php echo $checked_disabled ?> value="2" />
 												<?php echo CROSS_MARK_RED; ?>
 											</label>
-											<?php echo $item[EXIF_DISPLAY_TEXT] . ' {' . $item[EXIF_SOURCE] . '}'; ?>
+											<?php echo $item[METADATA_DISPLAY_TEXT] . ' {' . $item[METADATA_SOURCE] . '}'; ?>
 										</li>
 										<?php
 									}

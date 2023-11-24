@@ -5,8 +5,13 @@
  * If you wish to change the appearance or behavior of
  * the site when closed you may edit the .htm and .xmp files
  */
-if (file_exists(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE') && !file_exists(dirname(dirname(__DIR__)) . '/extract.php')) {
-	$_contents = file_get_contents(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE');
+if (isset($_SERVER['SCRIPT_FILENAME'])) {
+	$_dir = dirname($_SERVER['SCRIPT_FILENAME']);
+} else {
+	$_dir = __DIR__;
+}
+if (file_exists(dirname($_dir) . '/DATA_FOLDER/CONFIGFILE') && !file_exists(dirname($_dir) . '/extract.php')) {
+	$_contents = file_get_contents(dirname($_dir) . '/DATA_FOLDER/CONFIGFILE');
 	if (strpos($_contents, '<?php') !== false)
 		$_contents = '?>' . $_contents;
 	eval($_contents);
@@ -14,13 +19,13 @@ if (file_exists(dirname(dirname(__DIR__)) . '/DATA_FOLDER/CONFIGFILE') && !file_
 		// site is now open, redirect to index
 		header("HTTP/1.0 303 See Other");
 		header("Status: 303 See Other");
-		header('Location: SITEINDEX');
+		header('Location: ' . $_dir . 'SITEINDEX');
 		exit();
 	}
 }
 
 $glob = array();
-if (($dir = opendir(__DIR__)) !== false) {
+if (($dir = opendir($_dir)) !== false) {
 	while (($file = readdir($dir)) !== false) {
 		preg_match('~(.*)\-closed\.*~', $file, $matches);
 		if (isset($matches[1]) && $matches[1]) {
@@ -31,9 +36,9 @@ if (($dir = opendir(__DIR__)) !== false) {
 
 foreach ($glob as $key => $file) {
 	if (isset($_GET[$key])) {
-		$path = __DIR__ . '/' . $file;
+		$path = $_dir . '/' . $file;
 		$xml = file_get_contents($path);
-		$xml = preg_replace('~<atom:link href="(.*) rel=~', '<atom:link href="SITEINDEX" rel=', $xml);
+		$xml = preg_replace('~<atom:link href="(.*) rel=~', '<atom:link href="' . $_dir . 'SITEINDEX" rel=', $xml);
 		$xml = preg_replace('~<pubDate>(.*)</pubDate>~', '<pubDate>' . date("r", time()) . '</pubDate>', $xml);
 		header('Content-Type: application/xml');
 		echo $xml;

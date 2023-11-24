@@ -349,7 +349,7 @@ class Image extends MediaObject {
 		// Put together an array of EXIF data to return
 		foreach ($_exifvars as $field => $exifvar) {
 			//	only enabled image metadata
-			if ($_exifvars[$field][EXIF_FIELD_ENABLED]) {
+			if ($_exifvars[$field][METADATA_FIELD_ENABLED]) {
 				$exif[$field] = $this->get($field);
 			}
 		}
@@ -395,7 +395,7 @@ class Image extends MediaObject {
 	 */
 	private function fetchMetadata($field) {
 		global $_exifvars;
-		if ($_exifvars[$field][EXIF_FIELD_ENABLED]) {
+		if ($_exifvars[$field][METADATA_FIELD_ENABLED]) {
 			return $this->get($field);
 		} else {
 			return false;
@@ -467,7 +467,6 @@ class Image extends MediaObject {
 				$this->set($field, NULL);
 			}
 
-			$result = array();
 			if (get_class($this) == 'Image') {
 				$localpath = $this->localpath;
 			} else {
@@ -480,10 +479,10 @@ class Image extends MediaObject {
 					$this->set('hasMetadata', 1);
 					foreach ($_exifvars as $field => $exifvar) {
 						$exif = NULL;
-						if (isset($exifraw[$exifvar[EXIF_SOURCE]][$exifvar[EXIF_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[EXIF_SOURCE]][$exifvar[EXIF_KEY]], 1));
-						} else if (isset($exifraw[$exifvar[EXIF_SOURCE]]['MakerNote'][$exifvar[EXIF_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[EXIF_SOURCE]]['MakerNote'][$exifvar[EXIF_KEY]], 1));
+						if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
+							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
+						} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
+							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
 						}
 						$this->set($field, $exif);
 					}
@@ -509,10 +508,10 @@ class Image extends MediaObject {
 						}
 						// Extract IPTC fields of interest
 						foreach ($_exifvars as $field => $exifvar) {
-							if ($exifvar[EXIF_SOURCE] == 'IPTC') {
-								$datum = self::getIPTCTag($IPTCtags[$exifvar[EXIF_KEY]], $iptc);
+							if ($exifvar[METADATA_SOURCE] == 'IPTC') {
+								$datum = self::getIPTCTag($IPTCtags[$exifvar[METADATA_KEY]], $iptc);
 								$value = $this->prepIPTCString($datum, $characterset);
-								switch ($exifvar[EXIF_FIELD_TYPE]) {
+								switch ($exifvar[METADATA_FIELD_TYPE]) {
 									case 'time':
 										$value = substr($value, 0, 6); //	strip off any timezone indicator
 									case 'date':
@@ -526,11 +525,10 @@ class Image extends MediaObject {
 							}
 						}
 						/* iptc keywords (tags) */
-						if ($_exifvars['IPTCKeywords'][EXIF_FIELD_ENABLED]) {
+						if ($_exifvars['IPTCKeywords'][METADATA_FIELD_ENABLED]) {
 							$datum = self::getIPTCTagArray($IPTCtags['Keywords'], $iptc);
 							if (is_array($datum)) {
 								$tags = array();
-								$result['tags'] = array();
 								foreach ($datum as $item) {
 									$tags[] = $this->prepIPTCString(sanitize($item, 3), $characterset);
 								}

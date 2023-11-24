@@ -22,8 +22,8 @@ class npgMutex {
 			}
 
 			if ($concurrent > 1) {
-				If ($subLock = self::which_lock($lock, $concurrent, $folder)) {
-					$this->lock = $folder . '/' . $lock . '_' . $subLock;
+				If ($lock = self::which_lock($lock, $concurrent, $folder)) {
+					$this->lock = $lock;
 				}
 			} else {
 				$this->lock = $folder . '/' . $lock;
@@ -35,23 +35,25 @@ class npgMutex {
 	// returns the integer id of the lock to be obtained
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
-		$count = false;
-		$counter_file = $folder . '/' . $lock . '_counter';
-		if ($f = fopen($counter_file, 'a+')) {
-			if (flock($f, LOCK_EX)) {
-				clearstatcache();
-				fseek($f, 0);
-				$data = fgets($f);
-				$count = (((int) $data) + 1) % $concurrent;
-				ftruncate($f, 0);
-				fwrite($f, "$count");
-				fflush($f);
-				flock($f, LOCK_UN);
-				fclose($f);
-				$count++;
+		clearstatcache();
+		$locks = [];
+		for ($i = 1; $i <= $concurrent; $i++) {
+			$file = $folder . '/' . $lock . '_' . $i;
+			if (file_exists($file)) {
+				$locks[$file] = filemtime($file);
+			} else {
+				$locks[$file] = -1;
 			}
 		}
-		return $count;
+		asort($locks);
+		foreach ($locks as $lock => $mtime) {
+			if ($mtime === -1 || empty(filesize($lock))) {
+				return($lock);
+			}
+		}
+		//	no free locks, will have to wait...
+		$lock = array_rand($locks);
+		return $lock;
 	}
 
 	function __destruct() {
@@ -68,15 +70,20 @@ class npgMutex {
 				try {
 					if (flock($this->mutex, LOCK_EX)) {
 						$this->locked = true;
+						rewind($this->mutex);
+						fwrite($this->mutex, getUserIP() . "\n");
 						if (TEST_RELEASE) {
-							rewind($this->mutex);
 							ob_start();
 							debug_print_backtrace();
 							fwrite($this->mutex, ob_get_clean());
 						}
+						fflush($this->mutex);
 					}
 				} catch (Exception $e) {
 					// what can you do, we will just have to run in free mode
+					if (TEST_RELEASE) {
+						debugLog('mutex lock failed: ' . $this->lock);
+					}
 					$this->locked = NULL;
 				}
 			}
@@ -91,9 +98,7 @@ class npgMutex {
 		if ($this->locked) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
-			if (TEST_RELEASE) {
-				ftruncate($this->mutex, 0);
-			}
+			ftruncate($this->mutex, 0);
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;

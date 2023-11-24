@@ -153,6 +153,7 @@
  */
 function intel2Moto($intel) {
 	static $cache = array();
+	$intel = strval($intel);
 	if (isset($cache[$intel])) {
 		return $cache[$intel];
 	}
@@ -1280,6 +1281,7 @@ function read_exif_data_raw($path, $verbose) {
 
 
 
+
 // add 12 to the offset to account for TIFF header
 	if ($result['ValidJpeg'] == 1) {
 		$globalOffset += 12;
@@ -1317,7 +1319,7 @@ function read_exif_data_raw($path, $verbose) {
 	}
 
 	// seek to SubIFD (Value of ExifOffset tag) above.
-	$ExitOffset = $result['IFD0']['ExifOffset'];
+	$ExitOffset = intval($result['IFD0']['ExifOffset']);
 	$v = fseek($in, $globalOffset + $ExitOffset);
 	if ($v == -1) {
 		$result['Errors'] = $result['Errors'] + 1;

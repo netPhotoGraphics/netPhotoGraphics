@@ -11,7 +11,6 @@
 define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
-require_once(dirname(__DIR__) . '/functions-basic.php');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
 if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {

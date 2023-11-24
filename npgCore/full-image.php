@@ -11,22 +11,6 @@
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', -1);
 }
-require_once(__DIR__ . '/global-definitions.php');
-require_once(__DIR__ . '/class-mutex.php');
-
-if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SERVERPATH))) {
-	$limit = 5;
-	if (file_exists(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-		eval('?>' . file_get_contents(dirname(__DIR__) . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-		if (isset($conf['THREAD_CONCURRENCY'])) {
-			$limit = $conf['THREAD_CONCURRENCY'];
-		}
-		unset($conf);
-	}
-	$_siteMutex = new npgMutex('i', min(5, $limit));
-	$_siteMutex->lock();
-	unset($limit);
-}
 
 require_once(__DIR__ . "/functions.php");
 require_once(__DIR__ . "/lib-image.php");
@@ -62,9 +46,6 @@ if (getOption('hotlink_protection')) {
 	if (preg_replace('/^www./', '', strtolower($_SERVER['SERVER_NAME'])) != $checkstring) {
 		/* It seems they are directly requesting the full image. */
 		header('Location: ' . FULLWEBPATH . '/index.php?album=' . $album8 . '&image=' . $image8);
-		if (isset($_siteMutex)) {
-			$_siteMutex->unlock();
-		}
 		exit();
 	}
 }
@@ -142,9 +123,6 @@ if (($hash || !$albumobj->checkAccess()) && !npg_loggedin(VIEW_FULLIMAGE_RIGHTS)
 		header("HTTP/1.0 302 Found");
 		header("Status: 302 Found");
 		include(internalToFilesystem($_themeScript));
-		if (isset($_siteMutex)) {
-			$_siteMutex->unlock();
-		}
 		exit();
 	}
 }
@@ -181,9 +159,6 @@ switch ($suffix) {
 			header("HTTP/1.0 301 Moved Permanently");
 			header("Status: 301 Moved Permanently");
 			header('Location: ' . $imageobj->getFullImageURL());
-		}
-		if (isset($_siteMutex)) {
-			$_siteMutex->unlock();
 		}
 		exit();
 }
@@ -223,9 +198,6 @@ if (!($process || $force_cache)) { // no processing needed
 		} else {
 			header("Location: " . getAlbumFolder(FULLWEBPATH) . pathurlencode($album) . "/" . rawurlencode($image));
 		}
-		if (isset($_siteMutex)) {
-			$_siteMutex->unlock();
-		}
 		exit();
 	} else { // the web server does not have access to the image, have to supply it
 		$fp = fopen($image_path, 'rb');
@@ -239,9 +211,6 @@ if (!($process || $force_cache)) { // no processing needed
 		// dump the picture and stop the script
 		fpassthru($fp);
 		fclose($fp);
-		if (isset($_siteMutex)) {
-			$_siteMutex->unlock();
-		}
 		exit();
 	}
 }
@@ -284,9 +253,6 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 			//	from the cachemanager cache image generator
 			require_once(CORE_SERVERPATH . 'setup/setup-functions.php');
 			sendImage(0, 'i.php');
-			if (isset($_siteMutex)) {
-				$_siteMutex->unlock();
-			}
 			exit();
 		}
 	}
@@ -308,9 +274,6 @@ if (!is_null($cache_path)) {
 		header("HTTP/1.0 301 Moved Permanently");
 		header("Status: 301 Moved Permanently");
 		header('Location: ' . FULLWEBPATH . '/' . CACHEFOLDER . pathurlencode(imgSrcURI($cache_file)));
-	}
-	if (isset($_siteMutex)) {
-		$_siteMutex->unlock();
 	}
 	exit();
 }

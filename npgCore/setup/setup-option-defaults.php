@@ -17,8 +17,6 @@ if (CURL_ENABLED) {
 
 $setOptions = getOptionList();
 
-require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
 $testFile = SERVERPATH . '/' . DATA_FOLDER . '/' . internalToFilesystem('charset_tést.cfg');
 if (!file_exists($testFile)) {
 	if (is_link($testFile)) {
@@ -93,6 +91,7 @@ if ($rslt) {
 	while ($option = db_fetch_assoc($rslt)) {
 		query('UPDATE ' . prefix('options') . ' SET `creator`="' . str_replace('zp-core/', 'npgCore/', $option['creator']) . '"');
 	}
+	db_free_result($rslt);
 }
 
 //effervescence_plus migration
@@ -237,13 +236,16 @@ foreach ($result as $row) {
 //migrate plugin enables removing "zp" from name
 $sql = 'SELECT `id`, `name` FROM ' . prefix('options') . ' WHERE `name` LIKE "zp\_plugin\_%"';
 $result = query($sql);
-while ($row = db_fetch_assoc($result)) {
-	$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
-	if (!query($sql, false)) {
-// the plugin has executed defaultExtension() which has set the _plugin_ option already
-		$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
-		query($sql);
+if ($result) {
+	while ($row = db_fetch_assoc($result)) {
+		$sql = 'UPDATE ' . prefix('options') . ' SET `name`=' . db_quote(substr($row['name'], 2)) . ' WHERE `id`=' . $row['id'];
+		if (!query($sql, false)) {
+			// the plugin has executed defaultExtension() which has set the _plugin_ option already
+			$sql = 'DELETE FROM ' . prefix('options') . ' WHERE `id`=' . $row['id'];
+			query($sql);
+		}
 	}
+	db_free_result($result);
 }
 //clean up plugin creator field
 $sql = 'UPDATE ' . prefix('options') . ' SET `creator`=' . db_quote(CORE_FOLDER . '/setup/setup-option-defaults.php[' . __LINE__ . ']') . ' WHERE `name` LIKE "\_plugin\_%" AND `creator` IS NULL;';
@@ -266,6 +268,7 @@ if ($result) {
 			}
 		}
 	}
+	db_free_result($result);
 }
 
 //migrate "publish" dates
@@ -291,6 +294,7 @@ if ($result) {
 		$sql = 'UPDATE ' . prefix('albums') . ' SET `publishdate`=' . db_quote(date('Y-m-d H:i:s', $row['mtime'])) . ' WHERE `id`=' . $row['id'];
 		query($sql);
 	}
+	db_free_result($result);
 }
 //	fix empty sort_order
 foreach (array('news_categories', 'pages', 'images', 'albums', 'menu') as $table) {
@@ -317,31 +321,33 @@ $where = ltrim($where, ' OR ');
 if (!empty($where)) {
 	$sql = 'SELECT `id` FROM ' . prefix('images') . ' WHERE ' . $where;
 	$result = query($sql);
-	while ($row = db_fetch_assoc($result)) {
-		$img = getItemByID('images', $row['id']);
-		if ($img) {
-			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
-				$data = floatval($img->get($source));
-				if (!empty($data)) {
-					if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
-						$data = -$data;
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$img = getItemByID('images', $row['id']);
+			if ($img) {
+				foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
+					$data = floatval($img->get($source));
+					if (!empty($data)) {
+						if (in_array(strtoupper($img->get($source . 'Ref')), array('S', 'W'))) {
+							$data = -$data;
+						}
+						$img->set(substr($source, 4), $data);
 					}
-					$img->set(substr($source, 4), $data);
 				}
-			}
-			$alt = floatval($img->get('EXIFGPSAltitude'));
-			if (!empty($alt)) {
-				$ref = $img->get('EXIFGPSAltitudeRef');
-				if (!is_null($ref) && $ref != 0) {
-					$alt = -$alt;
+				$alt = floatval($img->get('EXIFGPSAltitude'));
+				if (!empty($alt)) {
+					$ref = $img->get('EXIFGPSAltitudeRef');
+					if (!is_null($ref) && $ref != 0) {
+						$alt = -$alt;
+					}
+					$img->set('GPSAltitude', $alt);
 				}
-				$img->set('GPSAltitude', $alt);
+				$img->set('rotation', substr(trim($img->get('EXIFOrientation'), '!'), 0, 1));
+				$img->save();
 			}
-			$img->set('rotation', substr(trim($img->get('EXIFOrientation'), '!'), 0, 1));
-			$img->save();
 		}
+		db_free_result($result);
 	}
-	db_free_result($result);
 }
 
 //	cleanup mutexes
@@ -364,9 +370,12 @@ foreach ($migrate as $file => $theme) {
 	deleteDirectory(SERVERPATH . '/' . THEMEFOLDER . '/' . $file); //	remove old version
 	$newtheme = lcfirst(substr($theme, 2));
 	$result = query('SELECT `id`, `creator` FROM ' . prefix('options') . ' WHERE `theme`=' . db_quote($theme));
-	while ($row = db_fetch_assoc($result)) {
-		$newcreator = str_replace($theme, $newtheme, $row['creator']);
-		query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
+	if ($result) {
+		while ($row = db_fetch_assoc($result)) {
+			$newcreator = str_replace($theme, $newtheme, $row['creator']);
+			query('UPDATE ' . prefix('options') . ' SET `theme`=' . db_quote($newtheme) . ', `creator`=' . db_quote($newcreator) . ' WHERE `id`=' . $row['id'], FALSE);
+		}
+		db_free_result($result);
 	}
 }
 if (in_array($_gallery->getCurrentTheme(), $migrate)) {

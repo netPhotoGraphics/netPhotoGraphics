@@ -26,22 +26,24 @@ class DailySummary extends Gallery {
 			}
 			$sql .= '`albumid` NOT IN (' . implode(',', $hidealbums) . ')';
 		}
-		$sql .=' ORDER BY `date` DESC';
+		$sql .= ' ORDER BY `date` DESC';
 		$result = query($sql);
-		while ($row = db_fetch_assoc($result)) {
-			if (!empty($row['date'])) {
-				$image = getItemByID('images', $row['id'], true, false);
-				if ($image) {
-					$d = substr($row['date'], 0, 10);
-					$rowDate = strtotime($d);
-					if ($rowDate < $minDate) {
-						break;
+		if ($result) {
+			while ($row = db_fetch_assoc($result)) {
+				if (!empty($row['date'])) {
+					$image = getItemByID('images', $row['id'], true, false);
+					if ($image) {
+						$d = substr($row['date'], 0, 10);
+						$rowDate = strtotime($d);
+						if ($rowDate < $minDate) {
+							break;
+						}
+						$cleandates[] = $d;
 					}
-					$cleandates[] = $d;
 				}
 			}
+			db_free_result($result);
 		}
-		db_free_result($result);
 		$this->imagaecount = count($cleandates);
 		if ($datecount = array_count_values($cleandates)) {
 			krsort($datecount);

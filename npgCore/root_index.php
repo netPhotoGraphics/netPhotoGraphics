@@ -1,10 +1,10 @@
 <?php
 
 clearstatcache();
-$closed = file_exists(__DIR__ . '/extract.php');
+$closed = file_exists('SITE_ROOT/extract.php');
 if ($closed) {
 	if (isset($_GET['npgUpdate'])) {
-		require(__DIR__ . '/extract.php');
+		require( 'SITE_ROOT/extract.php');
 		exit();
 	}
 } else {
@@ -56,35 +56,17 @@ if ($closed) {
 }
 
 define('OFFSET_PATH', 0);
-if (isset($_SERVER['SCRIPT_FILENAME'])) {
-	$_themeScript = $_SERVER['SCRIPT_FILENAME'];
-} else {
-	$_themeScript = __FILE__;
-}
-if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
-	$_contents = file_get_contents(__DIR__ . '/DATA_FOLDER/CONFIGFILE');
-	if ($_contents) {
-		if (strpos($_contents, '<?php') !== false) {
-			$_contents = '?>' . $_contents;
-		}
-		try {
-			eval($_contents);
-			if (isset($conf)) {
-				$_conf_vars = $conf;
-			} else {
-				$_conf_vars = $_zp_conf_vars; //	backward compatibility
-			}
-			if ($closed || isset($_conf_vars['site_upgrade_state']) && $_conf_vars['site_upgrade_state'] == 'closed') {
-				if (file_exists(dirname($_themeScript) . '/plugins/site_upgrade/closed.php')) {
-					include(dirname($_themeScript) . '/plugins/site_upgrade/closed.php');
-				}
-				exit();
-			}
-		} catch (exception $e) {
 
+if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
+	require(__DIR__ . '/DATA_FOLDER/CONFIGFILE');
+	if ($closed || isset($conf['site_upgrade_state']) && $conf['site_upgrade_state'] == 'closed') {
+		if (file_exists('SITE_ROOT/USER_PLUGIN_FOLDER/site_upgrade/closed.php')) {
+			include('SITE_ROOT/USER_PLUGIN_FOLDER/site_upgrade/closed.php');
 		}
+		exit();
 	}
-	unset($_contents);
+	unset($conf);
 }
+unset($_contents);
 unset($closed);
 include (__DIR__ . '/CORE_FOLDER/index.php');

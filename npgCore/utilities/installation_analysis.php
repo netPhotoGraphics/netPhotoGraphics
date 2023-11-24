@@ -27,7 +27,6 @@ echo '</head>';
 				if (npg_loggedin(ADMIN_RIGHTS)) {
 					?>
 					<div id="overview_left" class="box overview-section overview-install-info">
-
 						<ul>
 							<?php
 							if (TEST_RELEASE) {
@@ -309,13 +308,14 @@ echo '</head>';
 							<li>
 								<?php
 								$dbsoftware = db_software();
+								list($user, $pass) = selectDBuser($_conf_vars);
 								printf(gettext('%1$s version: <strong>%2$s</strong>'), $dbsoftware['application'], $dbsoftware['version']);
 								echo '&nbsp;&nbsp;';
-								$used = query_single_row("SELECT " . db_quote($_conf_vars['mysql_user']) .
+								$used = query_single_row("SELECT " . db_quote($user) .
 												" user, COUNT(1) Connections FROM (SELECT user " .
-												db_quote($_conf_vars['mysql_user']) .
+												db_quote($user) .
 												"FROM information_schema.processlist) A GROUP BY "
-												. db_quote($_conf_vars['mysql_user']) .
+												. db_quote($user) .
 												" WITH ROLLUP;");
 								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', MySQL_CONNECTIONS), $used['Connections'], MySQL_CONNECTIONS);
 								?>
@@ -371,7 +371,7 @@ echo '</head>';
 								<li><?php printf(gettext('CAPTCHA generator: <strong>%s</strong>'), ($_captcha->name) ? $_captcha->name : gettext('none')) ?></li>
 								<?php
 							}
-							npgFilters::apply('installation_information');
+							npgFilters::apply('installation_overview');
 							if (!npgFilters::has_filter('sendmail')) {
 								?>
 								<li style="color:RED"><?php echo gettext('There is no mail handler configured!'); ?></li>
@@ -389,7 +389,7 @@ echo '</head>';
 					</div>
 					<div class="box overview-section overview-install-info">
 						<div class="overview-list-h3">
-							<h3 class="overview-list-h3">
+							<h3>
 								<?php printf(ngettext("%u active plugin:", "%u active plugins:", $c), $c); ?>
 							</h3>
 						</div>
@@ -483,8 +483,8 @@ echo '</head>';
 								?>
 							</ul>
 						</div><!-- filters -->
-
 					</div><!-- overview-info -->
+					<?php npgFilters::apply('installation_information'); ?>
 					<br class="clearall" />
 					<?php
 				}
@@ -496,8 +496,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 8);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+									$('.overview_list').height(height);
 </script>
 
 <?php

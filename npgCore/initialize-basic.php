@@ -27,7 +27,7 @@ set_error_handler("npgErrorHandler");
 set_exception_handler("npgExceptionHandler");
 register_shutdown_function('npgShutDownFunction');
 $_configMutex = new npgMutex('cF');
-$_mutex = new npgMutex();
+$_npgMutex = new npgMutex();
 
 if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
 	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
@@ -56,8 +56,9 @@ if (!isset($_conf_vars['charset'])) {
 define('LOCAL_CHARSET', $_conf_vars['charset']);
 if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
-	$stdConfig = getConfig(CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
-	$_conf_vars['special_pages'] = $stdConfig['special_pages'];
+	require (CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
+	$_conf_vars['special_pages'] = $conf['special_pages'];
+	unset($conf);
 }
 
 if (OFFSET_PATH != 2) {

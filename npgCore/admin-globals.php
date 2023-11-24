@@ -13,7 +13,6 @@ $_adminScript_timer['start'] = microtime();
 ini_set('post_max_size', "10M");
 ini_set('post_input_vars', "2500");
 
-require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 
 define('TEXTAREA_COLUMNS', 50);

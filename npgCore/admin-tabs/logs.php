@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
 		switch ($action) {
 			case 'clear_log':
 				XSRFdefender($action, $what);
-				$_mutex->lock();
+				$_npgMutex->lock();
 				$f = fopen($file, 'w');
 				if (ftruncate($f, 0)) {
 					$class = 'messagebox';
@@ -48,7 +48,7 @@ if (isset($_GET['action'])) {
 				fclose($f);
 				chmod($file, LOG_MOD);
 				clearstatcache();
-				$_mutex->unlock();
+				$_npgMutex->unlock();
 				if (basename($file) == 'security.log') {
 					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact
 				}
@@ -56,7 +56,7 @@ if (isset($_GET['action'])) {
 			case 'delete_log':
 				XSRFdefender($action, $what);
 				purgeOption('logviewed_' . $what);
-				$_mutex->lock();
+				$_npgMutex->lock();
 				chmod($file, 0777);
 				if (unlink($file)) {
 					$class = 'messagebox';
@@ -66,7 +66,7 @@ if (isset($_GET['action'])) {
 					$result = sprintf(gettext('%s log could not be removed.'), $what);
 				}
 				clearstatcache();
-				$_mutex->unlock();
+				$_npgMutex->unlock();
 				if (basename($file) == 'security.log') {
 					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact
 				}

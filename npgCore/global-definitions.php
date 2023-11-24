@@ -10,11 +10,13 @@ if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
 
-global $_conf_vars;
-$_options = array();
-
 if (!isset($_SERVER['HTTP_HOST']))
 	die();
+
+global $_conf_vars, $_options;
+$_options = array();
+
+require_once(__DIR__ . '/functions-basic.php');
 
 $v = explode("\n", file_get_contents(__DIR__ . '/version.php'));
 foreach ($v as $line) {
@@ -70,14 +72,14 @@ define('THEME_PLUGIN', 1024);
 define('PLUGIN_PRIORITY', 1023);
 
 //exif index defines
-define('EXIF_SOURCE', 0);
-define('EXIF_KEY', 1);
-define('EXIF_DISPLAY_TEXT', 2);
-define('EXIF_DISPLAY', 3);
-define('EXIF_FIELD_SIZE', 4);
-define('EXIF_FIELD_ENABLED', 5);
-define('EXIF_FIELD_TYPE', 6);
-define('EXIF_FIELD_LINKED', 7);
+define('METADATA_SOURCE', 0);
+define('METADATA_KEY', 1);
+define('METADATA_DISPLAY_TEXT', 2);
+define('METADATA_DISPLAY', 3);
+define('METADATA_FIELD_SIZE', 4);
+define('METADATA_FIELD_ENABLED', 5);
+define('METADATA_FIELD_TYPE', 6);
+define('METADATA_FIELD_LINKED', 7);
 
 define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(dirname(__FILE__) . '/VERSION.PHP'));
@@ -108,8 +110,7 @@ $_DB_details = array(
 		'mysql_host' => 'not connected',
 		'mysql_database' => 'not connected',
 		'mysql_prefix' => 'not connected',
-		'mysql_user' => '',
-		'mysql_pass' => ''
+		'mysql_user' => ['' => '']
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
 define('MYSQL_CONNECTION_RETRIES', 5);
@@ -158,12 +159,11 @@ if ($matches) {
 }
 
 if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	$level = error_reporting(0); //	just incase there is an error in the file
-	eval('?>' . file_get_contents($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE));
-	$_conf_vars = $conf;
-	error_reporting($level);
-	unset($conf);
-	unset($level);
+	require ($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	if (isset($conf)) {
+		$_conf_vars = $conf;
+		unset($conf);
+	}
 }
 
 if (isset($_conf_vars['WEBPATH'])) {

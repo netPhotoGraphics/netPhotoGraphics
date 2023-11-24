@@ -45,11 +45,18 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 							$title = gettext('Visit the site.');
 							$strike = '';
 							if (file_exists($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 								$saveDB = $_DB_details;
+								require ($clone . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+
 								db_close();
 								//	Setup for the MyBB database
-								$config = array('mysql_host' => $conf['mysql_host'], 'mysql_database' => $conf['mysql_database'], 'mysql_prefix' => $conf['mysql_prefix'], 'mysql_user' => $conf['mysql_user'], 'mysql_pass' => $conf['mysql_pass']);
+								$config = array(
+										'mysql_host' => $conf['mysql_host'],
+										'mysql_database' => $conf['mysql_database'],
+										'mysql_prefix' => $conf['mysql_prefix'],
+										'mysql_user' => $conf['mysql_user']
+								);
+
 								if ($_DB_connection = db_connect($config, false)) {
 									$sql = 'SELECT `value` FROM `' . $config['mysql_prefix'] . 'options` WHERE `name`="netphotographics_install"';
 									if ($result = query_single_row($sql, FALSE)) {
@@ -180,7 +187,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						$path = str_replace(WEBPATH, '/', SERVERPATH);
 						?>
 						<script type="text/javascript">
-							
+
 							var prime = '<?php echo SERVERPATH; ?>/';
 							function buttonAction(data) {
 								$('#newDir').val(data);
@@ -199,7 +206,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								$('#cloneWebPath').val('<?php echo $urlpath; ?>' + newinstall);
 							}
 							window.addEventListener('load', folderChange, false);
-							
+
 						</script>
 						<form name="changeDir" id="changeDir" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/cloneTab.php'); ?>?tab=clone" method="post">
 							<input type="hidden" name="path" id="newDir" value = "" />
@@ -224,11 +231,11 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								</a>
 							</span>
 							<span class="icons"<?php
-							if (empty($folderlist))
-								echo
+									if (empty($folderlist))
+										echo
 
-								' style="display:none;"';
-							?>>
+										' style="display:none;"';
+									?>>
 								<a id="downbutton" href="javascript:buttonAction($('#cloneFolder').val());" title="">
 									<?php echo ARROW_DOWN_GREEN; ?>
 								</a>

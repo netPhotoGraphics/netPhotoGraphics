@@ -1,19 +1,20 @@
 <?php
-
 /**
  * This plugin monitors front-end access and shuts down responses when a particular
  * source tries to flood the gallery with requests.
  *
  * A mask is used to control the scope of the data collection. For a IPv4 addresses
- * 	255.255.255.255 will resolve to the Host.
- *  255.255.255.0 will resolve to the Sub-net (data for all hosts in the Sub-net are grouped.)
- *  255.255.0.0 will resolve to the Network (data for the Network is grouped.)
+ * 	255.255.255.255 (<em>Selectivity</em> 4) will resolve to the Host.
+ *  255.255.255.0 (<em>Selectivity</em> 3) will resolve to the Sub-net (data for all hosts in the Sub-net are grouped.)
+ *  255.255.0.0 (<em>Selectivity</em> 2) will resolve to the Network (data for the Network is grouped.)
  *
- * Access data is not acted upon until there is at least 10 access attempts. This insures
+ * Access data is not acted upon until there are more access attempts than the <em>sensitivity</em> setting. This insures
  * that flooding is not prematurely indicated.
  *
+ * Logged-in users are not monitored nor restricted in their access rate.
+ *
  * @author Stephen Billard (sbillard)
- * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+ * @Copyright 2016, 2023 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  * @package plugins/accessThreshold
  * @pluginCategory security
@@ -66,7 +67,7 @@ class accessThreshold {
 		$options = array(
 				gettext('Memory') => array('key' => 'accessThreshold_IP_RETENTION', 'type' => OPTION_TYPE_NUMBER,
 						'order' => 5,
-						'desc' => gettext('The number unique access attempts to keep.')),
+						'desc' => gettext('The number unique (by masked IP address segments) access attempts to keep.')),
 				gettext('Sensitivity') => array('key' => 'accessThreshold_SIGNIFICANT', 'type' => OPTION_TYPE_SLIDER,
 						'min' => accessThreshold_min_SIGNIFICANT,
 						'max' => min((int) (MySQL_CONNECTIONS * 0.75), 25),
@@ -115,6 +116,104 @@ class accessThreshold {
 			}
 		}
 		return $tabs;
+	}
+
+	/*
+	 * Installation information tab content
+	 */
+
+	static function accessCount() {
+		$days = [];
+		$ips = [];
+		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+			$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+			foreach ($recentIP as $data) {
+				if (isset($data['accessed'])) {
+					foreach ($data['accessed'] as $access) {
+						$date = date('yy-m-d H', $access['time']);
+						if (isset($days[$date])) {
+							$days[$date]++;
+						} else {
+							$days[$date] = 1;
+						}
+						$ip = $access['ip'];
+						if (isset($ips[$ip])) {
+							$ips[$ip]++;
+						} else {
+							$ips[$ip] = 1;
+						}
+					}
+				}
+			}
+			ksort($days);
+			uksort($ips, function ($a, $b) {
+				$retval = 0;
+				$_a = explode('.', str_replace(':', '.', $a));
+				$_b = explode('.', str_replace(':', '.', $b));
+				foreach ($_a as $key => $va) {
+					if ($retval == 0 && isset($_b[$key])) {
+						$retval = strnatcmp($va, $_b[$key]);
+					} else {
+						break;
+					}
+				}
+				return $retval;
+			});
+			arsort($ips);
+		}
+		$info = gettext("Statistics gathered from the accessThreshold plugin's &quot;memory&quot; data.");
+		?>
+		<div class="box overview-section overview-install-info">
+			<div class="overview-list-h3">
+				<h3>
+					<?php echo gettext('Site Visits by date'); ?>
+					<span style="float:right!important" title="<?php echo $info; ?>">
+						<?php echo INFORMATION_BLUE; ?>
+					</span>
+				</h3>
+			</div>
+			<div class="overview_list">
+				<ul class="plugins">
+					<?php
+					foreach ($days as $date => $count) {
+						?>
+						<li>
+							<?php
+							printf(ngettext('%1$s: %2$s visit', '%1$s: %2$s visits', $count), $date, $count);
+							?>
+						</li>
+						<?php
+					}
+					?>
+				</ul>
+			</div><!-- accessThreshold visits by date -->
+		</div>
+		<div class="box overview-section overview-install-info">
+			<div class="overview-list-h3">
+				<h3>
+					<?php echo gettext('Site Visits by IP'); ?>
+					<span style="float:right!important" title="<?php echo $info; ?>">
+						<?php echo INFORMATION_BLUE; ?>
+					</span>
+				</h3>
+			</div>
+			<div class="overview_list">
+				<ul class="plugins">
+					<?php
+					foreach ($ips as $ip => $count) {
+						?>
+						<li>
+							<?php
+							printf(ngettext('%1$s: %2$s visit', '%1$s: %2$s visits', $count), $ip, $count);
+							?>
+						</li>
+						<?php
+					}
+					?>
+				</ul>
+			</div><!-- accessThreshold visits by IP -->
+		</div>
+		<?php
 	}
 
 	static function maskIP($full_ip) {
@@ -171,6 +270,10 @@ class accessThreshold {
 
 if (OFFSET_PATH) {
 	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
+	npgFilters::register('installation_information', 'accessThreshold::accessCount');
+	if (OFFSET_PATH == 2) {
+		setOption('accessThreshold_Owner', getUserIP());
+	}
 }
 
 if (extensionEnabled('accessThreshold')) {
@@ -210,8 +313,10 @@ if (extensionEnabled('accessThreshold')) {
 		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
 			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 			$mu->unlock();
+			if (is_object($_siteMutex)) {
+				$_siteMutex->unlock();
+			}
 			db_close();
-			sleep(getOption('accessThreshold_SIGNIFICANT') * getOption('accessThreshold_THRESHOLD'));
 			header("HTTP/1.0 503 Service Unavailable");
 			header("Status: 503 Service Unavailable");
 			header("Retry-After: $window");

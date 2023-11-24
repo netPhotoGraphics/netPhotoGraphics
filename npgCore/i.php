@@ -33,24 +33,6 @@
 if (!defined('OFFSET_PATH')) {
 	define('OFFSET_PATH', -1);
 }
-require_once(__DIR__ . '/global-definitions.php');
-require_once(__DIR__ . '/class-mutex.php');
-
-if (OFFSET_PATH == -1 & !(isset($_GET['curl']) && $_GET['curl'] == sha1(CORE_SERVERPATH))) {
-	$limit = 5;
-	if (file_exists(CORE_SERVERPATH . DATA_FOLDER . '/' . CONFIGFILE)) {
-		eval('?>' . file_get_contents(CORE_SERVERPATH . DATA_FOLDER . '/' . CONFIGFILE));
-		if (isset($conf['THREAD_CONCURRENCY'])) {
-			$limit = $conf['THREAD_CONCURRENCY'];
-		}
-		unset($conf);
-	}
-	$_siteMutex = new npgMutex('i', min(5, $limit));
-	$_siteMutex->lock();
-	unset($limit);
-}
-
-require_once(__DIR__ . '/functions-basic.php');
 require_once(__DIR__ . '/initialize-basic.php');
 require_once(__DIR__ . '/lib-image.php');
 
@@ -153,7 +135,7 @@ if (!file_exists($imgfile)) {
 }
 
 // Make the directories for the albums in the cache, recursively.
-$_mutex->lock(); //	avoid multiple threads trying to create the same folders
+$_npgMutex->lock(); //	avoid multiple threads trying to create the same folders
 $albumdirs = getAlbumArray($album, true);
 foreach ($albumdirs as $dir) {
 	$dir = internalToFilesystem($dir);
@@ -166,7 +148,7 @@ foreach ($albumdirs as $dir) {
 		chmod($dir, FOLDER_MOD);
 	}
 }
-$_mutex->unlock();
+$_npgMutex->unlock();
 unset($dir);
 
 $process = true;
@@ -189,9 +171,6 @@ if ($process) { // If the file hasn't been cached yet, create it.
 		imageProcessing::error('422 Unprocessable Entity', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
 	}
 	$fmt = filemtime($newfile);
-}
-if (isset($_siteMutex)) {
-	$_siteMutex->unlock();
 }
 
 $protocol = FULLWEBPATH;

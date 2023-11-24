@@ -143,24 +143,24 @@ foreach ($metadataProviders as $source => $handler) {
 		if (!is_null(getOption($key))) {
 			//	cleanup old metadata options
 			if (getOption($key . '-disabled')) {
-				$exifvars[$key][EXIF_DISPLAY] = $exifvars[$key][EXIF_FIELD_ENABLED] = $exifvar[EXIF_FIELD_ENABLED] = false;
+				$exifvars[$key][METADATA_DISPLAY] = $exifvars[$key][METADATA_FIELD_ENABLED] = $exifvar[METADATA_FIELD_ENABLED] = false;
 			} else {
-				$exifvars[$key][EXIF_DISPLAY] = getOption($key);
-				$exifvars[$key][EXIF_FIELD_ENABLED] = $exifvar[EXIF_FIELD_ENABLED] = true;
+				$exifvars[$key][METADATA_DISPLAY] = getOption($key);
+				$exifvars[$key][METADATA_FIELD_ENABLED] = $exifvar[METADATA_FIELD_ENABLED] = true;
 			}
 			purgeOption($key);
 			purgeOption($key . '-disabled');
 		}
-		if ($exifvars[$key][EXIF_DISPLAY]) {
+		if ($exifvars[$key][METADATA_DISPLAY]) {
 			$display[$key] = $key;
 		}
-		if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+		if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 			$disable[$key] = $key;
 		}
 
-		$size = $exifvar[EXIF_FIELD_SIZE];
-		if ($exifvar[EXIF_FIELD_ENABLED] && $enabled) {
-			switch ($exifvar[EXIF_FIELD_TYPE]) {
+		$size = $exifvar[METADATA_FIELD_SIZE];
+		if ($exifvar[METADATA_FIELD_ENABLED] && $enabled) {
+			switch ($exifvar[METADATA_FIELD_TYPE]) {
 				default:
 				case 'string':
 					if ($size < 256) {

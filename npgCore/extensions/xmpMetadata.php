@@ -622,14 +622,14 @@ class xmpMetadata {
 	static function getMetadataFields() {
 		$fields = array(
 				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
-				'XMPAperatureValue' => array('XMP', '<exif:ApertureValue>', gettext('Aperture Value'), false, 52, true, 'string', false),
+				'XMPAperatureValue' => array('XMP', '<exif:AperatureValue>', gettext('Aperature Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
 				'XMPContrast' => array('XMP', '<exif:Contrast>', gettext('Contrast Setting'), false, 52, true, 'string', false),
 				'XMPDateTimeOriginal' => array('XMP', '<exif:DateTimeOriginal>', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
 				'XMPExposureBiasValue' => array('XMP', '<exif:ExposureBiasValue>', gettext('Exposure Compensation'), true, 52, true, 'string', false),
 				'XMPExposureProgram' => array('XMP', '<exif:ExposureProgram>', gettext('Exposure program'), true, 52, true, 'string', false),
 				'XMPExposureTime' => array('XMP', '<exif:ExposureTime>', gettext('Exposure time'), true, 52, true, 'string', false),
-				'XMPFNumber' => array('XMP', '<exif:FNumber>', gettext('Aperture'), true, 52, true, 'string', false),
+				'XMPFNumber' => array('XMP', '<exif:FNumber>', gettext('Aperature'), true, 52, true, 'string', false),
 				'XMPFocalLength' => array('XMP', '<exif:FocalLength>', gettext('Focal Length'), true, 52, true, 'string', false),
 				'XMPGPSAltitude' => array('XMP', '<exif:GPSAltitude>', gettext('Altitude'), false, 52, true, 'number', false),
 				'XMPGPSLatitude' => array('XMP', '<exif:GPSLatitude>', gettext('Latitude'), false, 52, true, 'number', false),
@@ -676,12 +676,14 @@ class xmpMetadata {
 				'watermark' => '<npg:watermark>',
 				'watermark_use' => '<npg:watermark_use>',
 				'watermark_thumb' => '<npg:watermark_thumb>',
-				'custom_data' => '<npg:customData',
+				'custom_data' => '<npg:customData>',
 				'codeblock' => '<npg:codeblock>'
 		);
 
 		foreach (self::getMetadataFields()as $field => $item) {
-			$desiredtags[$field] = strtolower($item[1]);
+			if ($item[METADATA_FIELD_ENABLED]) {
+				$desiredtags[$field] = strtolower($item[1]);
+			}
 		}
 		$xmp_parsed = array();
 		while (!empty($xmpdata)) {
@@ -923,7 +925,7 @@ class xmpMetadata {
 				if (!empty($metadata)) {
 					$exifVars = self::getMetadataFields();
 					foreach ($metadata as $field => $element) {
-						if (!array_key_exists($field, $exifVars) || $exifVars[$field][EXIF_FIELD_ENABLED]) {
+						if (!array_key_exists($field, $exifVars) || $exifVars[$field][METADATA_FIELD_ENABLED]) {
 							$image->set('hasMetadata', 1);
 							$v = self::to_string($element);
 							if (($key = array_search($field, $import)) !== false) {
@@ -1178,10 +1180,10 @@ function xmpMetadata_enable($enabled) {
 		$display = $disable = array();
 		$exifvars = xmpMetadata::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
+			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
 			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 				$disable[$key] = $key;
 			}
 		}

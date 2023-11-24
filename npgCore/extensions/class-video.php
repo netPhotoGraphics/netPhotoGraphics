@@ -14,7 +14,7 @@
  */
 // force UTF-8 Ø
 
-$plugin_is_filter = defaultExtension(990 | CLASS_PLUGIN);
+$plugin_is_filter = defaultExtension(980 | CLASS_PLUGIN);
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('The <em>audio-video</em> handler.');
 	$plugin_notice = gettext('This plugin handles <code>mpeg</code> multi-media files. <strong>Note:</strong> native <code>mpeg</code> support requires HTML5 browser support. You should enable a multimedia player plugin to handle other media files.');
@@ -415,7 +415,7 @@ class Video extends Image {
 		//see if there are any "enabled" VIDEO fields
 		$process = array();
 		foreach ($_exifvars as $field => $exifvar) {
-			if ($exifvar[EXIF_FIELD_ENABLED] && $exifvar[EXIF_SOURCE] == 'VIDEO') {
+			if ($exifvar[METADATA_FIELD_ENABLED] && $exifvar[METADATA_SOURCE] == 'VIDEO') {
 				$process[$field] = $exifvar;
 			}
 		}
@@ -596,10 +596,10 @@ function class_video_enable($enabled) {
 		$display = $disable = array();
 		$exifvars = Video::getMetadataFields();
 		foreach ($exifvars as $key => $item) {
-			if ($exifvars[$key][EXIF_DISPLAY]) {
+			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
 			}
-			if (!$exifvars[$key][EXIF_FIELD_ENABLED]) {
+			if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
 				$disable[$key] = $key;
 			}
 		}

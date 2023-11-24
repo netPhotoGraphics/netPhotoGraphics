@@ -114,6 +114,10 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
  * shut-down handler, check for errors
  */
 function npgShutDownFunction() {
+	global $_siteMutex;
+	if (is_object($_siteMutex)) {
+		$_siteMutex->__destruct();
+	}
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_USER_ERROR, E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$file = str_replace('\\', '/', $error['file']);
@@ -400,7 +404,6 @@ function db_quote($string) {
 		$string = db_escape($string);
 	}
 	return $string = "'" . $string . "'";
-	;
 }
 
 /*
@@ -409,6 +412,15 @@ function db_quote($string) {
 
 function db_name() {
 	return getOption('mysql_database');
+}
+
+function selectDBuser($conf) {
+	if (is_array($conf['mysql_user'])) {
+		$keys = array_keys($conf['mysql_user']);
+		$user = $keys[intdiv(date('i'), round(60 / count($conf['mysql_user']), 1))];
+		return array($user, $conf['mysql_user'][$user]);
+	}
+	return array($conf['mysql_user'], $conf['mysql_pass']);
 }
 
 /**
@@ -544,7 +556,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
 	}
 
 	if (defined('SERVERPATH')) {
-		global $_mutex;
+		global $_npgMutex;
 		$path = SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log';
 		if (file_exists($path)) {
 			$size = filesize($path);
@@ -552,8 +564,8 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			$size = 0;
 		}
 		$me = getmypid();
-		if (is_object($_mutex))
-			$_mutex->lock();
+		if (is_object($_npgMutex))
+			$_npgMutex->lock();
 		if ($reset || $size == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
 			if (!$reset && $size > 0) {
 				$perms = fileperms($path);
@@ -593,8 +605,8 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			fclose($f);
 			clearstatcache();
 		}
-		if (is_object($_mutex))
-			$_mutex->unlock();
+		if (is_object($_npgMutex))
+			$_npgMutex->unlock();
 	}
 }
 
@@ -1945,20 +1957,6 @@ function installSignature() {
 	);
 }
 
-/**
- * centralize evaluating the config file
- * @global type $_conf_vars
- * @param type $from the config file name
- */
-function getConfig($from = DATA_FOLDER . '/' . CONFIGFILE) {
-	global $_conf_vars;
-	eval('?>' . file_get_contents(SERVERPATH . '/' . $from));
-	if (isset($conf)) {
-		return $conf;
-	}
-	return $_conf_vars;
-}
-
 function primeOptions() {
 	global $_options, $_conf_vars;
 	$_options = array();
@@ -1971,6 +1969,7 @@ function primeOptions() {
 		while ($option = db_fetch_assoc($rslt)) {
 			$_options[strtolower($option['name'])] = $option['value'];
 		}
+		db_free_result($rslt);
 	}
 	return $rslt;
 }

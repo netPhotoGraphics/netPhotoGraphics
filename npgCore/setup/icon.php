@@ -6,7 +6,6 @@
 
 
 require_once (__DIR__ . '/setup-functions.php');
-require_once(dirname(__DIR__) . '/functions-basic.php');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
 $icon = (int) $_GET['icon'];

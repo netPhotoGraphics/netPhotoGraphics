@@ -211,6 +211,19 @@ if (isset($_GET['mod_rewrite'])) {
 $_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 $update_config = false;
 
+if (strpos($_config_contents, "\$conf['mysql_pass']") !== false) {
+	preg_match_all('~\$conf\[(\'mysql_.*\')\]\s*=(.*);~i', $_config_contents, $matches);
+	$index = array_flip($matches[1]);
+	$user = trim($matches[2][$index["'mysql_user'"]]);
+	if ($user !== '' && ($user[0] == '"' || $user[0] == '\'')) {
+		$user = trim($user, '\'"');
+		$pass = trim(trim($matches[2][$index["'mysql_pass'"]]), '\'"');
+		$_config_contents = preg_replace('~\$conf\[\'mysql_pass\'\]\s*=\s*.*\n~i', '', $_config_contents);
+		$_config_contents = configFile::update('mysql_user', '["' . $user . '" => "' . $pass . '"]', $_config_contents, false);
+		$update_config = true;
+	}
+}
+
 if (strpos($_config_contents, "\$conf['charset']") === false) {
 	$k = strpos($_config_contents, "\$conf['UTF-8'] = true;");
 	$_config_contents = substr($_config_contents, 0, $k) . "\$conf['charset'] = 'UTF-8';\n" . substr($_config_contents, $k);
@@ -241,15 +254,23 @@ if (isset($_POST['db'])) { //try to update the config file
 	setupXSRFDefender('db');
 	setupLog(gettext("db POST handling"));
 	$update_config = true;
+
 	if (isset($_POST['db_software'])) {
 		$_config_contents = configFile::update('db_software', trim(sanitize($_POST['db_software'], 0)), $_config_contents);
 	}
-	if (isset($_POST['db_user'])) {
-		$_config_contents = configFile::update('mysql_user', trim(sanitize($_POST['db_user'], 0)), $_config_contents);
+	if (isset($_POST['db_user']) || isset($_POST['db_pass'])) {
+		if (isset($_POST['db_user'])) {
+			$user = trim(sanitize($_POST['db_user'], 0));
+			if (isset($_POST['db_pass'])) {
+				$pass = trim(sanitize($_POST['db_pass'], 0));
+			} else {
+				$pass = '';
+			}
+			$_config_contents = preg_replace('~\$conf\[\'mysql_pass\'\]\s*=\s*.*\n~i', '', $_config_contents);
+			$_config_contents = configFile::update('mysql_user', '["' . $user . '" => "' . $pass . '"]', $_config_contents, false);
+		}
 	}
-	if (isset($_POST['db_pass'])) {
-		$_config_contents = configFile::update('mysql_pass', trim(sanitize($_POST['db_pass'], 0)), $_config_contents);
-	}
+
 	if (isset($_POST['db_host'])) {
 		$_config_contents = configFile::update('mysql_host', trim(sanitize($_POST['db_host'], 0)), $_config_contents);
 	}
@@ -271,7 +292,7 @@ define('ACK_DISPLAY_ERRORS', 2);
 
 if (isset($_GET['security_ack'])) {
 	setupXSRFDefender('security_ack');
-	$_config_contents = configFile::update('security_ack', (isset($conf['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
+	$_config_contents = configFile::update('security_ack', (isset($_conf_vars['security_ack']) ? $cache['keyword'] : NULL) | (int) $_GET['security_ack'], $_config_contents, false);
 	$update_config = true;
 }
 
@@ -1372,10 +1393,11 @@ clearstatcache();
 							checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
 							primeMark(gettext('Installation files'));
 							if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
+								clearstatcache();
 								$systemlist = $filelist = array();
 								$phi_ini_count = $svncount = 0;
 								foreach ($_resident_files as $extra) {
-									if (getSuffix($extra) == 'xxx') {
+									if (getSuffix($extra) == 'xxx' && file_exists($extra)) {
 										unlink($extra); //	presumed to be protected copies of the setup files
 									} else if (strpos($extra, 'php.ini') !== false) {
 										$phi_ini_count++;
@@ -1657,11 +1679,8 @@ clearstatcache();
 						$dbmsg = gettext("database connected");
 					} // system check
 
-
-
 					if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 						require(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-
 						$task = '';
 						if (isset($_GET['create'])) {
 							$task = 'create';
