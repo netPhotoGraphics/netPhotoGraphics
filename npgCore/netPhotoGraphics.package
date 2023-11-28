@@ -646,10 +646,6 @@ plugins/titlelinkMigration/
 plugins/titlelinkMigration/logo.png
 plugins/titlelinkMigration/migrate.php
 plugins/titlelinkMigration.php
-plugins/twitterLogin/
-plugins/twitterLogin/login_button.png
-plugins/twitterLogin/twitter.php
-plugins/twitterLogin.php
 plugins/uploader_jQuery/
 plugins/uploader_jQuery/LICENSE.txt
 plugins/uploader_jQuery/upload_form.php
@@ -20331,4 +20327,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20333
+20329
