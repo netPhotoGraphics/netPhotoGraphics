@@ -2921,7 +2921,7 @@ class npgFunctions {
 	 * @param string $text
 	 */
 	static function tagURLs($text) {
-		global $_tagURLs_tags, $_tagURLs_values;
+		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
 				$text = unserialize($text);
@@ -2939,7 +2939,7 @@ class npgFunctions {
 				preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);
 				$targets = array_unique(array_merge($hrefmatch[0], $srcmatch[0], $urlmatch[0]));
 				foreach ($targets as $target) {
-					$tagged = str_replace($_tagURLs_values, $_tagURLs_tags, $target);
+					$tagged = str_replace($_tagURLs_values, array_flip($_tagURLs_values), $target);
 					$text = str_replace($target, $tagged, $text);
 				}
 			}
@@ -2953,7 +2953,7 @@ class npgFunctions {
 	 * @return string
 	 */
 	static function unTagURLs($text, $debug = NULL) {
-		global $_tagURLs_tags, $_tagURLs_values;
+		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
 				$text = unserialize($text);
@@ -2966,7 +2966,7 @@ class npgFunctions {
 					$text = serialize($text);
 				}
 			} else {
-				$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
+				$text = str_replace(array_flip($_tagURLs_values), $_tagURLs_values, $text);
 			}
 		}
 		return $text;

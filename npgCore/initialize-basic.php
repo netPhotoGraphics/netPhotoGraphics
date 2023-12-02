@@ -228,23 +228,13 @@ define('THREAD_CONCURRENCY', $chunk);
 
 unset($chunk);
 
-$_tagURLs_tags = array(
-		'{*FULLWEBPATH*}',
-		'{*WEBPATH*}',
-		'{*PLUGIN_FOLDER*}',
-		'{*PLUGIN_PATH*}',
-		'{*CORE_FOLDER*}',
-		'{*CORE_PATH*}',
-		'{*USER_PLUGIN_FOLDER*}',
-		'{*USER_PLUGIN_PATH*}'
-);
 $_tagURLs_values = array(
-		FULLWEBPATH,
-		WEBPATH,
-		CORE_FOLDER . '/' . PLUGIN_FOLDER,
-		CORE_PATH . '/' . PLUGIN_PATH,
-		CORE_FOLDER,
-		CORE_PATH,
-		USER_PLUGIN_FOLDER,
-		USER_PLUGIN_PATH
+		'{*FULLWEBPATH*}' => FULLWEBPATH,
+		'{*WEBPATH*}' => WEBPATH,
+		'{*PLUGIN_FOLDER*}' => CORE_FOLDER . '/' . PLUGIN_FOLDER,
+		'{*PLUGIN_PATH*}' => CORE_PATH . '/' . PLUGIN_PATH,
+		'{*CORE_FOLDER*}' => CORE_FOLDER,
+		'{*CORE_PATH*}' => CORE_PATH,
+		'{*USER_PLUGIN_FOLDER*}' => USER_PLUGIN_FOLDER,
+		'{*USER_PLUGIN_PATH*}' => USER_PLUGIN_PATH
 );
