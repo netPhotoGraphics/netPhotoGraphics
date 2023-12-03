@@ -130,7 +130,7 @@ class accessThreshold {
 			foreach ($recentIP as $data) {
 				if (isset($data['accessed'])) {
 					foreach ($data['accessed'] as $access) {
-						$date = date('yy-m-d H', $access['time']);
+						$date = gmdate('yy-m-d H', $access['time']);
 						if (isset($days[$date])) {
 							$days[$date]++;
 						} else {
@@ -179,7 +179,7 @@ class accessThreshold {
 						?>
 						<li>
 							<?php
-							printf(ngettext('%1$s: %2$s visit', '%1$s: %2$s visits', $count), $date, $count);
+							printf(ngettext('%1$s UTC: %2$s visit', '%1$s UTC: %2$s visits', $count), $date, $count);
 							?>
 						</li>
 						<?php
