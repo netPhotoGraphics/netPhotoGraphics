@@ -281,10 +281,11 @@ define('CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE', '<span class="font_icon" styl
 define('DRAG_HANDLE', '<span class="font_icon" style="color:lightsteelblue; font-size: x-large;">&#10021;</span>');
 define('DRAG_HANDLE_ALERT', '<span class="font_icon" style="color:red; font-size: x-large;">&#10021;</span>');
 define('DUPLICATE_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5D7;</span>');
+define('ELECTRIC_ARROW', '<span class="font_icon" style="color:green; font-size: x-large;">&#x2301;</span>');
 define('ENVELOPE', '<span class="font_icon" style="font-size: large;">&#9993;</span>');
 define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-family: Times New Roman; font-weight: bold; font-size: large;">&#33;</span>');
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
-define('FOLDER_ICON', '<span class="font_icon" style=" color: goldenrod;">&#x1F4C1;</span>');
+define('FOLDER_ICON', '<span class="font_icon" style="color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
 define('IMAGE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BC;</span>');
