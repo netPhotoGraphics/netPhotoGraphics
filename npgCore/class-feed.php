@@ -310,7 +310,7 @@ class feed {
 			if ($type != 'all') {
 				$id = (int) $this->options['id'];
 				$found = query('SELECT `id` FROM ' . prefix($type) . ' WHERE id =' . $id . ' LIMIT 1');
-				if ($found && $found->num_rows > 0) {
+				if ($found && db_num_rows($found) > 0) {
 					return $id;
 				}
 			}

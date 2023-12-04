@@ -422,12 +422,12 @@ if ($selected_database) {
 	$connection = $__initialDBConnection;
 	if ($connection) { // got the database handler and the database itself connected
 		//	Flag a successful connection has occurred
-		$_conf_vars['db_client'] = $connection->client_info;
-		$_config_contents = configFile::update('db_client', $connection->client_info, $_config_contents);
+		$_conf_vars['db_client'] = db_software()['client_info'];
+		$_config_contents = configFile::update('db_client', $_conf_vars['db_client'], $_config_contents);
 		configFile::store($_config_contents);
 
 		$result = query("SELECT `id` FROM " . $_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
-		if ($result && $result->num_rows > 0) {
+		if ($result && db_num_rows($result) > 0) {
 			$upgrade = gettext("upgrade");
 		} else {
 			$upgrade = gettext("install");

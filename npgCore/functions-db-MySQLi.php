@@ -118,6 +118,7 @@ function db_query($sql, $errorstop = true) {
 				while ($row = $result->fetch_assoc()) {
 					$explaination[] = $row;
 				}
+				mysqli_free_result($result);
 				debugLogBacktrace($sql);
 				debugLogVar(["EXPLAIN" => $explaination]);
 			}
@@ -311,7 +312,8 @@ function db_software() {
 			'required' => DATABASE_MIN_VERSION,
 			'desired' => DATABASE_DESIRED_VERSION,
 			'version' => $matches[0],
-			'connections' => $max['Value']
+			'connections' => $max['Value'],
+			'client_info' => mysqli_get_client_info()
 	);
 }
 
@@ -394,7 +396,7 @@ function db_list_fields($table) {
 		$_tableFields[$table] = array();
 		$result = db_show('columns', $table);
 		if (is_object($result)) {
-			while ($row = db_fetch_assoc($result)) {
+			while ($row = mysqli_fetch_assoc($result)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
 			mysqli_free_result($result);

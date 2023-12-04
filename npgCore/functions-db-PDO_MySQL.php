@@ -120,7 +120,8 @@ function db_software() {
 			'required' => DATABASE_MIN_VERSION,
 			'desired' => DATABASE_DESIRED_VERSION,
 			'version' => $matches[0],
-			'connections' => $max['Value']
+			'connections' => $max['Value'],
+			'client_info' => $_DB_connection->getAttribute(PDO::ATTR_CLIENT_VERSION)
 	);
 }
 
@@ -202,7 +203,7 @@ function db_list_fields($table) {
 		$_tableFields[$table] = array();
 		$result = db_show('columns', $table);
 		if ($result) {
-			while ($row = db_fetch_assoc($result)) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
 			$result->closeCursor();
@@ -258,7 +259,7 @@ function query_single_row($sql, $errorstop = true) {
 	}
 	$result = db_query($sql, $errorstop);
 	if ($result) {
-		$row = db_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		$result->closeCursor();
 		return $row;
 	} else {
