@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <!-- .container -->
 <!-- .page-header -->
@@ -90,10 +90,10 @@ printDefaultSizedImage(getBareImageTitle(), 'remove-attributes center-block ' . 
 <?php } ?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
-	<?php include('inc_print_comment.php'); ?>
+	<?php include('includes/print_comment.php'); ?>
 <?php } ?>
 
 </div><!-- /.container main -->
 
 <?php
-include('inc_footer.php');
+include('includes/footer.php');

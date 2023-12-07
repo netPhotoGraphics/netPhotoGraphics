@@ -6,8 +6,8 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 
 <div id="background-main" class="background">
 	<div class="container<?php
@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		echo '-fluid';
 	}
 	?>">
-				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 
 			<section class="col-sm-9" id="main"  itemscope itemtype="http://schema.org/ImageObject">
@@ -137,11 +137,11 @@ if (getImageMetaData()) {
 <?php if (function_exists('printCommentForm')) printCommentForm(); ?>
 
 			</section>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/sidebar.php'); ?>
 		</div>
 	</div>
 </div>
 <!-- end of content row -->
 
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>

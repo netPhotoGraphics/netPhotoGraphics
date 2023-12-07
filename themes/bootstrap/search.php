@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <!-- .container main -->
 <!-- .page-header -->
@@ -78,10 +78,10 @@
 	printPageListWithNav('«', '»', false, true, 'pagination pagination-sm', NULL, true, 7);
 
 	if (getNumAlbums() > 0) {
-		include('inc_print_album_thumb.php');
+		include('includes/print_album_thumb.php');
 	}
 	if (getNumImages() > 0) {
-		include('inc_print_image_thumb.php');
+		include('includes/print_image_thumb.php');
 	}
 
 	printPageListWithNav('«', '»', false, true, 'pagination pagination-sm margin-top-reset', NULL, true, 7);
@@ -120,4 +120,4 @@
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php');
+<?php include('includes/footer.php');

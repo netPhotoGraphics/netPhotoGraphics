@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <!-- .container main -->
 <!-- .page-header -->
@@ -21,10 +21,10 @@
 printPageListWithNav('«', '»', false, true, 'pagination pagination-sm', NULL, true, 7);
 
 if (isAlbumPage()) {
-	include('inc_print_album_thumb.php');
+	include('includes/print_album_thumb.php');
 }
 if (isImagePage()) {
-	include('inc_print_image_thumb.php');
+	include('includes/print_image_thumb.php');
 }
 
 printPageListWithNav('«', '»', false, true, 'pagination pagination-sm', NULL, true, 7);
@@ -39,18 +39,18 @@ printPageListWithNav('«', '»', false, true, 'pagination pagination-sm', NULL, 
 <?php
 switch (simplemap::mapPlugin()) {
 	case 'googleMap':
-		include('inc_print_googlemap.php');
+		include('includes/print_googlemap.php');
 		break;
 	case 'openStreetMap':
-		include('inc_print_osm.php');
+		include('includes/print_osm.php');
 		break;
 }
 ?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
-	<?php include('inc_print_comment.php'); ?>
+	<?php include('includes/print_comment.php'); ?>
 <?php } ?>
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php');
+<?php include('includes/footer.php');

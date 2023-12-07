@@ -5,8 +5,8 @@ if (!defined('WEBPATH'))
 if (class_exists("CMS")) {
 	?>
 
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 
 	<?php if (class_exists('RSS')) printRSSHeaderLink("News", NEWS_LABEL, ""); ?>
 
@@ -17,7 +17,7 @@ if (class_exists("CMS")) {
 			echo '-fluid';
 		}
 		?>">
-					 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+					 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 			<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 				<section class="col-sm-9" id="main" itemprop="mainContentOfPage">
 
@@ -130,12 +130,12 @@ if (class_exists("CMS")) {
 					}
 					?>
 				</section>
-				<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+				<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/sidebar.php'); ?>
 			</div>
 		</div>
 	</div>
 
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>
 
 	<?php
 } else {

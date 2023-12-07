@@ -1,5 +1,5 @@
 <?php
-include('inc_header.php');
+include('includes/header.php');
 require_once (PLUGIN_SERVERPATH . 'tag_extras.php');
 ?>
 
@@ -119,19 +119,19 @@ scriptLoader($_themeroot . '/js/packery-mode.pkgd.min.js');
 <?php
 switch (simplemap::mapPlugin()) {
 	case 'googleMap':
-		include('inc_print_googlemap.php');
+		include('includes/print_googlemap.php');
 		break;
 	case 'openStreetMap':
-		include('inc_print_osm.php');
+		include('includes/print_osm.php');
 		break;
 }
 ?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
-	<?php include('inc_print_comment.php'); ?>
+	<?php include('includes/print_comment.php'); ?>
 <?php } ?>
 
 </div><!-- /.container main -->
 
 <?php
-include('inc_footer.php');
+include('includes/footer.php');

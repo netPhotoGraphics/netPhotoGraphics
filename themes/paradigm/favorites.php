@@ -5,13 +5,13 @@ if (!defined('WEBPATH'))
 	die();
 if (class_exists('favorites')) {
 	?>
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 	<div id="background-main" class="background">
 		<div class="container<?php if (getOption('full_width')) {
 		echo '-fluid';
 	} ?>">
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 
 			<div id="center" class="row" itemscope itemtype="http://schema.org/ImageGallery">
 
@@ -21,9 +21,9 @@ if (class_exists('favorites')) {
 					<h1><?php printAlbumTitle(); ?></h1>
 					<p class="lead"><?php printAlbumDesc(); ?></p>
 
-					<?php include("includes/_albumlist.php"); ?>
+					<?php include("includes/albumlist.php"); ?>
 
-					<?php include("includes/_imagethumbs.php"); ?>
+					<?php include("includes/imagethumbs.php"); ?>
 					<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
 
 	<?php if (function_exists('printRating')) printRating(); ?>
@@ -31,12 +31,12 @@ if (class_exists('favorites')) {
 
 				</section>
 
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/sidebar.php'); ?>
 			</div>
 		</div>
 	</div>
 
-	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+	<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>
 	<?php
 } else {
 	include(CORE_SERVERPATH . '404.php');

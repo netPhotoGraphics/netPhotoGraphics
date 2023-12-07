@@ -1,5 +1,5 @@
 <?php
-include('inc_header.php');
+include('includes/header.php');
 ?>
 <!-- .container main -->
 <!-- .page-header -->
@@ -19,4 +19,4 @@ include getPlugin('/daily-summary/daily-summary_content.php');
 
 </div><!-- /.container main -->
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>
