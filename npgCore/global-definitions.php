@@ -288,6 +288,7 @@ define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5C
 define('FOLDER_ICON', '<span class="font_icon" style="color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
+define('HIGH_VOLTAGE_SIGN', '<span class="font_icon">&#x26A1;</span>');
 define('IMAGE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BC;</span>');
 define('IMAGE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BC;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');

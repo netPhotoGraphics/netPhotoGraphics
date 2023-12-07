@@ -403,7 +403,7 @@ $buttonlist = array();
 				'button_text' => $buttonText = gettext('Optimize Database tables'),
 				'formname' => 'optiomizeTables_button',
 				'action' => getAdminLink('admin.php') . '?action=optimizeTables',
-				'icon' => ELECTRIC_ARROW,
+				'icon' => HIGH_VOLTAGE_SIGN,
 				'title' => gettext('Performs an OPTIMIZE TABLES query on each table in the database.'),
 				'alt' => '',
 				'hidden' => '<input type="hidden" name="action" value="optimizeTables" />',
