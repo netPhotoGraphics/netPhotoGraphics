@@ -145,7 +145,7 @@ class accessThreshold {
 					}
 				}
 			}
-			ksort($days);
+			krsort($days);
 			uksort($ips, function ($a, $b) {
 				$retval = 0;
 				$_a = explode('.', str_replace(':', '.', $a));
