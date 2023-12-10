@@ -179,7 +179,7 @@ class accessThreshold {
 						?>
 						<li>
 							<?php
-							printf(ngettext('%1$s UTC: %2$s visit', '%1$s UTC: %2$s visits', $count), $date, $count);
+							printf(ngettext('%1$s GMT: %2$s visit', '%1$s GMT: %2$s visits', $count), $date, $count);
 							?>
 						</li>
 						<?php

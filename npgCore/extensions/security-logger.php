@@ -224,7 +224,7 @@ class security_logger {
 				}
 				fwrite($f, trim($message, "\t") . NEWLINE);
 			}
-			$message = date('Y-m-d H:i:s') . "\t";
+			$message = gmdate('Y-m-d H:i:s') . ' GMT' . "\t";
 			$message .= $ip . "\t";
 			$message .= $type . "\t";
 			$message .= $user . "\t";

@@ -476,7 +476,7 @@ function getTimezones() {
 				 * @see http://www.php.net/manual/en/timezones.others.php
 				 */
 				if ($zone['timezone_id']) {
-					if (preg_match('~^(Africa/|America/|Antarctica/|Arctic/|Asia/|Atlantic/|Australia/|Europe/|Indian/|Pacific/|UTC)~', $zone['timezone_id'])) {
+					if (preg_match('~^(Africa/|America/|Antarctica/|Arctic/|Asia/|Atlantic/|Australia/|Europe/|Indian/|Pacific/|UTC/GMT)~', $zone['timezone_id'])) {
 						$cities[] = $zone['timezone_id'];
 					}
 				}

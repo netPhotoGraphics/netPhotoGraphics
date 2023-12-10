@@ -146,7 +146,7 @@ foreach ($recentIP as $ip => $data) {
 
 		$out .= '">' . "\n";
 		$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
-		$out .= '  <span style="width:48%;float:left;' . $old . '">' . gmdate('Y-m-d H:i:s', $data['lastAccessed']) . ' UTC</span>' . "\n";
+		$out .= '  <span style="width:48%;float:left;' . $old . '">' . gmdate('Y-m-d H:i:s', $data['lastAccessed']) . ' GMT</span>' . "\n";
 		$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
 		$out .= "</span>\n";
 
