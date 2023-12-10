@@ -69,30 +69,31 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				sleep(pow(2, $i));
 			}
 		}
+		//set character set protocol
+		$software = db_software();
+		$version = $software['version'];
+		try {
+			if (version_compare($version, '5.5.3', '>=')) {
+				$_DB_connection->query("SET NAMES 'utf8mb4'");
+			} else {
+				$_DB_connection->query("SET NAMES 'utf8'");
+			}
+		} catch (PDOException $e) {
+			//	:(
+		}
+
+		// set the sql_mode to relaxed (if possible)
+		try {
+			$_DB_connection->query('SET SESSION sql_mode="";');
+		} catch (PDOException $e) {
+			//	What can we do :(
+		}
 	} else {
 		trigger_error(gettext('PDO_MySQL extension not loaded.'), $errorstop);
 	}
 
 	$_DB_details = $config;
-	//set character set protocol
-	$software = db_software();
-	$version = $software['version'];
-	try {
-		if (version_compare($version, '5.5.3', '>=')) {
-			$_DB_connection->query("SET NAMES 'utf8mb4'");
-		} else {
-			$_DB_connection->query("SET NAMES 'utf8'");
-		}
-	} catch (PDOException $e) {
-		//	:(
-	}
 
-	// set the sql_mode to relaxed (if possible)
-	try {
-		$_DB_connection->query('SET SESSION sql_mode="";');
-	} catch (PDOException $e) {
-		//	What can we do :(
-	}
 	return $_DB_connection;
 }
 
@@ -109,6 +110,9 @@ function db_software() {
 		if (isset($max['Value']) || $max['Value'] == 0) {
 			$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 		}
+		$clientInfo = $_DB_connection->getAttribute(PDO::ATTR_CLIENT_VERSION);
+	} else {
+		$clientInfo = '';
 	}
 	if (!isset($matches[0])) {
 		$matches[0] = '?.?.?';
@@ -121,7 +125,7 @@ function db_software() {
 			'desired' => DATABASE_DESIRED_VERSION,
 			'version' => $matches[0],
 			'connections' => $max['Value'],
-			'client_info' => $_DB_connection->getAttribute(PDO::ATTR_CLIENT_VERSION)
+			'client_info' => $clientInfo
 	);
 }
 
