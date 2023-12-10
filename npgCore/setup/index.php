@@ -542,7 +542,7 @@ if ($setup_checked) {
 			$clone = ' ' . gettext('clone');
 		}
 
-		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), NETPHOTOGRAPHICS_VERSION, $clone, date('r')), true, true); // initialize the log file
+		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s GMT'), NETPHOTOGRAPHICS_VERSION, $clone, gmdate('D, d M Y H:i:s')), true, true); // initialize the log file
 	}
 
 	if ($environ) {
