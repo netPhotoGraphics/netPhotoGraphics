@@ -1963,7 +1963,7 @@ function primeOptions() {
 	foreach ($_conf_vars as $name => $value) {
 		$_options[strtolower($name)] = $value;
 	}
-	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0 ORDER BY `name`';
+	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0';
 	$rslt = query($sql, false);
 	if ($rslt) {
 		while ($option = db_fetch_assoc($rslt)) {
