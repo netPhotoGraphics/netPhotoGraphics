@@ -1968,7 +1968,7 @@ function primeOptions() {
 		$_options[strtolower($name)] = $value;
 	}
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0';
-	$rslt = query($sql, false);
+	$rslt = query($sql, abs(OFFSET_PATH) != 2);
 	if ($rslt) {
 		while ($option = db_fetch_assoc($rslt)) {
 			$_options[strtolower($option['name'])] = $option['value'];
