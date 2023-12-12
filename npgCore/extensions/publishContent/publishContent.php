@@ -2,7 +2,7 @@
 /**
  * @package plugins/publishContent
  */
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once("../../admin-globals.php");
 require_once(CORE_SERVERPATH . 'template-functions.php');
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
@@ -353,7 +353,7 @@ echo "</head>\n";
 							buttonImageOnly: true
 						});
 					});
-					
+
 				</script>
 				<?php
 				$visible = $report == 'images';
@@ -389,7 +389,7 @@ echo "</head>\n";
 						if ($c > 0) {
 							?>
 							<script type="text/javascript">
-								
+
 								function confirmdel(obj, id, msg) {
 									if (msg) {
 										if (confirm('<?php echo gettext("Are you sure you want to select this image for deletion?"); ?>')) {
@@ -408,7 +408,7 @@ echo "</head>\n";
 										$('.global_' + what).prop('checked', true);
 									}
 								}
-								
+
 							</script>
 							<form class="dirtylistening" onReset="setClean('publish_images_form');" id="publish_images_form" name="publish_images" action="?tab=content" method="post" autocomplete="off"><?php echo gettext('Images:'); ?>
 

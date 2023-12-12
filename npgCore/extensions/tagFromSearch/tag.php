@@ -11,7 +11,7 @@
  */
 // force UTF-8 Ø
 
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');

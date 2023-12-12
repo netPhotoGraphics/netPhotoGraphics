@@ -6,7 +6,7 @@
  *
  * @package admin/sitemap-extended
  */
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');
@@ -63,7 +63,7 @@ if (isset($_GET['generatesitemaps'])) {
 scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 ?>
 <script type="text/javascript">
-	
+
 	window.addEventListener('load', function () {
 		/*	$(".colorbox").colorbox({
 		 iframe: false,
@@ -74,7 +74,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 		 close: '<?php echo gettext("close"); ?>'
 		 }); */
 	}, false);
-	
+
 </script>
 <?php
 echo '</head>';
@@ -148,11 +148,11 @@ echo '</head>';
 						sitemap::generateIndexCacheFile();
 						?>
 						<script type="text/javascript">
-							
+
 							window.addEventListener('load', function () {
 								window.location = "<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>";
 							}, false);
-							
+
 						</script>
 						<?php
 					}

@@ -8,7 +8,7 @@
  *
  * @package admin/downloadList
  */
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());

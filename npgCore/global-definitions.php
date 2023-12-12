@@ -121,7 +121,7 @@ define('MYSQL_CONNECTION_RETRIES', 5);
  * 		1		core scripts
  * 		2		setup scripts
  * 		3		plugin scripts
- * 		4		scripts in the theme folders
+ * 		4		sub-folders scripts
  */
 $const_webpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));

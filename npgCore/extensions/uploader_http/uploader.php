@@ -3,7 +3,7 @@
 /**
  * @package plugins/uploader_http
  */
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 
 $_loggedin = NULL;

@@ -11,9 +11,8 @@
  *
  * @package plugins/seo_cleanup
  */
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
-
 
 admin_securityChecks(ALBUM_RIGHTS, currentRelativeURL());
 
