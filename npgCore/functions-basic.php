@@ -392,9 +392,9 @@ function query($sql, $errorstop = true) {
  */
 function dbErrorReport($sql) {
 	if (TESTING_MODE) {
-		_setup(14);
-	} else {
 		trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
+	} else {
+		_setup(14);
 	}
 }
 
