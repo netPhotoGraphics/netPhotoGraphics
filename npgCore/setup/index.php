@@ -1791,12 +1791,15 @@ clearstatcache();
 								</script>
 								<?php
 							}
-							//	if the install is a new version, the NETPHOTOGRAPHICS_VERSION define will not be updated
-							//	by the debug plugin, so we fecth the actual option to be sure to be current.
-							if (!$test_release = getOption('markRelease_state')) {
-								$test_release = '';
+
+							if (TEST_RELEASE) {
+								$_debug = NETPHOTOGRAPHICS_VERSION;
+							} else {
+								//	if the install is a new version, the version.php script define will not be updated
+								//	by the debug plugin yet, so we fecth the actual option.
+								$_debug = getOption('markRelease_state');
 							}
-							if (strpos($test_release, '_UNPROTECT') !== FALSE) {
+							if ((bool) strpos($_debug, 'UNPROTECT')) {
 								$query = '';
 							} else {
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
