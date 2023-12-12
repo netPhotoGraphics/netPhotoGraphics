@@ -166,7 +166,7 @@ class accessThreshold {
 		<div class="box overview-section overview-install-info">
 			<div class="overview-list-h3">
 				<h3>
-					<?php echo gettext('Site Visits by date'); ?>
+					<?php echo gettext('Site Visits by hour (GMT)'); ?>
 					<span style="float:right!important" title="<?php echo $info; ?>">
 						<?php echo INFORMATION_BLUE; ?>
 					</span>
@@ -179,7 +179,7 @@ class accessThreshold {
 						?>
 						<li>
 							<?php
-							printf(ngettext('%1$s GMT: %2$s visit', '%1$s GMT: %2$s visits', $count), $date, $count);
+							printf(ngettext('%1$s: %2$s visit', '%1$s: %2$s visits', $count), $date, $count);
 							?>
 						</li>
 						<?php
