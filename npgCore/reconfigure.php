@@ -9,13 +9,17 @@
 if (!defined('OFFSET_PATH')) {
 	die();
 }
+// because we are loading the script from within a function!
+global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
+
+require_once(__DIR__ . '/admin-globals.php');
 
 /**
  *
  * Executes the configuration change code
  */
 function reconfigureAction($mandatory) {
-	global $_conf_vars;
+	global $_conf_vars, $_gallery, $_invisible_execute;
 	// do this before we might contaminate state
 	$log = true;
 	switch ($mandatory) {
@@ -72,10 +76,7 @@ function reconfigureAction($mandatory) {
 		} else {
 			$location = '';
 		}
-		// because we are loading the script from within a function!
-		global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
 		$_invisible_execute = 1;
-		require_once(__DIR__ . '/admin-globals.php');
 
 		if (!defined('FULLWEBPATH')) {
 			$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
