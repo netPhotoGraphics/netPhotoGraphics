@@ -63,8 +63,6 @@ if (isset($_GET['markRelease'])) {
 		debug::updateVersion($version);
 	}
 
-
-
 	unset($_option);
 	unset($_debug);
 }
