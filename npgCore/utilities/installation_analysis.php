@@ -431,8 +431,10 @@ echo '</head>';
 												$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 											}
 											$filter = unQuote(trim($params[0]));
-											$function = unQuote(trim($params[1]));
-											$filters[$filter][$priority][$function] = array('function' => $function, 'script' => $extension . '.php');
+											if ($filter != $params[0]) { //	don't know what to do if not a string constant
+												$function = unQuote(trim($params[1]));
+												$filters[$filter][$priority][$function] = array('function' => $function, 'script' => $extension . '.php');
+											}
 										}
 									}
 								} else {
@@ -448,7 +450,7 @@ echo '</head>';
 						?>
 						<div class="overview-list-h3">
 							<h3>
-								<?php printf(ngettext("%u active filter:", "%u active filters:", $c), $c); ?>
+								<?php printf(ngettext("%u filter:", "%u filters:", $c), $c); ?>
 							</h3>
 						</div>
 						<div class="overview_list">
@@ -496,8 +498,8 @@ echo '</head>';
 	</div>
 </body>
 <script type="text/javascript">
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+									$('.overview_list').height(height);
 </script>
 
 <?php
