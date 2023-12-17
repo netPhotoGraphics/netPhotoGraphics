@@ -1,4 +1,4 @@
 <?php
 // This file contains version info only and is automatically updated. DO NOT EDIT.
-define('NETPHOTOGRAPHICS_VERSION', '2.00.18.09.10');
+define('NETPHOTOGRAPHICS_VERSION', '2.00.18.09.11');
 ?>
