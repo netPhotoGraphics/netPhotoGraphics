@@ -394,7 +394,7 @@ function dbErrorReport($sql) {
 	if (TESTING_MODE) {
 		trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
 	} else {
-		_setup(14);
+		require_once(__DIR__ . '/database_failure.php');
 	}
 }
 
