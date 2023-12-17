@@ -1201,7 +1201,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 			while ($tagrow = db_fetch_assoc($unique_tags)) {
 				if ($tagrow['count'] >= $count) {
 					if ($returnCount) {
-						$list[$language][$count][$tagrow['name']] = $tagrow['count'];
+						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['count'];
 					} else {
 						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
 					}

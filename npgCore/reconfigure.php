@@ -84,6 +84,26 @@ function reconfigureAction($mandatory) {
 			define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 		}
 
+		if (headers_sent()) {
+			?>
+			<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
+			<div id="content">
+				<h1><?php echo gettext('Site unavailable'); ?></h1>
+				<div class="tabbox">
+					<div class="reconfigbox">
+						<?php echo $reason; ?>
+					</div>
+					<?php
+					if ($location) {
+						echo sprintf(gettext('Run <a href=%1$s>setup</a>'), $location);
+					}
+					?>
+				</div>
+			</div>
+			<?php
+			db_close();
+			exit();
+		}
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header('Content-Type: text/html; charset=UTF-8');
 		header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
