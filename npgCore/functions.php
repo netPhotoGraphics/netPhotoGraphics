@@ -1116,7 +1116,7 @@ function setupTheme($album = NULL) {
  *
  * If the site visitor is not logged in this function returns only tags associated
  * with "published" objects. However, the publish state is limited to the `show` column
- * of the object. This is not totally "correct", however the computatioal intensity
+ * of the object. This is not totally "correct", however the computational intensity
  * of returning only that might link to "visible" objects is prohibitive.
  *
  * Logged-in users will see all tags subject to the threshold limits
