@@ -52,7 +52,7 @@ function reconfigureAction($mandatory) {
 		}
 
 		if ($log) {
-			debugLog(sprintf(gettext('Setup required: %1$s.'), $reason));
+			debugLogBacktrace(sprintf(gettext('Setup required: %1$s.'), $reason));
 		}
 
 		if (empty($needs)) {
