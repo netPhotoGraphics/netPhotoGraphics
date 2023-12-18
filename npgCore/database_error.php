@@ -12,7 +12,7 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 
 	$reason = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
 
-	debugLogBacktrace(sprintf(gettext('Setup required: %1$s.'), $reason));
+	debugLogBacktrace(sprintf(gettext("Database Server error:\n %1\$s\n returned\n %2\$s."), $sql, $reason));
 	?>
 	<style type="text/css">
 		.reasonbox {
