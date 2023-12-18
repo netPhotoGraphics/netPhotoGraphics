@@ -296,7 +296,7 @@ foreach ($template as $tablename => $table) {
 			$changeString = sprintf($string, "CHANGE `" . $field['Field'] . "`") . $comment . $after . ';';
 
 			if ($exists) {
-				if (array_key_exists($key, $database[$tablename]['fields'])) {
+				if (isset($database[$tablename]['fields']) && array_key_exists($key, $database[$tablename]['fields'])) {
 					if (strpos(strtolower($field['Type']), 'int') !== false) {
 						$database[$tablename]['fields'][$key]['Type'] = preg_replace('`\(\d*\)`', '', $database[$tablename]['fields'][$key]['Type']);
 					}
