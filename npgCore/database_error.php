@@ -17,7 +17,10 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 	<style type="text/css">
 		.reasonbox {
 			text-align: left;
-			padding: 10px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
 			color: black;
 			background-color: #FFEFB7;
 			border-width: 1px 1px 2px 1px;
@@ -29,30 +32,36 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 			webkit-box-sizing: content-box !important;
 		}
 
-		.reasonbox h1,.notebox strong {
-			color: #663300;
-			font-size: 120%;
+		#error_content {
+			text-align: left;
+			padding-left: 1em;
+			padding-right: 1em;
+			padding-top: 10px;
+			padding-bottom: 5px;
+			background-color: rgba(255,255,244,0.85);
+			border-top: 1px solid #CBCBCB;
+			position:fixed;
+			top: 100px;
+			left: 100px;
+			width: 640px;
+			z-index: 5000;
+		}
+
+		#error_content h1 {
+			color: orangered;
+			font-size: 2em;
 			font-weight: bold;
 			margin-bottom: 1em;
 		}
-
-		#error_content {
-			text-align: left;
-			padding-left: 14em;
-			padding-right: 1em;
-			background-color: #f1f1f1;
-			border-top: 1px solid #CBCBCB;
-		}
-
 	</style>
+	<br />
 	<div id="error_content">
-		<br clear="all">
 		<h1><?php echo gettext('Database Server Error'); ?></h1>
-		<div>
-			<div class="reasonbox">
-				<?php echo $reason; ?>
-			</div>
+
+		<div class="reasonbox">
+			<?php echo $reason; ?>
 		</div>
+
 	</div>
 	<?php
 	db_close();
