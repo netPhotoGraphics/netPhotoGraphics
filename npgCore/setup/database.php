@@ -118,7 +118,7 @@ foreach (getDBTables() as $table) {
 	}
 }
 
-$npgUpgrade = isset($database['administrators']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT;
+$npgUpgrade = isset($database['administrators']['fields']['valid']['Comment']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT;
 
 //metadata display and disable options
 
@@ -248,13 +248,15 @@ if ($utf8mb4) {
 $uniquekeys = $tablePresent = array();
 foreach ($template as $tablename => $table) {
 	$tablePresent[$tablename] = $exists = array_key_exists($tablename, $database);
+	$dborder = array();
 	if ($exists) {
-		$dborder = array_keys($database[$tablename]['fields']);
+		if (isset($database[$tablename]['fields'])) {
+			$dborder = array_keys($database[$tablename]['fields']);
+		}
 	} else {
 		$create = array();
 		$create[] = "CREATE TABLE IF NOT EXISTS " . prefix($tablename) . " (";
 		$create[] = "  `id` int UNSIGNED NOT NULL auto_increment,";
-		$dborder = array();
 	}
 	$after = ' FIRST';
 	$templateorder = array_keys($table['fields']);
