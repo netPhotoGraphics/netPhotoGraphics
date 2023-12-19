@@ -41,7 +41,7 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 			background-color: rgba(255,255,244,0.85);
 			border-top: 1px solid #CBCBCB;
 			position:fixed;
-			top: 100px;
+			top: 10px;
 			left: 100px;
 			width: 640px;
 			z-index: 5000;
