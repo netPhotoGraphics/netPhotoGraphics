@@ -39,12 +39,12 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 			padding-top: 10px;
 			padding-bottom: 5px;
 			background-color: rgba(255,255,244,0.85);
-			border-top: 1px solid #CBCBCB;
+			border: 3px solid #CBCBCB;
 			position:fixed;
-			top: 10px;
+			top: 50px;
 			left: 100px;
-			width: 640px;
-			z-index: 5000;
+			min-width: 640px;
+			z-index: 89999;
 		}
 
 		#error_content h1 {
@@ -57,13 +57,9 @@ if (defined('TESTING_MODE') && TESTING_MODE) {
 	<br />
 	<div id="error_content">
 		<h1><?php echo gettext('Database Server Error'); ?></h1>
-
 		<div class="reasonbox">
 			<?php echo $reason; ?>
 		</div>
-
 	</div>
 	<?php
-	db_close();
-	exit();
 }

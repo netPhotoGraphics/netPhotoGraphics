@@ -418,7 +418,10 @@ function db_LIKE_escape($str) {
 }
 
 function db_free_result($result) {
-	return mysqli_free_result($result);
+	if (is_object($result)) {
+		return mysqli_free_result($result);
+	}
+	return false;
 }
 
 ?>

@@ -405,5 +405,8 @@ function db_close() {
 }
 
 function db_free_result($result) {
-	return $result->closeCursor();
+	if (is_object($result)) {
+		return $result->closeCursor();
+	}
+	return false;
 }
