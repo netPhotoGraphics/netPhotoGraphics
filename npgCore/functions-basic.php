@@ -564,11 +564,11 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			$size = 0;
 		}
 		$me = getmypid();
-		if (is_object($_npgMutex))
+		if (is_object($_npgMutex)) {
 			$_npgMutex->lock();
+		}
 		if ($reset || $size == 0 || (defined('DEBUG_LOG_SIZE') && DEBUG_LOG_SIZE && $size > DEBUG_LOG_SIZE)) {
 			if (!$reset && $size > 0) {
-				$perms = fileperms($path);
 				switchLog('debug');
 			}
 			$f = fopen($path, 'w');
@@ -605,8 +605,9 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			fclose($f);
 			clearstatcache();
 		}
-		if (is_object($_npgMutex))
+		if (is_object($_npgMutex)) {
 			$_npgMutex->unlock();
+		}
 	}
 }
 

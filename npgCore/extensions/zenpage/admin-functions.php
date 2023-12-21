@@ -539,7 +539,7 @@ function updateArticle(&$reports, $newarticle = false) {
  * @param obj $obj object of the news article
  */
 function printCategoriesList($obj) {
-	$cats = $obj->getCategories();
+	$cats = sortByMultilingual($obj->getCategories(), 'title', false);
 	$catlist = '';
 	foreach ($cats as $cat) {
 		$catobj = newCategory($cat['titlelink']);
