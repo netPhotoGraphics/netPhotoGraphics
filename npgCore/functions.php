@@ -1131,6 +1131,10 @@ function setupTheme($album = NULL) {
  */
 function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	global $_unique_tags, $_count_tags, $_current_locale, $_loggedin;
+
+	$returnCount = true;
+	$count = 5;
+
 	if (!getOption('adminTagsTab')) { //	no tags on this installation
 		return array();
 	}
@@ -1154,35 +1158,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	}
 
 	if (!isset($list[$language][$count])) {
-		$list[$language][$count] = array();
-
-		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
-			$source = prefix('obj_to_tag');
-		} else {
-			// create a table of only "published" tag assignments
-			$source = 'taglist';
-			query('CREATE TEMPORARY TABLE IF NOT EXISTS taglist (
-														`tagid` int UNSIGNED NOT NULL,
-														`type` tinytext,
-														`objectid` int UNSIGNED NOT NULL,
-														KEY (tagid),
-														KEY (objectid)
-														) CHARACTER SET utf8 COLLATE utf8mb3_unicode_ci');
-			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
-			if (class_exists('CMS')) {
-				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
-			}
-			foreach ($tables as $table => $rights) {
-				if ($_loggedin & $rights) {
-					$show = '';
-				} else {
-					$show = ' AND tag.objectid=object.id AND object.show=1';
-				}
-				$sql = 'INSERT INTO taglist SELECT tag.tagid, tag.type, tag.objectid FROM ' . prefix('obj_to_tag') . ' tag, ' . prefix($table) . ' object WHERE tag.type="' . $table . '"' . $show;
-				query($sql);
-			}
-		}
-
+		$counts = $list[$language][$count] = array();
 		if (empty($language)) {
 			$lang = '';
 		} else {
@@ -1194,24 +1170,60 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 			$private = ' AND (tag.private=0)';
 		}
 
-		$sql = 'SELECT tag.name, count(DISTINCT tag.name, obj.type, obj.objectid) as count FROM ' . prefix('tags') . ' tag, ' . $source . ' obj WHERE (tag.id=obj.tagid) ' . $lang . $private . ' GROUP BY tag.name';
-		$unique_tags = query($sql);
-
-		if ($unique_tags) {
-			while ($tagrow = db_fetch_assoc($unique_tags)) {
-				if ($tagrow['count'] >= $count) {
-					if ($returnCount) {
-						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['count'];
+		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
+			$sql = 'SELECT tag.name AS name,  tagToObj.type AS type, tagToObj.objectid as objectid FROM '
+							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' obj '
+							. 'WHERE (tag.id=tagToObj.tagid) ' . $lang . $private;
+			$tags = query($sql);
+			if ($tags) {
+				while ($tagrow = db_fetch_assoc($tags)) {
+					$key = mb_strtolower($tagrow['name']);
+					if (isset($counts[$key])) {
+						$counts[$key]++;
 					} else {
-						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
+						$counts[$key] = 1;
 					}
+				}
+				db_free_result($tags);
+			}
+		} else {
+			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
+			if (class_exists('CMS')) {
+				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
+			}
+			foreach ($tables as $table => $rights) {
+				if ($_loggedin & $rights) {
+					$show = '';
+				} else {
+					$show = ' AND object.id=tagToObj.objectid AND object.show=1 ';
+				}
+				$sql = 'SELECT tag.name AS name, tagToObj.type AS type, tagToObj.objectid AS objectid FROM '
+								. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' tagToObj, ' . prefix($table) . ' object '
+								. 'WHERE (tag.id=tagToObj.tagid) AND (tagToObj.type="' . $table . '")'
+								. $show . $lang . $private;
+				$tags = query($sql);
+				if ($tags) {
+					while ($tagrow = db_fetch_assoc($tags)) {
+						$key = mb_strtolower($tagrow['name']);
+						if (isset($counts[$key])) {
+							$counts[$key]++;
+						} else {
+							$counts[$key] = 1;
+						}
+					}
+					db_free_result($tags);
 				}
 			}
 		}
-		db_free_result($unique_tags);
-
-		if ($source == 'taglist') {
-			query('DROP TEMPORARY TABLE taglist');
+		ksort($counts);
+		foreach ($counts as $key => $v) {
+			if ($v >= $count) {
+				if ($returnCount) {
+					$list[$language][$count][mb_strtolower($key)] = $v;
+				} else {
+					$list[$language][$count][mb_strtolower($key)] = $tagrow['name'];
+				}
+			}
 		}
 	}
 	return $list[$language][$count];
