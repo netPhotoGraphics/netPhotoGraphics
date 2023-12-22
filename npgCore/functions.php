@@ -1131,10 +1131,6 @@ function setupTheme($album = NULL) {
  */
 function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	global $_unique_tags, $_count_tags, $_current_locale, $_loggedin;
-
-	$returnCount = true;
-	$count = 5;
-
 	if (!getOption('adminTagsTab')) { //	no tags on this installation
 		return array();
 	}
@@ -1199,8 +1195,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 				}
 				$sql = 'SELECT tag.name AS name, objToTag.type AS type, objToTag.objectid AS objectid FROM '
 								. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' objToTag, ' . prefix($table) . ' object '
-								. 'WHERE (tag.id=objToTag.tagid) AND (objToTag.type="' . $table . '")'
-								. $show . $lang . $private;
+								. 'WHERE (tag.id=objToTag.tagid) AND (objToTag.type="' . $table . '")' . $show . $lang . $private;
 				$tags = query($sql);
 				if ($tags) {
 					while ($tagrow = db_fetch_assoc($tags)) {
