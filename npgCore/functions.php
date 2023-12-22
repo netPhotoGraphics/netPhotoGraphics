@@ -1154,7 +1154,8 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 	}
 
 	if (!isset($list[$language][$count])) {
-		$counts = $list[$language][$count] = array();
+		$list[$language][$count] = array();
+		$counts = array();
 		if (empty($language)) {
 			$lang = '';
 		} else {
@@ -1173,7 +1174,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 			$tags = query($sql);
 			if ($tags) {
 				while ($tagrow = db_fetch_assoc($tags)) {
-					$key = mb_strtolower($tagrow['name']);
+					$key = $tagrow['name'];
 					if (isset($counts[$key])) {
 						$counts[$key]++;
 					} else {
@@ -1199,7 +1200,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 				$tags = query($sql);
 				if ($tags) {
 					while ($tagrow = db_fetch_assoc($tags)) {
-						$key = mb_strtolower($tagrow['name']);
+						$key = $tagrow['name'];
 						if (isset($counts[$key])) {
 							$counts[$key]++;
 						} else {
@@ -1216,7 +1217,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 				if ($returnCount) {
 					$list[$language][$count][mb_strtolower($key)] = $v;
 				} else {
-					$list[$language][$count][mb_strtolower($key)] = $tagrow['name'];
+					$list[$language][$count][mb_strtolower($key)] = $key;
 				}
 			}
 		}
