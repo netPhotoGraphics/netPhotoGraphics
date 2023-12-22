@@ -1172,7 +1172,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 
 		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
 			$sql = 'SELECT tag.name AS name,  tagToObj.type AS type, tagToObj.objectid as objectid FROM '
-							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' obj '
+							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' tagToObj '
 							. 'WHERE (tag.id=tagToObj.tagid) ' . $lang . $private;
 			$tags = query($sql);
 			if ($tags) {
