@@ -1171,9 +1171,9 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 		}
 
 		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
-			$sql = 'SELECT tag.name AS name,  tagToObj.type AS type, tagToObj.objectid as objectid FROM '
-							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' tagToObj '
-							. 'WHERE (tag.id=tagToObj.tagid) ' . $lang . $private;
+			$sql = 'SELECT tag.name AS name,  objToTag.type AS type, objToTag.objectid as objectid FROM '
+							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' objToTag '
+							. 'WHERE (tag.id=objToTag.tagid) ' . $lang . $private;
 			$tags = query($sql);
 			if ($tags) {
 				while ($tagrow = db_fetch_assoc($tags)) {
@@ -1195,11 +1195,11 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 				if ($_loggedin & $rights) {
 					$show = '';
 				} else {
-					$show = ' AND object.id=tagToObj.objectid AND object.show=1 ';
+					$show = ' AND object.id=objToTag.objectid AND object.show=1 ';
 				}
-				$sql = 'SELECT tag.name AS name, tagToObj.type AS type, tagToObj.objectid AS objectid FROM '
-								. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' tagToObj, ' . prefix($table) . ' object '
-								. 'WHERE (tag.id=tagToObj.tagid) AND (tagToObj.type="' . $table . '")'
+				$sql = 'SELECT tag.name AS name, objToTag.type AS type, objToTag.objectid AS objectid FROM '
+								. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' objToTag, ' . prefix($table) . ' object '
+								. 'WHERE (tag.id=objToTag.tagid) AND (objToTag.type="' . $table . '")'
 								. $show . $lang . $private;
 				$tags = query($sql);
 				if ($tags) {
