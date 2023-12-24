@@ -392,6 +392,7 @@ function query($sql, $errorstop = true) {
  */
 function dbErrorReport($sql) {
 	require_once(__DIR__ . '/database_error.php');
+	displayQueryError($sql);
 }
 
 /**

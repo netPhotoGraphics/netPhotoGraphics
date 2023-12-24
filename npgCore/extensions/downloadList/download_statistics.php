@@ -29,8 +29,8 @@ function printBarGraph() {
 	$bargraphmaxsize = 90;
 	$maxvalue = 0;
 	$items = query_full_array("SELECT `aux`,`data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'downloadList' AND `data` != 0 ORDER BY `data` DESC");
-	$items = sortMultiArray($items, 'data', true, true, false, false);
 	if ($items) {
+		$items = sortMultiArray($items, 'data', true, true, false, false);
 		$maxvalue = $items[0]['data'];
 		$no_statistic_message = "";
 	} else {

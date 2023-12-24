@@ -3402,7 +3402,7 @@ function getRandomImages($daily = false, $limit = 1) {
 			$imageWhere = " WHERE `show`=1";
 		}
 		$row = query_single_row('SELECT COUNT(*) FROM ' . prefix('images'));
-		if (5000 < $count = reset($row)) {
+		if ($row && 5000 < $count = reset($row)) {
 			$sample = ceil((max(1000, $limit * 100) / $count) * 100);
 			if ($imageWhere) {
 				$imageWhere .= ' AND';

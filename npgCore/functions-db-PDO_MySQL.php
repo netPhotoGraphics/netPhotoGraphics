@@ -295,7 +295,7 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
 		$result->closeCursor();
 		return $allrows;
 	} else {
-		return false;
+		return array();
 	}
 }
 

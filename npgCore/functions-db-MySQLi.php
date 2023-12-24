@@ -181,7 +181,7 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
 		mysqli_free_result($result);
 		return $allrows;
 	} else {
-		return false;
+		return array();
 	}
 }
 

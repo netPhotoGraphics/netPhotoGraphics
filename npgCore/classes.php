@@ -963,8 +963,10 @@ class ThemeObject extends PersistentObject {
 	protected function setDefaultSortOrder($qualifier = NULL) {
 		$sql = 'SELECT `sort_order` FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC';
 		$result = query_single_row($sql);
-		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
-		$this->setSortOrder($new);
+		if ($rslt) {
+			$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
+			$this->setSortOrder($new);
+		}
 	}
 
 }
