@@ -493,7 +493,7 @@ class feed {
 						if (function_exists('getLatestZenpageComments')) {
 							$items_zenpage = getLatestZenpageComments($this->itemnumber);
 							$items = array_merge($items, $items_zenpage);
-							$items = sortMultiArray($items, 'date', true);
+							$items = sortMultiArray($items, ['date' => true]);
 							$items = array_slice($items, 0, $this->itemnumber);
 						}
 						break;

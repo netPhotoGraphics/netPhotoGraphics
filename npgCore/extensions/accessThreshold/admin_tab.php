@@ -20,7 +20,7 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 		$_REQUEST['data_sortby'] = 'date';
 	case 'date':
 		$sort = 'accessTime';
-		$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
+		$recentIP = sortMultiArray($recentIP, array('lastAccessed' => true), true, false, true);
 		break;
 	case 'ip':
 		$sort = 'ip';
@@ -40,7 +40,7 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 		break;
 	case'blocked':
 		$sort = 'blocked';
-		$recentIP = sortMultiArray($recentIP, array('blocked', 'lastAccessed'), true, true, false, true);
+		$recentIP = sortMultiArray($recentIP, array('blocked' => true, 'lastAccessed' => true), true, false, true);
 		break;
 	case 'interval':
 		$sort = 'interval';

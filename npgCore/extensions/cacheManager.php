@@ -244,7 +244,7 @@ class cacheManager {
 			}
 			$ownerid = preg_replace('/[^A-Za-z0-9\-_]/', '', $ownerid);
 
-			$ownerdata = sortMultiArray($ownerdata, array('thumb', 'image_size', 'image_width', 'image_height'));
+			$ownerdata = sortMultiArray($ownerdata, array('thumb' => false, 'image_size' => false, 'image_width' => false, 'image_height' => false));
 			if (!$owner) {
 				echo '<br />';
 			}

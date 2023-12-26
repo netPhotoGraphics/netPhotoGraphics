@@ -271,7 +271,7 @@ echo "\n</head>";
 									$support[$key]['text'] = $key;
 								}
 							}
-							$support = sortMultiArray($support, array('text'));
+							$support = sortMultiArray($support, array('text' => false));
 							foreach ($support as $key => $lang) {
 								$text = '<em>' . $lang['text'] . '</em>';
 								if (isset($lang['npgsupport'])) {

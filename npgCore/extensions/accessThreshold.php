@@ -342,7 +342,7 @@ if (extensionEnabled('accessThreshold')) {
 			}
 		}
 		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
-			$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
+			$recentIP = sortMultiArray($recentIP, array('lastAccessed' => true), true, false, true);
 			$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
 		}
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));

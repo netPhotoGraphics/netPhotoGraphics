@@ -13,7 +13,7 @@ require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
 $admins = $_authority->getAdministrators('all');
-$admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
+$admins = sortMultiArray($admins, array('valid' => false, 'user' => false), TRUE, TRUE, TRUE);
 
 $unsubscribe_list = getSerializedArray(getOption('user_mailing_list_unsubscribed'));
 $exclude_list = getSerializedArray(getOption('user_mailing_list_excluded'));

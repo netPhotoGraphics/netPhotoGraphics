@@ -754,7 +754,7 @@ function getEnabledPlugins() {
 				}
 			}
 		}
-		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
+		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, ['priority' => true], true, false, true);
 	}
 	return $_EnabledPlugins;
 }
@@ -1552,11 +1552,12 @@ function sortByKey($results, $sortkey, $order) {
 				return $results; //	We cannot deal with expressions
 			}
 	}
-	$indicies = explode(',', $sortkey);
-	foreach ($indicies as $key => $index) {
-		$indicies[$key] = trim($index);
+
+	$indicies = [];
+	foreach (explode(',', $sortkey) as $index) {
+		$indicies[trim($index)] = (bool) $order;
 	}
-	$results = sortMultiArray($results, $indicies, $order, true, false, true);
+	$results = sortMultiArray($results, $indicies, true, false, true);
 	return $results;
 }
 
@@ -1565,7 +1566,7 @@ function sortByKey($results, $sortkey, $order) {
  *
  * @param array $data							input array
  * @param array $field						column(s) to sort by
- * @param bool $desc							sort descending
+ * 																				Array key is column, value: true=>descending false=>ascending
  * @param bool $nat								"Natural" comparisons
  * @param bool $case							case insensitive comparisons
  * @param bool $preserveKeys			if set false the array will be re-indexed
@@ -1575,15 +1576,49 @@ function sortByKey($results, $sortkey, $order) {
  * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
-function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
-
+function sortMultiArray($data, $field, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array(), $dummy = array()) {
 	if (!is_array($field)) {
 		$field = array($field);
+	}
+	if (is_numeric(array_key_first($field)) && !is_bool(reset($field))) {
+		$args = '';
+		$field = array_flip($field);
+		if ($nat) {
+			$direction = 'true, ';
+		} else {
+			$direction = 'false, ';
+		}
+		foreach ($field as $key => $v) {
+			$field[$key] = $nat;
+			$args .= "'" . $key . "' => " . $direction;
+		}
+		$nat = $case;
+		$case = $preserveKeys;
+		$preserveKeys = $removeCriteria;
+		$removeCriteria = $dummy;
+
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		$args = rtrim(trim($args), ',');
+		$call = 'sortMultiArray($arrayToBeSorted, [' . $args . ']';
+		if (!$nat || $case) {
+			$call .= ", false"; //	$nat
+		}
+		if ($case || !$preserveKeys) {
+			$call .= ', true'; //	$case
+		}
+		if (!$preserveKeys || !empty($removeCriteria)) {
+			$call .= ', true'; //	$preserveKeys
+		}
+		if (!empty($removeCriteria)) {
+			$call .= ', [' . implode(',', $removeCriteria) . ']'; //	$removeCriteria
+		}
+		$call .= ');';
+		deprecated_functions::notify_call('sortMultiArray', gettext('The function should be called with a $field array.') . sprintf(gettext(' e.g. %1$s '), $call));
 	}
 
 	uasort($data, function ($a, $b) use ($field, $nat, $case) {
 		$retval = 0;
-		foreach ($field as $fieldname) {
+		foreach ($field as $fieldname => $desc) {
 			if ($retval == 0) {
 				switch ($fieldname) {
 					case 'title':
@@ -1597,16 +1632,15 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 						break;
 				}
 				$retval = localeCompare($s1, $s2, $nat, $case);
+				if ($desc) {
+					$retval = $retval * -1;
+				}
 			} else {
 				break;
 			}
 		}
 		return $retval;
 	});
-
-	if ($desc) {
-		$data = array_reverse($data, true);
-	}
 
 	if (!empty($removeCriteria)) {
 		foreach ($data as $key => $datum) {
@@ -2000,7 +2034,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 						$success = password_verify($post_pass, $check_auth);
 						$authCookie = $check_auth;
 						if (DEBUG_LOGIN)
-							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+							debugLog("handle_password($success): \$post_user = $post_user; \$post_pass = $post_pass; \$check_auth = $check_auth; \$auth = $authCookie;");
 						break;
 					}
 				}
@@ -2016,7 +2050,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 					if ($post_user == $check_user) {
 						$success = ($authCookie == $check_auth);
 						if (DEBUG_LOGIN)
-							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+							debugLog("handle_password($success): \$post_user = $post_user; \$post_pass = $post_pass; \$check_auth = $check_auth; \$auth = $authCookie;");
 						if ($success) {
 							break 2;
 						}
@@ -2078,7 +2112,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
  * @param string $key
  */
 function getOptionFromDB($key) {
-	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key) . " AND `ownerid`=0";
+	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name` = " . db_quote($key) . " AND `ownerid` = 0";
 	if ($optionlist = query_single_row($sql, false)) {
 		return $optionlist['value'];
 	}
@@ -2170,7 +2204,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 		$theme = $_gallery->getCurrentTheme();
 	}
 	// album-theme order of preference is: Album theme => Theme => album => general
-	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme` = "") ORDER BY `theme` DESC, `id` DESC';
+	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name` = " . db_quote($option) . " AND (`ownerid` = " . $id . " OR `ownerid` = 0) AND (`theme` = " . db_quote($theme) . ' OR `theme` = "") ORDER BY `theme` DESC, `id` DESC';
 	$db = query_single_row($sql);
 	if (empty($db)) {
 		return NULL;
@@ -2821,7 +2855,7 @@ class npgFunctions {
 				$exifvars = array_merge($exifvars, $handler::getMetadataFields());
 			}
 		}
-		$exifvars = sortMultiArray($exifvars, 2, false, true, true, true);
+		$exifvars = sortMultiArray($exifvars, [2 => false], true, true, true);
 		if ($default) {
 			return $exifvars;
 		}

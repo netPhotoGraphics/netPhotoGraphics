@@ -186,7 +186,7 @@ if ($result) {
 	}
 	db_free_result($result);
 }
-$custom = sortMultiArray($custom, array('theme', 'album', 'thumb', 'image_size', 'image_width', 'image_height'), false, true, true);
+$custom = sortMultiArray($custom, array('theme' => false, 'album' => false, 'thumb' => false, 'image_size' => false, 'image_width' => false, 'image_height' => false), true, true);
 
 if (isset($_GET['action']) && $_GET['action'] == 'select' && isset($_POST['enable'])) {
 	XSRFdefender('cacheImages');

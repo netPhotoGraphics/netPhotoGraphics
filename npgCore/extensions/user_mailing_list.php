@@ -38,7 +38,7 @@ class user_mailing_list {
 	function getOptionsSupported() {
 		global $_authority;
 		$admins = $_authority->getAdministrators('all');
-		$admins = sortMultiArray($admins, array('valid', 'user'), false, TRUE, TRUE, TRUE);
+		$admins = sortMultiArray($admins, array('valid' => false, 'user' => false), TRUE, TRUE, TRUE);
 		$groups = $list = array();
 		foreach ($admins as $key => $admin) {
 			if ($admin['valid']) {

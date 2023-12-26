@@ -717,7 +717,7 @@ function getAllImages($album = NULL, $sorttype = NULL, $sortdirection = 'DESC') 
 		if ($sortby == 'RAND()') {
 			shuffle($list);
 		} else {
-			$list = sortMultiArray($list, $sortby, strtolower($sortdirection) != 'asc');
+			$list = sortMultiArray($list, [$sortby => strtolower($sortdirection) != 'asc']);
 		}
 	}
 	return $list;

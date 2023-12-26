@@ -798,7 +798,7 @@ function getParentMenuItems($menuset = 'default') {
 				}
 			}
 			if (!empty($parents)) {
-				return sortMultiArray($parents, 'sort_order', $descending = false, $natsort = false, $case_sensitive = false);
+				return sortMultiArray($parents, ['sort_order' => false], false, false);
 			}
 		}
 	}

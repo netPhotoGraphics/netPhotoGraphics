@@ -82,7 +82,8 @@ class PersistentObject {
 		}
 		$this->use_cache = $use_cache;
 		$this->transient = $is_transient;
-		return $this->load($allowCreate);
+		$obj = $this->load($allowCreate);
+		return $obj;
 	}
 
 	/**

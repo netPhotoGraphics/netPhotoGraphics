@@ -815,7 +815,7 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php
 							echo gettext("Metadata");
-							$exifstuff = sortMultiArray($_exifvars, array(METADATA_DISPLAY_TEXT, METADATA_SOURCE));
+							$exifstuff = sortMultiArray($_exifvars, array(METADATA_DISPLAY_TEXT => false, METADATA_SOURCE => false));
 							?></td>
 						<td class="option_value">
 							<div id="resizable">

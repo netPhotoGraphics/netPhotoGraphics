@@ -23,10 +23,11 @@ function newAlbum($folder8, $cache = true, $quiet = false) {
 	$folder8 = sanitize_path($folder8);
 	$suffix = getSuffix($folder8);
 	if (!$suffix || !array_key_exists($suffix, $_albumHandlers) || is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder8))) {
-		return new Album($folder8, $cache, $quiet);
+		$album = new Album($folder8, $cache, $quiet);
 	} else {
-		return new $_albumHandlers[$suffix]($folder8, $cache, $quiet);
+		$album = new $_albumHandlers[$suffix]($folder8, $cache, $quiet);
 	}
+	return $album;
 }
 
 /**
@@ -1136,7 +1137,7 @@ class AlbumBase extends MediaObject {
 				if (is_string($sortdirection)) {
 					$order = $sortdirection && strtolower($sortdirection) != 'asc';
 				} else {
-					$order = (int) $sortdirection;
+					$order = (bool) $sortdirection;
 				}
 			}
 		}

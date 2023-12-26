@@ -607,7 +607,7 @@ $buttonlist = array();
 			}
 
 			$updates = array();
-			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false, true, true);
+			$buttonlist = sortMultiArray($buttonlist, array('category' => false, 'button_text' => false), true, true);
 			foreach ($buttonlist as $key => $button) {
 				if ($button['category'] == 'Updates') {
 					$updates[] = $button;

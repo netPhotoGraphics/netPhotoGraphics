@@ -924,7 +924,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$options = array_keys($supportedOptions);
 					break;
 				case 'numeric':
-					$options = sortMultiArray($supportedOptions, 'order', false, true, false, true);
+					$options = sortMultiArray($supportedOptions, ['order' => false], true, false, true);
 					$options = array_keys($options);
 					break;
 			}
@@ -1885,7 +1885,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$tags = array();
 		} else {
 			$tags = readTags($that->getID(), $that->table, false, true);
-			$tags = sortMultiArray($tags, array('name'));
+			$tags = sortMultiArray($tags, ['name' => false]);
 		}
 
 		if (count($tags) > 0) {
@@ -4154,7 +4154,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param bit $rights rights of the admin
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
-		$rightslist = sortMultiArray(npg_Authority::getRights(), array('sort', 'value'));
+		$rightslist = sortMultiArray(npg_Authority::getRights(), array('sort' => false, 'value' => false));
 
 		$element = 3;
 		$activeset = false;
@@ -4428,8 +4428,8 @@ function processRights($i) {
 function compareObjects($objectsA, $objectsB) {
 	if (is_array($objectsA) & is_array($objectsB)) {
 		if (count($objectsA) == count($objectsB)) {
-			$objectsA = sortMultiArray($objectsA, array('type', 'data', 'name'), false, true, false, false);
-			$objectsB = sortMultiArray($objectsB, array('type', 'data', 'name'), false, true, false, false);
+			$objectsA = sortMultiArray($objectsA, array('type' => false, 'data' => false, 'name' => false), true, false, false);
+			$objectsB = sortMultiArray($objectsB, array('type' => false, 'data' => false, 'name' => false), true, false, false);
 			return $objectsA == $objectsB;
 		}
 	}

@@ -30,7 +30,7 @@ function printBarGraph() {
 	$maxvalue = 0;
 	$items = query_full_array("SELECT `aux`,`data` FROM " . prefix('plugin_storage') . " WHERE `type` = 'downloadList' AND `data` != 0 ORDER BY `data` DESC");
 	if ($items) {
-		$items = sortMultiArray($items, 'data', true, true, false, false);
+		$items = sortMultiArray($items, ['data' => true], true, false, false);
 		$maxvalue = $items[0]['data'];
 		$no_statistic_message = "";
 	} else {

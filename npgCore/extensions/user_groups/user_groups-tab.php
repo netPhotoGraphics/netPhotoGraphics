@@ -59,7 +59,7 @@ if (isset($_GET['subpage'])) {
 
 $admins = $_authority->getAdministrators('all');
 
-$adminordered = sortMultiArray($admins, 'user');
+$adminordered = sortMultiArray($admins, ['user' => false]);
 
 if (isset($_GET['action'])) {
 	$action = sanitize($_GET['action']);
