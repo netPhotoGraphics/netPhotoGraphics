@@ -23,14 +23,16 @@ $plugin_is_filter = defaultExtension(2 | ADMIN_PLUGIN | THEME_PLUGIN);
 $plugin_description = gettext("Periodically backup the database.");
 
 $option_interface = 'auto_backup';
+
+global $_backupMutex;
 if (OFFSET_PATH == 2) {
 	purgeOption('last_backup_run'); // for sure things have changed
 } else {
 	if ((getOption('last_backup_run') + getOption('backup_interval') * 86400) < time()) { // register if it is time for a backup
 		require_once(dirname(__DIR__) . '/admin-functions.php');
+		$_backupMutex = new npgMutex('bK');
 		npgFilters::register('admin_head', 'auto_backup::timer_handler');
 		npgFilters::register('theme_head', 'auto_backup::timer_handler');
-		$_backupMutex = new npgMutex('bK');
 	}
 }
 
