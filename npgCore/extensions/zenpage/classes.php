@@ -158,19 +158,18 @@ class CMS {
 		$sql = 'SELECT total_value/total_votes as rating, id, parentid, title, titlelink, permalink, sort_order, `show`, locked, date, publishdate, expiredate, owner
 lastchange, lastchangeuser, hitcounter, rating, rating_status, used_ips, total_value, total_votes
 user, password, password_hint, commentson, truncation, content, codeblock, extracontent FROM ' . prefix('pages') . $show;
-		if (!defined('ORDER_IN_MEMORY')) {
-			if (!empty($order)) {
-				$sql .= ' ORDER BY';
-				foreach ($order as $field => $direction) {
-					$sql .= ' ' . $field;
-					if ($direction) {
-						$sql .= ' DESC,';
-					} else {
-						$sql .= ',';
-					}
+
+		if (!empty($order)) {
+			$sql .= ' ORDER BY';
+			foreach ($order as $field => $direction) {
+				$sql .= ' ' . $field;
+				if ($direction) {
+					$sql .= ' DESC,';
+				} else {
+					$sql .= ',';
 				}
-				$sql = rtrim($sql, ',');
 			}
+			$sql = rtrim($sql, ',');
 		}
 		$result = query($sql);
 		if ($result) {
@@ -196,13 +195,6 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 				}
 			}
 			db_free_result($result);
-			if (defined('ORDER_IN_MEMORY')) {
-				if (array_key_first($order) == 'RAND()') {
-					shuffle($all_pages);
-				} else {
-					sortMultiArray($all_pages, $order);
-				}
-			}
 		}
 		return $all_pages;
 	}
@@ -374,21 +366,19 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 				}
 				$sql .= $show . $datesearch;
 			}
-			if (!defined('ORDER_IN_MEMORY')) {
-				if (!empty($order)) {
-					$sql .= ' ORDER BY';
-					foreach ($order as $field => $direction) {
-						$sql .= ' ' . $field;
-						if ($direction) {
-							$sql .= ' DESC,';
-						} else {
-							$sql .= ',';
-						}
-					}
-					$sql = rtrim($sql, ',');
-				}
-			}
 
+			if (!empty($order)) {
+				$sql .= ' ORDER BY';
+				foreach ($order as $field => $direction) {
+					$sql .= ' ' . $field;
+					if ($direction) {
+						$sql .= ' DESC,';
+					} else {
+						$sql .= ',';
+					}
+				}
+				$sql = rtrim($sql, ',');
+			}
 			$resource = query($sql);
 			$result = array();
 			if ($resource) {
@@ -410,13 +400,6 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 					}
 				}
 				db_free_result($resource);
-				if (defined('ORDER_IN_MEMORY')) {
-					if (array_key_first($order) == 'RAND()') {
-						shuffle($result);
-					} else {
-						sortMultiArray($result, $order);
-					}
-				}
 				if ($sortorder == 'title') { // multi-lingual field!
 					$result = sortByMultilingual($result, 'title', $sortdirection);
 					if ($sticky) {
