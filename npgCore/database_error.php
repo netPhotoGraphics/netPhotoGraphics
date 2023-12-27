@@ -29,8 +29,6 @@ function displayQueryError($sql) {
 			border-style: solid;
 			margin-bottom: 10px;
 			font-size: 100%;
-			box-sizing: content-box !important;
-			webkit-box-sizing: content-box !important;
 		}
 
 		#error_content {
@@ -41,7 +39,6 @@ function displayQueryError($sql) {
 			padding-bottom: 5px;
 			top: 50px;
 			min-width: 640px;
-			z-index: 89999;
 		}
 
 		#error_content h1 {
@@ -52,11 +49,9 @@ function displayQueryError($sql) {
 		}
 
 		#dragbox {
-			position: absolute;
-			z-index: 9;
-			background-color: #f1f1f1;
-			border: 1px solid #d3d3d3;
-			text-align: center;
+			position: fixed;
+			top: 50px;
+			left: 100px;
 			text-align: left;
 			padding-left: 1em;
 			padding-right: 1em;
@@ -64,32 +59,31 @@ function displayQueryError($sql) {
 			padding-bottom: 5px;
 			background-color: rgba(255,255,244,0.85);
 			border: 3px solid #CBCBCB;
-			position: absolute;
-			top: 50px;
-			left: 100px;
 			min-width: 640px;
 			z-index: 89990;
+			clear: both;
 		}
 
 		#dragboxheader {
-			padding: 10px;
 			cursor: move;
 			z-index: 89995;
 			color: gray;
+			float: right;
 		}
 	</style>
 
 	<!-- Draggable DIV -->
-	<br/>
 	<div id="dragbox">
 		<!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-		<div id="dragboxheader">Click here to move
-			<div id="error_content">
-				<h1><?php echo gettext('Database Server Error'); ?></h1>
-				<div class="reasonbox">
-					<?php echo $reason; ?>
-				</div>
+		<span id="dragboxheader">
+			<?php echo DRAG_HANDLE; ?>
+		</span>
+		<div id="error_content">
+			<h1><?php echo gettext('Database Server Error'); ?></h1>
+			<div class="reasonbox">
+				<?php echo $reason; ?>
 			</div>
+
 		</div>
 	</div>
 
@@ -97,7 +91,7 @@ function displayQueryError($sql) {
 
 	<script type="text/javascript">
 		// Make the DIV element draggable:
-		dragElement(document.getElementById("mydiv"));
+		dragElement(document.getElementById("dragbox"));
 
 		function dragElement(elmnt) {
 			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
