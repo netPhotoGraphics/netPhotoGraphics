@@ -391,8 +391,12 @@ function query($sql, $errorstop = true) {
  * @param type $sql
  */
 function dbErrorReport($sql) {
-	require_once(__DIR__ . '/database_error.php');
-	displayQueryError($sql);
+	require_once(__DIR__ . '/errorPopup.php');
+
+	$what = gettext('Database Server Error');
+	$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
+
+	displayQueryError($what, $brief, $sql);
 }
 
 /**

@@ -730,9 +730,9 @@ plugins/zenphotoCompatibilityPack.php
 %core%/coreLogin.php
 %core%/cron_runner.php
 %core%/dataaccess
-%core%/database_error.php
 %core%/databaseTemplate
 %core%/denyaccess
+%core%/errorPopup.php
 %core%/external_auth.php
 %core%/full-image.php
 %core%/functions-basic.php

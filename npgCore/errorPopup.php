@@ -7,12 +7,15 @@
  *
  * @package core
  */
-function displayQueryError($sql) {
+function displayQueryError($what, $brief, $whom) {
+	if (!empty($whom)) {
+		$whom .= "\n" . gettext('caused') . "\n";
+	}
+	$log = $what . "\n" . $whom . $brief;
 	if (defined('TESTING_MODE') && TESTING_MODE) {
-		trigger_error(sprintf(gettext('%1$s Error: ( %2$s ) failed. %1$s returned the error %3$s'), DATABASE_SOFTWARE, $sql, db_errorno() . ': ' . db_error()), E_USER_ERROR);
+		trigger_error(str_replace("\n", ' ', $log), E_USER_ERROR);
 	} else {
-		$reason = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
-		debugLogBacktrace(sprintf(gettext("Database Server error:\n %1\$s\n returned\n %2\$s."), $sql, $reason));
+		debugLogBacktrace($log);
 	}
 	?>
 	<style type="text/css">
@@ -79,9 +82,9 @@ function displayQueryError($sql) {
 			<?php echo DRAG_HANDLE; ?>
 		</span>
 		<div id="error_content">
-			<h1><?php echo gettext('Database Server Error'); ?></h1>
+			<h1><?php echo $what; ?></h1>
 			<div class="reasonbox">
-				<?php echo $reason; ?>
+				<?php echo $brief; ?>
 			</div>
 
 		</div>
