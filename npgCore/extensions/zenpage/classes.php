@@ -130,6 +130,7 @@ class CMS {
 			$sortdir = ' ASC';
 		}
 
+		$comppuutational = '';
 		$order = [];
 		switch ($sorttype) {
 			default:
@@ -142,6 +143,7 @@ class CMS {
 				$order['total_votes'] = false;
 				break;
 			case 'toprated':
+				$computationjal = ', total_value/total_votes as rating';
 				$order['rating'] = (bool) $sortdir;
 				$order['total_value'] = false;
 				break;
@@ -155,9 +157,7 @@ class CMS {
 		$all_pages = array(); // Disabled cache var for now because it does not return un-publishded and published if logged on index.php somehow if logged in.
 
 
-		$sql = 'SELECT total_value/total_votes as rating, id, parentid, title, titlelink, permalink, sort_order, `show`, locked, date, publishdate, expiredate, owner
-lastchange, lastchangeuser, hitcounter, rating, rating_status, used_ips, total_value, total_votes
-user, password, password_hint, commentson, truncation, content, codeblock, extracontent FROM ' . prefix('pages') . $show;
+		$sql = 'SELECT id, parentid, title, titlelink, permalink, sort_order, `show`, locked, date, publishdate, expiredate, owner, lastchange, lastchangeuser, hitcounter, rating, rating_status, used_ips, total_value, total_votes, user, password, password_hint, commentson, truncation, content, codeblock, extracontent' . $comppuutational . ' FROM ' . prefix('pages') . $show;
 
 		if (!empty($order)) {
 			$sql .= ' ORDER BY';
@@ -171,6 +171,7 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 			}
 			$sql = rtrim($sql, ',');
 		}
+
 		$result = query($sql);
 		if ($result) {
 			while ($row = db_fetch_assoc($result)) {
@@ -309,8 +310,9 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 				$show .= $author_conjuction . ' author = ' . db_quote($author);
 			}
 			$order = [];
+			$computational = '';
 			if ($sticky) {
-				$order ['sticky'] = true;
+				$order['sticky'] = true;
 			}
 
 			if (in_context(ZENPAGE_NEWS_DATE)) {
@@ -341,6 +343,7 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 						$order['total_votes'] = (bool) $sortdirection;
 						break;
 					case "toprated":
+						$computational = ', news.total_value/news.total_votes as rating';
 						$order['rating'] = true;
 						$order['total_value'] = false;
 						break;
@@ -357,7 +360,7 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 			} else {
 				$join = '';
 			}
-			$sql = "SELECT DISTINCT news.date as date, news.publishdate as publishdate, news.expiredate as expiredate, news.lastchange as lastchange, news.title as title, news.titlelink as titlelink, news.sticky as sticky, news.total_value/news.total_votes as rating FROM " . prefix('news') . " as news" . $join;
+			$sql = "SELECT DISTINCT news.date as date, news.publishdate as publishdate, news.expiredate as expiredate, news.lastchange as lastchange, news.title as title, news.titlelink as titlelink, news.sticky as sticky" . $computational . " FROM " . prefix('news') . " as news" . $join;
 			if ($show || $datesearch) {
 				if ($cat) {
 					$sql .= ' AND ';
@@ -380,6 +383,7 @@ user, password, password_hint, commentson, truncation, content, codeblock, extra
 				$sql = rtrim($sql, ',');
 			}
 			$resource = query($sql);
+
 			$result = array();
 			if ($resource) {
 				while ($item = db_fetch_assoc($resource)) {
