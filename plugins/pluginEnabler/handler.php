@@ -56,8 +56,6 @@ if (isset($_REQUEST['pluginsEnable'])) {
 					case 3:
 						$is = 1;
 						break;
-					case 4:
-						die('cant be here');
 				}
 
 				if ($was == $is) {
