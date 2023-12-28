@@ -17,7 +17,7 @@
  * 																							 not contain sensitive information.
  * @param string $addl additional details that will only show in the debug log.
  */
-function displayQueryError($what, $brief, $addl) {
+function displayError($what, $brief, $addl) {
 	$log = $what . "\n" . $brief;
 	if (!empty($addl)) {
 		$log .= "\n" . $addl;

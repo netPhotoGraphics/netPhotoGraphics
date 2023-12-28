@@ -396,7 +396,7 @@ function dbErrorReport($sql) {
 	$what = gettext('Database Server Error');
 	$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
 
-	displayQueryError($what, $brief, $sql);
+	displayError($what, $brief, 'Query: ' . $sql);
 }
 
 /**
