@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Displays database failure message
  *
@@ -7,11 +6,23 @@
  *
  * @package core
  */
-function displayQueryError($what, $brief, $whom) {
-	if (!empty($whom)) {
-		$whom .= "\n" . gettext('caused') . "\n";
+
+/**
+ * will display an error either as a pop-up or if <em>TESTING_MODE</br> is set
+ * as a trigger_error.
+ *
+ * @param string $what The basic error
+ * @param string $brief a concise error message. Note: this may be displayed in
+ * 																							 the pop-up on the web page so should
+ * 																							 not contain sensitive information.
+ * @param string $addl additional details that will only show in the debug log.
+ */
+function displayQueryError($what, $brief, $addl) {
+	$log = $what . "\n" . $brief;
+	if (!empty($addl)) {
+		$log .= "\n" . $addl;
 	}
-	$log = $what . "\n" . $whom . $brief;
+
 	if (defined('TESTING_MODE') && TESTING_MODE) {
 		trigger_error($log, E_USER_ERROR);
 	} else {
