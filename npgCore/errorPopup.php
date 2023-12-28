@@ -138,4 +138,4 @@ function displayQueryError($what, $brief, $whom) {
 		</script>
 		<?php
 	}
-	
+}
