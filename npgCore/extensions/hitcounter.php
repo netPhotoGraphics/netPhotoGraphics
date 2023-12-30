@@ -88,7 +88,7 @@ class hitcounter {
 			case 'hitcounter_set_defaults':
 				?>
 				<script type="text/javascript">
-					
+
 					var reset = "<?php echo $this->defaultbots; ?>";
 					function hitcounter_defaults() {
 						$('#hitcounter_ignoreIPList').val('');
@@ -97,7 +97,7 @@ class hitcounter {
 						$('#__hitcounter_ignoreSearchCrawlers_enable').prop('checked', false);
 						$('#__hitcounter_searchCrawlerList').val(reset);
 					}
-					
+
 				</script>
 				<label><input id="hitcounter_reset_button" type="button" value="<?php echo gettext('Defaults'); ?>" onclick="hitcounter_defaults();" /></label>
 				<?php
@@ -107,22 +107,22 @@ class hitcounter {
 				<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX; ?>'text-hitcounter_ignoreIPList" value="0" />
 				<input type="text" size="30" id="hitcounter_ignoreIPList" name="hitcounter_ignoreIPList" value="<?php echo html_encode($currentValue); ?>" />
 				<script type="text/javascript">
-					
+
 					function hitcounter_insertIP() {
 						if ($('#hitcounter_ignoreIPList').val() == '') {
-							$('#hitcounter_ignoreIPList').val('<?php echo getUserID(); ?>');
+							$('#hitcounter_ignoreIPList').val('<?php echo getUserIP(); ?>');
 						} else {
-							$('#hitcounter_ignoreIPList').val($('#hitcounter_ignoreIPList').val() + ',<?php echo getUserID(); ?>');
+							$('#hitcounter_ignoreIPList').val($('#hitcounter_ignoreIPList').val() + ',<?php echo getUserIP(); ?>');
 						}
 						$('#hitcounter_ip_button').prop('disabled', true);
 					}
 					jQuery(window).on("load", function () {
 						var current = $('#hitcounter_ignoreIPList').val();
-						if (current.indexOf('<?php echo getUserID(); ?>') < 0) {
+						if (current.indexOf('<?php echo getUserIP(); ?>') < 0) {
 							$('#hitcounter_ip_button').prop('disabled', false);
 						}
 					});
-					
+
 				</script>
 				<label><input id="hitcounter_ip_button" type="button" value="<?php echo gettext('Insert my IP'); ?>" onclick="hitcounter_insertIP();" disabled="disabled" /></label>
 				<?php
@@ -141,7 +141,7 @@ class hitcounter {
 		if ($script && $valid) {
 			if (getOption('hitcounter_ignoreIPList_enable')) {
 				$ignoreIPAddressList = explode(',', str_replace(' ', '', getOption('hitcounter_ignoreIPList')));
-				$skip = in_array(getUserID(), $ignoreIPAddressList);
+				$skip = in_array(getUserIP(), $ignoreIPAddressList);
 			} else {
 				$skip = false;
 			}
