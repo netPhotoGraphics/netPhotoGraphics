@@ -225,7 +225,7 @@ class Combi extends CMS {
 				}
 				//$latestalbums = array_merge($latestalbums, $item);
 				$latest = array_merge($latestnews, $latestalbums);
-				$result = sortMultiArray($latest, "date", $sortdirection != 'asc');
+				$result = sortMultiArray($latest, ["date" => $sortdirection != 'asc']);
 				if (count($result) > $articles_per_page) {
 					$result = array_slice($result, 0, $articles_per_page);
 				}

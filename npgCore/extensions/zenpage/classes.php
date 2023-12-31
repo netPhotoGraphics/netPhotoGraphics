@@ -129,29 +129,50 @@ class CMS {
 		} else {
 			$sortdir = ' ASC';
 		}
+
+		$comppuutational = '';
+		$order = [];
 		switch ($sorttype) {
 			default:
-				$sortorder = $sorttype;
+				$order[$sorttype] = false;
 				break;
 			case 'popular':
-				$sortorder = 'hitcounter';
+				$order['hitcounter'] = false;
 				break;
 			case 'mostrated':
-				$sortorder = 'total_votes';
+				$order['total_votes'] = false;
 				break;
 			case 'toprated':
-				if (empty($sortdir))
-					$sortdir = ' DESC';
-				$sortorder = '(total_value/total_votes) ' . $sortdir . ', total_value';
+				$computationjal = ', total_value/total_votes as rating';
+				$order['rating'] = (bool) $sortdir;
+				$order['total_value'] = false;
 				break;
 			case 'random':
-				$sortorder = 'RAND()';
-				$sortdir = '';
+				$order['RAND()'] = false;
 				break;
 		}
 
+
+
 		$all_pages = array(); // Disabled cache var for now because it does not return un-publishded and published if logged on index.php somehow if logged in.
-		$result = query('SELECT * FROM ' . prefix('pages') . $show . ' ORDER by `' . $sortorder . '`' . $sortdir);
+
+
+		$sql = 'SELECT id, parentid, title, titlelink, permalink, sort_order, `show`, locked, date, publishdate, expiredate, owner, lastchange, lastchangeuser, hitcounter, rating, rating_status, used_ips, total_value, total_votes, user, password, password_hint, commentson, truncation, content, codeblock, extracontent' . $comppuutational . ' FROM ' . prefix('pages') . $show;
+
+		if (!empty($order)) {
+			$sql .= ' ORDER BY';
+			foreach ($order as $field => $direction) {
+				$sql .= ' ' . $field;
+				if ($direction) {
+					$sql .= ' DESC,';
+				} else {
+					$sql .= ',';
+				}
+			}
+			$sql = rtrim($sql, ',');
+		}
+
+		$result = query($sql);
 		if ($result) {
 			while ($row = db_fetch_assoc($result)) {
 				if ($all || $row['show']) {
@@ -280,66 +301,19 @@ class CMS {
 				}
 			}
 
-			if ($sticky) {
-				$sticky = 'sticky DESC,';
-			}
-			if ($sortdirection) {
-				$dir = " DESC";
-			} else {
-				$dir = " ASC";
-			}
-			// sortorder and sortdirection (only used for all news articles and categories naturally)
-			switch ($sortorder) {
-				case "popular":
-					$sort1 = 'hitcounter' . $dir;
-					break;
-				case "mostrated":
-					$sort1 = 'total_votes' . $dir;
-					break;
-				case "toprated":
-					$sort1 = '(total_value/total_votes) DESC, total_value';
-					break;
-				case "random":
-					$sort1 = 'RAND()';
-					break;
-				default:
-					$sort1 = $sortorder . $dir;
-					break;
-			}
-
-			/** get all articles * */
-			switch ($published) {
-				case "published":
-				default:
-					$show = "`show`=1";
-					$getUnpublished = false;
-					break;
-				case "published-unpublished":
-					$show = "`show`=1";
-					$getUnpublished = true;
-					break;
-				case "unpublished":
-					$show = "`show`=0";
-					$getUnpublished = true;
-					break;
-				case 'sticky':
-					$show = "`sticky`<>0";
-					$getUnpublished = true;
-					break;
-				case "all":
-					$getUnpublished = npg_loggedin(MANAGE_ALL_NEWS_RIGHTS);
-					$show = '';
-					break;
-			}
 			if ($author) {
-				if ($cat || $show) {
+				if ($cat) {
 					$author_conjuction = ' AND ';
 				} else {
 					$author_conjuction = ' WHERE ';
 				}
 				$show .= $author_conjuction . ' author = ' . db_quote($author);
 			}
-			$order = " ORDER BY $sticky";
+			$order = [];
+			$computational = '';
+			if ($sticky) {
+				$order['sticky'] = true;
+			}
 
 			if (in_context(ZENPAGE_NEWS_DATE)) {
 				switch ($published) {
@@ -357,49 +331,68 @@ class CMS {
 						$datesearch = ' AND ' . $datesearch . ' ';
 					}
 				}
-				$order .= " date DESC";
+				$order['date'] = true;
 			} else {
 				$datesearch = "";
-				if ($category) {
-					$order .= ' news.';
-				} else {
-					$order .= ' ';
+				// sortorder and sortdirection (only used for all news articles and categories naturally)
+				switch ($sortorder) {
+					case "popular":
+						$order['hitcounter'] = $sortdirection;
+						break;
+					case "mostrated":
+						$order['total_votes'] = (bool) $sortdirection;
+						break;
+					case "toprated":
+						$computational = ', news.total_value/news.total_votes as rating';
+						$order['rating'] = true;
+						$order['total_value'] = false;
+						break;
+					case "random":
+						$order['RAND()'] = false;
+						break;
+					default:
+						$order[$sortorder] = (bool) $sortdirection;
+						break;
 				}
-				$order .= $sort1;
 			}
 			if ($category) {
-				$sql = "SELECT DISTINCT news.date, news.publishdate, news.expiredate, news.lastchange, news.title, news.titlelink, news.sticky FROM " . prefix('news') . " as news, " . prefix('news2cat') . " as cat WHERE" . $cat;
-				if ($show || $datesearch) {
-					$sql .= ' AND ' . $show . $datesearch;
-				}
+				$join = ', ' . prefix('news2cat') . ' as cat WHERE' . $cat;
 			} else {
-				$sql = "SELECT * FROM " . prefix('news');
-				if ($cat) {
-					$sql .= ' WHERE ' . $cat;
-				}
-				if ($show || $datesearch) {
-					if ($cat) {
-						$sql .= ' AND ';
-					} else {
-						$sql .= ' WHERE ';
-					}
-					$sql .= $show . $datesearch;
-				}
+				$join = '';
 			}
-			$sql .= $order;
+			$sql = "SELECT DISTINCT news.date as date, news.publishdate as publishdate, news.expiredate as expiredate, news.lastchange as lastchange, news.title as title, news.titlelink as titlelink, news.sticky as sticky" . $computational . " FROM " . prefix('news') . " as news" . $join;
+			if ($show || $datesearch) {
+				if ($cat) {
+					$sql .= ' AND ';
+				} else {
+					$sql .= ' WHERE ';
+				}
+				$sql .= $show . $datesearch;
+			}
+
+			if (!empty($order)) {
+				$sql .= ' ORDER BY';
+				foreach ($order as $field => $direction) {
+					$sql .= ' ' . $field;
+					if ($direction) {
+						$sql .= ' DESC,';
+					} else {
+						$sql .= ',';
+					}
+				}
+				$sql = rtrim($sql, ',');
+			}
 			$resource = query($sql);
+
 			$result = array();
 			if ($resource) {
-				if (npg_loggedin(VIEW_UNPUBLISHED_NEWS_RIGHTS)) {
-					$getUnpublished = true;
-				}
 				while ($item = db_fetch_assoc($resource)) {
 					$article = newArticle($item['titlelink']);
 					if ($incurrent = $currentCat) {
 						$incurrent = $article->inNewsCategory($currentCat);
 					}
 					$subrights = $article->subRights();
-					if ($getUnpublished //	override published
+					if (npg_loggedin(VIEW_UNPUBLISHED_NEWS_RIGHTS) //	override published
 									|| ($article->getShow() && (($incurrent || $article->categoryIsVisible()) || $subrights)) //	published in "visible" or managed category
 									|| ($subrights & MANAGED_OBJECT_RIGHTS_VIEW) //	he is allowed to see unpublished articles in one of the article's categories
 									|| $article->isMyItem(ZENPAGE_NEWS_RIGHTS)
@@ -421,7 +414,7 @@ class CMS {
 								unset($result[$key]);
 							}
 						}
-						$stickyItems = sortMultiArray($stickyItems, 'sticky', true);
+						$stickyItems = sortMultiArray($stickyItems, ['sticky' => true]);
 						$result = array_merge($stickyItems, $result);
 					}
 				}
@@ -490,6 +483,10 @@ class CMS {
 	 */
 	function getTotalArticles() {
 		return count($this->getArticles(0));
+	}
+
+	function getTotalNewsPages() {
+		return ceil($this->getTotalArticles() / ARTICLES_PER_PAGE);
 	}
 
 	/**
@@ -635,7 +632,7 @@ class CMS {
 				if ($sorttype == 'random') {
 					shuffle($structure);
 				} else {
-					$structure = sortMultiArray($structure, $sortorder, $sortdirection, true, false, false);
+					$structure = sortMultiArray($structure, [$sortorder => $sortdirection], true, false, false);
 				}
 			}
 			$this->categoryCache[$key] = $structure;

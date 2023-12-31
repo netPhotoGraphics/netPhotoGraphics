@@ -1,4 +1,4 @@
-<?php include ('inc_header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
 <div id="headline" class="clearfix">
 	<h3><?php printGalleryIndexURL(' » ', getGalleryTitle(), false); ?><?php printParentBreadcrumb('', ' » ', ' » '); ?><?php printAlbumTitle(); ?></h3>
@@ -20,7 +20,7 @@
 <?php } ?>
 
 <?php if (isAlbumPage()) { ?>
-	<?php include('inc_print_album_thumb.php'); ?>
+	<?php include('includes/print_album_thumb.php'); ?>
 <?php } ?>
 
 <?php if (getNumImages() > 0) { ?>
@@ -66,7 +66,7 @@
 		</div>
 
 	<?php } else { ?>
-		<?php include('inc_print_image_thumb.php'); ?>
+		<?php include('includes/print_image_thumb.php'); ?>
 	<?php } ?>
 
 <?php } ?>
@@ -101,7 +101,7 @@
 <?php } ?>
 
 <?php if (extensionEnabled('comment_form')) { ?>
-	<?php include('inc_print_comment.php'); ?>
+	<?php include('includes/print_comment.php'); ?>
 <?php } ?>
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>

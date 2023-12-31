@@ -9,13 +9,17 @@
 if (!defined('OFFSET_PATH')) {
 	die();
 }
+// because we are loading the script from within a function!
+global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
+
+require_once(__DIR__ . '/admin-globals.php');
 
 /**
  *
  * Executes the configuration change code
  */
 function reconfigureAction($mandatory) {
-	global $_conf_vars;
+	global $_conf_vars, $_gallery, $_invisible_execute;
 	// do this before we might contaminate state
 	$log = true;
 	switch ($mandatory) {
@@ -28,9 +32,6 @@ function reconfigureAction($mandatory) {
 			break;
 		case 13:
 			$reason = sprintf(gettext('Database connection failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
-			break;
-		case 14:
-			$reason = sprintf(gettext('Database server failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
 			break;
 		default:
 			$reason = gettext('install signature option not set');
@@ -48,7 +49,7 @@ function reconfigureAction($mandatory) {
 		}
 
 		if ($log) {
-			debugLog(sprintf(gettext('Setup required: %1$s.'), $reason));
+			debugLogBacktrace(sprintf(gettext('Setup required: %1$s.'), $reason));
 		}
 
 		if (empty($needs)) {
@@ -72,10 +73,7 @@ function reconfigureAction($mandatory) {
 		} else {
 			$location = '';
 		}
-		// because we are loading the script from within a function!
-		global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
 		$_invisible_execute = 1;
-		require_once(__DIR__ . '/initialize-basic.php');
 
 		if (!defined('FULLWEBPATH')) {
 			$protocol = (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") ? 'http' : 'https';
@@ -83,59 +81,70 @@ function reconfigureAction($mandatory) {
 			define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 		}
 
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-		header('Content-Type: text/html; charset=UTF-8');
-		header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
-		header("Pragma: no-cache"); // HTTP 1.0.
-		header("Expires: 0"); // Proxies.
-		header("HTTP/1.0 503 Service Unavailable");
-		header("Status: 503 Service Unavailable");
-		header("Retry-After: 300");
-		?>
-		<!DOCTYPE html>
-		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-				<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
-				<?php reconfigureCS(); ?>
-			</head>
-			<body>
-				<?php
-				if ($_gallery) {
-					printLogoAndLinks();
-				} else {
-					?>
-					<div id="admin_head">
-						<span id="administration">
-							<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/admin-logo.png" id="site logo" alt="site_logo" style="height:78px; width:auto;" />
-						</span>
-					</div>
-					<?php
-				}
-				?>
-				<div id="main">
+		if ($notsent = !headers_sent()) {
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+			header('Content-Type: text/html; charset=UTF-8');
+			header("Cache-Control: no-cache, no-store, private;, must-revalidate"); // HTTP 1.1.
+			header("Pragma: no-cache"); // HTTP 1.0.
+			header("Expires: 0"); // Proxies.
+			header("HTTP/1.0 503 Service Unavailable");
+			header("Status: 503 Service Unavailable");
+			header("Retry-After: 300");
+			?>
+			<!DOCTYPE html>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<head>
+					<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+					<link rel="stylesheet" href = "<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/admin.css" type="text/css" />
+					<?php reconfigureCS(); ?>
+				</head>
+				<body>
 					<?php
 					if ($_gallery) {
-						printTabs();
+						printLogoAndLinks();
+					} else {
+						?>
+						<div id="admin_head">
+							<span id="administration">
+								<img src="<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/images/admin-logo.png" id="site logo" alt="site_logo" style="height:78px; width:auto;" />
+							</span>
+						</div>
+						<?php
 					}
 					?>
+					<div id="main">
+						<?php
+						if ($_gallery) {
+							printTabs();
+						}
+					} else {
+						reconfigureCS();
+					}
+					?>
+
 					<div id="content">
-						<h1><?php echo gettext('Site unavailable'); ?></h1>
-						<div class="tabbox">
-							<div class="reconfigbox">
-								<?php echo $reason; ?>
+						<br clear="all">
+							<h1><?php echo gettext('Site unavailable'); ?></h1>
+							<div class="tabbox">
+								<div class="reconfigbox">
+									<?php echo $reason; ?>
+								</div>
+								<?php
+								if ($location) {
+									echo sprintf(gettext('Run <a href=%1$s>setup</a>'), $location);
+								}
+								?>
 							</div>
-							<?php
-							if ($location) {
-								echo sprintf(gettext('Run <a href=%1$s>setup</a>'), $location);
-							}
-							?>
-						</div>
 					</div>
-				</div>
-			</body>
-		</html>
-		<?php
+					<?php
+					if ($notsent) {
+						?>
+					</div>
+				</body>
+			</html>
+			<?php
+		}
+		db_close();
 		exit();
 	} else {
 		if (!empty($diff)) {
@@ -198,11 +207,11 @@ function checkSignature($mandatory) {
 	foreach ($matches[1] as $need) {
 		$needs[] = rtrim(trim($need), ":*");
 	}
-	// serialize the following
+// serialize the following
 	$_configMutex->lock();
 	if (file_exists(__DIR__ . '/setup/')) {
 		chdir(__DIR__ . '/setup/');
-		//just in case files were uploaded over a protected setup folder
+//just in case files were uploaded over a protected setup folder
 		$have = safe_glob('*.php');
 		foreach ($have as $key => $f) {
 			$f = str_replace('.php', '.xxx', $f);
@@ -301,7 +310,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where .= '&amp;notoken';
 	}
-	//	leave this as a direct link incase the admin mod_rewrite mechanism has not yet been established
+//	leave this as a direct link incase the admin mod_rewrite mechanism has not yet been established
 	$l1 = '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php' . '?autorun=' . $where . '">';
 	$l2 = '</a>';
 	?>
@@ -388,7 +397,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
  * 						13	No DB connection
  */
 function restoreSetupScrpts($reason) {
-	//log setup file restore no matter what!
+//log setup file restore no matter what!
 	require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 
 	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();

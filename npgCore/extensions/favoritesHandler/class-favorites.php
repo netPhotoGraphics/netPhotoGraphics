@@ -127,7 +127,7 @@ class favorites extends AlbumBase {
 
 	/**
 	 * Prints a list of users/instances watching the object
-	 * NOTE: the caller must enclose the list with the appropraite UL, OL, or DL html
+	 * NOTE: the caller must enclose the list with the appropriate UL, OL, or DL html
 	 * @param type $obj
 	 * @param type $list_type if NULL, use li tags. otherwise the array will have the start, middle, and end tags.
 	 */
@@ -146,7 +146,7 @@ class favorites extends AlbumBase {
 			foreach ($watchers as $key => $aux) {
 				$watchers[$key] = getSerializedArray($aux);
 			}
-			$watchers = sortMultiArray($watchers, array(1, 2));
+			$watchers = sortMultiArray($watchers, array(1 => false, 2 => false));
 
 			foreach ($watchers as $aux) {
 				$watchee = $aux[0];

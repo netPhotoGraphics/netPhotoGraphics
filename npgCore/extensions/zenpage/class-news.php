@@ -58,7 +58,7 @@ class Article extends CMSItems {
 	function getCategories() {
 		if (is_null($this->categories)) {
 			$this->categories = array();
-			$result = query("SELECT * FROM " . prefix('news_categories') . " as cat," . prefix('news2cat') . " as newscat WHERE newscat.cat_id = cat.id AND newscat.news_id = " . $this->getID() . " ORDER BY cat.titlelink", false);
+			$result = query("SELECT * FROM " . prefix('news_categories') . " as cat," . prefix('news2cat') . " as newscat WHERE newscat.cat_id = cat.id AND newscat.news_id = " . $this->getID(), false);
 			if ($result) {
 				while ($row = db_fetch_assoc($result)) {
 					$this->categories[$row['title']] = $row;
@@ -71,7 +71,7 @@ class Article extends CMSItems {
 
 	function setCategories($categories) {
 		query('DELETE FROM ' . prefix('news2cat') . ' WHERE `news_id`=' . $this->getID());
-		$result = query("SELECT `id`, `titlelink` FROM " . prefix('news_categories') . " ORDER BY titlelink");
+		$result = query("SELECT `id`, `titlelink` FROM " . prefix('news_categories'));
 		if ($result) {
 			while ($cat = db_fetch_assoc($result)) {
 				if (in_array($cat['titlelink'], $categories)) {
@@ -117,7 +117,7 @@ class Article extends CMSItems {
 			foreach ($this->getCategories() as $cat) {
 				$categories[] = $cat['cat_id'];
 			}
-			$result = query_full_array("SELECT `id` FROM " . prefix('news_categories') . " ORDER BY titlelink");
+			$result = query_full_array("SELECT `id` FROM " . prefix('news_categories'));
 			foreach ($result as $cat) {
 				if (in_array($cat['id'], $categories)) {
 					query("INSERT INTO " . prefix('news2cat') . " (cat_id, news_id) VALUES ('" . $cat['id'] . "', '" . $id . "')");

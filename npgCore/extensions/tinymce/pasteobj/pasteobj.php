@@ -8,7 +8,7 @@
  *
  */
 // force UTF-8 Ø
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once(dirname(dirname(dirname(__DIR__))) . "/admin-globals.php");
 admin_securityChecks(ALBUM_RIGHTS | ZENPAGE_PAGES_RIGHTS | ZENPAGE_NEWS_RIGHTS, '');
 
@@ -117,7 +117,7 @@ function getIPSizedImage($size, $image) {
 			}
 			?>
 			<script type="text/javascript">
-				
+
 				var link = '<?php echo $link; ?>';
 				var link2 = '<?php echo $link2; ?>';
 				var alt1 = '<?php echo addslashes($alt1); ?>'.replace(/"/g, '\\"');
@@ -238,7 +238,7 @@ function getIPSizedImage($size, $image) {
 
 				window.addEventListener('load', pasteobjchange, false);
 
-				
+
 			</script>
 			<h3>
 				<?php

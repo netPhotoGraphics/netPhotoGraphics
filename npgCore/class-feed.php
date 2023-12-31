@@ -310,7 +310,7 @@ class feed {
 			if ($type != 'all') {
 				$id = (int) $this->options['id'];
 				$found = query('SELECT `id` FROM ' . prefix($type) . ' WHERE id =' . $id . ' LIMIT 1');
-				if ($found && $found->num_rows > 0) {
+				if ($found && db_num_rows($found) > 0) {
 					return $id;
 				}
 			}
@@ -493,7 +493,7 @@ class feed {
 						if (function_exists('getLatestZenpageComments')) {
 							$items_zenpage = getLatestZenpageComments($this->itemnumber);
 							$items = array_merge($items, $items_zenpage);
-							$items = sortMultiArray($items, 'date', true);
+							$items = sortMultiArray($items, ['date' => true]);
 							$items = array_slice($items, 0, $this->itemnumber);
 						}
 						break;

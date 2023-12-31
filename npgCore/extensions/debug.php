@@ -44,16 +44,33 @@ if (isset($_GET['markRelease'])) {
 	header('location:' . getAdminLink('admin.php') . '?marked=' . $_GET['markRelease']);
 	exit();
 } else {
-	if ($test_release = getOption('markRelease_state')) {
-		if ($test_release) {
-			if ((strpos(NETPHOTOGRAPHICS_VERSION, '-DEBUG') === FALSE) && strpos($test_release, '-DEBUG')) {
-				//	update the version.php script to contain the debug settings
-				$version = debug::version(false);
-				debug::updateVersion($version);
-			}
-		}
+	preg_match('/-(.*)/', NETPHOTOGRAPHICS_VERSION, $_version);
+	if (isset($_version[1])) {
+		$_version = $_version[1];
+	} else {
+		$_version = '';
 	}
-	unset($test_release);
+	preg_match('/-(.*)/', strval(getOption('markRelease_state')), $_option);
+	if (isset($_option[1])) {
+		$_option = $_option[1];
+	} else {
+		$_option = '';
+	}
+	if ($_version != $_option) {
+		if ($_version) {
+			//	update the debug_marks option so that it matches the version string
+			$marks = explode('_', $_version);
+			array_shift($marks);
+			setOption('debug_marks', serialize($marks));
+			unset($marks);
+		}
+		$_version = debug::version(false);
+		setOption('markRelease_state', $_version);
+		debug::updateVersion($_version);
+	}
+
+	unset($_option);
+	unset($_version);
 }
 
 class debug {

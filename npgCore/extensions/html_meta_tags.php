@@ -88,37 +88,71 @@ class htmlmetatags {
 								'no-store' => "no-store"
 						),
 						'desc' => gettext("If the browser cache should be used.")),
-				gettext('Robots') => array('key' => 'htmlmeta_robots', 'type' => OPTION_TYPE_SELECTOR,
+				gettext('Robots') => array(
+						'key' => 'htmlmeta_robots',
+						'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array(
 								'noindex' => "noindex",
 								'index' => "index",
+								'index,noai,noimageai' => "index,noai,noimageai",
 								'nofollow' => "nofollow",
+								'nofollow,oai,noimageai' => "nofollow,noai,noimageai",
 								'noindex,nofollow' => "noindex,nofollow",
 								'noindex,follow' => "noindex,follow",
+								'noindex,follow,noai,noimageai' => "noindex,follow,noai,noimageai",
+								'noindex,nofollow,noai,noimageai' => "noindex,nofollow,noai,noimageai",
 								'index,nofollow' => "index,nofollow",
+								'index,nofollow,noai,noimageai' => "index,nofollow,noai,noimageai",
+								'noai,noimageai' => 'noai,noimageai',
 								'none' => "none"
 						),
 						'desc' => gettext("If and how robots are allowed to visit the site. Default is “index”. Note that you also should use a robot.txt file.")),
-				gettext('Revisit after') => array('key' => 'htmlmeta_revisit_after', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("Request the crawler to revisit the page after x days.")),
-				gettext('Expires') => array('key' => 'htmlmeta_expires', 'type' => OPTION_TYPE_TEXTBOX,
+				gettext('Revisit after') => array(
+						'key' => 'htmlmeta_revisit_after',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("Request the crawler to revisit the page after x days.")
+				),
+				gettext('Expires') => array(
+						'key' => 'htmlmeta_expires',
+						'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext("When the page should be loaded directly from the server and not from any cache. You can either set a date/time in international date format <em>Sat, 15 Dec 2001 12:00:00 GMT (example)</em> or a number. A number then means seconds, the default value <em>43200</em> means 12 hours.")),
 				gettext('Canonical URL link') => array('key' => 'htmlmeta_canonical-url', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 11,
-						'desc' => gettext('This adds a link element to the head of each page with a <em>canonical url</em>. If the <code>seo_locale</code> plugin is enabled or <code>use subdomains</code> is checked it also generates alternate links for other languages (<code>&lt;link&nbsp;rel="alternate" hreflang="</code>...<code>" href="</code>...<code>" /&gt;</code>).')),
-				gettext('Google site verification') => array('key' => 'htmlmeta_google-site-verification', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Insert the <em>content</em> portion of the meta tag supplied by Google.')),
-				gettext('Site logo') => array('key' => 'htmlmeta_sitelogo', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("Enter the full url to a specific site logo image. Facebook, Google+ and others will use that as the thumb shown in link previews within posts. For image or album pages the default size album or image thumb is used automatically.")),
-				gettext('Twitter name') => array('key' => 'htmlmeta_twittername', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("If you enabled Twitter card meta tags, you need to enter your Twitter user name here.")),
-				gettext('Open graph image - width') => array('key' => 'htmlmeta_ogimage_width', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("Max width of the open graph image used for sharing to social networks if enabled.")),
-				gettext('Open graph image - height') => array('key' => 'htmlmeta_ogimage_height', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("Max height of the open graph image used for sharing to social networks if enabled.")),
-				gettext('Facebook app id') => array('key' => 'htmlmeta_fb-app_id', 'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext("Enter your Facebook app id. IF using this you also should enable the OpenGraph meta tags.")),
-				gettext('HTML meta tags') => array('key' => 'htmlmeta_tags', 'type' => OPTION_TYPE_CHECKBOX_UL,
+						'desc' => gettext('This adds a link element to the head of each page with a <em>canonical url</em>. If the <code>seo_locale</code> plugin is enabled or <code>use subdomains</code> is checked it also generates alternate links for other languages (<code>&lt;link&nbsp;rel="alternate" hreflang="</code>...<code>" href="</code>...<code>" /&gt;</code>).')
+				),
+				gettext('Google site verification') => array(
+						'key' => 'htmlmeta_google-site-verification',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('Insert the <em>content</em> portion of the meta tag supplied by Google.')
+				),
+				gettext('Site logo') => array(
+						'key' => 'htmlmeta_sitelogo',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("Enter the full url to a specific site logo image. Facebook, Google+ and others will use that as the thumb shown in link previews within posts. For image or album pages the default size album or image thumb is used automatically.")
+				),
+				gettext('Twitter name') => array(
+						'key' => 'htmlmeta_twittername',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("If you enabled Twitter card meta tags, you need to enter your Twitter user name here.")
+				),
+				gettext('Open graph image - width') => array(
+						'key' => 'htmlmeta_ogimage_width',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("Max width of the open graph image used for sharing to social networks if enabled.")
+				),
+				gettext('Open graph image - height') => array(
+						'key' => 'htmlmeta_ogimage_height',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("Max height of the open graph image used for sharing to social networks if enabled.")
+				),
+				gettext('Facebook app id') => array(
+						'key' => 'htmlmeta_fb-app_id',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext("Enter your Facebook app id. IF using this you also should enable the OpenGraph meta tags.")
+				),
+				gettext('HTML meta tags') => array(
+						'key' => 'htmlmeta_tags',
+						'type' => OPTION_TYPE_CHECKBOX_UL,
 						"checkboxes" => array(
 								"http-equiv='cache-control'" => "htmlmeta_http-equiv-cache-control",
 								"http-equiv='pragma'" => "htmlmeta_http-equiv-pragma",
@@ -140,7 +174,8 @@ class htmlmetatags {
 								"name='pinterest' content='nopin'" => "htmlmeta_name-pinterest",
 								"twitter:card" => "htmlmeta_twittercard"
 						),
-						"desc" => gettext("Which of the HTML meta tags should be used. For info about these in detail please refer to the net."))
+						"desc" => gettext("Which of the HTML meta tags should be used. For info about these in detail please refer to the net.")
+				)
 		);
 
 		return $options;

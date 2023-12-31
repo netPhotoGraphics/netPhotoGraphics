@@ -57,7 +57,7 @@ function makeNewTitleLink($title, $table, &$reports) {
 
 	$sql = 'SELECT `id` FROM ' . prefix($table) . ' WHERE `titlelink`=' . db_quote($titlelink . $append) . ' LIMIT 1';
 	$found = query($sql, false);
-	if ($found && $found->num_rows > 0) {
+	if ($found && db_num_rows($found) > 0) {
 		//already exists
 		$titlelink = $titlelink . '_' . date_format(date_create('now'), 'Y-m-d-H-i-s-u') . $append;
 		$reports[] = "<p class='warningbox fade-message'>" . gettext('Duplicate page title') . '</p>';
@@ -539,7 +539,7 @@ function updateArticle(&$reports, $newarticle = false) {
  * @param obj $obj object of the news article
  */
 function printCategoriesList($obj) {
-	$cats = $obj->getCategories();
+	$cats = sortByMultilingual($obj->getCategories(), 'title', false);
 	$catlist = '';
 	foreach ($cats as $cat) {
 		$catobj = newCategory($cat['titlelink']);

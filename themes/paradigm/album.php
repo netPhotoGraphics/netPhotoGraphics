@@ -6,8 +6,8 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 
 <div id="background-main" class="background">
 	<div class="container<?php
@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		echo '-fluid';
 	}
 	?>">
-				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/ImageGallery">
 			<section class="col-sm-9" id="main" itemprop="mainContentOfPage">
 
@@ -23,9 +23,9 @@ if (!defined('WEBPATH'))
 
 				<div itemprop="description" class="content"><?php printAlbumDesc(); ?></div>
 
-				<?php include("includes/_albumlist.php"); ?>
+				<?php include("includes/albumlist.php"); ?>
 
-				<?php include("includes/_imagethumbs.php"); ?>
+				<?php include("includes/imagethumbs.php"); ?>
 
 				<?php printPageListWithNav("« " . gettext("prev"), gettext("next") . " »"); ?>
 
@@ -68,9 +68,9 @@ if (!defined('WEBPATH'))
 
 			</section>
 
-			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+			<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/sidebar.php'); ?>
 		</div>
 	</div>
 </div>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>

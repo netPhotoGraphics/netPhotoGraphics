@@ -27,9 +27,9 @@ foreach ($admins as $key => $user) {
 }
 
 if ($subscription) {
-	$admins = sortMultiArray($admins, array('expires'), false);
+	$admins = sortMultiArray($admins, array('expires' => false));
 } else {
-	$admins = sortMultiArray($admins, array('lastlogon'), true);
+	$admins = sortMultiArray($admins, array('lastlogon' => true));
 }
 
 $adminordered = array();

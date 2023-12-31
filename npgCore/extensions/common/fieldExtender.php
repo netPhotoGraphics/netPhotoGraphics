@@ -89,7 +89,7 @@ class fieldExtender {
 			}
 			$current = $fields = $searchDefault = array();
 			if (extensionEnabled($me)) { //need to update the database tables.
-				$newfields = sortMultiArray($newfields, array('table', 'name'), false, true, true, true);
+				$newfields = sortMultiArray($newfields, array('table' => false, 'name' => false), true, true, true);
 				foreach ($newfields as $newfield) {
 					$table = $newfield['table'];
 					$name = $newfield['name'];

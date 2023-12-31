@@ -761,9 +761,9 @@ class sitemap {
 	 */
 	static function getNewsIndex() {
 		global $_CMS, $_sitemap_number;
-		$newspages = $_zp_zenpage->getTotalNewsPages();
+		$newspages = $_CMS->getTotalNewsPages();
 		//not splitted into several sitemaps yet
-		if ($_zp_zenpage->getTotalArticles() == 0) {
+		if ($_CMS->getTotalArticles() == 0) {
 			return;
 		}
 		if ($_sitemap_number == 1) {
@@ -890,7 +890,7 @@ class sitemap {
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 				foreach ($newscats as $newscat) {
 					$catobj = newCategory($newscat['titlelink']);
-					if ($catobj->isPublic() && !$catobj->isProtected() && $catobj->getTotalArticles() != 0) {
+					if ($catobj->isPublished() && !$catobj->isProtected() && $catobj->getTotalArticles() != 0) {
 						$base = $catobj->getLink();
 						switch (SITEMAP_LOCALE_TYPE) {
 							case 1:

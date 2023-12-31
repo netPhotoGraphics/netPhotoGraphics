@@ -658,7 +658,6 @@ ul.archive * {
 ul.archive li.year {
 	margin-top:10px;
 	margin-bottom:5px;
-	margin-left:-43px;
 	margin-right:0px;
 	text-align: left;
 	font-size:12px;
@@ -670,7 +669,6 @@ ul.archive li.year li {
 }
 
 ul.archive ul.month {
-	margin-left:-48px;
 	list-style:none;
 
 }

@@ -754,7 +754,7 @@ function getEnabledPlugins() {
 				}
 			}
 		}
-		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, 'priority', true, true, false, true);
+		$_EnabledPlugins = sortMultiArray($_EnabledPlugins, ['priority' => true], true, false, true);
 	}
 	return $_EnabledPlugins;
 }
@@ -1116,7 +1116,7 @@ function setupTheme($album = NULL) {
  *
  * If the site visitor is not logged in this function returns only tags associated
  * with "published" objects. However, the publish state is limited to the `show` column
- * of the object. This is not totally "correct", however the computatioal intensity
+ * of the object. This is not totally "correct", however the computational intensity
  * of returning only that might link to "visible" objects is prohibitive.
  *
  * Logged-in users will see all tags subject to the threshold limits
@@ -1155,34 +1155,7 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 
 	if (!isset($list[$language][$count])) {
 		$list[$language][$count] = array();
-
-		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
-			$source = prefix('obj_to_tag');
-		} else {
-			// create a table of only "published" tag assignments
-			$source = 'taglist';
-			query('CREATE TEMPORARY TABLE IF NOT EXISTS taglist (
-														`tagid` int UNSIGNED NOT NULL,
-														`type` tinytext,
-														`objectid` int UNSIGNED NOT NULL,
-														KEY (tagid),
-														KEY (objectid)
-														) CHARACTER SET utf8 COLLATE utf8mb3_unicode_ci');
-			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
-			if (class_exists('CMS')) {
-				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
-			}
-			foreach ($tables as $table => $rights) {
-				if ($_loggedin & $rights) {
-					$show = '';
-				} else {
-					$show = ' AND tag.objectid=object.id AND object.show=1';
-				}
-				$sql = 'INSERT INTO taglist SELECT tag.tagid, tag.type, tag.objectid FROM ' . prefix('obj_to_tag') . ' tag, ' . prefix($table) . ' object WHERE tag.type="' . $table . '"' . $show;
-				query($sql);
-			}
-		}
-
+		$counts = array();
 		if (empty($language)) {
 			$lang = '';
 		} else {
@@ -1194,24 +1167,59 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 			$private = ' AND (tag.private=0)';
 		}
 
-		$sql = 'SELECT tag.name, count(DISTINCT tag.name, obj.type, obj.objectid) as count FROM ' . prefix('tags') . ' tag, ' . $source . ' obj WHERE (tag.id=obj.tagid) ' . $lang . $private . ' GROUP BY tag.name';
-		$unique_tags = query($sql);
-
-		if ($unique_tags) {
-			while ($tagrow = db_fetch_assoc($unique_tags)) {
-				if ($tagrow['count'] >= $count) {
-					if ($returnCount) {
-						$list[$language][$count][$tagrow['name']] = $tagrow['count'];
+		if (($_loggedin & TAGS_RIGHTS) || ($_loggedin & VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS == VIEW_UNPUBLISHED_PAGE_RIGHTS & VIEW_UNPUBLISHED_NEWS_RIGHTS & VIEW_UNPUBLISHED_RIGHTS)) {
+			$sql = 'SELECT tag.name AS name,  objToTag.type AS type, objToTag.objectid as objectid FROM '
+							. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' objToTag '
+							. 'WHERE (tag.id=objToTag.tagid) ' . $lang . $private;
+			$tags = query($sql);
+			if ($tags) {
+				while ($tagrow = db_fetch_assoc($tags)) {
+					$key = $tagrow['name'];
+					if (isset($counts[$key])) {
+						$counts[$key]++;
 					} else {
-						$list[$language][$count][mb_strtolower($tagrow['name'])] = $tagrow['name'];
+						$counts[$key] = 1;
 					}
+				}
+				db_free_result($tags);
+			}
+		} else {
+			$tables = array('images' => VIEW_UNPUBLISHED_RIGHTS, 'albums' => VIEW_UNPUBLISHED_RIGHTS);
+			if (class_exists('CMS')) {
+				$tables = array_merge($tables, array('pages' => VIEW_UNPUBLISHED_PAGE_RIGHTS, 'news' => VIEW_UNPUBLISHED_NEWS_RIGHTS));
+			}
+			foreach ($tables as $table => $rights) {
+				if ($_loggedin & $rights) {
+					$show = '';
+				} else {
+					$show = ' AND object.id=objToTag.objectid AND object.show=1 ';
+				}
+				$sql = 'SELECT tag.name AS name, objToTag.type AS type, objToTag.objectid AS objectid FROM '
+								. prefix('tags') . ' tag, ' . prefix('obj_to_tag') . ' objToTag, ' . prefix($table) . ' object '
+								. 'WHERE (tag.id=objToTag.tagid) AND (objToTag.type="' . $table . '")' . $show . $lang . $private;
+				$tags = query($sql);
+				if ($tags) {
+					while ($tagrow = db_fetch_assoc($tags)) {
+						$key = $tagrow['name'];
+						if (isset($counts[$key])) {
+							$counts[$key]++;
+						} else {
+							$counts[$key] = 1;
+						}
+					}
+					db_free_result($tags);
 				}
 			}
 		}
-		db_free_result($unique_tags);
-
-		if ($source == 'taglist') {
-			query('DROP TEMPORARY TABLE taglist');
+		ksort($counts);
+		foreach ($counts as $key => $v) {
+			if ($v >= $count) {
+				if ($returnCount) {
+					$list[$language][$count][mb_strtolower($key)] = $v;
+				} else {
+					$list[$language][$count][mb_strtolower($key)] = $key;
+				}
+			}
 		}
 	}
 	return $list[$language][$count];
@@ -1544,11 +1552,12 @@ function sortByKey($results, $sortkey, $order) {
 				return $results; //	We cannot deal with expressions
 			}
 	}
-	$indicies = explode(',', $sortkey);
-	foreach ($indicies as $key => $index) {
-		$indicies[$key] = trim($index);
+
+	$indicies = [];
+	foreach (explode(',', $sortkey) as $index) {
+		$indicies[trim($index)] = (bool) $order;
 	}
-	$results = sortMultiArray($results, $indicies, $order, true, false, true);
+	$results = sortMultiArray($results, $indicies, true, false, true);
 	return $results;
 }
 
@@ -1557,7 +1566,7 @@ function sortByKey($results, $sortkey, $order) {
  *
  * @param array $data							input array
  * @param array $field						column(s) to sort by
- * @param bool $desc							sort descending
+ * 																				Array key is column, value: true=>descending false=>ascending
  * @param bool $nat								"Natural" comparisons
  * @param bool $case							case insensitive comparisons
  * @param bool $preserveKeys			if set false the array will be re-indexed
@@ -1567,15 +1576,49 @@ function sortByKey($results, $sortkey, $order) {
  * @Copyright 2016 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  *
  */
-function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array()) {
-
+function sortMultiArray($data, $field, $nat = true, $case = false, $preserveKeys = true, $removeCriteria = array(), $dummy = array()) {
 	if (!is_array($field)) {
 		$field = array($field);
+	}
+	if (is_numeric(array_key_first($field)) && !is_bool(reset($field))) {
+		$args = '';
+		$field = array_flip($field);
+		if ($nat) {
+			$direction = 'true, ';
+		} else {
+			$direction = 'false, ';
+		}
+		foreach ($field as $key => $v) {
+			$field[$key] = $nat;
+			$args .= "'" . $key . "' => " . $direction;
+		}
+		$nat = $case;
+		$case = $preserveKeys;
+		$preserveKeys = $removeCriteria;
+		$removeCriteria = $dummy;
+
+		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
+		$args = rtrim(trim($args), ',');
+		$call = 'sortMultiArray($arrayToBeSorted, [' . $args . ']';
+		if (!$nat || $case) {
+			$call .= ", false"; //	$nat
+		}
+		if ($case || !$preserveKeys) {
+			$call .= ', true'; //	$case
+		}
+		if (!$preserveKeys || !empty($removeCriteria)) {
+			$call .= ', true'; //	$preserveKeys
+		}
+		if (!empty($removeCriteria)) {
+			$call .= ', [' . implode(',', $removeCriteria) . ']'; //	$removeCriteria
+		}
+		$call .= ');';
+		deprecated_functions::notify_call('sortMultiArray', gettext('The function should be called with a $field array.') . sprintf(gettext(' e.g. %1$s '), $call));
 	}
 
 	uasort($data, function ($a, $b) use ($field, $nat, $case) {
 		$retval = 0;
-		foreach ($field as $fieldname) {
+		foreach ($field as $fieldname => $desc) {
 			if ($retval == 0) {
 				switch ($fieldname) {
 					case 'title':
@@ -1589,16 +1632,15 @@ function sortMultiArray($data, $field, $desc = false, $nat = true, $case = false
 						break;
 				}
 				$retval = localeCompare($s1, $s2, $nat, $case);
+				if ($desc) {
+					$retval = $retval * -1;
+				}
 			} else {
 				break;
 			}
 		}
 		return $retval;
 	});
-
-	if ($desc) {
-		$data = array_reverse($data, true);
-	}
 
 	if (!empty($removeCriteria)) {
 		foreach ($data as $key => $datum) {
@@ -1992,7 +2034,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 						$success = password_verify($post_pass, $check_auth);
 						$authCookie = $check_auth;
 						if (DEBUG_LOGIN)
-							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+							debugLog("handle_password($success): \$post_user = $post_user; \$post_pass = $post_pass; \$check_auth = $check_auth; \$auth = $authCookie;");
 						break;
 					}
 				}
@@ -2008,7 +2050,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
 					if ($post_user == $check_user) {
 						$success = ($authCookie == $check_auth);
 						if (DEBUG_LOGIN)
-							debugLog("handle_password($success): \$post_user=$post_user; \$post_pass=$post_pass; \$check_auth=$check_auth; \$auth=$authCookie;");
+							debugLog("handle_password($success): \$post_user = $post_user; \$post_pass = $post_pass; \$check_auth = $check_auth; \$auth = $authCookie;");
 						if ($success) {
 							break 2;
 						}
@@ -2070,7 +2112,7 @@ function handle_password($authType = NULL, $check_auth = NULL, $check_user = NUL
  * @param string $key
  */
 function getOptionFromDB($key) {
-	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key) . " AND `ownerid`=0";
+	$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name` = " . db_quote($key) . " AND `ownerid` = 0";
 	if ($optionlist = query_single_row($sql, false)) {
 		return $optionlist['value'];
 	}
@@ -2162,7 +2204,7 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
 		$theme = $_gallery->getCurrentTheme();
 	}
 	// album-theme order of preference is: Album theme => Theme => album => general
-	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name`=" . db_quote($option) . " AND (`ownerid`=" . $id . " OR `ownerid`=0) AND (`theme`=" . db_quote($theme) . ' OR `theme` = "") ORDER BY `theme` DESC, `id` DESC';
+	$sql = "SELECT `name`, `value`, `ownerid`, `theme` FROM " . prefix('options') . " WHERE `name` = " . db_quote($option) . " AND (`ownerid` = " . $id . " OR `ownerid` = 0) AND (`theme` = " . db_quote($theme) . ' OR `theme` = "") ORDER BY `theme` DESC, `id` DESC';
 	$db = query_single_row($sql);
 	if (empty($db)) {
 		return NULL;
@@ -2813,7 +2855,7 @@ class npgFunctions {
 				$exifvars = array_merge($exifvars, $handler::getMetadataFields());
 			}
 		}
-		$exifvars = sortMultiArray($exifvars, 2, false, true, true, true);
+		$exifvars = sortMultiArray($exifvars, [2 => false], true, true, true);
 		if ($default) {
 			return $exifvars;
 		}
@@ -2921,7 +2963,7 @@ class npgFunctions {
 	 * @param string $text
 	 */
 	static function tagURLs($text) {
-		global $_tagURLs_tags, $_tagURLs_values;
+		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
 				$text = unserialize($text);
@@ -2939,7 +2981,7 @@ class npgFunctions {
 				preg_match_all("/url\(\s*(?:(?:\"(?:\\\\\"|[^\"])+\")|(?:'(?:\\\'|[^'])+'))\)/is", $text, $urlmatch);
 				$targets = array_unique(array_merge($hrefmatch[0], $srcmatch[0], $urlmatch[0]));
 				foreach ($targets as $target) {
-					$tagged = str_replace($_tagURLs_values, $_tagURLs_tags, $target);
+					$tagged = str_replace($_tagURLs_values, array_flip($_tagURLs_values), $target);
 					$text = str_replace($target, $tagged, $text);
 				}
 			}
@@ -2953,7 +2995,7 @@ class npgFunctions {
 	 * @return string
 	 */
 	static function unTagURLs($text, $debug = NULL) {
-		global $_tagURLs_tags, $_tagURLs_values;
+		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
 				$text = unserialize($text);
@@ -2966,7 +3008,7 @@ class npgFunctions {
 					$text = serialize($text);
 				}
 			} else {
-				$text = str_replace($_tagURLs_tags, $_tagURLs_values, $text);
+				$text = str_replace(array_flip($_tagURLs_values), $_tagURLs_values, $text);
 			}
 		}
 		return $text;

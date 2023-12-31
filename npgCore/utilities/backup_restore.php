@@ -202,7 +202,7 @@ if ($action == 'backup') {
 					$tableCount++;
 					$sql = 'SELECT * from `' . $table . '`';
 					$result = query($sql);
-					if ($result && $result->num_rows > 0) {
+					if ($result && db_num_rows($result) > 0) {
 						$storestring = $unprefixed_table . TABLE_SEPARATOR;
 						$storestring = strlen($storestring) . ':' . $storestring;
 						$writeresult = fwrite($handle, $storestring);

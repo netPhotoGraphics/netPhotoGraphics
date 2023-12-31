@@ -6,7 +6,7 @@
  * @author Stephen Billard (sbillard)
  * @package plugins/search_statistics
  */
-define('OFFSET_PATH', 4);
+define('OFFSET_PATH', 3);
 require_once(dirname(__DIR__) . '/admin-globals.php');
 admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 
@@ -431,8 +431,10 @@ echo '</head>';
 												$priority = $plugin_is_filter & PLUGIN_PRIORITY;
 											}
 											$filter = unQuote(trim($params[0]));
-											$function = unQuote(trim($params[1]));
-											$filters[$filter][$priority][$function] = array('function' => $function, 'script' => $extension . '.php');
+											if ($filter != $params[0]) { //	don't know what to do if not a string constant
+												$function = unQuote(trim($params[1]));
+												$filters[$filter][$priority][$function] = array('function' => $function, 'script' => $extension . '.php');
+											}
 										}
 									}
 								} else {
@@ -448,7 +450,7 @@ echo '</head>';
 						?>
 						<div class="overview-list-h3">
 							<h3>
-								<?php printf(ngettext("%u active filter:", "%u active filters:", $c), $c); ?>
+								<?php printf(ngettext("%u filter:", "%u filters:", $c), $c); ?>
 							</h3>
 						</div>
 						<div class="overview_list">

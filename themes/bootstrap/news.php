@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 	<!-- .container main -->
 		<!-- .page-header -->
@@ -31,7 +31,7 @@
 		<div class="row">
 			<?php if (getNewsExtraContent()) { ?>
 			<div class="col-sm-9">
-				<?php include('inc_print_news.php'); ?>
+				<?php include('includes/print_news.php'); ?>
 			</div>
 			<div class="col-sm-3">
 				<div class="post extra-content clearfix">
@@ -40,13 +40,13 @@
 			</div>
 			<?php } else { ?>
 			<div class="col-sm-12">
-				<?php include('inc_print_news.php'); ?>
+				<?php include('includes/print_news.php'); ?>
 			</div>
 			<?php } ?>
 		</div>
 
 		<?php if (extensionEnabled('comment_form')) { ?>
-			<?php include('inc_print_comment.php'); ?>
+			<?php include('includes/print_comment.php'); ?>
 		<?php } ?>
 
 	<?php } else {
@@ -69,7 +69,7 @@
 
 		<div class="news-wrap">
 			<?php while (next_news()) { ?>
-				<?php include('inc_print_news.php'); ?>
+				<?php include('includes/print_news.php'); ?>
 			<?php } ?>
 		</div>
 
@@ -77,7 +77,7 @@
 		if (!getOption('zpB_use_infinitescroll_news')) {
 			printNewsPageListWithNav('»', '«', true, 'pagination pagination-sm margin-top-reset', true, 7);
 		} else {
-			include('inc_print_infinitescroll_news.php');
+			include('includes/print_infinitescroll_news.php');
 		}
 		?>
 
@@ -85,4 +85,4 @@
 
 	</div><!-- /.container main -->
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>

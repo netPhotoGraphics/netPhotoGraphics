@@ -82,7 +82,8 @@ class PersistentObject {
 		}
 		$this->use_cache = $use_cache;
 		$this->transient = $is_transient;
-		return $this->load($allowCreate);
+		$obj = $this->load($allowCreate);
+		return $obj;
 	}
 
 	/**
@@ -174,7 +175,7 @@ class PersistentObject {
 		$new_unique_set = array_change_key_case($new_unique_set, CASE_LOWER);
 		$result = query('SELECT `id` FROM ' . prefix($this->table) . getWhereClause($new_unique_set) . ' LIMIT 1;');
 
-		if ($result && $result->num_rows == 0) {
+		if ($result && db_num_rows($result) == 0) {
 			if (!npgFilters::apply('copy_object', true, $this, $new_unique_set)) {
 				return false;
 			}
@@ -421,9 +422,11 @@ class PersistentObject {
 						$sql .= ',`lastchange`=' . db_quote(date('Y-m-d H:i:s')) . ',`lastchangeuser`=' . db_quote($updateUser->getUser());
 					}
 					$sql = 'UPDATE ' . prefix($this->table) . ' SET' . $sql . ' WHERE id=' . $this->id . ';';
-					$success = (int) query($sql);
+					$success = query($sql);
 					if (!$success || db_affected_rows() != 1) {
 						return 0;
+					} else {
+						$success = 1;
 					}
 				}
 				$this->updates = array();
@@ -961,8 +964,10 @@ class ThemeObject extends PersistentObject {
 	protected function setDefaultSortOrder($qualifier = NULL) {
 		$sql = 'SELECT `sort_order` FROM ' . prefix($this->table) . $qualifier . ' ORDER BY sort_order DESC';
 		$result = query_single_row($sql);
-		$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
-		$this->setSortOrder($new);
+		if ($result) {
+			$new = isset($result['sort_order']) ? sprintf('%03u', min(999, (int) substr($result['sort_order'], 0, 3) + 1)) : '000';
+			$this->setSortOrder($new);
+		}
 	}
 
 }

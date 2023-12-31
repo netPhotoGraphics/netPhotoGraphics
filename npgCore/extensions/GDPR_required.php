@@ -127,7 +127,7 @@ class GDPR_required {
 					if (isset($_SERVER['HTTP_USER_AGENT'])) {
 						$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 					} else {
-						$agent = NULL;
+						$agent = '';
 					}
 					$require = true;
 					foreach ($goodBots as $bot) {

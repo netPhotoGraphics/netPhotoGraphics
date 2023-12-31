@@ -1,4 +1,4 @@
-<?php include ('inc_header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
 <div id="post">
 
@@ -25,4 +25,4 @@
 
 </div>
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>

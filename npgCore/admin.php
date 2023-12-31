@@ -91,6 +91,24 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 					query($sql);
 					break;
 
+				case 'optimizeTables':
+					$dbTables = array();
+					$result = db_show('tables');
+					if ($result) {
+						while ($row = db_fetch_assoc($result)) {
+							$dbTables[] = $row;
+						}
+						db_free_result($result);
+					}
+
+					foreach ($dbTables as $row) {
+						query('OPTIMIZE TABLE ' . prefix(reset($row)));
+					}
+					$class = 'messagebox fade-message';
+					$msg = gettext('Database tables optimized.');
+
+					break;
+
 				/** clear the image cache **************************************************** */
 				case "clear_cache":
 					XSRFdefender('clear_cache');
@@ -378,6 +396,20 @@ $buttonlist = array();
 			);
 		}
 
+		$buttonlist[] = array(
+				'XSRFTag' => 'optimizeTables',
+				'category' => gettext('Database'),
+				'enable' => TRUE,
+				'button_text' => $buttonText = gettext('Optimize Database tables'),
+				'formname' => 'optiomizeTables_button',
+				'action' => getAdminLink('admin.php') . '?action=optimizeTables',
+				'icon' => HIGH_VOLTAGE_SIGN,
+				'title' => gettext('Performs an OPTIMIZE TABLES query on each table in the database.'),
+				'alt' => '',
+				'hidden' => '<input type="hidden" name="action" value="optimizeTables" />',
+				'rights' => ADMIN_RIGHTS
+		);
+
 		if ($newVersionAvailable = isset($newestVersion) && $newestVersion) {
 			$newVersionAvailable = version_compare(preg_replace('~[^0-9,.]~', '', $newestVersion), preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE));
 			if ($newVersionAvailable > 0) {
@@ -575,7 +607,7 @@ $buttonlist = array();
 			}
 
 			$updates = array();
-			$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false, true, true);
+			$buttonlist = sortMultiArray($buttonlist, array('category' => false, 'button_text' => false), true, true);
 			foreach ($buttonlist as $key => $button) {
 				if ($button['category'] == 'Updates') {
 					$updates[] = $button;

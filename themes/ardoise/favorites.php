@@ -1,6 +1,6 @@
 <?php 
 if (extensionEnabled('favoritesHandler')) {
-	include ('inc_header.php');
+	include ('includes/header.php');
 ?>
 
 		<div id="headline" class="clearfix">
@@ -23,10 +23,10 @@ if (extensionEnabled('favoritesHandler')) {
 
 			<?php
 			if (getNumAlbums() > 0) {
-				include('inc_print_album_thumb.php');
+				include('includes/print_album_thumb.php');
 			}
 			if (getNumImages() > 0) {
-				include('inc_print_image_thumb.php');
+				include('includes/print_image_thumb.php');
 			}
 			?>
 
@@ -37,7 +37,7 @@ if (extensionEnabled('favoritesHandler')) {
 		</div>
 
 <?php
-	include('inc_footer.php');
+	include('includes/footer.php');
 
 } else {
 	include(CORE_SERVERPATH . '404.php');

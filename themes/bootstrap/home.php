@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <!-- .container -->
 <!-- .page-header -->
@@ -71,4 +71,4 @@ if ('* none *' != $album_filename = getOption('zpB_homepage_album_filename')) {
 </div><!-- /.container main -->
 
 <?php
-include('inc_footer.php');
+include('includes/footer.php');

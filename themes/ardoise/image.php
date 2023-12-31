@@ -1,4 +1,4 @@
-<?php include ('inc_header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
 <div id="image-page" class="clearfix">
 	<div id="headline" class="clearfix">
@@ -64,7 +64,7 @@
 </div>
 
 <?php if (extensionEnabled('comment_form')) { ?>
-	<?php include('inc_print_comment.php'); ?>
+	<?php include('includes/print_comment.php'); ?>
 <?php } ?>
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>

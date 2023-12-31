@@ -130,7 +130,7 @@ class accessThreshold {
 			foreach ($recentIP as $data) {
 				if (isset($data['accessed'])) {
 					foreach ($data['accessed'] as $access) {
-						$date = date('yy-m-d H', $access['time']);
+						$date = gmdate('yy-m-d H', $access['time']);
 						if (isset($days[$date])) {
 							$days[$date]++;
 						} else {
@@ -145,7 +145,7 @@ class accessThreshold {
 					}
 				}
 			}
-			ksort($days);
+			krsort($days);
 			uksort($ips, function ($a, $b) {
 				$retval = 0;
 				$_a = explode('.', str_replace(':', '.', $a));
@@ -166,7 +166,7 @@ class accessThreshold {
 		<div class="box overview-section overview-install-info">
 			<div class="overview-list-h3">
 				<h3>
-					<?php echo gettext('Site Visits by date'); ?>
+					<?php echo gettext('Site Visits by hour (GMT)'); ?>
 					<span style="float:right!important" title="<?php echo $info; ?>">
 						<?php echo INFORMATION_BLUE; ?>
 					</span>
@@ -342,7 +342,7 @@ if (extensionEnabled('accessThreshold')) {
 			}
 		}
 		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
-			$recentIP = sortMultiArray($recentIP, array('lastAccessed'), true, true, false, true);
+			$recentIP = sortMultiArray($recentIP, array('lastAccessed' => true), true, false, true);
 			$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
 		}
 		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));

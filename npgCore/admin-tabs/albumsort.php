@@ -76,7 +76,7 @@ printAdminHeader('edit', 'sort');
 	function cancelSort() {
 		$('#images').sortable('cancel');
 	}
-	
+
 </script>
 <?php
 echo "\n</head>";
@@ -143,7 +143,7 @@ echo "\n</head>";
 						}
 					}
 					?>
-					<form class="dirtylistening" onReset="setClean('sortableListForm'); cancelSort();" action="?page=edit&amp;album=<?php echo $album->getFileName(); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
+					<form class="dirtylistening" onReset="setClean('sortableListForm'); cancelSort();" action="?page=edit&amp;album=<?php echo urlencode($album->getFileName()); ?>&amp;saved&amp;tab=sort" method="post" name="sortableListForm" id="sortableListForm" >
 						<?php XSRFToken('save_sort'); ?>
 						<?php printBulkActions($checkarray_images, true); ?>
 

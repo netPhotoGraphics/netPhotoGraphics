@@ -123,7 +123,7 @@ class user_groups {
 		}
 
 		$userid = $userobj->getUser();
-		$adminGroups = sortMultiArray($adminGroups, 'user');
+		$adminGroups = sortMultiArray($adminGroups, ['user' => false]);
 		foreach ($adminGroups as $adminGroup) {
 			if (in_array($adminGroup['user'], $hisgroups)) {
 				$membership[] = $adminGroup;

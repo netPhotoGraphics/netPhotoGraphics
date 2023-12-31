@@ -1,4 +1,4 @@
-<?php include ('inc_header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
 <div id="headline" class="clearfix">
 	<h3><?php echo '<em>' . gettext('Search') . '</em>'; ?></h3>
@@ -73,10 +73,10 @@ if (!empty($searchdate)) {
 
 	<?php
 	if (getNumAlbums() > 0) {
-		include('inc_print_album_thumb.php');
+		include('includes/print_album_thumb.php');
 	}
 	if (getNumImages() > 0) {
-		include('inc_print_image_thumb.php');
+		include('includes/print_image_thumb.php');
 	}
 	?>
 
@@ -121,4 +121,4 @@ if (!empty($searchdate)) {
 }
 ?>
 
-<?php include('inc_footer.php'); ?>
+<?php include('includes/footer.php'); ?>

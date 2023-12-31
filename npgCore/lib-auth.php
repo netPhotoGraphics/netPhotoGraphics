@@ -88,7 +88,7 @@ class _Authority {
 	function validID($id) {
 		$sql = 'SELECT `user` FROM ' . prefix('administrators') . ' WHERE `id`=' . $id;
 		$result = query($sql);
-		return $result && $result->num_rows > 0;
+		return $result && db_num_rows($result) > 0;
 	}
 
 	/**
@@ -642,7 +642,7 @@ class _Authority {
 
 		$sql = "SELECT `id`, `rights` FROM " . prefix('administrators') . "ORDER BY `rights` DESC, `id`";
 		$admins = query($sql, false);
-		if ($admins && $admins->num_rows > 0) { // something to migrate
+		if ($admins && db_num_rows($admins) > 0) { // something to migrate
 			$oldrights = array();
 			foreach (self::getRights($oldversion) as $key => $right) {
 				$oldrights[$key] = $right['value'];

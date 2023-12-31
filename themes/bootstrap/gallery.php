@@ -1,4 +1,4 @@
-<?php include('inc_header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 	<!-- .container -->
 		<!-- .page-header -->
@@ -25,16 +25,16 @@
 		}
 
 		if (isAlbumPage()) {
-			include('inc_print_album_thumb.php');
+			include('includes/print_album_thumb.php');
 		}
 
 		if (!getOption('zpB_use_infinitescroll_gallery')) {
 			printPageListWithNav('«', '»', false, true, 'pagination pagination-sm top-margin-reset', NULL, true, 7);
 		} else {
-			include('inc_print_infinitescroll.php');
+			include('includes/print_infinitescroll.php');
 		}
 		?>
 
 	</div><!-- /.container main -->
 
-<?php include('inc_footer.php');
+<?php include('includes/footer.php');

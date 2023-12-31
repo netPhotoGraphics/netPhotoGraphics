@@ -244,7 +244,7 @@ class cacheManager {
 			}
 			$ownerid = preg_replace('/[^A-Za-z0-9\-_]/', '', $ownerid);
 
-			$ownerdata = sortMultiArray($ownerdata, array('thumb', 'image_size', 'image_width', 'image_height'));
+			$ownerdata = sortMultiArray($ownerdata, array('thumb' => false, 'image_size' => false, 'image_width' => false, 'image_height' => false));
 			if (!$owner) {
 				echo '<br />';
 			}
@@ -544,7 +544,7 @@ class cacheManager {
 	}
 
 	static function buttons($buttons) {
-		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) && $result->num_rows > 0) {
+		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" LIMIT 1')) && db_num_rows($result) > 0) {
 			$enable = true;
 			$title = gettext('Finds images that have not been cached and creates the cached versions.');
 		} else {
@@ -608,7 +608,7 @@ class cacheManager {
 
 	static function albumbutton($html, $object, $prefix) {
 		$html .= '<hr />';
-		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" lIMIT 1')) && $result->num_rows > 0) {
+		if (($result = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="cacheManager" lIMIT 1')) && db_num_rows($result) > 0) {
 			$disable = '';
 			$title = gettext('Finds images that have not been cached and creates the cached versions.');
 		} else {

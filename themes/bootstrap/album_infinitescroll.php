@@ -2,7 +2,7 @@
 if ((getNumAlbums() > 0) && (getNumImages() > 0)) {
 	include('album_standard.php');
 } else {
-	include('inc_header.php');
+	include('includes/header.php');
 	?>
 
 	<!-- .container main -->
@@ -24,13 +24,13 @@ if ((getNumAlbums() > 0) && (getNumImages() > 0)) {
 
 	<?php
 	if (isAlbumPage()) {
-		include('inc_print_album_thumb.php');
+		include('includes/print_album_thumb.php');
 	}
 	if (isImagePage()) {
-		include('inc_print_image_thumb.php');
+		include('includes/print_image_thumb.php');
 	}
 
-	include('inc_print_infinitescroll.php');
+	include('includes/print_infinitescroll.php');
 	?>
 
 	<?php if ((npg_loggedin()) && (extensionEnabled('favoritesHandler'))) { ?>
@@ -42,21 +42,21 @@ if ((getNumAlbums() > 0) && (getNumImages() > 0)) {
 	<?php
 	switch (simplemap::mapPlugin()) {
 		case 'googleMap':
-			include('inc_print_googlemap.php');
+			include('includes/print_googlemap.php');
 			break;
 		case 'openStreetMap':
-			include('inc_print_osm.php');
+			include('includes/print_osm.php');
 			break;
 	}
 
 	if (extensionEnabled('comment_form')) {
-		include('inc_print_comment.php');
+		include('includes/print_comment.php');
 	}
 	?>
 
 	</div><!-- /.container main -->
 
 	<?php
-	include('inc_footer.php');
+	include('includes/footer.php');
 }
 ?>

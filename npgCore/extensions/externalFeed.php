@@ -183,7 +183,7 @@ class ExternalFeed extends feed {
 
 		if ($this->key) {
 			$found = query('SELECT `id` FROM ' . prefix('plugin_storage') . ' WHERE `type`="externalFeed" AND `data`=' . db_quote($this->key) . ' LIMIT 1');
-			if (!$found || $found->num_rows == 0) {
+			if (!$found || db_num_rows($found) == 0) {
 				$this->key = NULL;
 			}
 		}

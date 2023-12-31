@@ -84,22 +84,26 @@ define('METADATA_FIELD_LINKED', 7);
 define('SYMLINK', function_exists('symlink') && strpos(ini_get("suhosin.executor.func.blacklist"), 'symlink') === false);
 define('CASE_INSENSITIVE', file_exists(dirname(__FILE__) . '/VERSION.PHP'));
 
-$_debug = explode('-', NETPHOTOGRAPHICS_VERSION . '-');
-$_debug = $_debug[1];
-define('TEST_RELEASE', !empty($_debug));
+preg_match('/-(.*)/', NETPHOTOGRAPHICS_VERSION, $_debug);
+if (isset($_debug[1])) {
+	$_debug = $_debug[1];
+} else {
+	$_debug = '';
+}
 
-define('DISPLAY_ERRORS', strpos($_debug, 'DISPLAY‑ERRORS')); // set to true to have PHP show errors on the web pages
-define('DEBUG_404', strpos($_debug, '404')); // set to true to log 404 error processing debug information.
-define('DEBUG_EXIF', strpos($_debug, 'EXIF')); // set to true to log start/finish of exif processing.
-define('EXPLAIN_SELECTS', strpos($_debug, 'EXPLAIN')); //	set to true to log the "EXPLAIN" of SQL SELECT queries
-define('DEBUG_FILTERS', strpos($_debug, 'FILTERS')); // set to true to log filter application sequence.
-define('DEBUG_IMAGE', strpos($_debug, 'IMAGE')); // set to true to log image processing debug information.
-define('DEBUG_LOCALE', strpos($_debug, 'LOCALE')); // used for examining language selection problems
-define('DEBUG_LOGIN', strpos($_debug, 'LOGIN')); // set to true to log admin saves and login attempts
-define('DEBUG_PLUGINS', strpos($_debug, 'PLUGINS')); // set to true to log plugin load sequence.
-define('DEBUG_FEED', strpos($_debug, 'FEED')); // set to true to log class feed detected issues.
-define('DEBUG_OBJECTS', strpos($_debug, 'OBJECTS')); // set to true to log object management.
-define('TESTING_MODE', strpos($_debug, 'TESTING'));
+define('TEST_RELEASE', !empty($_debug));
+define('DISPLAY_ERRORS', (bool) strpos($_debug, 'DISPLAY‑ERRORS')); // set to true to have PHP show errors on the web pages
+define('DEBUG_404', (bool) strpos($_debug, '404')); // set to true to log 404 error processing debug information.
+define('DEBUG_EXIF', (bool) strpos($_debug, 'EXIF')); // set to true to log start/finish of exif processing.
+define('EXPLAIN_SELECTS', (bool) strpos($_debug, 'EXPLAIN')); //	set to true to log the "EXPLAIN" of SQL SELECT queries
+define('DEBUG_FILTERS', (bool) strpos($_debug, 'FILTERS')); // set to true to log filter application sequence.
+define('DEBUG_IMAGE', (bool) strpos($_debug, 'IMAGE')); // set to true to log image processing debug information.
+define('DEBUG_LOCALE', (bool) strpos($_debug, 'LOCALE')); // used for examining language selection problems
+define('DEBUG_LOGIN', (bool) strpos($_debug, 'LOGIN')); // set to true to log admin saves and login attempts
+define('DEBUG_PLUGINS', (bool) strpos($_debug, 'PLUGINS')); // set to true to log plugin load sequence.
+define('DEBUG_FEED', (bool) strpos($_debug, 'FEED')); // set to true to log class feed detected issues.
+define('DEBUG_OBJECTS', (bool) strpos($_debug, 'OBJECTS')); // set to true to log object management.
+define('TESTING_MODE', (bool) strpos($_debug, 'TESTING'));
 
 unset($_debug);
 
@@ -121,7 +125,7 @@ define('MYSQL_CONNECTION_RETRIES', 5);
  * 		1		core scripts
  * 		2		setup scripts
  * 		3		plugin scripts
- * 		4		scripts in the theme folders
+ * 		4		sub-folders scripts
  */
 $const_webpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 $const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));
@@ -281,12 +285,14 @@ define('CURVED_UPWARDS_AND_RIGHTWARDS_ARROW_BLUE', '<span class="font_icon" styl
 define('DRAG_HANDLE', '<span class="font_icon" style="color:lightsteelblue; font-size: x-large;">&#10021;</span>');
 define('DRAG_HANDLE_ALERT', '<span class="font_icon" style="color:red; font-size: x-large;">&#10021;</span>');
 define('DUPLICATE_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5D7;</span>');
+define('ELECTRIC_ARROW', '<span class="font_icon" style="color:green; font-size: x-large; font-weight: bold;">&#x2301;</span>');
 define('ENVELOPE', '<span class="font_icon" style="font-size: large;">&#9993;</span>');
 define('EXCLAMATION_RED', '<span class="font_icon" style="color: red; font-family: Times New Roman; font-weight: bold; font-size: large;">&#33;</span>');
 define('EXPORT_ICON', '<span class="font_icon" style="font-size: large;">&#x1F5CE;</span>');
-define('FOLDER_ICON', '<span class="font_icon" style=" color: goldenrod;">&#x1F4C1;</span>');
+define('FOLDER_ICON', '<span class="font_icon" style="color: goldenrod;">&#x1F4C1;</span>');
 define('GEAR_SYMBOL', '&#9881;');
 define('HIDE_ICON', '<span class="font_icon" style="font-size: large; color: red;">&#x1F441;</span>');
+define('HIGH_VOLTAGE_SIGN', '<span class="font_icon">&#x26A1;</span>');
 define('IMAGE_FOLDER', '<span class="font_icon" style="font-size: large;">&#x1F5BC;</span>');
 define('IMAGE_FOLDER_DYNAMIC', '<span class="font_icon" style="color: lightgray; font-size: large;">&#x1F5BC;</span>');
 define('INFORMATION_BLUE', '<span class="font_icon" style="color: blue; font-family: Times New Roman; font-size: large;">&#8505;</span>');

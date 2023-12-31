@@ -6,7 +6,7 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_homepage.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/homepage.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>

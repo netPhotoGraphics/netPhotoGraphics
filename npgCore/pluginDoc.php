@@ -473,7 +473,7 @@ if (!defined('OFFSET_PATH')) {
 								$options = $supportedOptions = $option_interface->getOptionsSupported();
 								$option = reset($options);
 								if (array_key_exists('order', $option)) {
-									$options = sortMultiArray($supportedOptions, 'order');
+									$options = sortMultiArray($supportedOptions, ['order' => false]);
 									$options = array_keys($options);
 								} else {
 									$options = array_keys($supportedOptions);
@@ -530,7 +530,7 @@ if (!defined('OFFSET_PATH')) {
 								<?php
 							}
 							if (!empty($buttonlist)) {
-								$buttonlist = sortMultiArray($buttonlist, array('category', 'button_text'), false);
+								$buttonlist = sortMultiArray($buttonlist, array('category' => false, 'button_text' => false));
 								?>
 								<div class="box" id="overview-section">
 									<h2 class="h2_bordered">Utility functions</h2>

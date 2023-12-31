@@ -6,12 +6,12 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 
 <div id="background-main" class="background">
 	<div class="container<?php if (getOption('full_width')) {echo '-fluid';}?>">
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 
@@ -22,9 +22,9 @@ if (!defined('WEBPATH'))
 			<p><?php print404status(isset($album) ? $album : NULL, isset($image) ? $image : NULL, $obj); ?></p>
 
 			</section>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_sidebar.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/sidebar.php'); ?>
 		</div>
 	</div>
 </div>		
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>

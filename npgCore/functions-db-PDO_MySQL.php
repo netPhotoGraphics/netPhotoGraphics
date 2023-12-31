@@ -69,30 +69,31 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				sleep(pow(2, $i));
 			}
 		}
+		//set character set protocol
+		$software = db_software();
+		$version = $software['version'];
+		try {
+			if (version_compare($version, '5.5.3', '>=')) {
+				$_DB_connection->query("SET NAMES 'utf8mb4'");
+			} else {
+				$_DB_connection->query("SET NAMES 'utf8'");
+			}
+		} catch (PDOException $e) {
+			//	:(
+		}
+
+		// set the sql_mode to relaxed (if possible)
+		try {
+			$_DB_connection->query('SET SESSION sql_mode="";');
+		} catch (PDOException $e) {
+			//	What can we do :(
+		}
 	} else {
 		trigger_error(gettext('PDO_MySQL extension not loaded.'), $errorstop);
 	}
 
 	$_DB_details = $config;
-	//set character set protocol
-	$software = db_software();
-	$version = $software['version'];
-	try {
-		if (version_compare($version, '5.5.3', '>=')) {
-			$_DB_connection->query("SET NAMES 'utf8mb4'");
-		} else {
-			$_DB_connection->query("SET NAMES 'utf8'");
-		}
-	} catch (PDOException $e) {
-		//	:(
-	}
 
-	// set the sql_mode to relaxed (if possible)
-	try {
-		$_DB_connection->query('SET SESSION sql_mode="";');
-	} catch (PDOException $e) {
-		//	What can we do :(
-	}
 	return $_DB_connection;
 }
 
@@ -109,6 +110,9 @@ function db_software() {
 		if (isset($max['Value']) || $max['Value'] == 0) {
 			$max = query_single_row('SHOW GLOBAL VARIABLES LIKE "max_connections";');
 		}
+		$clientInfo = $_DB_connection->getAttribute(PDO::ATTR_CLIENT_VERSION);
+	} else {
+		$clientInfo = '';
 	}
 	if (!isset($matches[0])) {
 		$matches[0] = '?.?.?';
@@ -120,7 +124,8 @@ function db_software() {
 			'required' => DATABASE_MIN_VERSION,
 			'desired' => DATABASE_DESIRED_VERSION,
 			'version' => $matches[0],
-			'connections' => $max['Value']
+			'connections' => $max['Value'],
+			'client_info' => $clientInfo
 	);
 }
 
@@ -202,7 +207,7 @@ function db_list_fields($table) {
 		$_tableFields[$table] = array();
 		$result = db_show('columns', $table);
 		if ($result) {
-			while ($row = db_fetch_assoc($result)) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$_tableFields[$table][$row['Field']] = $row;
 			}
 			$result->closeCursor();
@@ -258,7 +263,7 @@ function query_single_row($sql, $errorstop = true) {
 	}
 	$result = db_query($sql, $errorstop);
 	if ($result) {
-		$row = db_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		$result->closeCursor();
 		return $row;
 	} else {
@@ -290,7 +295,7 @@ function query_full_array($sql, $errorstop = true, $key = NULL) {
 		$result->closeCursor();
 		return $allrows;
 	} else {
-		return false;
+		return array();
 	}
 }
 
@@ -400,5 +405,8 @@ function db_close() {
 }
 
 function db_free_result($result) {
-	return $result->closeCursor();
+	if (is_object($result)) {
+		return $result->closeCursor();
+	}
+	return false;
 }

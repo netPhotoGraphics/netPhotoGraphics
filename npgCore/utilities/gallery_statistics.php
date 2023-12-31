@@ -219,7 +219,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 						}
 					}
 					$maxvalue = 1;
-					$itemssorted = sortMultiArray($albums, 'id', true, true); // The items are originally sorted by id;
+					$itemssorted = sortMultiArray($albums, ['id' => true], true); // The items are originally sorted by id;
 					$headline = $typename . " - " . gettext("latest");
 					break;
 				case "images":
@@ -564,7 +564,7 @@ echo '</head>';
 				</ul>
 
 				<?php
-				if (!isset($_GET['stats']) AND ! isset($_GET['fulllist'])) {
+				if (!isset($_GET['stats']) && !isset($_GET['fulllist'])) {
 					?>
 					<ul class="statistic_navlist">
 						<li><strong><?php echo gettext("Images"); ?></strong>

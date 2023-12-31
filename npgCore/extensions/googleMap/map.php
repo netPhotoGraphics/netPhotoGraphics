@@ -7,7 +7,7 @@
 
 // force UTF-8 Ø
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-define('OFFSET_PATH', 3);
+define('OFFSET_PATH', 4);
 require_once(dirname(dirname(__DIR__)) . '/functions.php');
 if (getOption('gmap_sessions')) {
 	npg_session_start();

@@ -175,7 +175,7 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
 		$link = html_encode(getNewsURL($item['titlelink']));
 
 		$count2 = 0;
-		$category = $obj->getCategories();
+		$category = sortByMultilingual($obj->getCategories(), 'title', false);
 		foreach ($category as $cat) {
 			$catobj = newCategory($cat['titlelink']);
 			$count2++;
@@ -527,7 +527,7 @@ function printNewsCategoryDesc() {
 function getNewsCategories() {
 	global $_CMS_current_article;
 	if (!is_null($_CMS_current_article)) {
-		$categories = $_CMS_current_article->getCategories();
+		$categories = sortByMultilingual($_CMS_current_article->getCategories(), 'title', false);
 		return $categories;
 	}
 	return array();

@@ -1,6 +1,6 @@
 <?php 
 if (class_exists('CMS')) {
-	include ('inc_header.php');
+	include ('includes/header.php');
 ?>
 
 		<div id="post" class="clearfix">
@@ -16,11 +16,11 @@ if (class_exists('CMS')) {
 		</div>
 
 		<?php if (extensionEnabled('comment_form')) { ?>
-			<?php include('inc_print_comment.php'); ?>
+			<?php include('includes/print_comment.php'); ?>
 		<?php } ?>
 
 <?php
-	include('inc_footer.php');
+	include('includes/footer.php');
 
 } else {
 	include(CORE_SERVERPATH . '404.php');

@@ -1,6 +1,6 @@
 <?php
 if (extensionEnabled('register_user')) {
-	include ('inc_header.php');
+	include ('includes/header.php');
 ?>
 
 	<div id="post">
@@ -15,7 +15,7 @@ if (extensionEnabled('register_user')) {
 	</div>
 
 <?php
-	include('inc_footer.php');
+	include('includes/footer.php');
 
 } else {
 	include(CORE_SERVERPATH . '404.php');

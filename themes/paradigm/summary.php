@@ -6,8 +6,8 @@ if (!defined('WEBPATH'))
 ?>
 <!DOCTYPE html>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_head.php'); ?>
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_header.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/head.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/header.php'); ?>
 
 <div id="background-main" class="background">
 	<div class="container<?php
@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		echo '-fluid';
 	}
 	?>">
-				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_breadcrumbs.php'); ?>
+				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
 		<div id="center" class="row" itemscope itemtype="http://schema.org/WebPage">
 			<section class="col-sm-12" id="main" itemprop="mainContentOfPage">
 
@@ -28,4 +28,4 @@ if (!defined('WEBPATH'))
 	</div>
 </div>
 
-<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/_footer.php'); ?>
+<?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/footer.php'); ?>

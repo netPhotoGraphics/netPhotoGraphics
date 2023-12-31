@@ -100,7 +100,7 @@ class reCAPTCHA_v2 {
 	<div>
 		<div style="width: 302px; height: 422px; position: relative;">
 			<div style="width: 302px; height: 422px; position: absolute;">
-				<iframe src="https://www.google.com/recaptcha/api/fallback?k=your_site_key"
+				<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . getOption('reCAPTCHAKey') . '"
 								frameborder="0" scrolling="no"
 								style="width: 302px; height:422px; border-style: none;">
 				</iframe>
@@ -137,9 +137,14 @@ class reCAPTCHA_v2 {
 			$captcha = $_POST['g-recaptcha-response'];
 			$ip = $_SERVER['REMOTE_ADDR'];
 			$secretkey = getOption('reCAPTCHASecret');
-			$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secretkey . "&response=" . $captcha . "&remoteip=" . $ip);
-			$responseKeys = json_decode($response, true);
-			return intval($responseKeys["success"]) === 1;
+			$fileURL = filter_var("https://www.google.com/recaptcha/api/siteverify?secret=" . $secretkey . "&response=" . $captcha . "&remoteip=" . $ip, FILTER_SANITIZE_URL);
+			$response = file_get_contents($fileURL);
+			if ($response !== false) {
+				$responseKeys = json_decode($response, true);
+				if (isset($responseKeys["success"])) {
+					return intval($responseKeys["success"]) === 1;
+				}
+			}
 		}
 		return false;
 	}
@@ -147,5 +152,4 @@ class reCAPTCHA_v2 {
 }
 
 $_captcha = new reCAPTCHA_v2();
-
 

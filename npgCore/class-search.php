@@ -1035,7 +1035,7 @@ class SearchEngine {
 	protected static function sortResults($sorttype, $sortdirection, $result, $weights) {
 		$sorttype = trim($sorttype, '`');
 		if ($weights) {
-			$result = sortMultiArray($result, 'weight', true, true, false, false, array('weight'));
+			$result = sortMultiArray($result, ['weight' => true], true, false, false, array('weight'));
 		}
 		switch ($sorttype) {
 			case 'title':

@@ -422,12 +422,12 @@ if ($selected_database) {
 	$connection = $__initialDBConnection;
 	if ($connection) { // got the database handler and the database itself connected
 		//	Flag a successful connection has occurred
-		$_conf_vars['db_client'] = $connection->client_info;
-		$_config_contents = configFile::update('db_client', $connection->client_info, $_config_contents);
+		$_conf_vars['db_client'] = db_software()['client_info'];
+		$_config_contents = configFile::update('db_client', $_conf_vars['db_client'], $_config_contents);
 		configFile::store($_config_contents);
 
 		$result = query("SELECT `id` FROM " . $_conf_vars['mysql_prefix'] . 'options' . " LIMIT 1", false);
-		if ($result && $result->num_rows > 0) {
+		if ($result && db_num_rows($result) > 0) {
 			$upgrade = gettext("upgrade");
 		} else {
 			$upgrade = gettext("install");
@@ -542,7 +542,7 @@ if ($setup_checked) {
 			$clone = ' ' . gettext('clone');
 		}
 
-		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s'), NETPHOTOGRAPHICS_VERSION, $clone, date('r')), true, true); // initialize the log file
+		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s GMT'), NETPHOTOGRAPHICS_VERSION, $clone, gmdate('D, d M Y H:i:s')), true, true); // initialize the log file
 	}
 
 	if ($environ) {
@@ -1791,12 +1791,15 @@ clearstatcache();
 								</script>
 								<?php
 							}
-							//	if the install is a new version, the NETPHOTOGRAPHICS_VERSION define will not be updated
-							//	by the debug plugin, so we fecth the actual option to be sure to be current.
-							if (!$test_release = getOption('markRelease_state')) {
-								$test_release = '';
+
+							if (TEST_RELEASE) {
+								$_debug = NETPHOTOGRAPHICS_VERSION;
+							} else {
+								//	if the install is a new version, the version.php script define will not be updated
+								//	by the debug plugin yet, so we fecth the actual option.
+								$_debug = getOption('markRelease_state');
 							}
-							if (strpos($test_release, '_UNPROTECT') !== FALSE) {
+							if ((bool) strpos($_debug, 'UNPROTECT')) {
 								$query = '';
 							} else {
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');

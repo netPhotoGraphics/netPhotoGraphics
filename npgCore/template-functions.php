@@ -153,7 +153,7 @@ function adminToolbox() {
 				if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 					$sql = 'SELECT `filename` FROM ' . prefix('images') . ' WHERE `owner`=' . db_quote($_current_admin_obj->getUser()) . ' LIMIT 1';
 					$found = query($sql);
-					if ($found && $found->num_rows > 0) {
+					if ($found && db_num_rows($found) > 0) {
 						?>
 						<li>
 							<?php printLinkHTML(getAdminLink('admin-tabs/images.php') . '?page=admin&tab=images', gettext("My images"), NULL, NULL, NULL); ?>
@@ -717,7 +717,7 @@ function getAllImages($album = NULL, $sorttype = NULL, $sortdirection = 'DESC') 
 		if ($sortby == 'RAND()') {
 			shuffle($list);
 		} else {
-			$list = sortMultiArray($list, $sortby, strtolower($sortdirection) != 'asc');
+			$list = sortMultiArray($list, [$sortby => strtolower($sortdirection) != 'asc']);
 		}
 	}
 	return $list;
@@ -3402,7 +3402,7 @@ function getRandomImages($daily = false, $limit = 1) {
 			$imageWhere = " WHERE `show`=1";
 		}
 		$row = query_single_row('SELECT COUNT(*) FROM ' . prefix('images'));
-		if (5000 < $count = reset($row)) {
+		if ($row && 5000 < $count = reset($row)) {
 			$sample = ceil((max(1000, $limit * 100) / $count) * 100);
 			if ($imageWhere) {
 				$imageWhere .= ' AND';
@@ -4543,7 +4543,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>

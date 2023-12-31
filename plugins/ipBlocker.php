@@ -110,7 +110,7 @@ class ipBlocker {
 				$key = 0;
 				$list = self::getList();
 				if (!empty($list)) {
-					$list = array_values(sortMultiArray(self::getList(), 'start'));
+					$list = array_values(sortMultiArray(self::getList(), ['start' => false]));
 
 					foreach ($list as $key => $range) {
 						$start = str_replace(' ', '', $range['start']);

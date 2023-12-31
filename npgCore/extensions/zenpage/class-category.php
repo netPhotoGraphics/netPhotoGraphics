@@ -468,6 +468,10 @@ class Category extends CMSRoot {
 		return count($this->getArticles(0));
 	}
 
+	function getTotalNewsPages() {
+		return ceil($this->getTotalArticles() / ARTICLES_PER_PAGE);
+	}
+
 	/**
 	 * Returns an article from the album based on the index passed.
 	 *
