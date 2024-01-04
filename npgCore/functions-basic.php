@@ -419,10 +419,18 @@ function db_name() {
 	return getOption('mysql_database');
 }
 
+/**
+ * Rotates through array of user=>password values changing each minute
+ * This distributes the MySQL user in hopes of mitigating the MySQL
+ * max questions exceeded error.
+ *
+ * @param array $conf array with the mysql configuration
+ * @return array with user=>password
+ */
 function selectDBuser($conf) {
 	if (is_array($conf['mysql_user'])) {
 		$keys = array_keys($conf['mysql_user']);
-		$user = $keys[intdiv(date('i'), round(60 / count($conf['mysql_user']), 1))];
+		$user = $keys[date('i') % count($conf['mysql_user'])];
 		return array($user, $conf['mysql_user'][$user]);
 	}
 	return array($conf['mysql_user'], $conf['mysql_pass']);
