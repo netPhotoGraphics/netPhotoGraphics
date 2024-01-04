@@ -129,7 +129,6 @@ unset($data);
 if (function_exists('date_default_timezone_set')) {
 	$level = error_reporting(0);
 	$_server_timezone = date_default_timezone_get();
-	date_default_timezone_set($_server_timezone);
 	ini_set('date.timezone', $_server_timezone);
 	error_reporting($level);
 }

@@ -503,10 +503,10 @@ function timezoneDiff($server, $local) {
 		$timezones = timezone_abbreviations_list();
 		foreach ($timezones as $key => $zones) {
 			foreach ($zones as $id => $zone) {
-				if (!isset($offset_server) && $zone['timezone_id'] === $server) {
+				if (!isset($offset_server) && !$zone['dst'] && $zone['timezone_id'] === $server) {
 					$offset_server = (int) $zone['offset'];
 				}
-				if (!isset($offset_local) && $zone['timezone_id'] === $local) {
+				if (!isset($offset_local) && !$zone['dst'] && $zone['timezone_id'] === $local) {
 					$offset_local = (int) $zone['offset'];
 				}
 				if (isset($offset_server) && isset($offset_local)) {
