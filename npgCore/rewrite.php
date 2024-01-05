@@ -105,7 +105,7 @@ function rewriteHandler() {
 								$flags[strtoupper(trim($f[0]))] = isset($f[1]) ? trim($f[1]) : NULL;
 							}
 						}
-						if (array_key_exists('NC', $flags)) { //	nonor the NC flag
+						if (array_key_exists('NC', $flags)) { //	honor the NC flag
 							$i = 'i';
 						} else {
 							$i = '';
