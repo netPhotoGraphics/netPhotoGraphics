@@ -839,7 +839,7 @@ class sitemap {
 				$data .= self::echonl('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 				foreach ($articles as $article) {
 					$articleobj = newArticle($article['titlelink']);
-					$lastchange = $date = substr($articleobj->getPublishDate(), 0, 10);
+					$lastchange = $date = substr(strval($articleobj->getPublishDate()), 0, 10);
 					if (!is_null($articleobj->getLastchange()))
 						$lastchange = substr($articleobj->getLastchange(), 0, 10);
 					if ($date > $lastchange)
