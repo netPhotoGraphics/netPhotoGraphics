@@ -19326,6 +19326,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/deprecated-functions/class.php
 %extensions%/deprecated-functions/deprecated-functions.php
 %extensions%/deprecated-functions/functions.php
+%extensions%/deprecated-functions/snippets
+%extensions%/deprecated-functions/snippets/getHashAlgorithm.php
+%extensions%/deprecated-functions/snippets/imageArguments.php
+%extensions%/deprecated-functions/snippets/sortMultiArray.php
 %extensions%/downloadList
 %extensions%/downloadList/download_statistics.php
 %extensions%/dynamic-locale
@@ -20330,4 +20334,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20332
+20336
