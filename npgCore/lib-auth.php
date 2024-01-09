@@ -410,10 +410,7 @@ class _Authority {
 		}
 
 		if (empty($list)) {
-			$sql = 'SELECT ' .
-							// per requirements from class-auth return the following fields
-							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `lastaccess`, `date`' .
-							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
+			$sql = 'SELECT * FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
 			$admins = query($sql, false);
 			if ($admins) {
 				while ($user = db_fetch_assoc($admins)) {
