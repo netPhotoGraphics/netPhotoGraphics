@@ -178,19 +178,8 @@ class TextObject_core extends Image {
 		if (!is_array($args)) {
 			$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
 			$p = func_get_args();
-			$args = array();
-			foreach ($p as $k => $v) {
-				$args[$a[$k]] = $v;
-			}
-			if (isset($args['suffix'])) {
-				$suffix = $args['suffix'];
-				unset($args['suffix']);
-			} else {
-				$suffix = NULL;
-			}
-
-			require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-			deprecated_functions::notify_call('TextObject::getCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+			$whom = __METHOD__;
+			require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 		}
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;
@@ -233,7 +222,11 @@ class TextObject_core extends Image {
 			$args = getImageParameters($args, $this->album->name);
 			return getImageURI($args, $this->album->name, $filename, $mtime, $suffix);
 		} else {
-			return $this->getContent($args['width'], $args['height']);
+			if (isset($args['size'])) {
+				return $this->getSizedImage($args['size']);
+			} else {
+				return $this->getContent($args['width'], $args['height']);
+			}
 		}
 	}
 

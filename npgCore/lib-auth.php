@@ -410,10 +410,7 @@ class _Authority {
 		}
 
 		if (empty($list)) {
-			$sql = 'SELECT ' .
-							// per requirements from class-auth return the following fields
-							'`id`, `valid`,	`user`,	`pass`,	`name`, `email`, `rights`, `group`, `other_credentials`, `lastloggedin`, `lastaccess`, `date`' .
-							' FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
+			$sql = 'SELECT * FROM ' . prefix('administrators') . $valid . ' ORDER BY `rights` DESC, `id`';
 			$admins = query($sql, false);
 			if ($admins) {
 				while ($user = db_fetch_assoc($admins)) {
@@ -484,15 +481,7 @@ class _Authority {
 			$index = self::$hashList[$name];
 		} else {
 			if (isset($userdata['passhash'])) {
-				$index = $userdata['passhash'];
-				if (!array_search($index, self::$hashList)) { //	default
-					$index = PASSWORD_FUNCTION_DEFAULT;
-				}
-				$name = array_search($index, self::$hashList);
-				require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-				if (!empty($userdata['pass'])) {
-					deprecated_functions::deprecationMessage(sprintf(gettext('The password for user %1$s is using the deprecated %2$s hashing method.'), $userdata['user'], $name));
-				}
+				require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/getHashAlgorithm.php');
 			} else {
 				$index = false;
 				$name = '';
@@ -1882,7 +1871,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1891,7 +1880,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-									 $('#show_disclose_password<?php echo $id; ?>').show();"
+											 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>

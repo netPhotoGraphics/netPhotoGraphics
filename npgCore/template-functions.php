@@ -1758,19 +1758,8 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
 	if (!is_array($args)) {
 		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
 		$p = func_get_args();
-		$args = array();
-		foreach ($p as $k => $v) {
-			$args[$a[$k]] = $v;
-		}
-		if (isset($args['suffix'])) {
-			$suffix = $args['suffix'];
-			unset($args['suffix']);
-		} else {
-			$suffix = NULL;
-		}
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomAlbumThumb', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+		$whom = __FUNCTION__;
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 	}
 	$args['thumb'] = TRUE;
 	$thumb = $_current_album->getAlbumThumbImage();
@@ -1792,39 +1781,12 @@ function getCustomAlbumThumb($args, $suffix = NULL) {
  */
 function printCustomAlbumThumbImage($alt, $args, $class = false, $id = NULL, $title = NULL) {
 	global $_current_album;
-
 	if (!is_array($args)) {
 		$a = array(NULL, 'size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'title');
 		$p = func_get_args();
 		unset($p[0]); //	$alt
-		$args = array();
-		foreach ($p as $k => $v) {
-			$args[$a[$k]] = $v;
-		}
-		if (array_key_exists('class', $args)) {
-			$class = $args['class'];
-			unset($args['class']);
-			if (is_null($class)) {
-				$class = false;
-			}
-		} else {
-			$class = false;
-		}
-		if (array_key_exists('id', $args)) {
-			$id = $args['id'];
-			unset($args['id']);
-		} else {
-			$id = NULL;
-		}
-		if (array_key_exists('title', $args)) {
-			$title = $args['title'];
-			unset($args['title']);
-		} else {
-			$title = NULL;
-		}
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomAlbumThumbImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+		$whom = __FUNCTION__;
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 	}
 
 	$args['thumb'] = TRUE;
@@ -2636,25 +2598,8 @@ function getSizeCustomImage($args, $image = NULL) {
 	if (!is_array($args)) {
 		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'image');
 		$p = func_get_args();
-		$args = array();
-		foreach ($p as $k => $v) {
-			$args[$a[$k]] = $v;
-		}
-		if (isset($args['image'])) {
-			$image = $args['image'];
-			unset($args['image']);
-		} else {
-			$image = NULL;
-		}
-		if (isset($args['suffix'])) {
-			$suffix = $args['suffix'];
-			unset($args['suffix']);
-		} else {
-			$suffix = NULL;
-		}
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getSizeCustomImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+		$whom = __FUNCTION__;
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);
@@ -3129,19 +3074,8 @@ function getCustomImageURL($args, $suffix = NULL) {
 	if (!is_array($args)) {
 		$a = array('size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'thumb', 'effects', 'suffix');
 		$p = func_get_args();
-		$args = array();
-		foreach ($p as $k => $v) {
-			$args[$a[$k]] = $v;
-		}
-		if (isset($args['suffix'])) {
-			$suffix = $args['suffix'];
-			unset($args['suffix']);
-		} else {
-			$suffix = NULL;
-		}
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('getCustomImageURL', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+		$whom = __FUNCTION__;
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 	}
 	return $_current_image->getCustomImage($args, $suffix);
 }
@@ -3165,7 +3099,6 @@ function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title =
 	global $_current_image;
 	if (is_null($_current_image))
 		return;
-
 	if (is_array($args)) {
 		if (!isset($args['thumb'])) {
 			$args['thumb'] = NULL;
@@ -3174,35 +3107,8 @@ function printCustomSizedImage($alt, $args, $class = false, $id = NULL, $title =
 		$a = array(NULL, 'size', 'width', 'height', 'cw', 'ch', 'cx', 'cy', 'class', 'id', 'thumb', 'effects', 'title');
 		$p = func_get_args();
 		unset($p[0]); //	$alt
-		$args = array();
-		foreach ($p as $k => $v) {
-			$args[$a[$k]] = $v;
-		}
-
-		if (array_key_exists('class', $args)) {
-			$class = $args['class'];
-			unset($args['class']);
-			if (is_null($class)) {
-				$class = false;
-			}
-		} else {
-			$class = false;
-		}
-		if (array_key_exists('id', $args)) {
-			$id = $args['id'];
-			unset($args['id']);
-		} else {
-			$id = NULL;
-		}
-		if (array_key_exists('title', $args)) {
-			$title = $args['title'];
-			unset($args['title']);
-		} else {
-			$title = NULL;
-		}
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		deprecated_functions::notify_call('printCustomSizedImage', gettext('The function should be called with an image arguments array.') . sprintf(gettext(' e.g. %1$s '), npgFunctions::array_arg_example($args)));
+		$whom = __FUNCTION__;
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/imageArguments.php');
 	}
 	$size = $width = $height = $cw = $ch = $cx = $cy = $thumb = NULL;
 	extract($args);

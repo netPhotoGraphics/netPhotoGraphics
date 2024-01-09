@@ -1581,39 +1581,8 @@ function sortMultiArray($data, $field, $nat = true, $case = false, $preserveKeys
 		$field = array($field);
 	}
 	if (is_numeric(array_key_first($field)) && !is_bool(reset($field))) {
-		$args = '';
-		$field = array_flip($field);
-		if ($nat) {
-			$direction = 'true, ';
-		} else {
-			$direction = 'false, ';
-		}
-		foreach ($field as $key => $v) {
-			$field[$key] = $nat;
-			$args .= "'" . $key . "' => " . $direction;
-		}
-		$nat = $case;
-		$case = $preserveKeys;
-		$preserveKeys = $removeCriteria;
-		$removeCriteria = $dummy;
-
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-		$args = rtrim(trim($args), ',');
-		$call = 'sortMultiArray($arrayToBeSorted, [' . $args . ']';
-		if (!$nat || $case) {
-			$call .= ", false"; //	$nat
-		}
-		if ($case || !$preserveKeys) {
-			$call .= ', true'; //	$case
-		}
-		if (!$preserveKeys || !empty($removeCriteria)) {
-			$call .= ', true'; //	$preserveKeys
-		}
-		if (!empty($removeCriteria)) {
-			$call .= ', [' . implode(',', $removeCriteria) . ']'; //	$removeCriteria
-		}
-		$call .= ');';
-		deprecated_functions::notify_call('sortMultiArray', gettext('The function should be called with a $field array.') . sprintf(gettext(' e.g. %1$s '), $call));
+		$p = func_get_args();
+		require(PLUGIN_SERVERPATH . 'deprecated-functions/snippets/sortMultiArray.php');
 	}
 
 	uasort($data, function ($a, $b) use ($field, $nat, $case) {
