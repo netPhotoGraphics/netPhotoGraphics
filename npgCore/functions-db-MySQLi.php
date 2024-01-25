@@ -59,29 +59,30 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 		error_reporting(0);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);
-			$e = mysqli_connect_errno();
-			$er = $e . ': ' . mysqli_connect_error();
+			$er = 'MySQLi::__construct()';
 			if (empty($errorstop) || is_object($_DB_connection) || in_array($e, $denied)) {
 				break;
 			}
 			sleep(pow(2, $i));
 		}
+		error_reporting($er_reporting);
 	} else {
-		$er = gettext('"extension not loaded"');
+		$er = gettext('MySQLi extension not loaded');
 	}
-	error_reporting($er_reporting);
+
 
 	if (!is_object($_DB_connection)) {
 		if ($errorstop) {
-			trigger_error(sprintf(gettext('MySQLi Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er), $errorstop);
+			dbErrorReport(null, $er);
 		}
 		$_DB_connection = false;
 		return false;
 	}
+
 	$_DB_details['mysql_host'] = $config['mysql_host'];
 	if (!$_DB_connection->select_db($config['mysql_database'])) {
 		if ($errorstop) {
-			trigger_error(sprintf(gettext('MySQLi Error: MySQLi returned the error %1$s when netPhotoGraphics tried to select the database %2$s.'), $_DB_connection->error, $config['mysql_database']), $errorstop);
+			dbErrorReport(null, 'MySQLi::select_db()');
 		}
 		return false;
 	}
