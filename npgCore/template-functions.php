@@ -40,7 +40,7 @@ function printThemeHeadItems() {
 	scriptLoader(CORE_SERVERPATH . 'button.css');
 	scriptLoader(CORE_SERVERPATH . 'loginForm.css');
 	if (npg_loggedin()) {
-		scriptLoader(getPlugin('toolbox.css', 'force'));
+		scriptLoader(getPlugin('toolbox.css', true));
 	}
 	load_jQuery_CSS();
 	load_jQuery_scripts('theme');

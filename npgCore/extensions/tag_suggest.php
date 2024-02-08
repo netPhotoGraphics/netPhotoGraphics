@@ -42,7 +42,7 @@ class tag_suggest {
 	}
 
 	static function CSS() {
-		scriptLoader(getPlugin('tag_suggest/tag.css', 'force'));
+		scriptLoader(getPlugin('tag_suggest/tag.css', true));
 	}
 
 	static function JS() {
@@ -62,13 +62,13 @@ class tag_suggest {
 		}
 		?>
 		<script type="text/javascript">
-
+			
 			npgTags = ["<?php echo implode('","', $tags); ?>"];
 			options = {tags: npgTags, separator: '<?php echo $tagseparator; ?>', quoteSpecial: <?php echo OFFSET_PATH ? 'false' : 'true'; ?>};
 			$('.tagsuggest').click(function (e) {
 				$('#' + e.target.id).tagSuggest(options);
 			});
-
+			
 		</script>
 		<?php
 	}
