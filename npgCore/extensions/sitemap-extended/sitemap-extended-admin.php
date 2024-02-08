@@ -62,7 +62,7 @@ if (isset($_GET['generatesitemaps'])) {
 } // if(isset($_GET['generatesitemaps']) end
 scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 ?>
-<script type="text/javascript">
+<script>
 
 	window.addEventListener('load', function () {
 		/*	$(".colorbox").colorbox({
@@ -147,7 +147,7 @@ echo '</head>';
 					} else {
 						sitemap::generateIndexCacheFile();
 						?>
-						<script type="text/javascript">
+						<script>
 
 							window.addEventListener('load', function () {
 								window.location = "<?php echo getAdminLink(PLUGIN_FOLDER . '/sitemap-extended/sitemap-extended-admin.php'); ?>";

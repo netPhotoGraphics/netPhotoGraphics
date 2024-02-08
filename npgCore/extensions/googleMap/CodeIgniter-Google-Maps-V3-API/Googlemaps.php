@@ -1098,21 +1098,21 @@ class Googlemaps {
 			$apiLocation .= '&libraries=' . implode(",", $libraries);
 		}
 		$this->output_js .= '
-		<script type="text/javascript" src="' . $apiLocation . '"></script>';
+		<script src="' . $apiLocation . '"></script>';
 		if ($this->center == "auto" || $this->directionsStart == "auto") {
 			$this->output_js .= '
-		<script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
+		<script src="http://code.google.com/apis/gears/gears_init.js"></script>
 		';
 		}
 		if ($this->cluster) {
 			$this->output_js .= '
-			<script type="text/javascript" src="' . WEBPATH . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markcluster.js"></script>
+			<script src="' . WEBPATH . '/' . PLUGIN_FOLDER . '/googleMap/markerClustererPlus/markcluster.js"></script>
 			';
 		} // Script not hosted on Google anymore !
 
 		if ($this->jsfile == "") {
 			$this->output_js .= '
-			<script type="text/javascript">
+			<script>
 			//<![CDATA[
 			';
 		}
@@ -2096,7 +2096,7 @@ class Googlemaps {
 					$this->output_js .= $this->output_js_contents;
 				} else {
 					$this->output_js .= '
-					<script src="' . $this->jsfile . '" type="text/javascript"></script>';
+					<script src="' . $this->jsfile . '"></script>';
 				}
 			}
 		}

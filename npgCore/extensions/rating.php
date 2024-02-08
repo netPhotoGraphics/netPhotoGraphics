@@ -110,7 +110,7 @@ class jquery_rating {
 				break;
 			case 'rating_js':
 				?>
-				<script type="text/javascript">
+				<script>
 					function ratinglikebox() {
 						if ($('#__rating_like').prop('checked')) {
 							$('#__rating_split_stars-1').prop('checked', 'checked');
@@ -165,7 +165,7 @@ class jquery_rating {
 		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.MetaData.js');
 		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.rating.js');
 		?>
-		<script type="text/javascript">
+		<script>
 			
 			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo getOption('rating_star_size'); ?>};
 			
@@ -393,7 +393,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 	<span class="vote" id="vote<?php echo $unique; ?>" <?php if (!$text) echo 'style="display:none;"'; ?>>
 		<?php echo $msg; ?>
 	</span>
-	<script type="text/javascript">
+	<script>
 		
 		var recast<?php echo $unique; ?> = <?php printf('%u', $recast && $oldrating); ?>;
 		window.addEventListener('load', function () {

@@ -66,7 +66,7 @@ npgFilters::apply('texteditor_config', 'CMS');
 printSortableHead();
 zenpageJSCSS();
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	var deleteCategory = "<?php echo gettext("Are you sure you want to delete this category? THIS CANNOT BE UNDONE!"); ?>";
 	function confirmAction() {

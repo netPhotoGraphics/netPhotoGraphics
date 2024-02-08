@@ -141,7 +141,7 @@ printSortableHead();
 			<?php
 			$count = db_count('menu', NULL, 'DISTINCT `menuset`');
 			?>
-			<script type="text/javascript">
+			<script>
 				//<!-- <![CDATA[
 				function newMenuSet() {
 					var new_menuset = prompt("<?php echo gettext('Name for new menu:'); ?>", "<?php echo 'menu_' . $count; ?>");

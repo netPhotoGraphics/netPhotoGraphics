@@ -580,7 +580,7 @@ clearstatcache();
 		load_jQuery_CSS();
 		load_jQuery_scripts('theme');
 		?>
-		<script type="text/javascript">
+		<script>
 			var imageErr = false;
 			function toggle_visibility(id) {
 				var e = document.getElementById(id);
@@ -1005,7 +1005,7 @@ clearstatcache();
 														<?php echo gettext('Image URIs with diacritical marks appear to fail.'); ?>
 													</span>
 												</li>
-												<script type="text/javascript">
+												<script>
 
 						<?php
 						if ($displayLimited) {
@@ -1779,12 +1779,12 @@ clearstatcache();
 										<?php echo sprintf(gettext('Setup <a href="%1$s" target="_blank">%2$s</a>'), $url, $clone);
 										?>
 									</p>
-									<script type="text/javascript">launchClone('<?php echo $url; ?>');</script>
+									<script>launchClone('<?php echo $url; ?>');</script>
 									<?php
 								}
 								?>
 								<p id="spacer" style="display:none; margin-bottom: 2em;"></p>
-								<script type="text/javascript">
+								<script>
 									if ($('#warning').is(":visible")) {
 										$('#spacer').show();
 									}
@@ -1835,7 +1835,7 @@ clearstatcache();
 							}
 							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
-							<script type="text/javascript">
+							<script>
 								function launchAdmin() {
 									window.location = '<?php echo getAdminLink('admin.php') . $query; ?>';
 								}
@@ -1929,7 +1929,7 @@ clearstatcache();
 							}
 							if ($autorun) {
 								?>
-								<script type="text/javascript">
+								<script>
 									$('#submitbutton').hide();
 									$('#setup').submit();
 								</script>

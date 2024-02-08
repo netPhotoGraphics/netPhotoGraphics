@@ -91,7 +91,7 @@ if (isset($_GET['action'])) {
 printAdminHeader('comments');
 npgFilters::apply('texteditor_config', 'admin_comments');
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	function confirmAction() {
 		if ($('#checkallaction').val() == 'deleteall') {

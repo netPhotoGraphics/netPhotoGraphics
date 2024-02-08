@@ -118,7 +118,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 					?>
 				</ul>
 				<hr />
-				<script type="text/javascript">
+				<script>
 					function toggleRow(id) {
 						if ($('#' + id).is(":visible")) {
 							$('#' + id + '_k').hide();

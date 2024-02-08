@@ -43,7 +43,7 @@ $menuset = checkChosenMenuset();
 		printTabs();
 		?>
 		<div id="content">
-			<script type="text/javascript">
+			<script>
 				
 				function handleSelectorChange(type) {
 					$('#add,#titlelabel,#link_row,#link,#link_label,#visible_row,#show_visible,#span_row').show();
@@ -204,7 +204,7 @@ if (class_exists('CMS')) {
 				}
 				//]]> -->
 			</script>
-			<script type="text/javascript">
+			<script>
 				//<!-- <![CDATA[
 				window.addEventListener('load', function () {
 <?php

@@ -61,7 +61,7 @@ class tag_suggest {
 			$tagseparator = ',';
 		}
 		?>
-		<script type="text/javascript">
+		<script>
 
 			npgTags = ["<?php echo implode('","', $tags); ?>"];
 			options = {tags: npgTags, separator: '<?php echo $tagseparator; ?>', quoteSpecial: <?php echo OFFSET_PATH ? 'false' : 'true'; ?>};

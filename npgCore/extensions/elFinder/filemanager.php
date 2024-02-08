@@ -52,7 +52,7 @@ echo "\n</head>";
 				?>
 				<h1><?php echo $title; ?></h1>
 				<div class="tabbox">
-					<script type="text/javascript">
+					<script>
 						$().ready(function () {
 							var elf = $('#elfinder').elfinder({
 								lang: '<?php echo $locale; ?>', // language (OPTIONAL)

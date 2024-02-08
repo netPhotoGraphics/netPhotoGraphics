@@ -244,7 +244,7 @@ codeblocktabsJS();
 npgFilters::apply('texteditor_config', 'photo');
 npg_Authority::printPasswordFormJS();
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	var extraWidth;
 	function resizeTable() {

@@ -48,7 +48,7 @@ foreach (array('albums', 'images', 'pages', 'news') as $table) {
 	}
 }
 ?>
-<script type="text/javascript">
+<script>
 	$(function () {
 		$('img').on("error", function () {
 			$(this).parent().html('<?php echo CROSS_MARK_RED; ?>');

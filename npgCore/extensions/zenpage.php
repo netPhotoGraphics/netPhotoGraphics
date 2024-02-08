@@ -162,7 +162,7 @@ class cmsFilters {
 
 	static function switcher_head($list) {
 		?>
-		<script type="text/javascript">
+		<script>
 
 			function switchCMS(checked) {
 				window.location = '?cmsSwitch=' + checked;

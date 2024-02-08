@@ -109,7 +109,7 @@ function printUserLogin_out($before = '', $after = '', $showLoginForm = NULL, $l
 							colorbox::css();
 						}
 						?>
-						<script type="text/javascript">
+						<script>
 							
 							window.addEventListener('load', function () {
 							$(".logonlink").colorbox({

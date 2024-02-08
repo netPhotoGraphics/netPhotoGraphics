@@ -83,7 +83,7 @@ class panorama {
 				overflow-y: hidden;
 			}
 		</style>
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function () {
 				$(function () {
 					// Paver

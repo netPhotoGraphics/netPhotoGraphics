@@ -555,7 +555,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 	sort($dbfields);
 	$imagedbfields = implode(', ', $dbfields);
 	?>
-	<script type="text/javascript">
+	<script>
 		//<!-- <![CDATA[
 		var albumdbfields = [<?php echo $albumdbfields; ?>];
 		$(function () {
@@ -574,7 +574,7 @@ if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_m
 	<?php
 }
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	var deleteAlbum1 = "<?php echo gettext("Are you sure you want to delete this entire album?"); ?>";
 	var deleteAlbum2 = "<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>";

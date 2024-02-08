@@ -89,7 +89,7 @@ datepickerJS();
 updatePublished('news');
 ?>
 
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	var deleteArticle = "<?php echo gettext("Are you sure you want to delete this article? THIS CANNOT BE UNDONE!"); ?>";
 	function confirmAction() {

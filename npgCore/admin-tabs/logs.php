@@ -245,7 +245,7 @@ echo "\n</head>";
 		<?php printAdminFooter(); ?>
 	</div>
 
-	<script type="text/javascript">
+	<script>
 		window.addEventListener('load', function () {
 			$('.logtext').scrollTo('#bottom');
 		}, false);

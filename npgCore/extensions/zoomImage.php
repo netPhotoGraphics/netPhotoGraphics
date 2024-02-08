@@ -76,7 +76,7 @@ class zoomImage {
 		global $_zoomImage_id_list;
 		scriptLoader(PLUGIN_SERVERPATH . 'zoomImage/jquery.zoom.min.js');
 		?>
-		<script type="text/javascript">
+		<script>
 		<?php
 		if (!empty($_zoomImage_id_list)) {
 			foreach ($_zoomImage_id_list as $id => $param) {

@@ -67,7 +67,7 @@ function adminToolbox() {
 
 		if (npg_loggedin(UPLOAD_RIGHTS) && in_array($_gallery_page, array('index.php', 'gallery.php', 'album.php'))) {
 			?>
-			<script type="text/javascript">
+			<script>
 
 				function newAlbum(folder, albumtab) {
 					var album = prompt('<?php echo gettext('New album name?'); ?>', '<?php echo gettext('new album'); ?>');
@@ -243,7 +243,7 @@ function adminToolbox() {
 							}
 							// and a delete link
 							?>
-							<script type="text/javascript">
+							<script>
 
 								function confirmAlbumDelete() {
 									if (confirm("<?php echo gettext("Are you sure you want to delete this entire album?"); ?>")) {
@@ -4069,7 +4069,7 @@ function printSearchForm($options = NULL, $id = 'search', $buttonSource = false,
 				}
 				?>
 			</div>
-			<script type="text/javascript">
+			<script>
 
 				var within = <?php echo (int) $within; ?>;
 				$("input[name='search_within']").change(function () {

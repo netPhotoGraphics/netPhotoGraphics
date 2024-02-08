@@ -72,7 +72,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 			sort($dbfields);
 		}
 		?>
-		<script type="text/javascript">
+		<script>
 
 			$(function () {
 				$('#<?php echo $targetid; ?>').tagSuggest({
@@ -88,7 +88,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	npgFilters::apply('texteditor_config', 'forms');
 	npg_Authority::printPasswordFormJS();
 	?>
-	<script type="text/javascript">
+	<script>
 
 		var table;
 

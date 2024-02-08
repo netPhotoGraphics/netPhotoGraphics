@@ -847,7 +847,7 @@ class openStreetMap {
 				if ($this->hide == 'hide') {
 					$class = $class . ' hidden_map';
 					?>
-					<script type="text/javascript">
+					<script>
 						function toggle_<?php echo $id_data; ?>() {
 							if ($('#<?php echo $id_data; ?>').hasClass('hidden_map')) {
 								$('#<?php echo $id_data; ?>').removeClass('hidden_map');
@@ -863,7 +863,7 @@ class openStreetMap {
 					<?php
 				} else if ($this->hide == 'colorbox') {
 					?>
-					<script type="text/javascript">
+					<script>
 						window.addEventListener('load', function () {
 							$('.google_map').colorbox({
 								inline: true,

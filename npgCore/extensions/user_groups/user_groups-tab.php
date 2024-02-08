@@ -558,7 +558,7 @@ echo '</head>' . "\n";
 							<input type="hidden" name="totalgroups" value="<?php echo $id; ?>" />
 							<input type="hidden" name="checkForPostTruncation" value="1" />
 						</form>
-						<script type="text/javascript">
+						<script>
 							//<!-- <![CDATA[
 							function checkSubmit() {
 								newgroupid = <?php echo ($id - 1); ?>;

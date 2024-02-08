@@ -144,7 +144,7 @@ class themeSwitcher {
 		}
 		echo $scripts;
 		?>
-		<script type="text/javascript">/* themeSwitcher */
+		<script>/* themeSwitcher */
 			function switchTheme(reloc) {
 				window.location = reloc.replace(/%t/, encodeURIComponent($('#themeSwitcher').val()));
 			}

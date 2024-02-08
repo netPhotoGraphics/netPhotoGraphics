@@ -82,7 +82,7 @@ GoogleMap::js();
 		$map->output_html = $map_data["output_html"];
 		?>
 		<div class="googlemap">
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 	<?php
 	echo $map->output_js_contents;

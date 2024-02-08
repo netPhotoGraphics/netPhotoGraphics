@@ -128,7 +128,7 @@ foreach ($tables as $table) {
 printAdminHeader('admin', gettext('Content'));
 datepickerJS();
 ?>
-<script type="text/javascript">
+<script>
 	//used in conjunction with the "reveal" php function
 	function reveal(id) {
 		jQuery('#' + id + '_reveal').toggle();
@@ -342,7 +342,7 @@ echo "</head>\n";
 				</fieldset>
 				<br class="clearall" />
 
-				<script type="text/javascript">
+				<script>
 					//<!-- <![CDATA[
 					$(function () {
 						$("#publish_date").datepicker({
@@ -388,7 +388,7 @@ echo "</head>\n";
 						}
 						if ($c > 0) {
 							?>
-							<script type="text/javascript">
+							<script>
 
 								function confirmdel(obj, id, msg) {
 									if (msg) {

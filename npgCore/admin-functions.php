@@ -102,7 +102,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.min.js');
 			}
 			?>
-			<script type="text/javascript">
+			<script>
 
 				function setClean(id) {
 					$('form#' + id).removeClass('tinyDirty');
@@ -165,7 +165,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			scriptLoader(CORE_SERVERPATH . 'js/jquery.mjs.nestedSortable.js')
 			?>
 			<!--Nested Sortables-->
-			<script type="text/javascript">
+			<script>
 				//<!-- <![CDATA[
 				window.addEventListener('load', function () {
 
@@ -243,7 +243,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				?>
 			</span>
 		</div>
-		<script type="text/javascript">
+		<script>
 			startingPosition = $('.navigation').position().top + 10;
 			// ===== Scroll to Top ====
 			$(window).scroll(function () {
@@ -791,7 +791,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<input type="hidden" id="<?php echo $postkey; ?>" name="<?php echo $postkey; ?>" size="2" value="<?php echo $v; ?>" onchange="$('#slider-<?php echo $postkey; ?>').slider('value', $('#<?php echo $postkey; ?>').val());"/>
 		</span>
 
-		<script type="text/javascript">
+		<script>
 
 			$(function () {
 				var handle = $("#<?php echo $postkey; ?>-handle");
@@ -1252,7 +1252,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										if ($ul) {
 											?>
 										</ul>
-										<script type="text/javascript">
+										<script>
 
 											function <?php echo $key; ?>_all() {
 												var check = $('#all_<?php echo $key; ?>').prop('checked');
@@ -1309,7 +1309,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									generateUnorderedListFromArray(array(), $rest, '', '', true, true, 'all_' . $key);
 									?>
 								</ul>
-								<script type="text/javascript">
+								<script>
 
 									function <?php echo $key; ?>_all() {
 										var check = $('#all_<?php echo $key; ?>').prop('checked');
@@ -1351,7 +1351,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 									}
 									?>
 								</ul>
-								<script type="text/javascript">
+								<script>
 
 									function <?php echo $key; ?>_all() {
 										var check = $('#all_<?php echo $key; ?>').prop('checked');
@@ -1372,7 +1372,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 							?>
 							<td class="option_value">
 								<input type="hidden" name="<?php echo CUSTOM_OPTION_PREFIX . 'text-' . $postkey; ?>" value="1" />
-								<script type="text/javascript">
+								<script>
 
 									window.addEventListener('load', function () {
 										$('#__<?php echo $key; ?>').spectrum({
@@ -2014,7 +2014,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$cookiepath = '/';
 		}
 		?>
-		<script type="text/javascript">
+		<script>
 			function toggle_stuff(stuff) {
 				state = $('#' + stuff + '_box').prop('checked')
 				$('.' + stuff + '_stuff').toggle();
@@ -2619,7 +2619,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$publishdate = $album->getPublishDate();
 						$expirationdate = $album->getExpireDate();
 						?>
-						<script type="text/javascript">
+						<script>
 
 							$(function () {
 								$("#<?php echo $prefix; ?>publishdate,#<?php echo $prefix; ?>expirationdate").datepicker({
@@ -4955,7 +4955,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 
 	if (!empty($colorboxBookmark)) {
 		?>
-		<script type="text/javascript">
+		<script>
 			//<!-- <![CDATA[
 			function checkFor(obj) {
 				var sel = obj.options[obj.selectedIndex].value;
@@ -5371,7 +5371,7 @@ function stripTableRows($custom) {
  */
 function codeblocktabsJS() {
 	?>
-	<script type="text/javascript" charset="utf-8">
+	<script charset="utf-8">
 
 		$(function () {
 			var tabContainers = $('div.tabs > div');

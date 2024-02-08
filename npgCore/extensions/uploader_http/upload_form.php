@@ -19,7 +19,7 @@ function upload_form($uploadlimit, $passedalbum) {
 
 	XSRFToken('upload');
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		window.totalinputs = 5;
 		function addUploadBoxes(num) {

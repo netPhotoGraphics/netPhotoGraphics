@@ -29,7 +29,7 @@ function getIPSizedImage($size, $image) {
 		load_jQuery_scripts('admin');
 		scriptLoader(CORE_SERVERPATH . 'js/admin.js');
 		?>
-		<script type="text/javascript" src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/tinymce/pasteobj/pasteobj_popup.js"></script>
+		<script src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER; ?>/tinymce/pasteobj/pasteobj_popup.js"></script>
 
 	</head>
 
@@ -116,7 +116,7 @@ function getIPSizedImage($size, $image) {
 				$link2 = $alt2 = $title2 = false;
 			}
 			?>
-			<script type="text/javascript">
+			<script>
 
 				var link = '<?php echo $link; ?>';
 				var link2 = '<?php echo $link2; ?>';

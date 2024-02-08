@@ -195,7 +195,7 @@ class VideoJS extends html5Player {
 					' . $this->getCounterpartFile($moviepath, "webm", "HD") . '
 					' . $this->getCounterpartFile($moviepath, "webm", "SD") . '
 				</video>
-			<script type="text/javascript">
+			<script>
 				videojs("MyPlayer", {
 					plugins: {
 						videoJsResolutionSwitcher: {

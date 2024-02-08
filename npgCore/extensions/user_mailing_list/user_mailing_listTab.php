@@ -152,7 +152,7 @@ $groupNote = '';
 						<?php echo $groupNote; ?>
 					</div>
 					<br class="clearall" />
-					<script type="text/javascript">
+					<script>
 						$('form#massmail').submit(function () {
 <?php
 if (extensionEnabled('tinymce') && getOption('tinymce_forms')) {

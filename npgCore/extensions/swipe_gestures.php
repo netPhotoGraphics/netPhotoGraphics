@@ -107,7 +107,7 @@ class swipeGestures {
 		if (!empty($prevurl) || !empty($nexturl)) {
 			scriptLoader(PLUGIN_SERVERPATH . 'swipe_gestures/jquery.touchSwipe.min.js');
 			?>
-			<script type="text/javascript">
+			<script>
 				$('html').swipe({
 			<?php if (!empty($prevurl)) { ?>
 					swipeRight:function(event, direction, distance, duration, fingerCount) {

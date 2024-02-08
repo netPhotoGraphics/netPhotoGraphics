@@ -521,7 +521,7 @@ if (is_string($refresh)) {
 						echo '</div>';
 					}
 					?>
-					<script type="text/javascript">
+					<script>
 						function languageChange(id, lang) {
 							var oldid = '#' + $('#admin_language_' + id).val() + '_' + id;
 							var newid = '#' + lang + '_' + id;
@@ -1132,7 +1132,7 @@ if (is_string($refresh)) {
 						}
 					}
 					?>
-					<script type="text/javascript">
+					<script>
 						//<!-- <![CDATA[
 						var admins = ["<?php echo implode('","', $alladmins); ?>"];
 						function checkNewuser() {

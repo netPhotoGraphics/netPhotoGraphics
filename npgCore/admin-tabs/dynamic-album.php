@@ -297,7 +297,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 				</td>
 			</tr>
 
-			<script type="text/javascript">
+			<script>
 				
 				function setTagged(state) {
 					if (state) {
