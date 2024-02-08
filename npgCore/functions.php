@@ -2231,7 +2231,7 @@ function seoFriendly($string) {
  */
 function seoFriendlyJS() {
 	?>
-	<script type="text/javascript">
+	<script>
 		function seoFriendlyJS(fname) {
 			fname = fname.trim();
 			fname = fname.replace(/\s+\.\s*/, '.');
@@ -2263,12 +2263,18 @@ function seoFriendlyJS() {
  * append a release unique tag to the URL to avoid caching issues.
  *
  * @param string $script
- * @param bool $inline	set to FALSE to prevent rendering the script in-line, for
- * 											instance if the script has self relative url links.
- *                      set to TRUE to force rendering the script in-line
- *
+ * @param string $scriptTag
+ * 											empty to omit loading attributes
+ * 											"inline" include the script inline in the page html if appropriate size
+ * 											"force" include the script inline in the html page
+ * 											"async" to load the script asynchronously†
+ * 											"defer" to defer load the script†
+ * 	†JavaScript only
  */
-function scriptLoader($script, $inline = 1) {
+function scriptLoader($script, $scriptTag = 'inline') {
+	if ($scriptTag) {
+		$scriptTag = strToLower($scriptTag);
+	}
 	$script = str_replace('\\', '/', $script); //	in case strip_suffix(__FILE__) is passed
 	if (strpos($script, SERVERPATH) === false) {
 		if (strpos($script, FULLWEBPATH) === 0) {
@@ -2279,40 +2285,54 @@ function scriptLoader($script, $inline = 1) {
 	}
 
 	$scriptFS = internalToFilesystem($script);
-	if ($inline && file_exists($scriptFS)) {
-		if (filesize($scriptFS) < INLINE_LOAD_THRESHOLD || is_bool($inline)) {
-			$content = file_get_contents($scriptFS);
-			$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
-			if ($found) {
-				$serverbase = dirname($script) . '/';
-				$webbase = str_replace(SERVERPATH, WEBPATH, $serverbase);
-				foreach ($matches[1] as $key => $match) {
-					if (file_exists($serverbase . $match)) {
-						$found--;
-						$content = str_replace($matches[0][$key], 'url(' . $webbase . $match . ')', $content);
-					} else {
-						break;
+	if (file_exists($scriptFS)) {
+		switch ($scriptTag) {
+			case 'inline':
+				if (filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
+					$scriptTag = false;
+					break;
+				}
+			case 'force':
+				$content = file_get_contents($scriptFS);
+				$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
+				if ($found) {
+					$serverbase = dirname($script) . '/';
+					$webbase = str_replace(SERVERPATH, WEBPATH, $serverbase);
+					foreach ($matches[1] as $key => $match) {
+						if (file_exists($serverbase . $match)) {
+							$found--;
+							$content = str_replace($matches[0][$key], 'url(' . $webbase . $match . ')', $content);
+						} else {
+							break;
+						}
 					}
 				}
-			}
-			if (!$found) { //	no unresolved self relative links
-				$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
-				$content = preg_replace('~[^\S\r\n]+~', ' ', $content) . "\n";
-				$content = preg_replace('~[\r\n]+~', "\n", $content);
-				if (getSuffix($scriptFS) == 'css') {
-					echo "\n" . '<style type="text/css">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
-					$content = str_replace(': ', ':', $content);
-					echo $content;
-					echo "</style>\n";
-				} else {
-					echo "\n" . '<script type="text/javascript">/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
-					echo $content;
-					echo "</script>\n";
+				if (!$found) { //	no unresolved self relative links
+					$content = preg_replace('~/\*[^*]*\*+([^/][^*]*\*+)*/~', '', $content);
+					$content = preg_replace('~[^\S\r\n]+~', ' ', $content) . "\n";
+					$content = preg_replace('~[\r\n]+~', "\n", $content);
+					if (getSuffix($scriptFS) == 'css') {
+						echo "\n" . '<style>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
+						$content = str_replace(': ', ':', $content);
+						echo $content;
+						echo "</style>\n";
+					} else {
+						echo "\n" . '<script>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
+						echo $content;
+						echo "</script>\n";
+					}
+					return;
 				}
-				return;
-			}
+				$scriptTag = false;
+				break;
+			default:
+				if ($scriptTag) {
+					$scriptTag = ' ' . $scriptTag;
+				}
+				break;
 		}
 	}
+
 	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
 	$version = NETPHOTOGRAPHICS_VERSION_CONCISE;
 	if (TESTING_MODE) {
@@ -2321,7 +2341,7 @@ function scriptLoader($script, $inline = 1) {
 	if (getSuffix($script) == 'css') {
 		echo '<link rel="stylesheet" href="' . pathurlencode($script) . '?npg' . $version . '" type="text/css" />' . "\n";
 	} else {
-		echo '<script src="' . pathurlencode($script) . '?npg' . $version . '" type="text/javascript"></script>' . "\n";
+		echo '<script' . $scriptTag . ' src="' . pathurlencode($script) . '?npg' . $version . '"></script>' . "\n";
 	}
 }
 

@@ -69,7 +69,7 @@ class zoomImage {
 	}
 
 	static function head() {
-		scriptLoader(getPlugin('zoomImage/zoom.css', true));
+		scriptLoader(getPlugin('zoomImage/zoom.css', 'force'));
 	}
 
 	static function body_close() {
