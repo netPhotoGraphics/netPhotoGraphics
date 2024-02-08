@@ -2288,7 +2288,7 @@ function scriptLoader($script, $scriptTag = 'inline') {
 
 	switch ($scriptTag) {
 		case 'inline':
-			if (filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
+			if (file_exists($scriptFS) && filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
 				$scriptTag = false;
 				break;
 			}
