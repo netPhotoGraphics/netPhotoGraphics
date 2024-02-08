@@ -20,7 +20,7 @@ $backgroundImagePath = "";
 		<?php npgFilters::apply('theme_head'); ?>
 
 		<?php $handler->theme_head($_themeroot); ?>
-		<script type="text/javascript">
+		<script>
 			
 			function toggleExtraElements(category, show) {
 				if (show) {

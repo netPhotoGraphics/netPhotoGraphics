@@ -20,7 +20,7 @@
 	<?php
 	scriptLoader($_themeroot . '/js/infinite-scroll.pkgd.min.js');
 	?>
-		<script type="text/javascript">
+		<script>
 		//<![CDATA[
 			var $container = $('.news-wrap');
 			var $pageLoadStatus = $('.page-load-status');

@@ -2285,14 +2285,15 @@ function scriptLoader($script, $scriptTag = 'inline') {
 	}
 
 	$scriptFS = internalToFilesystem($script);
-	if (file_exists($scriptFS)) {
-		switch ($scriptTag) {
-			case 'inline':
-				if (filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
-					$scriptTag = false;
-					break;
-				}
-			case 'force':
+
+	switch ($scriptTag) {
+		case 'inline':
+			if (filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
+				$scriptTag = false;
+				break;
+			}
+		case 'force':
+			if (file_exists($scriptFS)) {
 				$content = file_get_contents($scriptFS);
 				$found = preg_match_all('~url\s*\((.+)\)~i', $content, $matches);
 				if ($found) {
@@ -2323,14 +2324,14 @@ function scriptLoader($script, $scriptTag = 'inline') {
 					}
 					return;
 				}
-				$scriptTag = false;
-				break;
-			default:
-				if ($scriptTag) {
-					$scriptTag = ' ' . $scriptTag;
-				}
-				break;
-		}
+			}
+			$scriptTag = false;
+			break;
+		default:
+			if ($scriptTag) {
+				$scriptTag = ' ' . $scriptTag;
+			}
+			break;
 	}
 
 	$script = str_replace(SERVERPATH, FULLWEBPATH, $script);
@@ -2380,7 +2381,7 @@ function load_jQuery_scripts($where, $ui = true) {
 			break;
 	}
 	if ($ui) {
-		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js');
+		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js', 'async');
 	}
 }
 

@@ -26,7 +26,7 @@ class Utils {
  */
 function printZDSearchToggleJS() {
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		function toggleExtraElements(category, show) {
 			if (show) {
@@ -89,7 +89,7 @@ function printZDRoundedCornerJS() {
 	scriptLoader($_themeroot . '/js/jquery.corner.js');
 	?>
 
-	<script type="text/javascript">
+	<script>
 		//<!-- <![CDATA[
 		window.addEventListener('load', function () {
 			$(".album,#slideshowlink a,textarea,#exif_link a").corner("keep 5px");

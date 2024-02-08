@@ -13,7 +13,7 @@ if (class_exists('themeSwitcher')) {
 
 function switcher_head($ignore) {
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		function switchColors() {
 			personality = $('#themeColor').val();

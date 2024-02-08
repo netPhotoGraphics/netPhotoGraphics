@@ -120,7 +120,7 @@ if (!defined('WEBPATH'))
 		if (($_gallery_page == 'index.php') && isset($isHomePage) && $isHomePage) {
 			scriptLoader($_themeroot . '/js/jquery.flexslider-min.js');
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 				$(document).ready(function() {
 				$('.flexslider').flexslider({
@@ -141,7 +141,7 @@ if (!defined('WEBPATH'))
 			scriptLoader($_themeroot . '/js/jquery.fancybox.min.js');
 			scriptLoader($_themeroot . '/js/zpB_fancybox_config.js');
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 				$(document).ready(function() {
 				$.fancybox.defaults.lang = '<?php
@@ -171,7 +171,7 @@ if (!defined('WEBPATH'))
 		}
 		if (($_gallery_page == 'image.php') || ($_zenpage_news_enabled && is_NewsArticle())) {
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 	<?php
 	$NextURL = $PrevURL = false;
@@ -389,7 +389,7 @@ if (!defined('WEBPATH'))
 							<div class="feed pull-right">
 								<?php printRSSLink($type, '', '', '', false, 'rss'); ?>
 							</div>
-							<script type="text/javascript">
+							<script>
 								//<![CDATA[
 								$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/feed_icon.png">');
 								//]]>
@@ -407,7 +407,7 @@ if (!defined('WEBPATH'))
 								<!--<a class="addthis_button_favorites"></a>-->
 								<a class="addthis_button_compact"></a>
 							</div>
-							<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+							<script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 							<!-- AddThis Button END -->
 						</div>
 						<?php

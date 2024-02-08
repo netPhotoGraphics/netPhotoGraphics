@@ -87,7 +87,7 @@
 
 <?php if (simplemap::mapPlugin()) { ?>
 	<div class="googlemap"><?php simplemap::printMap(); ?></div>
-	<script type="text/javascript">
+	<script>
 		//<![CDATA[
 	<?php if (simpleMap::mapDisplay() == 'colorbox') { ?>
 			$('.google_map').addClass('fadetoggler');

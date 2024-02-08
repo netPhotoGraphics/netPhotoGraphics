@@ -193,7 +193,7 @@ if (function_exists('printAddThis')) {
 			.cblinks{top:<?php echo $cblinks_top; ?>px;}
 		</style>
 		<?php if (extensionEnabled('reCaptcha')) { ?>
-			<script type="text/javascript" charset="utf-8">
+			<script charset="utf-8">
 				var RecaptchaOptions = {
 					theme: 'clean'
 				};
@@ -204,7 +204,7 @@ if (function_exists('printAddThis')) {
 			scriptLoader(PLUGIN_SERVERPATH . 'colorbox_js/jquery.colorbox-min.js');
 			scriptLoader($_themeroot . '/css/cbStyles/' . $zpmin_cbstyle . '/colorbox.css');
 			?>
-			<script type="text/javascript">
+			<script>
 				
 				$(document).ready(function () {
 					$("a.thickbox").colorbox({maxWidth: "90%", maxHeight: "90%", photo: true});

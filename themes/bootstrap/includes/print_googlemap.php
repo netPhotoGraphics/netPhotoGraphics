@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			<?php printGoogleMap('', 'gmap_collapse'); ?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 				$('#gmap_collapse_data').on('show.bs.collapse', function () {
 					$('.hidden_map').removeClass('hidden_map');

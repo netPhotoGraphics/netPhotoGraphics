@@ -34,7 +34,7 @@
 	<?php
 	scriptLoader($_themeroot . '/js/infinite-scroll.pkgd.min.js');
 	?>
-		<script type="text/javascript">
+		<script>
 		//<![CDATA[
 			var $container = $('<?php echo $containerClass; ?>');
 			var $pageLoadStatus = $('.page-load-status');

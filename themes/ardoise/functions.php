@@ -41,7 +41,7 @@ function switcher_head($ignore) {
 		setOption('css_style', $themeColor, false);
 	}
 	?>
-	<script type="text/javascript">
+	<script>
 
 		function switchColors() {
 			personality = $('#themeColor').val();

@@ -143,7 +143,7 @@ class ipBlocker {
 					<?php
 				}
 				?>
-				<script type="text/javascript">
+				<script>
 					<!--
 				function clearips() {
 						for (i = 0; i <= <?php echo $key + 4; ?>; i++) {

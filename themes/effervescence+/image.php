@@ -10,7 +10,7 @@ if (!defined('WEBPATH'))
 		<?php npgFilters::apply('theme_head'); ?>
 
 		<?php if (npgFilters::has_filter('theme_head', 'colorbox::css')) { ?>
-			<script type="text/javascript">
+			<script>
 				
 				window.addEventListener('load', function () {
 					$(".colorbox").colorbox({

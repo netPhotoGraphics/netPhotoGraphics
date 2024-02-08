@@ -11,7 +11,7 @@ if (!defined('WEBPATH'))
 
 		scriptLoader($_themeroot . '/style.css');
 		?>
-		<script type="text/javascript">
+		<script>
 			
 			window.addEventListener('load', function () {
 				$(".colorbox").colorbox({
