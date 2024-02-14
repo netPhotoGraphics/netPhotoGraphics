@@ -2288,7 +2288,7 @@ function scriptLoader($script, $scriptTag = 'inline') {
 
 	switch ($scriptTag) {
 		case 'inline':
-			if (file_exists($scriptFS) && filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
+			if (!file_exists($scriptFS) || filesize($scriptFS) >= INLINE_LOAD_THRESHOLD) { //	file is too large
 				$scriptTag = false;
 				break;
 			}
@@ -2381,7 +2381,7 @@ function load_jQuery_scripts($where, $ui = true) {
 			break;
 	}
 	if ($ui) {
-		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js', 'async');
+		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js');
 	}
 }
 

@@ -99,7 +99,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				scriptLoader(CORE_SERVERPATH . 'js/msdropdown/jquery.dd.min.js', 'async');
 			}
 			if (getOption('dirtyform_enable')) {
-				scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.min.js', 'async');
+				scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.min.js');
 			}
 			?>
 			<script>
@@ -297,7 +297,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			}
 		}
 		if (!empty($lang)) {
-			scriptLoader(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js', 'async');
+			scriptLoader(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js');
 		}
 	}
 
@@ -1985,7 +1985,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			?>
 			<li>
 				<label>
-					<input type="checkbox" id="custom<?php echo $table; ?>sort<?php echo $prefix; ?>" name="<?php echo $prefix; ?>custom<?php echo $table; ?>sort[]" value="<?php echo $key; ?>"<?php if ($checked) echo ' checked="checked"'; ?> />
+					<input type="checkbox" class="custom<?php echo $table; ?>sort<?php echo $prefix; ?>" name="<?php echo $prefix; ?>custom<?php echo $table; ?>sort[]" value="<?php echo $key; ?>"<?php if ($checked) echo ' checked="checked"'; ?> />
 					<?php echo($display); ?>
 				</label>
 			</li>
@@ -2379,7 +2379,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										?>
 										<option value =""><?php echo $globalsort; ?></option>
 										<?php
-										$cvt = $type = strtolower($album->get('subalbum_sort_type'));
+										$cvt = $type = strtolower($album->get('sort_type'));
 										if ($type && !in_array($type, $sort)) {
 											$cv = array('custom');
 										} else {

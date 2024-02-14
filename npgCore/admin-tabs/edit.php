@@ -535,44 +535,6 @@ codeblocktabsJS();
 if ((!$is_massedit && !isset($_GET['album'])) || $subtab == 'subalbuminfo') {
 	printSortableHead();
 }
-if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_massedit) {
-	$result = db_list_fields('albums');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$albumdbfields = implode(', ', $dbfields);
-	$result = db_list_fields('images');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$imagedbfields = implode(', ', $dbfields);
-	?>
-	<script>
-		//<!-- <![CDATA[
-		var albumdbfields = [<?php echo $albumdbfields; ?>];
-		$(function () {
-			$('.customalbumssort').tagSuggest({
-				tags: albumdbfields
-			});
-		});
-		var imagedbfields = [<?php echo $imagedbfields; ?>];
-		$(function () {
-			$('.customimagessort').tagSuggest({
-				tags: imagedbfields
-			});
-		});
-
-	</script>
-	<?php
-}
 ?>
 <script>
 	//<!-- <![CDATA[

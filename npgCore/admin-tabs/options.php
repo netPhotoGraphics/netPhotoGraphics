@@ -55,36 +55,6 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	<?php
 	$table = NULL;
 
-	if ($_admin_subtab == 'gallery' || $_admin_subtab == 'image') {
-		if ($_admin_subtab == 'image') {
-			$table = 'images';
-			$targetid = 'customimagessort';
-		} else {
-			$table = 'albums';
-			$targetid = 'customalbumssort';
-		}
-		$result = db_list_fields($table);
-		$dbfields = array();
-		if ($result) {
-			foreach ($result as $row) {
-				$dbfields[] = "'" . $row['Field'] . "'";
-			}
-			sort($dbfields);
-		}
-		?>
-		<script>
-
-			$(function () {
-				$('#<?php echo $targetid; ?>').tagSuggest({
-					tags: [
-		<?php echo implode(',', $dbfields); ?>
-					]
-				});
-			});
-
-		</script>
-		<?php
-	}
 	npgFilters::apply('texteditor_config', 'forms');
 	npg_Authority::printPasswordFormJS();
 	?>
