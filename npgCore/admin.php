@@ -344,7 +344,7 @@ if (npg_loggedin() && $_admin_menu) {
 
 // Print our header
 printAdminHeader('overview');
-scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js', 'async');
+scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
 ?>
 <script>
 
