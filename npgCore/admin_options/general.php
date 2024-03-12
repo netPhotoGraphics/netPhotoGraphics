@@ -136,7 +136,7 @@ function saveOptions() {
 function getOptionContent() {
 	global $_gallery, $_server_timezone, $_UTF8, $_authority;
 	?>
-	<script type="text/javascript">
+	<script>
 
 		var oldselect = '<?php echo SITE_LOCALE; ?>';
 		function radio_click(id) {
@@ -376,7 +376,7 @@ function getOptionContent() {
 											$c_attrs = ' checked="checked" disabled="disabled"';
 											?>
 											<input type="hidden" name="language_allow[_<?php echo $dirname; ?>]" value="1" />
-											<script type="text/javascript">
+											<script>
 												window.addEventListener('load', function () {
 													$('ul.languagelist').scrollTo('li:eq(<?php echo ($c - 2); ?>)');
 												}, false);
@@ -581,7 +581,7 @@ function getOptionContent() {
 							</p>
 						</td>
 						<td class="option_desc">
-							<script type="text/javascript">
+							<script>
 
 								function resetallowedtags() {
 									$('#allowed_tags').val(<?php

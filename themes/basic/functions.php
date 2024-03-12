@@ -63,7 +63,7 @@ function printSoftwareLink() {
 
 function switcher_head($ignore) {
 	?>
-	<script type="text/javascript">
+	<script>
 
 		function switchColors() {
 			personality = $('#themeColor').val();

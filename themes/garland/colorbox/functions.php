@@ -18,7 +18,7 @@ class ga_colorbox {
 
 	function theme_head($_themeroot) {
 		?>
-		<script type="text/javascript">
+		<script>
 			
 			window.addEventListener('load', function () {
 			$("a.thickbox").colorbox({

@@ -535,46 +535,8 @@ codeblocktabsJS();
 if ((!$is_massedit && !isset($_GET['album'])) || $subtab == 'subalbuminfo') {
 	printSortableHead();
 }
-if (isset($_GET['album']) && (empty($subtab) || $subtab == 'albuminfo') || $is_massedit) {
-	$result = db_list_fields('albums');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$albumdbfields = implode(', ', $dbfields);
-	$result = db_list_fields('images');
-	$dbfields = array();
-	if ($result) {
-		foreach ($result as $row) {
-			$dbfields[] = "'" . $row['Field'] . "'";
-		}
-	}
-	sort($dbfields);
-	$imagedbfields = implode(', ', $dbfields);
-	?>
-	<script type="text/javascript">
-		//<!-- <![CDATA[
-		var albumdbfields = [<?php echo $albumdbfields; ?>];
-		$(function () {
-			$('.customalbumssort').tagSuggest({
-				tags: albumdbfields
-			});
-		});
-		var imagedbfields = [<?php echo $imagedbfields; ?>];
-		$(function () {
-			$('.customimagessort').tagSuggest({
-				tags: imagedbfields
-			});
-		});
-
-	</script>
-	<?php
-}
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	var deleteAlbum1 = "<?php echo gettext("Are you sure you want to delete this entire album?"); ?>";
 	var deleteAlbum2 = "<?php echo gettext("Are you Absolutely Positively sure you want to delete the album? THIS CANNOT BE UNDONE!"); ?>";

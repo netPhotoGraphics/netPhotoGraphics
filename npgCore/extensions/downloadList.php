@@ -270,7 +270,7 @@ class DownloadList {
 			$file = basename($_downloadFile);
 		}
 		?>
-		<script type="text/javascript">
+		<script>
 
 			window.addEventListener('load', function () {
 				alert('<?php printf(gettext('File “%s” was not found.'), $file); ?>');

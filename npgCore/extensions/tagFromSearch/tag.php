@@ -85,7 +85,7 @@ echo "\n</head>";
 			$searchstring = $search->getSearchString();
 			if (is_array($searchstring)) {
 				?>
-				<script type="text/javascript">
+				<script>
 					function addSearchTag(tag) {
 						if (tag) {
 							var name = 'tags_' + bin2hex(tag);

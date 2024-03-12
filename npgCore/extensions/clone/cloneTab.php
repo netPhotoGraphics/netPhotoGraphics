@@ -14,7 +14,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 printAdminHeader('admin');
 scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 ?>
-<script type="text/javascript">
+<script>
 	function reloadCloneTab() {
 		this.document.location.href = '<?php echo getAdminLink(PLUGIN_FOLDER . '/clone/cloneTab.php'); ?>?tab=clone';
 	}
@@ -186,7 +186,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 						}
 						$path = str_replace(WEBPATH, '/', SERVERPATH);
 						?>
-						<script type="text/javascript">
+						<script>
 
 							var prime = '<?php echo SERVERPATH; ?>/';
 							function buttonAction(data) {

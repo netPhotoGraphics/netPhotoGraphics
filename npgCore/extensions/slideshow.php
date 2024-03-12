@@ -209,7 +209,7 @@ class slideshow {
 		// slideshow display section
 		$validtypes = array('jpg', 'jpeg', 'gif', 'png');
 		$slideshow .= '
-				<script type="text/javascript">
+				<script>
 
 				$(document).ready(function(){
 				$(function() {
@@ -580,7 +580,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 					}
 					$count = '';
 					?>
-					<script type="text/javascript">
+					<script>
 						window.addEventListener('load', function () {
 							$("a[rel='slideshow_<?php echo $slideshow_instance; ?>']").colorbox({
 								slideshow: true,

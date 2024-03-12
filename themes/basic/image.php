@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		scriptLoader(dirname(dirname($basic_CSS)) . '/common.css');
 		if (npgFilters::has_filter('theme_head', 'colorbox::css') && getOption('protect_full_image') != 'Download') {
 			?>
-			<script type="text/javascript">
+			<script>
 				
 				window.addEventListener('load', function () {
 					$(".colorbox").colorbox({

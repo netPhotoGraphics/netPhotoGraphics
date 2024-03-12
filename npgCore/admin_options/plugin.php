@@ -89,7 +89,7 @@ function getOptionContent() {
 		}
 		?>
 		<div id="tab_plugin" class="tabbox">
-			<script type="text/javascript">
+			<script>
 
 				var optionholder = new Array();
 

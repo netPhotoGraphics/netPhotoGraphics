@@ -31,7 +31,7 @@ function reconfigureAction($mandatory) {
 			$reason = sprintf(gettext('no %1$s PHP support'), $_conf_vars['db_software']);
 			break;
 		case 13:
-			$reason = sprintf(gettext('Database connection failure<br />%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
+			$reason = gettext('Database connection failure.');
 			break;
 		default:
 			$reason = gettext('install signature option not set');

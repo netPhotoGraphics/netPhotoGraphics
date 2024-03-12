@@ -331,7 +331,7 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 
 	if (!$skipform) {
 		?>
-		<script type="text/javascript">
+		<script>
 			function jumpTo(form) {
 				var OptionIndex = form.ListBoxURL.selectedIndex;
 				parent.location = form.ListBoxURL.options[OptionIndex].value;

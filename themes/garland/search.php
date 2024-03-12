@@ -15,7 +15,7 @@ if (!defined('WEBPATH'))
 		if (class_exists('RSS'))
 			printRSSHeaderLink('Gallery', gettext('Gallery'));
 		?>
-		<script type="text/javascript">
+		<script>
 			
 			function toggleExtraElements(category, show) {
 				if (show) {

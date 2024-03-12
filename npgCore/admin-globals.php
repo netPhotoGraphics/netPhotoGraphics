@@ -33,6 +33,9 @@ require_once(CORE_SERVERPATH . 'admin-functions.php');
 $_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
+	//	just incase
+	require_once(CORE_SERVERPATH . 'lib-filter.php');
+	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 	if (TEST_RELEASE) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
@@ -66,10 +69,6 @@ if (abs(OFFSET_PATH) != 2) {
 
 	if (!defined('EDITOR_SANITIZE_LEVEL'))
 		define('EDITOR_SANITIZE_LEVEL', 1);
-
-	//	just incase
-	require_once(CORE_SERVERPATH . 'lib-filter.php');
-	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 }
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);

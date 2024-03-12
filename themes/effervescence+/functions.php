@@ -98,7 +98,7 @@ function EF_head() {
 	}
 	scriptLoader(SERVERPATH . '/' . THEMEFOLDER . '/effervescence+/data/styles/' . $themeColor . '.css');
 	?>
-	<script type="text/javascript">
+	<script>
 
 		function blurAnchors() {
 			if (document.getElementsByTagName) {
@@ -131,7 +131,7 @@ function iconColor($icon) {
 
 function switcher_head($ignore) {
 	?>
-	<script type="text/javascript">
+	<script>
 
 		function switchColors() {
 			personality = $('#themeColor').val();

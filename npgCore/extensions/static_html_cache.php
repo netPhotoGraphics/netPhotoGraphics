@@ -231,7 +231,7 @@ class static_html_cache {
 			//Handle processing uncached images found
 			if (!empty($_image_need_cache)) {
 				?>
-				<script type="text/javascript">
+				<script>
 					var needsCache = ["<?php echo implode('","', array_unique($_image_need_cache)); ?>"];
 					var i, value;
 					for (i in needsCache) {
@@ -389,7 +389,7 @@ class static_html_cache {
 		global $_image_need_cache;
 		if (!empty($_image_need_cache)) {
 			?>
-			<script type="text/javascript">
+			<script>
 				var needsCache = ["<?php echo implode('","', $_image_need_cache); ?>"];
 				var i, value;
 				for (i in needsCache) {

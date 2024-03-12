@@ -249,7 +249,7 @@ function getOptionContent() {
 						$set_fields = $engine->allowedSearchFields();
 						$fields = array_diff($fields, $set_fields);
 						?>
-					<script type="text/javascript">
+					<script>
 						$(function () {
 							$("#resizable").resizable({
 								minHeight: 120,

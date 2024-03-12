@@ -32,7 +32,7 @@
 					printRSSLink('News', $separ, NEWS_LABEL, '', false, 'rss');
 				}
 				?>
-				<script type="text/javascript">
+				<script>
 					//<![CDATA[
 					$('.rss').prepend('<img alt="RSS Feed" src="<?php echo $_themeroot; ?>/images/rss.png">&nbsp;');
 					//]]>

@@ -289,7 +289,7 @@ class jPlayer extends html5Player {
 		}
 
 		$playerconfig = '
-		<script type="text/javascript">
+		<script>
 			//<![CDATA[
 		$(document).ready(function(){
 			$("#jquery_jplayer_' . $count . '").jPlayer({
@@ -599,7 +599,7 @@ class jPlayer extends html5Player {
 			}
 			$id = $albumobj->getID();
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 				$(document).ready(function(){
 				new jPlayerPlaylist({

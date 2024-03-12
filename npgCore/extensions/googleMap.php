@@ -156,7 +156,7 @@ class GoogleMap {
 			$loc = '&amp;language=' . substr($loc, 0, 2);
 		}
 		?>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp<?php echo $key . $loc; ?>"></script>
 		<?php
 		scriptLoader(PLUGIN_SERVERPATH . 'googleMap/markerClustererPlus/markerclusterer.js');
 		scriptLoader(PLUGIN_SERVERPATH . 'googleMap/overlappingMarkerSpiderfier/oms.min.js');
@@ -442,7 +442,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 		case 'show':
 			$map->create_map();
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 			<?php
 			echo $map->output_js_contents;
@@ -462,7 +462,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 		case 'hide':
 			$map->create_map();
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 			<?php
 			echo $map->output_js_contents;
@@ -524,7 +524,7 @@ function printGoogleMap($text = NULL, $id = NULL, $hide = NULL, $obj = NULL, $ca
 				<span class="map_ref">
 					<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/googleMap/map.php') . $param ?>" title="<?php echo $text; ?>" class="google_map"><?php echo $text; ?></a>
 				</span>
-				<script type="text/javascript">
+				<script>
 					//<![CDATA[
 					window.addEventListener('load', function () {
 						$(".google_map").colorbox({

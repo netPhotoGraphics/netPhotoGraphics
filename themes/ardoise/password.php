@@ -11,7 +11,7 @@
 			<?php printPasswordForm(isset($hint) ? $hint : NULL, isset($show) ? $show : TRUE, false); ?>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script>
 		//<![CDATA[
 		$(document).ready(function () {
 			$.colorbox({

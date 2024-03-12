@@ -102,7 +102,7 @@ function displayError($what, $brief, $addl) {
 
 
 
-		<script type="text/javascript">
+		<script>
 			// Make the DIV element draggable:
 			dragElement(document.getElementById("dragbox"));
 

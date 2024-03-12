@@ -492,7 +492,7 @@ class cacheManager {
 	 */
 	static function printShowHide() {
 		?>
-		<script type="text/javascript">
+		<script>
 			//<!-- <![CDATA[
 			function checkTheme(theme) {
 				$('.' + theme).prop('checked', $('#' + theme).prop('checked'));

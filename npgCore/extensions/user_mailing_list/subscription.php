@@ -68,7 +68,7 @@ printAdminHeader('admin', 'Mailing');
 		<?php printAdminFooter(); ?>
 	</div>
 
-	<script type="text/javascript">
+	<script>
 		$('.hiddenOrphan').hide();
 <?php
 if (!isset($highlighted)) {

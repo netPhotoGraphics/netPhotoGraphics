@@ -63,7 +63,7 @@ echo '</head>';
 							ksort($graphics_lib);
 							if (file_exists(SERVERPATH . '/docs/release notes.htm')) {
 								?>
-								<script type="text/javascript">
+								<script>
 									<!--
 									$(document).ready(function () {
 										$(".doc").colorbox({
@@ -497,7 +497,7 @@ echo '</head>';
 		<?php printAdminFooter(); ?>
 	</div>
 </body>
-<script type="text/javascript">
+<script>
 									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
 									$('.overview_list').height(height);
 </script>

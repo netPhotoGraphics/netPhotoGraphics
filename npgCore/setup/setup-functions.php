@@ -62,7 +62,7 @@ function getResidentFiles($folder, $exclude) {
 function primeMark($text) {
 	global $primeid, $clearedid;
 	?>
-	<script type="text/javascript">
+	<script>
 		$("#prime<?php echo $primeid; ?>").remove();
 	</script>
 	<div id="prime<?php echo $primeid + 1; ?>" class="error"><?php printf(gettext('Testing %s.'), $text); ?></div>
@@ -78,7 +78,7 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
 	$display = '';
 	if ($primeid != $clearedid) {
 		?>
-		<script type="text/javascript">
+		<script>
 			$("#prime<?php echo $primeid; ?>").remove();
 		</script>
 		<?php
@@ -270,7 +270,7 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 				} else {
 					if ($recurse) {
 						?>
-						<script type="text/javascript">
+						<script>
 
 							$.ajax({
 								type: 'POST',

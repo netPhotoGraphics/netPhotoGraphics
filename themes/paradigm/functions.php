@@ -352,7 +352,7 @@ function printImageMetadata_zb() {
  */
 function printZDSearchToggleJS() {
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		function toggleExtraElements(category, show) {
 			if (show) {

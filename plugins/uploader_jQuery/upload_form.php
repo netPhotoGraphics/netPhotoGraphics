@@ -10,7 +10,7 @@ function upload_head() {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<![endif]-->
 
-	<script type="text/javascript">
+	<script>
 		var extension_link = '<?php echo getAdminLink(PLUGIN_FOLDER . '/uploader_jQuery/server/php/index.php'); ?>';
 	</script>
 
@@ -188,7 +188,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-validate.js');
 	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-ui.js');
 	//NOTE: has some self relative references, so cannot be served inline
-	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/main.js', false);
+	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/main.js', '');
 	?>
 	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 	<!--[if (gte IE 8)&(lt IE 10)]>

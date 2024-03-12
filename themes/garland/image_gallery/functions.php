@@ -21,7 +21,7 @@ class imagegallery {
 	function theme_bodyopen($_themeroot) {
 		$location = getOption('garland_caption_location');
 		?>
-		<script type="text/javascript">
+		<script>
 			$(function () {
 				var galleries = $('.ad-gallery').adGallery({
 					width: 520, // Width of the image, set to false and it will read the CSS width

@@ -161,7 +161,7 @@ function saveOptions() {
 function getOptionContent() {
 	global $_gallery, $_set_theme_album, $optionHandler, $themelist, $themename, $_set_theme_album, $alb, $album, $albumtitle;
 	?>
-	<script type="text/javascript">
+	<script>
 		window.addEventListener('load', function () {
 			customTable = Math.round($('#customOptions').width());
 			if (customTable > table) {

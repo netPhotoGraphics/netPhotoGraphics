@@ -12,7 +12,7 @@
 				<div class="modal-content">
 					<div class="modal-body">
 						<?php printPasswordForm('', true); ?>
-						<script type="text/javascript">
+						<script>
 						//<![CDATA[
 							$(document).ready( function($) {
 								$('#password').modal('show');

@@ -64,7 +64,7 @@ if ($pasteObjEnabled = array_search('pasteobj', $MCEplugins)) {
 	scriptLoader(TINYMCE . '/pasteobj/plugin.js');
 }
 ?>
-<script type="text/javascript">
+<script>
 	
 <?php
 if ($pasteObjEnabled) {

@@ -538,7 +538,7 @@ if (isset($_GET['mod_rewrite'])) {
 
 if (!CURL_ENABLED) {
 	?>
-	<script type="text/javascript">
+	<script>
 		$(function () {
 			$('img').on("error", function () {
 				var link = $(this).attr('src');

@@ -10,7 +10,7 @@ function jqm_loadScripts() {
 	loadJqueryMobile();
 	?>
 
-	<script type="text/javascript">
+	<script>
 		window.addEventListener('load', function () {
 			$("#admin_tb_data a, a.downloadlist_link").attr('data-ajax', 'false');
 		}, false);
@@ -246,7 +246,7 @@ function jqm_printImageAlbumCount() {
  */
 function printZDSearchToggleJS() {
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		function toggleExtraElements(category, show) {
 			if (show) {

@@ -59,7 +59,7 @@ if (isset($_GET['album'])) {
 setAlbumSubtabs($album);
 printAdminHeader('edit', 'sort');
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	$(function () {
 		$('#images').sortable({

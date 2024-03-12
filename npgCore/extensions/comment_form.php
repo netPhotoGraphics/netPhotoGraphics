@@ -264,7 +264,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 					if (getOption('comment_form_toggle')) {
 						?>
 						<div id="comment_toggle"><!-- place holder for toggle button --></div>
-						<script type="text/javascript">
+						<script>
 							
 							function toggleComments(hide) {
 								if (hide) {

@@ -337,7 +337,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 									$publishdate = $image->getPublishDate();
 									$expirationdate = $image->getExpireDate();
 									?>
-									<script type="text/javascript">
+									<script>
 
 										$(function () {
 											$("#publishdate-<?php echo $currentimage; ?>,#expirationdate-<?php echo $currentimage; ?>").datepicker({

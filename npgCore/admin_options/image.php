@@ -206,7 +206,7 @@ function getOptionContent() {
 	global $_gallery, $_images_classes, $_exifvars, $_graphics_optionhandlers, $_sortby, $_cachefileSuffix, $_UTF8;
 	?>
 
-	<script type="text/javascript">
+	<script>
 
 		function checkMeta(cls) {
 			$('.' + cls).prop('checked', 'checked');

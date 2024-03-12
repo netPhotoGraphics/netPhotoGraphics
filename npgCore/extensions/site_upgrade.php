@@ -70,7 +70,7 @@ class site_upgrade {
 					?>
 					<form class="dirtylistening" name="site_upgrade_form" id="site_upgrade_form">
 					</form>
-					<script type="text/javascript">
+					<script>
 						window.addEventListener('load', function () {
 							$('#site_upgrade_form').dirtyForms('setDirty');
 							$.DirtyForms.message = '<?php echo gettext('The site is closed!'); ?>';
@@ -188,7 +188,7 @@ class site_upgrade {
 				list($diff, $needs) = checkSignature(0);
 				if (empty($needs)) {
 					?>
-					<script type="text/javascript">
+					<script>
 						window.addEventListener('load', function () {
 							$('#site_upgrade').submit(function () {
 								return confirm('<?php echo gettext('Your setup scripts are not protected!'); ?>');

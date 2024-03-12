@@ -141,7 +141,7 @@ printAdminHeader('plugins');
 $rangeset = getPageSelector($pluginlist, PLUGINS_PER_PAGE);
 $filelist = array_slice($pluginlist, $subpage * PLUGINS_PER_PAGE, PLUGINS_PER_PAGE);
 ?>
-<script type="text/javascript">
+<script>
 	<!--
 	var pluginsToPage = ['<?php echo implode("','", array_map('strtolower', $pluginlist)); ?>'];
 	function gotoPlugin(plugin) {

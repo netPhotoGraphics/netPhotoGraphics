@@ -79,7 +79,7 @@ scriptLoader($_themeroot . '/js/imagesloaded.pkgd.min.js');
 scriptLoader($_themeroot . '/js/isotope.pkgd.min.js');
 scriptLoader($_themeroot . '/js/packery-mode.pkgd.min.js');
 ?>
-<script type="text/javascript">
+<script>
 	//<![CDATA[
 	// init Isotope after all images have loaded
 	var $containter = $('#isotope-wrap').imagesLoaded(function () {

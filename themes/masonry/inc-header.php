@@ -143,7 +143,7 @@
 		}
 		scriptLoader(PLUGIN_SERVERPATH . 'colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
 		?>
-		<script type="text/javascript">
+		<script>
 			window.addEventListener('load', function () {
 				$('#page_nav').css('display', 'none');
 				$("a.zpmas-cb").colorbox({
@@ -227,7 +227,7 @@
 		<style>
 			#cycle li {width:<?php echo $zpmas_ss_size_w; ?>px;height:<?php echo $zpmas_ss_size_h; ?>px;}
 		</style>
-		<script type="text/javascript">
+		<script>
 			jQuery(document).ready(function ($) {
 				$('#full-image img').each(function () {
 					$(this).removeAttr('width')

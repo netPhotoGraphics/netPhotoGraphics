@@ -192,7 +192,7 @@ class _Authority {
 			case 'password_strength':
 				?>
 				<input type="hidden" size="3" id="password_strength" name="password_strength" value="<?php echo getOption('password_strength'); ?>" />
-				<script type="text/javascript">
+				<script>
 
 					function sliderColor(strength) {
 						d = 512 / 30; //	color gradient steps
@@ -1556,7 +1556,7 @@ class _Authority {
 							$legend = gettext('Login');
 						} else {
 							?>
-							<script type="text/javascript">
+							<script>
 
 								var handlers = [];
 					<?php
@@ -1650,7 +1650,7 @@ class _Authority {
 							$buttonClass = $captcha['submitButton']['class'];
 						}
 						?>
-						<script type="text/javascript">
+						<script>
 							function toggleSubmit() {
 								if ($('#user').val()) {
 									$('#submitButton').prop('disabled', false);
@@ -1709,7 +1709,7 @@ class _Authority {
 	 */
 	static function printPasswordFormJS($all = false) {
 		?>
-		<script type="text/javascript">
+		<script>
 
 		<?php
 		if (OFFSET_PATH || $all) {

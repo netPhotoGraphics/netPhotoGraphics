@@ -346,7 +346,7 @@ if (npg_loggedin() && $_admin_menu) {
 printAdminHeader('overview');
 scriptLoader(PLUGIN_SERVERPATH . 'common/masonry/masonry.pkgd.min.js');
 ?>
-<script type="text/javascript">
+<script>
 
 	$(function () {
 		$('#overviewboxes').masonry({

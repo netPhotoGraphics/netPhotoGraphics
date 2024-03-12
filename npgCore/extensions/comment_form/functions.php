@@ -104,7 +104,7 @@ function fetchComments($number, $status = -1) {
 function comment_form_PaginationJS() {
 	scriptLoader(CORE_SERVERPATH . 'js/jquery.pagination.js');
 	?>
-	<script type="text/javascript">
+	<script>
 		var current_comment_N, addrBar_hash = window.location.hash, Comm_ID_found = !addrBar_hash.search(/#_comment_id_/);
 		function pageselectCallback(page_index, jq) {
 			var items_per_page = <?php echo max(1, COMMENTS_PER_PAGE); ?>;

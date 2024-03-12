@@ -103,7 +103,7 @@ if (!defined('WEBPATH'))
 		}
 		if (($_gallery_page == 'album.php' || $_gallery_page == 'favorites.php') && (getOption('use_galleriffic')) && (isImagePage() == true)) {
 			?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 				(function($) {
 				var userAgent = navigator.userAgent.toLowerCase();
@@ -218,7 +218,7 @@ if (!defined('WEBPATH'))
 		<?php } ?>
 
 		<?php if (($_gallery_page == 'image.php') || ((class_exists('CMS')) && (is_NewsArticle()))) { ?>
-			<script type="text/javascript">
+			<script>
 				//<![CDATA[
 	<?php $NextURL = $PrevURL = false; ?>
 	<?php if ($_gallery_page == 'image.php') { ?>
@@ -277,7 +277,7 @@ if (!defined('WEBPATH'))
 			</script>
 		<?php } ?>
 
-		<script type="text/javascript">
+		<script>
 			//<![CDATA[
 			$(document).ready(function($){
 			$(".colorbox").colorbox({

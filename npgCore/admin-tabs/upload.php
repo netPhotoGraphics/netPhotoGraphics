@@ -69,7 +69,7 @@ printLogoAndLinks();
 			}
 		}
 		?>
-		<script type="text/javascript">
+		<script>
 			
 			// Array of album names for javascript functions.
 			var albumArray = new Array(
@@ -163,7 +163,7 @@ foreach ($albumlist as $key => $value) {
 
 				seoFriendlyJS();
 				?>
-				<script type="text/javascript">
+				<script>
 					
 					function buttonstate(good) {
 						$('#albumtitleslot').val($('#albumtitle').val());
@@ -305,7 +305,7 @@ foreach ($albumlist as $key => $value) {
 						?>
 					</div><!-- upload action -->
 
-					<script type="text/javascript">
+					<script>
 						//<!-- <![CDATA[
 	<?php
 	echo npgFilters::apply('upload_helper_js', '') . "\n";

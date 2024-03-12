@@ -321,7 +321,7 @@ scriptLoader(PLUGIN_SERVERPATH . 'purgeOptions/purgeOptions.css');
 		<?php printAdminFooter(); ?>
 	</div>
 
-	<script type="text/javascript">
+	<script>
 		$('.hiddenOrphan').hide();
 <?php
 if (!isset($highlighted)) {

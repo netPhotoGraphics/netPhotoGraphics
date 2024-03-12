@@ -390,13 +390,19 @@ function query($sql, $errorstop = true) {
  * Common error reporting for query errors
  * @param type $sql
  */
-function dbErrorReport($sql) {
+function dbErrorReport($sql, $type = 'Query: ') {
 	require_once(__DIR__ . '/errorPopup.php');
 
 	$what = gettext('Database Server Error');
-	$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
+	$er = db_errorno();
+	if ($er) {
+		$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, db_errorno() . ': ' . db_error());
+	} else {
+		$brief = $type;
+		$type = null;
+	}
 
-	displayError($what, $brief, 'Query: ' . $sql);
+	displayError($what, $brief, $type . $sql);
 }
 
 /**

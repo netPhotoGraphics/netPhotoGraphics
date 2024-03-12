@@ -95,7 +95,7 @@ class captcha {
 		<span id="npg_captcha_image_loc">
 			<?php echo $captcha['html']; ?>
 		</span>
-		<script type="text/javascript">
+		<script>
 			
 			var path = '<?php echo $matches[1]; ?>';
 			window.addEventListener('load', function () {

@@ -513,7 +513,7 @@ if ($action == 'backup') {
 		';
 	} else {
 		$messages = '
-			<script type="text/javascript">
+			<script>
 				window.addEventListener(\'load\',  function() {
 					window.location = "' . getAdminLink(UTILITIES_FOLDER . '/backup_restore.php') . '?tab=backup&compression=' . $compression_handler . '";
 				}, false);

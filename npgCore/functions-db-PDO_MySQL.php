@@ -60,7 +60,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 				$_DB_last_result = $e;
 				if (empty($errorstop) || in_array($e, $denied) || $i >= MYSQL_CONNECTION_RETRIES) {
 					if ($errorstop) {
-						trigger_error(sprintf(gettext('PDO_MySql Error: netPhotoGraphics received the error %s when connecting to the database server.'), $er . ': ' . $e->getMessage()), $errorstop);
+						dbErrorReport(null, 'PDO::__construct()');
 					}
 					//	the caller is prepaired to deal with the failure
 					$_DB_connection = NULL;
@@ -89,7 +89,7 @@ function db_connect($config, $errorstop = E_USER_ERROR) {
 			//	What can we do :(
 		}
 	} else {
-		trigger_error(gettext('PDO_MySQL extension not loaded.'), $errorstop);
+		dbErrorReport(null, 'PDO_MySQL extension not loaded');
 	}
 
 	$_DB_details = $config;

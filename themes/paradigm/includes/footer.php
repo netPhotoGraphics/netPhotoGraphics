@@ -119,9 +119,9 @@
 
 <?php if (getOption('sharethis_id') != '') { ?>
 
-	<script type="text/javascript">var switchTo5x = true;</script>
-	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "<?php echo getOption('sharethis_id'); ?>", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	<script>var switchTo5x = true;</script>
+	<script src="http://w.sharethis.com/button/buttons.js"></script>
+	<script>stLight.options({publisher: "<?php echo getOption('sharethis_id'); ?>", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
 <?php } ?>
 

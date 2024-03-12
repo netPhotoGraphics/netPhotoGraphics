@@ -248,7 +248,7 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 				}
 				?>
 			</ul>
-			<script type="text/javascript">
+			<script>
 				window.addEventListener('load', function () {
 					var index = $('.bxslider<?php echo $albumid; ?> li.activeimg').index();
 					index = ++index;

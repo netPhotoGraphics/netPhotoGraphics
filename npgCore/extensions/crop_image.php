@@ -232,7 +232,7 @@ scriptLoader(PLUGIN_SERVERPATH . 'crop_image/crop_image.css');
 scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 scriptLoader(CORE_SERVERPATH . 'js/htmlencoder.js');
 ?>
-<script type="text/javascript" >
+<script >
 	//<!-- <![CDATA[
 	var jcrop_api;
 	var sizedWidth = <?php echo $sizedwidth ?>;

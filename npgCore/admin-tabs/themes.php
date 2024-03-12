@@ -72,7 +72,7 @@ printAdminHeader('themes');
 // Script for the "Duplicate theme" feature
 scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 ?>
-<script type="text/javascript">
+<script>
 	//<!-- <![CDATA[
 	function copyClick(source) {
 		var targetname = prompt('<?php echo gettext('New theme name?'); ?>', sprintf('<?php echo gettext('Copy of %s'); ?>', source));

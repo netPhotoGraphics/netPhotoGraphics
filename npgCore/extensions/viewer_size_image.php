@@ -140,7 +140,7 @@ if ($plugin_disable) {
 		if (($cookiepath = WEBPATH) == '')
 			$cookiepath = '/';
 		?>
-		<script type="text/javascript">
+		<script>
 			
 		<?php
 		$selector = getOption('viewer_size_image_radio') == 1;

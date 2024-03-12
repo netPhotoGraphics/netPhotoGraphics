@@ -34,7 +34,7 @@ if (empty($locale))
 		?>
 
 		<!-- elFinder initialization (REQUIRED) -->
-		<script type="text/javascript" charset="utf-8">
+		<script charset="utf-8">
 			var FileBrowserDialogue = {
 			init: function(file, fm) {
 			// Here goes your code for setting your custom things onLoad.

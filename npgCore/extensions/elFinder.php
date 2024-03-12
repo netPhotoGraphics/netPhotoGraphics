@@ -98,7 +98,7 @@ function elFinder_tinymce($discard) {
 	$file = FULLWEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/elFinder/connector.mce.php?XSRFToken=' . getXSRFToken('elFinder');
 	$MCEspecial ['file_picker_callback'] = 'elFinderBrowser';
 	?>
-	<script type="text/javascript">
+	<script>
 		
 		function elFinderBrowser(callback, value, meta) {
 			var windowManagerURL = '<?php echo $file; ?>&type=' + meta.type,

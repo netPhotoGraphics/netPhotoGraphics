@@ -172,7 +172,7 @@ printAdminHeader('edit', 'thumbcrop');
 scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.css');
 scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 ?>
-<script type="text/javascript" >
+<script >
 	//<!-- <![CDATA[
 	var jcrop_api;
 	jQuery(window).on("load", function () {
@@ -310,7 +310,7 @@ scriptLoader(CORE_SERVERPATH . 'js/Jcrop/jquery.Jcrop.js');
 					</form>
 
 					<!-- set the initial view for the preview -->
-					<script type="text/javascript" >
+					<script >
 						
 						jQuery('#preview').css({
 							width: '<?php echo round($cropwidth / $iW * $sizedwidth); ?>px',

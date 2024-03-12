@@ -429,7 +429,7 @@ if (OFFSET_PATH) {
 					$_myFavorites_button_count++;
 					$favList = array_slice($list, 1);
 					?>
-					<script type="text/javascript">
+					<script>
 						
 						var _favList = ['<?php echo implode("','", $favList); ?>'];
 						$(function () {
