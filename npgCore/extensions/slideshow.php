@@ -690,7 +690,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 	 * @param obj $albumobj The object of the album to show the slideshow of. If set this overrides the POST data of the printSlideShowLink()
 	 * @param obj $imageobj The object of the image to start the slideshow with. If set this overrides the POST data of the printSlideShowLink(). If not set the slideshow starts with the first image of the album.
 	 * @param int $width The width of the images (jQuery mode). If set this overrides the size the slideshow_width plugin option that otherwise is used.
-	 * @param int $height The heigth of the images (jQuery mode). If set this overrides the size the slideshow_height plugin option that otherwise is used.
+	 * @param int $height The hight of the images (jQuery mode). If set this overrides the size the slideshow_height plugin option that otherwise is used.
 	 * @param bool $crop Set to true if you want images cropped width x height (jQuery mode only)
 	 * @param bool $shuffle Set to true if you want random (shuffled) order
 	 * @param bool $linkslides Set to true if you want the slides to be linked to their image pages (jQuery mode only)
