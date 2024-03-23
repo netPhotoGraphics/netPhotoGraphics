@@ -198,7 +198,7 @@ class flag_thumbnail {
 	}
 
 	protected static function image($what) {
-		$img = getPlugin(get_class() . '/' . getOption('flag_thumbnail_' . $what . '_icon'));
+		$img = getPlugin(get_called_class() . '/' . getOption('flag_thumbnail_' . $what . '_icon'));
 		$size = gl_imageDims($img);
 		$wide = $size['width'];
 		$high = $size['height'];

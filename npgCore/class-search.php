@@ -47,10 +47,10 @@ class SearchEngine {
 	protected $extraparams = array(); // allow plugins to add to search parameters
 	protected $whichdates = 'date'; // for zenpage date searches, which date field to search
 	protected $tagSQL = array(); //	cache for the tag hit list
-// $specialChars are characters with special meaning in parasing searach strings
-// set to false and they are treated as regular characters
+	// $specialChars are characters with special meaning in parasing searach strings
+	// set to false and they are treated as regular characters
 	public $specialChars = array('"' => true, "'" => true, '`' => true, '\\' => true);
-// mimic album object
+	// mimic album object
 	public $loaded = false;
 	public $table = 'albums';
 	public $transient = true;
@@ -79,13 +79,13 @@ class SearchEngine {
 		$this->extraparams['pagessorttype'] = getOption('search_page_sort_type');
 		$this->extraparams['pagessortdirection'] = getOption('search_page_sort_direction') ? 'DESC' : '';
 
-//image/album fields
+		//image/album fields
 		$this->search_structure['title'] = gettext('Title');
 		$this->search_structure['desc'] = gettext('Description');
 		$this->search_structure['filename'] = gettext('File/Folder name');
 		$this->search_structure['date'] = gettext('Date');
 		if (class_exists('CMS') && !$dynamic_album) {
-//zenpage fields
+			//zenpage fields
 			$this->search_structure['content'] = gettext('Content');
 			$this->search_structure['owner'] = gettext('Author');
 			$this->search_structure['lastchangeuser'] = gettext('Last Editor');
@@ -95,7 +95,7 @@ class SearchEngine {
 		$this->search_structure['gpsLatitude'] = gettext('Latitude');
 		$this->search_structure['gpsLongitude'] = gettext('Longitude');
 
-//metadata fields
+		//metadata fields
 		foreach ($_exifvars as $field => $row) {
 			if ($row[METADATA_DISPLAY] && $row[METADATA_FIELD_ENABLED]) { //	only those that are "real" and "processed"
 				$this->search_structure[strtolower($field)] = $row[METADATA_DISPLAY_TEXT] . ' {' . $row[METADATA_SOURCE] . '}';
@@ -104,7 +104,7 @@ class SearchEngine {
 
 		$this->search_structure = npgFilters::apply('searchable_fields', $this->search_structure);
 		if (isset($this->search_structure['tags'])) {
-// if tag searches exist then allow exact tags as well
+			// if tag searches exist then allow exact tags as well
 			$this->search_structure['tags_exact'] = ''; //	internal use only field
 		}
 		asort($this->search_structure, SORT_LOCALE_STRING);
@@ -1266,35 +1266,35 @@ class SearchEngine {
 
 		switch ((int) getOption('exact_tag_match')) {
 			case 0:
-// partial
+				// partial
 				$this->tagPattern = array('type' => 'like', 'open' => '%', 'close' => '%');
 				break;
 			case 1:
-// exact
+				// exact
 				$this->tagPattern = array('type' => '=', 'open' => '', 'close' => '');
 				break;
 			case 2:
-//word
+				//word
 				$this->tagPattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => $wordEnd);
 				break;
 		}
 
 		switch ((int) getOption('exact_string_match')) {
 			case 0:
-// pattern
+				// pattern
 				$this->pattern = array('type' => 'like', 'open' => '%', 'close' => '%');
 				break;
 			case 1:
-// partial start
+				// partial start
 				$this->pattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => '');
 				break;
 			case 2:
-//word
+				//word
 				$this->pattern = array('type' => 'regexp', 'open' => $wordStart, 'close' => $wordEnd);
 				break;
 		}
 
-// create an array of [tag, objectid] pairs for tags
+		// create an array of [tag, objectid] pairs for tags
 		$tag_objects = array();
 		$fields = $this->fieldList;
 		if (count($fields) == 0) { // then use the default ones

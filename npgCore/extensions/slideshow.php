@@ -578,7 +578,7 @@ if (extensionEnabled('slideshow') && !OFFSET_PATH) {
 					} else {
 						$images = $_current_album->getImages(0);
 					}
-					$count = '';
+					$count = 0;
 					?>
 					<script>
 						window.addEventListener('load', function () {
