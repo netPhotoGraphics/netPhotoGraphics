@@ -131,7 +131,9 @@ if (isset($_GET['purge'])) {
 						break;
 				}
 			} else {
+				$level = error_reporting(0);
 				if (SYMLINK && @symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
+					error_reporting($level);
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
 						case 'zp-core':
@@ -161,6 +163,7 @@ if (isset($_GET['purge'])) {
 						}
 					}
 				} else {
+					error_reporting($level);
 					$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target) . "<br />\n";
 					$success = false;
 				}

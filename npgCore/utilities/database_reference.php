@@ -160,7 +160,7 @@ scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 							?>
 							<tr<?php echo $rowclass; ?>>
 								<?php
-								$fieldcount = '';
+								$fieldcount = 0;
 								foreach ($col as $field) {
 									$fieldcount++;
 									$class = '';
