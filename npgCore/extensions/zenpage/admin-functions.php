@@ -600,7 +600,7 @@ function printNewsDatesDropdown() {
 	global $_CMS;
 	$datecount = $_CMS->getAllArticleDates();
 	$lastyear = "";
-	$nr = "";
+	$nr = 0;
 	$option = getNewsAdminOption('date');
 	if (!isset($_GET['date'])) {
 		$selected = 'selected="selected"';
