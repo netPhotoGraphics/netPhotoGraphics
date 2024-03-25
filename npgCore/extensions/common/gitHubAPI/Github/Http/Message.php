@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -10,42 +12,30 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-abstract class Message extends Github\Sanity
+abstract class Message
 {
-	/** @var array[name => value] */
-	private $headers = [];
+	use Github\Strict;
 
-	/** @var string|NULL */
-	private $content;
+	private array $headers = [];
 
 
-	/**
-	 * @param  array
-	 * @param  string|NULL
-	 */
-	public function __construct(array $headers = [], $content = NULL)
-	{
-		$this->headers = array_change_key_case($headers, CASE_LOWER);
-		$this->content = $content;
+	public function __construct(
+		array $headers = [],
+		private ?string $content = null,
+	) {
+		foreach ($headers as $name => $value) {
+			$this->setHeader($name, $value);
+		}
 	}
 
 
-	/**
-	 * @param  string
-	 * @return bool
-	 */
-	public function hasHeader($name)
+	public function hasHeader(string $name): bool
 	{
 		return array_key_exists(strtolower($name), $this->headers);
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  mixed
-	 * @return mixed
-	 */
-	public function getHeader($name, $default = NULL)
+	public function getHeader(string $name, string $default = null): ?string
 	{
 		$name = strtolower($name);
 		return array_key_exists($name, $this->headers)
@@ -54,15 +44,10 @@ abstract class Message extends Github\Sanity
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  string
-	 * @return self
-	 */
-	protected function addHeader($name, $value)
+	protected function addHeader(string $name, ?string $value): static
 	{
 		$name = strtolower($name);
-		if (!array_key_exists($name, $this->headers) && $value !== NULL) {
+		if (!array_key_exists($name, $this->headers) && $value !== null) {
 			$this->headers[$name] = $value;
 		}
 
@@ -70,15 +55,10 @@ abstract class Message extends Github\Sanity
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  string|NULL
-	 * @return self
-	 */
-	protected function setHeader($name, $value)
+	protected function setHeader(string $name, ?string $value): static
 	{
 		$name = strtolower($name);
-		if ($value === NULL) {
+		if ($value === null) {
 			unset($this->headers[$name]);
 		} else {
 			$this->headers[$name] = $value;
@@ -89,20 +69,16 @@ abstract class Message extends Github\Sanity
 
 
 	/**
-	 * @return array
+	 * @return string[]
 	 */
-	public function getHeaders()
+	public function getHeaders(): array
 	{
 		return $this->headers;
 	}
 
 
-	/**
-	 * @return string|NULL
-	 */
-	public function getContent()
+	public function getContent(): ?string
 	{
 		return $this->content;
 	}
-
 }

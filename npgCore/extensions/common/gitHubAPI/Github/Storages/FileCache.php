@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\Storages;
 
 use Milo\Github;
@@ -10,18 +12,19 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class FileCache extends Github\Sanity implements ICache
+class FileCache implements ICache
 {
-	/** @var string */
-	private $dir;
+	use Github\Strict;
+
+	private string $dir;
 
 
 	/**
-	 * @param  string  temporary directory
+	 * @param  string $tempDir  temporary directory
 	 *
 	 * @throws MissingDirectoryException
 	 */
-	public function __construct($tempDir)
+	public function __construct(string $tempDir)
 	{
 		if (!is_dir($tempDir)) {
 			throw new MissingDirectoryException("Directory '$tempDir' is missing.");
@@ -30,7 +33,7 @@ class FileCache extends Github\Sanity implements ICache
 		$dir = $tempDir . DIRECTORY_SEPARATOR . 'milo.github-api';
 
 		if (!is_dir($dir)) {
-			set_error_handler(function($severity, $message, $file, $line) use ($dir, & $valid) {
+			set_error_handler(function($severity, $message, $file, $line) use ($dir, &$valid) {
 				restore_error_handler();
 				if (!is_dir($dir)) {
 					throw new MissingDirectoryException("Cannot create '$dir' directory.", 0, new \ErrorException($message, 0, $severity, $file, $line));
@@ -44,12 +47,8 @@ class FileCache extends Github\Sanity implements ICache
 	}
 
 
-	/**
-	 * @param  string
-	 * @param  mixed
-	 * @return mixed  stored value
-	 */
-	public function save($key, $value)
+	/** @inheritdoc */
+	public function save(string $key, mixed $value): mixed
 	{
 		file_put_contents(
 			$this->filePath($key),
@@ -61,11 +60,7 @@ class FileCache extends Github\Sanity implements ICache
 	}
 
 
-	/**
-	 * @param  string
-	 * @return mixed|NULL
-	 */
-	public function load($key)
+	public function load(string $key): mixed
 	{
 		$path = $this->filePath($key);
 		if (is_file($path) && ($fd = fopen($path, 'rb')) && flock($fd, LOCK_SH)) {
@@ -73,8 +68,8 @@ class FileCache extends Github\Sanity implements ICache
 			flock($fd, LOCK_UN);
 			fclose($fd);
 
-			$success = TRUE;
-			set_error_handler(function() use (& $success) { return $success = FALSE; }, E_NOTICE);
+			$success = true;
+			set_error_handler(function() use (&$success) { return $success = false; }, E_NOTICE);
 			$cached = unserialize($cached);
 			restore_error_handler();
 
@@ -82,16 +77,13 @@ class FileCache extends Github\Sanity implements ICache
 				return $cached;
 			}
 		}
+
+		return null;
 	}
 
 
-	/**
-	 * @param  string
-	 * @return string
-	 */
-	private function filePath($key)
+	private function filePath(string $key): string
 	{
 		return $this->dir . DIRECTORY_SEPARATOR . sha1($key) . '.php';
 	}
-
 }

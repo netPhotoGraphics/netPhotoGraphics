@@ -1,9 +1,12 @@
 <?php
 
-/* version 1.4.9 */
+//https://github.com/milo/github-api
+//version 2.0.2
+
+declare(strict_types=1);
 
 require __DIR__ . '/Github/exceptions.php';
-require __DIR__ . '/Github/Sanity.php';
+require __DIR__ . '/Github/Strict.php';
 require __DIR__ . '/Github/Helpers.php';
 
 require __DIR__ . '/Github/Storages/ICache.php';

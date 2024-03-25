@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Milo\Github\OAuth;
 
 use Milo\Github;
@@ -10,44 +12,28 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Token extends Github\Sanity
+class Token
 {
-	/** @var string */
-	private $value;
-
-	/** @var string */
-	private $type;
-
-	/** @var string[] */
-	private $scopes;
+	use Github\Strict;
 
 
 	/**
-	 * @param  string
-	 * @param  string
-	 * @param  string[]
+	 * @param  string[] $scopes
 	 */
-	public function __construct($value, $type = '', array $scopes = [])
-	{
-		$this->value = $value;
-		$this->type = $type;
-		$this->scopes = $scopes;
-	}
+	public function __construct(
+		private string $value,
+		private string $type = '',
+		private array $scopes = []
+	) {}
 
 
-	/**
-	 * @return string
-	 */
-	public function getValue()
+	public function getValue(): string
 	{
 		return $this->value;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getType()
+	public function getType(): string
 	{
 		return $this->type;
 	}
@@ -56,7 +42,7 @@ class Token extends Github\Sanity
 	/**
 	 * @return string[]
 	 */
-	public function getScopes()
+	public function getScopes(): array
 	{
 		return $this->scopes;
 	}
@@ -64,14 +50,11 @@ class Token extends Github\Sanity
 
 	/**
 	 * @see https://developer.github.com/v3/oauth/#scopes
-	 *
-	 * @param  string
-	 * @return bool
 	 */
-	public function hasScope($scope)
+	public function hasScope(string $scope): bool
 	{
-		if (in_array($scope, $this->scopes, TRUE)) {
-			return TRUE;
+		if (in_array($scope, $this->scopes, true)) {
+			return true;
 		}
 
 		static $superiors = [
@@ -80,16 +63,16 @@ class Token extends Github\Sanity
 			'notifications' => 'repo',
 		];
 
-		if (array_key_exists($scope, $superiors) && in_array($superiors[$scope], $this->scopes, TRUE)) {
-			return TRUE;
+		if (array_key_exists($scope, $superiors) && in_array($superiors[$scope], $this->scopes, true)) {
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 
 	/** @internal */
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'value' => $this->value,
@@ -100,9 +83,8 @@ class Token extends Github\Sanity
 
 
 	/** @internal */
-	public static function createFromArray(array $data)
+	public static function createFromArray(array $data): static
 	{
 		return new static($data['value'], $data['type'], $data['scopes']);
 	}
-
 }
