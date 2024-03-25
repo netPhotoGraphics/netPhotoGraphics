@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -12,38 +10,38 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-abstract class AbstractClient implements IClient
+abstract class AbstractClient extends Github\Sanity implements IClient
 {
-	use Github\Strict;
-
 	/** @var int[]  will follow Location header on these response codes */
-	public array $redirectCodes = [
+	public $redirectCodes = [
 		Response::S301_MOVED_PERMANENTLY,
 		Response::S302_FOUND,
 		Response::S307_TEMPORARY_REDIRECT,
 	];
 
-	/** Maximum redirects per request */
-	public int $maxRedirects = 5;
+	/** @var int  maximum redirects per request*/
+	public $maxRedirects = 5;
 
-	/** @var callable|null */
+	/** @var callable|NULL */
 	private $onRequest;
 
-	/** @var callable|null */
+	/** @var callable|NULL */
 	private $onResponse;
 
 
 	/**
 	 * @see https://developer.github.com/v3/#http-redirects
 	 *
+	 * @return Response
+	 *
 	 * @throws BadResponseException
 	 */
-	public function request(Request $request): Response
+	public function request(Request $request)
 	{
 		$request = clone $request;
 
 		$counter = $this->maxRedirects;
-		$previous = null;
+		$previous = NULL;
 		do {
 			$this->setupRequest($request);
 
@@ -67,36 +65,45 @@ abstract class AbstractClient implements IClient
 			}
 			break;
 
-		} while (true);
+		} while (TRUE);
 
 		return $response;
 	}
 
 
-	/** @inheritdoc */
-	public function onRequest(?callable $callback): static
+	/**
+	 * @param  callable|NULL function(Request $request)
+	 * @return self
+	 */
+	public function onRequest($callback)
 	{
 		$this->onRequest = $callback;
 		return $this;
 	}
 
 
-	/** @inheritdoc */
-	public function onResponse(?callable $callback): static
+	/**
+	 * @param  callable|NULL function(Response $response)
+	 * @return self
+	 */
+	public function onResponse($callback)
 	{
 		$this->onResponse = $callback;
 		return $this;
 	}
 
 
-	protected function setupRequest(Request $request): void
+	protected function setupRequest(Request $request)
 	{
 		$request->addHeader('Expect', '');
 	}
 
 
 	/**
+	 * @return Response
+	 *
 	 * @throws BadResponseException
 	 */
-	abstract protected function process(Request $request): Response;
+	abstract protected function process(Request $request);
+
 }

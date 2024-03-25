@@ -11,7 +11,7 @@
  * @package plugins/devReleases
  * @pluginCategory development
  *
- * @Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivatives
+ * @Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
  *
  * permission granted for use in conjunction with netPhotoGraphics. All other rights reserved
  */

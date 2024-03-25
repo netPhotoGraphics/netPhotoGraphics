@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\OAuth;
 
 use Milo\Github;
-use Milo\Github\Http;
 use Milo\Github\Storages;
+use Milo\Github\Http;
 
 
 /**
@@ -14,43 +12,49 @@ use Milo\Github\Storages;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Login
+class Login extends Github\Sanity
 {
-	use Github\Strict;
+	/** @var string */
+	private $authUrl = 'https://github.com/login/oauth/authorize';
 
-	private string $authUrl = 'https://github.com/login/oauth/authorize';
+	/** @var string */
+	private $tokenUrl = 'https://github.com/login/oauth/access_token';
 
-	private string $tokenUrl = 'https://github.com/login/oauth/access_token';
+	/** @var Configuration */
+	private $conf;
 
-	private Storages\SessionStorage|Storages\ISessionStorage $storage;
+	/** @var Storages\ISessionStorage */
+	private $storage;
 
-	private Http\IClient $client;
+	/** @var Http\IClient */
+	private $client;
 
 
-	public function __construct(
-		private Configuration $conf,
-		Storages\ISessionStorage $storage = null,
-		Http\IClient $client = null
-	) {
+	public function __construct(Configuration $conf, Storages\ISessionStorage $storage = NULL, Http\IClient $client = NULL)
+	{
+		$this->conf = $conf;
 		$this->storage = $storage ?: new Storages\SessionStorage;
 		$this->client = $client ?: Github\Helpers::createDefaultClient();
 	}
 
 
-	public function getClient(): Http\IClient
+	/**
+	 * @return Http\IClient
+	 */
+	public function getClient()
 	{
 		return $this->client;
 	}
 
 
 	/**
-	 * @param  string $backUrl  URL to redirect back from GitHub when user approves the permissions request
-	 * @param  ?callable $redirectCb  makes HTTP redirect to GitHub
+	 * @param  string  URL to redirect back from Github when user approves the permissions request
+	 * @param  callable function($githubUrl)  makes HTTP redirect to Github
 	 */
-	public function askPermissions(string $backUrl, callable $redirectCb = null): void
+	public function askPermissions($backUrl, $redirectCb = NULL)
 	{
 		/** @todo Something more safe? */
-		$state = sha1(uniqid((string) microtime(true), true));
+		$state = sha1(uniqid(microtime(TRUE), TRUE));
 		$params = [
 			'client_id' => $this->conf->clientId,
 			'redirect_uri' => $backUrl,
@@ -61,7 +65,7 @@ class Login
 		$this->storage->set('auth.state', $state);
 
 		$url = $this->authUrl . '?' . http_build_query($params);
-		if ($redirectCb === null) {
+		if ($redirectCb === NULL) {
 			header("Location: $url");
 			die();
 		} else {
@@ -71,9 +75,13 @@ class Login
 
 
 	/**
+	 * @param  string
+	 * @param  string
+	 * @return Token
+	 *
 	 * @throws LoginException
 	 */
-	public function obtainToken(string $code, string $state): Token
+	public function obtainToken($code, $state)
 	{
 		if ($state !== $this->storage->get('auth.state')) {
 			throw new LoginException('OAuth security state does not match.');
@@ -121,19 +129,24 @@ class Login
 	}
 
 
-	public function hasToken(): bool
+	/**
+	 * @return bool
+	 */
+	public function hasToken()
 	{
-		return $this->storage->get('auth.token') !== null;
+		return $this->storage->get('auth.token') !== NULL;
 	}
 
 
 	/**
+	 * @return Token
+	 *
 	 * @throws Github\LogicException  when token has not been obtained yet
 	 */
-	public function getToken(): Token
+	public function getToken()
 	{
 		$token = $this->storage->get('auth.token');
-		if ($token === null) {
+		if ($token === NULL) {
 			throw new Github\LogicException('Token has not been obtained yet.');
 
 		} elseif ($token instanceof Token) {
@@ -146,9 +159,13 @@ class Login
 	}
 
 
-	public function dropToken(): static
+	/**
+	 * @return self
+	 */
+	public function dropToken()
 	{
 		$this->storage->remove('auth.token');
 		return $this;
 	}
+
 }

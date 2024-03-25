@@ -1,17 +1,22 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Storages;
 
 
 interface ICache
 {
 	/**
+	 * @param  string
+	 * @param  mixed
 	 * @return mixed  stored value
 	 */
-	function save(string $key, mixed $value): mixed;
+	function save($key, $value);
 
 
-	function load(string $key): mixed;
+	/**
+	 * @param  string
+	 * @return mixed|NULL
+	 */
+	function load($key);
+
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\OAuth;
 
 use Milo\Github;
@@ -12,28 +10,44 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Token
+class Token extends Github\Sanity
 {
-	use Github\Strict;
+	/** @var string */
+	private $value;
+
+	/** @var string */
+	private $type;
+
+	/** @var string[] */
+	private $scopes;
 
 
 	/**
-	 * @param  string[] $scopes
+	 * @param  string
+	 * @param  string
+	 * @param  string[]
 	 */
-	public function __construct(
-		private string $value,
-		private string $type = '',
-		private array $scopes = []
-	) {}
+	public function __construct($value, $type = '', array $scopes = [])
+	{
+		$this->value = $value;
+		$this->type = $type;
+		$this->scopes = $scopes;
+	}
 
 
-	public function getValue(): string
+	/**
+	 * @return string
+	 */
+	public function getValue()
 	{
 		return $this->value;
 	}
 
 
-	public function getType(): string
+	/**
+	 * @return string
+	 */
+	public function getType()
 	{
 		return $this->type;
 	}
@@ -42,7 +56,7 @@ class Token
 	/**
 	 * @return string[]
 	 */
-	public function getScopes(): array
+	public function getScopes()
 	{
 		return $this->scopes;
 	}
@@ -50,11 +64,14 @@ class Token
 
 	/**
 	 * @see https://developer.github.com/v3/oauth/#scopes
+	 *
+	 * @param  string
+	 * @return bool
 	 */
-	public function hasScope(string $scope): bool
+	public function hasScope($scope)
 	{
-		if (in_array($scope, $this->scopes, true)) {
-			return true;
+		if (in_array($scope, $this->scopes, TRUE)) {
+			return TRUE;
 		}
 
 		static $superiors = [
@@ -63,16 +80,16 @@ class Token
 			'notifications' => 'repo',
 		];
 
-		if (array_key_exists($scope, $superiors) && in_array($superiors[$scope], $this->scopes, true)) {
-			return true;
+		if (array_key_exists($scope, $superiors) && in_array($superiors[$scope], $this->scopes, TRUE)) {
+			return TRUE;
 		}
 
-		return false;
+		return FALSE;
 	}
 
 
 	/** @internal */
-	public function toArray(): array
+	public function toArray()
 	{
 		return [
 			'value' => $this->value,
@@ -83,8 +100,9 @@ class Token
 
 
 	/** @internal */
-	public static function createFromArray(array $data): static
+	public static function createFromArray(array $data)
 	{
 		return new static($data['value'], $data['type'], $data['scopes']);
 	}
+
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -15,7 +13,7 @@ use Milo\Github;
 class Response extends Message
 {
 	/** HTTP 1.1 code */
-	public const
+	const
 		S200_OK = 200,
 		S301_MOVED_PERMANENTLY = 301,
 		S302_FOUND = 302,
@@ -27,43 +25,60 @@ class Response extends Message
 		S404_NOT_FOUND = 404,
 		S422_UNPROCESSABLE_ENTITY = 422;
 
-	private ?Response $previous = null;
+	/** @var int */
+	private $code;
+
+	/** @var Response */
+	private $previous;
 
 
-	public function __construct(
-		private int $code,
-		array $headers,
-		?string $content,
-	) {
+	/**
+	 * @param  int
+	 * @param  array
+	 * @param  string
+	 */
+	public function __construct($code, array $headers, $content)
+	{
+		$this->code = (int) $code;
 		parent::__construct($headers, $content);
 	}
 
 
 	/**
-	 * HTTP response status code.
+	 * HTTP code.
+	 * @return int
 	 */
-	public function getCode(): int
+	public function getCode()
 	{
 		return $this->code;
 	}
 
 
-	public function isCode(int $code): bool
+	/**
+	 * @param  int
+	 * @return bool
+	 */
+	public function isCode($code)
 	{
-		return $this->code === $code;
+		return $this->code === (int) $code;
 	}
 
 
-	public function getPrevious(): ?Response
+	/**
+	 * @return Response|NULL
+	 */
+	public function getPrevious()
 	{
 		return $this->previous;
 	}
 
 
 	/**
+	 * @return self
+	 *
 	 * @throws Github\LogicException
 	 */
-	public function setPrevious(Response $previous = null): static
+	public function setPrevious(Response $previous = NULL)
 	{
 		if ($this->previous) {
 			throw new Github\LogicException('Previous response is already set.');
@@ -72,4 +87,5 @@ class Response extends Message
 
 		return $this;
 	}
+
 }

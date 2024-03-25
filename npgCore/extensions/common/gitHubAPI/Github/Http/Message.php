@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -12,30 +10,42 @@ use Milo\Github;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-abstract class Message
+abstract class Message extends Github\Sanity
 {
-	use Github\Strict;
+	/** @var array[name => value] */
+	private $headers = [];
 
-	private array $headers = [];
+	/** @var string|NULL */
+	private $content;
 
 
-	public function __construct(
-		array $headers = [],
-		private ?string $content = null,
-	) {
-		foreach ($headers as $name => $value) {
-			$this->setHeader($name, $value);
-		}
+	/**
+	 * @param  array
+	 * @param  string|NULL
+	 */
+	public function __construct(array $headers = [], $content = NULL)
+	{
+		$this->headers = array_change_key_case($headers, CASE_LOWER);
+		$this->content = $content;
 	}
 
 
-	public function hasHeader(string $name): bool
+	/**
+	 * @param  string
+	 * @return bool
+	 */
+	public function hasHeader($name)
 	{
 		return array_key_exists(strtolower($name), $this->headers);
 	}
 
 
-	public function getHeader(string $name, string $default = null): ?string
+	/**
+	 * @param  string
+	 * @param  mixed
+	 * @return mixed
+	 */
+	public function getHeader($name, $default = NULL)
 	{
 		$name = strtolower($name);
 		return array_key_exists($name, $this->headers)
@@ -44,10 +54,15 @@ abstract class Message
 	}
 
 
-	protected function addHeader(string $name, ?string $value): static
+	/**
+	 * @param  string
+	 * @param  string
+	 * @return self
+	 */
+	protected function addHeader($name, $value)
 	{
 		$name = strtolower($name);
-		if (!array_key_exists($name, $this->headers) && $value !== null) {
+		if (!array_key_exists($name, $this->headers) && $value !== NULL) {
 			$this->headers[$name] = $value;
 		}
 
@@ -55,10 +70,15 @@ abstract class Message
 	}
 
 
-	protected function setHeader(string $name, ?string $value): static
+	/**
+	 * @param  string
+	 * @param  string|NULL
+	 * @return self
+	 */
+	protected function setHeader($name, $value)
 	{
 		$name = strtolower($name);
-		if ($value === null) {
+		if ($value === NULL) {
 			unset($this->headers[$name]);
 		} else {
 			$this->headers[$name] = $value;
@@ -69,16 +89,20 @@ abstract class Message
 
 
 	/**
-	 * @return string[]
+	 * @return array
 	 */
-	public function getHeaders(): array
+	public function getHeaders()
 	{
 		return $this->headers;
 	}
 
 
-	public function getContent(): ?string
+	/**
+	 * @return string|NULL
+	 */
+	public function getContent()
 	{
 		return $this->content;
 	}
+
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Storages;
 
 
@@ -10,11 +8,25 @@ namespace Milo\Github\Storages;
  */
 interface ISessionStorage
 {
-	function set(string $name, mixed $value): static;
+	/**
+	 * @param  string
+	 * @param  mixed
+	 * @return self
+	 */
+	function set($name, $value);
 
 
-	function get(string $name): mixed;
+	/**
+	 * @param  string
+	 * @return mixed
+	 */
+	function get($name);
 
 
-	function remove(string $name): static;
+	/**
+	 * @param  string
+	 * @return self
+	 */
+	function remove($name);
+
 }

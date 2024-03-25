@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Milo\Github\Http;
 
 use Milo\Github;
@@ -13,38 +11,49 @@ use Milo\Github\Storages;
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class CachedClient implements IClient
+class CachedClient extends Github\Sanity implements IClient
 {
-	use Github\Strict;
+	/** @var Storages\ICache|NULL */
+	private $cache;
 
-	private IClient $client;
+	/** @var IClient */
+	private $client;
 
-	/** @var ?callable(Response $response): void */
+	/** @var bool */
+	private $forbidRecheck;
+
+	/** @var callable|NULL */
 	private $onResponse;
 
 
 	/**
-	 * @param  bool $forbidRecheck  Forbid checking GitHub for new data; more or less development purpose only
+	 * @param Storages\ICache
+	 * @param IClient
+	 * @param bool  forbid checking Github for new data; more or less development purpose only
 	 */
-	public function __construct(
-		private Storages\ICache $cache,
-		IClient $client = null,
-		private bool $forbidRecheck = false,
-	) {
+	public function __construct(Storages\ICache $cache, IClient $client = NULL, $forbidRecheck = FALSE)
+	{
+		$this->cache = $cache;
 		$this->client = $client ?: Github\Helpers::createDefaultClient();
+		$this->forbidRecheck = (bool) $forbidRecheck;
 	}
 
 
-	public function getInnerClient(): IClient
+	/**
+	 * @return IClient
+	 */
+	public function getInnerClient()
 	{
 		return $this->client;
 	}
 
 
 	/**
+	 * @return Response
+	 *
 	 * @throws BadResponseException
 	 */
-	public function request(Request $request): Response
+	public function request(Request $request)
 	{
 		$request = clone $request;
 
@@ -93,33 +102,42 @@ class CachedClient implements IClient
 	}
 
 
-	/** @inheritdoc */
-	public function onRequest(?callable $callback): static
+	/**
+	 * @param  callable|NULL function(Request $request)
+	 * @return self
+	 */
+	public function onRequest($callback)
 	{
 		$this->client->onRequest($callback);
 		return $this;
 	}
 
 
-	/** @inheritdoc */
-	public function onResponse(?callable $callback): static
+	/**
+	 * @param  callable|NULL function(Response $response)
+	 * @return self
+	 */
+	public function onResponse($callback)
 	{
-		$this->client->onResponse(null);
+		$this->client->onResponse(NULL);
 		$this->onResponse = $callback;
 		return $this;
 	}
 
 
-	protected function isCacheable(Response $response): bool
+	/**
+	 * @return bool
+	 */
+	protected function isCacheable(Response $response)
 	{
 		/** @todo Do it properly. Vary:, Pragma:, TTL...  */
 		if (!$response->isCode(200)) {
-			return false;
-
+			return FALSE;
 		} elseif (preg_match('#max-age=0|must-revalidate#i', $response->getHeader('Cache-Control', ''))) {
-			return false;
+			return FALSE;
 		}
 
 		return $response->hasHeader('ETag') || $response->hasHeader('Last-Modified');
 	}
+
 }
