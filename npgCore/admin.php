@@ -320,7 +320,12 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	if (getOption('getUpdates_lastCheck') + 8640 < time()) {
 		setOption('getUpdates_lastCheck', time());
 		try {
-			$api = new Github\Api;
+			if (extension_loaded('curl')) {
+				$noSSL = [CURLOPT_SSL_VERIFYPEER => 0];
+			} else {
+				$noSSL = ['verify_peer' => false];
+			}
+			$api = new Github\Api(null, $_SERVER['HTTP_HOST'] == 'npg.test' ? $noSSL : null);
 			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
 			$fullRepoData = $api->decode($fullRepoResponse);
 			$assets = $fullRepoData->assets;
