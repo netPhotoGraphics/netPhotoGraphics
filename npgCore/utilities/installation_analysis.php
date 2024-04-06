@@ -48,11 +48,11 @@ echo '</head>';
 							} else {
 								$clone = clonedFrom();
 								$official .= ' <em>' . gettext('clone') . '</em>';
-								$base = substr(SERVERPATH, 0, -strlen(WEBPATH));
+								$base = substr(SERVERPATH, 0, strlen(SERVERPATH) - strlen(WEBPATH));
 								if (strpos($base, $clone) == 0) {
 									$base = substr($clone, strlen($base));
 									$link = $base . '/' . CORE_FOLDER . '/admin.php';
-									$source = '<a href="' . $link . '">' . $clone . '</a>';
+									$source = '<a href="' . $link . '">' . $_SERVER['HTTP_HOST'] . $base . '</a>';
 								} else {
 									$source = $clone;
 								}
