@@ -318,6 +318,7 @@ define('PLUGIN_ADMIN', '<span class="font_icon" style="font-size: large; font-we
 define('PLUGIN_CLASS', '<span class="font_icon" style="font-size: large; color:darkgoldenrod;">&#x229B;</span>');
 define('PLUGIN_FEATURE', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; padding-left: 1px;">&#x29c7;</span>');
 define('PLUGIN_THEME', '<span class="font_icon" style="font-size: x-large; color:darkgoldenrod; vertical-align: -1px;">&#x25FB;</span>');
+define('PROHIBITED', '<span class="font_icon" style="font-size: large; color:red; vertical-align: -2px;">&#x1F6C7;</span>');
 define('PLUS_ICON', '<span class="font_icon" style="color: green; font-size: large;">&#x271A;</span>');
 define('RECYCLE_ICON', '<span class="font_icon" style="color: red; font-size: large; font-weight: bold;">&#x2672;</span>');
 define('RIGHT_POINTNG_TRIANGLE_GREEN', '<span class="font_icon" style="color: green; font-size: large; font-weight: bold;">&#9654;</span>');
