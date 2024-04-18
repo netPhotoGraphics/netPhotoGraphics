@@ -75,9 +75,12 @@ if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_G
 		$forbidden = 2;
 	}
 }
+if ($forbidden) {
+	imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(%2$s)'), $album, $forbidden), 'err-imageforbidden.png');
+}
 
 if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
-// No image parameters specified
+	// No image parameters specified
 	if (getOption('album_folder_class') !== 'external') {
 		header("Location: " . getAlbumFolder(FULLWEBPATH) . pathurlencode(filesystemToInternal($album)) . "/" . rawurlencode(filesystemToInternal($image)));
 		return;
@@ -163,9 +166,6 @@ if (file_exists($newfile) & !$adminrequest) {
 }
 
 if ($process) { // If the file hasn't been cached yet, create it.
-	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(%2$s)'), $album, $forbidden), 'err-imageforbidden.png');
-	}
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
 		imageProcessing::error('422 Unprocessable Entity', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');

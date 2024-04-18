@@ -666,7 +666,7 @@ function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 		$uri .= "\n " . gettext('theme') . ':' . $_index_theme;
 	}
 	$output .= $uri . NEWLINE;
-// Get a backtrace.
+	// Get a backtrace.
 	if (is_array($omit)) {
 		$bt = $omit;
 	} else {
@@ -1150,7 +1150,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
  */
 function getImageCacheFilename($album8, $image8, $args, $suffix = NULL) {
 	global $_cachefileSuffix;
-// this function works in FILESYSTEM_CHARSET, so convert the file names
+	// this function works in FILESYSTEM_CHARSET, so convert the file names
 	$album = internalToFilesystem($album8);
 	if (is_array($image8)) {
 		$image8 = $image8['name'];
@@ -1356,7 +1356,7 @@ function ipProtectTag($album, $image, $args) {
 		}
 	}
 
-	$tag = sha1(HASH_SEED . $album . $image . $key);
+	$tag = sha1($album . $image . $key . HASH_SEED . 'v2');
 	return $tag;
 }
 
