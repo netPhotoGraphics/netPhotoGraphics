@@ -3993,7 +3993,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$theme_description['name'] = $newname;
 			$theme_description['author'] = $_current_admin_obj->getUser();
 			$theme_description['version'] = '1.0';
-			$theme_description['date'] = date('Y-m-d H:m:s', time());
+			$theme_description['date'] = date('Y-m-d H:i:s', time());
 
 			$description = sprintf('<' . '?php
 				// Theme definition file
