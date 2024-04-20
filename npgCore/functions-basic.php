@@ -1356,7 +1356,7 @@ function ipProtectTag($album, $image, $args) {
 		}
 	}
 
-	$tag = sha1($album . $image . $key . HASH_SEED . 'v2');
+	$tag = sha1($album . $image . $key . HASH_SEED . NETPHOTOGRAPHICS_VERSION_CONCISE);
 	return $tag;
 }
 
