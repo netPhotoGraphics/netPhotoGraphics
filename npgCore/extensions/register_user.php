@@ -528,7 +528,7 @@ function printRegisterURL($_linktext = NULL, $prev = '', $next = '', $class = fa
 		}
 		echo $prev;
 		?>
-		<a href="<?php echo html_encode(register_user::getLink()); ?>"<?php echo $class; ?> title="<?php echo html_encode($hint); ?>" id="register_link"><?php echo $_linktext; ?> </a>
+		<a href="<?php echo html_encode(register_user::getLink()); ?>"<?php echo $class; ?> title="<?php echo html_encode($hint); ?>" id="register_link"><?php echo $_linktext; ?></a>
 		<?php
 		echo $next;
 	}
