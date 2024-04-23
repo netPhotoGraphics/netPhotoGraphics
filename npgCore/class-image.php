@@ -587,6 +587,7 @@ class Image extends MediaObject {
 			}
 
 			if (!empty($title)) {
+				$title = html_decode($title);
 				if (getoption('transform_newlines')) {
 					$title = nl2br($title);
 				}
@@ -596,6 +597,7 @@ class Image extends MediaObject {
 			/* "description" field population */
 			$desc = self::fetchMetadata('IPTCImageCaption');
 			if (!empty($desc)) {
+				$desc = html_decode($desc);
 				if (getoption('transform_newlines')) {
 					$desc = nl2br($desc);
 				}

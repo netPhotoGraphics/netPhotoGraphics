@@ -778,12 +778,22 @@ class xmpMetadata {
 					$metadata = self::extract($source);
 					if (!empty($metadata)) {
 						if (array_key_exists('XMPImageCaption', $metadata)) {
-							$album->setDesc(self::to_string($metadata['XMPImageCaption']));
+							$desc = self::to_string($metadata['XMPImageCaption']);
+							if (!empty($desc)) {
+								$desc = html_decode($desc);
+								if (getoption('transform_newlines')) {
+									$desc = nl2br($desc);
+								}
+							}
+							$album->setDesc($desc);
 						}
 						if (array_key_exists('XMPImageHeadline', $metadata)) {
 							$data = self::to_string($metadata['XMPImageHeadline']);
-							if (getoption('transform_newlines')) {
-								$desc = nl2br($desc);
+							if (!emty($data)) {
+								$data = html_decode($data);
+								if (getoption('transform_newlines')) {
+									$data = nl2br($data);
+								}
 							}
 							$album->setTitle($data);
 						}
