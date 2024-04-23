@@ -16,6 +16,7 @@ require_once(CORE_SERVERPATH . 'reconfigure.php');
 require_once(GITHUB_API_PATH);
 
 use Milo\Github;
+use Milo\Github\Http;
 
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
@@ -320,7 +321,10 @@ if (class_exists('Milo\Github\Api')) {
 	if (getOption('getUpdates_lastCheck') + 8640 < time()) {
 		setOption('getUpdates_lastCheck', time());
 		try {
-			$api = new Github\Api(null, getOption('GitHub_SSL_OPT'));
+			$client = extension_loaded('curl') ?
+							new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
+							new Http\StreamClient(getOption('GitHub_SSL_OPT'));
+			$api = new Milo\Github\Api($client);
 			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
 			$fullRepoData = $api->decode($fullRepoResponse);
 			$assets = $fullRepoData->assets;
