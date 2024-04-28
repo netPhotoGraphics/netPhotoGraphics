@@ -176,7 +176,7 @@ class cmsFilters {
 	static function switcher_controllink($theme) {
 		global $_gallery_page;
 		if ($_gallery_page == 'pages.php' || $_gallery_page == 'news.php') {
-			$settings = ' disabled="disalbed" ';
+			$settings = 'disabled="disalbed" ';
 		} else {
 			$settings = '';
 		}
@@ -188,7 +188,7 @@ class cmsFilters {
 			<span id="themeSwitcher_zenpage" title="<?php echo gettext("Enable Zenpage CMS plugin"); ?>">
 				<label>
 					Zenpage
-					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1"<?php if (class_exists('CMS')) echo $settings; ?>onclick="switchCMS(this.checked);" />
+					<input type="checkbox" name="cmsSwitch" id="cmsSwitch" value="1" <?php if (class_exists('CMS')) echo $settings; ?>onclick="switchCMS(this.checked);" />
 				</label>
 			</span>
 			<?php
