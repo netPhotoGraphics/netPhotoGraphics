@@ -587,9 +587,9 @@ class Image extends MediaObject {
 			}
 
 			if (!empty($title)) {
-				$title = html_decode($title);
+				$title = str_replace($title, '&#xA;', "\n"); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$title = nl2br($title);
+					$title = str_replace(nl2br($title), "\n", ''); //	nl2br leaves the linefeed in
 				}
 				$this->setTitle($title);
 			}
@@ -597,9 +597,9 @@ class Image extends MediaObject {
 			/* "description" field population */
 			$desc = self::fetchMetadata('IPTCImageCaption');
 			if (!empty($desc)) {
-				$desc = html_decode($desc);
+				$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$desc = nl2br($desc);
+					$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
 				}
 				$this->setDesc($desc);
 			}
