@@ -176,7 +176,7 @@ class cmsFilters {
 	static function switcher_controllink($theme) {
 		global $_gallery_page;
 		if ($_gallery_page == 'pages.php' || $_gallery_page == 'news.php') {
-			$settings = 'disabled="disalbed" ';
+			$settings = 'disabled="disabled" ';
 		} else {
 			$settings = '';
 		}
