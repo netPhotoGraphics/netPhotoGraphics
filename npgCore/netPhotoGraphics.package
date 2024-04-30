@@ -19474,12 +19474,14 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/js/i18n/help/de.html.js
 %extensions%/elFinder/js/i18n/help/en.html.js
 %extensions%/elFinder/js/i18n/help/es.html.js
+%extensions%/elFinder/js/i18n/help/fr.html.js
 %extensions%/elFinder/js/i18n/help/ja.html.js
 %extensions%/elFinder/js/i18n/help/ko.html.js
 %extensions%/elFinder/js/i18n/help/pl.html.js
 %extensions%/elFinder/js/i18n/help/ru.html.js
 %extensions%/elFinder/js/i18n/help/sk.html.js
 %extensions%/elFinder/js/i18n/help/tr.html.js
+%extensions%/elFinder/js/i18n/help/zh_TW.html.js
 %extensions%/elFinder/js/proxy
 %extensions%/elFinder/js/proxy/elFinderSupportVer1.js
 %extensions%/elFinder/js/worker
@@ -20362,4 +20364,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20364
+20366
