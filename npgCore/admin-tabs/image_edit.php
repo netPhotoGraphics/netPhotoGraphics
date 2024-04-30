@@ -3,8 +3,6 @@
  * This is the "guts" of the edit image page
  */
 
-require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
-
 $singleimagelink = $singleimage = NULL;
 $showfilter = true;
 
@@ -249,12 +247,12 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 												<?php
 												$data = '';
 												$exif = $image->getMetaData();
-												if (false !== $exif) {
+												if (is_array($exif)) {
 													foreach ($exif as $field => $value) {
 														$display = $_exifvars[$field][METADATA_DISPLAY] && !empty($value) && !($_exifvars[$field][METADATA_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
 														if ($display) {
 															$label = $_exifvars[$field][METADATA_DISPLAY_TEXT];
-															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode(exifTranslate($value, $field)) . "</td></tr>\n";
+															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode($value) . "</td></tr>\n";
 														}
 													}
 												}

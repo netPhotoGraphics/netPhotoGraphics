@@ -24,13 +24,12 @@
  */
 $plugin_is_filter = 9 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_description = gettext('Extracts <em>XMP</em> metadata from images and <code>XMP</code> sidecar files.');
+	$plugin_description = gettext('Extracts metadata from images and <code>XMP</code> sidecar files.');
 }
 
 $option_interface = 'tagsFromMetadata';
 
 npgFilters::register('image_metadata', 'tagsFromMetadata::new_image', -99999);
-require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 
 class tagsFromMetadata {
 
@@ -64,32 +63,16 @@ class tagsFromMetadata {
 	}
 
 	static function new_image($image) {
-		$entry_locale = i18n::getUserLocale();
-		$languages = i18n::generateLanguageList();
-		$languageTags = $element = array();
+		$element = array();
 		$candidates = self::getTaggingItems();
 		foreach ($candidates as $key) {
 			if ($meta = $image->get($key)) {
-				i18n::setupCurrentLocale('en_US');
-				$en_us = $element[] = exifTranslate($meta);
-				foreach ($languages as $language) {
-					i18n::setupCurrentLocale($language);
-					$xlated = exifTranslate($meta);
-					if ($xlated != $en_us) { // the string has a translation in this language
-						$element[] = $xlated;
-						$languageTags[$language] = $xlated;
-					}
-				}
+				$element[] = $meta;
 			}
 		}
-		i18n::setupCurrentLocale($entry_locale);
 		$element = array_unique(array_merge($image->getTags(), $element));
 		$image->setTags($element);
 		$image->save();
-		foreach ($languageTags as $language => $tag) {
-			$sql = 'UPDATE ' . prefix('tags') . ' SET `language`=' . db_quote($language) . ' WHERE `name`=' . db_quote($tag) . ' AND `language`=NULL OR `language` LIKE ""';
-			query($sql, false);
-		}
 		return $image;
 	}
 

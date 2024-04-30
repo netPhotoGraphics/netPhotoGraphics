@@ -89,15 +89,15 @@ function formatOlympusData($type, $tag, $intel, $data) {
 			else if ($data == 3)
 				$data = "SHQ";
 			else
-				$data = '!unknown!: ' . $data;
+				$data = 'unknown: ' . $data;
 		}
 		if ($tag == "0202") { //Macro
 			if ($data == 0)
-				$data = '!normal!';
+				$data = 'normal';
 			else if ($data == 1)
-				$data = '!macro!';
+				$data = 'macro';
 			else
-				$data = '!unknown!: ' . $data;
+				$data = 'unknown: ' . $data;
 		}
 	} else if ($type == "UNDEFINED") {
 

@@ -68,23 +68,21 @@ function formatSanyoData($type, $tag, $intel, $data) {
 
 		if ($tag == "0200") { //SpecialMode
 			if ($data == 0)
-				$data = gettext("Normal"
-				);
+				$data = gettext("Normal");
 			else
-				$data = '!unknown!' . ": " . $data;
+				$data = gettext("Unknown") . ": " . $data;
 		}
 		if ($tag == "0201") { //Quality
 			if ($data == 2)
-				$data = '!high!';
+				$data = gettext("High");
 			else
-				$data = '!unknown!' . " : " . $data;
+				$data = gettext("Unknown") . ": " . $data;
 		}
 		if ($tag == "0202") { //Macro
 			if ($data == 0)
-				$data = gettext("Normal"
-				);
+				$data = gettext("Normal");
 			else
-				$data = '!unknown!' . ": " . $data;
+				$data = gettext("Unknown") . ": " . $data;
 		}
 	} else if ($type == "UNDEFINED") {
 

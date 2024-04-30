@@ -814,7 +814,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin_options/theme.php
 %core%/exif
 %core%/exif/exif.php
-%core%/exif/exifTranslations.php
 %core%/exif/makers
 %core%/exif/makers/canon.php
 %core%/exif/makers/fujifilm.php
@@ -20364,4 +20363,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20366
+20365

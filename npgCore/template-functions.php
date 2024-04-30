@@ -2517,7 +2517,7 @@ function getImageMetaData($image = NULL, $displayonly = true) {
 		if ($displayonly && (!$value || !$_exifvars[$field][METADATA_DISPLAY])) {
 			unset($data[$field]);
 		} else {
-			$data[$field] = exifTranslate($value, $field);
+			$data[$field] = $value;
 		}
 	}
 	if (count($data) > 0) {
