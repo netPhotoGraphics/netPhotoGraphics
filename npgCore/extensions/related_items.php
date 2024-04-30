@@ -153,7 +153,7 @@ function createRelatedItemsResultArray($result, $type) {
  */
 function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excerpt = NULL, $thumb = false, $date = false) {
 	global $_gallery, $_current_album, $_current_image;
-	$labels = array('albums' => gettext('Albums'), 'images' => gettext('Images'), 'news' => NEWS_LABEL, 'pages' => gettext('Pages'));
+	$labels = array('albums' => gettext('Albums'), 'images' => gettext('Images'), 'news' => NEWS_LABEL, 'pages' => gettext('Pages'), 'all' => gettext('All'));
 
 	$result = getRelatedItems($type, $specific);
 	$resultcount = count($result);
