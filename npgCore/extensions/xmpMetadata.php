@@ -59,8 +59,6 @@ if (is_null($ext)) {
 define('XMP_EXTENSION', strtolower($ext));
 unset($ext);
 
-require_once(dirname(__DIR__) . '/exif/exif.php');
-
 /**
  * Plugin option handling class
  *
