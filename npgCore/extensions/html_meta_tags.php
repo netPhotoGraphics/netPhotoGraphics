@@ -21,7 +21,7 @@ $plugin_description = gettext("A plugin to print the most common HTML meta tags 
 
 $option_interface = 'htmlmetatags';
 
-if (in_context(NPG_INDEX)) {
+if (OFFSET_PATH == 0) {
 	npgFilters::register('theme_head', 'htmlmetatags::getHTMLMetaData'); // insert the meta tags into the <head></head> if on a theme page.
 	if (defined('LOCALE_TYPE')) {
 		define('METATAG_LOCALE_TYPE', LOCALE_TYPE);

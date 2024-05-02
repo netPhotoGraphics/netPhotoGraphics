@@ -29,7 +29,7 @@ if (getOption('rating_image_individual_control')) {
 }
 
 // register the scripts needed
-if (in_context(NPG_INDEX)) {
+if (OFFSET_PATH == 0) {
 	npgFilters::register('theme_head', 'jquery_rating::ratingCSS');
 	npgFilters::register('theme_body_close', 'jquery_rating::ratingJS');
 }
@@ -166,9 +166,9 @@ class jquery_rating {
 		scriptLoader(PLUGIN_SERVERPATH . '' . $ME . '/jquery.rating.js');
 		?>
 		<script>
-			
+
 			$.fn.rating.options = {cancel: '<?php echo gettext('retract'); ?>', starWidth: <?php echo getOption('rating_star_size'); ?>};
-			
+
 		</script>
 		<?php
 	}
@@ -394,7 +394,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 		<?php echo $msg; ?>
 	</span>
 	<script>
-		
+
 		var recast<?php echo $unique; ?> = <?php printf('%u', $recast && $oldrating); ?>;
 		window.addEventListener('load', function () {
 			$('#star_rating<?php echo $unique; ?> :radio.star').rating('select', '<?php echo $starselector; ?>');
@@ -440,7 +440,7 @@ function printRating($vote = 3, $object = NULL, $text = true) {
 				$('#vote<?php echo $unique; ?>').html('<?php echo gettext('nothing to submit'); ?>');
 			}
 		}
-		
+
 	</script>
 	<?php
 }
