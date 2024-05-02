@@ -2502,7 +2502,6 @@ function printImageURL($text, $title, $class = false, $id = NULL) {
  */
 function getImageMetaData($image = NULL, $displayonly = true) {
 	global $_current_image, $_exifvars;
-	require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 	if (is_null($image))
 		$image = $_current_image;
 	if (is_null($image) || !$image->get('hasMetadata')) {
