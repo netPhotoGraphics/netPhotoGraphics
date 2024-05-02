@@ -56,7 +56,7 @@ if (!isset($_conf_vars['charset'])) {
 define('LOCAL_CHARSET', $_conf_vars['charset']);
 if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
-	require (CORE_FOLDER . '/netPhotoGraphics_cfg.txt');
+	require (CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt');
 	$_conf_vars['special_pages'] = $conf['special_pages'];
 	unset($conf);
 }
