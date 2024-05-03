@@ -153,14 +153,26 @@ function createRelatedItemsResultArray($result, $type) {
  */
 function printRelatedItems($number = 5, $type = 'news', $specific = NULL, $excerpt = NULL, $thumb = false, $date = false) {
 	global $_gallery, $_current_album, $_current_image;
-	$labels = array('albums' => gettext('Albums'), 'images' => gettext('Images'), 'news' => NEWS_LABEL, 'pages' => gettext('Pages'));
+	$news = getSerializedArray(getOption('CMS_news_label'));
+	if (isset($news['en_US'])) {
+		$news = $news['en_US'];
+	} else {
+		$news = 'News';
+	}
+	$labels = array(
+			'albums' => gettext('Related Albums'),
+			'images' => gettext('Related Images'),
+			'news' => gettext('Related ' . $news),
+			'pages' => gettext('Related Pages'),
+			'all' => gettext('Related')
+	);
 
 	$result = getRelatedItems($type, $specific);
 	$resultcount = count($result);
 	if ($resultcount != 0) {
 		?>
 		<h3 class="relateditems">
-			<?php printf(gettext('Related %s'), $labels[$type]); ?>
+			<?php echo $labels[$type]; ?>
 		</h3>
 		<ul id="relateditems">
 			<?php

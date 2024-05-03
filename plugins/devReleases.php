@@ -20,9 +20,10 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Provides an install button from the development releases.');
 
-require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
+require_once(GITHUB_API_PATH);
 
 use Milo\Github;
+use Milo\Github\Http;
 
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_update') {
@@ -60,7 +61,10 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
 		setOption('getDEVUpdates_lastCheck', time());
 		try {
-			$api = new Github\Api;
+			$client = extension_loaded('curl') ?
+							new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
+							new Http\StreamClient(getOption('GitHub_SSL_OPT'));
+			$api = new Milo\Github\Api($client);
 			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
 			$fullRepoData = $api->decode($fullRepoResponse);
 			$assets = $fullRepoData->assets;

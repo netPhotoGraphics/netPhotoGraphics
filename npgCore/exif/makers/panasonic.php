@@ -106,15 +106,15 @@ function formatPanasonicData($type, $tag, $intel, $data) {
 			else if ($data == 16)
 				$data = "1-area-focusing";
 			else if ($data == 4096)
-				$data = '!3-area-focusing (high speed)!';
+				$data = gettext("3-area-focusing (High speed)");
 			else if ($data == 4112)
-				$data = '!1-area-focusing (high speed)!';
+				$data = gettext("1-area-focusing (High speed)");
 			else if ($data == 16)
-				$data = '!1-area-focusing!';
+				$data = gettext("1-area-focusing");
 			else if ($data == 1)
-				$data = '!spot-focusing!';
+				$data = gettext("Spot-focusing");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = "Unknown (" . $data . ")";
 		}
 	} else if ($type == "URATIONAL" || $type == "SRATIONAL") {
 		$data = unRational($data, $type, $intel);
@@ -123,119 +123,119 @@ function formatPanasonicData($type, $tag, $intel, $data) {
 
 		if ($tag == "0001") { //Image Quality
 			if ($data == 2)
-				$data = '!high!';
+				$data = gettext("High");
 			else if ($data == 3)
-				$data = '!standard!';
+				$data = gettext("Standard");
 			else if ($data == 6)
-				$data = '!very high!';
+				$data = gettext("Very High");
 			else if ($data == 7)
-				$data = '!raw!';
+				$data = gettext("RAW");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0003") { //White Balance
 			if ($data == 1)
-				$data = '!auto!';
+				$data = gettext("Auto");
 			else if ($data == 2)
-				$data = '!daylight!';
+				$data = gettext("Daylight");
 			else if ($data == 3)
-				$data = '!cloudy!';
+				$data = gettext("Cloudy");
 			else if ($data == 4)
-				$data = '!halogen!';
+				$data = gettext("Halogen");
 			else if ($data == 5)
-				$data = '!manual!';
+				$data = gettext("Manual");
 			else if ($data == 8)
-				$data = '!flash!';
+				$data = gettext("Flash");
 			else if ($data == 10)
-				$data = '!black and white!';
+				$data = gettext("Black and White");
 			else if ($data == 11)
-				$data = '!manual!';
+				$data = gettext("Manual");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0007") { //Focus Mode
 			if ($data == 1)
-				$data = '!auto!';
+				$data = gettext("Auto");
 			else if ($data == 2)
-				$data = '!manual!';
+				$data = gettext("Manual");
 			else if ($data == 4)
-				$data = '!auto, focus button!';
+				$data = gettext("Auto, Focus button");
 			else if ($data == 5)
-				$data = '!auto, continuous!';
+				$data = gettext("Auto, Continuous");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "001a") { //Image Stabilizer
 			if ($data == 2)
-				$data = '!mode 1!';
+				$data = gettext("Mode 1");
 			else if ($data == 3)
-				$data = '!off!';
+				$data = gettext("Off");
 			else if ($data == 4)
-				$data = '!mode 2!';
+				$data = gettext("Mode 2");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "001c") { //Macro mode
 			if ($data == 1)
-				$data = '!on!';
+				$data = gettext("On");
 			else if ($data == 2)
-				$data = '!off!';
+				$data = gettext("Off");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "001f") { //Shooting Mode
 			if ($data == 1)
-				$data = '!normal!';
+				$data = gettext("Normal");
 			else if ($data == 2)
-				$data = '!portrait!';
+				$data = gettext("Portrait");
 			else if ($data == 3)
-				$data = '!scenery!';
+				$data = gettext("Scenery");
 			else if ($data == 4)
-				$data = '!sports!';
+				$data = gettext("Sports");
 			else if ($data == 5)
-				$data = '!night portrait!';
+				$data = gettext("Night Portrait");
 			else if ($data == 6)
-				$data = '!program!';
+				$data = gettext("Program");
 			else if ($data == 7)
-				$data = '!aperture priority!';
+				$data = gettext("Aperture Priority");
 			else if ($data == 8)
-				$data = '!shutter priority!';
+				$data = gettext("Shutter Priority");
 			else if ($data == 9)
-				$data = '!macro!';
+				$data = gettext("Macro");
 			else if ($data == 11)
-				$data = '!manual!';
+				$data = gettext("Manual");
 			else if ($data == 13)
-				$data = '!panning!';
+				$data = gettext("Panning");
 			else if ($data == 14)
-				$data = '!simple!';
+				$data = gettext("Simple");
 			else if ($data == 18)
-				$data = '!fireworks!';
+				$data = gettext("Fireworks");
 			else if ($data == 19)
-				$data = '!party!';
+				$data = gettext("Party");
 			else if ($data == 20)
-				$data = '!snow!';
+				$data = gettext("Snow");
 			else if ($data == 21)
-				$data = '!night scenery!';
+				$data = gettext("Night Scenery");
 			else if ($data == 22)
-				$data = '!food!';
+				$data = gettext("Food");
 			else if ($data == 23)
-				$data = '!baby!';
+				$data = gettext("Baby");
 			else if ($data == 27)
-				$data = '!high sensitivity!';
+				$data = gettext("High Sensitivity");
 			else if ($data == 29)
-				$data = '!underwater!';
+				$data = gettext("Underwater");
 			else if ($data == 33)
-				$data = '!pet!';
+				$data = gettext("Pet");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0020") { //Audio
 			if ($data == 1)
-				$data = '!yes!';
+				$data = gettext("Yes");
 			else if ($data == 2)
-				$data = '!no!';
+				$data = gettext("No");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0023") { //White Balance Bias
 			$data = $data . " EV";
@@ -245,75 +245,75 @@ function formatPanasonicData($type, $tag, $intel, $data) {
 		}
 		if ($tag == "0028") { //Colour Effect
 			if ($data == 1)
-				$data = '!off!';
+				$data = gettext("Off");
 			else if ($data == 2)
-				$data = '!warm!';
+				$data = gettext("Warm");
 			else if ($data == 3)
-				$data = '!cool!';
+				$data = gettext("Cool");
 			else if ($data == 4)
-				$data = '!black and white!';
+				$data = gettext("Black and White");
 			else if ($data == 5)
-				$data = '!sepia!';
+				$data = gettext("Sepia");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "002a") { //Burst Mode
 			if ($data == 0)
-				$data = '!off!';
+				$data = gettext("Off");
 			else if ($data == 1)
-				$data = '!low/high quality!';
+				$data = gettext("Low/High Quality");
 			else if ($data == 2)
-				$data = '!infinite!';
+				$data = gettext("Infinite");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "002c") { //Contrast
 			if ($data == 0)
-				$data = '!standard!';
+				$data = gettext("Standard");
 			else if ($data == 1)
-				$data = '!low!';
+				$data = gettext("Low");
 			else if ($data == 2)
-				$data = '!high!';
+				$data = gettext("High");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "002d") { //Noise Reduction
 			if ($data == 0)
-				$data = '!standard!';
+				$data = gettext("Standard");
 			else if ($data == 1)
-				$data = '!low!';
+				$data = gettext("Low");
 			else if ($data == 2)
-				$data = '!high!';
+				$data = gettext("High");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "002e") { //Self Timer
 			if ($data == 1)
-				$data = '!off!';
+				$data = gettext("Off");
 			else if ($data == 2)
-				$data = '10 ' . '!sec!';
+				$data = gettext("10s");
 			else if ($data == 3)
-				$data = '2 ' . '!sec!';
+				$data = gettext("2s");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0030") { //Rotation
 			if ($data == 1)
-				$data = '!horizontal (normal)!';
+				$data = gettext("Horizontal (normal)");
 			else if ($data == 6)
-				$data = '!rotate 90 cw!';
+				$data = gettext("Rotate 90 CW");
 			else if ($data == 8)
-				$data = '!rotate 270 cw!';
+				$data = gettext("Rotate 270 CW");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0032") { //Color Mode
 			if ($data == 0)
-				$data = '!normal!';
+				$data = gettext("Normal");
 			else if ($data == 1)
-				$data = '!natural!';
+				$data = gettext("Natural");
 			else
-				$data = '!unknown!' . " (" . $data . ")";
+				$data = gettext("Unknown") . " (" . $data . ")";
 		}
 		if ($tag == "0036") { //Travel Day
 			$data = $data;

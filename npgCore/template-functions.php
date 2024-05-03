@@ -2502,7 +2502,6 @@ function printImageURL($text, $title, $class = false, $id = NULL) {
  */
 function getImageMetaData($image = NULL, $displayonly = true) {
 	global $_current_image, $_exifvars;
-	require_once(CORE_SERVERPATH . 'exif/exifTranslations.php');
 	if (is_null($image))
 		$image = $_current_image;
 	if (is_null($image) || !$image->get('hasMetadata')) {
@@ -2517,7 +2516,7 @@ function getImageMetaData($image = NULL, $displayonly = true) {
 		if ($displayonly && (!$value || !$_exifvars[$field][METADATA_DISPLAY])) {
 			unset($data[$field]);
 		} else {
-			$data[$field] = exifTranslate($value, $field);
+			$data[$field] = $value;
 		}
 	}
 	if (count($data) > 0) {

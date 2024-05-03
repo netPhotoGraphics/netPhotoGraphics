@@ -1121,7 +1121,7 @@ class SearchEngine {
 					$d1 = $searchdate . "-01 00:00:00";
 					$d = strtotime($d1);
 					$d = strtotime('+ 1 month', $d);
-					$d2 = substr(date('Y-m-d H:m:s', $d), 0, 7) . "-01 00:00:00";
+					$d2 = substr(date('Y-m-d H:i:s', $d), 0, 7) . "-01 00:00:00";
 					$sql .= "`$whichdate` >= \"$d1\" AND `$whichdate` < \"$d2\"";
 				} else {
 					$sql .= "`$whichdate`<\"0000-00-00 00:00:00\"";
@@ -2152,7 +2152,7 @@ class SearchEngine {
 	private function cacheSearch($criteria, $found) {
 		if ($criteria && !empty($found)) {
 			$cachetag = md5($criteria);
-			$sql = 'INSERT INTO ' . prefix('search_cache') . ' (criteria, cachetag, data, date) VALUES (' . db_quote($criteria) . ', ' . db_quote($cachetag) . ', ' . db_quote(serialize($found)) . ', ' . db_quote(date('Y-m-d H:m:s')) . ')';
+			$sql = 'INSERT INTO ' . prefix('search_cache') . ' (criteria, cachetag, data, date) VALUES (' . db_quote($criteria) . ', ' . db_quote($cachetag) . ', ' . db_quote(serialize($found)) . ', ' . db_quote(date('Y-m-d H:i:s')) . ')';
 			query($sql);
 		}
 	}

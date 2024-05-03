@@ -75,7 +75,7 @@ $_conf_vars['special_pages'] = array(); //	we want to look only at ones set by t
 unset($plugin_disable);
 
 ob_start(); //	Just in case the plugin emits output
-require_once($path); //	If it faults the shutdown functioin will disable it
+require_once($path); //	If it faults the shutdown function will disable it
 if (isset($plugin_disable) && $plugin_disable) {
 	enableExtension($extension, 0);
 	setupLog(sprintf(gettext('Plugin:%s disabled by <code>$plugin_disable</code>'), $name), $fullLog);

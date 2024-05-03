@@ -130,7 +130,7 @@ $_menu_manager_items = array();
  */
 function getMenuItems($menuset, $visible) {
 	global $_menu_manager_items;
-	if (array_key_exists($menuset, $_menu_manager_items) &&
+	if ($_menu_manager_items && array_key_exists($menuset, $_menu_manager_items) &&
 					array_key_exists($visible, $_menu_manager_items[$menuset])) {
 		return $_menu_manager_items[$menuset][$visible];
 	}

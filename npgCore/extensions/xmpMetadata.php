@@ -59,8 +59,6 @@ if (is_null($ext)) {
 define('XMP_EXTENSION', strtolower($ext));
 unset($ext);
 
-require_once(dirname(__DIR__) . '/exif/exif.php');
-
 /**
  * Plugin option handling class
  *
@@ -563,7 +561,8 @@ class xmpMetadata {
 			'&uuml;' => 'ü',
 			'&yacute;' => 'ý',
 			'&yen;' => '¥',
-			'&yuml;' => 'ÿ'
+			'&yuml;' => 'ÿ',
+			'&#xA;' => "\n"
 	);
 
 	/**
@@ -778,12 +777,25 @@ class xmpMetadata {
 					$metadata = self::extract($source);
 					if (!empty($metadata)) {
 						if (array_key_exists('XMPImageCaption', $metadata)) {
-							$album->setDesc(self::to_string($metadata['XMPImageCaption']));
+							$desc = self::to_string($metadata['XMPImageCaption']);
+							if (!empty($desc)) {
+								$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
+								if (getoption('transform_newlines')) {
+									$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
+									{
+
+									}
+								}
+							}
+							$album->setDesc($desc);
 						}
 						if (array_key_exists('XMPImageHeadline', $metadata)) {
 							$data = self::to_string($metadata['XMPImageHeadline']);
-							if (getoption('transform_newlines')) {
-								$desc = nl2br($desc);
+							if (!emty($data)) {
+								$data = str_replace($data, '&#xA;', "\n"); //	line feed so nl2br works
+								if (getoption('transform_newlines')) {
+									$data = str_replace(nl2br($data), "\n", ''); //	nl2br leaves the linefeed in
+								}
 							}
 							$album->setTitle($data);
 						}

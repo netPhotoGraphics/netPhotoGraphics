@@ -61,7 +61,9 @@ if (function_exists('printRegistrationForm')) {
 
 					<h2><?php echo gettext('User Registration') ?></h2>
 					<?php printRegistrationForm(); ?>
+					<br clear="all">
 				</div>
+				<br />
 			</div>
 
 
@@ -72,8 +74,8 @@ if (function_exists('printRegistrationForm')) {
 				<?php print_SW_Link(); ?>
 
 			</div> <!-- footerlinks -->
-	</body>
-	<?php npgFilters::apply('theme_body_close'); ?>
+		</body>
+		<?php npgFilters::apply('theme_body_close'); ?>
 	</html>
 	<?php
 } else {

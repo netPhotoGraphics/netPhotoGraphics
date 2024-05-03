@@ -13,6 +13,10 @@ define('OFFSET_PATH', 1);
 
 require_once(__DIR__ . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
+require_once(GITHUB_API_PATH);
+
+use Milo\Github;
+use Milo\Github\Http;
 
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
@@ -31,9 +35,6 @@ if (npg_loggedin() && !empty($_admin_menu)) {
 	}
 }
 
-require_once(PLUGIN_SERVERPATH . 'common/gitHubAPI/github-api.php');
-
-use Milo\Github;
 
 if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
@@ -313,14 +314,17 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 /*
  * connect with Github for curren release
  */
-if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
+if (class_exists('Milo\Github\Api')) {
 	/*
 	 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
 	 */
 	if (getOption('getUpdates_lastCheck') + 8640 < time()) {
 		setOption('getUpdates_lastCheck', time());
 		try {
-			$api = new Github\Api;
+			$client = extension_loaded('curl') ?
+							new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
+							new Http\StreamClient(getOption('GitHub_SSL_OPT'));
+			$api = new Milo\Github\Api($client);
 			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
 			$fullRepoData = $api->decode($fullRepoResponse);
 			$assets = $fullRepoData->assets;
@@ -409,7 +413,6 @@ $buttonlist = array();
 				'hidden' => '<input type="hidden" name="action" value="optimizeTables" />',
 				'rights' => ADMIN_RIGHTS
 		);
-
 		if ($newVersionAvailable = isset($newestVersion) && $newestVersion) {
 			$newVersionAvailable = version_compare(preg_replace('~[^0-9,.]~', '', $newestVersion), preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE));
 			if ($newVersionAvailable > 0) {
@@ -419,7 +422,20 @@ $buttonlist = array();
 					<div class="newVersion" style="height:78px;">
 						<h2><?php echo gettext('There is a new version available.'); ?></h2>
 						<?php
-						printf(gettext('Version %s can be installed from the utility buttons.'), $newestVersion);
+						if (npgFunctions::hasPrimaryScripts()) {
+							printf(gettext('Version %s can be installed from the utility buttons.'), $newestVersion);
+						} else {
+							$clone = clonedFrom();
+							$base = substr(SERVERPATH, 0, strlen(SERVERPATH) - strlen(WEBPATH));
+							if (strpos($base, $clone) == 0) {
+								$base = substr($clone, strlen($base));
+								$link = $base . '/' . CORE_FOLDER . '/admin.php';
+								$source = '<a href="' . $link . '">' . $_SERVER['HTTP_HOST'] . $base . '</a>';
+							} else {
+								$source = $clone;
+							}
+							printf(gettext('Version %1$s can be installed from %2$s.'), $newestVersion, $source);
+						}
 						?>
 					</div>
 					<?php
@@ -513,36 +529,37 @@ $buttonlist = array();
 				}
 			}
 			if (npg_loggedin(ADMIN_RIGHTS)) {
-
-				if ($newVersion) {
-					$buttonlist[] = array(
-							'XSRFTag' => 'install_update',
-							'category' => gettext('Updates'),
-							'enable' => 4,
-							'button_text' => $buttonText,
-							'formname' => 'install_update',
-							'action' => getAdminLink('admin.php') . '?action=install_update',
-							'icon' => INSTALL,
-							'alt' => '',
-							'title' => $buttonTitle,
-							'hidden' => '<input type="hidden" name="action" value="install_update" />',
-							'rights' => ADMIN_RIGHTS
-					);
-				} else {
-					if ($newVersionAvailable != 0) {
+				if (npgFunctions::hasPrimaryScripts()) {
+					if ($newVersion) {
 						$buttonlist[] = array(
 								'XSRFTag' => 'install_update',
 								'category' => gettext('Updates'),
-								'enable' => version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION, '>') ? 4 : 2,
-								'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
-								'formname' => 'download_update',
-								'action' => getAdminLink('admin.php') . '?action=download_update',
+								'enable' => 4,
+								'button_text' => $buttonText,
+								'formname' => 'install_update',
+								'action' => getAdminLink('admin.php') . '?action=install_update',
 								'icon' => INSTALL,
 								'alt' => '',
-								'title' => sprintf(gettext('Download and install netPhotoGraphics version %1$s on your site.'), $newestVersion),
-								'hidden' => '<input type="hidden" name="action" value="download_update" />',
+								'title' => $buttonTitle,
+								'hidden' => '<input type="hidden" name="action" value="install_update" />',
 								'rights' => ADMIN_RIGHTS
 						);
+					} else {
+						if ($newVersionAvailable != 0) {
+							$buttonlist[] = array(
+									'XSRFTag' => 'install_update',
+									'category' => gettext('Updates'),
+									'enable' => version_compare($newestVersion, NETPHOTOGRAPHICS_VERSION, '>') ? 4 : 2,
+									'button_text' => sprintf(gettext('Install version %1$s'), $newestVersion),
+									'formname' => 'download_update',
+									'action' => getAdminLink('admin.php') . '?action=download_update',
+									'icon' => INSTALL,
+									'alt' => '',
+									'title' => sprintf(gettext('Download and install netPhotoGraphics version %1$s on your site.'), $newestVersion),
+									'hidden' => '<input type="hidden" name="action" value="download_update" />',
+									'rights' => ADMIN_RIGHTS
+							);
+						}
 					}
 				}
 

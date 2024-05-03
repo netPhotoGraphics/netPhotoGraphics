@@ -525,7 +525,7 @@ class Gallery {
 			/* purge old search cache items */
 			$sql = 'DELETE FROM ' . prefix('search_cache');
 			if (!$complete) {
-				$sql .= ' WHERE `date`<' . db_quote(date('Y-m-d H:m:s', time() - SEARCH_CACHE_DURATION * 60));
+				$sql .= ' WHERE `date`<' . db_quote(date('Y-m-d H:i:s', time() - SEARCH_CACHE_DURATION * 60));
 			}
 			$result = query($sql);
 

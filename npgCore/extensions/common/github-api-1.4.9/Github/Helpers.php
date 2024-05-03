@@ -2,7 +2,6 @@
 
 namespace Milo\Github;
 
-
 /**
  * Just helpers.
  *
@@ -11,20 +10,18 @@ namespace Milo\Github;
  * @author  David Grudl
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-class Helpers
-{
-	private static $jsonMessages = [
-		JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
-		JSON_ERROR_STATE_MISMATCH => 'Syntax error, malformed JSON',
-		JSON_ERROR_CTRL_CHAR => 'Unexpected control character found',
-		JSON_ERROR_SYNTAX => 'Syntax error, malformed JSON',
-		JSON_ERROR_UTF8 => 'Invalid UTF-8 sequence',
-	];
+class Helpers {
 
+	private static $jsonMessages = [
+			JSON_ERROR_DEPTH => 'The maximum stack depth has been exceeded',
+			JSON_ERROR_STATE_MISMATCH => 'Syntax error, malformed JSON',
+			JSON_ERROR_CTRL_CHAR => 'Unexpected control character found',
+			JSON_ERROR_SYNTAX => 'Syntax error, malformed JSON',
+			JSON_ERROR_UTF8 => 'Invalid UTF-8 sequence',
+	];
 
 	/** @var Http\IClient */
 	private static $client;
-
 
 	/**
 	 * @param  mixed
@@ -32,10 +29,9 @@ class Helpers
 	 *
 	 * @throws JsonException
 	 */
-	public static function jsonEncode($value)
-	{
+	public static function jsonEncode($value) {
 		if (PHP_VERSION_ID < 50500) {
-			set_error_handler(function($severity, $message) { // needed to receive 'recursion detected' error
+			set_error_handler(function ($severity, $message) { // needed to receive 'recursion detected' error
 				restore_error_handler();
 				throw new JsonException($message);
 			});
@@ -48,9 +44,7 @@ class Helpers
 		}
 
 		if ($error = json_last_error()) {
-			$message = isset(static::$jsonMessages[$error])
-				? static::$jsonMessages[$error]
-				: (PHP_VERSION_ID >= 50500 ? json_last_error_msg() : 'Unknown error');
+			$message = isset(static::$jsonMessages[$error]) ? static::$jsonMessages[$error] : (PHP_VERSION_ID >= 50500 ? json_last_error_msg() : 'Unknown error');
 
 			throw new JsonException($message, $error);
 		}
@@ -59,15 +53,13 @@ class Helpers
 		return $json;
 	}
 
-
 	/**
 	 * @param  mixed
 	 * @return string
 	 *
 	 * @throws JsonException
 	 */
-	public static function jsonDecode($json)
-	{
+	public static function jsonDecode($json) {
 		$json = (string) $json;
 		if (!preg_match('##u', $json)) {
 			throw new JsonException('Invalid UTF-8 sequence', 5); // PECL JSON-C
@@ -82,17 +74,15 @@ class Helpers
 		return $value;
 	}
 
-
 	/**
 	 * @param  bool
 	 * @return Http\IClient
 	 */
-	public static function createDefaultClient($newInstance = FALSE)
-	{
+	public static function createDefaultClient($newInstance = FALSE, array $options = null) {
 		if (self::$client === NULL || $newInstance) {
-			self::$client = extension_loaded('curl')
-				? new Http\CurlClient
-				: new Http\StreamClient;
+			self::$client = extension_loaded('curl') ?
+							new Http\CurlClient($options) :
+							new Http\StreamClient($options);
 		}
 
 		return self::$client;
