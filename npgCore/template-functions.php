@@ -2572,7 +2572,7 @@ function printImageMetadata($title = NULL, $toggle = TRUE, $id = 'imagemetadata'
 			<table>
 				<?php
 				foreach ($exif as $field => $value) {
-					$label = $_exifvars[$field][METADATA_DISPLAY_TEXT];
+					$label = $_exifvars[$field][METADATA_SOURCE] . ':' . $_exifvars[$field][METADATA_DISPLAY_TEXT];
 					echo "<tr><td class=\"label " . html_encode($field) . "\">$label:</td><td class=\"value\">";
 					echo html_encode(strval($value));
 					echo "</td></tr>\n";
@@ -4448,7 +4448,7 @@ function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NUL
 		<span class="policy_acknowledge_check_box">
 			<input id="GDPR_acknowledge" type="checkbox" name="policy_acknowledge" onclick="$(this).parent().next().show();
 						 <?php echo $linked; ?>
-					$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
+							$(this).parent().hide();" value="<?php echo md5(getUserID() . getOption('GDPR_cookie')); ?>">
 						 <?php
 						 echo sprintf(get_language_string(getOption('GDPR_text')), getOption('GDPR_URL'));
 						 ?>
