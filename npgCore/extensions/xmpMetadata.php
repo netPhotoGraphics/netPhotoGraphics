@@ -782,9 +782,6 @@ class xmpMetadata {
 								$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
 								if (getoption('transform_newlines')) {
 									$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
-									{
-
-									}
 								}
 							}
 							$album->setDesc($desc);
@@ -894,7 +891,7 @@ class xmpMetadata {
 	 * @param float $v	NOTE: this must not be a string with European decimal separators
 	 * @return string fractional representation of $v
 	 */
-	function convertToFraction($v) {
+	private static function convertToFraction($v) {
 		if ($v == 0) {
 			return "0";
 		} else if ($v > 1) {
@@ -922,7 +919,7 @@ class xmpMetadata {
 	 * @param type $data
 	 * @return string
 	 */
-	function formatExposure($data) {
+	private static function formatExposure($data) {
 		if (strpos($data, '/') === false) {
 			$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
 			if ($data >= 1) {
@@ -1053,7 +1050,7 @@ class xmpMetadata {
 											foreach ($matches[1] as $i => $f) {
 												$term = explode('/', $f);
 												if ($term[0] != 0 && $term[1] != 0) {
-													$lens[$i] = convertToFraction($term[0] / $term[1]);
+													$lens[$i] = self::convertToFraction($term[0] / $term[1]);
 												} else {
 													$lens[$i] = 0;
 												}
