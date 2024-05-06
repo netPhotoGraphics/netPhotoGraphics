@@ -812,16 +812,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/admin_options/search.php
 %core%/admin_options/security.php
 %core%/admin_options/theme.php
-%core%/exif
-%core%/exif/exif.php
-%core%/exif/makers
-%core%/exif/makers/canon.php
-%core%/exif/makers/fujifilm.php
-%core%/exif/makers/gps.php
-%core%/exif/makers/nikon.php
-%core%/exif/makers/olympus.php
-%core%/exif/makers/panasonic.php
-%core%/exif/makers/sanyo.php
 %extensions%
 %extensions%/accessThreshold.php
 %extensions%/admin-approval.php
@@ -20363,4 +20353,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20365
+20355

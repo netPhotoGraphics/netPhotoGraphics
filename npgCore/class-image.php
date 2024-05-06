@@ -473,21 +473,9 @@ class Image extends MediaObject {
 			}
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
-				/* use PHP native exif reader */
-				require_once(__DIR__ . '/exif/exif.php');
 				$e = error_reporting(0);
 				$exifraw = exif_read_data($localpath); // PHP native
 				error_reporting($e);
-
-				/* use nPG exifier code
-				  try {
-				  $exifraw = read_exif_data_raw($path, false);
-				  } catch (Exception $e) {
-				  debugLog("read_exif_data_raw($path, false) exception: " . $e->getMessage());
-				  $exifraw = array();
-				  }
-				 */
-
 				if (isset($exifraw['ValidEXIFData'])) {
 					$this->set('hasMetadata', 1);
 					foreach ($_exifvars as $field => $exifvar) {

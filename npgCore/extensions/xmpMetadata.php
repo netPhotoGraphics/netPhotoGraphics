@@ -882,6 +882,59 @@ class xmpMetadata {
 		return substr($v, 0, $i + 1);
 	}
 
+	/**
+	 * Converts a floating point number into a simple fraction.
+	 *
+	 * This function has been amended to work better with actual
+	 * camera data. In particular, the tolerance computation is
+	 * completely changed.
+	 *
+	 * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+	 *
+	 * @param float $v	NOTE: this must not be a string with European decimal separators
+	 * @return string fractional representation of $v
+	 */
+	function convertToFraction($v) {
+		if ($v == 0) {
+			return "0";
+		} else if ($v > 1) {
+			for ($n = 0; $n < 5; $n++) {
+				$x = round($v, $n);
+				if (abs($v - $x) < 0.005) {
+					break;
+				}
+			}
+			return $x;
+		} else {
+			for ($n = 1; $n < 100; $n++) {
+				$d = round(1 / $v * $n, 0);
+				if (abs($n / $d - $v) < 0.00005) {
+					break;
+				}
+			}
+			return "$n/$d";
+		}
+	}
+
+	/**
+	 * Formats the exposure data for display
+	 *
+	 * @param type $data
+	 * @return string
+	 */
+	function formatExposure($data) {
+		if (strpos($data, '/') === false) {
+			$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
+			if ($data >= 1) {
+				return round($data, 2) . ' ' . 'sec';
+			} else {
+				return self::convertToFraction($data) . ' sec';
+			}
+		} else {
+			return 'bulb';
+		}
+	}
+
 	private static function encode($str) {
 		return strtr($str, array_flip(self::$XML_trans));
 	}
@@ -968,7 +1021,7 @@ class xmpMetadata {
 										$image->setDateTime($element);
 										break;
 									case 'XMPExposureTime':
-										$v = formatExposure(self::rationalNum($element));
+										$v = self::formatExposure(self::rationalNum($element));
 										break;
 									case 'XMPFocalLength':
 										$v = self::rationalNum($element) . ' mm';
