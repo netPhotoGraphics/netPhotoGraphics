@@ -22,7 +22,7 @@ if (function_exists('printCommentErrors')) {
 			?>
 			<p>
 				<label for="name"><?php printf(gettext("Name%s"), ($req == 'required' ? $star : '')); ?></label>
-				<input<?php if ($disabled['name']) echo ' READONLY '; ?> type="text" id="name" name="name" size="22" value="<?php echo html_encode($stored['name']); ?>" class="inputbox" />
+				<input<?php if ($disabled['name']) echo ' READONLY '; ?> type="text" id="name" name="name" size="22" value="<?php echo html_encode($stored['name']); ?>" class="inputbox" <?php echo $req; ?> />
 			</p>
 			<?php
 			if (getOption('comment_form_anon') && !$disabled['anon']) {
@@ -43,7 +43,7 @@ if (function_exists('printCommentErrors')) {
 			?>
 			<p>
 				<label for="email"><?php printf(gettext("E-Mail%s"), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['email']) echo 'READONLY'; ?> type="text" id="email" name="email" size="22" value="<?php echo html_encode($stored['email']); ?>" class="inputbox" />
+				<input <?php if ($disabled['email']) echo 'READONLY'; ?> type="text" id="email" name="email" size="22" value="<?php echo html_encode($stored['email']); ?>" class="inputbox" <?php echo $req; ?>/>
 			</p>
 			<?php
 		}
@@ -51,7 +51,7 @@ if (function_exists('printCommentErrors')) {
 			?>
 			<p>
 				<label for="website"><?php printf(gettext("Website%s"), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['website']) echo 'READONLY'; ?> type="text" id="website" name="website" size="22" value="<?php echo html_encode($stored['website']); ?>" class="inputbox" />
+				<input <?php if ($disabled['website']) echo 'READONLY'; ?> type="text" id="website" name="website" size="22" value="<?php echo html_encode($stored['website']); ?>" class="inputbox" <?php echo $req; ?>/>
 			</p>
 			<?php
 		}
@@ -60,23 +60,23 @@ if (function_exists('printCommentErrors')) {
 			?>
 			<p>
 				<label for="0-comment_form_street"><?php printf(gettext('Street%s'), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['street']) echo 'READONLY'; ?> type="text" name="0-comment_form_street" id="0-comment_form_street" class="inputbox" size="22" value="<?php echo html_encode($stored['street']); ?>" />
+				<input <?php if ($disabled['street']) echo 'READONLY'; ?> type="text" name="0-comment_form_street" id="0-comment_form_street" class="inputbox" size="22" value="<?php echo html_encode($stored['street']); ?>" <?php echo $req; ?>/>
 			</p>
 			<p>
 				<label for="0-comment_form_city"><?php printf(gettext('City%s'), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['city']) echo 'READONLY'; ?> type="text" name="0-comment_form_city" id="0-comment_form_city" class="inputbox" size="22" value="<?php echo html_encode($stored['city']); ?>" />
+				<input <?php if ($disabled['city']) echo 'READONLY'; ?> type="text" name="0-comment_form_city" id="0-comment_form_city" class="inputbox" size="22" value="<?php echo html_encode($stored['city']); ?>" <?php echo $req; ?>/>
 			</p>
 			<p>
 				<label for="comment_form_state"><?php printf(gettext('State%s'), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['state']) echo 'READONLY'; ?> type="text" name="0-comment_form_state" id="comment_form_state" class="inputbox" size="22" value="<?php echo html_encode($stored['state']); ?>" />
+				<input <?php if ($disabled['state']) echo 'READONLY'; ?> type="text" name="0-comment_form_state" id="comment_form_state" class="inputbox" size="22" value="<?php echo html_encode($stored['state']); ?>"<?php echo $req; ?> />
 			</p>
 			<p>
 				<label for="comment_form_country"><?php printf(gettext('Country%s'), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['country']) echo 'READONLY'; ?> type="text" id="comment_form_country" name="0-comment_form_country" class="inputbox" size="22" value="<?php echo html_encode($stored['country']); ?>" />
+				<input <?php if ($disabled['country']) echo 'READONLY'; ?> type="text" id="comment_form_country" name="0-comment_form_country" class="inputbox" size="22" value="<?php echo html_encode($stored['country']); ?>" <?php echo $req; ?> />
 			</p>
 			<p>
 				<label for="comment_form_postal"><?php printf(gettext('Postal code%s'), ($req == 'required' ? $star : '')); ?></label>
-				<input <?php if ($disabled['postal']) echo 'READONLY'; ?> type="text" id="comment_form_postal" name="0-comment_form_postal" class="inputbox" size="22" value="<?php echo html_encode($stored['postal']); ?>" />
+				<input <?php if ($disabled['postal']) echo 'READONLY'; ?> type="text" id="comment_form_postal" name="0-comment_form_postal" class="inputbox" size="22" value="<?php echo html_encode($stored['postal']); ?>"<?php echo $req; ?> />
 			</p>
 			<?php
 		}
