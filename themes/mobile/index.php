@@ -36,7 +36,7 @@ if (!defined('WEBPATH'))
 						<?php $latestimages = getImageStatistic(8, 'latest', '', false, 0, 'desc'); ?>
 						<div class="ui-grid-c">
 							<?php
-							$count = '';
+							$count = 0;
 							foreach ($latestimages as $image) {
 								$count++;
 								switch ($count) {
@@ -51,7 +51,7 @@ if (!defined('WEBPATH'))
 										break;
 									case 4:
 										$imgclass = ' ui-block-d';
-										$count = ''; // reset to start with a again;
+										$count = 0; // reset to start with a again;
 										break;
 								}
 								?>
