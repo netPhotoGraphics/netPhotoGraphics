@@ -69,7 +69,7 @@
 				echo $html;
 				echo "</a>";
 				echo '<h3><a href="' . $randomImageURL . '" title="' . sprintf(gettext('View image: %s'), html_encode($randomImage->getTitle())) . '">' . html_encode($randomImage->getTitle()) . '</a></h3>';
-				echo "<p>" . formattedDate(getOption('date_format'), strtotime($randomImage->getDateTime())) . "</p>";
+				echo "<p>" . formattedDate(DATE_FORMAT, strtotime($randomImage->getDateTime())) . "</p>";
 			} else {
 				echo gettext('No Images Exist...');
 			}
