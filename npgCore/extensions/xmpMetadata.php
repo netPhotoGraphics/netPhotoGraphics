@@ -1154,11 +1154,10 @@ class xmpMetadata {
 				}
 
 				if (is_serialized($v)) {
-					if ($elementXML != 'npg:Codeblock') {
-						$va = getSerializedArray($v);
-						if (count($va) <= 1) {
-							$v = reset($va);
-						}
+					/* simplify if not more than one element */
+					$va = getSerializedArray($v);
+					if (count($va) <= 1) {
+						$v = reset($va);
 					}
 				}
 				$v = self::encode($v);
