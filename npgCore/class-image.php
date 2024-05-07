@@ -473,21 +473,25 @@ class Image extends MediaObject {
 			}
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
+				/* check EXIF data */
 				$e = error_reporting(0);
-				$exifraw = exif_read_data($localpath); // PHP native
-				error_reporting($e);
-				if (isset($exifraw['ValidEXIFData'])) {
-					$this->set('hasMetadata', 1);
-					foreach ($_exifvars as $field => $exifvar) {
-						$exif = NULL;
-						if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
-						} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
+				if (exif_imagetype($localpath)) {
+					$exifraw = exif_read_data($localpath);
+					if (isset($exifraw['ValidEXIFData'])) {
+						$this->set('hasMetadata', 1);
+						foreach ($_exifvars as $field => $exifvar) {
+							if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
+								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
+							} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
+								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
+							} else {
+								$exif = NULL;
+							}
+							$this->set($field, $exif);
 						}
-						$this->set($field, $exif);
 					}
 				}
+				error_reporting($e);
 				/* check IPTC data */
 				$iptcdata = gl_imageIPTC($localpath);
 				if (!empty($iptcdata)) {
@@ -605,7 +609,7 @@ class Image extends MediaObject {
 				$this->setDesc($desc);
 			}
 
-			//	GPS data
+			/* GPS data */
 			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
 				$data = self::fetchMetadata($source);
 				if (!empty($data)) {
@@ -626,7 +630,7 @@ class Image extends MediaObject {
 				$this->set('GPSAltitude', $alt);
 			}
 
-			//	simple field imports
+			/* simple field imports */
 			$import = array(
 					'location' => 'IPTCSubLocation',
 					'city' => 'IPTCCity',
