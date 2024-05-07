@@ -1155,10 +1155,9 @@ class xmpMetadata {
 
 				if (is_serialized($v)) {
 					if ($elementXML != 'npg:Codeblock') {
+						/* store most likely primary string */
 						$va = getSerializedArray($v);
-						if (count($va) <= 1) {
-							$v = reset($va);
-						}
+						$v = reset($va);
 					}
 				}
 				$v = self::encode($v);
