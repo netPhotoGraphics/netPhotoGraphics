@@ -1003,14 +1003,16 @@ class xmpMetadata {
 										$image->set('credit', $v);
 										break;
 									case 'XMPImageHeadline':
+										$v = str_replace('&#xA;', "\n", $v); //	line feed so nl2br works
 										if (getoption('transform_newlines')) {
-											$v = nl2br($v);
+											$v = str_replace("\n", '', nl2br($v)); //	nl2br leaves the linefeed in
 										}
 										$image->setTitle($v);
 										break;
 									case 'XMPImageCaption':
+										$v = str_replace('&#xA;', "\n", $v); //	line feed so nl2br works
 										if (getoption('transform_newlines')) {
-											$v = nl2br(v);
+											$v = str_replace("\n", '', nl2br($v)); //	nl2br leaves the linefeed in
 										}
 										$image->setDesc($v);
 										break;

@@ -590,11 +590,10 @@ class Image extends MediaObject {
 			if (empty($title)) {
 				$title = self::fetchMetadata('EXIFDescription'); //EXIF title [sic]
 			}
-
 			if (!empty($title)) {
-				$title = str_replace($title, '&#xA;', "\n"); //	line feed so nl2br works
+				$title = str_replace('&#xA;', "\n", $title); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$title = str_replace(nl2br($title), "\n", ''); //	nl2br leaves the linefeed in
+					$title = str_replace("\n", '', nl2br($title)); //	nl2br leaves the linefeed in
 				}
 				$this->setTitle($title);
 			}
@@ -602,9 +601,9 @@ class Image extends MediaObject {
 			/* "description" field population */
 			$desc = self::fetchMetadata('IPTCImageCaption');
 			if (!empty($desc)) {
-				$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
+				$desc = str_replace('&#xA;', "\n", $desc); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
+					$desc = str_replace("\n", '', nl2br($desc)); //	nl2br leaves the linefeed in
 				}
 				$this->setDesc($desc);
 			}
