@@ -743,7 +743,7 @@ function getOptionContent() {
 															 name="disclose_password"
 															 id="disclose_password"
 															 onclick="passwordClear('');
-																	 togglePassword('');" />
+																			 togglePassword('');" />
 															 <?php echo gettext('Show'); ?>
 											</label>
 
@@ -859,7 +859,7 @@ function getOptionContent() {
 												<input id="<?php echo $key; ?>_disable" name="<?php echo $key; ?>" type="radio" class="<?php echo $key; ?>_metaDisable"<?php echo $checked_disabled ?> value="2" />
 												<?php echo CROSS_MARK_RED; ?>
 											</label>
-											<?php echo $item[METADATA_DISPLAY_TEXT] . ' {' . $item[METADATA_SOURCE] . '}'; ?>
+											<?php echo $item[METADATA_SOURCE] . ':' . $item[METADATA_DISPLAY_TEXT]; ?>
 										</li>
 										<?php
 									}

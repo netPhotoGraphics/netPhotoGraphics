@@ -782,9 +782,6 @@ class xmpMetadata {
 								$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
 								if (getoption('transform_newlines')) {
 									$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
-									{
-
-									}
 								}
 							}
 							$album->setDesc($desc);
@@ -882,6 +879,59 @@ class xmpMetadata {
 		return substr($v, 0, $i + 1);
 	}
 
+	/**
+	 * Converts a floating point number into a simple fraction.
+	 *
+	 * This function has been amended to work better with actual
+	 * camera data. In particular, the tolerance computation is
+	 * completely changed.
+	 *
+	 * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
+	 *
+	 * @param float $v	NOTE: this must not be a string with European decimal separators
+	 * @return string fractional representation of $v
+	 */
+	private static function convertToFraction($v) {
+		if ($v == 0) {
+			return "0";
+		} else if ($v > 1) {
+			for ($n = 0; $n < 5; $n++) {
+				$x = round($v, $n);
+				if (abs($v - $x) < 0.005) {
+					break;
+				}
+			}
+			return $x;
+		} else {
+			for ($n = 1; $n < 100; $n++) {
+				$d = round(1 / $v * $n, 0);
+				if (abs($n / $d - $v) < 0.00005) {
+					break;
+				}
+			}
+			return "$n/$d";
+		}
+	}
+
+	/**
+	 * Formats the exposure data for display
+	 *
+	 * @param type $data
+	 * @return string
+	 */
+	private static function formatExposure($data) {
+		if (strpos($data, '/') === false) {
+			$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
+			if ($data >= 1) {
+				return round($data, 2) . ' ' . 'sec';
+			} else {
+				return self::convertToFraction($data) . ' sec';
+			}
+		} else {
+			return 'bulb';
+		}
+	}
+
 	private static function encode($str) {
 		return strtr($str, array_flip(self::$XML_trans));
 	}
@@ -953,14 +1003,16 @@ class xmpMetadata {
 										$image->set('credit', $v);
 										break;
 									case 'XMPImageHeadline':
+										$v = str_replace('&#xA;', "\n", $v); //	line feed so nl2br works
 										if (getoption('transform_newlines')) {
-											$v = nl2br($v);
+											$v = str_replace("\n", '', nl2br($v)); //	nl2br leaves the linefeed in
 										}
 										$image->setTitle($v);
 										break;
 									case 'XMPImageCaption':
+										$v = str_replace('&#xA;', "\n", $v); //	line feed so nl2br works
 										if (getoption('transform_newlines')) {
-											$v = nl2br(v);
+											$v = str_replace("\n", '', nl2br($v)); //	nl2br leaves the linefeed in
 										}
 										$image->setDesc($v);
 										break;
@@ -968,7 +1020,7 @@ class xmpMetadata {
 										$image->setDateTime($element);
 										break;
 									case 'XMPExposureTime':
-										$v = formatExposure(self::rationalNum($element));
+										$v = self::formatExposure(self::rationalNum($element));
 										break;
 									case 'XMPFocalLength':
 										$v = self::rationalNum($element) . ' mm';
@@ -1000,7 +1052,7 @@ class xmpMetadata {
 											foreach ($matches[1] as $i => $f) {
 												$term = explode('/', $f);
 												if ($term[0] != 0 && $term[1] != 0) {
-													$lens[$i] = convertToFraction($term[0] / $term[1]);
+													$lens[$i] = self::convertToFraction($term[0] / $term[1]);
 												} else {
 													$lens[$i] = 0;
 												}
@@ -1104,11 +1156,10 @@ class xmpMetadata {
 				}
 
 				if (is_serialized($v)) {
-					if ($elementXML != 'npg:Codeblock') {
-						$va = getSerializedArray($v);
-						if (count($va) <= 1) {
-							$v = reset($va);
-						}
+					/* simplify if not more than one element */
+					$va = getSerializedArray($v);
+					if (count($va) <= 1) {
+						$v = reset($va);
 					}
 				}
 				$v = self::encode($v);

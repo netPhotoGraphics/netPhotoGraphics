@@ -1500,7 +1500,7 @@ class _Authority {
 								<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
 								<fieldset>
 									<legend><?php echo gettext('User') ?></legend>
-									<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" />
+									<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" required />
 								</fieldset>
 								<?php
 								if ($requestor) {
@@ -1512,7 +1512,7 @@ class _Authority {
 										?>
 									</fieldset>
 									<fieldset><legend><?php echo gettext('Your response') ?></legend>
-										<input class="textfield" name="pass" id="pass" type="text" size="35" />
+										<input class="textfield" name="pass" id="pass" type="text" size="35" required />
 									</fieldset>
 									<br />
 									<?php
@@ -1528,7 +1528,9 @@ class _Authority {
 								?>
 								<div>
 									<?php
-									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton', 'disabloe' => !$info['challenge']));
+									if ($info['challenge']) {
+										npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton'));
+									}
 									npgButton('button', CLOCKWISE_OPEN_CIRCLE_ARROW_GREEN . ' ' . gettext("Refresh"), array('buttonClick' => "window.location='?logon_step=challenge&amp;ref=' + $('#user').val();"));
 									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
@@ -1595,7 +1597,7 @@ class _Authority {
 								if ($showUserField) { //	requires a "user" field
 									?>
 									<fieldset class="login_input"><legend><?php echo gettext("User"); ?></legend>
-										<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" />
+										<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" required />
 									</fieldset>
 									<?php
 								}
@@ -1605,7 +1607,7 @@ class _Authority {
 										<input type="checkbox" name="disclose_password" id="disclose_password" onclick="togglePassword('');" />
 										<?php echo gettext('Show') ?>
 									</label>
-									<input class="textfield" name="pass" id="pass" type="password"  />
+									<input class="textfield" name="pass" id="pass" type="password" required />
 								</fieldset>
 								<br />
 								<div>
@@ -1650,15 +1652,6 @@ class _Authority {
 							$buttonClass = $captcha['submitButton']['class'];
 						}
 						?>
-						<script>
-							function toggleSubmit() {
-								if ($('#user').val()) {
-									$('#submitButton').prop('disabled', false);
-								} else {
-									$('#submitButton').prop('disabled', 'disabled');
-								}
-							}
-						</script>
 						<form name="login" id="login" action="<?php echo getAdminLink('admin.php'); ?>" method="post">
 							<?php
 							if (isset($captcha['hidden']))
@@ -1669,7 +1662,7 @@ class _Authority {
 							<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
 							<fieldset id="logon_box">
 								<fieldset><legend><?php echo gettext('User name or e-mail address'); ?></legend>
-									<input class="textfield" name="user" id="user" type="text" value="<?php echo html_encode($requestor); ?>" onkeyup="toggleSubmit();"/>
+									<input class="textfield" name="user" id="user" type="text" value="<?php echo html_encode($requestor); ?>" required />
 								</fieldset>
 								<?php
 								if (isset($captcha['html']))
@@ -1687,7 +1680,7 @@ class _Authority {
 								<br />
 								<div>
 									<?php
-									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Request password reset"), array('buttonClass' => $buttonClass, 'disabled' => empty($requestor), 'id' => 'submitButton', 'buttonExtra' => $buttonExtra));
+									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Request password reset"), array('buttonClass' => $buttonClass, 'id' => 'submitButton', 'buttonExtra' => $buttonExtra));
 									npgButton('button', BACK_ARROW_BLUE . ' ' . gettext("Back"), array('buttonClick' => "window.location='?logon_step=&amp;ref=' + $('#user').val();"));
 									?>
 								</div>
@@ -1871,7 +1864,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-												 togglePassword('<?php echo $id; ?>');">
+										 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1880,7 +1873,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-											 $('#show_disclose_password<?php echo $id; ?>').show();"
+									 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>

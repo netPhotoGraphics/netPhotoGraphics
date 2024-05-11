@@ -262,7 +262,7 @@ function printContactForm($subject_override = '') {
 			$captcha = !$_captcha->checkCaptcha($code, $code_ok);
 		}
 		// CAPTCHA end
-		// If required fields are empty or not valide print note
+		// If required fields are empty or not valid print note
 		if ($captcha || count($error) != 0) {
 			?>
 			<div class="errorbox">

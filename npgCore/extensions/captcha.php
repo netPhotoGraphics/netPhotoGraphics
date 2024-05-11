@@ -96,7 +96,7 @@ class captcha {
 			<?php echo $captcha['html']; ?>
 		</span>
 		<script>
-			
+
 			var path = '<?php echo $matches[1]; ?>';
 			window.addEventListener('load', function () {
 				$('#__npg_captcha_font').change(function () {
@@ -120,7 +120,7 @@ class captcha {
 					$('#npg_captcha_image_loc').html(nbase);
 				});
 			}, false);
-			
+
 		</script>
 		<?php
 	}
@@ -195,7 +195,7 @@ class captcha {
 		query('DELETE FROM ' . prefix('captcha') . ' WHERE `ptime`<' . (time() - 3600), false); // expired tickets
 		query("INSERT INTO " . prefix('captcha') . " (ptime, hash) VALUES (" . db_quote(time()) . "," . db_quote($code) . ")", false);
 		$html = '<label for="code" class="captcha_label">' . $prompt . '</label><img id="captcha" src="' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/captcha/c.php?i=' . $cypher . '" alt="Code" />';
-		$input = '<input type="text" id="code" name="code" class="captchainputbox" />';
+		$input = '<input type="text" id="code" name="code" class="captchainputbox" required />';
 		$hidden = '<input type="hidden" name="code_h" value="' . $code . '" />';
 		return array('input' => $input, 'html' => $html, 'hidden' => $hidden);
 	}

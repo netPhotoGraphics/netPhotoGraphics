@@ -473,33 +473,25 @@ class Image extends MediaObject {
 			}
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
-				/* use PHP native exif reader */
-				require_once(__DIR__ . '/exif/exif.php');
+				/* check EXIF data */
 				$e = error_reporting(0);
-				$exifraw = exif_read_data($localpath); // PHP native
-				error_reporting($e);
-
-				/* use nPG exifier code
-				  try {
-				  $exifraw = read_exif_data_raw($path, false);
-				  } catch (Exception $e) {
-				  debugLog("read_exif_data_raw($path, false) exception: " . $e->getMessage());
-				  $exifraw = array();
-				  }
-				 */
-
-				if (isset($exifraw['ValidEXIFData'])) {
-					$this->set('hasMetadata', 1);
-					foreach ($_exifvars as $field => $exifvar) {
-						$exif = NULL;
-						if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
-						} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
-							$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
+				if (exif_imagetype($localpath)) {
+					$exifraw = exif_read_data($localpath);
+					if (isset($exifraw['ValidEXIFData'])) {
+						$this->set('hasMetadata', 1);
+						foreach ($_exifvars as $field => $exifvar) {
+							if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
+								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
+							} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
+								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
+							} else {
+								$exif = NULL;
+							}
+							$this->set($field, $exif);
 						}
-						$this->set($field, $exif);
 					}
 				}
+				error_reporting($e);
 				/* check IPTC data */
 				$iptcdata = gl_imageIPTC($localpath);
 				if (!empty($iptcdata)) {
@@ -598,11 +590,10 @@ class Image extends MediaObject {
 			if (empty($title)) {
 				$title = self::fetchMetadata('EXIFDescription'); //EXIF title [sic]
 			}
-
 			if (!empty($title)) {
-				$title = str_replace($title, '&#xA;', "\n"); //	line feed so nl2br works
+				$title = str_replace('&#xA;', "\n", $title); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$title = str_replace(nl2br($title), "\n", ''); //	nl2br leaves the linefeed in
+					$title = str_replace("\n", '', nl2br($title)); //	nl2br leaves the linefeed in
 				}
 				$this->setTitle($title);
 			}
@@ -610,14 +601,14 @@ class Image extends MediaObject {
 			/* "description" field population */
 			$desc = self::fetchMetadata('IPTCImageCaption');
 			if (!empty($desc)) {
-				$desc = str_replace($desc, '&#xA;', "\n"); //	line feed so nl2br works
+				$desc = str_replace('&#xA;', "\n", $desc); //	line feed so nl2br works
 				if (getoption('transform_newlines')) {
-					$desc = str_replace(nl2br($desc), "\n", ''); //	nl2br leaves the linefeed in
+					$desc = str_replace("\n", '', nl2br($desc)); //	nl2br leaves the linefeed in
 				}
 				$this->setDesc($desc);
 			}
 
-			//	GPS data
+			/* GPS data */
 			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
 				$data = self::fetchMetadata($source);
 				if (!empty($data)) {
@@ -638,7 +629,7 @@ class Image extends MediaObject {
 				$this->set('GPSAltitude', $alt);
 			}
 
-			//	simple field imports
+			/* simple field imports */
 			$import = array(
 					'location' => 'IPTCSubLocation',
 					'city' => 'IPTCCity',
