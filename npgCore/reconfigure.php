@@ -10,7 +10,7 @@ if (!defined('OFFSET_PATH')) {
 	die();
 }
 // because we are loading the script from within a function!
-global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery;
+global $subtabs, $_admin_menu, $_admin_tab, $_invisible_execute, $_gallery, $_conf_vars;
 
 require_once(__DIR__ . '/admin-globals.php');
 

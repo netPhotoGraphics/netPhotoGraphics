@@ -14,7 +14,8 @@ if (!isset($_SERVER['HTTP_HOST']))
 	die();
 
 global $_conf_vars, $_options;
-$_options = array();
+$_conf_options_associations = $_options = array();
+$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
 
 require_once(__DIR__ . '/functions-basic.php');
 
@@ -106,9 +107,6 @@ define('DEBUG_OBJECTS', (bool) strpos($_debug, 'OBJECTS')); // set to true to lo
 define('TESTING_MODE', (bool) strpos($_debug, 'TESTING'));
 
 unset($_debug);
-
-$_conf_options_associations = $_options = array();
-$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
 
 $_DB_details = array(
 		'mysql_host' => 'not connected',
