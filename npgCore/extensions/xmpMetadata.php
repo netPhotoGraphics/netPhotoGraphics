@@ -1131,9 +1131,9 @@ class xmpMetadata {
 		$process = array('dc', 'Iptc4xmpCore', 'photoshop', 'xap');
 		if (isAlbumClass($object)) {
 			$file = rtrim($object->localpath, '/');
-			$file .= '.xmp';
+			$file .= '.' . XMP_EXTENSION;
 		} else {
-			$file = stripSuffix($object->localpath) . '.xmp';
+			$file = stripSuffix($object->localpath) . '.' . XMP_EXTENSION;
 		}
 		if (file_exists($file)) {
 			chmod($file, 0777);
