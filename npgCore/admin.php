@@ -338,7 +338,7 @@ if (class_exists('Milo\Github\Api')) {
 	}
 
 	$newestVersionURI = getOption('getUpdates_latest');
-	$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+	$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename(strval($newestVersionURI)))));
 }
 
 if (npg_loggedin() && $_admin_menu) {
