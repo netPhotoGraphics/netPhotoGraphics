@@ -334,7 +334,7 @@ if (!function_exists('gl_graphicsLibInfo')) {
 
 		/**
 		 * Rotates an image resource according to its Orientation
-		 * NB: requires the imagarotate function to be configured
+		 * NB: requires the imagerotate function to be configured
 		 *
 		 * @param resource $im
 		 * @param int $rotate

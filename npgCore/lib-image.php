@@ -610,7 +610,9 @@ class imageProcessing {
 			} else {
 				//try the file directly as this might be an image not in the database
 				if (exif_imagetype($img)) {
+					$e = error_reporting(0);
 					$result = exif_read_data($img);
+					error_reporting($e);
 					if (is_array($result) && array_key_exists('Orientation', $result)) {
 						$rotation = $result['Orientation'];
 					}
