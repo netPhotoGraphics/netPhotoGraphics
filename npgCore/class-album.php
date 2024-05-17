@@ -600,16 +600,14 @@ class AlbumBase extends MediaObject {
 		}
 
 		$nullimage = CORE_SERVERPATH . 'images/imageDefault.png';
+		// check for theme imageDefault.png
 		$theme = '';
-		if (OFFSET_PATH == 0) {
-			// check for theme imageDefault.png
-			$uralbum = $this->getUralbum();
-			$albumtheme = $uralbum->getAlbumTheme();
-			if (!empty($albumtheme)) {
-				$theme = $albumtheme;
-			} else {
-				$theme = $_gallery->getCurrentTheme();
-			}
+		$uralbum = $this->getUralbum();
+		$albumtheme = $uralbum->getAlbumTheme();
+		if (!empty($albumtheme)) {
+			$theme = $albumtheme;
+		} else {
+			$theme = $_gallery->getCurrentTheme();
 		}
 		if (!empty($theme)) {
 			$themeimage = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/images/imageDefault.png';
