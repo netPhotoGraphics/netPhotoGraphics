@@ -609,7 +609,7 @@ class imageProcessing {
 				}
 			} else {
 				//try the file directly as this might be an image not in the database
-				$result = read_exif_data($img);
+				$result = npg_read_exif($img);
 				if (!empty($result) && array_key_exists('Orientation', $result)) {
 					$rotation = $result['Orientation'];
 				}

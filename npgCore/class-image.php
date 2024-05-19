@@ -474,7 +474,7 @@ class Image extends MediaObject {
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
 				/* check EXIF data */
-				$exifraw = read_exif_data($localpath);
+				$exifraw = npg_read_exif($localpath);
 
 				if (!empty($exifraw)) {
 					$this->set('hasMetadata', 1);

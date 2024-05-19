@@ -2533,7 +2533,7 @@ const EXIF_SOURCE = array(
 		'WhiteBalance' => 'SubIFD'
 );
 
-function read_exif_data($path) {
+function npg_read_exif($path) {
 	$rslt = [];
 	if (exif_imagetype($path)) {
 		$e = error_reporting(0);
