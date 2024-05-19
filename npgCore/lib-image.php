@@ -609,18 +609,14 @@ class imageProcessing {
 				}
 			} else {
 				//try the file directly as this might be an image not in the database
-				if (exif_imagetype($img)) {
-					$e = error_reporting(0);
-					$result = exif_read_data($img);
-					error_reporting($e);
-					if (is_array($result) && array_key_exists('Orientation', $result)) {
-						$rotation = $result['Orientation'];
-					}
+				$result = read_exif_data($img);
+				if (!empty($result) && array_key_exists('Orientation', $result)) {
+					$rotation = $result['Orientation'];
 				}
 			}
 		}
 		if ($rotation) {
-			$rotation = substr(trim($rotation, '!'), 0, 1);
+			$rotation = substr($rotation, 0, 1);
 		}
 		return (int) $rotation;
 	}

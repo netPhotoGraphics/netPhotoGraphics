@@ -200,7 +200,7 @@ class Image extends MediaObject {
 				'IPTCImageHeadline' => array('IPTC', 'ImageHeadline', gettext('Image Headline'), false, 256, true, 'string', false),
 				'IPTCImageCaption' => array('IPTC', 'ImageCaption', gettext('Image Caption'), false, 2000, true, 'string', false),
 				'IPTCImageCaptionWriter' => array('IPTC', 'ImageCaptionWriter', gettext('Image Caption Writer'), false, 32, true, 'string', false),
-				'EXIFDateTime' => array('SubIFD', 'DateTime', gettext('Time Taken'), true, 52, true, 'datetime', false),
+				'EXIFDateTime' => array('IFD0', 'DateTime', gettext('Time Taken'), true, 52, true, 'datetime', false),
 				'EXIFDateTimeOriginal' => array('SubIFD', 'DateTimeOriginal', gettext('Original Time Taken'), true, 52, true, 'datetime', false),
 				'EXIFDateTimeDigitized' => array('SubIFD', 'DateTimeDigitized', gettext('Time Digitized'), true, 52, true, 'datetime', false),
 				'IPTCDateCreated' => array('IPTC', 'DateCreated', gettext('Date Created'), false, 8, true, 'date', false),
@@ -224,7 +224,7 @@ class Image extends MediaObject {
 				'EXIFMeteringMode' => array('SubIFD', 'MeteringMode', gettext('Metering Mode'), true, 52, true, 'string', false),
 				'EXIFFlash' => array('SubIFD', 'Flash', gettext('Flash Fired'), true, 52, true, 'string', false),
 				'EXIFImageWidth' => array('SubIFD', 'ExifImageWidth', gettext('Original Width'), false, 52, true, 'string', false),
-				'EXIFImageHeight' => array('SubIFD', 'ExifImageHeight', gettext('Original Height'), false, 52, true, 'string', false),
+				'ExifImageLength' => array('SubIFD', 'ExifImageLength', gettext('Original Height'), false, 52, true, 'string', false),
 				'EXIFOrientation' => array('IFD0', 'Orientation', gettext('Orientation'), false, 52, true, 'string', false),
 				'EXIFSoftware' => array('IFD0', 'Software', gettext('Software'), false, 999, true, 'string', false),
 				'EXIFContrast' => array('SubIFD', 'Contrast', gettext('Contrast Setting'), false, 52, true, 'string', false),
@@ -474,24 +474,27 @@ class Image extends MediaObject {
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
 				/* check EXIF data */
-				$e = error_reporting(0);
-				if (exif_imagetype($localpath)) {
-					$exifraw = exif_read_data($localpath);
-					if (isset($exifraw['ValidEXIFData'])) {
-						$this->set('hasMetadata', 1);
-						foreach ($_exifvars as $field => $exifvar) {
-							if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
-								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]], 1));
-							} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
-								$exif = trim(sanitize($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]], 1));
-							} else {
-								$exif = NULL;
-							}
-							$this->set($field, $exif);
+				$exifraw = read_exif_data($localpath);
+
+				if (!empty($exifraw)) {
+					$this->set('hasMetadata', 1);
+					foreach ($_exifvars as $field => $exifvar) {
+						if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
+							$exif = $exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]];
+						} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
+							$exif = $exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]];
+						} else {
+							$exif = NULL;
 						}
+						if (is_array($exif)) {
+							$exif = reset($exif);
+						}
+						if ($exif) {
+							$exif = trim(sanitize($exif, 1));
+						}
+						$this->set($field, $exif);
 					}
 				}
-				error_reporting($e);
 				/* check IPTC data */
 				$iptcdata = gl_imageIPTC($localpath);
 				if (!empty($iptcdata)) {

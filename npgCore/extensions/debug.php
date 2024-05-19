@@ -156,7 +156,6 @@ class debug {
 					gettext('<em>testing mode</em>') => 'TESTING',
 					gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
 					gettext('Log 404 error processing debug information') => '404',
-					gettext('Log start/finish of exif processing') => 'EXIF',
 					gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
 					gettext('Log filter application sequence') => 'FILTERS',
 					gettext('Log image processing debug information') => 'IMAGE',
