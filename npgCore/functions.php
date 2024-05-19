@@ -2496,6 +2496,63 @@ function npg_loggedin($rights = ALL_RIGHTS) {
 }
 
 /**
+ * Provides an error protected read of image EXIF/IPTC data
+ *
+ * @param string $path image path
+ * @return array
+ *
+ */
+const EXIF_SOURCE = array(
+		'Artist' => 'IFD0',
+		'Make' => 'IFD0',
+		'Model' => 'IFD0',
+		'Copyright' => 'IFD0',
+		'DateTime' => 'IFD0',
+		'ImageDescription' => 'IFD0',
+		'Orientation' => 'IFD0',
+		'Software' => 'IFD0',
+		'FocalLengthIn35mmFilm' => 'SubIFD',
+		'FNumber' => 'SubIFD',
+		'Contrast' => 'SubIFD',
+		'ExposureBiasValue' => 'SubIFD',
+		'ExposureTime' => 'SubIFD',
+		'Flash' => 'SubIFD',
+		'FocalLength' => 'SubIFD',
+		'ISOSpeedRatings' => 'SubIFD',
+		'LensInfo' => 'SubIFD',
+		'LensType' => 'SubIFD',
+		'MeteringMode' => 'SubIFD',
+		'ExifImageLength' => 'SubIFD',
+		'DateTimeOriginal' => 'SubIFD',
+		'ExifImageWidth' => 'SubIFD',
+		'Saturation' => 'SubIFD',
+		'Sharpness' => 'SubIFD',
+		'ShutterSpeedValue' => 'SubIFD',
+		'SubjectDistance' => 'SubIFD',
+		'DateTimeDigitized' => 'SubIFD',
+		'WhiteBalance' => 'SubIFD'
+);
+
+function read_exif_data($path) {
+	$rslt = [];
+	if (exif_imagetype($path)) {
+		$e = error_reporting(0);
+		$php_rslt = exif_read_data($path);
+		error_reporting($e);
+		//	add EXIF_SOURCE
+		if (!empty($php_rslt)) {
+			foreach (EXIF_SOURCE as $source => $key) {
+				if (array_key_exists($source, $php_rslt)) {
+					$rslt[$key][$source] = $php_rslt[$source];
+				}
+			}
+		}
+	}
+
+	return $rslt;
+}
+
+/**
  *
  * fetches the path to the flag image
  * @param string $lang whose flag
