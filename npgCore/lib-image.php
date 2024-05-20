@@ -607,9 +607,9 @@ class imageProcessing {
 				if (array_key_exists('rotation', $result)) {
 					$rotation = $result['rotation'];
 				}
-			} else {
+			} else if (class_exists('Image')) {
 				//try the file directly as this might be an image not in the database
-				$result = nogFunctions::read_exif($img);
+				$result = Image::read_exif($img);
 				if (!empty($result) && array_key_exists('Orientation', $result)) {
 					$rotation = $result['Orientation'];
 				}

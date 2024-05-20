@@ -253,24 +253,6 @@ class Image extends MediaObject {
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
 
-		/**
-		  $xlate = [];
-
-		  foreach ($fields as $npgField => $details) {
-		  $xlate[$details[1]] = ['key' => $details[0], 'name' => $npgField];
-		  }
-		  ksort($xlate);
-
-		  var_dump($xlate);
-
-		  $f = fopen('d:/downloads/fields.txt', 'w');
-		  foreach ($xlate as $key => $data) {
-		  if (in_array($data['key'], ['GPS', 'IFD0', 'SubIFD'])) {
-		  fwrite($f, "'" . $key . "' => ['METADATA_SOURCE' => '" . $data['key'] . "', 'METADATA_KEY' => '" . $data['name'] . "'],\n");
-		  }
-		  }
-		  fclose($f);
-		 */
 		return $fields;
 	}
 
@@ -422,6 +404,88 @@ class Image extends MediaObject {
 	}
 
 	/**
+	 * Provides an error protected read of image EXIF/IPTC data
+	 *
+	 * @param string $path image path
+	 * @return array
+	 *
+	 */
+	const EXIF_SOURCE = array(
+			'GPSAltitude' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSAltitude'],
+			'GPSAltitudeRef' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSAltitudeRef'],
+			'Artist' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFArtist'],
+			'Contrast' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFContrast'],
+			'DateTime' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFDateTime'],
+			'DateTimeDigitized' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFDateTimeDigitized'],
+			'DateTimeOriginal' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFDateTimeOriginal'],
+			'ExifImageWidth' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'ExifImageHeight'],
+			'ExifImageLength' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFImageWidth'],
+			'ExposureBiasValue' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFExposureBiasValue'],
+			'ExposureTime' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFExposureTime'],
+			'FNumber' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFFNumber'],
+			'Flash' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFFlash'],
+			'FocalLength' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFFocalLength'],
+			'FocalLengthIn35mmFilm' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFFocalLengthIn35mmFilm'],
+			'ISOSpeedRatings' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFISOSpeedRatings'],
+			'ImageDescription' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFDescription'],
+			'GPSLatitude' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSLatitude'],
+			'GPSLatitudeRef' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSLatitudeRef'],
+			'LensInfo' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFLensInfo'],
+			'LensType' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFLensType'],
+			'GPSLongitude' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSLongitude'],
+			'GPSLongitudeRef' => ['METADATA_SOURCE' => 'GPS', 'METADATA_KEY' => 'EXIFGPSLongitudeRef'],
+			'Make' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFMake'],
+			'MeteringMode' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFMeteringMode'],
+			'Model' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFModel'],
+			'Orientation' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFOrientation'],
+			'Saturation' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFSaturation'],
+			'Sharpness' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFSharpness'],
+			'ShutterSpeedValue' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFShutterSpeedValue'],
+			'Software' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFSoftware'],
+			'SubjectDistanceRange' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFSubjectDistance'],
+			'WhiteBalance' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFWhiteBalance']
+	);
+
+	private static function evalFraction($v) {
+		if (preg_match('~^(\d*)/(\d*)$~', $v, $matches)) {
+			if (isset($matches[2]) && $matches[2]) {
+				$v = strval($matches[1] / $matches[2]);
+			}
+		}
+		return $v;
+	}
+
+	static function read_exif($path) {
+		$rslt = [];
+		if (exif_imagetype($path)) {
+			$e = error_reporting(0);
+			$php_rslt = exif_read_data($path);
+			error_reporting($e);
+			//	add EXIF_SOURCE
+			if (!empty($php_rslt)) {
+				foreach (self::EXIF_SOURCE as $phpExif => $data) {
+					if (array_key_exists($phpExif, $php_rslt)) {
+						$v = $php_rslt[$phpExif];
+						if (is_array($v)) {
+							$t = '';
+							foreach ($v as $f) {
+								$f = self::evalFraction($f);
+								$t .= $f . '.';
+							}
+							$v = rtrim($t, '.');
+						} else {
+							$v = self::evalFraction($v);
+						}
+						$rslt[$data['METADATA_SOURCE']][$data['METADATA_KEY']] = $v;
+					}
+				}
+			}
+		}
+
+		return $rslt;
+	}
+
+	/**
 	 * Parses Exif/IPTC data
 	 *
 	 */
@@ -493,10 +557,7 @@ class Image extends MediaObject {
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
 				/* check EXIF data */
-				$exifraw = npgFunctions::read_exif($localpath);
-
-				var_dump($exifraw);
-
+				$exifraw = self::read_exif($localpath);
 				if (!empty($exifraw)) {
 					$this->set('hasMetadata', 1);
 
