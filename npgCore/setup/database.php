@@ -122,8 +122,8 @@ $npgUpgrade = isset($database['administrators']['fields']['valid']['Comment']) &
 
 //metadata display and disable options
 
-$disable = array();
-$display = array();
+$disable = getSerializedArray(getOption('metadata_disabled'));
+$display = getSerializedArray(getOption('metadata_displayed'));
 
 //	Add in the enabled image metadata fields
 $metadataProviders = array('class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata');
@@ -140,26 +140,29 @@ foreach ($metadataProviders as $source => $handler) {
 	ksort($exifvars, SORT_FLAG_CASE | SORT_NATURAL);
 
 	foreach ($exifvars as $key => $exifvar) {
-		if (!is_null(getOption($key))) {
+		$disp = getOption($key);
+		if (is_null($disp)) {
+			$exifvars[$key][METADATA_DISPLAY] = isset($display[$key]);
+			$exifvars[$key][METADATA_FIELD_ENABLED] = $exifvar[METADATA_FIELD_ENABLED] = !isset($disable[$key]);
+		} else {
 			//	cleanup old metadata options
 			if (getOption($key . '-disabled')) {
 				$exifvars[$key][METADATA_DISPLAY] = $exifvars[$key][METADATA_FIELD_ENABLED] = $exifvar[METADATA_FIELD_ENABLED] = false;
+				$disable[$key] = $key;
 			} else {
-				$exifvars[$key][METADATA_DISPLAY] = getOption($key);
+				if ($disp) {
+					$exifvars[$key][METADATA_DISPLAY] = true;
+					$display[$key] = $key;
+				}
 				$exifvars[$key][METADATA_FIELD_ENABLED] = $exifvar[METADATA_FIELD_ENABLED] = true;
+				$disable[$key] = $key;
 			}
 			purgeOption($key);
 			purgeOption($key . '-disabled');
 		}
-		if ($exifvars[$key][METADATA_DISPLAY]) {
-			$display[$key] = $key;
-		}
-		if (!$exifvars[$key][METADATA_FIELD_ENABLED]) {
-			$disable[$key] = $key;
-		}
 
 		$size = $exifvar[METADATA_FIELD_SIZE];
-		if ($exifvar[METADATA_FIELD_ENABLED] && $enabled) {
+		if ($enabled && $exifvar[METADATA_FIELD_ENABLED]) {
 			switch ($exifvar[METADATA_FIELD_TYPE]) {
 				default:
 				case 'string':

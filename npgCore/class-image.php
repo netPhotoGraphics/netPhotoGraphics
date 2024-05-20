@@ -223,8 +223,8 @@ class Image extends MediaObject {
 				'EXIFExposureBiasValue' => array('SubIFD', 'ExposureBiasValue', gettext('Exposure Compensation'), true, 52, true, 'string', false),
 				'EXIFMeteringMode' => array('SubIFD', 'MeteringMode', gettext('Metering Mode'), true, 52, true, 'string', false),
 				'EXIFFlash' => array('SubIFD', 'Flash', gettext('Flash Fired'), true, 52, true, 'string', false),
-				'EXIFImageWidth' => array('SubIFD', 'ExifImageWidth', gettext('Original Width'), false, 52, true, 'string', false),
-				'ExifImageLength' => array('SubIFD', 'ExifImageLength', gettext('Original Height'), false, 52, true, 'string', false),
+				'ExifImageHeight' => array('SubIFD', 'ExifImageHeight', gettext('Original Height'), false, 52, true, 'string', false),
+				'EXIFImageWidth' => array('SubIFD', 'ExifImageLength', gettext('Original Length'), false, 52, true, 'string', false),
 				'EXIFOrientation' => array('IFD0', 'Orientation', gettext('Orientation'), false, 52, true, 'string', false),
 				'EXIFSoftware' => array('IFD0', 'Software', gettext('Software'), false, 999, true, 'string', false),
 				'EXIFContrast' => array('SubIFD', 'Contrast', gettext('Contrast Setting'), false, 52, true, 'string', false),
@@ -252,6 +252,25 @@ class Image extends MediaObject {
 				'IPTCOriginatingProgram' => array('IPTC', 'OriginatingProgram', gettext('Originating Program'), false, 32, true, 'string', false),
 				'IPTCProgramVersion' => array('IPTC', 'ProgramVersion', gettext('Program Version'), false, 10, true, 'string', false)
 		);
+
+		/**
+		  $xlate = [];
+
+		  foreach ($fields as $npgField => $details) {
+		  $xlate[$details[1]] = ['key' => $details[0], 'name' => $npgField];
+		  }
+		  ksort($xlate);
+
+		  var_dump($xlate);
+
+		  $f = fopen('d:/downloads/fields.txt', 'w');
+		  foreach ($xlate as $key => $data) {
+		  if (in_array($data['key'], ['GPS', 'IFD0', 'SubIFD'])) {
+		  fwrite($f, "'" . $key . "' => ['METADATA_SOURCE' => '" . $data['key'] . "', 'METADATA_KEY' => '" . $data['name'] . "'],\n");
+		  }
+		  }
+		  fclose($f);
+		 */
 		return $fields;
 	}
 
@@ -474,25 +493,17 @@ class Image extends MediaObject {
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
 				/* check EXIF data */
-				$exifraw = npg_read_exif($localpath);
+				$exifraw = npgFunctions::read_exif($localpath);
+
+				var_dump($exifraw);
 
 				if (!empty($exifraw)) {
 					$this->set('hasMetadata', 1);
-					foreach ($_exifvars as $field => $exifvar) {
-						if (isset($exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]])) {
-							$exif = $exifraw[$exifvar[METADATA_SOURCE]][$exifvar[METADATA_KEY]];
-						} else if (isset($exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]])) {
-							$exif = $exifraw[$exifvar[METADATA_SOURCE]]['MakerNote'][$exifvar[METADATA_KEY]];
-						} else {
-							$exif = NULL;
+
+					foreach ($exifraw as $source => $content) {
+						foreach ($content as $field => $value) {
+							$this->set($field, $value);
 						}
-						if (is_array($exif)) {
-							$exif = reset($exif);
-						}
-						if ($exif) {
-							$exif = trim(sanitize($exif, 1));
-						}
-						$this->set($field, $exif);
 					}
 				}
 				/* check IPTC data */
