@@ -157,19 +157,17 @@ function saveOptions() {
 					break;
 			}
 		}
-
 		foreach ($_exifvars as $key => $item) {
 			if ($item[METADATA_FIELD_LINKED]) {
-				$d = $_exifvars[$item[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED];
-				if ($item[METADATA_FIELD_SIZE]) { // item has data (size != 0)
-					if ($d == in_array($key, $oldDisabled)) {
-						$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
-					}
+				if (!$_exifvars[$item[METADATA_FIELD_LINKED]][METADATA_FIELD_ENABLED]) {
+					$disable[$key] = $key; //	follow linked field disable if set
 				}
-				if (!$d) {
-					$disable[$key] = $key;
-				} else {
-					unset($disable[$key]);
+				if (isset($disable[$key])) {
+					if ($item[METADATA_FIELD_SIZE]) { // item is disasbled has data (size != 0)
+						if (!in_array($key, $oldDisabled)) {
+							$dbChange[$item[METADATA_SOURCE] . ' Metadata'] = $item[METADATA_SOURCE] . ' Metadata';
+						}
+					}
 				}
 			}
 		}
