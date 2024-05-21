@@ -1430,7 +1430,7 @@ class _Authority {
 					#loginform-content {
 						padding-left: <?php echo ($w - 347) / 2; ?>px;
 					}
-								
+
 				<?php
 			}
 		}
@@ -1512,7 +1512,7 @@ class _Authority {
 								<input type="hidden" name="redirect" value="<?php echo pathurlencode($redirect); ?>" />
 								<fieldset>
 									<legend><?php echo gettext('User') ?></legend>
-									<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" required />
+									<input class="textfield" name="user" id="user" type="text" size="35" value="<?php echo html_encode($requestor); ?>" required<?php if (!$requestor) echo ' autofocus' ?> />
 								</fieldset>
 								<?php
 								if ($requestor) {
@@ -1524,7 +1524,7 @@ class _Authority {
 										?>
 									</fieldset>
 									<fieldset><legend><?php echo gettext('Your response') ?></legend>
-										<input class="textfield" name="pass" id="pass" type="text" size="35" required />
+										<input class="textfield" name="pass" id="pass" type="text" size="35" required autofocus />
 									</fieldset>
 									<br />
 									<?php
@@ -1876,7 +1876,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1885,7 +1885,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-									 $('#show_disclose_password<?php echo $id; ?>').show();"
+											 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>
