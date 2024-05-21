@@ -1412,9 +1412,6 @@ class _Authority {
 				}
 			}
 		}
-		?>
-		<style type="text/css">
-		<?php
 		$whichForm = sanitize(isset($_REQUEST['logon_step']) ? $_REQUEST['logon_step'] : NULL);
 		if ($logo && $_gallery->branded) {
 			$logo = $_gallery->getSiteLogo(SERVERPATH);
@@ -1423,27 +1420,18 @@ class _Authority {
 			$w = gl_imageWidth($im) * $scale;
 			if ($w > 355) {
 				?>
-
+				<style type="text/css">
 					#loginform {
 						width: <?php echo $w + 10; ?>px !important;
 					}
 					#loginform-content {
 						padding-left: <?php echo ($w - 347) / 2; ?>px;
 					}
-
+				</style>
 				<?php
 			}
 		}
 		?>
-			.icon_center {
-				text-align: center;
-			}
-			.button_center {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-		</style>
 
 		<div id="loginform">
 			<?php
