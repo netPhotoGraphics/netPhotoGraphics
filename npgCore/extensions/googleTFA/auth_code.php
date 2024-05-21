@@ -52,7 +52,7 @@ if (isset($_SESSION['OTA'])) {
 					<input type="hidden" name="authenticate" value="1" />
 					<fieldset id="logon_box">
 						<legend><?php echo gettext('Google Authenticator Token'); ?></legend>
-						<input class="textfield" name="authenticate" id="authcode" type="text" />
+						<input class="textfield" name="authenticate" id="authcode" type="text" autofocus />
 						<br />
 						<br />
 

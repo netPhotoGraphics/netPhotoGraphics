@@ -1412,6 +1412,9 @@ class _Authority {
 				}
 			}
 		}
+		?>
+		<style type="text/css">
+		<?php
 		$whichForm = sanitize(isset($_REQUEST['logon_step']) ? $_REQUEST['logon_step'] : NULL);
 		if ($logo && $_gallery->branded) {
 			$logo = $_gallery->getSiteLogo(SERVERPATH);
@@ -1420,24 +1423,33 @@ class _Authority {
 			$w = gl_imageWidth($im) * $scale;
 			if ($w > 355) {
 				?>
-				<style type="text/css">
+
 					#loginform {
 						width: <?php echo $w + 10; ?>px !important;
 					}
 					#loginform-content {
 						padding-left: <?php echo ($w - 347) / 2; ?>px;
 					}
-				</style>
+								
 				<?php
 			}
 		}
 		?>
+			.icon_center {
+				text-align: center;
+			}
+			.button_center {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
 
 		<div id="loginform">
 			<?php
 			if ($logo) {
 				?>
-				<p>
+				<p class="icon_center">
 					<?php printSiteLogoImage(); ?>
 				</p>
 				<?php
@@ -1597,7 +1609,7 @@ class _Authority {
 								if ($showUserField) { //	requires a "user" field
 									?>
 									<fieldset class="login_input"><legend><?php echo gettext("User"); ?></legend>
-										<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" required />
+										<input class="textfield" name="user" id="user" type="text"  value="<?php echo html_encode($requestor); ?>" required autofocus />
 									</fieldset>
 									<?php
 								}
@@ -1610,7 +1622,7 @@ class _Authority {
 									<input class="textfield" name="pass" id="pass" type="password" required />
 								</fieldset>
 								<br />
-								<div>
+								<div class="button_center">
 									<?php
 									npgButton('submit', CHECKMARK_GREEN . ' ' . gettext("Log in"), array('buttonClass' => 'submitbutton'));
 									npgButton('reset', CROSS_MARK_RED . ' ' . gettext("Reset"), array('buttonClass' => 'resetbutton'));
