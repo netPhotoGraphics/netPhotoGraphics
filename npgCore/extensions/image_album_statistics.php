@@ -801,10 +801,9 @@ function getNumAllSubalbums($albumobj, $pre = '') {
 	if (is_null($albumobj)) {
 		$albumobj = $_current_album;
 	}
-	$count = '';
+	$count = 0;
 	$albums = getAllAlbums($_current_album);
 	if (count($albums) != 0) {
-		$count = '';
 		foreach ($albums as $album) {
 			$count++;
 		}

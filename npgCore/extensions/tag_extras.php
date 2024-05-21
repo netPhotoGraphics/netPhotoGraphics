@@ -65,7 +65,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 				return FALSE;
 			} else {
 				$imageWhere = " WHERE ";
-				$count = "";
+				$count = 0;
 				foreach ($albumids as $albumid) {
 					$count++;
 					$imageWhere .= 'albumid=' . $albumid['id'];
@@ -78,7 +78,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 			if (count($imageids) == 0) {
 				return FALSE;
 			} else {
-				$count = "";
+				$count = 0;
 				$tagWhere = " WHERE ";
 				foreach ($imageids as $imageid) {
 					$count++;
@@ -94,7 +94,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 			}
 			break;
 		case "albums":
-			$count = "";
+			$count = 0;
 			if (count($albumids) == 0) {
 				return FALSE;
 			} else {
@@ -157,7 +157,7 @@ function getAllTagsFromZenpage($mode = 'news') {
 			}
 			break;
 	}
-	$count = '';
+	$count = 0;
 	if (count($ids) == 0) {
 		return FALSE;
 	} else {

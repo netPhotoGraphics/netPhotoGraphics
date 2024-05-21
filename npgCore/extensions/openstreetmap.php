@@ -725,7 +725,7 @@ class openStreetMap {
 		if (!empty($geodata)) {
 			$geocount = count($geodata);
 			$bounds = '';
-			$count = '';
+			$count = 0;
 			foreach ($geodata as $g) {
 				$count++;
 				$bounds .= '[' . number_format($g['lat'], 12, '.', '') . ',' . number_format($g['long'], 12, '.', '') . ']';

@@ -241,7 +241,7 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 					$currenturalbumname = $currenturalbum->name;
 				}
 			}
-			$count = "";
+			$count = 0;
 			if ($showcount) {
 				$toplevelsubalbums = $albumobj->getAlbums();
 				$toplevelsubalbums = count($toplevelsubalbums);

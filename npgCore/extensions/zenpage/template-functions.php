@@ -164,7 +164,7 @@ function printLatestNews($number = 5, $category = '', $showdate = true, $showcon
 
 	$latest = getLatestNews($number, $category, $sticky);
 	echo "\n<ul id=\"latestnews\">\n";
-	$count = "";
+	$count = 0;
 	foreach ($latest as $item) {
 		$count++;
 		$category = "";
