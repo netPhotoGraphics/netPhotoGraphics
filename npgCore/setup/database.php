@@ -163,46 +163,46 @@ foreach ($metadataProviders as $source => $handler) {
 
 		$size = $exifvar[METADATA_FIELD_SIZE];
 		if ($enabled && $exifvar[METADATA_FIELD_ENABLED]) {
-			switch ($exifvar[METADATA_FIELD_TYPE]) {
-				default:
-				case 'string':
-					if ($size < 256) {
-						$type = 'tinytext';
-					} else {
-						$type = "text";
-					}
-					if ($utf8mb4) {
-						$collation = 'utf8mb4_unicode_ci';
-					} else {
-						$collation = 'utf8mb3_unicode_ci';
-					}
-					break;
-				case 'number':
-					$type = 'tinytext';
-					$collation = 'utf8mb3_unicode_ci';
-					break;
-				case 'datetime':
-					$type = 'datetime';
-					$collation = NULL;
-					break;
-				case 'date':
-					$type = 'date';
-					$collation = NULL;
-					break;
-				case 'time':
-					$type = 'time';
-					$collation = NULL;
-					break;
-			}
-			$field = array(
-					'Field' => $key,
-					'Type' => $type,
-					'Collation' => $collation,
-					'Null' => 'YES',
-					'Default' => null,
-					'Comment' => 'optional_metadata'
-			);
 			if ($size > 0) {
+				switch ($exifvar[METADATA_FIELD_TYPE]) {
+					default:
+					case 'string':
+						if ($size < 256) {
+							$type = 'tinytext';
+						} else {
+							$type = "text";
+						}
+						if ($utf8mb4) {
+							$collation = 'utf8mb4_unicode_ci';
+						} else {
+							$collation = 'utf8mb3_unicode_ci';
+						}
+						break;
+					case 'number':
+						$type = 'tinytext';
+						$collation = 'utf8mb3_unicode_ci';
+						break;
+					case 'datetime':
+						$type = 'datetime';
+						$collation = NULL;
+						break;
+					case 'date':
+						$type = 'date';
+						$collation = NULL;
+						break;
+					case 'time':
+						$type = 'time';
+						$collation = NULL;
+						break;
+				}
+				$field = array(
+						'Field' => $key,
+						'Type' => $type,
+						'Collation' => $collation,
+						'Null' => 'YES',
+						'Default' => null,
+						'Comment' => 'optional_metadata'
+				);
 				$template['images']['fields'][$key] = $field;
 			}
 		} else {

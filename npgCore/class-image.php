@@ -560,7 +560,6 @@ class Image extends MediaObject {
 				$exifraw = self::read_exif($localpath);
 				if (!empty($exifraw)) {
 					$this->set('hasMetadata', 1);
-
 					foreach ($exifraw as $source => $content) {
 						foreach ($content as $field => $value) {
 							$this->set($field, $value);
