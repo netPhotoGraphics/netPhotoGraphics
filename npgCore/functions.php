@@ -2191,7 +2191,6 @@ function getDBTables() {
 	$prefix = trim(prefix(), '`');
 	$resource = db_show('tables');
 	if ($resource) {
-		$result = array();
 		while ($row = db_fetch_assoc($resource)) {
 			$table = reset($row);
 			if (empty($prefix)) {

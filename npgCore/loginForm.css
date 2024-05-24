@@ -63,3 +63,13 @@ Login form basic styling
 	display: inline !important;
 	height: 35px !important;
 }
+
+#loginform .icon_center {
+	text-align: center;
+}
+
+#loginform .button_center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

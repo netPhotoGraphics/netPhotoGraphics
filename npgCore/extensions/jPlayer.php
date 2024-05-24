@@ -607,7 +607,7 @@ class jPlayer extends html5Player {
 								cssSelectorAncestor: "#jp_container_<?php echo $id; ?>"
 				}, [
 			<?php
-			$count = '';
+			$count = 0;
 			$number = '';
 
 			foreach ($entries as $entry) {

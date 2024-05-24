@@ -82,7 +82,7 @@ if (isset($plugin_disable) && $plugin_disable) {
 }
 foreach ($_conf_vars['special_pages'] as $definition) {
 	if (isset($definition['option'])) {
-		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php');
+		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php[special_pages]');
 	}
 }
 if ($str = isolate('$option_interface', $p)) {

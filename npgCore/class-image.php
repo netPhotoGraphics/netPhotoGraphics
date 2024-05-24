@@ -223,7 +223,7 @@ class Image extends MediaObject {
 				'EXIFExposureBiasValue' => array('SubIFD', 'ExposureBiasValue', gettext('Exposure Compensation'), true, 52, true, 'string', false),
 				'EXIFMeteringMode' => array('SubIFD', 'MeteringMode', gettext('Metering Mode'), true, 52, true, 'string', false),
 				'EXIFFlash' => array('SubIFD', 'Flash', gettext('Flash Fired'), true, 52, true, 'string', false),
-				'ExifImageHeight' => array('SubIFD', 'ExifImageHeight', gettext('Original Height'), false, 52, true, 'string', false),
+				'EXIFImageHeight' => array('SubIFD', 'ExifImageHeight', gettext('Original Height'), false, 52, true, 'string', false),
 				'EXIFImageWidth' => array('SubIFD', 'ExifImageLength', gettext('Original Length'), false, 52, true, 'string', false),
 				'EXIFOrientation' => array('IFD0', 'Orientation', gettext('Orientation'), false, 52, true, 'string', false),
 				'EXIFSoftware' => array('IFD0', 'Software', gettext('Software'), false, 999, true, 'string', false),
@@ -418,7 +418,7 @@ class Image extends MediaObject {
 			'DateTime' => ['METADATA_SOURCE' => 'IFD0', 'METADATA_KEY' => 'EXIFDateTime'],
 			'DateTimeDigitized' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFDateTimeDigitized'],
 			'DateTimeOriginal' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFDateTimeOriginal'],
-			'ExifImageWidth' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'ExifImageHeight'],
+			'ExifImageWidth' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFImageHeight'],
 			'ExifImageLength' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFImageWidth'],
 			'ExposureBiasValue' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFExposureBiasValue'],
 			'ExposureTime' => ['METADATA_SOURCE' => 'SubIFD', 'METADATA_KEY' => 'EXIFExposureTime'],
@@ -560,7 +560,6 @@ class Image extends MediaObject {
 				$exifraw = self::read_exif($localpath);
 				if (!empty($exifraw)) {
 					$this->set('hasMetadata', 1);
-
 					foreach ($exifraw as $source => $content) {
 						foreach ($content as $field => $value) {
 							$this->set($field, $value);

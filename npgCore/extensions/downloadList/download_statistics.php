@@ -41,7 +41,7 @@ function printBarGraph() {
 	echo "<table>";
 	echo "<tr><th colspan='100%'><strong>" . gettext("Most downloaded files") . "</strong>";
 	echo "</th></tr>";
-	$count = '';
+	$count = 0;
 	echo $no_statistic_message;
 	foreach ($items as $item) {
 		if ($item['data'] != 0) {

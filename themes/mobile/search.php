@@ -156,7 +156,7 @@ if (!defined('WEBPATH'))
 					<?php if (getNumImages() > 0) { ?>
 						<div class="ui-grid-c">
 							<?php
-							$count = '';
+							$count = 0;
 							while (next_image()) {
 								$count++;
 								switch ($count) {
@@ -171,7 +171,7 @@ if (!defined('WEBPATH'))
 										break;
 									case 4:
 										$imgclass = ' ui-block-d';
-										$count = ''; // reset to start with a again;
+										$count = 0; // reset to start with a again;
 										break;
 								}
 								?>

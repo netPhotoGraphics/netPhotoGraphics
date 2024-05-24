@@ -242,7 +242,7 @@ if (extensionEnabled('bxslider_thumb_nav') && !OFFSET_PATH) {
 			?>
 			<ul class="bxslider<?php echo $albumid; ?>">
 				<?php
-				$count = '';
+				$count = 0;
 				foreach ($items as $item) {
 					echo $item;
 				}

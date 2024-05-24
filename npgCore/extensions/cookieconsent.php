@@ -359,7 +359,7 @@ class cookieConsent {
 			$array = explode(',', $scripts);
 			$externaljs = '';
 			$total = count($array);
-			$count = '';
+			$count = 0;
 			foreach ($array as $url) {
 				$count++;
 				$externaljs .= '"' . $url . '"';
