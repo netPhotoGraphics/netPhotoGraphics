@@ -28,24 +28,46 @@ $_DB_Structure_change = FALSE;
 
 //	handle column renaming as the template will assume a drop and add.
 $renames = array(
-		array('table' => 'pages', 'was' => 'author', 'is' => 'owner'),
-		array('table' => 'pages', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
-		array('table' => 'news', 'was' => 'author', 'is' => 'owner'),
-		array('table' => 'news', 'was' => 'lastchangeauthor', 'is' => 'lastchangeuser'),
-		array('table' => 'comments', 'was' => 'custom_data', 'is' => 'address_data')
+		array('table' => 'images',
+				'was' => 'ExifImageHeight',
+				'is' => 'EXIFImageHeight',
+				'type' => 'tinytext',
+				'comment' => 'optional_metadata'),
+		array('table' => 'pages',
+				'was' => 'author',
+				'is' => 'owner',
+				'type' => 'tinytext',
+				'comment' => FIELD_COMMENT),
+		array('table' => 'pages',
+				'was' => 'lastchangeauthor',
+				'is' => 'lastchangeuser',
+				'type' => 'tinytext',
+				'comment' => FIELD_COMMENT),
+		array('table' => 'news',
+				'was' => 'author',
+				'is' => 'owner', 'type' =>
+				'tinytext', 'comment' => FIELD_COMMENT),
+		array('table' => 'news',
+				'was' => 'lastchangeauthor',
+				'is' => 'lastchangeuser',
+				'type' => 'tinytext',
+				'comment' => FIELD_COMMENT),
+		array('table' => 'comments',
+				'was' => 'custom_data',
+				'is' => 'address_data',
+				'type' => 'text',
+				'comment' => FIELD_COMMENT)
 );
 foreach ($renames as $change) {
-	$table = $change['table'];
-	$is = $change['is'];
-	$new = $template[$table]['fields'][$is];
-	$sql = 'ALTER TABLE ' . prefix($table) . ' CHANGE `' . $change['was'] . '` `' . $is . '` ' . strtoupper($new['Type']);
-	if (!empty($new['Comment'])) {
-		$sql .= " COMMENT '" . $new['Comment'] . "'";
+	$sql = 'ALTER TABLE ' . prefix($change['table']) . ' CHANGE `' . $change['was'] . '` `' . $change['is'] . '` ' . $change['type'];
+	if (!empty($change['comment'])) {
+		$sql .= " COMMENT '" . $change['comment'] . "'";
 	}
 	if (setupQuery($sql, FALSE)) {
 		$_DB_Structure_change = TRUE;
 	}
 }
+$_tableFields = null;
 
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
@@ -417,6 +439,14 @@ foreach ($template as $tablename => $table) {
 			}
 		}
 	}
+}
+
+if ($_DB_Structure_change) {
+	//	force metadata refresh
+	$sql = "UPDATE " . prefix('albums') . " SET `mtime`=0;";
+	query($sql);
+	$sql = "UPDATE " . prefix('images') . " SET `mtime`=0;";
+	query($sql);
 }
 
 foreach ($uniquekeys as $table => $keys) {
