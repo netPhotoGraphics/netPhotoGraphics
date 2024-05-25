@@ -58,7 +58,6 @@ $rules[] = array(
 
 $primary = array_slice($_conf_vars['special_pages'], 0, 4, true); //	standard defines from config file
 $secondary = array_slice($_conf_vars['special_pages'], 4, NULL, true);
-array_unshift($secondary, array('comment' => "\t#### Rules from \"plugins\""));
 
 $_conf_vars['special_pages'] = array_merge($primary, $secondary, $rules);
 unset($rules);
@@ -219,7 +218,12 @@ function getRules() {
 		}
 	}
 	$rules = explode("_SPECIAL_", trim($rules));
-	$rules = array_merge(explode("\n", $rules[0]), $specialPageRules, explode("\n", $rules[1]), array("\t#### Catch-all", "\t" . 'RewriteRule ^(.*?)/*$	index.php?album=$1 [NC,L,QSA]'));
+	$rules = array_merge(explode("\n", $rules[0]),
+					array('comment' => "\t#### Rules from \$_conf_vars['special_pages']"),
+					$specialPageRules,
+					explode("\n", $rules[1]),
+					array("\t#### Catch-all", "\t" . 'RewriteRule ^(.*?)/*$	index.php?album=$1 [NC,L,QSA]')
+	);
 	return array($definitions, $rules);
 }
 

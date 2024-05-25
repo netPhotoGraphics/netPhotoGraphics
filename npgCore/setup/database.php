@@ -67,7 +67,7 @@ foreach ($renames as $change) {
 		$_DB_Structure_change = TRUE;
 	}
 }
-$_tableFields = null;
+unset($_tableFields);
 
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);

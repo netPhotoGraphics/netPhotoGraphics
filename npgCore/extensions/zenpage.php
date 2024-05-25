@@ -31,15 +31,16 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 $option_interface = 'cmsFilters';
 
 //Zenpage rewrite definitions
-$_conf_vars['special_pages']['news'] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
+$_conf_vars['special_pages']['zenpage'] = array('comment' => "\t#--- zenpage");
+
+$_conf_vars['special_pages'][] = array('define' => '_NEWS_', 'rewrite' => getOption('NewsLink'),
 		'option' => 'NewsLink', 'default' => 'news');
-$_conf_vars['special_pages']['category'] = array('define' => '_CATEGORY_', 'rewrite' => getOption('categoryLink'),
+$_conf_vars['special_pages'][] = array('define' => '_CATEGORY_', 'rewrite' => getOption('categoryLink'),
 		'option' => 'categoryLink', 'default' => '_NEWS_/category');
-$_conf_vars['special_pages']['news_archive'] = array('define' => '_NEWS_ARCHIVE_', 'rewrite' => getOption('NewsArchiveLink'),
+$_conf_vars['special_pages'][] = array('define' => '_NEWS_ARCHIVE_', 'rewrite' => getOption('NewsArchiveLink'),
 		'option' => 'NewsArchiveLink', 'default' => '_NEWS_/archive');
 $_conf_vars['special_pages']['pages'] = array('define' => '_PAGES_', 'rewrite' => getOption('PagesLink'),
 		'option' => 'PagesLink', 'default' => 'pages');
-
 $_conf_vars['special_pages'][] = array('definition' => '%NEWS%', 'rewrite' => '_NEWS_');
 $_conf_vars['special_pages'][] = array('definition' => '%CATEGORY%', 'rewrite' => '_CATEGORY_');
 $_conf_vars['special_pages'][] = array('definition' => '%NEWS_ARCHIVE%', 'rewrite' => '_NEWS_ARCHIVE_');

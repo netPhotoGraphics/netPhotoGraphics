@@ -17,12 +17,11 @@ function rulesList() {
 						$list[] = array('Define ', $def, $v);
 					}
 				}
-				if ($break) {
-					$list[] = $break;
-				} else {
-					$break = array('&nbsp;', '', '&nbsp;');
+				if ($break && strpos($rule, '####') === 0) {
+					$list[] = array('&nbsp;', '', '&nbsp;');
 				}
 				$list[] = array($rule, '', '&nbsp;');
+				$break = true;
 			} else {
 				if (preg_match('~^rewriterule~i', $rule)) {
 					// it is a rewrite rule, see if it is applicable

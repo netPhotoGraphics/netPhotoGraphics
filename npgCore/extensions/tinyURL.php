@@ -34,8 +34,11 @@ switch (OFFSET_PATH) {
 	default:
 		break;
 }
-$_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
+$_conf_vars['special_pages']['tinyURL'] = array('comment' => "\t#--- tinyURL");
+
+$_conf_vars['special_pages'][] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
 		'option' => 'tinyURL_text', 'default' => 'tiny/');
+
 $_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=$1&t [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/([0-9]+)/*$', 'rule' => '%REWRITE% index.php?p=$1&page=$2&t [NC,L,QSA]');

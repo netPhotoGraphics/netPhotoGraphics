@@ -313,7 +313,7 @@ class rewriteRules {
 		$customRules = explode("\n", $ruleFile);
 
 		$definitions = array();
-		$rules[] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
+		$rules['rewriteRules'] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
 		foreach ($customRules as $rule) {
 			$rule = trim($rule);
 			if (strlen($rule) > 0 && $rule[0] != '#') {
@@ -330,10 +330,3 @@ class rewriteRules {
 	}
 
 }
-
-function rewriteRules_enable($enabled) {
-	if (!$enabled && getPlugin('/rewriteRules/rules.txt')) {
-		requestSetup('rewriteRules', gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.'));
-	}
-}
-?>
