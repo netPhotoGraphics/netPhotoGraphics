@@ -15,7 +15,7 @@
 
 	_SPECIAL_
 
-	#### Rewrite rules for search
+	#### Rules for search
 	RewriteRule ^%SEARCH%/*$															index.php?p=search [NC,L,QSA]
 	RewriteRule ^%ARCHIVE%/*$															index.php?p=archive [NC,L,QSA]
 	RewriteRule ^%ARCHIVE%/(.+?)/([0-9]+)/*$     					index.php?p=search&date=$1&page=$2 [NC,L,QSA]

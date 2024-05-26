@@ -311,22 +311,24 @@ class rewriteRules {
 	static function processRules($ruleFile) {
 		global $_conf_vars;
 		$customRules = explode("\n", $ruleFile);
-
-		$definitions = array();
-		$rules['rewriteRules'] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
+		$rules['rewriteRules'] = array('comment' => "\t#### rewriteRules/rules.txt");
 		foreach ($customRules as $rule) {
 			$rule = trim($rule);
-			if (strlen($rule) > 0 && $rule[0] != '#') {
-				if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
-					$definitions[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
+			if (strlen($rule) > 0) {
+				if ($rule[0] == '#') {
+					$rules[] = array('comment' => "\t$rule");
 				} else {
-					if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
-						$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
+					if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
+						$rules[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
+					} else {
+						if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
+							$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
+						}
 					}
 				}
 			}
 		}
-		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $definitions, $rules);
+		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $rules);
 	}
 
 }

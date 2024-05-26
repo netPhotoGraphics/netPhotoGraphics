@@ -8,13 +8,27 @@ function rulesList() {
 	$definitions = $pluginDefinitions;
 	$list = array();
 	$break = false;
+	$defined = false;
 	//process the rules
 	foreach ($rules as $rule) {
 		if ($rule = trim($rule)) {
 			if ($rule[0] == '#') {
 				if (trim(ltrim($rule, '#')) == 'Quick links') {
 					foreach ($pluginDefinitions as $def => $v) {
-						$list[] = array('Define ', $def, $v);
+						if (is_numeric($def)) {
+							if (!$defined) {
+								array_pop($list);
+							}
+							$list[] = array('', $v, '');
+							$defined = false;
+							unset($definitions[$def]);
+						} else {
+							$list[] = array('Define ', $def, $v);
+							$defined = true;
+						}
+					}
+					if (!$defined) {
+						array_pop($list);
 					}
 				}
 				if ($break && strpos($rule, '####') === 0) {

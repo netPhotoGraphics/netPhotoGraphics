@@ -38,11 +38,11 @@ $rules['gallery'] = array(
 );
 
 //	add the rewrite definition of the rewrite target
+$rules[] = array('comment' => "\t#### rewrite.php");
 $rules[] = array(
 		'definition' => '%GALLERY_PAGE%', //	the "reference" for the target in rewrite rules
 		'rewrite' => '_GALLERY_PAGE_' //	the value that will be substituted for the above reference
 );
-$rules[] = array('comment' => "\t#### Rules from rewrite.php");
 //	the next two entries are rewrite rules for the "gallery" page
 //	If the option for 'galleryToken_link' is "albumindex" then these will produce the rules
 //		rewriterule ^albumindex/([0-9]+)/*$  index.php?p=gallery&page=$1 [NC,L,QSA]
@@ -206,7 +206,7 @@ function getRules() {
 			try {
 				eval('$v = ' . $special['rewrite'] . ';');
 			} catch (Throwable $t) {
-				$v = '*undefined*';
+				$v = $special['rewrite'];
 			}
 			$definitions[$special['definition']] = $v;
 		}
@@ -214,12 +214,13 @@ function getRules() {
 			$specialPageRules[$key] = "\tRewriteRule " . str_replace('%REWRITE%', $special['rewrite'], $special['rule']);
 		}
 		if (array_key_exists('comment', $special)) {
+			$definitions[] = $special['comment'];
 			$specialPageRules[$key] = $special['comment'];
 		}
 	}
 	$rules = explode("_SPECIAL_", trim($rules));
 	$rules = array_merge(explode("\n", $rules[0]),
-					array('comment' => "\t#### Rules from \$_conf_vars['special_pages']"),
+					array('comment' => "\t#### \$_conf_vars['special_pages']"),
 					$specialPageRules,
 					explode("\n", $rules[1]),
 					array("\t#### Catch-all", "\t" . 'RewriteRule ^(.*?)/*$	index.php?album=$1 [NC,L,QSA]')
