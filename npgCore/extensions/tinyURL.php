@@ -36,7 +36,7 @@ switch (OFFSET_PATH) {
 }
 $_conf_vars['special_pages']['tinyURL'] = array('comment' => "\t#--- tinyURL");
 
-$_conf_vars['special_pages'][] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
+$_conf_vars['special_pages']['tiny'] = array('define' => '_TINY_', 'rewrite' => getOption('tinyURL_text'),
 		'option' => 'tinyURL_text', 'default' => 'tiny/');
 
 $_conf_vars['special_pages'][] = array('rewrite' => '^%TINY%([0-9]+)/*$',

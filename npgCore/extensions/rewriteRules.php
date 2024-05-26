@@ -161,6 +161,8 @@ class rewriteRules {
 		}
 
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('rewriteTokens_register', getOption('rewriteTokens_register_user'));
+			purgeOption('rewriteTokens_register_user');
 			$old = array_keys($conf['special_pages']);
 			$_config_contents = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
 			$i = strpos($_config_contents, "\$conf['special_pages']");
