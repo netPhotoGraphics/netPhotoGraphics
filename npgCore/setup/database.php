@@ -33,7 +33,9 @@ $renames = array(
 				'was' => 'ExifImageHeight',
 				'is' => 'EXIFImageHeight',
 				'type' => 'tinytext',
-				'comment' => FIELD_COMMENT_METADATA),
+				'collation' => $utf8mb4 ? 'utf8mb4_unicode_ci' : 'utf8mb3_unicode_ci',
+				'comment' => FIELD_COMMENT_METADATA,
+				'quiet' => true),
 		array('table' => 'pages',
 				'was' => 'author',
 				'is' => 'owner',
@@ -60,12 +62,21 @@ $renames = array(
 				'comment' => FIELD_COMMENT_NPG)
 );
 foreach ($renames as $change) {
-	$sql = 'ALTER TABLE ' . prefix($change['table']) . ' CHANGE `' . $change['was'] . '` `' . $change['is'] . '` ' . $change['type'];
-	if (!empty($change['comment'])) {
+	$sql = 'ALTER TABLE ' . prefix($change['table']) . ' CHANGE `' . $change['was'] . '` `' . $change['is'];
+	if (isset($change['type'])) {
+		$sql .= '` ' . $change['type'];
+	}
+	if (isset($change['collation'])) {
+		$sql .= " COLLATE " . $change['collation'];
+	}
+	if (isset($change['comment'])) {
 		$sql .= " COMMENT '" . $change['comment'] . "'";
 	}
-	if (setupQuery($sql, FALSE)) {
-		$_DB_Structure_change = TRUE;
+
+	if (setupQuery($sql, FALSE, !isset($change['quiet']))) {
+		if (!isset($change['quiet'])) {
+			$_DB_Structure_change = TRUE;
+		}
 	}
 }
 unset($_tableFields);
