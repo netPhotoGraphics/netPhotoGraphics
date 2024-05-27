@@ -80,6 +80,14 @@ function rewriteHandler() {
 
 	list($definitions, $rules) = getRules();
 
+	//	clean out the comments
+	foreach ($definitions as $key => $value) {
+		$value = trim($value);
+		if (empty($value) || $value[0] == '#') {
+			unset($definitions[$key]);
+		}
+	}
+
 	$skip = 0;
 	//process the rules
 	foreach ($rules as $rule) {
@@ -109,15 +117,15 @@ function rewriteHandler() {
 						} else {
 							$i = '';
 						}
-						if (preg_match('~' . $matches[1] . '~' . $i, $requesturi, $subs)) {
+						if (preg_match('~' . $matches [1] . '~' . $i, $requesturi, $subs)) {
 							//	it is a match
 							if (array_key_exists('S', $flags)) {
 								$skip = $flags['S'];
 							}
-							if ($matches[2] == '-') {
+							if ($matches [2] == '-') {
 								$substitution = $subs[0];
 							} else {
-								$substitution = preg_replace('~' . $matches[1] . '~' . $i, $matches[2], pathurlencode($requesturi));
+								$substitution = preg_replace('~' . $matches [1] . '~' . $i, $matches[2], pathurlencode($requesturi));
 							}
 							preg_match('~(.*?)\?(.*)~', $substitution, $action);
 							if (empty($action)) {
@@ -148,8 +156,8 @@ function rewriteHandler() {
 							if (array_key_exists('R', $flags) || array_key_exists('L', $flags)) {
 								//	we will execute the index.php script in due course. But if the rule
 								//	action takes us elsewhere we will have to re-direct to that script.
-								if (array_key_exists('R', $flags) || isset($action[1]) && $action[1] != 'index.php') {
-									if (isset($flags['R']) && $flags['R'] >= 400) {
+								if (array_key_exists('R', $flags) || isset($action [1]) && $action [1] != 'index.php') {
+									if (isset($flags ['R']) && $flags ['R'] >= 400) {
 										//	redirect to the npg error page because the http response code gets lost in
 										//	the .htaccess redirection process
 										$_GET = array(
@@ -165,7 +173,7 @@ function rewriteHandler() {
 										if (isset($flags['R'])) {
 											header('Status: ' . $flags['R']);
 										}
-										header('Location: ' . WEBPATH . '/' . $action[1] . $qs);
+										header('Location: ' . WEBPATH . '/' . $action [1] . $qs);
 										exit();
 									}
 								}
@@ -184,7 +192,7 @@ function rewriteHandler() {
 			} else {
 				if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {
 					//	store definitions
-					eval('$definitions[$matches[1]] = ' . $matches[2] . ';');
+					eval('$definitions[$matches[1]] = ' . $matches [2] . ';');
 				}
 			}
 		}
