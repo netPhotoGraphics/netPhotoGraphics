@@ -20,6 +20,8 @@ $plugin_description = gettext("Prints an e-mail contact so that visitors may e-m
 
 $option_interface = 'contactformOptions';
 
+$_conf_vars['special_pages']['contact_form'] = array('comment' => "\t#--- contact_form");
+
 $_conf_vars['special_pages']['contact'] = array('define' => '_CONTACT_', 'rewrite' => getOption('contactform_rewrite'), 'option' => 'contactform_rewrite', 'default' => '_PAGE_/contact');
 $_conf_vars['special_pages'][] = array('definition' => '%CONTACT%', 'rewrite' => '_CONTACT_');
 $_conf_vars['special_pages'][] = array('rewrite' => '%CONTACT%', 'rule' => '^%REWRITE%/*$		index.php?p=contact [NC,L,QSA]');

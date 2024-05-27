@@ -28,7 +28,9 @@ $plugin_description = gettext("Provides a means for placing a user registration 
 
 $option_interface = 'register_user';
 
-$_conf_vars['special_pages']['register_user'] = array('define' => '_REGISTER_USER_', 'rewrite' => getOption('register_user_link'),
+$_conf_vars['special_pages']['register_user'] = array('comment' => "\t#--- register_user");
+
+$_conf_vars['special_pages']['register'] = array('define' => '_REGISTER_USER_', 'rewrite' => getOption('register_user_link'),
 		'option' => 'register_user_link', 'default' => '_PAGE_/register');
 $_conf_vars['special_pages'][] = array('definition' => '%REGISTER_USER%', 'rewrite' => '_REGISTER_USER_');
 

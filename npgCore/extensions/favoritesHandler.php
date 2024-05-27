@@ -342,9 +342,11 @@ class favoritesHandler {
 
 }
 
+$_conf_vars['special_pages']['favoritesHandler'] = array('comment' => "\t#--- favoritesHandler");
+
 $_conf_vars['special_pages']['favorites'] = array('define' => '_FAVORITES_', 'rewrite' => getOption('favorites_link'),
 		'option' => 'favorites_link', 'default' => '_PAGE_/favorites');
-$_conf_vars['special_pages'][] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
+$_conf_vars['special_pages']['favorites'] = array('definition' => '%FAVORITES%', 'rewrite' => '_FAVORITES_');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/(.+)/([0-9]+)/*$',
 		'rule' => '%REWRITE% index.php?p=favorites&instance=$1&page=$2 [NC,L,QSA]');
 $_conf_vars['special_pages'][] = array('rewrite' => '^%FAVORITES%/([0-9]+)/*$',
@@ -430,12 +432,12 @@ if (OFFSET_PATH) {
 					$favList = array_slice($list, 1);
 					?>
 					<script>
-						
+
 						var _favList = ['<?php echo implode("','", $favList); ?>'];
 						$(function () {
 							$('.favorite_instance').tagSuggest({tags: _favList})
 						});
-						
+
 					</script>
 					<?php
 				}

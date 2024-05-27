@@ -161,6 +161,8 @@ class rewriteRules {
 		}
 
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('rewriteTokens_register', getOption('rewriteTokens_register_user'));
+			purgeOption('rewriteTokens_register_user');
 			$old = array_keys($conf['special_pages']);
 			$_config_contents = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
 			$i = strpos($_config_contents, "\$conf['special_pages']");
@@ -311,29 +313,24 @@ class rewriteRules {
 	static function processRules($ruleFile) {
 		global $_conf_vars;
 		$customRules = explode("\n", $ruleFile);
-
-		$definitions = array();
-		$rules[] = array('comment' => "\t#### Rules from rewriteRules/rules.txt");
+		$rules['rewriteRules'] = array('comment' => "\t#### rewriteRules/rules.txt");
 		foreach ($customRules as $rule) {
 			$rule = trim($rule);
-			if (strlen($rule) > 0 && $rule[0] != '#') {
-				if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
-					$definitions[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
+			if (strlen($rule) > 0) {
+				if ($rule[0] == '#') {
+					$rules[] = array('comment' => "\t$rule");
 				} else {
-					if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
-						$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
+					if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
+						$rules[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
+					} else {
+						if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
+							$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
+						}
 					}
 				}
 			}
 		}
-		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $definitions, $rules);
+		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $rules);
 	}
 
 }
-
-function rewriteRules_enable($enabled) {
-	if (!$enabled && getPlugin('/rewriteRules/rules.txt')) {
-		requestSetup('rewriteRules', gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.'));
-	}
-}
-?>

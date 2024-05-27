@@ -9,7 +9,8 @@
  *
  */
 $dbSoftware = db_software();
-define('FIELD_COMMENT', 'npg');
+define('FIELD_COMMENT_NPG', 'npg');
+define('FIELD_COMMENT_METADATA', 'optional_metadata');
 $indexComments = version_compare($dbSoftware['version'], '5.5.0') >= 0;
 $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 
@@ -32,42 +33,53 @@ $renames = array(
 				'was' => 'ExifImageHeight',
 				'is' => 'EXIFImageHeight',
 				'type' => 'tinytext',
-				'comment' => 'optional_metadata'),
+				'collation' => $utf8mb4 ? 'utf8mb4_unicode_ci' : 'utf8mb3_unicode_ci',
+				'comment' => FIELD_COMMENT_METADATA,
+				'quiet' => true),
 		array('table' => 'pages',
 				'was' => 'author',
 				'is' => 'owner',
 				'type' => 'tinytext',
-				'comment' => FIELD_COMMENT),
+				'comment' => FIELD_COMMENT_NPG),
 		array('table' => 'pages',
 				'was' => 'lastchangeauthor',
 				'is' => 'lastchangeuser',
 				'type' => 'tinytext',
-				'comment' => FIELD_COMMENT),
+				'comment' => FIELD_COMMENT_NPG),
 		array('table' => 'news',
 				'was' => 'author',
 				'is' => 'owner', 'type' =>
-				'tinytext', 'comment' => FIELD_COMMENT),
+				'tinytext', 'comment' => FIELD_COMMENT_NPG),
 		array('table' => 'news',
 				'was' => 'lastchangeauthor',
 				'is' => 'lastchangeuser',
 				'type' => 'tinytext',
-				'comment' => FIELD_COMMENT),
+				'comment' => FIELD_COMMENT_NPG),
 		array('table' => 'comments',
 				'was' => 'custom_data',
 				'is' => 'address_data',
 				'type' => 'text',
-				'comment' => FIELD_COMMENT)
+				'comment' => FIELD_COMMENT_NPG)
 );
 foreach ($renames as $change) {
-	$sql = 'ALTER TABLE ' . prefix($change['table']) . ' CHANGE `' . $change['was'] . '` `' . $change['is'] . '` ' . $change['type'];
-	if (!empty($change['comment'])) {
+	$sql = 'ALTER TABLE ' . prefix($change['table']) . ' CHANGE `' . $change['was'] . '` `' . $change['is'];
+	if (isset($change['type'])) {
+		$sql .= '` ' . $change['type'];
+	}
+	if (isset($change['collation'])) {
+		$sql .= " COLLATE " . $change['collation'];
+	}
+	if (isset($change['comment'])) {
 		$sql .= " COMMENT '" . $change['comment'] . "'";
 	}
-	if (setupQuery($sql, FALSE)) {
-		$_DB_Structure_change = TRUE;
+
+	if (setupQuery($sql, FALSE, !isset($change['quiet']))) {
+		if (!isset($change['quiet'])) {
+			$_DB_Structure_change = TRUE;
+		}
 	}
 }
-$_tableFields = null;
+unset($_tableFields);
 
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
@@ -120,19 +132,19 @@ foreach (getDBTables() as $table) {
 				$keys = explode(',', $index['Column_name']);
 				sort($keys);
 				if ($table == 'administrators' && implode(',', $keys) === '`user`,`valid`') {
-					$index['Index_comment'] = FIELD_COMMENT;
+					$index['Index_comment'] = FIELD_COMMENT_NPG;
 				}
 				break;
 			case 'filename':
 				$keys = explode(',', $index['Column_name']);
 				sort($keys);
 				if ($table == 'images' && implode(',', $keys) === '`albumid`,`filename`') {
-					$index['Index_comment'] = FIELD_COMMENT;
+					$index['Index_comment'] = FIELD_COMMENT_NPG;
 				}
 				break;
 			case 'folder':
 				if ($table == 'albums' && $index['Column_name'] === '`folder`') {
-					$index['Index_comment'] = FIELD_COMMENT;
+					$index['Index_comment'] = FIELD_COMMENT_NPG;
 				}
 				break;
 		}
@@ -140,7 +152,7 @@ foreach (getDBTables() as $table) {
 	}
 }
 
-$npgUpgrade = isset($database['administrators']['fields']['valid']['Comment']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT;
+$npgUpgrade = isset($database['administrators']['fields']['valid']['Comment']) && $database['administrators']['fields']['valid']['Comment'] == FIELD_COMMENT_NPG;
 
 //metadata display and disable options
 
@@ -223,13 +235,13 @@ foreach ($metadataProviders as $source => $handler) {
 						'Collation' => $collation,
 						'Null' => 'YES',
 						'Default' => null,
-						'Comment' => 'optional_metadata'
+						'Comment' => FIELD_COMMENT_METADATA
 				);
 				$template['images']['fields'][$key] = $field;
 			}
 		} else {
 			if (isset($database['images']['fields'][$key])) {
-				$database['images']['fields'][$key]['Comment'] = 'optional_metadata';
+				$database['images']['fields'][$key]['Comment'] = FIELD_COMMENT_METADATA;
 			}
 		}
 	}
@@ -351,7 +363,7 @@ foreach ($template as $tablename => $table) {
 		//handle surplus fields
 		foreach ($database[$tablename]['fields'] as $key => $field) {
 			// drop fields no longer used
-			if ($field['Comment'] === FIELD_COMMENT || $field['Comment'] === 'optional_metadata') {
+			if ($field['Comment'] === FIELD_COMMENT_NPG || $field['Comment'] === FIELD_COMMENT_METADATA) {
 				$dropString = "ALTER TABLE " . prefix($tablename) . " DROP `" . $field['Field'] . "`;";
 				if (setupQuery($dropString)) {
 					$_DB_Structure_change = TRUE;
@@ -382,7 +394,7 @@ foreach ($template as $tablename => $table) {
 
 			$alterString = "$string`$key` ($k)";
 			if ($indexComments) {
-				$alterString .= " COMMENT '" . FIELD_COMMENT . "';";
+				$alterString .= " COMMENT '" . FIELD_COMMENT_NPG . "';";
 			} else {
 				unset($index['Index_comment']);
 			}
@@ -409,7 +421,7 @@ foreach ($template as $tablename => $table) {
 			} else {
 				$tableString = "  $u ($k)";
 				if ($indexComments) {
-					$tableString .= "  COMMENT '" . FIELD_COMMENT . "'";
+					$tableString .= "  COMMENT '" . FIELD_COMMENT_NPG . "'";
 				}
 				$create[] = $tableString . ',';
 			}
@@ -428,7 +440,7 @@ foreach ($template as $tablename => $table) {
 		if (array_key_exists('keys', $database[$tablename]) && !empty($database[$tablename]['keys'])) {
 			foreach ($database[$tablename]['keys'] as $index) {
 				$key = $index['Key_name'];
-				if (isset($index['Index_comment']) && $index['Index_comment'] === FIELD_COMMENT) {
+				if (isset($index['Index_comment']) && $index['Index_comment'] === FIELD_COMMENT_NPG) {
 					$dropString = "ALTER TABLE " . prefix($tablename) . " DROP INDEX `" . $key . "`;";
 					if (setupQuery($dropString)) {
 						$_DB_Structure_change = TRUE;
