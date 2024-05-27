@@ -110,13 +110,9 @@
  */
 $plugin_is_filter = 1 | FEATURE_PLUGIN;
 $plugin_description = gettext("Site rewrite rules.");
-$plugin_notice = (($ruleFile = getPlugin('/rewriteRules/rules.txt')) && !extensionEnabled('rewriteRules')) ? gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.') : '';
+$plugin_notice = (($_ruleFile = getPlugin('/rewriteRules/rules.txt')) && !extensionEnabled('rewriteRules')) ? gettext('The <em>rules.txt</em> file is not processed when the <em>rewriteRules</em> plugin is disabled.') : '';
 
 $option_interface = 'rewriteRules';
-
-if ($ruleFile) {
-	rewriteRules::processRules(file_get_contents($ruleFile));
-}
 
 npgFilters::register('admin_tabs', 'rewriteRules::tabs', 100);
 
@@ -310,27 +306,33 @@ class rewriteRules {
 		return $tabs;
 	}
 
-	static function processRules($ruleFile) {
-		global $_conf_vars;
-		$customRules = explode("\n", $ruleFile);
-		$rules['rewriteRules'] = array('comment' => "\t#### rewriteRules/rules.txt");
-		foreach ($customRules as $rule) {
-			$rule = trim($rule);
-			if (strlen($rule) > 0) {
-				if ($rule[0] == '#') {
-					$rules[] = array('comment' => "\t$rule");
+	static function getPluginRules($rules) {
+		global $_ruleFile;
+
+		if ($_ruleFile) {
+			$def = $rew = [];
+			foreach (explode("\n", file_get_contents($_ruleFile))as $item) {
+				if (strpos(trim(strtolower($item)), 'define') === 0) {
+					$def[] = $item;
 				} else {
-					if (preg_match('~define\s(.+?)\s*=>\s+(.+)~i', $rule, $matches)) {
-						$rules[] = array('definition' => $matches[1], 'rewrite' => $matches[2]);
-					} else {
-						if (preg_match('~rewriterule\s+\^(.+?)\/\*\$\s+(.+)~i', $rule, $matches)) {
-							$rules[] = array('rewrite' => $matches[1], 'rule' => '^%REWRITE%/*$	' . $matches[2]);
-						}
-					}
+					$rew[] = $item;
 				}
 			}
+
+			$place = strpos($rules, "\t#### Quick links");
+			$rules = substr($rules, 0, $place - 1) .
+							implode("\n", $def) . "\n" .
+							"\n" .
+							substr($rules, $place);
+
+			$place = strpos($rules, "\t_SPECIAL_");
+			$rules = substr($rules, 0, $place) .
+							"\t#### rewriteRules/rules.txt\n" .
+							implode("\n", $rew) . "\n" .
+							"\n" .
+							substr($rules, $place);
 		}
-		$_conf_vars['special_pages'] = array_merge($_conf_vars['special_pages'], $rules);
+		return $rules;
 	}
 
 }

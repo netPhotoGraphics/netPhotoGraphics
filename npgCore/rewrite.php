@@ -192,7 +192,11 @@ function rewriteHandler() {
 			} else {
 				if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {
 					//	store definitions
-					eval('$definitions[$matches[1]] = ' . $matches [2] . ';');
+					try {
+						eval('$definitions[$matches[1]] = ' . $matches [2] . ';');
+					} catch (Throwable $t) {
+						debugLog(sprintf(gettext('rewriteHandler:Error evaluating define: %1$s = %2$s;'), $matches[1], $matches [2]));
+					}
 				}
 			}
 		}
@@ -208,13 +212,19 @@ function getRules() {
 	global $_conf_vars;
 	//	load rewrite rules
 	$rules = trim(file_get_contents(CORE_SERVERPATH . 'rewrite.txt'));
+
+	if (class_exists('rewriteRules')) {
+		$rules = rewriteRules::getPluginRules($rules);
+	}
+
 	$definitions = $specialPageRules = array();
 	foreach ($_conf_vars['special_pages'] as $key => $special) {
 		if (array_key_exists('definition', $special)) {
 			try {
 				eval('$v = ' . $special['rewrite'] . ';');
 			} catch (Throwable $t) {
-				$v = $special['rewrite'];
+				$v = "'" . addslashes($special['rewrite']) . "'";
+				debugLog(sprintf(gettext('getRules:Error evaluating define: %1$s = %2$s;'), $special['definition'], $special['rewrite']));
 			}
 			$definitions[$special['definition']] = $v;
 		}
@@ -241,7 +251,11 @@ if (isset($_conf_vars['special_pages'])) {
 	foreach ($_conf_vars['special_pages'] as $definition) {
 		if (isset($definition['define']) && $definition['define']) {
 			define($definition['define'], strtr($definition['rewrite'] ? $definition['rewrite'] : $definition['default'], $_definitions));
-			eval('$_definitions[$definition[\'define\']]=' . $definition['define'] . ';');
+			try {
+				eval('$_definitions[$definition[\'define\']]=' . $definition['define'] . ';');
+			} catch (Throwable $t) {
+				debugLog(sprintf(gettext('rewriteRules:Error evaluating define: %1$s = %2$s;'), $definition['define'], $definition['define']));
+			}
 		}
 	}
 }
