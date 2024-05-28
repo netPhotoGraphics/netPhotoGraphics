@@ -31,7 +31,18 @@ if (isset($_GET['purge'])) {
 		$success = false;
 	} else {
 		$success = true;
-		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir', USER_PLUGIN_FOLDER => 'dir');
+		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir');
+		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*');
+		foreach ($pluginFiles as $file) {
+			if ($file != '.' && $file != '..') {
+				if (is_dir(SERVERPATH . '/' . USER_PLUGIN_FOLDER)) {
+					$type = 'dir';
+				} else {
+					$type = 'file';
+				}
+				$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = $type;
+			}
+		}
 
 		foreach ($_gallery->getThemes() as $theme => $data) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
@@ -56,6 +67,21 @@ if (isset($_GET['purge'])) {
 			}
 		}
 
+		if (file_exists($folder . USER_PLUGIN_FOLDER)) {
+			$link = str_replace('\\', '/', readlink($folder . USER_PLUGIN_FOLDER));
+			if ($link != $folder . USER_PLUGIN_FOLDER) {
+				//	it is a symlink from older version of clone
+				chmod($folder . USER_PLUGIN_FOLDER, 0777);
+				$success = @rmdir($folder . USER_PLUGIN_FOLDER);
+				if (!$success) { // some systems treat it as a dir, others as a file!
+					$success = @unlink($folder . USER_PLUGIN_FOLDER);
+				}
+			}
+		}
+
+		if (!is_dir($folder . USER_PLUGIN_FOLDER)) {
+			mkdir($folder . USER_PLUGIN_FOLDER);
+		}
 		if (!is_dir($folder . THEMEFOLDER)) {
 			mkdir($folder . THEMEFOLDER);
 		}
@@ -67,6 +93,14 @@ if (isset($_GET['purge'])) {
 		}
 
 		foreach ($targets as $target => $type) {
+			$source = str_replace('\\', '/', readlink(SERVERPATH . '/' . $target));
+			/* debugging code
+			  if ($source != SERVERPATH . '/' . $target) {
+			  //	source is a symlink!
+			  $msg[] = sprintf(gettext('The target <code>%1$s</code> is a symlink to %2$s.'), $target, $source) . "<br />\n";
+			  }
+			 *
+			 */
 			if (file_exists($folder . $target)) {
 				$link = str_replace('\\', '/', readlink($folder . $target));
 				switch ($type) {
@@ -74,7 +108,7 @@ if (isset($_GET['purge'])) {
 						if (empty($link) || $link == $folder . $target) {
 							// an actual folder
 							if (npgFunctions::removeDir($folder . $target)) {
-								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+								if (SYMLINK && symlink($source, $folder . $target)) {
 									$msg[] = sprintf(gettext('The existing folder <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
 									$msg[] = sprintf(gettext('The existing folder <code>%1$s</code> was removed but Link creation failed.'), $target) . "<br />\n";
@@ -92,7 +126,7 @@ if (isset($_GET['purge'])) {
 								$success = @unlink($folder . $target);
 							}
 							if ($success) {
-								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+								if (SYMLINK && symlink($source, $folder . $target)) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
@@ -109,7 +143,7 @@ if (isset($_GET['purge'])) {
 					case 'file':
 						chmod($folder . $target, 0777);
 						if (unlink($folder . $target)) {
-							if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+							if (SYMLINK && symlink($source, $folder . $target)) {
 								if ($folder . $target == $link) {
 									$msg[] = sprintf(gettext('The existing file <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
 								} else {
@@ -132,7 +166,7 @@ if (isset($_GET['purge'])) {
 				}
 			} else {
 				$level = error_reporting(0);
-				if (SYMLINK && @symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
+				if (SYMLINK && @symlink(realpath($source), $folder . $target)) {
 					error_reporting($level);
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
