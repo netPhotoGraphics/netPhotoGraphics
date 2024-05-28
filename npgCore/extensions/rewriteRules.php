@@ -321,6 +321,7 @@ class rewriteRules {
 
 			$place = strpos($rules, "\t#### Quick links");
 			$rules = substr($rules, 0, $place - 1) .
+							"\t#--- rewriteRules/rules.txt\n" .
 							implode("\n", $def) . "\n" .
 							"\n" .
 							substr($rules, $place);

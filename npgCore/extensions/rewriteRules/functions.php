@@ -29,6 +29,13 @@ function rulesList() {
 					if (end($list)[0] == 'comment') {
 						array_pop($list);
 					}
+					$cleanup = function (&$item) {
+						if ($item[0] == 'comment') {
+							$item[0] = '';
+							$item[1] = str_replace('####', '#---', $item[1]);
+						}
+					};
+					array_walk($list, $cleanup);
 				}
 				if ($break && strpos($rule, '####') === 0) {
 					$list[] = array('&nbsp;', '', '&nbsp;');
