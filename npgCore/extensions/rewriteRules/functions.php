@@ -6,9 +6,9 @@
 function rulesList() {
 	list($pluginDefinitions, $rules) = getRules();
 	$definitions = $pluginDefinitions;
+
 	$list = array();
 	$break = false;
-	$defined = false;
 	//process the rules
 	foreach ($rules as $rule) {
 		if ($rule = trim($rule)) {
@@ -16,18 +16,17 @@ function rulesList() {
 				if (trim(ltrim($rule, '#')) == 'Quick links') {
 					foreach ($pluginDefinitions as $def => $v) {
 						if (is_numeric($def)) {
-							if (!$defined) {
+							if (end($list)[0] == 'comment') {
 								array_pop($list);
 							}
-							$list[] = array('', $v, '');
-							$defined = false;
+							$list[] = array('comment', $v, '');
 							unset($definitions[$def]);
 						} else {
 							$list[] = array('Define ', $def, $v);
 							$defined = true;
 						}
 					}
-					if (!$defined) {
+					if (end($list)[0] == 'comment') {
 						array_pop($list);
 					}
 				}
@@ -54,7 +53,12 @@ function rulesList() {
 				} else {
 					if (preg_match('~define\s+(.*?)\s*\=\>\s*(.*)$~i', $rule, $matches)) {
 						//	store definitions
-						eval('$definitions[$matches[1]] = ' . $matches[2] . ';');
+						try {
+							eval('$definitions[$matches[1]] = ' . $matches[2] . ';');
+						} catch (Throwable $t) {
+							debugLog(sprintf(gettext('rulesList:Error evaluating define: %1$s = %2$s;'), $matches[1], $matches[2]));
+							$definitions[$matches[1]] = $matches[2];
+						}
 						$list[] = array('Define', $matches[1], $definitions[$matches[1]]);
 					}
 				}
