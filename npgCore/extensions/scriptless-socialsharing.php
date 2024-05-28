@@ -23,8 +23,8 @@
  * </ul>
  *
  * Note: Since no scripts are involved no share counts!
- * 
- * To have it work correctly you should also enable the html_meta_tags plugin 
+ *
+ * To have it work correctly you should also enable the html_meta_tags plugin
  * and check the Open Graph (og:) meta data elements in the plugin's options.
  *
  * The plugin loads an default CSS styling using an icon font optionally. If you wish to use theme based custom icons
@@ -71,7 +71,7 @@ class scriptlessSocialsharing {
 						'order' => 0,
 						'checkboxes' => array(
 								'Facebook' => 'scriptless_socialsharing_facebook',
-								'Twitter' => 'scriptless_socialsharing_twitter',
+								'X (Twitter)' => 'scriptless_socialsharing_twitter',
 								'Pinterest' => 'scriptless_socialsharing_pinterest',
 								'Linkedin' => 'scriptless_socialsharing_linkedin',
 								'Xing' => 'scriptless_socialsharing_xing',
@@ -210,8 +210,8 @@ class scriptlessSocialsharing {
 			}
 			$buttons[] = array(
 					'class' => 'sharingicon-x',
-					'title' => 'Twitter',
-					'url' => 'https://twitter.com/intent/tweet?text=' . $title . $via . '&amp;url=' . $url
+					'title' => 'X (Twitter)',
+					'url' => 'https://x.com/intent/tweet?text=' . $title . $via . '&amp;url=' . $url
 			);
 		}
 		if (getOption('scriptless_socialsharing_pinterest')) {
