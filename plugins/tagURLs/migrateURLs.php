@@ -11,7 +11,7 @@
  */
 // force UTF-8 Ø
 
-define('OFFSET_PATH', 4);
+define('OFFSET_PATH', 3);
 require_once(file_get_contents(dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/core-locator.npg') . "admin-globals.php");
 
 admin_securityChecks(ADMIN_RIGHTS, $return = currentRelativeURL());
