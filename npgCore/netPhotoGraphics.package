@@ -19765,7 +19765,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/scriptless-socialsharing/selection.json
 %extensions%/scriptless-socialsharing/style.min.css
 %extensions%/scriptless-socialsharing/fonts
-%extensions%/scriptless-socialsharing/fonts/scriptless-socialbuttons.eot
 %extensions%/scriptless-socialsharing/fonts/scriptless-socialbuttons.svg
 %extensions%/scriptless-socialsharing/fonts/scriptless-socialbuttons.ttf
 %extensions%/scriptless-socialsharing/fonts/scriptless-socialbuttons.woff
@@ -20353,4 +20352,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20355
+20354

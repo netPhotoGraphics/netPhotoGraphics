@@ -22,9 +22,6 @@ $plugin_description = gettext('Provides an install button from the development r
 
 require_once(GITHUB_API_PATH);
 
-use Milo\Github;
-use Milo\Github\Http;
-
 if (isset($_GET['action'])) {
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
@@ -60,22 +57,7 @@ if (isset($_GET['action'])) {
 if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
 		setOption('getDEVUpdates_lastCheck', time());
-		try {
-			$client = extension_loaded('curl') ?
-							new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
-							new Http\StreamClient(getOption('GitHub_SSL_OPT'));
-			$api = new Milo\Github\Api($client);
-			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => 'sbillard', 'repo' => 'netPhotoGraphics-DEV'));
-			$fullRepoData = $api->decode($fullRepoResponse);
-			$assets = $fullRepoData->assets;
-
-			if (!empty($assets)) {
-				$item = array_pop($assets);
-				setOption('getDEVUpdates_latest', $item->browser_download_url);
-			}
-		} catch (Exception $e) {
-			debugLog(gettext('GitHub repository not accessible. ') . $e);
-		}
+		fetchGithubLatest('sbillard', 'netPhotoGraphics-DEV', 'getDEVUpdates_latest');
 	}
 
 	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
@@ -87,11 +69,14 @@ if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 class devReleases {
 
 	static function buttons($buttons) {
-		preg_match('~[^\d]*(.*)~', stripSuffix(basename(getOption('getDEVUpdates_latest'))), $matches);
-		$devVersion = $matches[1];
-		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
+		$latest = getOption('getDEVUpdates_latest');
+		if ($latest) {
+			preg_match('~[^\d]*(.*)~', stripSuffix(basename(getOption('getDEVUpdates_latest'))), $matches);
+			$devVersion = $matches[1];
+			$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
+		}
 
-		if (version_compare(preg_replace('~[^0-9,.]~', '', $devVersion), $npgVersion, '>')) {
+		if ($latest && version_compare(preg_replace('~[^0-9,.]~', '', $devVersion), $npgVersion, '>')) {
 			$buttons[] = array(
 					'XSRFTag' => 'install_update',
 					'category' => gettext('Updates'),
@@ -125,25 +110,27 @@ class devReleases {
 
 	static function notice() {
 		$newestVersionURI = getOption('getUpdates_latest');
-		$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
-		$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
+		if ($newestVersionURI) {
+			$newestVersion = preg_replace('~[^0-9,.]~', '', str_replace('setup-', '', stripSuffix(basename($newestVersionURI))));
+			$npgVersion = preg_replace('~[^0-9,.]~', '', NETPHOTOGRAPHICS_VERSION_CONCISE);
 
-		switch (version_compare($newestVersion, $npgVersion)) {
-			case -1:
-				$msg = gettext('You are running a version greater than the current release.');
-				break;
-			case 0:
-				$msg = gettext('You are running the latest netPhotoGraphics version.');
-				break;
-			case 1:
-				$msg = gettext('There is an update available.');
-				break;
+			switch (version_compare($newestVersion, $npgVersion)) {
+				case -1:
+					$msg = gettext('You are running a version greater than the current release.');
+					break;
+				case 0:
+					$msg = gettext('You are running the latest netPhotoGraphics version.');
+					break;
+				case 1:
+					$msg = gettext('There is an update available.');
+					break;
+			}
+			?>
+			<div class="messagebox fade-message">
+				<h2><?php echo $msg; ?></h2>
+			</div>
+			<?php
 		}
-		?>
-		<div class="messagebox fade-message">
-			<h2><?php echo $msg; ?></h2>
-		</div>
-		<?php
 	}
 
 }

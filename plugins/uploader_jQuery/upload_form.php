@@ -188,7 +188,7 @@ function upload_extra($uploadlimit, $passedalbum) {
 	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-validate.js');
 	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/jquery.fileupload-ui.js');
 	//NOTE: has some self relative references, so cannot be served inline
-	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/main.js', '');
+	scriptLoader(PLUGIN_SERVERPATH . 'uploader_jQuery/js/main.js', false);
 	?>
 	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
 	<!--[if (gte IE 8)&(lt IE 10)]>
