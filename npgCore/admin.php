@@ -15,9 +15,6 @@ require_once(__DIR__ . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
 require_once(GITHUB_API_PATH);
 
-use Milo\Github;
-use Milo\Github\Http;
-
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
 	if (!$_current_admin_obj->getID() || empty($msg) && !npg_loggedin(OVERVIEW_RIGHTS)) {
@@ -320,21 +317,7 @@ if (class_exists('Milo\Github\Api')) {
 	 */
 	if (getOption('getUpdates_lastCheck') + 8640 < time()) {
 		setOption('getUpdates_lastCheck', time());
-		try {
-			$client = extension_loaded('curl') ?
-							new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
-							new Http\StreamClient(getOption('GitHub_SSL_OPT'));
-			$api = new Milo\Github\Api($client);
-			$fullRepoResponse = $api->get('/repos/:owner/:repo/releases/latest', array('owner' => GITHUB_ORG, 'repo' => 'netPhotoGraphics'));
-			$fullRepoData = $api->decode($fullRepoResponse);
-			$assets = $fullRepoData->assets;
-			if (!empty($assets)) {
-				$item = array_pop($assets);
-				setOption('getUpdates_latest', $item->browser_download_url);
-			}
-		} catch (Exception $e) {
-			debugLog(gettext('GitHub repository not accessible. ') . $e);
-		}
+		fetchGithubLatest(GITHUB_ORG, 'netPhotoGraphics', 'getUpdates_latest');
 	}
 
 	$newestVersionURI = getOption('getUpdates_latest');
