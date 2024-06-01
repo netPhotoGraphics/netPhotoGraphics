@@ -34,13 +34,12 @@ if (isset($_GET['purge'])) {
 		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir');
 		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*');
 		foreach ($pluginFiles as $file) {
-			if ($file != '.' && $file != '..') {
-				if (is_dir(SERVERPATH . '/' . USER_PLUGIN_FOLDER)) {
-					$type = 'dir';
-				} else {
-					$type = 'file';
+			if (is_dir(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/' . basename($file))) {
+				if ($file != '.' && $file != '..') {
+					$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = 'dir';
 				}
-				$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = $type;
+			} else {
+				$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = 'file';
 			}
 		}
 
