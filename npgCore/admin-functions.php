@@ -6693,7 +6693,7 @@ function githubWarn() {
 	global $__githubError;
 	?>
 	<div class="errorbox  fade-message">
-		<h2><?php echo gettext($__githubError); ?></h2>
+		<h2><?php echo $__githubError; ?></h2>
 	</div>
 	<?php
 }
