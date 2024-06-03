@@ -59,7 +59,7 @@ define('CACHEFOLDER', 'cache');
 define('UPLOAD_FOLDER', 'uploaded');
 define('STATIC_CACHE_FOLDER', "cache_html");
 define('CONFIGFILE', 'npg.cfg.php');
-define('MUTEX_FOLDER', '.mutex');
+define('MUTEX_FOLDER', 'nPGmutex');
 define('UTILITIES_FOLDER', 'utilities');
 
 //used by scriptLoader() to decide whether to inline the script (js or css)

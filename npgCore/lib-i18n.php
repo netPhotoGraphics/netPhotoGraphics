@@ -195,19 +195,22 @@ class i18n {
 	 */
 	static function setupCurrentLocale($override = NULL) {
 		global $_current_locale;
-		if (is_null($override)) {
+		if (empty($override)) {
 			$locale = getOption('locale');
 		} else {
 			$locale = $override;
 		}
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		$languages = self::generateLanguageList();
+		if (empty($locale)) {
+			$locale = reset($languages);
+		}
 		if (isset($disallow[$locale])) {
-			if (DEBUG_LOCALE)
+			if (DEBUG_LOCALE) {
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
-			$locale = getOption('locale');
-			if (empty($locale) || isset($disallow[$locale])) {
-				$locale = reset($languages);
+			}
+			if ($locale = reset($languages)) {
+				$locale = 'en_US';
 			}
 		}
 		// gettext setup

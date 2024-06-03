@@ -246,7 +246,7 @@ class feed {
 				return $this->options['lang'];
 			}
 		}
-		return getOption('locale');
+		return SITE_LOCALE;
 	}
 
 	/**
