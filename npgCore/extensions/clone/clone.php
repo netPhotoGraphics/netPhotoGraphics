@@ -67,7 +67,7 @@ if (isset($_GET['purge'])) {
 		}
 
 		if (file_exists($folder . USER_PLUGIN_FOLDER)) {
-			$link = str_replace('\\', '/', readlink($folder . USER_PLUGIN_FOLDER));
+			$link = str_replace('\\', '/', realpath($folder . USER_PLUGIN_FOLDER));
 			if ($link != $folder . USER_PLUGIN_FOLDER) {
 				//	it is a symlink from older version of clone
 				chmod($folder . USER_PLUGIN_FOLDER, 0777);
@@ -92,7 +92,8 @@ if (isset($_GET['purge'])) {
 		}
 
 		foreach ($targets as $target => $type) {
-			$source = str_replace('\\', '/', readlink(SERVERPATH . '/' . $target));
+			$source = str_replace('\\', '/', realpath(SERVERPATH . '/' . $target));
+
 			/* debugging code
 			  if ($source != SERVERPATH . '/' . $target) {
 			  //	source is a symlink!
@@ -101,7 +102,7 @@ if (isset($_GET['purge'])) {
 			 *
 			 */
 			if (file_exists($folder . $target)) {
-				$link = str_replace('\\', '/', readlink($folder . $target));
+				$link = str_replace('\\', '/', realpath($folder . $target));
 				switch ($type) {
 					case 'dir':
 						if (empty($link) || $link == $folder . $target) {
@@ -165,7 +166,7 @@ if (isset($_GET['purge'])) {
 				}
 			} else {
 				$level = error_reporting(0);
-				if (SYMLINK && @symlink(realpath($source), $folder . $target)) {
+				if (SYMLINK && @symlink($source, $folder . $target)) {
 					error_reporting($level);
 					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
 					switch ($target) {
@@ -180,7 +181,7 @@ if (isset($_GET['purge'])) {
 							break;
 					}
 					if ($core && file_exists($folder . $core)) {
-						$link = str_replace('\\', '/', readlink($folder . $core));
+						$link = str_replace('\\', '/', realpath($folder . $core));
 						if (empty($link) || $link == $folder . $core) {
 							$success = npgFunctions::removeDir($folder . $core);
 						} else {
