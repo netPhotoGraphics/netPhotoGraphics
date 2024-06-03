@@ -198,7 +198,7 @@ class i18n {
 			if (DEBUG_LOCALE) {
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
 			}
-			if ($locale = reset($languages)) {
+			if (!$locale = reset($languages)) {
 				$locale = 'en_US';
 			}
 		}

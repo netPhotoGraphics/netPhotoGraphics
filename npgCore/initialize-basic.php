@@ -127,7 +127,7 @@ unset($data);
 
 // insure a correct timezone
 $_server_timezone = date('e');
-ini_set('date.timezone', date('T'));
+ini_set('date.timezone', $_server_timezone);
 
 // Set the memory limit to unlimited -- suppress errors if user doesn't have control.
 ini_set('memory_limit', '-1');
