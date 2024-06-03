@@ -126,12 +126,8 @@ define('GALLERY_SECURITY', isset($data['gallery_security']) ? $data['gallery_sec
 unset($data);
 
 // insure a correct timezone
-if (function_exists('date_default_timezone_set')) {
-	$level = error_reporting(0);
-	$_server_timezone = date_default_timezone_get();
-	ini_set('date.timezone', $_server_timezone);
-	error_reporting($level);
-}
+$_server_timezone = date('e');
+ini_set('date.timezone', date('T'));
 
 // Set the memory limit to unlimited -- suppress errors if user doesn't have control.
 ini_set('memory_limit', '-1');

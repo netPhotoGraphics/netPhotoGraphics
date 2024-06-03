@@ -38,17 +38,6 @@ if (!extension_loaded('intl')) {
 
 }
 
-if (function_exists('date_default_timezone_set')) { // insure a correct time zone
-	$tz = getOption('time_zone');
-	if (!empty($tz)) {
-		$err = error_reporting(0);
-		date_default_timezone_set($tz);
-		ini_set('date.timezone', $tz);
-		error_reporting($err);
-	}
-	unset($tz);
-}
-
 class i18n {
 
 	/**
