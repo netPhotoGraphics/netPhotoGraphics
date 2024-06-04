@@ -178,9 +178,6 @@ if (file_exists(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess')) {
 copy(CORE_SERVERPATH . '/denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', $chmod | 0311);
 
-if (is_dir(SERVERPATH . '/' . DATA_FOLDER . '/.mutex')) {
-	npgFunctions::removeDir(SERVERPATH . '/' . DATA_FOLDER . '/.mutex');
-}
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
 	@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
 }
