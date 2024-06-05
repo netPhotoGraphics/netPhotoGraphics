@@ -102,21 +102,14 @@ class i18n {
 		global $_RTL_css;
 		$local2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
 		$simple = explode('-', str_replace('_', '-', $locale));
+		$locale_hyphen = implode('-', $simple);
+		$locale_underscore = implode('_', $simple);
 
-		if (stristr(PHP_OS, 'WIN')) {
-			$locale = implode('-', $simple);
-		} else {
-			$locale = implode('_', $simple);
+		$try = [];
+		foreach (['.UTF8', '.UTF-8', '.@euro', '.' . $local2, '.' . LOCAL_CHARSET, ''] as $tag) {
+			$try[$locale_hyphen . $tag] = $locale_hyphen . $tag;
+			$try[$locale_underscore . $tag] = $locale_underscore . $tag;
 		}
-
-		//	with character sets
-		$try[$locale . '.UTF8'] = $locale . '.UTF8';
-		$try[$locale . '.UTF-8'] = $locale . '.UTF-8';
-		$try[$locale . '.@euro'] = $locale . '.@euro';
-		$try[$locale . '.' . $local2] = $locale . '.' . $local2;
-		$try[$locale . '.' . LOCAL_CHARSET] = $locale . '.' . LOCAL_CHARSET;
-
-		$try[$locale] = $locale;
 		$try[$simple[0]] = $simple[0];
 
 		$rslt = setlocale(LC_ALL, $try);
