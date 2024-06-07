@@ -19,7 +19,7 @@ clearstatcache();
 if (defined('CHMOD_VALUE')) {
 	$chmod = CHMOD_VALUE;
 } else {
-	$chmod = fileperms(dirname(__DIR__)) & 0666;
+	$chmod = fileperms(CORE_SERVERPATH) & 0666;
 }
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
@@ -28,7 +28,7 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 
 $_initial_session_path = session_save_path();
 
-require_once(dirname(__DIR__) . '/functions.php');
+require_once(CORE_SERVERPATH . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
 
 //allow only one setup to run
@@ -46,7 +46,7 @@ if ($debug = isset($_REQUEST['debug'])) {
 
 $upgrade = false;
 
-require_once(dirname(__DIR__) . '/lib-utf8.php');
+require_once(CORE_SERVERPATH . '/lib-utf8.php');
 if (isset($_REQUEST['autorun'])) {
 	$displayLimited = true;
 	if (!empty($_REQUEST['autorun'])) {
@@ -99,9 +99,9 @@ $_SESSION['save_session_path'] = session_save_path();
 
 clearstatcache();
 
-$en_US = dirname(__DIR__) . '/locale/en_US/';
+$en_US = CORE_SERVERPATH . '/locale/en_US/';
 if (!file_exists($en_US)) {
-	mkdir(dirname(__DIR__) . '/locale/', $chmod | 0311);
+	mkdir(CORE_SERVERPATH . '/locale/', $chmod | 0311);
 	mkdir($en_US, $chmod | 0311);
 }
 
@@ -125,13 +125,13 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	setupLog(gettext('config file migrated'));
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php');
 	exit();
-} else if (file_exists($oldconfig = dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php')) {
+} else if (file_exists($oldconfig = SERVERPATH . '/zp-config.php')) {
 	//migrate old root configuration file.
 	$config_contents = file_get_contents($oldconfig);
 	$i = strpos($config_contents, '/** Do not edit above this line. **/');
 	$config_contents = "<?php\nglobal \$_conf_vars;\n\$conf = array()\n" . substr($config_contents, $i);
 	file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE, $config_contents);
-	$result = unlink(dirname(dirname(__DIR__)) . '/' . CORE_FOLDER . '/zp-config.php');
+	$result = unlink(SERVERPATH . '/zp-config.php');
 	configMod();
 } else if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg')) {
 	$config_contents = "<?php\n" . file_get_contents($oldconfig) . "\n?>";
@@ -140,14 +140,14 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$update_config = true;
-	copy(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	copy(CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
 }
-copy(dirname(__DIR__) . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
+copy(CORE_SERVERPATH . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
 
 if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
@@ -175,8 +175,8 @@ if (file_exists(SERVERPATH . '/backup')) {
 if (file_exists(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
 }
-copy(dirname(__DIR__) . '/denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
-chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0444);
+copy(CORE_SERVERPATH . '/denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', $chmod | 0311);
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
 	@mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
@@ -184,8 +184,8 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0777);
 }
-copy(dirname(__DIR__) . '/denyaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess');
-chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0444);
+copy(CORE_SERVERPATH . '/denyaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess');
+chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', $chmod | 0311);
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck', 0777);
@@ -231,7 +231,7 @@ if (strpos($_config_contents, "\$conf['charset']") === false) {
 }
 
 if (strpos($_config_contents, "\$conf['special_pages']") === false) {
-	$template = file_get_contents(dirname(__DIR__) . '/netPhotoGraphics_cfg.txt');
+	$template = file_get_contents(CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt');
 	$i = strpos($template, "\$conf['special_pages']");
 	$j = strpos($template, '//', $i);
 	$k = strpos($_config_contents, '/** Do not edit below this line. **/');
@@ -347,7 +347,7 @@ $preferences = array('MySQLi' => 1, 'PDO_MySQL' => 2);
 $cur = 999999;
 $preferred = NULL;
 
-$dir = opendir(dirname(__DIR__));
+$dir = opendir(CORE_SERVERPATH);
 while (($engineMC = readdir($dir)) !== false) {
 	if (preg_match('/^functions-db-(.+)\.php/', $engineMC)) {
 		$engineMC = substr($engineMC, 13, -4);
@@ -373,7 +373,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
 			$confDB = $_conf_vars['db_software'];
-			if (extension_loaded(strtolower($confDB)) && file_exists(dirname(__DIR__) . '/functions-db-' . $confDB . '.php')) {
+			if (extension_loaded(strtolower($confDB)) && file_exists(CORE_SERVERPATH . '/functions-db-' . $confDB . '.php')) {
 				$selected_database = $confDB;
 			} else {
 				$selected_database = $preferred;
@@ -391,7 +391,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		}
 
 		if (!$selected_database) {
-			require_once(dirname(__DIR__) . '/functions-db-NULL.php');
+			require_once(CORE_SERVERPATH . '/functions-db-NULL.php');
 		}
 	} else {
 		// There is a problem with the configuration file
@@ -457,8 +457,8 @@ if ($selected_database) {
 	}
 }
 
-require_once(dirname(__DIR__) . '/admin-functions.php');
-require_once(dirname(__DIR__) . '/' . PLUGIN_FOLDER . '/security-logger.php');
+require_once(CORE_SERVERPATH . '/admin-functions.php');
+require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/security-logger.php');
 
 $system_check = !$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized());
 
@@ -1625,12 +1625,6 @@ clearstatcache();
 							$good = checkmark(file_exists($en_US), gettext('<em>locale</em> folders'), gettext('<em>locale</em> folders [Are not complete]'), gettext('Be sure you have uploaded the complete netPhotoGraphics package. You must have at least the <em>en_US</em> folder.')) && $good;
 							$good = folderCheck(gettext('uploaded'), SERVERPATH . '/' . UPLOAD_FOLDER . '/', 'std', NULL, false, $chmod | 0311, $updatechmod) && $good;
 							$good = folderCheck(DATA_FOLDER, SERVERPATH . '/' . DATA_FOLDER . '/', 'std', NULL, false, $chmod | 0311, $updatechmod) && $good;
-							if (is_dir(SERVERPATH . '/' . DATA_FOLDER . '/mutex')) {
-								npgFunctions::removeDir(SERVERPATH . '/' . DATA_FOLDER . '/mutex');
-							}
-							if (!is_dir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
-								mkdir(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER, $chmod | 0311);
-							}
 
 							$good = folderCheck(gettext('HTML cache'), SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/', 'std', $Cache_html_subfolders, true, $chmod | 0311, $updatechmod) && $good;
 							$good = folderCheck(gettext('Third party plugins'), USER_PLUGIN_SERVERPATH, 'std', $plugin_subfolders, true, $chmod | 0311, $updatechmod) && $good;

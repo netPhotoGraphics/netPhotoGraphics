@@ -38,17 +38,6 @@ if (!extension_loaded('intl')) {
 
 }
 
-if (function_exists('date_default_timezone_set')) { // insure a correct time zone
-	$tz = getOption('time_zone');
-	if (!empty($tz)) {
-		$err = error_reporting(0);
-		date_default_timezone_set($tz);
-		ini_set('date.timezone', $tz);
-		error_reporting($err);
-	}
-	unset($tz);
-}
-
 class i18n {
 
 	/**
@@ -113,21 +102,14 @@ class i18n {
 		global $_RTL_css;
 		$local2 = str_replace('ISO-', 'ISO', LOCAL_CHARSET);
 		$simple = explode('-', str_replace('_', '-', $locale));
+		$locale_hyphen = implode('-', $simple);
+		$locale_underscore = implode('_', $simple);
 
-		if (stristr(PHP_OS, 'WIN')) {
-			$locale = implode('-', $simple);
-		} else {
-			$locale = implode('_', $simple);
+		$try = [];
+		foreach (['.UTF8', '.UTF-8', '.@euro', '.' . $local2, '.' . LOCAL_CHARSET, ''] as $tag) {
+			$try[$locale_hyphen . $tag] = $locale_hyphen . $tag;
+			$try[$locale_underscore . $tag] = $locale_underscore . $tag;
 		}
-
-		//	with character sets
-		$try[$locale . '.UTF8'] = $locale . '.UTF8';
-		$try[$locale . '.UTF-8'] = $locale . '.UTF-8';
-		$try[$locale . '.@euro'] = $locale . '.@euro';
-		$try[$locale . '.' . $local2] = $locale . '.' . $local2;
-		$try[$locale . '.' . LOCAL_CHARSET] = $locale . '.' . LOCAL_CHARSET;
-
-		$try[$locale] = $locale;
 		$try[$simple[0]] = $simple[0];
 
 		$rslt = setlocale(LC_ALL, $try);
@@ -195,19 +177,22 @@ class i18n {
 	 */
 	static function setupCurrentLocale($override = NULL) {
 		global $_current_locale;
-		if (is_null($override)) {
+		if (empty($override)) {
 			$locale = getOption('locale');
 		} else {
 			$locale = $override;
 		}
 		$disallow = getSerializedArray(getOption('locale_disallowed'));
 		$languages = self::generateLanguageList();
+		if (empty($locale)) {
+			$locale = reset($languages);
+		}
 		if (isset($disallow[$locale])) {
-			if (DEBUG_LOCALE)
+			if (DEBUG_LOCALE) {
 				debugLogBacktrace("self::setupCurrentLocale($override): $locale denied by option.");
-			$locale = getOption('locale');
-			if (empty($locale) || isset($disallow[$locale])) {
-				$locale = reset($languages);
+			}
+			if (!$locale = reset($languages)) {
+				$locale = 'en_US';
 			}
 		}
 		// gettext setup
