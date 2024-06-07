@@ -207,7 +207,9 @@ if (isset($_GET['purge'])) {
 				case 'copy':
 					if ($exists) {
 						if ($link) {
+							$e = error_reporting(0);
 							chmod($folder . $target, 0777);
+							error_reporting($e);
 							if (is_dir($folder . $target)) {
 								// some systems treat it as a dir, others as a file!
 								$success = @rmdir($folder . $target);
