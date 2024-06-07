@@ -41,9 +41,6 @@ if (isset($_GET['purge'])) {
 			}
 		}
 
-
-		$justDirs = $targets;
-
 		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*.php');
 		foreach ($pluginFiles as $file) {
 			$pluginDir = USER_PLUGIN_FOLDER . '/' . stripSuffix(basename($file));
@@ -58,15 +55,37 @@ if (isset($_GET['purge'])) {
 		}
 		ksort($targets);
 
+		if (file_exists(SERVERPATH . '/.htaccess')) {
+			$htaccess = file_get_contents(SERVERPATH . '/.htaccess');
+			$htaccess = str_replace('RewriteBase ' . rtrim(WEBPATH, '/') . '/', 'RewriteBase /' . basename($folder) . '/', $htaccess);
+			if (file_exists($folder . '/.htaccess')) {
+				chmod($folder . '/.htaccess', 0777);
+				unlink($folder . '/.htaccess');
+			}
+			file_put_contents($folder . '/.htaccess', $htaccess);
+			chmod($folder . '/.htaccess', 0444);
+		}
+
 		if (!is_dir($folder . DATA_FOLDER)) {
-			if (file_exists($folder . ($old = '/zp-data'))) {
-				chmod($folder . $old, 0777);
-				rename($folder . $old, $folder . '/' . DATA_FOLDER);
+			if (file_exists($folder . 'zp-data')) {
+				chmod($folder . 'zp-data', 0777);
+				if (!rename($folder . 'zp-data', $folder . DATA_FOLDER)) {
+					$msg[] = gettext('The <code>zp-data</code> could not be renamed to <code>' . CONFIGFILE . '</code>.') . "<br />\n";
+					$success = false;
+				}
 			} else {
 				mkdir($folder . DATA_FOLDER);
 			}
 			chmod(SERVERPATH . '/' . DATA_FOLDER, FOLDER_MOD);
 		}
+
+		if (!file_exists($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
+			$path = str_replace(array(' ', '/'), '_', trim(str_replace(str_replace(WEBPATH, '/', SERVERPATH), '', $folder), '/')) . '_';
+			$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+			$_config_contents = configFile::update('mysql_prefix', $path, $_config_contents);
+			file_put_contents($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
+		}
+
 		foreach (array(internalToFilesystem('charset_tést.cfg'), internalToFilesystem('charset.tést')) as $charset) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . $charset)) {
 				if (file_exists($folder . DATA_FOLDER . '/' . $charset)) {
@@ -94,12 +113,8 @@ if (isset($_GET['purge'])) {
 		if (!is_dir($folder . THEMEFOLDER)) {
 			mkdir($folder . THEMEFOLDER);
 		}
-		if (!file_exists($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-			$path = str_replace(array(' ', '/'), '_', trim(str_replace(str_replace(WEBPATH, '/', SERVERPATH), '', $folder), '/')) . '_';
-			$_config_contents = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
-			$_config_contents = configFile::update('mysql_prefix', $path, $_config_contents);
-			file_put_contents($folder . '/' . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
-		}
+
+
 
 		foreach ($targets as $target => $type) {
 			$link = is_link($folder . $target);
