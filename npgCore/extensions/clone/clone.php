@@ -33,15 +33,30 @@ if (isset($_GET['purge'])) {
 		$success = true;
 		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir');
 
+		//	handle the user plugin folder
+		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*', GLOB_ONLYDIR);
+		foreach ($pluginFiles as $file) {
+			if (!file_exists($file . '.php')) {
+				$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = 'copy';
+			}
+		}
+
+
+		$justDirs = $targets;
+
 		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*.php');
 		foreach ($pluginFiles as $file) {
-			$targets[USER_PLUGIN_FOLDER . '/' . stripSuffix(basename($file))] = 'dir';
+			$pluginDir = USER_PLUGIN_FOLDER . '/' . stripSuffix(basename($file));
+			if (is_dir(SERVERPATH . '/' . $pluginDir)) {
+				$targets[$pluginDir] = 'dir';
+			}
 			$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = 'file';
 		}
 
 		foreach ($_gallery->getThemes() as $theme => $data) {
 			$targets[THEMEFOLDER . '/' . $theme] = 'dir';
 		}
+		ksort($targets);
 
 		if (!is_dir($folder . DATA_FOLDER)) {
 			if (file_exists($folder . ($old = '/zp-data'))) {
@@ -87,103 +102,122 @@ if (isset($_GET['purge'])) {
 		}
 
 		foreach ($targets as $target => $type) {
-			if (file_exists($folder . $target)) {
-				$link = is_link($folder . $target);
-				switch ($type) {
-					case 'dir':
+			$link = is_link($folder . $target);
+			$exists = $link || file_exists($folder . $target);
+			$target8 = filesystemToInternal($target);
+			switch ($type) {
+				case 'dir':
+					if ($exists) {
 						if ($link) {
-							// is a symlink
-							chmod($folder . $target, 0777);
+							@chmod($folder . $target, 0777);
 							$success = @rmdir($folder . $target);
 							if (!$success) { // some systems treat it as a dir, others as a file!
 								$success = @unlink($folder . $target);
 							}
-							if ($success) {
-								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
-									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
+						} else {
+							$success = npgFunctions::removeDir($folder . $target);
+						}
+					} else {
+						$success = true;
+					}
+
+					if ($success) {
+						if ($success = SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+							if ($exists) {
+								if ($link) {
+									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
 								} else {
-									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
-									$success = false;
-								}
-								if (file_exists($folder . $target)) {
-									chmod($folder . $target, FOLDER_MOD);
+									$msg[] = sprintf(gettext('The existing folder <code>%s</code> was replaced.'), $target8) . "<br />\n";
 								}
 							} else {
-								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
+								$msg[] = sprintf(gettext('Folder <code>%s</code> Link created.'), $target8) . "<br />\n";
 							}
 						} else {
-							// an actual folder
-							if (npgFunctions::removeDir($folder . $target)) {
-								if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
-									$msg[] = sprintf(gettext('The existing folder <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
+							if ($exists) {
+								if ($link) {
+									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was removed but Link creation failed.'), $target8) . "<br />\n";
 								} else {
-									$msg[] = sprintf(gettext('The existing folder <code>%1$s</code> was removed but Link creation failed.'), $target) . "<br />\n";
-									$success = false;
+									$msg[] = sprintf(gettext('The existing folder <code>%s</code> was removed but Link creation failed.'), $target8) . "<br />\n";
 								}
 							} else {
-								$msg[] = sprintf(gettext('The existing folder <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
-								$success = false;
+								$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target8) . "<br />\n";
 							}
 						}
-						break;
-
-					case 'file':
-						chmod($folder . $target, 0777);
-						if (unlink($folder . $target)) {
-							if (SYMLINK && symlink(SERVERPATH . '/' . $target, $folder . $target)) {
-								if ($link) {
-									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
-								} else {
-									$msg[] = sprintf(gettext('The existing file <code>%s</code> was replaced.'), $folder . filesystemToInternal($target)) . "<br />\n";
-								}
-							} else {
-								$msg[] = sprintf(gettext('The existing file <code>%s</code> was removed but Link creation failed.'), $target) . "<br />\n";
-								$success = false;
-							}
+					} else {
+						if ($link) {
+							sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $target8) . "<br />\n";
 						} else {
+							$msg[] = sprintf(gettext('The existing folder <code>%1$s</code> could not be removed.'), $target) . "<br />\n";
+						}
+					}
+
+					break;
+
+				case 'file':
+					if ($exists) {
+						@chmod($folder . $target, 0777);
+						if (!unlink($folder . $target)) {
 							if ($link) {
-								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
+								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $target8) . "<br />\n";
 							} else {
-								$msg[] = sprintf(gettext('The existing file <code>%s</code> could not be removed.'), $folder . filesystemToInternal($target)) . "<br />\n";
+								$msg[] = sprintf(gettext('The existing file <code>%s</code> could not be removed.'), $target8) . "<br />\n";
 							}
 							$success = false;
+							break;
 						}
-						chmod($folder . $target, FILE_MOD);
-						break;
-				}
-			} else {
-				if (SYMLINK && @symlink(realpath(SERVERPATH . '/' . $target), $folder . $target)) {
-					$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target) . "<br />\n";
-					switch ($target) {
-						case 'zp-core':
-							$core = 'npgCore';
-							break;
-						case 'npgCore':
-							$core = 'zp-core';
-							break;
-						default:
-							$core = '';
-							break;
 					}
-					if ($core && file_exists($folder . $core)) {
-						if (is_link($folder . $core)) {
-							$success = rmdir($folder . $core);
-							if (!$success) { // some systems treat it as a dir, others as a file!
-								$success = unlink($folder . $core);
+
+					if ($success = SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+						if ($exists) {
+							if ($link) {
+								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
+							} else {
+								$msg[] = sprintf(gettext('The existing file <code>%s</code> was replaced.'), $target8) . "<br />\n";
 							}
 						} else {
-							$success = npgFunctions::removeDir($folder . $core);
+							$msg[] = sprintf(gettext('<code>%s</code> Link created.'), $target8) . "<br />\n";
 						}
-						if ($success) {
-							$msg[] = sprintf(gettext('The existing folder <code>%s</code> was removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+					} else {
+						if ($exists) {
+							$msg[] = sprintf(gettext('The existing file <code>%s</code> was removed but Link creation failed.'), $target8) . "<br />\n";
 						} else {
-							$msg[] = sprintf(gettext('The existing folder <code>%s</code> could not be removed.'), $folder . filesystemToInternal($core)) . "<br />\n";
+							$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target8) . "<br />\n";
 						}
 					}
-				} else {
-					$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target) . "<br />\n";
-					$success = false;
-				}
+
+					break;
+
+				case 'copy':
+					if ($exists) {
+						if ($link) {
+							chmod($folder . $target, 0777);
+							if (is_dir($folder . $target)) {
+								// some systems treat it as a dir, others as a file!
+								$success = @rmdir($folder . $target);
+							} else {
+								$success = true;
+							}
+							if (!$success) {
+								$success = @unlink($folder . $target);
+							}
+						} else {
+							if (is_dir($folder . $target)) {
+								$success = npgFunctions::removeDir($folder . $target);
+							} else {
+								$success = @unlink($folder . $target);
+							}
+						}
+					} else {
+						$success = true;
+					}
+
+					if ($success && npgClone::copyDir(SERVERPATH . '/' . $target, $folder . $target)) {
+						$msg[] = sprintf(gettext('Folder <code>%s</code> coppied.'), $target8) . "<br />\n";
+					} else {
+						$msg[] = sprintf(gettext('Folder <code>%s</code> copy failed.'), $target8) . "<br />\n";
+					}
+
+					break;
 			}
 		}
 	}

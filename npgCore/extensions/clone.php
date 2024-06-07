@@ -101,6 +101,34 @@ if ($plugin_disable) {
 			return $clones;
 		}
 
+		static function copyDir($from, $to) {
+			if (is_dir($from) && ($dir = opendir($from)) !== false) {
+				if (!is_dir($to)) {
+					if (!file_exists($to)) {
+						if (!mkdir($to)) {
+							return false;
+						}
+					}
+				}
+				while (($file = readdir($dir)) !== false) {
+					if ($file != '.' && $file != '..') {
+						if ((is_dir($from . '/' . $file))) {
+							if (!self::copyDir($from . '/' . $file, $to . '/' . $file)) {
+								return false;
+							}
+						} else {
+							if (!copy($from . '/' . $file, $to . '/' . $file)) {
+								return false;
+							}
+						}
+					}
+				}
+				closedir($dir);
+				return true;
+			}
+			return false;
+		}
+
 	}
 
 }
