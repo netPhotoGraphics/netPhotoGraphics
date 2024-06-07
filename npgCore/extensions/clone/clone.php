@@ -114,8 +114,6 @@ if (isset($_GET['purge'])) {
 			mkdir($folder . THEMEFOLDER);
 		}
 
-
-
 		foreach ($targets as $target => $type) {
 			$link = is_link($folder . $target);
 			$exists = $link || file_exists($folder . $target);
@@ -124,11 +122,13 @@ if (isset($_GET['purge'])) {
 				case 'dir':
 					if ($exists) {
 						if ($link) {
-							@chmod($folder . $target, 0777);
-							$success = @rmdir($folder . $target);
+							$e = error_reporting(0);
+							chmod($folder . $target, 0777);
+							$success = rmdir($folder . $target);
 							if (!$success) { // some systems treat it as a dir, others as a file!
 								$success = @unlink($folder . $target);
 							}
+							error_reporting($e);
 						} else {
 							$success = npgFunctions::removeDir($folder . $target);
 						}
@@ -170,7 +170,9 @@ if (isset($_GET['purge'])) {
 
 				case 'file':
 					if ($exists) {
-						@chmod($folder . $target, 0777);
+						$e = error_reporting(0);
+						chmod($folder . $target, 0777);
+						error_reporting($e);
 						if (!unlink($folder . $target)) {
 							if ($link) {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $target8) . "<br />\n";
