@@ -36,7 +36,7 @@ if (isset($_GET['purge'])) {
 		//	handle the user plugin folder
 		$pluginFiles = safe_glob(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/*', GLOB_ONLYDIR);
 		foreach ($pluginFiles as $file) {
-			if (!file_exists($file . '.php')) {
+			if (!(file_exists($file . '.php') || is_link($file . '.php'))) {
 				$targets[USER_PLUGIN_FOLDER . '/' . basename($file)] = 'copy';
 			}
 		}
@@ -220,7 +220,7 @@ if (isset($_GET['purge'])) {
 					}
 
 					if ($success && npgClone::copyDir(SERVERPATH . '/' . $target, $folder . $target)) {
-						$msg[] = sprintf(gettext('Folder <code>%s</code> coppied.'), $target8) . "<br />\n";
+						$msg[] = sprintf(gettext('Folder <code>%s</code> copied.'), $target8) . "<br />\n";
 					} else {
 						$msg[] = sprintf(gettext('Folder <code>%s</code> copy failed.'), $target8) . "<br />\n";
 					}
