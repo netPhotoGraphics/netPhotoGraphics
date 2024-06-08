@@ -483,6 +483,7 @@ if ($newconfig || isset($_GET['copyhtaccess']) || $forcerewrite) {
 		if (file_exists(SERVERPATH . '/.htaccess')) {
 			chmod(SERVERPATH . '/.htaccess', 0777);
 		}
+		$newht = str_replace('/install_dir', rtrim(WEBPATH, '/') . '/', $newht);
 		file_put_contents(SERVERPATH . '/.htaccess', $newht);
 		chmod(SERVERPATH . '/.htaccess', 0444);
 	}

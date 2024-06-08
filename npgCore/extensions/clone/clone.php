@@ -55,17 +55,6 @@ if (isset($_GET['purge'])) {
 		}
 		ksort($targets);
 
-		if (file_exists(SERVERPATH . '/.htaccess')) {
-			$htaccess = file_get_contents(SERVERPATH . '/.htaccess');
-			$htaccess = str_replace('RewriteBase ' . rtrim(WEBPATH, '/') . '/', 'RewriteBase /' . basename($folder) . '/', $htaccess);
-			if (file_exists($folder . '/.htaccess')) {
-				chmod($folder . '/.htaccess', 0777);
-				unlink($folder . '/.htaccess');
-			}
-			file_put_contents($folder . '/.htaccess', $htaccess);
-			chmod($folder . '/.htaccess', 0444);
-		}
-
 		if (!is_dir($folder . DATA_FOLDER)) {
 			if (file_exists($folder . 'zp-data')) {
 				chmod($folder . 'zp-data', 0777);
