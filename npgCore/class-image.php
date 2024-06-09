@@ -447,9 +447,11 @@ class Image extends MediaObject {
 	);
 
 	private static function evalFraction($v) {
-		if (preg_match('~^(\d*)/(\d*)$~', $v, $matches)) {
-			if (isset($matches[2]) && $matches[2]) {
-				$v = strval($matches[1] / $matches[2]);
+		if (!empty($v)) {
+			if (preg_match('~^(\d*)/(\d*)$~', $v, $matches)) {
+				if (isset($matches[2]) && $matches[2]) {
+					$v = strval($matches[1] / $matches[2]);
+				}
 			}
 		}
 		return $v;
