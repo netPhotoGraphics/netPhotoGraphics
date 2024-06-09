@@ -28,9 +28,9 @@ if (isset($_GET['purge'])) {
 	$newinstall = trim(sanitize($_GET['cloneWebPath']), '/') . '/';
 	if (trim($folder, '/') == SERVERPATH) {
 		$msg[] = gettext('You attempted to clone to the master install.');
-		$success = false;
+		$succeed = false;
 	} else {
-		$success = true;
+		$succeed = true;
 		$targets = array('docs' => 'dir', CORE_FOLDER => 'dir');
 
 		//	handle the user plugin folder
@@ -60,7 +60,7 @@ if (isset($_GET['purge'])) {
 				chmod($folder . 'zp-data', 0777);
 				if (!rename($folder . 'zp-data', $folder . DATA_FOLDER)) {
 					$msg[] = gettext('The <code>zp-data</code> could not be renamed to <code>' . CONFIGFILE . '</code>.') . "<br />\n";
-					$success = false;
+					$succeed = false;
 				}
 			} else {
 				mkdir($folder . DATA_FOLDER);
@@ -88,13 +88,33 @@ if (isset($_GET['purge'])) {
 		if (file_exists($folder . USER_PLUGIN_FOLDER)) {
 			if (is_link($folder . USER_PLUGIN_FOLDER)) {
 				//	it is a symlink from older version of clone
-				chmod($folder . USER_PLUGIN_FOLDER, 0777);
-				$success = @rmdir($folder . USER_PLUGIN_FOLDER);
-				if (!$success) { // some systems treat it as a dir, others as a file!
-					$success = @unlink($folder . USER_PLUGIN_FOLDER);
+				$succeed = npgClone::rmlink($folder . USER_PLUGIN_FOLDER);
+			} else {
+				//	discard plugins that no longer exist
+				$pluginFiles = safe_glob($folder . USER_PLUGIN_FOLDER . '/*.php');
+				foreach ($pluginFiles as $file) {
+					$pluginDir = USER_PLUGIN_FOLDER . '/' . stripSuffix(basename($file));
+					if (is_link($folder . $pluginDir) && !isset($targets[$pluginDir])) {
+						$targets[$pluginDir] = 'discard';
+					}
+					if (is_link($folder . $pluginDir . '.php') && !isset($targets[$pluginDir . '.php'])) {
+						$targets[$pluginDir . '.php'] = 'discard';
+					}
 				}
 			}
 		}
+
+		if (file_exists($folder . THEMEFOLDER)) {
+			//	discard themes that no longer exist
+			$themeFiles = safe_glob($folder . THEMEFOLDER . '/*', GLOB_ONLYDIR);
+			foreach ($themeFiles as $file) {
+				$themeDir = THEMEFOLDER . '/' . basename($file);
+				if (is_link($folder . $themeDir) && !isset($targets[$themeDir])) {
+					$targets[$themeDir] = 'discard';
+				}
+			}
+		}
+
 		if (!is_dir($folder . USER_PLUGIN_FOLDER)) {
 			mkdir($folder . USER_PLUGIN_FOLDER);
 		}
@@ -103,28 +123,23 @@ if (isset($_GET['purge'])) {
 			mkdir($folder . THEMEFOLDER);
 		}
 
+		$success = true;
 		foreach ($targets as $target => $type) {
 			$link = is_link($folder . $target);
 			$exists = $link || file_exists($folder . $target);
 			$target8 = filesystemToInternal($target);
+
 			switch ($type) {
 				case 'dir':
 					if ($exists) {
 						if ($link) {
-							$e = error_reporting(0);
-							chmod($folder . $target, 0777);
-							$success = rmdir($folder . $target);
-							if (!$success) { // some systems treat it as a dir, others as a file!
-								$success = @unlink($folder . $target);
-							}
-							error_reporting($e);
+							$success = npgClone::rmlink($folder . $target);
 						} else {
 							$success = npgFunctions::removeDir($folder . $target);
 						}
 					} else {
 						$success = true;
 					}
-
 					if ($success) {
 						if ($success = SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
 							if ($exists) {
@@ -162,7 +177,7 @@ if (isset($_GET['purge'])) {
 						$e = error_reporting(0);
 						chmod($folder . $target, 0777);
 						error_reporting($e);
-						if (!unlink($folder . $target)) {
+						if (!npgClone::rmlink($folder . $target)) {
 							if ($link) {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> could not be removed.'), $target8) . "<br />\n";
 							} else {
@@ -196,18 +211,7 @@ if (isset($_GET['purge'])) {
 				case 'copy':
 					if ($exists) {
 						if ($link) {
-							$e = error_reporting(0);
-							chmod($folder . $target, 0777);
-							error_reporting($e);
-							if (is_dir($folder . $target)) {
-								// some systems treat it as a dir, others as a file!
-								$success = @rmdir($folder . $target);
-							} else {
-								$success = true;
-							}
-							if (!$success) {
-								$success = @unlink($folder . $target);
-							}
+							$success = npgClone::rmlink($folder . $target);
 						} else {
 							if (is_dir($folder . $target)) {
 								$success = npgFunctions::removeDir($folder . $target);
@@ -226,10 +230,21 @@ if (isset($_GET['purge'])) {
 					}
 
 					break;
+
+				case 'discard':
+					if (npgClone::rmlink($folder . $target)) {
+						$msg[] = sprintf(gettext('Obsolete symlink <code>%s</code> discarded.'), $target8) . "<br />\n";
+					} else {
+						$msg[] = sprintf(gettext('Obsolete symlink <code>%s</code> could not be removed.'), $target8) . "<br />\n";
+					}
+
+					break;
 			}
+
+			$succeed = $succeed && $success;
 		}
 	}
-	if ($success) {
+	if ($succeed) {
 		array_unshift($msg, '<h2>' . sprintf(gettext('Successful clone to %s'), $folder) . '</h2>' . "\n");
 		list($diff, $needs) = checkSignature(4);
 		if (empty($needs)) {
