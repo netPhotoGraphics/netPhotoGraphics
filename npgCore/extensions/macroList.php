@@ -36,8 +36,7 @@
  * 			<var>constant</var> replaces the macro instances with the constant provided.
  * 		</li>
  * 		<li>
- * 			<var>expression</var> evaluates the expression provided and replaces the instance with the result of the evaluation. If a regex is supplied for an expression.
- * 														The values provided will replace placeholders in the expression. The first parameter replaces $1, the second $2, etc.
+ * 			<var>expression</var> evaluates the expression provided and replaces the instance with the result of the evaluation. If a regex is supplied for an expression, the values provided will replace placeholders in the expression. The first parameter replaces $1, the second $2, etc.
  * 		</li>
  * 	</ol>
  *
