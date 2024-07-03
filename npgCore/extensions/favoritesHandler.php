@@ -399,6 +399,7 @@ if (OFFSET_PATH) {
 			}
 		}
 		$_myFavorites = new favorites($_current_admin_obj->getUser());
+		$_myFavorites_button_count = 0;
 
 		function printAddToFavorites($obj, $add = NULL, $remove = NULL) {
 			global $_myFavorites, $_current_admin_obj, $_gallery_page, $_myFavorites_button_count;
@@ -420,28 +421,19 @@ if (OFFSET_PATH) {
 			if ($_gallery_page == 'favorites.php') {
 				//	 only need one remove button since we know the instance
 				$multi = false;
-				$list = array($_myFavorites->instance);
+				$list = array($_myFavorites->instance => $_myFavorites->instance);
 			} else {
 				if ($multi = $_myFavorites->multi) {
 					$list = $_myFavorites->list;
 				} else {
 					$list = array('');
 				}
-				if (extensionEnabled('tag_suggest') && !$_myFavorites_button_count) {
-					$_myFavorites_button_count++;
-					$favList = array_slice($list, 1);
-					?>
-					<script>
-
-						var _favList = ['<?php echo implode("','", $favList); ?>'];
-						$(function () {
-							$('.favorite_instance').tagSuggest({tags: _favList})
-						});
-
-					</script>
-					<?php
-				}
 			}
+			$favList = $list;
+			unset($favList[0]);
+			asort($favList, SORT_NATURAL);
+			$_myFavorites_button_count++;
+
 			$seen = array_flip($list);
 			switch ($table) {
 				case 'images':
@@ -453,13 +445,22 @@ if (OFFSET_PATH) {
 						foreach ($images as $image) {
 							if ($image['folder'] == $obj->imagefolder && $image['filename'] == $obj->filename) {
 								$seen[$instance] = true;
-								favorites::ad_removeButton($obj, $id, 0, $remove, $instance, $multi);
+								unset($favList[$instance]);
+								favorites::ad_removeButton($obj, $id, 0, $remove, $instance, $multi, false);
 								break;
 							}
 						}
 					}
-					if ($multi || in_array(false, $seen))
-						favorites::ad_removeButton($obj, $id, 1, $add, NULL, $multi);
+					if ($multi || in_array(false, $seen)) {
+						favorites::ad_removeButton($obj, $id, $_myFavorites_button_count, $add, NULL, $multi, isset($seen['']) && $seen['']);
+						if (extensionEnabled('tag_suggest')) {
+							?>
+							<script>
+								$('#favorite_instance_<?php echo $_myFavorites_button_count; ?>').tagSuggest({tags: ['<?php echo implode("','", $favList); ?>']});
+							</script>
+							<?php
+						}
+					}
 					break;
 				case 'albums':
 					$id = $obj->name;
@@ -470,13 +471,22 @@ if (OFFSET_PATH) {
 						foreach ($albums as $album) {
 							if ($album == $id) {
 								$seen[$instance] = true;
-								favorites::ad_removeButton($obj, $id, 0, $remove, $instance, $multi);
+								unset($favList[$instance]);
+								favorites::ad_removeButton($obj, $id, 0, $remove, $instance, $multi, false);
 								break;
 							}
 						}
 					}
-					if ($multi || in_array(false, $seen))
-						favorites::ad_removeButton($obj, $id, 1, $add, NULL, $multi);
+					if ($multi || in_array(false, $seen)) {
+						favorites::ad_removeButton($obj, $id, $_myFavorites_button_count, $add, NULL, $multi, isset($seen['']) && $seen['']);
+						if (extensionEnabled('tag_suggest')) {
+							?>
+							<script>
+								$('#favorite_instance_<?php echo $_myFavorites_button_count; ?>').tagSuggest({tags: ['<?php echo implode("','", $favList); ?>']});
+							</script>
+							<?php
+						}
+					}
 					break;
 				default:
 					//We do not handle these.
@@ -529,4 +539,3 @@ if (OFFSET_PATH) {
 
 	}
 }
-?>
