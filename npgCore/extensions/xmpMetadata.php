@@ -29,7 +29,7 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @package plugins/xmpMetadata
+ * @package plugins/xmpmetadata
  * @pluginCategory media
  */
 $plugin_is_filter = 9 | CLASS_PLUGIN;
@@ -37,33 +37,35 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Extracts <em>XMP</em> metadata from images and <code>XMP</code> sidecar files.');
 }
 
-$option_interface = 'xmpMetadata';
+$option_interface = 'xmpmetadata';
 
-npgFilters::register('album_instantiate', 'xmpMetadata::album_instantiate');
-npgFilters::register('new_album', 'xmpMetadata::new_album');
-npgFilters::register('album_refresh', 'xmpMetadata::new_album');
-npgFilters::register('image_instantiate', 'xmpMetadata::image_instantiate');
-npgFilters::register('image_metadata', 'xmpMetadata::new_image');
-npgFilters::register('upload_filetypes', 'xmpMetadata::sidecars');
-npgFilters::register('save_album_data', 'xmpMetadata::putXMP');
-npgFilters::register('edit_album_utilities', 'xmpMetadata::create');
-npgFilters::register('save_image_data', 'xmpMetadata::putXMP');
-npgFilters::register('edit_image_utilities', 'xmpMetadata::create');
-npgFilters::register('bulk_image_actions', 'xmpMetadata::bulkActions');
-npgFilters::register('bulk_album_actions', 'xmpMetadata::bulkActions');
+npgFilters::register('album_instantiate', 'xmpmetadata::album_instantiate');
+npgFilters::register('new_album', 'xmpmetadata::new_album');
+npgFilters::register('album_refresh', 'xmpmetadata::new_album');
+npgFilters::register('image_instantiate', 'xmpmetadata::image_instantiate');
+npgFilters::register('image_metadata', 'xmpmetadata::new_image');
+npgFilters::register('upload_filetypes', 'xmpmetadata::sidecars');
+npgFilters::register('save_album_data', 'xmpmetadata::putXMP');
+npgFilters::register('edit_album_utilities', 'xmpmetadata::create');
+npgFilters::register('save_image_data', 'xmpmetadata::putXMP');
+npgFilters::register('edit_image_utilities', 'xmpmetadata::create');
+npgFilters::register('bulk_image_actions', 'xmpmetadata::bulkActions');
+npgFilters::register('bulk_album_actions', 'xmpmetadata::bulkActions');
 
-$ext = getOption('xmpMetadata_suffix');
+$ext = getOption('xmpmetadata_suffix');
 if (is_null($ext)) {
 	$ext = 'xmp';
 }
 define('XMP_EXTENSION', strtolower($ext));
 unset($ext);
 
+require_once (CORE_SERVERPATH . 'lib-metadata.php');
+
 /**
  * Plugin option handling class
  *
  */
-class xmpMetadata {
+class xmpmetadata {
 
 	private static $XML_trans = array(
 			'&#128;' => '€',
@@ -568,11 +570,11 @@ class xmpMetadata {
 	/**
 	 * Class instantiation function
 	 *
-	 * @return xmpMetadata_options
+	 * @return xmpmetadata_options
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('xmpMetadata_suffix', 'xmp');
+			setOptionDefault('xmpmetadata_suffix', 'xmp');
 		}
 	}
 
@@ -591,11 +593,11 @@ class xmpMetadata {
 		$listi = array();
 		localeSort($list);
 		foreach ($list as $suffix) {
-			$listi[$suffix] = 'xmpMetadata_examine_images_' . $suffix;
+			$listi[$suffix] = 'xmpmetadata_examine_images_' . $suffix;
 		}
-		return array(gettext('Sidecar file extension') => array('key' => 'xmpMetadata_suffix', 'type' => OPTION_TYPE_TEXTBOX,
+		return array(gettext('Sidecar file extension') => array('key' => 'xmpmetadata_suffix', 'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext('The plugin will look for files with <em>image_name.extension</em> and extract XMP metadata from them into the <em>image_name</em> record.')),
-				gettext('Process extensions') => array('key' => 'xmpMetadata_examine_imagefile', 'type' => OPTION_TYPE_CHECKBOX_UL,
+				gettext('Process extensions') => array('key' => 'xmpmetadata_examine_imagefile', 'type' => OPTION_TYPE_CHECKBOX_UL,
 						'checkboxes' => $listi,
 						'desc' => gettext('If no sidecar file exists and the extension is enabled, the plugin will search within that type <em>image</em> file for an <code>XMP</code> block. <strong>Warning</strong> do not set this option unless you require it. Searching image files can be computationally intensive.'))
 		);
@@ -618,9 +620,9 @@ class xmpMetadata {
 	 * @author Stephen Billard
 	 * @Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
 	 */
-	static function getMetadataFields() {
+	static function getmetadataFields() {
 		$fields = array(
-				// Database Field      => array(0:'source', 1:'Metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
+				// Database Field      => array(0:'source', 1:'metadata Key', 2;'Display Text', 3:Display?	4:size,	5:enabled, 6:type, 7:linked)
 				'XMPAperatureValue' => array('XMP', '<exif:AperatureValue>', gettext('Aperature Value'), false, 52, true, 'string', false),
 				'XMPArtist' => array('XMP', '<dc:creator>', gettext('Artist'), false, 52, true, 'string', false),
 				'XMPContrast' => array('XMP', '<exif:Contrast>', gettext('Contrast Setting'), false, 52, true, 'string', false),
@@ -679,7 +681,7 @@ class xmpMetadata {
 				'codeblock' => '<npg:codeblock>'
 		);
 
-		foreach (self::getMetadataFields()as $field => $item) {
+		foreach (self::getmetadataFields()as $field => $item) {
 			if ($item[METADATA_FIELD_ENABLED]) {
 				$desiredtags[$field] = strtolower($item[1]);
 			}
@@ -860,78 +862,6 @@ class xmpMetadata {
 		return false;
 	}
 
-	/**
-	 * convert a fractional representation to something more user friendly
-	 *
-	 * @param $element string
-	 * @return string
-	 */
-	private static function rationalNum($element) {
-		// deal with the fractional representation
-		$n = explode('/', $element);
-		$v = sprintf('%f', $n[0] / $n[1]);
-		for ($i = strlen($v) - 1; $i > 1; $i--) {
-			if ($v[$i] != '0')
-				break;
-		}
-		if ($v[$i] == '.')
-			$i--;
-		return substr($v, 0, $i + 1);
-	}
-
-	/**
-	 * Converts a floating point number into a simple fraction.
-	 *
-	 * This function has been amended to work better with actual
-	 * camera data. In particular, the tolerance computation is
-	 * completely changed.
-	 *
-	 * Changes are Copyright 2015 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
-	 *
-	 * @param float $v	NOTE: this must not be a string with European decimal separators
-	 * @return string fractional representation of $v
-	 */
-	private static function convertToFraction($v) {
-		if ($v == 0) {
-			return "0";
-		} else if ($v > 1) {
-			for ($n = 0; $n < 5; $n++) {
-				$x = round($v, $n);
-				if (abs($v - $x) < 0.005) {
-					break;
-				}
-			}
-			return $x;
-		} else {
-			for ($n = 1; $n < 100; $n++) {
-				$d = round(1 / $v * $n, 0);
-				if (abs($n / $d - $v) < 0.00005) {
-					break;
-				}
-			}
-			return "$n/$d";
-		}
-	}
-
-	/**
-	 * Formats the exposure data for display
-	 *
-	 * @param type $data
-	 * @return string
-	 */
-	private static function formatExposure($data) {
-		if (strpos($data, '/') === false) {
-			$data = floatval(str_replace(',', '.', $data)); // deal with European decimal separator
-			if ($data >= 1) {
-				return round($data, 2) . ' ' . 'sec';
-			} else {
-				return self::convertToFraction($data) . ' sec';
-			}
-		} else {
-			return 'bulb';
-		}
-	}
-
 	private static function encode($str) {
 		return strtr($str, array_flip(self::$XML_trans));
 	}
@@ -953,7 +883,7 @@ class xmpMetadata {
 	 */
 	static function new_image($image) {
 		$source = '';
-		if (getOption('xmpMetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
+		if (getOption('xmpmetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
 			$metadata_path = $image->localpath;
 		} else {
 			$metadata_path = '';
@@ -985,10 +915,10 @@ class xmpMetadata {
 
 				$metadata = self::extract($source);
 				if (!empty($metadata)) {
-					$exifVars = self::getMetadataFields();
+					$exifVars = self::getmetadataFields();
 					foreach ($metadata as $field => $element) {
 						if (!array_key_exists($field, $exifVars) || $exifVars[$field][METADATA_FIELD_ENABLED]) {
-							$image->set('hasMetadata', 1);
+							$image->set('hasmetadata', 1);
 							$v = self::to_string($element);
 							if (($key = array_search($field, $import)) !== false) {
 								$image->set($key, $v);
@@ -1020,18 +950,18 @@ class xmpMetadata {
 										$image->setDateTime($element);
 										break;
 									case 'XMPExposureTime':
-										$v = self::formatExposure(self::rationalNum($element));
+										$v = metadata::exposure(metadata::rationalNum($element));
 										break;
 									case 'XMPFocalLength':
-										$v = self::rationalNum($element) . ' mm';
+										$v = metadata::rationalNum($element) . ' mm';
 										break;
 									case 'XMPAperatureValue':
 									case 'XMPFNumber':
-										$v = 'f/' . self::rationalNum($element);
+										$v = 'f/' . metadata::rationalNum($element);
 										break;
 									case 'XMPExposureBiasValue':
 									case 'XMPGPSAltitude':
-										$v = self::rationalNum($element);
+										$v = metadata::rationalNum($element);
 										break;
 									case 'XMPGPSLatitude':
 									case 'XMPGPSLongitude':
@@ -1052,7 +982,7 @@ class xmpMetadata {
 											foreach ($matches[1] as $i => $f) {
 												$term = explode('/', $f);
 												if ($term[0] != 0 && $term[1] != 0) {
-													$lens[$i] = self::convertToFraction($term[0] / $term[1]);
+													$lens[$i] = metadata::toFraction($term[0] / $term[1]);
 												} else {
 													$lens[$i] = 0;
 												}
@@ -1220,7 +1150,7 @@ class xmpMetadata {
 		fclose($f);
 		clearstatcache();
 		chmod($file, FILE_MOD);
-		return gettext('Metadata exported');
+		return gettext('metadata exported');
 	}
 
 	static function create($html, $object, $prefix) {
@@ -1232,16 +1162,16 @@ class xmpMetadata {
 	}
 
 	static function bulkActions($actions) {
-		return array_merge($actions, array(gettext('Export metadata') => 'xmpMetadata::publish'));
+		return array_merge($actions, array(gettext('Export metadata') => 'xmpmetadata::publish'));
 	}
 
 }
 
-function xmpMetadata_enable($enabled) {
+function xmpmetadata_enable($enabled) {
 	if ($enabled) {
 		//establish defaults for display and disable
 		$display = $disable = array();
-		$exifvars = xmpMetadata::getMetadataFields();
+		$exifvars = xmpmetadata::getmetadataFields();
 		foreach ($exifvars as $key => $item) {
 			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
@@ -1256,7 +1186,7 @@ function xmpMetadata_enable($enabled) {
 	} else {
 		$report = gettext('XMP metadata fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
-	requestSetup('XMP Metadata', $report);
+	requestSetup('XMP metadata', $report);
 }
 
 ?>

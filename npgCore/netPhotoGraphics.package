@@ -760,6 +760,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/lib-Imagick.php
 %core%/lib-json.php
 %core%/lib-kses.php
+%core%/lib-metadata.php
 %core%/lib-MimeTypes.php
 %core%/lib-NoGraphics.php
 %core%/lib-pclzip.php
@@ -20352,4 +20353,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20354
+20355
