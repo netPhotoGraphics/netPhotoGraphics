@@ -1263,10 +1263,12 @@ function storeTags($tags, $id, $tbl) {
 		foreach ($tags as $key => $tag) {
 			$dbtag = query_single_row("SELECT `id` FROM " . prefix('tags') . " WHERE `name`=" . db_quote($key));
 			if (!is_array($dbtag)) { // tag does not exist
-				query($sql = 'INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ')', false);
+				query('INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ')', false);
 				$dbtag = array('id' => db_insert_id());
 			}
-			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "')");
+			if (!query_single_row('SELECT `id` FROM ' . prefix('obj_to_tag') . ' WHERE `objectid`=' . $id . ' AND `tagid`=' . $dbtag['id'] . ' AND `type`="' . $tbl . '"')) { //	new for this object
+				query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "')");
+			}
 		}
 	}
 }
