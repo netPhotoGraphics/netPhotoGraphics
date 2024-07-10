@@ -102,7 +102,7 @@ class Metadata {
 				if (isset($matches[2]) && $matches[2]) {
 					if ($matches[2] == 1) {
 						return $matches[1];
-					} else {
+					} else if ($matches[2] != 0) {
 						$v = sprintf('%f', $matches[1] / $matches[2]);
 						for ($i = strlen($v) - 1; $i > 1; $i--) {
 							if ($v[$i] != '0')
