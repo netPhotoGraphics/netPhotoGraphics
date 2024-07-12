@@ -1263,15 +1263,13 @@ function storeTags($tags, $id, $tbl) {
 		foreach ($tags as $key => $tag) {
 			$dbtag = query_single_row("SELECT `id` FROM " . prefix('tags') . " WHERE `name`=" . db_quote($key));
 			if (!is_array($dbtag)) { // tag does not exist
-				query('INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ')', false);
+				query('INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ') ', false);
 				$dbtag = array('id' => db_insert_id());
 			}
 			//	NOTE: MySQL comparisons treat characters with diacritical marks as equal to
 			//	the un-accented character so the above code to detect existing tags is flawed.
-			//	Therefore we check to be sure before adding the tag to the object to avoid duplicates.
-			if (!query_single_row('SELECT `id` FROM ' . prefix('obj_to_tag') . ' WHERE `objectid`=' . $id . ' AND `tagid`=' . $dbtag['id'] . ' AND `type`="' . $tbl . '"')) { //	new for this object
-				query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "')");
-			}
+			//	so we tell MySQL to do nothing if an entry already exists
+			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "') ON DUPLICATE KEY UPDATE id=id");
 		}
 	}
 }

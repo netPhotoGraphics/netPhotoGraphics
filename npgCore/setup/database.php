@@ -105,15 +105,18 @@ foreach (getDBTables() as $table) {
 	}
 	foreach ($indices as $keyname => $index) {
 		if (count($index) > 1) {
-			$column = array();
+			$size = $column = array();
 			foreach ($index as $element) {
 				$column[] = "`" . $element['Column_name'] . "`";
+				$size[] = $element['Sub_part'];
 			}
 			$index = reset($index);
 			$index['Column_name'] = implode(',', $column);
+			$index['Size'] = implode(',', $size);
 		} else {
 			$index = reset($index);
 			$index['Column_name'] = "`" . $index['Column_name'] . "`";
+			$index['Size'] = $index['Sub_part'];
 		}
 		unset($index['Table']);
 		unset($index['Seq_in_index']);
@@ -378,9 +381,22 @@ foreach ($template as $tablename => $table) {
 	if (isset($table['keys'])) {
 		foreach ($table['keys'] as $key => $index) {
 			$string = "ALTER TABLE " . prefix($tablename) . ' ADD ';
-			$i = $k = $index['Column_name'];
+			$k = $index['Column_name'];
+			$i = explode(',', $k);
 			if (!empty($index['Sub_part'])) {
 				$k .= " (" . $index['Sub_part'] . ")";
+			} else {
+				if (count($i) > 1) {
+					$k = '';
+					$s = explode(',', $index['Size']);
+					foreach ($i as $ix => $v) {
+						if ($s[$ix]) {
+							$v .= '(' . $s[$ix] . ')';
+						}
+						$k .= $v . ',';
+					}
+					$k = rtrim($k, ',');
+				}
 			}
 
 			if ($index['Non_unique']) {
@@ -389,7 +405,7 @@ foreach ($template as $tablename => $table) {
 			} else {
 				$string .= "UNIQUE ";
 				$u = "UNIQUE `$key`";
-				$uniquekeys[$tablename][$key] = explode(',', $i);
+				$uniquekeys[$tablename][$key] = $i;
 			}
 
 			$alterString = "$string`$key` ($k)";
