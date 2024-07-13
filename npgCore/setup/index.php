@@ -1792,7 +1792,7 @@ clearstatcache();
 							} else {
 								//	if the install is a new version, the version.php script define will not be updated
 								//	by the debug plugin yet, so we fecth the actual option.
-								$_debug = getOption('markRelease_state');
+								$_debug = strval(getOption('markRelease_state'));
 							}
 							if ((bool) strpos($_debug, 'UNPROTECT')) {
 								$query = '';
