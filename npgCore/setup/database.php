@@ -116,7 +116,6 @@ foreach (getDBTables() as $table) {
 		} else {
 			$index = reset($index);
 			$index['Column_name'] = "`" . $index['Column_name'] . "`";
-			$index['Size'] = $index['Sub_part'];
 		}
 		unset($index['Table']);
 		unset($index['Seq_in_index']);
