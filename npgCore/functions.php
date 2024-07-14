@@ -1269,7 +1269,7 @@ function storeTags($tags, $id, $tbl) {
 			//	NOTE: MySQL comparisons treat characters with diacritical marks as equal to
 			//	the un-accented character so the above code to detect existing tags is flawed.
 			//	so we tell MySQL to do nothing if an entry already exists
-			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "') ON DUPLICATE KEY UPDATE id=id");
+			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "') ON DUPLICATE KEY UPDATE `id`=`id`");
 		}
 	}
 }
