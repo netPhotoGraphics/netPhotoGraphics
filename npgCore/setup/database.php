@@ -382,9 +382,7 @@ foreach ($template as $tablename => $table) {
 			$string = "ALTER TABLE " . prefix($tablename) . ' ADD ';
 			$k = $index['Column_name'];
 			$i = explode(',', $k);
-			if (!empty($index['Sub_part'])) {
-				$k .= " (" . $index['Sub_part'] . ")";
-			} else {
+			if (isset($index['Size'])) {
 				if (count($i) > 1) {
 					$k = '';
 					$s = explode(',', $index['Size']);
@@ -396,6 +394,8 @@ foreach ($template as $tablename => $table) {
 					}
 					$k = rtrim($k, ',');
 				}
+			} else {
+				$k .= " (" . $index['Sub_part'] . ")";
 			}
 
 			if ($index['Non_unique']) {
