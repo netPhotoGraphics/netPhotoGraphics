@@ -305,6 +305,9 @@ foreach ($template as $tablename => $table) {
 			$dbType = strtoupper($field['Type']);
 			$string = "ALTER TABLE " . prefix($tablename) . " %s `" . $field['Field'] . "` " . $dbType;
 			switch ($field['Collation']) {
+				case 'utf8mb4_bin':
+					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_bin';
+					break;
 				case 'utf8mb4_unicode_ci':
 					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 					break;
@@ -312,6 +315,9 @@ foreach ($template as $tablename => $table) {
 				case 'utf8mb3_unicode_ci':
 					$string .= ' CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci';
 					$field['Collation'] = 'utf8mb3_unicode_ci';
+					break;
+				case 'utf8mb3_bin':
+					$string .= ' CHARACTER SET utf8mb3 COLLATE utf8mb3_bin';
 					break;
 			}
 			if ($field['Null'] === 'NO') {
