@@ -81,6 +81,14 @@ foreach ($renames as $change) {
 }
 unset($_tableFields);
 
+$tagkeys = query_full_array('SHOW KEYS FROM ' . prefix('tags'));
+foreach ($tagkeys as $tagkey) {
+	if ($tagkey['Column_name'] == 'name' && is_null($tagkey['Sub_part'])) {
+		//	set key size so changing the  tag:name field to utf8mb4 succeeds
+		query("ALTER TABLE " . prefix('tags') . " DROP INDEX `name`, ADD UNIQUE `name` (`name`(191), `language`) USING BTREE COMMENT 'npg'");
+	}
+}
+
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
