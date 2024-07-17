@@ -315,7 +315,8 @@ foreach ($template as $tablename => $table) {
 			switch ($field['Collation']) {
 				case 'utf8mb4_0900_as_ci':
 				case 'utf8mb4_bin':
-					$string .= ' CHARACTER SET utf8mb4 COLLATE ' . TAG_NAME_FIELD_COLLATION;
+					$string .= ' CHARACTER SET utf8mb4 COLLATE ' . UTF8MB4_AS_FIELD_COLLATION;
+					$field['Collation'] = UTF8MB4_AS_FIELD_COLLATION; //	avoid DB update notice
 					break;
 				case 'utf8mb4_unicode_ci':
 					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';

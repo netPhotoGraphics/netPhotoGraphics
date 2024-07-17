@@ -120,11 +120,11 @@ foreach ($col = query_full_array("SHOW COLLATION WHERE Charset = 'utf8mb4'") as 
 }
 unset($collation);
 if ($as_ci) {
-	define('TAG_NAME_FIELD_COLLATION', 'utf8mb4_0900_as_ci');
-	define('TAG_NAME_DISPLAY_COLLATION', 'utf8mb4_0900_ai_ci');
+	define('UTF8MB4_AS_FIELD_COLLATION', 'utf8mb4_0900_as_ci');
+	define('UTF8MB4_AS_DISPLAY_COLLATION', 'utf8mb4_0900_ai_ci');
 } else {
-	define('TAG_NAME_FIELD_COLLATION', 'utf8mb4_bin');
-	define('TAG_NAME_DISPLAY_COLLATION', 'utf8mb4_unicode_ci');
+	define('UTF8MB4_AS_FIELD_COLLATION', 'utf8mb4_bin');
+	define('UTF8MB4_AS_DISPLAY_COLLATION', 'utf8mb4_unicode_ci');
 }
 
 primeOptions();
