@@ -1756,7 +1756,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$_admin_ordered_taglist_order = $tagsort;
 			switch ($tagsort) {
 				case 'language':
-					$order = '`language` DESC,`name` COLLATE utf8mb4_unicode_ci';
+					$order = '`language` DESC,`name` COLLATE ' . TAG_NAME_DISPLAY_COLLATION;
 					break;
 				case 'recent':
 					$order = '`id` DESC';
@@ -1765,10 +1765,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$order = '`count` DESC';
 					break;
 				case 'private':
-					$order = '`private` DESC, `name` COLLATE utf8mb4_unicode_ci';
+					$order = '`private` DESC, `name` COLLATE ' . TAG_NAME_DISPLAY_COLLATION;
 					break;
 				default:
-					$order = '`name` COLLATE utf8mb4_unicode_ci';
+					$order = '`name` COLLATE ' . TAG_NAME_DISPLAY_COLLATION;
 					break;
 			}
 			$masters = $translations = $_admin_ordered_taglist = $languages = array();
