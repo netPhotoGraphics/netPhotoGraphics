@@ -90,7 +90,17 @@
 	<body>
 <h1>netPhotoGraphics release notes</h1><h2 style="text-align: center;">Version 2.01.00.13</h2>
 <h2>General</h2>
-<p>No change notes yet.</p>
+<p>netPhotoGraphics has been updated to deal with PHP 8x deprecation changes. The nature of these deprecations makes it near impossible to anticipate all changes needed. Should you receive a deprecation notice please report it via the GitHub issues mechanism.</p>
+<h2>Language support</h2>
+<p>Tags are now accent sensitive. Prior to this release <em>tag </em>searching and naming uerd MySQL "ci" collation. That collation treated uppercase letters equal to the lower case equivalent. Accented characters were treated equal to their un-accented equivalent. E.g. C, <em>c, Ç, </em>and <em>ç</em> were all equivalent. Now C and <em>c,</em> are equivalent but different from<em> Ç, </em>and <em>ç.</em></p>
+<h2>Plugins</h2>
+<p>The following plugins have been deprecated:</p>
+<div style="padding-left: 20px;"><em>folderRename</em><br /><em>ipBlocker</em><br /><em>jCarousel_thumb_nav</em><br /><em>lazyImage</em><br /><em>slideshow2</em><br /><em>text_watermark</em><br /><em>twitterLogin</em><br /><em>uploader_jQuery</em></div>
+<div style="padding-left: 20px;"><em> </em></div>
+<div>
+<p><strong>clone</strong></p>
+<p>The clone's user plugin folder is now loosely the master folder. This allows for the clone to be customised differently from the master.</p>
+</div>
 <h2 style="text-align: center;">Version 2.01</h2>
 <h2>General</h2>
 <p>The site will be automatically closed when the <em>extract.php</em> script is unzipping files. This is done by closing the site when there is an <em>extract.php</em> script present in the root folder of the installation. The extract process removes this script upon completion. <strong>BUT</strong>, if for some reason the script is left in the root folder, the site will be closed. The only way to access the administrative pages in that case is by using a direct file (not rewritten) link to <code>npgCore/admin.php</code>.</p>
@@ -114,12 +124,11 @@
 <p><strong>Note:</strong> If you have cloned your install and your server does not support symlinks you will need to re-clone the clones to copy the renamed themes.</p>
 <h2>Plugins</h2>
 <p>The following plugins have been deprecated:</p>
-<div style="padding-left: 20px;"><em>class-WebDocs</em></div>
-<div style="padding-left: 20px;"><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filter-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import<br /><br /></em></div>
+<div style="padding-left: 20px;"><em>class-WebDocs</em><br /><em>disableAction</em><br /><em>disableWatermark</em><br /><em>filter-fileSearches</em><br /><em>image_effects</em><br /><em>no_show</em><br /><em>overrideEXIFDesc</em><br /><em>singleAlbum</em><br /><em>text_watermark</em><br /><em>themeEditor</em><br /><em>tweet_news</em><br /><em>wordpress_import</em></div>
+<div style="padding-left: 20px;"><em> </em></div>
 <p>They have been moved to the <em>Plugin</em> folder and will be dropped from the <strong>netPhotoGraphics</strong> repository in a future release. When they are dropped, the <em>Plugin</em> will be added to the DevTools repository. At that point no effort will be made to keep them current with the <strong>netPhotoGraphic</strong> releases. If you are using any of these <em>Plugins</em> you should make plans to either keep them current or find alternative scripts to satisfy your needs.</p>
-<p><strong>ipBlocker</strong></p>
-<p>The plugin now looks for import lists within the <code>plugin</code>folder. If your site has uploaded an import list to the <code>uploads</code>folder you will need to move it to the <code>plugins</code>folder for it to be available to the <code>import list</code> option. A list of the standard <em>private </em> IP address ranges in supplied with the distribution.</p>
-<p>The plugin no longer monitors failed logins or 404 errors. 404 errors are a subset of denial of service attacks. You should use the <strong>accessThreshold</strong> plugin go protect against denial of service attacks. If you are experiencing login attacks you should block the IP address range from which the attacks originate.</p>
+<p><strong>clone</strong></p>
+<p>The clone's user plugin folder is now loosely the master folder. This allows for the clone to be customised differently from the master.</p>
 <h2>swipe_gestures</h2>
 <p>A new plugin that allows using swipe left and right to move between pages in a sequence on touch screen devices.</p>
 <h2>class-AnyFile</h2>
