@@ -65,6 +65,18 @@ class userAddressFields extends fieldExtender {
 				),
 				array(
 						'table' => 'administrators',
+						'name' => 'company',
+						'desc' => gettext('Company'),
+						'type' => 'tinytext'
+				),
+				array(
+						'table' => 'administrators',
+						'name' => 'phone',
+						'desc' => gettext('Phone'),
+						'type' => 'tinytext'
+				),
+				array(
+						'table' => 'administrators',
 						'name' => 'street',
 						'desc' => gettext('Street'),
 						'type' => 'tinytext'
