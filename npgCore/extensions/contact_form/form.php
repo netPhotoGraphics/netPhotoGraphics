@@ -60,7 +60,7 @@ if (function_exists('showOrNotShowField')) {
 			?>
 			<p>
 				<label for="state"><?php printf(gettext("State%s"), $req = checkRequiredField(getOption('contactform_state'))); ?></label>
-				<input type="text" id="state" name="state" size="50" value="<?php echo html_encode($mailcontent['city']); ?>" class="inputbox"<?php if ($_processing_post) echo ' disabled="disabled"';elseif ($req) echo ' required'; ?> />
+				<input type="text" id="state" name="state" size="50" value="<?php echo html_encode($mailcontent['state']); ?>" class="inputbox"<?php if ($_processing_post) echo ' disabled="disabled"';elseif ($req) echo ' required'; ?> />
 			</p>
 			<?php
 		}
