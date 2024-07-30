@@ -111,6 +111,22 @@ if (!$__initialDBConnection && OFFSET_PATH != 2) {
 	_setup(13);
 }
 
+$as_ci = false;
+foreach ($col = query_full_array("SHOW COLLATION WHERE Charset = 'utf8mb4'") as $collation) {
+	if ($collation['Collation'] == 'utf8mb4_0900_as_ci') {
+		$as_ci = true;
+		break;
+	}
+}
+unset($collation);
+if ($as_ci) {
+	define('UTF8MB4_AS_FIELD_COLLATION', 'utf8mb4_0900_as_ci');
+	define('UTF8MB4_AS_DISPLAY_COLLATION', 'utf8mb4_0900_ai_ci');
+} else {
+	define('UTF8MB4_AS_FIELD_COLLATION', 'utf8mb4_bin');
+	define('UTF8MB4_AS_DISPLAY_COLLATION', 'utf8mb4_unicode_ci');
+}
+
 primeOptions();
 
 define('SITE_LOCALE', getOption('locale'));

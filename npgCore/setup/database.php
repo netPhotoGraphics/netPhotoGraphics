@@ -81,6 +81,14 @@ foreach ($renames as $change) {
 }
 unset($_tableFields);
 
+$tagkeys = query_full_array('SHOW KEYS FROM ' . prefix('tags'));
+foreach ($tagkeys as $tagkey) {
+	if ($tagkey['Column_name'] == 'name' && is_null($tagkey['Sub_part'])) {
+		//	set key size so changing the  tag:name field to utf8mb4 succeeds
+		query("ALTER TABLE " . prefix('tags') . " DROP INDEX `name`, ADD UNIQUE `name` (`name`(191), `language`) USING BTREE COMMENT 'npg'");
+	}
+}
+
 foreach (getDBTables() as $table) {
 	$tablecols = db_list_fields($table);
 	foreach ($tablecols as $key => $datum) {
@@ -105,12 +113,14 @@ foreach (getDBTables() as $table) {
 	}
 	foreach ($indices as $keyname => $index) {
 		if (count($index) > 1) {
-			$column = array();
+			$size = $column = array();
 			foreach ($index as $element) {
 				$column[] = "`" . $element['Column_name'] . "`";
+				$size[] = $element['Sub_part'];
 			}
 			$index = reset($index);
 			$index['Column_name'] = implode(',', $column);
+			$index['Size'] = implode(',', $size);
 		} else {
 			$index = reset($index);
 			$index['Column_name'] = "`" . $index['Column_name'] . "`";
@@ -303,6 +313,11 @@ foreach ($template as $tablename => $table) {
 			$dbType = strtoupper($field['Type']);
 			$string = "ALTER TABLE " . prefix($tablename) . " %s `" . $field['Field'] . "` " . $dbType;
 			switch ($field['Collation']) {
+				case 'utf8mb4_0900_as_ci':
+				case 'utf8mb4_bin':
+					$string .= ' CHARACTER SET utf8mb4 COLLATE ' . UTF8MB4_AS_FIELD_COLLATION;
+					$field['Collation'] = UTF8MB4_AS_FIELD_COLLATION; //	avoid DB update notice
+					break;
 				case 'utf8mb4_unicode_ci':
 					$string .= ' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
 					break;
@@ -310,6 +325,9 @@ foreach ($template as $tablename => $table) {
 				case 'utf8mb3_unicode_ci':
 					$string .= ' CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci';
 					$field['Collation'] = 'utf8mb3_unicode_ci';
+					break;
+				case 'utf8mb3_bin':
+					$string .= ' CHARACTER SET utf8mb3 COLLATE utf8mb3_bin';
 					break;
 			}
 			if ($field['Null'] === 'NO') {
@@ -378,8 +396,21 @@ foreach ($template as $tablename => $table) {
 	if (isset($table['keys'])) {
 		foreach ($table['keys'] as $key => $index) {
 			$string = "ALTER TABLE " . prefix($tablename) . ' ADD ';
-			$i = $k = $index['Column_name'];
-			if (!empty($index['Sub_part'])) {
+			$k = $index['Column_name'];
+			$i = explode(',', $k);
+			if (isset($index['Size'])) {
+				if (count($i) > 1) {
+					$k = '';
+					$s = explode(',', $index['Size']);
+					foreach ($i as $ix => $v) {
+						if ($s[$ix]) {
+							$v .= '(' . $s[$ix] . ')';
+						}
+						$k .= $v . ',';
+					}
+					$k = rtrim($k, ',');
+				}
+			} else {
 				$k .= " (" . $index['Sub_part'] . ")";
 			}
 
@@ -389,7 +420,7 @@ foreach ($template as $tablename => $table) {
 			} else {
 				$string .= "UNIQUE ";
 				$u = "UNIQUE `$key`";
-				$uniquekeys[$tablename][$key] = explode(',', $i);
+				$uniquekeys[$tablename][$key] = $i;
 			}
 
 			$alterString = "$string`$key` ($k)";

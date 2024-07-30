@@ -1226,6 +1226,44 @@ function getAllTagsUnique($language = NULL, $count = 1, $returnCount = NULL) {
 }
 
 /**
+ * Stores a tag if it does not exist
+ *
+ * @param type $tag
+ * @param type $private
+ * @param type $language
+ * @return boolean
+ */
+function create_update_tag($tag, $language = NULL, $private = NULL, $masterid = NULL) {
+	$set = $where = $fields = $values = '';
+	if (!is_null($masterid)) {
+		$fields .= ',masterid';
+		$values .= ',' . $masterid;
+		$set = ', `masterid`=' . $masterid;
+	}
+	if (!is_null($private)) {
+		$fields .= ',private';
+		$values .= ',' . $private;
+		$set = ', `private`=' . $private;
+	}
+	if (!is_null($language)) {
+		$fields .= ',language';
+		$values .= ',' . db_quote($language);
+		$where = ' AND `language`=' . db_quote($language);
+		$set = ', `language`=' . db_quote($language);
+	}
+	$dbtag = query_single_row('SELECT * FROM ' . prefix('tags') . ' WHERE LOWER(`name`)=LOWER(' . db_quote($tag) . ')' . $where);
+	if (empty($dbtag)) {
+		// tag does not exist, add it
+		query('INSERT INTO ' . prefix('tags') . ' (name' . $fields . ') VALUES (' . db_quote($tag) . $values . ') ', false);
+		return db_insert_id();
+	} else {
+		// update it
+		query('UPDATE ' . prefix('tags') . ' SET `name`=' . db_quote($tag) . $set . ' WHERE `id`=' . $dbtag['id']);
+		return $dbtag['id'];
+	}
+}
+
+/**
  * Stores tags for an object
  *
  * @param array $tags the tag values
@@ -1244,14 +1282,14 @@ function storeTags($tags, $id, $tbl) {
 				}
 			}
 		}
+
 		$sql = "SELECT `id`, `tagid` from " . prefix('obj_to_tag') . " WHERE `objectid`='" . $id . "' AND `type`='" . $tbl . "'";
 		$result = query($sql);
 		$existing = array();
 		if ($result) {
 			while ($row = db_fetch_assoc($result)) {
 				$dbtag = query_single_row("SELECT `name` FROM " . prefix('tags') . " WHERE `id`='" . $row['tagid'] . "'");
-				$existingLC = mb_strtolower($dbtag['name']);
-				if (in_array($existingLC, $tagsLC)) { // tag already set no action needed
+				if ($dbtag && in_array($existingLC = mb_strtolower($dbtag['name']), $tagsLC)) { // tag already set no action needed
 					$existing[] = $existingLC;
 				} else { // tag no longer set, remove it
 					query("DELETE FROM " . prefix('obj_to_tag') . " WHERE `id`='" . $row['id'] . "'");
@@ -1259,14 +1297,10 @@ function storeTags($tags, $id, $tbl) {
 			}
 			db_free_result($result);
 		}
-		$tags = array_diff($tagsLC, $existing); // new tags for the object
-		foreach ($tags as $key => $tag) {
-			$dbtag = query_single_row("SELECT `id` FROM " . prefix('tags') . " WHERE `name`=" . db_quote($key));
-			if (!is_array($dbtag)) { // tag does not exist
-				query('INSERT INTO ' . prefix('tags') . ' (name) VALUES (' . db_quote($key) . ')', false);
-				$dbtag = array('id' => db_insert_id());
-			}
-			query("INSERT INTO " . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $dbtag['id'] . ",'" . $tbl . "')");
+		$new_tags = array_diff($tagsLC, $existing); // new tags for the object
+		foreach ($new_tags as $key => $tag) {
+			$tagID = create_update_tag($tag);
+			query('INSERT INTO ' . prefix('obj_to_tag') . "(`objectid`, `tagid`, `type`) VALUES (" . $id . "," . $tagID . ",'" . $tbl . "') ON DUPLICATE KEY UPDATE `id`=`id`");
 		}
 	}
 }

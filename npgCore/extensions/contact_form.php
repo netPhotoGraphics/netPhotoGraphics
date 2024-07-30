@@ -423,9 +423,22 @@ function printContactForm($subject_override = '') {
 	} else {
 		if (count($error) <= 0) {
 			if (npg_loggedin()) {
-				$mailcontent = array('title' => '', 'name' => $_current_admin_obj->getName(), 'company' => '', 'street' => '', 'city' => '', 'state' => '',
-						'country' => '', 'postal' => '', 'email' => $_current_admin_obj->getEmail(), 'website' => '', 'phone' => '',
-						'subject' => $subject_override, 'message' => '', 'honeypot' => '');
+				$mailcontent = array(
+						'title' => '',
+						'name' => $_current_admin_obj->getName(),
+						'company' => '',
+						'street' => '',
+						'city' => '',
+						'state' => '',
+						'country' => '',
+						'postal' => '',
+						'email' => $_current_admin_obj->getEmail(),
+						'website' => '',
+						'phone' => '',
+						'subject' => $subject_override,
+						'message' => '',
+						'honeypot' => ''
+				);
 				if (class_exists('userAddressFields')) {
 					$address = userAddressFields::getCustomDataset($_current_admin_obj);
 					foreach ($address as $key => $field) {
@@ -433,8 +446,22 @@ function printContactForm($subject_override = '') {
 					}
 				}
 			} else {
-				$mailcontent = array('title' => '', 'name' => '', 'company' => '', 'street' => '', 'city' => '', 'st ate' => '', 'country' => '', 'email' => '',
-						'postal' => '', 'website' => '', 'phone' => '', 'subject' => $subject_override, 'message' => '', 'honeypot' => '');
+				$mailcontent = array(
+						'title' => '',
+						'name' => '',
+						'company' => '',
+						'street' => '',
+						'city' => '',
+						'state' => '',
+						'country' => '',
+						'email' => '',
+						'postal' => '',
+						'website' => '',
+						'phone' => '',
+						'subject' => $subject_override,
+						'message' => '',
+						'honeypot' => ''
+				);
 			}
 		}
 		echo get_language_string(getOption("contactform_introtext"));

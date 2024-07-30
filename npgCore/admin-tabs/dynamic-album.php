@@ -35,8 +35,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 			if ($_POST['create_tagged'] == 'static') {
 				//	create the tag
 				$words = sanitize($_POST['album_tag']);
-				$success = query('INSERT INTO ' . prefix('tags') . ' (`name`,`private`) VALUES (' . db_quote($words) . ', "1")', false);
-
+				$success = create_update_tag(sanitize($_POST['album_tag']), NULL, 1);
 				if (isset($_POST['return_unpublished'])) {
 					$search->setSearchUnpublished();
 				}
@@ -298,7 +297,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 			</tr>
 
 			<script>
-				
+
 				function setTagged(state) {
 					if (state) {
 						$('#album_tag').show();
@@ -308,7 +307,7 @@ echo "<h1>" . gettext("Create Dynamic Album") . "</h1>\n";
 						$('#album_tag').hide();
 					}
 				}
-				
+
 			</script>
 
 			<tr>

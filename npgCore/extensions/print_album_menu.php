@@ -241,23 +241,23 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 					$currenturalbumname = $currenturalbum->name;
 				}
 			}
-			$count = 0;
+			$count_display = '';
 			if ($showcount) {
 				$toplevelsubalbums = $albumobj->getAlbums();
 				$toplevelsubalbums = count($toplevelsubalbums);
 				$topalbumnumimages = $albumobj->getNumImages();
 				if ($topalbumnumimages + $toplevelsubalbums > 0) {
-					$count = ' <span style="white-space:nowrap;"><small>(';
+					$count_display = ' <span style="white-space:nowrap;"><small>(';
 					if ($toplevelsubalbums > 0) {
-						$count .= sprintf(ngettext('%u album', '%u albums', $toplevelsubalbums), $toplevelsubalbums);
+						$count_display .= sprintf(ngettext('%u album', '%u albums', $toplevelsubalbums), $toplevelsubalbums);
 					}
 					if ($topalbumnumimages > 0) {
 						if ($toplevelsubalbums) {
-							$count .= ' ';
+							$count_display .= ' ';
 						}
-						$count .= sprintf(ngettext('%u image', '%u images', $topalbumnumimages), $topalbumnumimages);
+						$count_display .= sprintf(ngettext('%u image', '%u images', $topalbumnumimages), $topalbumnumimages);
 					}
-					$count .= ')</small></span>';
+					$count_display .= ')</small></span>';
 				}
 			}
 
@@ -280,9 +280,9 @@ function printAlbumMenuListAlbum($albums, $folder, $option, $showcount, $showsub
 			}
 
 			if ($firstimagelink && $albumobj->getNumImages() != 0) {
-				$link = '<li class="' . $current . '"><a href="' . html_encode($albumobj->getImage(0)->getLink()) . '" title="' . html_encode($titleattr) . '">' . html_encode($display) . '</a>' . $count;
+				$link = '<li class="' . $current . '"><a href="' . html_encode($albumobj->getImage(0)->getLink()) . '" title="' . html_encode($titleattr) . '">' . html_encode($display) . '</a>' . $count_display;
 			} else {
-				$link = '<li class="' . $current . '"><a href="' . html_encode($albumobj->getLink(1)) . '" title="' . html_encode($titleattr) . '">' . html_encode($display) . '</a>' . $count;
+				$link = '<li class="' . $current . '"><a href="' . html_encode($albumobj->getLink(1)) . '" title="' . html_encode($titleattr) . '">' . html_encode($display) . '</a>' . $count_display;
 			}
 			echo $link;
 		}
@@ -351,11 +351,11 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 
 				foreach ($albums as $album) {
 					$albumobj = newAlbum($album['name'], true);
-					$count = '';
+					$count_display = '';
 					if ($option == "count") {
 						$numimages = $albumobj->getNumImages();
 						if ($numimages != 0) {
-							$count = " (" . $numimages . ")";
+							$count_display = " (" . $numimages . ")";
 						}
 					}
 					$sortorder = count($album['sort_order']);
@@ -367,9 +367,9 @@ function printAlbumMenuJump($option = "count", $indexname = "Gallery Index", $fi
 					}
 					$selected = checkSelectedAlbum($albumobj->name, "album");
 					if ($firstimagelink && $numimages != 0) {
-						$link = "<option $selected value='" . html_encode($albumobj->getImage(0)->getLink()) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count . "</option>";
+						$link = "<option $selected value='" . html_encode($albumobj->getImage(0)->getLink()) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count_display . "</option>";
 					} else {
-						$link = "<option $selected value='" . html_encode($albumobj->getLink(1)) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count . "</option>";
+						$link = "<option $selected value='" . html_encode($albumobj->getLink(1)) . "'>" . $arrow . truncate_string(getBare($albumobj->getTitle()), 50) . $count_display . "</option>";
 					}
 					echo $link;
 				}

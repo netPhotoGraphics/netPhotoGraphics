@@ -228,9 +228,12 @@ class Controller {
 	 */
 	static function load_gallery() {
 		global $_current_album, $_current_album_restore, $__albums,
-		$_current_image, $_current_image_restore, $__images, $_current_comment,
-		$_comments, $_current_context, $_current_search,
-		$_CMS_current_page, $_CMS_current_category, $_post_date, $_pre_authorization;
+		$_current_image, $_current_image_restore, $__images,
+		$_current_comment, $_comments,
+		$_current_context, $_current_search,
+		$_CMS_current_page, $_CMS_current_category, $_CMS_current_article,
+		$_post_date, $_pre_authorization;
+
 		$_current_album = NULL;
 		$_current_album_restore = NULL;
 		$__albums = NULL;

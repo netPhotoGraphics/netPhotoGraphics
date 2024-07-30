@@ -15,6 +15,7 @@ admin_securityChecks(TAGS_RIGHTS, currentRelativeURL());
 $_GET['page'] = 'tags';
 
 $tagsort = getTagOrder();
+
 $action = '';
 if (isset($_GET['action'])) {
 	$subaction = array();
@@ -26,13 +27,12 @@ if (isset($_GET['action'])) {
 			foreach ($_POST['new_tag'] as $value) {
 				if (!empty($value)) {
 					$value = html_decode(sanitize($value, 3));
-					$success = query('INSERT INTO ' . prefix('tags') . ' (`name`,`language`) VALUES (' . db_quote($value) . ',' . db_quote($language) . ')', false);
-					if ($success) {
+					$master = create_update_tag($value, $language);
+					if ($master) {
 						if ($multi) {
-							$master = db_insert_id();
 							foreach (i18n::generateLanguageList(false)as $text => $dirname) {
 								if ($dirname != $language) {
-									query('INSERT INTO ' . prefix('tags') . ' (`name`, `masterid`,`language`) VALUES (' . db_quote($value) . ',' . $master . ',' . db_quote($dirname) . ')', false);
+									create_update_tag($value, $language, NULL, $master);
 								}
 							}
 						}
@@ -139,8 +139,7 @@ if (isset($_GET['action'])) {
 									//create subtags
 									foreach ($languageList as $text => $dirname) {
 										if ($dirname != $language) {
-											$sql = 'INSERT INTO ' . prefix('tags') . ' (`name`, `masterid`,`language`) VALUES (' . db_quote($tagname) . ',' . $tagelement['id'] . ',' . db_quote($dirname) . ')';
-											query($sql);
+											create_update_tag($tagname, $dirname, NULL, $tagelement['id']);
 										}
 									}
 								} else if (empty($language)) {
@@ -168,8 +167,8 @@ if (isset($_GET['action'])) {
 				if (!empty($newName) && $newName != $oldNames[$key]) {
 					$lang = $languages[$key];
 					$newName = sanitize($newName, 3);
-					$newtag = query_single_row('SELECT `id` FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($newName) . ' AND `language`=' . db_quote($lang));
-					$oldtag = query_single_row('SELECT `id` FROM ' . prefix('tags') . ' WHERE `name`=' . db_quote($oldNames[$key]) . ' AND `language`=' . db_quote($lang));
+					$newtag = query_single_row('SELECT `id` FROM ' . prefix('tags') . ' WHERE LOWER(`name`)=LOWER(' . db_quote($newName) . ') AND `language`=' . db_quote($lang));
+					$oldtag = query_single_row('SELECT `id` FROM ' . prefix('tags') . ' WHERE LOWER(`name`)=LOWER(' . db_quote($oldNames[$key]) . ') AND `language`=' . db_quote($lang));
 					if (is_array($newtag)) { // there is an existing tag of the same name
 						$existing = $newtag['id'] != $oldtag['id']; // but maybe it is actually the original in a different case.
 					} else {
@@ -177,8 +176,8 @@ if (isset($_GET['action'])) {
 					}
 					if ($existing) {
 						$subaction[] = ltrim(sprintf(gettext('%1$s: %2$s not changed, duplicate tag.'), $lang, $oldNames[$key]), ': ');
-					} else {
-						query('UPDATE ' . prefix('tags') . ' SET `name`=' . db_quote($newName) . ' WHERE `id`=' . $oldtag['id']) . ' AND `language`=' . db_quote($lang);
+					} else if (!empty($oldtag)) {
+						query('UPDATE ' . prefix('tags') . ' SET `name` = ' . db_quote($newName) . ' WHERE `id` = ' . $oldtag['id']);
 					}
 				}
 			}
@@ -213,10 +212,10 @@ printAdminHeader('admin');
 						$br = '';
 						foreach ($subaction as $action) {
 							$flag = '';
-							if (preg_match('~([a-z]{2}_*[A-Z]{0,2}.*):\s*(.*)~', $action, $matches)) {
+							if (preg_match('~([a-z]{2}_*[A-Z]{0, 2}.*):\s*(.*)~', $action, $matches)) {
 								$action = $matches[2];
 								if ($matches[1]) {
-									$flag = '<img src="' . getLanguageFlag($matches[1]) . '" height="10" width="15" /> ';
+									$flag = '<img src = "' . getLanguageFlag($matches[1]) . '" height = "10" width = "15" /> ';
 								}
 							}
 							echo $br . $flag . $action;
@@ -229,13 +228,12 @@ printAdminHeader('admin');
 			}
 
 			npgFilters::apply('admin_note', 'tags', '');
-
 			echo "<h1>" . gettext("Tag Management") . "</h1>";
+			echo gettext('Order by');
 			?>
-			<?php echo gettext('Order by'); ?>
 
 			<select name="tagsort" id="tagsort_selector" class="ignoredirty" onchange="window.location = '?tagsort=' + $('#tagsort_selector').val();">
-				<option value="alpha" <?php if ($tagsort == 'alpha') echo ' selected="selected"'; ?>><?php echo gettext('Alphabetic'); ?></option>
+				<option value = "alpha" <?php if ($tagsort == 'alpha') echo ' selected="selected"'; ?>><?php echo gettext('Alphabetic'); ?></option>
 				<option value="mostused" <?php if ($tagsort == 'mostused') echo ' selected="selected"'; ?>><?php echo gettext('Most used'); ?></option>
 				<option value="language" <?php if ($tagsort == 'language') echo ' selected="selected"'; ?>><?php echo gettext('Language'); ?></option>
 				<option value="recent" <?php if ($tagsort == 'recent') echo ' selected="selected"'; ?>><?php echo gettext('Most recent'); ?></option>

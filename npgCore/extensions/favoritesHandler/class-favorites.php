@@ -65,7 +65,16 @@ class favorites extends AlbumBase {
 		} else {
 			$subtype = 'NULL';
 		}
-		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("favoritesHandler",' . $subtype . ',' . db_quote($this->getInstance()) . ',' . db_quote(serialize(array('type' => 'images', 'id' => $folder . '/' . $filename))) . ')';
+		$db_instance = db_quote($this->getInstance());
+		$db_data = db_quote(serialize(array('type' => 'images', 'id' => $folder . '/' . $filename)));
+		if (query_single_row('SELECT * FROM ' . prefix('plugin_storage') .
+										' WHERE `type`="favoritesHandler"' .
+										' AND `subtype`=' . $subtype .
+										' AND `aux`=' . $db_instance .
+										' AND `data`=' . $db_data)) {
+			return; //	already a favorite
+		}
+		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("favoritesHandler",' . $subtype . ',' . $db_instance . ',' . $db_data . ')';
 		query($sql);
 		npgFilters::apply('favoritesHandler_action', 'add', $img, $this->name);
 	}
@@ -85,7 +94,16 @@ class favorites extends AlbumBase {
 		} else {
 			$subtype = 'NULL';
 		}
-		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("favoritesHandler",' . $subtype . ',' . db_quote($this->getInstance()) . ',' . db_quote(serialize(array('type' => 'albums', 'id' => $folder))) . ')';
+		$db_instance = db_quote($this->getInstance());
+		$db_data = db_quote(serialize(array('type' => 'albums', 'id' => $folder)));
+		if (query_single_row('SELECT * FROM ' . prefix('plugin_storage') .
+										' WHERE `type`="favoritesHandler"' .
+										' AND `subtype`=' . $subtype .
+										' AND `aux`=' . $db_instance .
+										' AND `data`=' . $db_data)) {
+			return; //	already a favorite
+		}
+		$sql = 'INSERT INTO ' . prefix('plugin_storage') . ' (`type`, `subtype`, `aux`,`data`) VALUES ("favoritesHandler",' . $subtype . ',' . $db_instance . ',' . $db_data . ')';
 		query($sql);
 		npgFilters::apply('favoritesHandler_action', 'add', $alb, $this->name);
 	}
@@ -153,7 +171,7 @@ class favorites extends AlbumBase {
 				if (isset($aux[1])) {
 					$instance = $aux[1];
 					if (is_null($list_type)) {
-						$instance = '[' . $instance . ']';
+						$instance = ' [' . $instance . ']';
 					}
 				} else {
 					$instance = '';
@@ -337,7 +355,7 @@ class favorites extends AlbumBase {
 		return npgFilters::apply('getLink', rewrite_path($link, $link_no), 'favorites.php', $page);
 	}
 
-	static function ad_removeButton($obj, $id, $v, $add, $instance, $multi) {
+	static function ad_removeButton($obj, $id, $v, $add, $instance, $multi, $required) {
 		global $_myFavorites;
 		$table = $obj->table;
 		if ($v) {
@@ -346,7 +364,7 @@ class favorites extends AlbumBase {
 			$tag = '_remove';
 		}
 		if ($instance && $multi) {
-			$add .= '[' . $instance . ']';
+			$add .= ' [' . $instance . ']';
 		}
 		?>
 		<form name="<?php echo $table . $obj->getID(); ?>Favorites_<?php echo $instance . $tag; ?>" class = "<?php echo $table; ?>Favorites<?php echo $tag; ?>"  action = "<?php echo html_encode(getRequestURI()); ?>" method = "post" accept-charset = "UTF-8">
@@ -359,7 +377,7 @@ class favorites extends AlbumBase {
 			if ($multi) {
 				?>
 				<span class="tagSuggestContainer">
-					<input type="text" name="instance" class="favorite_instance" value="" />
+					<input type="text" name="instance" id="favorite_instance_<?php echo $v; ?>" class="favorite_instance" value=""<?php if ($required) echo ' required'; ?> />
 				</span>
 				<?php
 			}
