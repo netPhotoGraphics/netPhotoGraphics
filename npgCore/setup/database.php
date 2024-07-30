@@ -411,7 +411,7 @@ foreach ($template as $tablename => $table) {
 					$k = rtrim($k, ',');
 				}
 			} else {
-				$k .= " (" . $index['Sub_part'] . ")";
+				$k .= $index['Sub_part'];
 			}
 
 			if ($index['Non_unique']) {
