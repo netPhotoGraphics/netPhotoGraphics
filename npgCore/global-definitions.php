@@ -94,6 +94,7 @@ if (isset($_debug[1])) {
 
 define('TEST_RELEASE', !empty($_debug));
 define('DISPLAY_ERRORS', (bool) strpos($_debug, 'DISPLAY‑ERRORS')); // set to true to have PHP show errors on the web pages
+define('DEBUG_403', (bool) strpos($_debug, '403')); // set to true to log 403 error processing debug information.
 define('DEBUG_404', (bool) strpos($_debug, '404')); // set to true to log 404 error processing debug information.
 define('EXPLAIN_SELECTS', (bool) strpos($_debug, 'EXPLAIN')); //	set to true to log the "EXPLAIN" of SQL SELECT queries
 define('DEBUG_FILTERS', (bool) strpos($_debug, 'FILTERS')); // set to true to log filter application sequence.
