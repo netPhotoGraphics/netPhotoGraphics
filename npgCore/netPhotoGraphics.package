@@ -915,8 +915,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/zenpage.php
 %extensions%/zoomImage.php
 %extensions%/accessThreshold
-%extensions%/accessThreshold/admin_tab.php
 %extensions%/accessThreshold/ip_list.php
+%extensions%/accessThreshold/log_tab.php
 %extensions%/bxslider_thumb_nav
 %extensions%/bxslider_thumb_nav/jquery.bxslider.min.css
 %extensions%/bxslider_thumb_nav/jquery.bxslider.min.js

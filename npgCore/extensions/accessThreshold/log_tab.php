@@ -184,7 +184,7 @@ echo "\n</head>";
 				}
 				?>
 				<div class="tabbox">
-					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
+					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/log_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
 						<input type="hidden" name="data_sortyb" value="<?php echo $_REQUEST['data_sortby']; ?>" >
 						<span class="nowrap">
 							<?php echo gettext('Sort by:'); ?>

@@ -48,6 +48,7 @@ class accessThreshold {
 
 			setOptionDefault('accessThreshold_LIMIT', 100);
 			setOptionDefault('accessThreshold_Monitor', TRUE);
+			setOptionDefault('accessThreshold_Log', TRUE);
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 				if (isset($recentIP['config'])) {
@@ -90,6 +91,9 @@ class accessThreshold {
 				gettext('Mointor only') => array('key' => 'accessThreshold_Monitor', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 7,
 						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
+				gettext('Log Suspension') => array('key' => 'accessThreshold_Log', 'type' => OPTION_TYPE_CHECKBOX,
+						'order' => 7,
+						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Clear list') => array('key' => 'accessThreshold_CLEAR', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 99,
 						'value' => 0,
@@ -105,14 +109,14 @@ class accessThreshold {
 		purgeOption('accessThreshold_CLEAR');
 	}
 
-	static function admin_tabs($tabs) {
+	static function log_tabs($tabs) {
 		global $_current_admin_obj;
 
 		if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
-			$tabs['logs']['subtabs'][gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/admin_tab.php?page=logs&tab=access';
+			$tabs['logs']['subtabs'][gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/log_tab.php?page=logs&tab=access';
 			if (!$tabs['logs']['default']) {
 				$tabs['logs']['default'] = gettext("access");
-				$tabs['logs']['link'] = getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php') . '?page=logs&tab=access';
+				$tabs['logs']['link'] = getAdminLink(PLUGIN_FOLDER . '/accessThreshold/log_tab.php') . '?page=logs&tab=access';
 			}
 		}
 		return $tabs;
@@ -269,7 +273,7 @@ class accessThreshold {
 }
 
 if (OFFSET_PATH) {
-	npgFilters::register('admin_tabs', 'accessThreshold::admin_tabs', -100);
+	npgFilters::register('log_tabs', 'accessThreshold::log_tabs', -100);
 	npgFilters::register('installation_information', 'accessThreshold::accessCount');
 	if (OFFSET_PATH == 2) {
 		setOption('accessThreshold_Owner', getUserIP());
@@ -306,6 +310,7 @@ if (extensionEnabled('accessThreshold')) {
 			$recentIP[$ip] = array(
 					'accessed' => array(),
 					'blocked' => 0,
+					'timesBlocked' => isset($recentIP[$ip]['timesBlocked']) ? $recentIP[$ip]['timesBlocked'] : 0,
 					'interval' => 0
 			);
 		}
@@ -337,8 +342,15 @@ if (extensionEnabled('accessThreshold')) {
 			}
 			$recentIP[$ip]['interval'] = $__interval;
 			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
-				npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
+				if (getOption('accessThreshold_Log')) {
+					npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
+				}
 				$recentIP[$ip]['blocked'] = 2;
+				if (isset($recentIP[$ip]['timesBlocked'])) {
+					$recentIP[$ip]['timesBlocked']++;
+				} else {
+					$recentIP[$ip]['timesBlocked'] = 1;
+				}
 			}
 		}
 		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
