@@ -111,7 +111,6 @@ class accessThreshold {
 
 	static function log_tabs($tabs) {
 		global $_current_admin_obj;
-
 		if ((npg_loggedin(ADMIN_RIGHTS) && $_current_admin_obj->getID())) {
 			$tabs['logs']['subtabs'][gettext("access")] = PLUGIN_FOLDER . '/accessThreshold/log_tab.php?page=logs&tab=access';
 			if (!$tabs['logs']['default']) {
@@ -273,7 +272,7 @@ class accessThreshold {
 }
 
 if (OFFSET_PATH) {
-	npgFilters::register('log_tabs', 'accessThreshold::log_tabs', -100);
+	npgFilters::register('admin_tabs', 'accessThreshold::log_tabs', -100);
 	npgFilters::register('installation_information', 'accessThreshold::accessCount');
 	if (OFFSET_PATH == 2) {
 		setOption('accessThreshold_Owner', getUserIP());
