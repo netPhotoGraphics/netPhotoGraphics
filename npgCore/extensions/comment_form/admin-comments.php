@@ -358,9 +358,7 @@ printLogoAndLinks();
 						<?php
 						if ($totalpages > 1) {
 							?>
-							<span align="center">
-								<?php adminPageNav($pagenum, $totalpages, 'admin-comments.php', $fulltexturl); ?>
-							</span>
+							<span align="center">								<?php adminPageNav($pagenum, $totalpages, 'admin-comments.php', $fulltexturl); ?>							</span>
 							<?php
 						}
 						?>
