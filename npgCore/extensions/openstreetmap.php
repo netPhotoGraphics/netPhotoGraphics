@@ -71,30 +71,24 @@ class openStreetMapOptions {
 				gettext('Map dimensions—width') => array(
 						'key' => 'osmap_width',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 1,
 						'desc' => gettext("Width of the map including the unit name e.g 100% (default for responsive map), 100px or 100em.")),
 				gettext('Map dimensions—height') => array(
 						'key' => 'osmap_height',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 2,
 						'desc' => gettext("Height of the map including the unit name e.g 100% (default for responsive map), 100px or 100em.")),
 				gettext('Map zoom') => array(
 						'key' => 'osmap_zoom',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 3,
 						'desc' => gettext("Default zoom level.")),
 				gettext('Map minimum zoom') => array(
 						'key' => 'osmap_minzoom',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 5,
 						'desc' => gettext("Default minimum zoom level possible.")),
 				gettext('Map maximum zoom') => array(
 						'key' => 'osmap_maxzoom',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 6,
 						'desc' => gettext("Default maximum zoom level possible. If no value is defined, use the maximum zoom level of the map used (may be different for each map).")),
 				gettext('Map display') => array('key' => 'osmap_display', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 6.5,
 						'selections' => array(gettext('show') => 'show',
 								gettext('hide') => 'hide',
 								gettext('colorbox') => 'colorbox'),
@@ -102,7 +96,6 @@ class openStreetMapOptions {
 				gettext('Default layer') => array(
 						'key' => 'osmap_defaultlayer',
 						'type' => OPTION_TYPE_SELECTOR,
-						'order' => 7,
 						'selections' => array_combine(array_keys($layerslist), array_keys($layerslist)),
 						'desc' => gettext('The default map tile provider to use. Only free providers are included.'
 										. ' Some providers (Here, Mapbox, Thunderforest, Geoportail) require access credentials and registration.'
@@ -110,7 +103,6 @@ class openStreetMapOptions {
 				gettext('Zoom controls position') => array(
 						'key' => 'osmap_zoomcontrolpos',
 						'type' => OPTION_TYPE_SELECTOR,
-						'order' => 8,
 						'selections' => array(
 								gettext('Top left') => 'topleft',
 								gettext('Top right') => 'topright',
@@ -121,12 +113,10 @@ class openStreetMapOptions {
 				gettext('Cluster radius') => array(
 						'key' => 'osmap_clusterradius',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 9,
 						'desc' => gettext("The maximum radius that a cluster will cover from the central marker (in pixels). Decreasing will make more, smaller clusters.")),
 				gettext('Show cluster coverage on hover') => array(
 						'key' => 'osmap_cluster_showcoverage_on_hover',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 10,
 						'desc' => gettext("Enable if you want to show the bounds of a marker cluster on hover.")),
 				gettext('Marker popups') => array(
 						'key' => 'osmap_markerpopup',
@@ -136,23 +126,19 @@ class openStreetMapOptions {
 								gettext('Title') => 'osmap_markerpopup_title',
 								gettext('Description') => 'osmap_markerpopup_desc'
 						),
-						'order' => 12,
 						'desc' => gettext("Enable the popups you want shown. Popups occur only in the <em>album</em> context.")),
 				gettext('Show layers controls') => array(
 						'key' => 'osmap_showlayerscontrol',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 14.2,
 						'desc' => gettext("Enable if you want to show layers controls with selected layers list below.")),
 				gettext('Layers list') => array(
 						'key' => 'osmap_layerslist',
 						'type' => OPTION_TYPE_CHECKBOX_UL,
-						'order' => 14.4,
 						'checkboxes' => $layerslist,
 						'desc' => gettext('Choose layers list to show in layers controls. You can preview the layers <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">here</a>.')),
 				gettext('Layers controls position') => array(
 						'key' => 'osmap_layerscontrolpos',
 						'type' => OPTION_TYPE_SELECTOR,
-						'order' => 14.6,
 						'selections' => array(
 								gettext('Top left') => 'topleft',
 								gettext('Top right') => 'topright',
@@ -163,63 +149,55 @@ class openStreetMapOptions {
 				gettext('Show scale') => array(
 						'key' => 'osmap_showscale',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 15,
 						'desc' => gettext("Enable if you want to show scale overlay (kilometers and miles).")),
 				gettext('Show cursor position') => array(
 						'key' => 'osmap_showcursorpos',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 16,
 						'desc' => gettext("Enable if you want to show the coordinates if moving the cursor over the map.")),
 				gettext('Show album markers') => array(
 						'key' => 'osmap_showalbummarkers',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 17,
 						'desc' => gettext("Enable if you want to show the map on the single image page not only the marker of the current image but all markers from the album. The current position will be highlighted.")),
 				gettext('Mini map') => array(
 						'key' => 'osmap_showminimap',
 						'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 18,
 						'desc' => gettext("Enable if you want to show an overview mini map in the lower right corner.")),
 				gettext('Mini map: width') => array(
 						'key' => 'osmap_minimap_width',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 19,
 						'desc' => gettext("Pixel width")),
 				gettext('Mini map: height') => array(
 						'key' => 'osmap_minimap_height',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 20,
 						'desc' => gettext("Pixel height")),
 				gettext('Mini map: Zoom level') => array(
 						'key' => 'osmap_minimap_zoom',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 21,
 						'desc' => gettext("The offset applied to the zoom in the minimap compared to the zoom of the main map. Can be positive or negative, defaults to -5.")),
-				gettext('HERE - App id') => array(
-						'key' => 'osmap_here_appid',
+				gettext('HEREv3 - App id') => array(
+						'key' => 'osmap_herev3_appid',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 22,
-						'desc' => ''),
-				gettext('HERE - App code') => array(
-						'key' => 'osmap_here_appcode',
+						'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
+				gettext('HEREv3 - App code') => array(
+						'key' => 'osmap_herev3_appcode',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 23,
-						'desc' => ''),
+						'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
 				gettext('Mapbox - Access token') => array(
 						'key' => 'osmap_mapbox_accesstoken',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 24,
-						'desc' => ''),
+						'desc' => gettext('In order to use Mapbox layers, you must <a href="https://tiles.mapbox.com/signup">register</a>. Once registered, you can create an apiKey which you place here.')),
 				gettext('Thunderforest - ApiKey') => array(
 						'key' => 'osmap_thunderforest_apikey',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 25,
-						'desc' => ''),
+						'desc' => gettext('In order to use Thunderforest layers, you must <a href="https://thunderforest.com/pricing/">register</a>. Once registered, you can create an apiKey which you place here.')),
 				gettext('GeoportailFrance - ApiKey') => array(
 						'key' => 'osmap_geoportailfrance_apikey',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'order' => 26,
-						'desc' => ''),
+						'desc' => gettext('In order to use <a href="https://www.geoportail.gouv.fr/">GeoportailFrance</a> layers, you must place your apiKey here.')),
+				gettext('Jawg - Access token') => array(
+						'key' => 'osmap_jawg_accesstoken',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => gettext('In order to use Jawg layers, you must place your <a href="https://www.jawg.io/docs/integration/leaflet/">Access token</a> here.'))
 		);
 		return $options;
 	}
@@ -385,84 +363,112 @@ class openStreetMap {
 	 * @var array
 	 */
 	static $tileProviders = array(
-			'OpenStreetMap.Mapnik' => 'osmap_openstreetmap_mapnik',
-			'OpenStreetMap.DE' => 'osmap_openstreetmap_de',
-			'OpenStreetMap.France' => 'osmap_openstreetmap_france',
-			'OpenStreetMap.HOT' => 'osmap_openstreetmap_hot',
-			'OpenTopoMap' => 'osmap_opentopomap',
-			'Thunderforest.OpenCycleMap' => 'osmap_thunderforest_opencyclemap',
-			'Thunderforest.TransportDark' => 'osmap_thunderforest_transportdark',
-			'Thunderforest.SpinalMap' => 'osmap_thunderforest_spinalmap',
-			'Thunderforest.Landscape' => 'osmap_thunderforest_landscape',
-			'Hydda.Full' => 'osmap_hydda_full',
-			'MapBox.streets' => 'osmap_mapbox_streets',
-			'MapBox.light' => 'osmap_mapbox_light',
-			'MapBox.dark' => 'osmap_mapbox_dark',
-			'MapBox.satellite' => 'osmap_mapbox_satellite',
-			'MapBox.streets-satellite' => 'osmap_mapbox_streets-satellite',
-			'MapBox.wheatpaste' => 'osmap_mapbox_wheatpaste',
-			'MapBox.streets-basic' => 'osmap_mapbox_streets-basic',
-			'MapBox.comic' => 'osmap_mapbox_comic',
-			'MapBox.outdoors' => 'osmap_mapbox_outdoors',
-			'MapBox.run-bike-hike' => 'osmap_mapbox_run-bike-hike',
-			'MapBox.pencil' => 'osmap_mapbox_pencil',
-			'MapBox.pirates' => 'osmap_mapbox_pirates',
-			'MapBox.emerald' => 'osmap_mapbox_emerald',
-			'MapBox.high-contrast' => 'osmap_mapbox_high-contrast',
-			'Stamen.Watercolor' => 'osmap_stamen_watercolor',
-			'Stamen.Terrain' => 'osmap_stamen_terrain',
-			'Stamen.TerrainBackground' => 'osmap_stamen_terrainbackground',
-			'Stamen.TopOSMRelief' => 'osmap_stamen_toposmrelief',
-			'Stamen.TopOSMFeatures' => 'osmap_stamen_toposmfeatures',
-			'Esri.WorldStreetMap' => 'osmap_esri_worldstreetmap',
-			'Esri.DeLorme' => 'osmap_esri_delorme',
-			'Esri.WorldTopoMap' => 'osmap_esri_worldtopomap',
-			'Esri.WorldImagery' => 'osmap_esri_worldimagery',
-			'Esri.WorldTerrain' => 'osmap_esri_worldterrain',
-			'Esri.WorldShadedRelief' => 'osmap_esri_worldshadedrelief',
-			'Esri.WorldPhysical' => 'osmap_esri_worldphysical',
-			'Esri.OceanBasemap' => 'osmap_esri_oceanbasemap',
-			'Esri.NatGeoWorldMap' => 'osmap_esri_natgeoworldmap',
-			'Esri.WorldGrayCanvas' => 'osmap_esri_worldgraycanvas',
-			'HERE.normalDay' => 'osmap_here_normalday',
-			'HERE.normalDayCustom' => 'osmap_here_normaldaycustom',
-			'HERE.normalDayGrey' => 'osmap_here_normaldaygrey',
-			'HERE.normalDayMobile' => 'osmap_here_normaldaymobile',
-			'HERE.normalDayGreyMobile' => 'osmap_here_normaldaygreymobile',
-			'HERE.normalDayTransit' => 'osmap_here_normaldaytransit',
-			'HERE.normalDayTransitMobile' => 'osmap_here_normaldaytransitmobile',
-			'HERE.normalNight' => 'osmap_here_normalnight',
-			'HERE.normalNightMobile' => 'osmap_here_normalnightmobile',
-			'HERE.normalNightGrey' => 'osmap_here_normalnightgrey',
-			'HERE.normalNightGreyMobile' => 'osmap_here_normalnightgreymobile',
-			'HERE.basicMap' => 'osmap_here_basicmap',
-			'HERE.mapLabels' => 'osmap_here_maplabels',
-			'HERE.trafficFlow' => 'osmap_here_trafficflow',
-			'HERE.carnavDayGrey' => 'osmap_here_carnavdaygrey',
-			'HERE.hybridDay' => 'osmap_here_hybridday',
-			'HERE.hybridDayMobile' => 'osmap_here_hybriddaymobile',
-			'HERE.pedestrianDay' => 'osmap_here_pedestrianday',
-			'HERE.pedestrianNight' => 'osmap_here_pedestriannight',
-			'HERE.satelliteDay' => 'osmap_here_satelliteday',
-			'HERE.terrainDay' => 'osmap_here_terrainday',
-			'HERE.terrainDayMobile' => 'osmap_here_terraindaymobile',
-			'FreeMapSK' => 'osmap_freemapsk',
-			'MtbMap' => 'osmap_mtbmap',
-			'CartoDB.Positron' => 'osmap_cartodb_positron',
-			'CartoDB.PositronNoLabels' => 'osmap_cartodb_positronnolabels',
-			'CartoDB.PositronOnlyLabels' => 'osmap_cartodb_positrononlylabels',
-			'CartoDB.DarkMatter' => 'osmap_cartodb_darkmatter',
-			'CartoDB.DarkMatterNoLabels' => 'osmap_cartodb_darkmatternolabels',
-			'CartoDB.DarkMatterOnlyLabels' => 'osmap_cartodb_darkmatteronlylabels',
-			'HikeBike.HikeBike' => 'osmap_hikebike_hikebike',
-			'HikeBike.HillShading' => 'osmap_hikebike_hillshading',
-			'BasemapAT.basemap' => 'osmap_basemapat_basemap',
-			'BasemapAT.grau' => 'osmap_basemapat_grau',
-			'BasemapAT.highdpi' => 'osmap_basemapat_highdpi',
-			'BasemapAT.orthofoto' => 'osmap_basemapat_orthofoto',
-			'NLS' => 'osmap_nls',
-			'GeoportailFrance.ignMaps' => 'osmap_geoportailfrance_ignmaps',
-			'GeoportailFrance.orthos' => 'osmap_geoportailfrance_orthos'
+			'OpenStreetMap.Mapnik' => 'osmap_OpenStreetMap_Mapnik',
+			'OpenStreetMap.DE' => 'osmap_OpenStreetMap_DE',
+			'OpenStreetMap.France' => 'osmap_OpenStreetMap_France',
+			'OpenStreetMap.HOT' => 'osmap_OpenStreetMap_HOT',
+			'OpenTopoMap' => 'osmap_OpenTopoMap',
+			'OpenRailwayMap' => 'osmap_OpenRailwayMap',
+			'Thunderforest.OpenCycleMap' => 'osmap_Thunderforest_OpenCycleMap',
+			'Thunderforest.Transport' => 'osmap_Thunderforest_Transport',
+			'Thunderforest.TransportDark' => 'osmap_Thunderforest_TransportDark',
+			'Thunderforest.SpinalMap' => 'osmap_Thunderforest_SpinalMap',
+			'Thunderforest.Landscape' => 'osmap_Thunderforest_Landscape',
+			'Thunderforest.Outdoors' => 'osmap_Thunderforest_Outdoors',
+			'Thunderforest.Pioneer' => 'osmap_Thunderforest_Pioneer',
+			'Thunderforest.MobileAtlas' => 'osmap_Thunderforest_MobileAtlas',
+			'Thunderforest.Neighbourhood' => 'osmap_Thunderforest_Neighbourhood',
+			'MapBox.streets' => 'osmap_MapBox_streets',
+			'MapBox.light' => 'osmap_MapBox_light',
+			'MapBox.dark' => 'osmap_MapBox_dark',
+			'MapBox.satellite' => 'osmap_MapBox_satellite',
+			'MapBox.streets-satellite' => 'osmap_MapBox_streets-satellite',
+			'MapBox.wheatpaste' => 'osmap_MapBox_wheatpaste',
+			'MapBox.streets-basic' => 'osmap_MapBox_streets-basic',
+			'MapBox.comic' => 'osmap_MapBox_comic',
+			'MapBox.outdoors' => 'osmap_MapBox_outdoors',
+			'MapBox.run-bike-hike' => 'osmap_MapBox_run-bike-hike',
+			'MapBox.pencil' => 'osmap_MapBox_pencil',
+			'MapBox.pirates' => 'osmap_MapBox_pirates',
+			'MapBox.emerald' => 'osmap_MapBox_emerald',
+			'MapBox.high-contrast' => 'osmap_MapBox_high-contrast',
+			'Stadia.AlidadeSmooth' => 'osmap_Stadia_AlidadeSmooth',
+			'Stadia.AlidadeSmoothDark' => 'osmap_Stadia_AlidadeSmoothDark',
+			'Stadia.AlidadeSatellite' => 'osmap_Stadia_AlidadeSatellite',
+			'Stadia.OSMBright' => 'osmap_Stadia_OSMBright',
+			'Stadia.Outdoors' => 'osmap_Stadia_Outdoors',
+			'Stadia.StamenToner' => 'osmap_Stadia_StamenToner',
+			'Stadia.StamenTonerBackground' => 'osmap_Stadia_StamenTonerBackground',
+			'Stadia.StamenTonerLite' => 'osmap_Stadia_StamenTonerLite',
+			'Stadia.StamenWatercolor' => 'osmap_Stadia_StamenWatercolor',
+			'Stadia.StamenTerrain' => 'osmap_Stadia_StamenTerrain',
+			'Stadia.StamenTerrainBackground' => 'osmap_Stadia_StamenTerrainBackground',
+			'Esri.WorldStreetMap' => 'osmap_Esri_WorldStreetMap',
+			'Esri.WorldTopoMap' => 'osmap_Esri_WorldTopoMap',
+			'Esri.WorldImagery' => 'osmap_Esri_WorldImagery',
+			'Esri.WorldTerrain' => 'osmap_Esri_WorldTerrain',
+			'Esri.WorldShadedRelief' => 'osmap_Esri_WorldShadedRelief',
+			'Esri.WorldPhysical' => 'osmap_Esri_WorldPhysical',
+			'Esri.OceanBasemap' => 'osmap_Esri_OceanBasemap',
+			'Esri.NatGeoWorldMap' => 'osmap_Esri_NatGeoWorldMap',
+			'Esri.WorldGrayCanvas' => 'osmap_Esri_WorldGrayCanvas',
+			'HEREv3.normalDay' => 'osmap_HEREv3_normalDay',
+			'HEREv3.normalDayCustom' => 'osmap_HEREv3_normalDayCustom',
+			'HEREv3.normalDayGrey' => 'osmap_HEREv3_normalDayGrey',
+			'HEREv3.normalDayMobile' => 'osmap_HEREv3_normalDayMobile',
+			'HEREv3.normalDayGreyMobile' => 'osmap_HEREv3_normalDayGreyMobile',
+			'HEREv3.normalDayTransit' => 'osmap_HEREv3_normalDayTransit',
+			'HEREv3.normalDayTransitMobile' => 'osmap_HEREv3_normalDayTransitMobile',
+			'HEREv3.normalNight' => 'osmap_HEREv3_normalNight',
+			'HEREv3.normalNightMobile' => 'osmap_HEREv3_normalNightMobile',
+			'HEREv3.normalNightGrey' => 'osmap_HEREv3_normalNightGrey',
+			'HEREv3.normalNightGreyMobile' => 'osmap_HEREv3_normalNightGreyMobile',
+			'HEREv3.basicMap' => 'osmap_HEREv3_basicMap',
+			'HEREv3.mapLabels' => 'osmap_HEREv3_mapLabels',
+			'HEREv3.trafficFlow' => 'osmap_HEREv3_trafficFlow',
+			'HEREv3.carnavDayGrey' => 'osmap_HEREv3_carnavDayGrey',
+			'HEREv3.hybridDay' => 'osmap_HEREv3_hybridDay',
+			'HEREv3.hybridDayMobile' => 'osmap_HEREv3_hybridDayMobile',
+			'HEREv3.pedestrianDay' => 'osmap_HEREv3_pedestrianDay',
+			'HEREv3.pedestrianNight' => 'osmap_HEREv3_pedestrianNight',
+			'HEREv3.satelliteDay' => 'osmap_HEREv3_satelliteDay',
+			'HEREv3.terrainDay' => 'osmap_HEREv3_terrainDay',
+			'HEREv3.terrainDayMobile' => 'osmap_HEREv3_terrainDayMobile',
+			'MtbMap' => 'osmap_MtbMap',
+			'CartoDB.Positron' => 'osmap_CartoDB_Positron',
+			'CartoDB.PositronNoLabels' => 'osmap_CartoDB_PositronNoLabels',
+			'CartoDB.PositronOnlyLabels' => 'osmap_CartoDB_PositronOnlyLabels',
+			'CartoDB.DarkMatter' => 'osmap_CartoDB_DarkMatter',
+			'CartoDB.DarkMatterNoLabels' => 'osmap_CartoDB_DarkMatterNoLabels',
+			'CartoDB.DarkMatterOnlyLabels' => 'osmap_CartoDB_DarkMatterOnlyLabels',
+			'CartoDB.Voyager' => 'osmap_CartoDB_Voyager',
+			'CartoDB.VoyagerNoLabels' => 'osmap_CartoDB_VoyagerNoLabels',
+			'CartoDB.VoyagerOnlyLabels' => 'osmap_CartoDB_VoyagerOnlyLabels',
+			'CartoDB.VoyagerLabelsUnder' => 'osmap_CartoDB_VoyagerLabelsUnder',
+			'GeoportailFrance.plan' => 'osmap_GeoportailFrance_plan',
+			'GeoportailFrance.orthos' => 'osmap_GeoportailFrance_orthos',
+			'BaseMapDE.Color' => 'osmap_BaseMapDE_Color',
+			'BaseMapDE.Grey' => 'osmap_BaseMapDE_Grey',
+			'CyclOSM' => 'osmap_CyclOSM',
+			'Jawg.Streets' => 'osmap_Jawg_Streets',
+			'Jawg.Terrain' => 'osmap_Jawg_Terrain',
+			'Jawg.Lagoon' => 'osmap_Jawg_Lagoon',
+			'Jawg.Sunny' => 'osmap_Jawg_Sunny',
+			'Jawg.Dark' => 'osmap_Jawg_Dark',
+			'Jawg.Light' => 'osmap_Jawg_Light',
+			'Jawg.Matrix' => 'osmap_Jawg_Matrix',
+			'MapBox' => 'osmap_MapBox',
+			'NASAGIBS.ModisTerraTrueColorCR' => 'osmap_NASAGIBS_ModisTerraTrueColorCR',
+			'NASAGIBS.ModisTerraBands367CR' => 'osmap_NASAGIBS_ModisTerraBands367CR',
+			'NASAGIBS.ModisTerraLSTDay' => 'osmap_NASAGIBS_ModisTerraLSTDay',
+			'NASAGIBS.ModisTerraSnowCover' => 'osmap_NASAGIBS_ModisTerraSnowCover',
+			'NASAGIBS.ModisTerraAOD' => 'osmap_NASAGIBS_ModisTerraAOD',
+			'NASAGIBS.ModisTerraChlorophyll' => 'osmap_NASAGIBS_ModisTerraChlorophyll',
+			'USGS.USTopo' => 'osmap_USGS_USTopo',
+			'USGS.USImagery' => 'osmap_USGS_USImagery',
+			'USGS.USImageryTopo' => 'osmap_USGS_USImageryTopo',
+			'TopPlusOpen.Color' => 'osmap_TopPlusOpen_Color',
+			'TopPlusOpen.Grey' => 'osmap_TopPlusOpen_Grey'
 	);
 
 	/**
@@ -803,15 +809,15 @@ class openStreetMap {
 		$maptile = explode('.', $this->layer);
 		switch ($maptile[0]) {
 			case 'MapBox':
-// should be Mapbox but follow leaflet-providers behavior
+				// should be Mapbox but follow leaflet-providers behavior
 				return "L.tileLayer.provider('" . $maptile[0] . "', {"
 								. "id: '" . strtolower($this->layer) . "', "
 								. "accessToken: '" . getOption('osmap_mapbox_accesstoken') . "'"
 								. "})";
-			case 'HERE':
+			case 'HEREv3':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
-								. "app_id: '" . getOption('osmap_here_appid') . "', "
-								. "app_code: '" . getOption('osmap_here_appcode') . "'"
+								. "app_id: '" . getOption('osmap_herev3_appid') . "', "
+								. "app_code: '" . getOption('osmap_herev3_appcode') . "'"
 								. "})";
 			case 'Thunderforest':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
@@ -820,6 +826,10 @@ class openStreetMap {
 			case 'GeoportailFrance':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
 								. "apikey: '" . getOption('osmap_geoportailfrance_apikey') . "'"
+								. "})";
+			case 'Jawg':
+				return "L.tileLayer.provider('" . $this->layer . "', {"
+								. "accessToken: '" . getOption('osmap_jawg_accesstoken') . "'"
 								. "})";
 			default:
 				return "L.tileLayer.provider('" . $this->layer . "')";
