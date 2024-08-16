@@ -911,7 +911,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					$order = $option['order'];
 				}
 			} else {
-				$order = 'natural';
+				$order = 'as_defined';
 			}
 
 			switch ($order) {
