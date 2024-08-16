@@ -174,12 +174,6 @@ class openStreetMapOptions {
 						'key' => 'osmap_minimap_zoom',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext("The offset applied to the zoom in the minimap compared to the zoom of the main map. Can be positive or negative, defaults to -5.")),
-				/* V3 does not use this
-				  gettext('HEREv3 - App id') => array(
-				  'key' => 'osmap_herev3_appid',
-				  'type' => OPTION_TYPE_TEXTBOX,
-				  'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
-				 */
 				gettext('HEREv3 - apiKey') => array(
 						'key' => 'osmap_herev3_apiKey',
 						'type' => OPTION_TYPE_TEXTBOX,
@@ -818,7 +812,6 @@ class openStreetMap {
 								. "})";
 			case 'HEREv3':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
-								//not v3			. "app_id: '" . getOption('osmap_herev3_appid') . "', "
 								. "apiKey: '" . getOption('osmap_herev3_apiKey') . "'"
 								. "})";
 			case 'Thunderforest':
