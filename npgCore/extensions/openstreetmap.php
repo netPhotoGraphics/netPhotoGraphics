@@ -98,7 +98,7 @@ class openStreetMapOptions {
 						'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array_combine(array_keys($layerslist), array_keys($layerslist)),
 						'desc' => gettext('The default map tile provider to use. Only free providers are included.'
-										. ' Some providers (Here, Mapbox, Thunderforest, Geoportail) require access credentials and registration.'
+										. ' Some providers (HERE, Mapbox, Thunderforest, Geoportail) require access credentials and registration.'
 										. ' More info on <a href="https://github.com/leaflet-extras/leaflet-providers">leaflet-providers</a>')),
 				gettext('Zoom controls position') => array(
 						'key' => 'osmap_zoomcontrolpos',
@@ -135,7 +135,7 @@ class openStreetMapOptions {
 						'key' => 'osmap_layerslist',
 						'type' => OPTION_TYPE_CHECKBOX_UL,
 						'checkboxes' => $layerslist,
-						'desc' => gettext('Choose layers list to show in layers controls. You can preview the layers <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">here</a>.')),
+						'desc' => gettext('Choose layers list to show in layers controls. You can preview the layers <a href="http://leaflet-extras.github.io/leaflet-providers/preview/index.html">HERE</a>.')),
 				gettext('Layers controls position') => array(
 						'key' => 'osmap_layerscontrolpos',
 						'type' => OPTION_TYPE_SELECTOR,
@@ -174,12 +174,14 @@ class openStreetMapOptions {
 						'key' => 'osmap_minimap_zoom',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext("The offset applied to the zoom in the minimap compared to the zoom of the main map. Can be positive or negative, defaults to -5.")),
-				gettext('HEREv3 - App id') => array(
-						'key' => 'osmap_herev3_appid',
-						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
-				gettext('HEREv3 - App code') => array(
-						'key' => 'osmap_herev3_appcode',
+				/* V3 does not use this
+				  gettext('HEREv3 - App id') => array(
+				  'key' => 'osmap_herev3_appid',
+				  'type' => OPTION_TYPE_TEXTBOX,
+				  'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
+				 */
+				gettext('HEREv3 - apiKey') => array(
+						'key' => 'osmap_herev3_apiKey',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext('In order to use HEREv3 layers, you must <a href="http://developer.here.com/">register</a>. Once registered, you can create an apiKey which you place here.')),
 				gettext('Mapbox - Access token') => array(
@@ -788,11 +790,11 @@ class openStreetMap {
 					break;
 			}
 		} else {
-//fallback if no geodata at all
+			//fallback if no geodata at all
 			$this->center = FALSE; // not null as we don't need to re-do if there is nothing
 		}
 
-// fallback if geodata was somehow wrong
+		// fallback if geodata was somehow wrong
 		if (empty($this->center) || empty($this->center[0]) || empty($this->center[1])) {
 			$this->center = FALSE;
 		}
@@ -816,8 +818,8 @@ class openStreetMap {
 								. "})";
 			case 'HEREv3':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
-								. "app_id: '" . getOption('osmap_herev3_appid') . "', "
-								. "app_code: '" . getOption('osmap_herev3_appcode') . "'"
+								//not v3			. "app_id: '" . getOption('osmap_herev3_appid') . "', "
+								. "apiKey: '" . getOption('osmap_herev3_apiKey') . "'"
 								. "})";
 			case 'Thunderforest':
 				return "L.tileLayer.provider('" . $this->layer . "', {"
