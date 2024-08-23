@@ -155,6 +155,7 @@ class debug {
 					gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
 					gettext('<em>testing mode</em>') => 'TESTING',
 					gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
+					gettext('Log 403 forbidden image processing information') => '403',
 					gettext('Log 404 error processing debug information') => '404',
 					gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
 					gettext('Log filter application sequence') => 'FILTERS',

@@ -145,7 +145,8 @@ $legacyReplacements = array(
 		'SearchEngine::getSearchURL\(' => 'SearchEngine::getURL(',
 		'getSearchURL\(' => 'SearchEngine::getURL(',
 		'getNestedAlbumList\(NULL,' => 'getNestedAlbumList($_gallery,',
-		'getNestedAlbumList\((.*?),\s*(.*?),.*\)' => 'getNestedAlbumList($1, $2)'
+		'getNestedAlbumList\((.*?),\s*(.*?),.*\)' => 'getNestedAlbumList($1, $2)',
+		'deprecationNotice\(' => 'deprecated_functions::deprecationMessage('
 );
 
 class zenPhotoCompatibilityPack {

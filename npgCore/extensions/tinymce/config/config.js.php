@@ -65,7 +65,7 @@ if ($pasteObjEnabled = array_search('pasteobj', $MCEplugins)) {
 }
 ?>
 <script>
-	
+
 <?php
 if ($pasteObjEnabled) {
 	?>
@@ -86,6 +86,8 @@ if ($pasteObjEnabled) {
 					flash_video_player_url: false,
 					inline_styles : true,
 					remove_script_host : false,
+					browser_spellcheck: true,
+					contextmenu: false,
 <?php
 if ($MCEimage_advtab == NULL || $MCEimage_advtab) {
 	?>
@@ -214,5 +216,5 @@ if (getOption('dirtyform_enable') > 1) {
 
 
 	});
-	
+
 </script>

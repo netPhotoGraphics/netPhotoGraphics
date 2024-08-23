@@ -38,9 +38,24 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 			return $retval;
 		});
 		break;
-	case'blocked':
+	case 'blocked':
 		$sort = 'blocked';
+		foreach ($recentIP as $key => $value) {
+			if (!isset($value['blocked']) || $value['blocked'] == 0) {
+				unset($recentIP[$key]);
+			}
+		}
 		$recentIP = sortMultiArray($recentIP, array('blocked' => true, 'lastAccessed' => true), true, false, true);
+		break;
+	case 'timesBlocked';
+		$sort = 'timesBlocked';
+		foreach ($recentIP as $key => $value) {
+			if (!isset($value['timesBlocked']) || $value['timesBlocked'] == 0) {
+				unset($recentIP[$key]);
+			}
+		}
+		$recentIP = sortMultiArray($recentIP, array('timesBlocked' => true), true, false, true);
+		$recentIP = array_reverse($recentIP, true);
 		break;
 	case 'interval':
 		$sort = 'interval';
@@ -123,6 +138,10 @@ foreach ($recentIP as $ip => $data) {
 		} else {
 			$old = '';
 		}
+		if (count($data['accessed']) < SENSITIVITY) {
+			$invalid = 'color:DarkGray;';
+			$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:DarkGray;">grayed out</span> have insufficient data to be valid.') . '</p>';
+		}
 		if (isset($data['blocked']) && $data['blocked']) {
 			$invalid = 'color:red;';
 			$legendBlocked = gettext('Address with intervals that are <span style="color:Red;">red</span> have been blocked. ');
@@ -134,10 +153,7 @@ foreach ($recentIP as $ip => $data) {
 										innerWidth: \'560px\',
 										href:\'' . getAdminLink(PLUGIN_FOLDER . '/accessThreshold/ip_list.php') . '?selected_ip=' . $ip . '\'});">' . $ipDisp . '</a>';
 		}
-		if (count($data['accessed']) < SENSITIVITY) {
-			$invalid = 'color:DarkGray;';
-			$legendInvalid = '<p>' . gettext('Intervals that are <span style="color:DarkGray;">grayed out</span> have insufficient data to be valid.') . '</p>';
-		}
+
 		$row = $ct % $rows;
 		$out = '<span style="width:33%;float:left;';
 		if ($even = floor($ct / $rows) % 2) {
@@ -146,8 +162,14 @@ foreach ($recentIP as $ip => $data) {
 
 		$out .= '">' . "\n";
 		$out .= '  <span style="width:42%;float:left;"><span style="float:right;">' . $ipDisp . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>' . "\n";
-		$out .= '  <span style="width:48%;float:left;' . $old . '">' . gmdate('Y-m-d H:i:s', $data['lastAccessed']) . ' GMT</span>' . "\n";
-		$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
+		if ($sort == 'timesBlocked') {
+			$out .= '  <span style="width:48%;float:left;' . '">' .
+							sprintf(ngettext('blocked %s time', 'blocked %s times', $data['timesBlocked']), $data['timesBlocked']) . '</span>' .
+							"\n";
+		} else {
+			$out .= '  <span style="width:48%;float:left;' . $old . '">' . gmdate('Y-m-d H:i:s', $data['lastAccessed']) . ' GMT</span>' . "\n";
+			$out .= '  <span style="width:9%;float:left;"><span style="float:right;">' . '<span style="' . $invalid . '">' . $interval . '</span></span></span>' . "\n";
+		}
 		$out .= "</span>\n";
 
 		if (isset($output[$row])) {
@@ -159,7 +181,7 @@ foreach ($recentIP as $ip => $data) {
 	}
 }
 if (empty($output)) {
-	$output[] = gettext("No entries exceed the noise level");
+	$output[] = gettext("No entries to display");
 }
 
 printAdminHeader('logs', 'access');
@@ -184,15 +206,16 @@ echo "\n</head>";
 				}
 				?>
 				<div class="tabbox">
-					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/admin_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
+					<form name="data_sort" style="float: right;" method="post" action="<?php echo getAdminLink(PLUGIN_FOLDER . '/accessThreshold/log_tab.php'); ?>?action=data_sortorder&tab=accessThreshold" >
 						<input type="hidden" name="data_sortyb" value="<?php echo $_REQUEST['data_sortby']; ?>" >
 						<span class="nowrap">
 							<?php echo gettext('Sort by:'); ?>
 							<select id="sortselect" name="data_sortby" onchange="this.form.submit();">
-								<option value="<?php echo gettext('interval'); ?>" <?php if ($sort == 'interval') echo 'selected="selected"'; ?>><?php echo gettext('interval'); ?></option>
-								<option value="<?php echo gettext('date'); ?>" <?php if ($sort == 'accessTime') echo 'selected="selected"'; ?>><?php echo gettext('date'); ?></option>
-								<option value="<?php echo gettext('ip'); ?>" <?php if ($sort == 'ip') echo 'selected="selected"'; ?>><?php echo gettext('IP'); ?></option>
-								<option value="<?php echo gettext('blocked'); ?>" <?php if ($sort == 'blocked') echo 'selected="selected"'; ?>><?php echo gettext('blocked'); ?></option>
+								<option value="<?php echo 'interval'; ?>" <?php if ($sort == 'interval') echo 'selected="selected"'; ?>><?php echo gettext('interval'); ?></option>
+								<option value="<?php echo 'date'; ?>" <?php if ($sort == 'accessTime') echo 'selected="selected"'; ?>><?php echo gettext('date'); ?></option>
+								<option value="<?php echo 'ip'; ?>" <?php if ($sort == 'ip') echo 'selected="selected"'; ?>><?php echo gettext('IP'); ?></option>
+								<option value="<?php echo 'blocked'; ?>" <?php if ($sort == 'blocked') echo 'selected="selected"'; ?>><?php echo gettext('blocked'); ?></option>
+								<option value="<?php echo 'timesBlocked'; ?>" <?php if ($sort == 'timesBlocked') echo 'selected="selected"'; ?>><?php echo gettext('times blocked'); ?></option>
 							</select>
 						</span>
 					</form>
@@ -207,16 +230,18 @@ echo "\n</head>";
 					<br style="clearall">
 					<span class="centered"><?php adminPageNav($start + 1, $pages, 'admin-tabs/edit.php', '?page=logs&tab=access&data_sortby=' . $_REQUEST['data_sortby'], ''); ?></span>
 					<?php
-					echo $legendExpired;
-					echo $legendInvalid;
-					if ($legendBlocked) {
-						echo '<p>';
-						echo $legendBlocked;
+					if ($sort != 'timesBlocked') {
+						echo $legendExpired;
+						echo $legendInvalid;
 						if ($legendBlocked) {
-							echo '<br />';
+							echo '<p>';
+							echo $legendBlocked;
+							if ($legendBlocked) {
+								echo '<br />';
+							}
+							echo $legendClick;
+							echo '</p>';
 						}
-						echo $legendClick;
-						echo '</p>';
 					}
 					?>
 				</div>

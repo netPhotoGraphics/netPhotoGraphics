@@ -18,12 +18,22 @@ class imageProcessing {
 	 */
 	static function error($status_text, $errormessage, $errorimg) {
 		global $newfilename, $album, $image;
-		$debug = isset($_GET['debug']);
 		$err = sprintf(gettext('Image Processing Error: %s'), $errormessage);
-		if ($debug) {
+		if (isset($_GET['debug'])) {
 			echo '<strong>' . $err . '</strong>';
 		} else {
-			if ($status_text !== '404 Not Found' || DEBUG_404) {
+			switch ($status_text) {
+				case '404 Not Found':
+					$log = DEBUG_404;
+					break;
+				case '403 Forbidden':
+					$log = DEBUG_403;
+					break;
+				default:
+					$log = true;
+					break;
+			}
+			if ($log) {
 				$msg = $err . "\n\t\t" . sprintf(gettext('Request URI: [%s]'), getRequestURI())
 								. "\n\t\t" . 'HTTP_REFERER: [' . sanitize(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : NULL, 3) . ']'
 								. "\n\t\t" . 'PHP_SELF: [' . sanitize($_SERVER['PHP_SELF'], 3) . ']'
