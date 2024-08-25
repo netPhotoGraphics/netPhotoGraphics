@@ -103,14 +103,7 @@ class Metadata {
 					if ($matches[2] == 1) {
 						return $matches[1];
 					} else if ($matches[2] != 0) {
-						$v = sprintf('%f', $matches[1] / $matches[2]);
-						for ($i = strlen($v) - 1; $i > 1; $i--) {
-							if ($v[$i] != '0')
-								break;
-						}
-						if ($v[$i] == '.')
-							$i--;
-						return substr($v, 0, $i + 1);
+						return (float) $matches[1] / $matches[2];
 					}
 				}
 			}
@@ -194,24 +187,6 @@ class Metadata {
 			$iptcstring = $_UTF8->convert($iptcstring, $characterset, LOCAL_CHARSET);
 		}
 		return trim(sanitize($iptcstring, 1));
-	}
-
-	/**
-	  ApertureValue is given in the APEX Mode. Many thanks to Matthieu Froment for this code
-	  The formula is : Aperture = 2*log2(FNumber) <=> FNumber = e((Aperture.ln(2))/2)
-	 *
-	 * Note: not currently used as exif_read_data() appears not to provide ApertureValue, only FNumber
-	 * code kept just in case
-	 */
-	static function aperature($datum) {
-		$datum = self::rationalNum($datum);
-		if (is_numeric($datum)) {
-			$datum = exp(($datum * log(2)) / 2);
-			$data = round($datum, 1); // Focal is given with a precision of 1 digit.
-		} else {
-			$data = $datum;
-		}
-		return $data;
 	}
 
 	/**
@@ -335,11 +310,15 @@ class Metadata {
 								case 'EXIFExposureTime':
 									$value = self::exposure($value);
 									break;
+								case 'EXIFFNumber':
+									$value = round(self::rationalNum($value), 1);
+									break;
 							}
 							$obj->set($field, $value);
 						}
 					}
 				}
+
 				/* check IPTC data */
 				$iptcdata = gl_imageIPTC($localpath);
 				if (!empty($iptcdata)) {
