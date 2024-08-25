@@ -99,7 +99,7 @@ class openStreetMapOptions {
 						'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array_combine(array_keys($layerslist), array_keys($layerslist)),
 						'desc' => gettext('The default map tile provider to use. Only free providers are included.'
-										. ' Some providers (HERE, Mapbox, Thunderforest, Geoportail) require access credentials and registration.'
+										. ' Some providers (See options below) require access credentials and registration.'
 										. ' More info on <a href="https://github.com/leaflet-extras/leaflet-providers">leaflet-providers</a>')),
 				gettext('Zoom controls position') => array(
 						'key' => 'osmap_zoomcontrolpos',
