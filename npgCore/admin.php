@@ -495,7 +495,6 @@ $buttonlist = array();
 				<?php
 			}
 
-
 			$curdir = getcwd();
 			chdir(CORE_SERVERPATH . UTILITIES_FOLDER . '/');
 			$filelist = safe_glob('*' . 'php');
