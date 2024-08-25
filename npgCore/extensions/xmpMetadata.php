@@ -968,7 +968,7 @@ class xmpmetadata {
 										$n = explode(',', substr($element, 0, -1));
 										$r = $n[0] + $n[1] / 60;
 										$ref = strtoupper(substr($element, -1, 1));
-										$v = Image::toDMS($r, $ref);
+										$v = metadata::toDMS($r, $ref);
 										if (in_array($ref, array('S', 'W'))) {
 											$r = -$r;
 										}
