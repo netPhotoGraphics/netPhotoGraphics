@@ -722,8 +722,8 @@ if (is_string($refresh)) {
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-															$('#show_<?php echo $id; ?>').val(visible);
-															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+																$('#show_<?php echo $id; ?>').val(visible);
+																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -732,7 +732,7 @@ if (is_string($refresh)) {
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																				 $('#adminuser<?php echo $id; ?>').focus();" />
+																						 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -1020,41 +1020,38 @@ if (is_string($refresh)) {
 														} else {
 															$alter_rights = ' disabled="disabled"';
 														}
-														if ($ismaster) {
-															echo '<p>' . gettext("The <em>master</em> account has full rights to all objects.") . '</p>';
+
+														if (is_object($primeAlbum)) {
+															$flag = array($primeAlbum->name);
 														} else {
-															if (is_object($primeAlbum)) {
-																$flag = array($primeAlbum->name);
+															$flag = array();
+														}
+														printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
+														if (class_exists('CMS')) {
+															if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
+																$alter_rights = $local_alterrights;
 															} else {
-																$flag = array();
+																$alter_rights = ' disabled="disabled"';
 															}
-															printManagedObjects('albums', $albumlist, $alter_rights, $userobj, $id, gettext('user'), $flag);
-															if (class_exists('CMS')) {
-																if (npg_loggedin(MANAGE_ALL_PAGES_RIGHTS)) {
-																	$alter_rights = $local_alterrights;
-																} else {
-																	$alter_rights = ' disabled="disabled"';
+															$pagination = array();
+															$pages = $_CMS->getPages(false);
+															foreach ($pages as $page) {
+																if (!$page['parentid']) {
+																	$pagination[get_language_string($page['title'])] = $page['titlelink'];
 																}
-																$pagination = array();
-																$pages = $_CMS->getPages(false);
-																foreach ($pages as $page) {
-																	if (!$page['parentid']) {
-																		$pagination[get_language_string($page['title'])] = $page['titlelink'];
-																	}
-																}
-																$newslist = array('"' . gettext('un-categorized') . '"' => '`');
-																$categories = $_CMS->getAllCategories(false);
-																foreach ($categories as $category) {
-																	$newslist[get_language_string($category['title'])] = $category['titlelink'];
-																}
-																printManagedObjects('news_categories', $newslist, $alter_rights, $userobj, $id, gettext('user'), NULL);
-																if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
-																	$alter_rights = $local_alterrights;
-																} else {
-																	$alter_rights = ' disabled = "disabled"';
-																}
-																printManagedObjects('pages', $pagination, $alter_rights, $userobj, $id, gettext('user'), NULL);
 															}
+															$newslist = array('"' . gettext('un-categorized') . '"' => '`');
+															$categories = $_CMS->getAllCategories(false);
+															foreach ($categories as $category) {
+																$newslist[get_language_string($category['title'])] = $category['titlelink'];
+															}
+															printManagedObjects('news_categories', $newslist, $alter_rights, $userobj, $id, gettext('user'), NULL);
+															if (npg_loggedin(MANAGE_ALL_NEWS_RIGHTS)) {
+																$alter_rights = $local_alterrights;
+															} else {
+																$alter_rights = ' disabled = "disabled"';
+															}
+															printManagedObjects('pages', $pagination, $alter_rights, $userobj, $id, gettext('user'), NULL);
 														}
 														?>
 													</div>
