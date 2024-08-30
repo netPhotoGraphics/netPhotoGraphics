@@ -55,7 +55,6 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 			}
 		}
 		$recentIP = sortMultiArray($recentIP, array('timesBlocked' => true), true, false, true);
-		$recentIP = array_reverse($recentIP, true);
 		break;
 	case 'interval':
 		$sort = 'interval';
