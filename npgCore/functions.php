@@ -2318,7 +2318,7 @@ function scriptLoader($script, $scriptTag = 'inline') {
 	}
 
 	$scriptFS = internalToFilesystem($script);
-	if (TESTING_MODE && !file_exists($scriptFS)) {
+	if (TEST_RELEASE && !file_exists($scriptFS)) {
 		debugLog(sprintf(gettext('scriptLoader: Script %1$s Not found.'), $script));
 	}
 
