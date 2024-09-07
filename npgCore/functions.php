@@ -2318,6 +2318,9 @@ function scriptLoader($script, $scriptTag = 'inline') {
 	}
 
 	$scriptFS = internalToFilesystem($script);
+	if (TESTING_MODE && !file_exists($scriptFS)) {
+		debugLog(sprintf(gettext('scriptLoader: Script %1$s Not found.'), $script));
+	}
 
 	switch ($scriptTag) {
 		case 'inline':
@@ -2379,31 +2382,35 @@ function scriptLoader($script, $scriptTag = 'inline') {
 	}
 }
 
+define('JQUERY_VERSION', '3.7.1');
+define('JQUERY_MIGRATE_VERSION', '3.5.0');
+define('JQUERY_UI_VERSION', '1.14.0');
+
 function load_jQuery_CSS() {
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.css');
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui.structure-1.13.2.min.css');
-	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui.theme-1.13.2.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-' . JQUERY_UI_VERSION . '.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui.structure-' . JQUERY_UI_VERSION . '.min.css');
+	scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui.theme-' . JQUERY_UI_VERSION . '.min.css');
 }
 
 function load_jQuery_scripts($where, $ui = true) {
 	switch (getOption('jQuery_Migrate_' . $where)) {
 		default:
 		case 0: //	no migration script
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.7.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-' . JQUERY_VERSION . '.min.js');
 			break;
 		case 1: //	production version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.7.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-' . JQUERY_VERSION . '.min.js');
 			?>
 			<!-- for production purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.4.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-' . JQUERY_MIGRATE_VERSION . '.min.js');
 			break;
 		case 2: //	debug version
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-3.7.0.min.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-' . JQUERY_VERSION . '.min.js');
 			?>
 			<!-- for migration to jQuery 3.0 purposes -->
 			<?php
-			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-3.4.0.js');
+			scriptLoader(CORE_SERVERPATH . 'js/jQuery/jquery-migrate-' . JQUERY_MIGRATE_VERSION . '.js');
 			break;
 		case 3: //	use legacy jQuery
 			?>
@@ -2414,7 +2421,7 @@ function load_jQuery_scripts($where, $ui = true) {
 			break;
 	}
 	if ($ui) {
-		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-1.13.2.min.js');
+		scriptLoader(CORE_SERVERPATH . 'js/jQueryui/jquery-ui-' . JQUERY_UI_VERSION . '.min.js');
 	}
 }
 
