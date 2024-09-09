@@ -657,6 +657,12 @@ clearstatcache();
 								$good = false;
 							}
 
+							$f = fopen(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/sP', 'wb');
+							$state = flock($f, LOCK_EX | LOCK_NB);
+							flock($f, LOCK_UN);
+							fclose($f);
+							checkMark(!$state, gettext('File locking works.'), gettext('File locking has failed. netPhotoGraphics MUTEX will not work'), '');
+
 							chdir(dirname(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 							$test = safe_glob('*.log');
 							array_push($test, basename(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
@@ -669,7 +675,6 @@ clearstatcache();
 									$wrong[$file] = sprintf('%04o', $permission);
 								}
 							}
-
 							checkMark($p, sprintf(gettext('<em>%s</em> security'), DATA_FOLDER), sprintf(gettext('<em>%s</em> security [is compromised]'), DATA_FOLDER), sprintf(gettext('You should make the sensitive files in the %1$s folder accessible by <em>owner</em> only (permissions = 0600). The file permissions for <em>%2$s</em> are %3$s which may allow unauthorized access.'), DATA_FOLDER, implode(', ', array_keys($wrong)), implode(', ', $wrong)));
 
 							$err = versionCheck(PHP_MIN_VERSION, PHP_DESIRED_VERSION, PHP_VERSION);
