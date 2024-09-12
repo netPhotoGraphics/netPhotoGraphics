@@ -70,7 +70,7 @@ class npgMutex {
 				try {
 					if (flock($this->mutex, LOCK_EX)) {
 						$this->locked = true;
-						rewind($this->mutex);
+						ftruncate($this->mutex, 0);
 						fwrite($this->mutex, getUserIP() . "\n");
 						if (TEST_RELEASE) {
 							ob_start();
@@ -98,7 +98,6 @@ class npgMutex {
 		if ($this->locked) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
-			ftruncate($this->mutex, 0);
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;
