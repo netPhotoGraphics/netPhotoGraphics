@@ -141,12 +141,15 @@ if (!file_exists($imgfile)) {
 $_npgMutex->lock(); //	avoid multiple threads trying to create the same folders
 $albumdirs = getAlbumArray($album, true);
 foreach ($albumdirs as $dir) {
-	$dir = SERVERCACHE . '/' . internalToFilesystem($dir);
+	$dir = internalToFilesystem($dir);
+	$dir = SERVERCACHE . '/' . $dir;
 	clearstatcache();
-	if (!file_exists($dir)) {
+	if (!is_dir($dir)) {
 		mkdir($dir, FOLDER_MOD);
+		chmod($dir, FOLDER_MOD);
+	} else if (!is_writable($dir)) {
+		chmod($dir, FOLDER_MOD);
 	}
-	chmod($dir, FOLDER_MOD);
 }
 $_npgMutex->unlock();
 unset($dir);
