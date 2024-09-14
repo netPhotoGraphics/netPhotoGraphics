@@ -657,6 +657,15 @@ clearstatcache();
 								$good = false;
 							}
 
+							$f = fopen(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt', 'w');
+							flock($f, LOCK_EX);
+							$g = fopen(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt', 'r+');
+							flock($g, LOCK_EX | LOCK_NB, $would_block);
+							flock($f, LOCK_UN);
+							flock($g, LOCK_UN);
+							unlink(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt');
+							checkmark($would_block ? 1 : -1, gettext('PHP <em>flock()</em> function'), gettext('The PHP <em>flock()</em> function is not working.'), gettext('nPG Mutexes will not work. Your site will run in "free" mode.'), true);
+
 							chdir(dirname(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 							$test = safe_glob('*.log');
 							array_push($test, basename(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));

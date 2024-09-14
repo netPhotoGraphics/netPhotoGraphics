@@ -144,7 +144,7 @@ foreach ($albumdirs as $dir) {
 	$dir = SERVERCACHE . '/' . internalToFilesystem($dir);
 	clearstatcache();
 	if (!file_exists($dir)) {
-		mkdir($dir, FOLDER_MOD);
+		@mkdir($dir, FOLDER_MOD);
 	}
 	chmod($dir, FOLDER_MOD);
 }
