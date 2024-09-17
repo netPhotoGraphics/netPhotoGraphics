@@ -255,7 +255,6 @@ class security_logger {
 			}
 			fwrite($f, $message . NEWLINE);
 			fclose($f);
-			clearstatcache();
 		}
 		$_npgMutex->unlock();
 		i18n::setupCurrentLocale($cur_locale); //	restore to whatever was in effect.

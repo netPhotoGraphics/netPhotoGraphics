@@ -47,7 +47,6 @@ if (isset($_GET['action'])) {
 				}
 				fclose($f);
 				chmod($file, LOG_MOD);
-				clearstatcache();
 				$_npgMutex->unlock();
 				if (basename($file) == 'security.log') {
 					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact
@@ -65,7 +64,6 @@ if (isset($_GET['action'])) {
 					$class = 'errorbox';
 					$result = sprintf(gettext('%s log could not be removed.'), $what);
 				}
-				clearstatcache();
 				$_npgMutex->unlock();
 				if (basename($file) == 'security.log') {
 					npgFilters::apply('admin_log_actions', true, $file, $action); // have to record the fact

@@ -121,7 +121,6 @@ class feed {
 		$caching = getOption($this->feed . "_cache") && !npg_loggedin();
 		if ($caching) {
 			$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . '/' . strtolower($this->feed) . '/' . internalToFilesystem($this->getCacheFilename());
-			clearstatcache();
 			if (file_exists($cachefilepath)) {
 				if (time() - filemtime($cachefilepath) < getOption($this->feed . "_cache_expire")) {
 					echo file_get_contents($cachefilepath);
@@ -150,7 +149,6 @@ class feed {
 				if ($fh = fopen($cachefilepath, "w")) {
 					fputs($fh, $pagecontent);
 					fclose($fh);
-					clearstatcache();
 				}
 				echo $pagecontent;
 			}

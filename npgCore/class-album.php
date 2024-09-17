@@ -756,7 +756,6 @@ class AlbumBase extends MediaObject {
 					chmod($d, FILE_MOD);
 				}
 			}
-			clearstatcache();
 			$success = self::move($newfolder);
 			if ($success) {
 				$this->updateParent($newfolder);
@@ -1463,7 +1462,6 @@ class Album extends AlbumBase {
 				}
 			}
 			chdir($curdir);
-			clearstatcache();
 			query("DELETE FROM " . prefix('options') . " WHERE `ownerid`=" . $this->id);
 			query("DELETE FROM " . prefix('comments') . " WHERE `type`='albums' AND `ownerid`=" . $this->id);
 			query("DELETE FROM " . prefix('obj_to_tag') . " WHERE `type`='albums' AND `objectid`=" . $this->id);
@@ -1479,7 +1477,6 @@ class Album extends AlbumBase {
 			chmod($this->localpath, 0777);
 			$rslt = rmdir($this->localpath) && $success;
 		}
-		clearstatcache();
 		return $rslt;
 	}
 
@@ -1637,7 +1634,6 @@ class Album extends AlbumBase {
 	 * @return array
 	 */
 	protected function loadFileNames($dirs = false) {
-		clearstatcache();
 		$albumdir = $this->localpath;
 		$dir = opendir($albumdir);
 		if (!$dir) {
@@ -1879,7 +1875,6 @@ class dynamicAlbum extends AlbumBase {
 		if ($rslt = parent::remove()) {
 			chmod($this->localpath, 0777);
 			$rslt = unlink($this->localpath);
-			clearstatcache();
 			$rslt = $rslt && $this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
 		}
 		return $rslt;

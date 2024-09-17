@@ -622,7 +622,6 @@ function debugLog($message, $reset = false, $log = 'debug') {
 			}
 			fwrite($f, " " . $message . NEWLINE);
 			fclose($f);
-			clearstatcache();
 		}
 		if (is_object($_npgMutex)) {
 			$_npgMutex->unlock();
@@ -1734,29 +1733,6 @@ function instrument($point) {
 	}
 	$_run_timer = microtime(true);
 	debugLogBacktrace($point . ' ' . $now . $delta);
-}
-
-/** getAlbumArray - returns an array of folder names corresponding to the given album string.
- * @param string $albumstring is the path to the album as a string. Ex: album/subalbum/my-album
- * @param string $includepaths is a boolean whether or not to include the full path to the album
- *    in each item of the array. Ex: when $includepaths==false, the above array would be
- *    ['album', 'subalbum', 'my-album'], and with $includepaths==true,
- *    ['album', 'album/subalbum', 'album/subalbum/my-album']
- *  @return array
- */
-function getAlbumArray($albumstring, $includepaths = false) {
-	$albums = explode('/', $albumstring);
-	if ($includepaths) {
-		$albumPaths = array();
-		$next = '';
-		foreach ($albums as $album) {
-			$albumPaths[] = $next . $album;
-			$next = $next . $album . '/';
-		}
-		return $albumPaths;
-	} else {
-		return $albums;
-	}
 }
 
 /**

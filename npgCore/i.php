@@ -137,25 +137,27 @@ if (!file_exists($imgfile)) {
 	}
 }
 
-// Make the directories for the albums in the cache, recursively.
+// Make the directories for the albums in the cache.
 $_npgMutex->lock(); //	avoid multiple threads trying to create the same folders
-$albumdirs = getAlbumArray($album, true);
-foreach ($albumdirs as $dir) {
-	$dir = SERVERCACHE . '/' . internalToFilesystem($dir);
-	clearstatcache();
+$next = '';
+foreach (explode('/', $album) as $folder) {
+	$dir = SERVERCACHE . '/' . internalToFilesystem($next . $folder);
+	$next = $next . $folder . '/';
 	if (!file_exists($dir)) {
 		@mkdir($dir, FOLDER_MOD);
 	}
 	chmod($dir, FOLDER_MOD);
 }
 $_npgMutex->unlock();
+unset($next);
+unset($folder);
 unset($dir);
 
 $process = true;
 // If the file exists, check its modification time and update as needed.
 $fmt = filemtime($imgfile);
 if (file_exists($newfile) & !$adminrequest) {
-	if (filemtime($newfile) >= filemtime($imgfile)) {
+	if (filemtime($newfile) >= $fmt) {
 		$process = false;
 		if (DEBUG_IMAGE)
 			debugLog("Cache file valid");

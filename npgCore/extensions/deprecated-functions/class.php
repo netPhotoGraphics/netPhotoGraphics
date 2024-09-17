@@ -86,7 +86,6 @@ class deprecated_functions {
 		if ($f) {
 			fwrite($f, $msg . "\n");
 			fclose($f);
-			clearstatcache();
 			chmod(DEPRECATED_LOG, LOG_MOD);
 		}
 		if (is_object($_npgMutex))

@@ -34,7 +34,6 @@ function caseInsensitiveOS() {
  */
 function getResidentFiles($folder, $exclude) {
 	global $_resident_files;
-	clearstatcache();
 	$dir = opendir($folder);
 	while (($file = readdir($dir)) !== false) {
 		$file = str_replace('\\', '/', $file);
@@ -253,7 +252,6 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 
 			if (setupUserAuthorized() && $updatechmod) {
 				chmod($path, $chmod);
-				clearstatcache();
 				$perms = fileperms($path) & 0777;
 				if (!checkPermissions($perms, $chmod)) {
 					if (array_key_exists($perms & 0666 | 4, $permission_names)) {
@@ -400,7 +398,6 @@ function setupLog($message, $anyway = false, $reset = false) {
 			fwrite($f, $message . NEWLINE);
 			fclose($f);
 			chmod(SETUPLOG, LOG_MOD);
-			clearstatcache();
 		}
 		if (is_object($_npgMutex))
 			$_npgMutex->unlock();

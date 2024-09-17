@@ -52,7 +52,6 @@ class configFile {
 		rename($folder . DATA_FOLDER . '/' . CONFIGFILE, $backup);
 		chmod($backup, $mod);
 		file_put_contents($folder . DATA_FOLDER . '/' . CONFIGFILE, $_config_contents);
-		clearstatcache();
 		chmod($folder . DATA_FOLDER . '/' . CONFIGFILE, $mod);
 	}
 

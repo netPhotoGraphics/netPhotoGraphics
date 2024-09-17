@@ -230,11 +230,9 @@ if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 		if (SYMLINK && symlink($image_path, $cache_path)) {
 			if (DEBUG_IMAGE)
 				debugLog("full-image:symlink original " . basename($image));
-			clearstatcache();
 		} else if (copy($image_path, $cache_path)) {
 			if (DEBUG_IMAGE)
 				debugLog("full-image:copy original " . basename($image));
-			clearstatcache();
 		}
 	} else {
 		//	have to create the image

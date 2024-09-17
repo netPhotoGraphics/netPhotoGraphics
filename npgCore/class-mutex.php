@@ -35,7 +35,6 @@ class npgMutex {
 	// returns the integer id of the lock to be obtained
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
-		clearstatcache();
 		$locks = [];
 		for ($i = 1; $i <= $concurrent; $i++) {
 			$file = $folder . '/' . $lock . '_' . $i;

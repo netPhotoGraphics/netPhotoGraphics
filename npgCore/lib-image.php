@@ -416,12 +416,10 @@ class imageProcessing {
 					if (SYMLINK && @symlink($imgfile, $newfile)) {
 						if (DEBUG_IMAGE)
 							debugLog("imageProcessing::cache:symlink original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
-						clearstatcache();
 						return true;
 					} else if (copy($imgfile, $newfile)) {
 						if (DEBUG_IMAGE)
 							debugLog("imageProcessing::cache:copy original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
-						clearstatcache();
 						return true;
 					}
 				}
@@ -503,7 +501,6 @@ class imageProcessing {
 					$fw = fopen($newfile, 'w');
 					fwrite($fw, $content);
 					fclose($fw);
-					clearstatcache();
 				}
 				chmod($newfile, FILE_MOD);
 				if (DEBUG_IMAGE)
@@ -522,7 +519,6 @@ class imageProcessing {
 			self::error('404 Not Found', sprintf(gettext('imageProcessing::cache(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-imagefail.png');
 			return false;
 		}
-		clearstatcache();
 		return true;
 	}
 

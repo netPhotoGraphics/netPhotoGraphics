@@ -687,7 +687,6 @@ class Image extends MediaObject {
 				}
 			}
 		}
-		clearstatcache();
 		return $result;
 	}
 
@@ -723,7 +722,6 @@ class Image extends MediaObject {
 		chmod($this->localpath, 0777);
 		$result = rename($this->localpath, $newpath);
 		chmod($newpath, FILE_MOD);
-		clearstatcache();
 		if ($result) {
 			$filestomove = safe_glob(substr($this->localpath, 0, strrpos($this->localpath, '.')) . '.*');
 			foreach ($filestomove as $file) {

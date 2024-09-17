@@ -223,7 +223,6 @@ class static_html_cache {
 			if ($this->enabled && $fh = fopen($cachefilepath, "w")) {
 				fputs($fh, $pagecontent);
 				fclose($fh);
-				clearstatcache();
 			}
 			$this->pageCachePath = NULL;
 			echo $pagecontent;
@@ -349,7 +348,6 @@ class static_html_cache {
 		if (file_exists($cachefilepath)) {
 			@chmod($cachefilepath, 0777);
 			@unlink($cachefilepath);
-			clearstatcache();
 		}
 	}
 
@@ -369,8 +367,6 @@ class static_html_cache {
 				npgFunctions::removeDir(SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachesubfolder, true);
 			}
 		}
-
-		clearstatcache();
 	}
 
 	/**
