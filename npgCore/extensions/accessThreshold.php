@@ -314,17 +314,19 @@ if (extensionEnabled('accessThreshold')) {
 			);
 		}
 		$recentIP[$ip]['lastAccessed'] = $__time;
-		if (!$monitor && isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
-			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
-			$mu->unlock();
-			if (is_object($_siteMutex)) {
-				$_siteMutex->unlock();
+		if (isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
+			if (!$monitor) {
+				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+				$mu->unlock();
+				if (is_object($_siteMutex)) {
+					$_siteMutex->unlock();
+				}
+				db_close();
+				header("HTTP/1.0 503 Service Unavailable");
+				header("Status: 503 Service Unavailable");
+				header("Retry-After: $window");
+				exit(); //	terminate the script with no output
 			}
-			db_close();
-			header("HTTP/1.0 503 Service Unavailable");
-			header("Status: 503 Service Unavailable");
-			header("Retry-After: $window");
-			exit(); //	terminate the script with no output
 		} else {
 			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
 			$__previous = $__interval = $__count = 0;
