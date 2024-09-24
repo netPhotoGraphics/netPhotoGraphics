@@ -436,7 +436,7 @@ function db_name() {
 function selectDBuser($conf) {
 	if (is_array($conf['mysql_user'])) {
 		$keys = array_keys($conf['mysql_user']);
-		$user = $keys[date('i') % count($conf['mysql_user'])];
+		$user = $keys[rand(0, count($conf['mysql_user']) - 1)];
 		return array($user, $conf['mysql_user'][$user]);
 	}
 	return array($conf['mysql_user'], $conf['mysql_pass']);
