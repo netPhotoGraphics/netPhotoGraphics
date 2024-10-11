@@ -187,7 +187,6 @@ class debug {
 		$version = "define('NETPHOTOGRAPHICS_VERSION', '$version');\n";
 		$v = preg_replace("~define\('NETPHOTOGRAPHICS_VERSION.*\n~", $version, $v);
 		file_put_contents(CORE_SERVERPATH . 'version.php', $v);
-		clearstatcache();
 	}
 
 	static function version($released) {

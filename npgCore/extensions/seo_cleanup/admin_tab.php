@@ -60,7 +60,6 @@ function cleanAlbum($obj) {
 			echo "<br />\n";
 		} else {
 			$obj->save();
-			clearstatcache();
 			printf(gettext('<em>%1$s</em> renamed to <em>%2$s</em>'), $subalbum, $newname);
 			echo "<br />\n";
 			$albumcount++;
@@ -94,7 +93,6 @@ function checkFolder($album) {
 				echo "<br />\n";
 			} else {
 				$image->save();
-				clearstatcache();
 				echo '&nbsp;&nbsp;';
 				printf(gettext('<em>%1$s</em> renamed to <em>%2$s</em>'), $folder . $filename, $seoname);
 				echo "<br />\n";

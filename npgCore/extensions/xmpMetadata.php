@@ -1148,7 +1148,6 @@ class xmpmetadata {
 		fwrite($f, ' </rdf:RDF>' . "\n");
 		fwrite($f, '</x:xmpmeta>' . "\n");
 		fclose($f);
-		clearstatcache();
 		chmod($file, FILE_MOD);
 		return gettext('metadata exported');
 	}

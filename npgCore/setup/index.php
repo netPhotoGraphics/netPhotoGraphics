@@ -15,7 +15,6 @@ define('OFFSET_PATH', 2);
 
 require_once(dirname(__DIR__) . '/global-definitions.php');
 
-clearstatcache();
 if (defined('CHMOD_VALUE')) {
 	$chmod = CHMOD_VALUE;
 } else {
@@ -96,8 +95,6 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 	}
 }
 $_SESSION['save_session_path'] = session_save_path();
-
-clearstatcache();
 
 $en_US = CORE_SERVERPATH . '/locale/en_US/';
 if (!file_exists($en_US)) {
@@ -570,7 +567,6 @@ if ($test_release = getOption('markRelease_state')) {
 $testRelease = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
 
 $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"));
-clearstatcache();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"<?php i18n::htmlLanguageCode(); ?>>
@@ -656,6 +652,15 @@ clearstatcache();
 								checkmark(0, gettext('Installation folder'), '', gettext('There may not be any folders named <em>npg</em> in the installation path.<br />Rename the <em>npg</em> folder and re-run setup.'));
 								$good = false;
 							}
+
+							$f = fopen(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt', 'w');
+							flock($f, LOCK_EX);
+							$g = fopen(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt', 'r+');
+							flock($g, LOCK_EX | LOCK_NB, $would_block);
+							flock($f, LOCK_UN);
+							flock($g, LOCK_UN);
+							unlink(SERVERPATH . '/' . DATA_FOLDER . '/lock.txt');
+							checkmark($would_block ? 1 : -1, gettext('PHP <em>flock()</em> function'), gettext('The PHP <em>flock()</em> function is not working.'), gettext('nPG Mutexes will not work. Your site will run in "free" mode.'), true);
 
 							chdir(dirname(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE));
 							$test = safe_glob('*.log');
@@ -1223,7 +1228,6 @@ clearstatcache();
 							}
 
 							primeMark(gettext('netPhotoGraphics files'));
-							clearstatcache();
 							set_time_limit(120);
 							$base = SERVERPATH . '/';
 							getResidentFiles(SERVERPATH . '/' . CORE_FOLDER, stdExclude);
@@ -1278,7 +1282,6 @@ clearstatcache();
 									if (is_dir($component)) {
 										if ($updatechmod) {
 											chmod($component, $chmod | 0311);
-											clearstatcache();
 											$perms = fileperms($component) & 0777;
 											if ($permissions == 1 && !checkPermissions($perms, $chmod | 0311)) {
 												if (checkPermissions($perms & 0755, 0755) || $testRelease) { // could not set them, but they will work.
@@ -1296,7 +1299,6 @@ clearstatcache();
 									} else {
 										if ($updatechmod) {
 											chmod($component, $chmod);
-											clearstatcache();
 											$perms = fileperms($component) & 0777;
 											if ($permissions == 1 && !checkPermissions($perms, $chmod)) {
 												if (checkPermissions($perms & 0644, 0644) || $testRelease) { // could not set them, but they will work.
@@ -1320,7 +1322,6 @@ clearstatcache();
 								foreach ($folders as $key => $folder) {
 									if (!checkPermissions(fileperms($folder) & 0777, 0755)) { // need to set them?.
 										chmod($folder, $chmod | 0311);
-										clearstatcache();
 										$perms = fileperms($folder) & 0777;
 										if ($permissions == 1 && !checkPermissions($perms, $chmod | 0311)) {
 											if (checkPermissions($perms & 0755, 0755) || $testRelease) { // could not set them, but they will work.
@@ -1394,7 +1395,6 @@ clearstatcache();
 							checkMark($mark, gettext("Core files"), $msg1, $msg2, false);
 							primeMark(gettext('Installation files'));
 							if (setupUserAuthorized() && $connection && npgFunctions::hasPrimaryScripts()) {
-								clearstatcache();
 								$systemlist = $filelist = array();
 								$phi_ini_count = $svncount = 0;
 								foreach ($_resident_files as $extra) {
@@ -1574,7 +1574,6 @@ clearstatcache();
 										if (file_put_contents($htfile, $ht)) {
 											$err = '';
 										}
-										clearstatcache();
 									}
 									chmod($htfile, 0444);
 								}

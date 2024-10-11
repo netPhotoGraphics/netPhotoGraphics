@@ -139,7 +139,6 @@ class favoritesAlbum extends favorites {
 		if ($rslt = parent::remove()) {
 			chmod($this->localpath, 0777);
 			$rslt = unlink($this->localpath);
-			clearstatcache();
 		}
 		$this->_removeCache(substr($this->localpath, strlen(ALBUM_FOLDER_SERVERPATH)));
 		return $rslt;

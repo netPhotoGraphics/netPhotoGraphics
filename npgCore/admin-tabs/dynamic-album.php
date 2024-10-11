@@ -97,7 +97,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 				if ($f !== false) {
 					fwrite($f, "WORDS=$words\nTHUMB=$thumb\nFIELDS=" . implode(',', $searchfields) . $constraints . "\n");
 					fclose($f);
-					clearstatcache();
 					// redirct to edit of this album
 					header("Location: " . getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($redirect));
 					exit();

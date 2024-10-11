@@ -25,7 +25,6 @@ if ($_POST['key'] == sha1(filemtime(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFI
 } else {
 	setupLog(sprintf(gettext('Notice: illegal call for permissions setting for %s.'), basename($folder)), true);
 }
-clearstatcache();
 
 function folderPermissions($folder) {
 	$files = array();
@@ -41,7 +40,6 @@ function folderPermissions($folder) {
 		$path = $folder . '/' . $file;
 		if (is_dir($path)) {
 			chmod($path, FOLDER_MOD);
-			clearstatcache();
 			if (checkPermissions(fileperms($path) & 0777, FOLDER_MOD)) {
 				if (!folderPermissions($path)) {
 					return false;
@@ -51,7 +49,6 @@ function folderPermissions($folder) {
 			}
 		} else {
 			chmod($path, FILE_MOD);
-			clearstatcache();
 			if (!checkPermissions(fileperms($path) & 0777, FILE_MOD)) {
 				return false;
 			}
