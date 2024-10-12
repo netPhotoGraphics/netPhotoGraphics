@@ -19701,6 +19701,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/panorama/jquery.paver.min.js
 %extensions%/panorama/paver.css
 %extensions%/PHPMailer
+%extensions%/PHPMailer/DSNConfigurator.php
 %extensions%/PHPMailer/Exception.php
 %extensions%/PHPMailer/OAuth.php
 %extensions%/PHPMailer/OAuthTokenProvider.php
@@ -20350,4 +20351,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20352
+20353
