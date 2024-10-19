@@ -78,8 +78,9 @@ if ($pasteObjEnabled) {
 	<?php
 }
 ?>
-	tinymce.init({	<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
-	entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
+	tinymce.init({<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
+	license_key: "gpl",
+					entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
 					selector: "<?php echo $MCEselector; ?>",
 					language: "<?php echo $MCElocale; ?>",
 					relative_urls: false,
