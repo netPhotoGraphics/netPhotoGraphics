@@ -89,6 +89,6 @@ if ($_loggedin) {
 }
 // Handle a logout action.
 if (isset($_REQUEST['logout']) && $_REQUEST['logout'] > 0) {
-	npg_Authority::handleLogout(html_decode(getLogoutLink(array('logout' => -$_REQUEST['logout']))));
+	npg_Authority::handleLogout(html_decode(getLogoutLink(array('logout' => -intval($_REQUEST['logout'])))));
 }
 ?>

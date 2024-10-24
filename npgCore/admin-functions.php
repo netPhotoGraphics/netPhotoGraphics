@@ -5525,7 +5525,7 @@ function admin_securityChecks($rights, $return) {
 			$_loggedin = USER_RIGHTS;
 		}
 	}
-	$returnurl = urldecode($return);
+	$returnurl = urldecode(strval($return));
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
 		// prevent nefarious access to this page.
