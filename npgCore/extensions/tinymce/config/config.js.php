@@ -187,33 +187,33 @@ if ($MCEmenubar) {
 				break;
 		}
 	}
-	$MCEmenubar = trim($MCEmenubar, ",\n") . "\n      }";
+	$MCEmenubar = trim($MCEmenubar, ",\n") . "\n      },";
 } else {
-	$MCEmenubar = "false";
+	$MCEmenubar = "menubar: false,\n";
 }
 echo $MCEmenubar;
-?>,
-					setup: function(editor) {
-					editor.on('blur', function(ed, e) {
-					form = $(editor.getContainer()).closest('form');
-					if (editor.isDirty()) {
-					$(form).addClass('tinyDirty');
-					} else {
-					$(form).removeClass('tinyDirty');
-					}
-					});
+?>
+	setup: function(editor) {
+	editor.on('blur', function(ed, e) {
+	form = $(editor.getContainer()).closest('form');
+	if (editor.isDirty()) {
+	$(form).addClass('tinyDirty');
+	} else {
+	$(form).removeClass('tinyDirty');
+	}
+	});
 <?php
 if (getOption('dirtyform_enable') > 1) {
 	?>
-						editor.on('postRender', function(e) {
-						//	clear the form from any tinyMCE dirtying once it has loaded
-						form = $(editor.getContainer()).closest('form');
-						$(form).trigger("reset");
-						});
+		editor.on('postRender', function(e) {
+		//	clear the form from any tinyMCE dirtying once it has loaded
+		form = $(editor.getContainer()).closest('form');
+		$(form).trigger("reset");
+		});
 	<?php
 }
 ?>
-					}
+	}
 
 
 	});
