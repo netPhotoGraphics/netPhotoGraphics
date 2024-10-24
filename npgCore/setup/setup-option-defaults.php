@@ -107,6 +107,21 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
 }
 
+//Check for tinymce user defined config files that might need upgrading
+$upgrade = false;
+$user_config = safe_glob(USER_PLUGIN_SERVERPATH . 'tinymce/config/*.php');
+foreach ($user_config as $try) {
+	$content = file_get_contents($try);
+	$i = strpos($content, '$MCEplugins');
+	$content = substr($content, $i);
+	$j = strpos($content, ';');
+	$content = substr($content, 0, $j);
+	$upgrade = $upgrade || strpos($content, 'paste') !== false;
+}
+if ($upgrade) {
+	debugLog('Setup found a custom tinymce config script that needs to be migrated to tinyMCE version 7. See https://www.tiny.cloud/docs/tinymce/6/migration-from-5x/ and https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/.');
+}
+
 $thirdParty = $deprecated = false;
 
 list($plugin_subtabs, $plugin_default, $plugins, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();

@@ -7,10 +7,10 @@
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
-$MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
+$MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace wordcount visualblocks visualchars code fullscreen " .
 				"insertdatetime save directionality " .
-				"emoticons paste ";
+				"emoticons";
 $MCEmenubar = "edit insert view format tools";
 $MCEtoolbars = array();
 $MCEstatusbar = false;

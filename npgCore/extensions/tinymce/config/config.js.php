@@ -51,7 +51,7 @@ if ($MCEdirection == NULL) {
 	}
 }
 
-scriptLoader(TINYMCE . '/tinymce.5.10.5.min.js');
+scriptLoader(TINYMCE . '/tinymce.7.4.1.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
@@ -80,6 +80,7 @@ if ($pasteObjEnabled) {
 ?>
 	tinymce.init({<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
 	license_key: "gpl",
+					promotion: false,
 					entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
 					selector: "<?php echo $MCEselector; ?>",
 					language: "<?php echo $MCElocale; ?>",
@@ -106,7 +107,7 @@ if ($MCEcss) {
 	<?php
 }
 ?>
-	plugins: ["<?php echo implode(' ', $MCEplugins); ?>"],
+	plugins: ["<?php echo implode('", "', $MCEplugins); ?>"],
 <?php
 if ($MCEexternal) {
 	?>
@@ -171,7 +172,7 @@ if ($MCEmenubar) {
 				if (in_array('pasteobj', $MCEplugins)) {
 					$MCEmenubar .= " pasteobj";
 				}
-				$MCEmenubar .= " template | charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
+				$MCEmenubar .= " charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
 				break;
 			case 'view':
 				$MCEmenubar .= "      view: {title: 'View', items: 'visualaid'},\n";
@@ -183,7 +184,7 @@ if ($MCEmenubar) {
 				$MCEmenubar .= "      table: {title: 'Table', items: 'inserttable tableprops deletetable | row column | cell'},\n";
 				break;
 			case 'tools':
-				$MCEmenubar .= "      tools: {title: 'Tools', items: 'spellchecker code'}\n";
+				$MCEmenubar .= "      tools: {title: 'Tools', items: 'code'}\n";
 				break;
 		}
 	}

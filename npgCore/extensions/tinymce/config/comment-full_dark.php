@@ -9,10 +9,10 @@
 $MCEcss = 'dark_content.css';
 $MCEskin = "oxide-dark";
 $MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
-$MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
+$MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualblocks visualchars code " .
 				"insertdatetime media directionality " .
-				"emoticons paste";
+				"emoticons";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | searchreplace visualchars | emoticons | ltr rtl code";
 $MCEstatusbar = false;
 $MCEmenubar = false;

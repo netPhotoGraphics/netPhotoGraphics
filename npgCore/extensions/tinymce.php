@@ -37,9 +37,6 @@ class tinymce {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			renameOption('tinymce_zenphoto', 'tinymce_photo');
-			renameOption('tinymce_zenpage', 'tinymce_CMS');
-
 			setOptionDefault('tinymce_photo', 'photo-ribbon.php');
 			setOptionDefault('tinymce_CMS', 'CMS-ribbon.php');
 			setOptionDefault('tinymce_forms', 'forms-ribbon.php');
@@ -119,7 +116,7 @@ class tinymce {
 	}
 
 	static function getConfigFiles($mode) {
-// get only those that work!
+		// get only those that work!
 		$files = getPluginFiles($mode . '-*.php', stripSuffix(basename(__FILE__)) . '/config/');
 		$array = array();
 		foreach ($files as $file) {
