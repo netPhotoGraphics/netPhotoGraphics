@@ -146,7 +146,7 @@ class comment_form {
 						'desc' => gettext('The comments that should show per page on the admin tab and when using the jQuery pagination'))
 		);
 		if (defined('TINYMCE')) {
-			$editorConfig = stripsuffix(basename(TINYMCE)) . '::getConfigFiles';
+			$editorConfig = 'tinymce::getConfigFiles';
 			$configarray = $editorConfig('comment');
 			$commentEditor = array(
 					gettext('Comment editor configuration') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
@@ -265,7 +265,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 						?>
 						<div id="comment_toggle"><!-- place holder for toggle button --></div>
 						<script>
-							
+
 							function toggleComments(hide) {
 								if (hide) {
 									$('div.comment').hide();
@@ -280,7 +280,7 @@ function printCommentForm($showcomments = true, $addcommenttext = NULL, $addhead
 							window.addEventListener('load', function () {
 								toggleComments(window.location.hash.search(/#_comment_id_/));
 							}, false);
-							
+
 						</script>
 						<?php
 						$display = ' style="display:none"';

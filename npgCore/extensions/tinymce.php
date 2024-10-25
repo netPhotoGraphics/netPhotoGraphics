@@ -25,8 +25,9 @@ $option_interface = 'tinymce';
 if (!defined('EDITOR_SANITIZE_LEVEL'))
 	define('EDITOR_SANITIZE_LEVEL', 4);
 if (!defined('TINYMCE')) {
-	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce');
+	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce_v7');
 }
+
 npgFilters::register('texteditor_config', 'tinymce::configJS');
 
 /**
@@ -37,9 +38,6 @@ class tinymce {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			renameOption('tinymce_zenphoto', 'tinymce_photo');
-			renameOption('tinymce_zenpage', 'tinymce_CMS');
-
 			setOptionDefault('tinymce_photo', 'photo-ribbon.php');
 			setOptionDefault('tinymce_CMS', 'CMS-ribbon.php');
 			setOptionDefault('tinymce_forms', 'forms-ribbon.php');
@@ -87,11 +85,10 @@ class tinymce {
 
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
-
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		$MCEspecial['browser_spellcheck'] = "true";
 		if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
-			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/tinymce/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
+			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . TINYMCE . '/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
 		}
 		if (empty($_editorconfig)) { // only if we get here first!
 			$MCElocale = 'en';
@@ -109,7 +106,7 @@ class tinymce {
 
 			$_editorconfig = getOption('tinymce_' . $mode);
 			if (!empty($_editorconfig)) {
-				$_editorconfig = getPlugin(stripSuffix(basename(__FILE__)) . '/config/' . $_editorconfig, true);
+				$_editorconfig = getPlugin(basename(TINYMCE) . '/config/' . $_editorconfig, true);
 				if (!empty($_editorconfig)) {
 					require_once($_editorconfig);
 				}
@@ -119,8 +116,8 @@ class tinymce {
 	}
 
 	static function getConfigFiles($mode) {
-// get only those that work!
-		$files = getPluginFiles($mode . '-*.php', stripSuffix(basename(__FILE__)) . '/config/');
+		// get only those that work!
+		$files = getPluginFiles($mode . '-*.php', basename(TINYMCE) . '/config/');
 		$array = array();
 		foreach ($files as $file) {
 			$filename = strrchr($file, '/');
