@@ -75,3 +75,4 @@ local.properties
 *.bat
 *.sh
 /docto.exe
+/user guide.docx
