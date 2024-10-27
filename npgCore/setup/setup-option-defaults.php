@@ -112,6 +112,7 @@ if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce')) {
 	$msg = sprintf(gettext('Setup detected a <em>tinymce</em> folder in the <em>plugins</em> folder. <strong>netPhotoGraphics</strong> has migrated tinyMCE to version 7.<br/>You will need to migrate your config script and place it in the <em>tinymce_v7</em> folder.<br/>TinyMCE Migration is described in %1$s and %2$s'),
 					'https://www.tiny.cloud/docs/tinymce/6/migration-from-5x/',
 					'https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/');
+	setupLog('<span class="logwarning">' . $msg . '</span>', true);
 	?>
 	<div class="warningbox">
 		<?php echo $msg; ?>

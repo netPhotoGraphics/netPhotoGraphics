@@ -106,9 +106,11 @@ class tinymce {
 
 			$_editorconfig = getOption('tinymce_' . $mode);
 			if (!empty($_editorconfig)) {
-				$_editorconfig = getPlugin(basename(TINYMCE) . '/config/' . $_editorconfig, true);
-				if (!empty($_editorconfig)) {
-					require_once($_editorconfig);
+				$_editorconfigfile = getPlugin(basename(TINYMCE) . '/config/' . $_editorconfig, true);
+				if (empty($_editorconfigfile)) {
+					debuglog(sprintf(gettext('Could not find the tinymce %1$s config file <em>%2$s</em>'), $mode, $_editorconfig));
+				} else {
+					require_once($_editorconfigfile);
 				}
 			}
 		}
