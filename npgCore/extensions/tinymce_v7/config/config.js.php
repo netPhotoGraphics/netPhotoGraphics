@@ -33,6 +33,8 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
+global $_RTL_css;
+
 npgFilters::apply('tinymce_config', NULL);
 if ($MCEcss) {
 	$css = getPlugin(basename(TINYMCE) . '/config/' . $MCEcss, true, true);
@@ -43,7 +45,11 @@ if ($MCEcss) {
 	$MCEcss = str_replace(SERVERPATH, WEBPATH, TINYMCE) . '/config/content.css';
 }
 
-global $_RTL_css;
+$MCEspecial['browser_spellcheck'] = "true";
+if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
+	$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . TINYMCE . '/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
+}
+
 if ($MCEdirection == NULL) {
 	if ($_RTL_css) {
 		$MCEdirection = 'rtl';
@@ -72,11 +78,11 @@ if ($pasteObjEnabled = array_search('pasteobj', $MCEplugins)) {
 <?php
 if ($pasteObjEnabled) {
 	?>
-		var pasteObjConfig = {	//	pasteObject window
-		title: 'netPhotoGraphics:obj',
-						url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . TINYMCE . '/pasteobj/pasteobj.php'); ?>',
-						height: 600,
-						width: 800
+		var pasteObjConfig = {//	pasteObject window
+			title: 'netPhotoGraphics:obj',
+			url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . TINYMCE . '/pasteobj/pasteobj.php'); ?>',
+			height: 600,
+			width: 800
 		};
 	<?php
 }
@@ -128,16 +134,17 @@ if (in_array('pagebreak', $MCEplugins)) {
 		pagebreak_split_block: true,
 	<?php
 }
-if ($MCEspecial) {
-	foreach ($MCEspecial as $element => $value) {
-		echo $element . ': ' . $value . ",\n";
-	}
+
+foreach ($MCEspecial as $element => $value) {
+	echo $element . ': ' . $value . ",\n";
 }
+
 if ($MCEskin) {
 	?>
 		skin: "<?php echo $MCEskin; ?>",
 	<?php
 }
+
 if (empty($MCEtoolbars)) {
 	?>
 		toolbar: false,
@@ -200,29 +207,27 @@ if ($MCEmenubar) {
 }
 echo $MCEmenubar;
 ?>
-	setup: function(editor) {
-	editor.on('blur', function(ed, e) {
-	form = $(editor.getContainer()).closest('form');
-	if (editor.isDirty()) {
-	$(form).addClass('tinyDirty');
-	} else {
-	$(form).removeClass('tinyDirty');
-	}
-	});
+	setup: function (editor) {
+		editor.on('blur', function (ed, e) {
+			form = $(editor.getContainer()).closest('form');
+			if (editor.isDirty()) {
+				$(form).addClass('tinyDirty');
+			} else {
+				$(form).removeClass('tinyDirty');
+			}
+		});
 <?php
 if (getOption('dirtyform_enable') > 1) {
 	?>
-		editor.on('postRender', function(e) {
-		//	clear the form from any tinyMCE dirtying once it has loaded
-		form = $(editor.getContainer()).closest('form');
-		$(form).trigger("reset");
-		});
+			editor.on('postRender', function (e) {
+				//	clear the form from any tinyMCE dirtying once it has loaded
+				form = $(editor.getContainer()).closest('form');
+				$(form).trigger("reset");
+			});
 	<?php
 }
 ?>
+		}
 	}
-
-
-	});
-
+	);
 </script>

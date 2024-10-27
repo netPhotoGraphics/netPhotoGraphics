@@ -86,10 +86,6 @@ class tinymce {
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
 		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
-		$MCEspecial['browser_spellcheck'] = "true";
-		if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
-			$MCEspecial['images_upload_url'] = '"' . WEBPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . TINYMCE . '/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
-		}
 		if (empty($_editorconfig)) { // only if we get here first!
 			$MCElocale = 'en';
 			$loc = str_replace('_', '-', getOption('locale'));
