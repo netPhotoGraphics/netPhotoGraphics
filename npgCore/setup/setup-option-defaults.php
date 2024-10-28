@@ -84,6 +84,8 @@ if (isset($_GET['mod_rewrite'])) {
 	$mod_rewrite_link = false;
 }
 
+$themes = array_keys($info = $_gallery->getThemes());
+localeSort($themes);
 
 //	update creator for old zp_core indicators
 $rslt = query('SELECT `id`,`creator` FROM ' . prefix('options') . ' WHERE `creator` LIKE "zp-core/%"');
@@ -108,10 +110,30 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 }
 
 //tnyMCE v7 migration
+$tinymce_v5_configs = array();
 if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce')) {
-	$msg = sprintf(gettext('Setup detected a <em>tinymce</em> folder in the <em>plugins</em> folder. <strong>netPhotoGraphics</strong> has migrated tinyMCE to version 7.<br/>You will need to migrate your config script and place it in the <em>tinymce_v7</em> folder.<br/>TinyMCE Migration is described in %1$s and %2$s'),
+	$tinymce_v5_configs[] = USER_PLUGIN_FOLDER;
+}
+foreach ($themes as $key => $theme) {
+	if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/tinymce')) {
+		$tinymce_v5_configs[] = THEMEFOLDER . '/' . $theme;
+	}
+}
+if (!empty($tinymce_v5_configs)) {
+	$found = '<em>' . implode('</em>, <em>', $tinymce_v5_configs) . '</em>';
+	$last = strripos($found, ',');
+	if ($last) {
+		if (count($tinymce_v5_configs) > 2) {
+			$found_a = substr($found, 0, $last + 1);
+		} else {
+			$found_a = substr($found, 0, $last);
+		}
+		$found = $found_a . gettext(' and ') . substr($found, $last + 1);
+	}
+	$msg = sprintf(gettext('Setup detected a <em>tinymce</em> configuration folder in %3$s. <strong>netPhotoGraphics</strong> has migrated tinyMCE to version 7.<br/>You will need to migrate your config script and place it in a <em>tinymce_v7</em> folder.<br/>TinyMCE Migration is described in %1$s and %2$s'),
 					'https://www.tiny.cloud/docs/tinymce/6/migration-from-5x/',
-					'https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/');
+					'https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/',
+					$found);
 	setupLog('<span class="logwarning">' . $msg . '</span>', true);
 	?>
 	<div class="warningbox">
@@ -177,8 +199,6 @@ setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 
 $theme_links = array();
 setOption('known_themes', serialize(array())); //	reset known themes
-$themes = array_keys($info = $_gallery->getThemes());
-localeSort($themes);
 foreach ($themes as $key => $theme) {
 	$class = 0;
 	if (protectedTheme($theme)) {

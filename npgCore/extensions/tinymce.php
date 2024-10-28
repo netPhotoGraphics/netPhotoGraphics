@@ -4,8 +4,8 @@
  * Back-end <i>WYSIWYG</i> editor TinyMCE.
  *
  * You can place your own additional custom configuration files within
- * <var>%USER_PLUGIN_FOLDER%/tinymce/config</var> or <var>%THEMEFOLDER%/theme_name/tinymce/config</var> folder.
- * The naming convention for these files is use prefix the file name with the intended
+ * <var>%USER_PLUGIN_FOLDER%/tinymce_v7/config</var> or <var>%THEMEFOLDER%/theme_name/tinymce_v7/config</var> folder.
+ * The naming convention for these files is to prefix the file name with the intended
  * use, e.g.
  * <ol>
  * 	<li>photo-&lt;name&gt;.php</li>
@@ -22,8 +22,9 @@ $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("TinyMCE WYSIWYG editor");
 $option_interface = 'tinymce';
 
-if (!defined('EDITOR_SANITIZE_LEVEL'))
+if (!defined('EDITOR_SANITIZE_LEVEL')) {
 	define('EDITOR_SANITIZE_LEVEL', 4);
+}
 if (!defined('TINYMCE')) {
 	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce_v7');
 }
