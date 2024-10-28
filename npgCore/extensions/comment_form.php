@@ -146,8 +146,7 @@ class comment_form {
 						'desc' => gettext('The comments that should show per page on the admin tab and when using the jQuery pagination'))
 		);
 		if (defined('TINYMCE')) {
-			$editorConfig = 'tinymce::getConfigFiles';
-			$configarray = $editorConfig('comment');
+			$configarray = tinymce::getConfigFiles('comment');
 			$commentEditor = array(
 					gettext('Comment editor configuration') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
 							'order' => 1,
