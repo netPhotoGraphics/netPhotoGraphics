@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Back-end <i>WYSIWYG</i> editor TinyMCE.
+ * <i>WYSIWYG</i> editor TinyMCE.
  *
  * You can place your own additional custom configuration files within
  * <var>%USER_PLUGIN_FOLDER%/tinymce_v7/config</var> or <var>%THEMEFOLDER%/theme_name/tinymce_v7/config</var> folder.
@@ -13,7 +13,7 @@
  * 	<li>comment-&lt;name&gt;.php</li>
  * </ol>
  *
- * @author Stephen Billard (sbillard), Malte Müller (acrylian)
+ * @author Stephen Billard (sbillard)
  *
  * @package plugins/tinymce
  * @pluginCategory admin
