@@ -100,7 +100,6 @@ themes/basic/styles/dark.css
 themes/basic/styles/light.css
 themes/basic/styles/sterile-dark.css
 themes/basic/styles/sterile-light.css
-themes/basic/tinymce
 themes/bootstrap
 themes/bootstrap/404.php
 themes/bootstrap/album.php
@@ -20397,4 +20396,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20399
+20398
