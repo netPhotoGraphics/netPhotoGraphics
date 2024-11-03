@@ -111,36 +111,67 @@ if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
 
 //tnyMCE v7 migration
 $tinymce_v5_configs = array();
-if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce')) {
-	$tinymce_v5_configs[] = USER_PLUGIN_FOLDER;
+if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce/config')) {
+	$tinymce_v5_configs[USER_PLUGIN_SERVERPATH . 'tinymce/config'] = USER_PLUGIN_FOLDER;
 }
 foreach ($themes as $key => $theme) {
-	if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/tinymce')) {
-		$tinymce_v5_configs[] = THEMEFOLDER . '/' . $theme;
+	if (is_dir(SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/tinymce/config')) {
+		$tinymce_v5_configs[SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/tinymce/config'] = THEMEFOLDER . '/' . $theme;
 	}
 }
 if (!empty($tinymce_v5_configs)) {
-	$found = '<em>' . implode('</em>, <em>', $tinymce_v5_configs) . '</em>';
-	$last = strripos($found, ',');
-	if ($last) {
-		if (count($tinymce_v5_configs) > 2) {
-			$found_a = substr($found, 0, $last + 1);
-		} else {
-			$found_a = substr($found, 0, $last);
+	$found = false;
+	$count = 0;
+	foreach ($tinymce_v5_configs as $folder => $name) {
+		$files = safe_glob($folder . '/*.php');
+		foreach ($files as $file) {
+			$config = file_get_contents($file);
+			$i = strpos($config, '$MCEplugins');
+			if ($i) {
+				$config = substr($config, $i);
+				$i = strpos($config, ';');
+				$config = substr($config, 0, $i + 1);
+				eval($config);
+				if (!is_array($MCEplugins)) {
+					$MCEplugins = explode(' ', $MCEplugins);
+				}
+				foreach (['hr', 'imagetools', 'colorpicker', 'textcolor', 'template', 'paste'] as $target) {
+					if (in_array($target, $MCEplugins)) {
+						$found .= '<em>' . str_replace(SERVERPATH . '/', '', $file) . '</em>, ';
+						$count++;
+						break;
+					}
+				}
+			}
 		}
-		$found = $found_a . gettext(' and ') . substr($found, $last + 1);
 	}
-	$msg = sprintf(gettext('Setup detected a <em>tinymce</em> configuration folder in %3$s. <strong>netPhotoGraphics</strong> has migrated tinyMCE to version 7.<br/>You will need to migrate your config script and place it in a <em>tinymce_v7</em> folder.<br/>TinyMCE Migration is described in %1$s and %2$s'),
-					'https://www.tiny.cloud/docs/tinymce/6/migration-from-5x/',
-					'https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/',
-					$found);
-	setupLog('<span class="logwarning">' . $msg . '</span>', true);
-	?>
-	<div class="warningbox">
-		<?php echo $msg; ?>
-	</div>
-	<?php
-	$autorun = false;
+	if ($found) {
+		$found = rtrim($found, ', ');
+		$last = strripos($found, ', ');
+		switch ($count) {
+			case 1:
+				break;
+			case 2:
+				$found = substr($found, 0, $last) . gettext(' and ') . substr($found, $last + 1);
+				break;
+			default:
+				$found = substr($found, 0, $last + 1) . gettext(' and ') . substr($found, $last + 1);
+
+				break;
+		}
+
+		$msg = sprintf(gettext('Setup detected <em>tinymce version 5</em> configuration files. <strong>netPhotoGraphics</strong> has migrated tinyMCE to version 7. You will need to migrate %3$s.<br/>TinyMCE Migration is described in %1$s and %2$s'),
+						'https://www.tiny.cloud/docs/tinymce/6/migration-from-5x/',
+						'https://www.tiny.cloud/docs/tinymce/latest/migration-from-6x/',
+						$found);
+		setupLog('<span class="logwarning">' . $msg . '</span>', true);
+		?>
+		<div class="warningbox">
+			<?php echo $msg; ?>
+		</div>
+		<?php
+		$autorun = false;
+	}
 }
 
 $thirdParty = $deprecated = false;

@@ -26,7 +26,7 @@ if (!defined('EDITOR_SANITIZE_LEVEL')) {
 	define('EDITOR_SANITIZE_LEVEL', 4);
 }
 if (!defined('TINYMCE')) {
-	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce_v7');
+	define('TINYMCE', PLUGIN_SERVERPATH . 'tinymce');
 }
 
 npgFilters::register('texteditor_config', 'tinymce::configJS');
