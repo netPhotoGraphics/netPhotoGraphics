@@ -148,12 +148,12 @@ class comment_form {
 		if (defined('TINYMCE')) {
 			$configarray = tinymce::getConfigFiles('comment');
 			$commentEditor = array(
-					gettext('Comment editor configuration') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
+					gettext('Text editor configuration (Theme)') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
 							'order' => 1,
 							'selections' => $configarray,
 							'null_selection' => gettext('Disabled'),
 							'desc' => gettext('Configuration file for TinyMCE when used for comments. Set to <code>Disabled</code> to disable visual editing.')),
-					gettext('Admin comment editor configuration') => array('key' => 'tinymce_admin_comments', 'type' => OPTION_TYPE_SELECTOR,
+					gettext('Text editor configuration (Admin)') => array('key' => 'tinymce_admin_comments', 'type' => OPTION_TYPE_SELECTOR,
 							'order' => 1.1,
 							'selections' => $configarray,
 							'null_selection' => gettext('Disabled'),

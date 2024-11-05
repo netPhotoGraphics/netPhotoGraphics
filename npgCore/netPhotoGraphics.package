@@ -19809,14 +19809,9 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/config/CMS-ribbon.php
 %extensions%/tinymce/config/CMS-slim.php
 %extensions%/tinymce/config/comment-full.php
-%extensions%/tinymce/config/comment-full_dark.php
 %extensions%/tinymce/config/comment-ribbon.php
-%extensions%/tinymce/config/comment-ribbon_dark.php
-%extensions%/tinymce/config/comment-slim-dark.php
 %extensions%/tinymce/config/comment-slim.php
 %extensions%/tinymce/config/config.js.php
-%extensions%/tinymce/config/content.css
-%extensions%/tinymce/config/dark_content.css
 %extensions%/tinymce/config/forms-basic.php
 %extensions%/tinymce/config/forms-full.php
 %extensions%/tinymce/config/forms-light.php
@@ -20396,4 +20391,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20398
+20393

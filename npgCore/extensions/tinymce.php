@@ -54,29 +54,35 @@ class tinymce {
 		$configs_CMS = self::getConfigFiles('CMS');
 		$configs_photo = self::getConfigFiles('photo');
 		$configs_forms = self::getConfigFiles('forms');
+		$config_comment = self::getConfigFiles('comment');
 		$options = array(
 				gettext('Text editor configuration - gallery') => array('key' => 'tinymce_photo', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 0,
 						'selections' => $configs_photo,
 						'null_selection' => gettext('Disabled'),
 						'desc' => gettext('Applies to <em>admin</em> editable text other than for Zenpage pages and news articles.')),
 				gettext('Text editor configuration - zenpage') => array('key' => 'tinymce_CMS', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 1,
 						'selections' => $configs_CMS,
 						'null_selection' => gettext('Disabled'),
 						'desc' => gettext('Applies to editing on the Zenpage <em>pages</em> and <em>news</em> tabs.')),
 				gettext('Text editor configuration - forms') => array('key' => 'tinymce_forms', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 1,
 						'selections' => $configs_forms,
 						'null_selection' => gettext('Disabled'),
 						'desc' => gettext('Applies to editing on <em>forms option</em> tab.')),
+				gettext('Text editor configuration (Theme comments)') => array('key' => 'tinymce_comments', 'type' => OPTION_TYPE_SELECTOR,
+						'selections' => $config_comment,
+						'null_selection' => gettext('Disabled'),
+						'desc' => gettext('Configuration file for TinyMCE when used for comments. Set to <code>Disabled</code> to disable visual editing.')),
+				gettext('Text editor configuration (Admin comments)') => array('key' => 'tinymce_admin_comments', 'type' => OPTION_TYPE_SELECTOR,
+						'selections' => $config_comment,
+						'null_selection' => gettext('Disabled'),
+						'desc' => gettext('Configuration file for TinyMCE when used for the <em>edit comments</em> tab.')),
 				gettext('Entity encoding') => array('key' => 'tiny_mce_entity_encoding', 'type' => OPTION_TYPE_SELECTOR,
-						'order' => 2,
 						'selections' => array(gettext('named') => 'named', gettext('numeric') => 'numeric', gettext('raw') => 'raw'),
 						'desc' => gettext('Select the TinyMCE <em>entity_encoding</em> strategy.')),
 				gettext('RTL text direction') => array('key' => 'tiny_mce_rtl_override', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 3,
-						'desc' => gettext('This option should be checked if your language writing direction is right-to-left')));
+						'desc' => gettext('This option should be checked if your language writing direction is right-to-left'))
+		);
+
 		return $options;
 	}
 

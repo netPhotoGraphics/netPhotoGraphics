@@ -8,10 +8,10 @@
  */
 $MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
 $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
-				"searchreplace wordcount visualblocks visualchars code fullscreen " .
-				"insertdatetime save directionality " .
+				"searchreplace visualchars wordcount visualblocks code fullscreen " .
+				"insertdatetime media nonbreaking save table directionality " .
 				"emoticons help";
-$MCEmenubar = "edit insert view format tools";
 $MCEtoolbars = array();
-$MCEstatusbar = false;
+$MCEstatusbar = boolval(OFFSET_PATH);
+$MCEmenubar = true;
 include(TINYMCE . '/config/config.js.php');

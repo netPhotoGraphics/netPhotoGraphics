@@ -41,9 +41,9 @@ if ($MCEcss) {
 	$css = getPlugin(basename(TINYMCE) . '/config/' . $MCEcss, true, true);
 	if ($css) {
 		$MCEcss = $css;
+	} else {
+		$MCEcss = '';
 	}
-} else {
-	$MCEcss = str_replace(SERVERPATH, WEBPATH, TINYMCE) . '/config/content.css';
 }
 
 $MCEspecial['browser_spellcheck'] = "true";
@@ -117,7 +117,19 @@ if ($MCEcss) {
 	<?php
 }
 ?>
-	plugins: ["<?php echo implode('", "', $MCEplugins); ?>"],
+	plugins: [<?php
+$line = '';
+$count = 0;
+foreach ($MCEplugins as $plugin) {
+	$line .= '"' . $plugin . '",';
+	$count++;
+	if ($count % 10 == 0) {
+		$line .= "\n\t\t\t";
+	}
+}
+echo rtrim($line, ',');
+;
+?>],
 <?php
 if ($MCEexternal) {
 	?>
@@ -127,7 +139,8 @@ if ($MCEexternal) {
 		echo "		  '" . $plugin . "': '" . $url . "'\n";
 	}
 	?>
-		},
+		}
+		,
 	<?php
 }
 if (in_array('pagebreak', $MCEplugins)) {
