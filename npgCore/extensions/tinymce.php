@@ -92,21 +92,8 @@ class tinymce {
 
 	static function configJS($mode) {
 		global $_editorconfig, $MCEskin, $MCEdirection, $MCEcss, $MCEspecial, $MCEexternal, $MCEimage_advtab, $MCEtoolbars, $MCElocale;
-		$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 		if (empty($_editorconfig)) { // only if we get here first!
-			$MCElocale = 'en';
-			$loc = str_replace('_', '-', getOption('locale'));
-			if ($loc) {
-				if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
-					$MCElocale = $loc;
-				} else {
-					$loc = substr($loc, 0, 2);
-					if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
-						$MCElocale = $loc;
-					}
-				}
-			}
-
+			$MCEskin = $MCEdirection = $MCEcss = $MCEimage_advtab = $MCEtoolbars = $MCEexternal = NULL;
 			$_editorconfig = getOption('tinymce_' . $mode);
 			if (!empty($_editorconfig)) {
 				$_editorconfigfile = getPlugin(basename(TINYMCE) . '/config/' . $_editorconfig, true);

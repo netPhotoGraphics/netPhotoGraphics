@@ -289,7 +289,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	function datepickerJS() {
-		$lang = str_replace('_', '-', SITE_LOCALE);
+		global $_current_locale;
+		$lang = str_replace('_', '-', $_current_locale);
 		if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
 			$lang = substr($lang, 0, 2);
 			if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {

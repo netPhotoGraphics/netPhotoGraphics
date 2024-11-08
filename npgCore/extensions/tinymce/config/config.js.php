@@ -33,9 +33,24 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
-global $_RTL_css;
+global $_RTL_css, $_current_locale;
 
 npgFilters::apply('tinymce_config', NULL);
+
+if (empty($MCElocale)) {
+	$MCElocale = 'en';
+	$loc = $_current_locale;
+	if ($loc) {
+		if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
+			$MCElocale = $loc;
+		} else {
+			$loc = substr($loc, 0, 2);
+			if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
+				$MCElocale = $loc;
+			}
+		}
+	}
+}
 
 if ($MCEcss) {
 	$css = getPlugin(basename(TINYMCE) . '/config/' . $MCEcss, true, true);
