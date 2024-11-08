@@ -107,7 +107,6 @@ var pasteObjPopup = {
 	execCommand: function (cmd, ui, val, args) {
 		args = args || {};
 		args.skip_focus = 1;
-
 		this.restoreSelection();
 		return this.editor.execCommand(cmd, ui, val, args);
 	},

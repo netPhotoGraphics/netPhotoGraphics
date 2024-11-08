@@ -7,11 +7,10 @@
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.texteditor";
-$MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
+$MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualchars wordcount visualblocks code fullscreen " .
-				"imagetools colorpicker textcolor " .
 				"insertdatetime media nonbreaking save table directionality " .
-				"emoticons template paste ";
+				"emoticons help";
 $MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";
 $MCEtoolbars[2] = "media emoticons nonbreaking | ltr rtl | forecolor backcolor | code fullscreen";
 $MCEstatusbar = true;

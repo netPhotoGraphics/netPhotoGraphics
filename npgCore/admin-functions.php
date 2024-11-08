@@ -289,7 +289,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	function datepickerJS() {
-		$lang = str_replace('_', '-', SITE_LOCALE);
+		global $_current_locale;
+		$lang = str_replace('_', '-', $_current_locale);
 		if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
 			$lang = substr($lang, 0, 2);
 			if (!file_exists(CORE_SERVERPATH . 'js/jqueryui/i18n/datepicker-' . $lang . '.js')) {
@@ -5525,7 +5526,7 @@ function admin_securityChecks($rights, $return) {
 			$_loggedin = USER_RIGHTS;
 		}
 	}
-	$returnurl = urldecode($return);
+	$returnurl = urldecode(strval($return));
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
 		// prevent nefarious access to this page.

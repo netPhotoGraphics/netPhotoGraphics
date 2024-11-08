@@ -7,11 +7,11 @@
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
-$MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
-				"searchreplace wordcount visualblocks visualchars code fullscreen " .
-				"insertdatetime save directionality " .
-				"emoticons paste ";
-$MCEmenubar = "edit insert view format tools";
+$MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
+				"searchreplace visualchars wordcount visualblocks code fullscreen " .
+				"insertdatetime media nonbreaking save table directionality " .
+				"emoticons help";
 $MCEtoolbars = array();
-$MCEstatusbar = false;
+$MCEstatusbar = boolval(OFFSET_PATH);
+$MCEmenubar = true;
 include(TINYMCE . '/config/config.js.php');

@@ -6,11 +6,11 @@
  * Comment form slim-light configuration
  * @author Stephen Billard (sbillard)
  */
-$MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
+$MCEselector = "textarea.content,textarea.desc,textarea.extracontent";
 $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
-				"searchreplace visualchars visualblocks code " .
-				"insertdatetime media paste ";
-$MCEtoolbars[1] = "bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ltr rtl code";
-$MCEstatusbar = false;
+				"searchreplace visualchars visualblocks code fullscreen " .
+				"insertdatetime media table directionality help";
+$MCEtoolbars[1] = "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image searchreplace visualchars | ltr rtl";
+$MCEstatusbar = boolval(OFFSET_PATH);
 $MCEmenubar = false;
 include(TINYMCE . '/config/config.js.php');

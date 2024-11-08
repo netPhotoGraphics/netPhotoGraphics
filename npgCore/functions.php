@@ -126,8 +126,8 @@ function truncate_string($string, $length, $elipsis = '...') {
  * @param string $script the path to the script file
  * @return string
  */
-function getAdminLink($script, $path = FULLWEBPATH) {
-	if (MOD_REWRITE) {
+function getAdminLink($script, $path = FULLWEBPATH, $rewrite = true) {
+	if (MOD_REWRITE && $rewrite) {
 		if (preg_match('~^' . USER_PLUGIN_FOLDER . '~i', $script)) {
 			$script = preg_replace('~^' . USER_PLUGIN_FOLDER . '~i', USER_PLUGIN_PATH, stripSuffix($script));
 			return($path . '/' . $script) . RW_SUFFIX;

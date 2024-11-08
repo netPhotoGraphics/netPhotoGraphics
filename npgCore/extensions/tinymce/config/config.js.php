@@ -33,14 +33,39 @@
  *
  * @Copyright 2014 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
+global $_RTL_css, $_current_locale;
+
 npgFilters::apply('tinymce_config', NULL);
 
-if ($MCEcss) {
-	$MCEcss = getPlugin('tinymce/config/' . $MCEcss, true, true);
-} else {
-	$MCEcss = getPlugin('tinymce/config/content.css', true, true);
+if (empty($MCElocale)) {
+	$MCElocale = 'en';
+	$loc = $_current_locale;
+	if ($loc) {
+		if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
+			$MCElocale = $loc;
+		} else {
+			$loc = substr($loc, 0, 2);
+			if (file_exists(TINYMCE . '/langs/' . $loc . '.js')) {
+				$MCElocale = $loc;
+			}
+		}
+	}
 }
-global $_RTL_css;
+
+if ($MCEcss) {
+	$css = getPlugin(basename(TINYMCE) . '/config/' . $MCEcss, true, true);
+	if ($css) {
+		$MCEcss = $css;
+	} else {
+		$MCEcss = '';
+	}
+}
+
+$MCEspecial['browser_spellcheck'] = "true";
+if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
+	$MCEspecial['images_upload_url'] = '"' . str_replace(SERVERPATH, WEBPATH, TINYMCE) . '/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
+}
+
 if ($MCEdirection == NULL) {
 	if ($_RTL_css) {
 		$MCEdirection = 'rtl';
@@ -51,7 +76,7 @@ if ($MCEdirection == NULL) {
 	}
 }
 
-scriptLoader(TINYMCE . '/tinymce.5.10.5.min.js');
+scriptLoader(TINYMCE . '/tinymce.7.4.1.min.js');
 scriptLoader(TINYMCE . '/jquery.tinymce.min.js');
 if (OFFSET_PATH && getOption('dirtyform_enable') > 1) {
 	scriptLoader(CORE_SERVERPATH . 'js/dirtyforms/jquery.dirtyforms.helpers.tinymce.min.js');
@@ -69,17 +94,19 @@ if ($pasteObjEnabled = array_search('pasteobj', $MCEplugins)) {
 <?php
 if ($pasteObjEnabled) {
 	?>
-		var pasteObjConfig = {	//	pasteObject window
-		title: 'netPhotoGraphics:obj',
-						url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/tinymce/pasteobj/pasteobj.php'); ?>',
-						height: 600,
-						width: 800
+		var pasteObjConfig = {//	pasteObject window
+			title: 'netPhotoGraphics:obj',
+			url: '<?php echo getAdminLink(PLUGIN_FOLDER . '/' . basename(TINYMCE) . '/pasteobj/pasteobj.php', FULLWEBPATH, false); ?>',
+			height: 600,
+			width: 800
 		};
 	<?php
 }
 ?>
-	tinymce.init({	<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
-	entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
+	tinymce.init({<?php echo '/* ' . stripSuffix(basename($_editorconfig)) . " */\n"; ?>
+	license_key: "gpl",
+					promotion: false,
+					entity_encoding : "<?php echo getOption('tiny_mce_entity_encoding'); ?>",
 					selector: "<?php echo $MCEselector; ?>",
 					language: "<?php echo $MCElocale; ?>",
 					relative_urls: false,
@@ -105,7 +132,19 @@ if ($MCEcss) {
 	<?php
 }
 ?>
-	plugins: ["<?php echo implode(' ', $MCEplugins); ?>"],
+	plugins: [<?php
+$line = '';
+$count = 0;
+foreach ($MCEplugins as $plugin) {
+	$line .= '"' . $plugin . '",';
+	$count++;
+	if ($count % 10 == 0) {
+		$line .= "\n\t\t\t";
+	}
+}
+echo rtrim($line, ',');
+;
+?>],
 <?php
 if ($MCEexternal) {
 	?>
@@ -115,7 +154,8 @@ if ($MCEexternal) {
 		echo "		  '" . $plugin . "': '" . $url . "'\n";
 	}
 	?>
-		},
+		}
+		,
 	<?php
 }
 if (in_array('pagebreak', $MCEplugins)) {
@@ -123,16 +163,17 @@ if (in_array('pagebreak', $MCEplugins)) {
 		pagebreak_split_block: true,
 	<?php
 }
-if ($MCEspecial) {
-	foreach ($MCEspecial as $element => $value) {
-		echo $element . ': ' . $value . ",\n";
-	}
+
+foreach ($MCEspecial as $element => $value) {
+	echo $element . ': ' . $value . ",\n";
 }
+
 if ($MCEskin) {
 	?>
 		skin: "<?php echo $MCEskin; ?>",
 	<?php
 }
+
 if (empty($MCEtoolbars)) {
 	?>
 		toolbar: false,
@@ -153,7 +194,7 @@ if ($MCEmenubar) {
 	} else if (is_string($MCEmenubar)) {
 		$menu = explode(' ', preg_replace('/\s\s+/', ' ', trim($MCEmenubar)));
 	} else {
-		$menu = array('file', 'edit', 'insert', 'view', 'format', 'table', 'tools');
+		$menu = array('file', 'edit', 'insert', 'view', 'format', 'table', 'tools', 'help');
 	}
 
 	$MCEmenubar = "    menu: {\n";
@@ -170,7 +211,7 @@ if ($MCEmenubar) {
 				if (in_array('pasteobj', $MCEplugins)) {
 					$MCEmenubar .= " pasteobj";
 				}
-				$MCEmenubar .= " template | charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
+				$MCEmenubar .= " charmap hr | pagebreak nonbreaking anchor | insertdatetime'},\n";
 				break;
 			case 'view':
 				$MCEmenubar .= "      view: {title: 'View', items: 'visualaid'},\n";
@@ -179,42 +220,43 @@ if ($MCEmenubar) {
 				$MCEmenubar .= "      format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'},\n";
 				break;
 			case 'table':
-				$MCEmenubar .= "      table: {title: 'Table', items: 'inserttable tableprops deletetable | row column | cell'},\n";
+				$MCEmenubar .= "      table: {title: 'Table', items: 'inserttable | cell row column | advtablesort | tableprops deletetable'},\n";
 				break;
 			case 'tools':
-				$MCEmenubar .= "      tools: {title: 'Tools', items: 'spellchecker code'}\n";
+				$MCEmenubar .= "      tools: {title: 'Tools', items: 'code wordcount'},\n";
+				break;
+			case 'help':
+				$MCEmenubar .= "      help: {title: 'Help', items: 'help'},\n";
 				break;
 		}
 	}
-	$MCEmenubar = trim($MCEmenubar, ",\n") . "\n      }";
+	$MCEmenubar = trim($MCEmenubar, ",\n") . "\n      },\n";
 } else {
-	$MCEmenubar = "false";
+	$MCEmenubar = "menubar: false,\n";
 }
 echo $MCEmenubar;
-?>,
-					setup: function(editor) {
-					editor.on('blur', function(ed, e) {
-					form = $(editor.getContainer()).closest('form');
+?>
+	setup: function (editor) {
+	editor.on('blur', function (ed, e) {
+	form = $(editor.getContainer()).closest('form');
 					if (editor.isDirty()) {
-					$(form).addClass('tinyDirty');
-					} else {
-					$(form).removeClass('tinyDirty');
-					}
-					});
+	$(form).addClass('tinyDirty');
+	} else {
+	$(form).removeClass('tinyDirty');
+	}
+	});
 <?php
 if (getOption('dirtyform_enable') > 1) {
 	?>
-						editor.on('postRender', function(e) {
-						//	clear the form from any tinyMCE dirtying once it has loaded
-						form = $(editor.getContainer()).closest('form');
+		editor.on('postRender', function (e) {
+		//	clear the form from any tinyMCE dirtying once it has loaded
+		form = $(editor.getContainer()).closest('form');
 						$(form).trigger("reset");
-						});
+		});
 	<?php
 }
 ?>
-					}
-
-
-	});
-
+	}
+	}
+	);
 </script>

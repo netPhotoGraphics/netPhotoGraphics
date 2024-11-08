@@ -7,10 +7,10 @@
  * @author Stephen Billard (sbillard)
  */
 $MCEselector = "textarea.texteditor";
-$MCEplugins = "advlist autolink lists link image charmap hr anchor pagebreak " .
+$MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualchars wordcount visualblocks  code fullscreen " .
 				"insertdatetime media nonbreaking save " .
-				"emoticons template paste pasteobj directionality ";
+				"emoticons pasteobj directionality help";
 
 $MCEtoolbars = array();
 $MCEstatusbar = true;
