@@ -10,11 +10,16 @@
  */
 $plugin_is_filter = defaultExtension(5 | ADMIN_PLUGIN);
 $plugin_description = gettext("SEO filter to translate extended characters into their basic alpha-numeric equivalents.");
+$plugin_disable = npgFilters::has_filter('seoFriendly') && !extensionEnabled('seo_basic') ? gettext('Only one SEO filter plugin can be enabled.') : '';
 
 $option_interface = 'seo_basic';
 
-npgFilters::register('seoFriendly', 'seo_basic::filter');
-npgFilters::register('seoFriendly_js', 'seo_basic::js');
+if ($plugin_disable) {
+	enableExtension('seo_null', 0);
+} else {
+	npgFilters::register('seoFriendly', 'seo_basic::filter');
+	npgFilters::register('seoFriendly_js', 'seo_basic::js');
+}
 
 /**
  * Option handler class
@@ -1076,4 +1081,5 @@ class seo_basic {
 	}
 
 }
+
 ?>
