@@ -12,7 +12,7 @@
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('SEO <em>Null</em> filter.');
 $plugin_notice = gettext('The only translation performed is one or more <em>white space</em> characters are converted to a <em>hyphen</em>.');
-$plugin_disable = npgFilters::has_filter('seoFriendly') && !extensionEnabled('seo_null') ? gettext('Only one SEO filter plugin can be enabled.') : '';
+$plugin_disable = npgFilters::has_filter('seoFriendly') && !extensionEnabled('seo_null') ? sprintf(gettext('Only one SEO filter plugin can be enabled. <em>%1$s</em> is already enabled.'), stripSuffix(npgFilters::script('seoFriendly'))) : '';
 
 if ($plugin_disable) {
 	enableExtension('seo_null', 0);
