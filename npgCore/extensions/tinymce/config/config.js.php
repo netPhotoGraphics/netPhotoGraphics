@@ -56,12 +56,9 @@ if ($MCEcss) {
 	$css = getPlugin(basename(TINYMCE) . '/config/' . $MCEcss, true, true);
 	if ($css) {
 		$MCEcss = $css;
-	} else {
-		$MCEcss = '';
 	}
 }
 
-$MCEspecial['browser_spellcheck'] = "true";
 if (OFFSET_PATH && npg_loggedin(UPLOAD_RIGHTS)) {
 	$MCEspecial['images_upload_url'] = '"' . str_replace(SERVERPATH, WEBPATH, TINYMCE) . '/postAcceptor.php?XSRFToken=' . getXSRFToken('postAcceptor') . '"';
 }
@@ -126,26 +123,17 @@ if ($MCEdirection) {
 		directionality : '<?php echo $MCEdirection; ?>',
 	<?php
 }
+if ($MCEskin) {
+	?>
+		skin: "<?php echo $MCEskin; ?>",
+	<?php
+}
 if ($MCEcss) {
 	?>
 		content_css: "<?php echo $MCEcss; ?>",
 	<?php
 }
-?>
-	plugins: [<?php
-$line = '';
-$count = 0;
-foreach ($MCEplugins as $plugin) {
-	$line .= '"' . $plugin . '",';
-	$count++;
-	if ($count % 10 == 0) {
-		$line .= "\n\t\t\t";
-	}
-}
-echo rtrim($line, ',');
-;
-?>],
-<?php
+
 if ($MCEexternal) {
 	?>
 		external_plugins: {
@@ -163,17 +151,22 @@ if (in_array('pagebreak', $MCEplugins)) {
 		pagebreak_split_block: true,
 	<?php
 }
-
-foreach ($MCEspecial as $element => $value) {
-	echo $element . ': ' . $value . ",\n";
+?>
+	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
+					plugins: [<?php
+$line = '';
+$count = 0;
+foreach ($MCEplugins as $plugin) {
+	$line .= '"' . $plugin . '",';
+	$count++;
+	if ($count % 10 == 0) {
+		$line .= "\n\t\t\t";
+	}
 }
-
-if ($MCEskin) {
-	?>
-		skin: "<?php echo $MCEskin; ?>",
-	<?php
-}
-
+echo rtrim($line, ',');
+;
+?>],
+<?php
 if (empty($MCEtoolbars)) {
 	?>
 		toolbar: false,
@@ -185,9 +178,12 @@ if (empty($MCEtoolbars)) {
 		<?php
 	}
 }
-?>
-	statusbar: <?php echo ($MCEstatusbar) ? 'true' : 'false'; ?>,
-<?php
+if ($MCEspecial) {
+	foreach ($MCEspecial as $element => $value) {
+		echo $element . ': ' . $value . ",\n\t\t";
+	}
+}
+
 if ($MCEmenubar) {
 	if (is_array($MCEmenubar)) {
 		$menu = $MCEmenubar;

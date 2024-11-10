@@ -1,12 +1,12 @@
 <?php
 
 /**
- * The configuration parameters for TinyMCE 4.x.
+ * The configuration parameters for TinyMCE.
  *
  * Comment form slim-light configuration
  * @author Stephen Billard (sbillard)
  */
-$MCEselector = "textarea.content,textarea.desc,textarea.extracontent";
+$MCEselector = "textarea.textarea_inputbox, textarea.texteditor_comments";
 $MCEplugins = "advlist autolink lists link image charmap anchor pagebreak " .
 				"searchreplace visualchars visualblocks code fullscreen " .
 				"insertdatetime media table directionality help";
