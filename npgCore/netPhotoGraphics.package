@@ -19356,6 +19356,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/elFinder/connector.mce.php
 %extensions%/elFinder/elfinder-logo.png
 %extensions%/elFinder/filemanager.php
+%extensions%/elFinder/LICENSE.md
 %extensions%/elFinder/css
 %extensions%/elFinder/css/elfinder.min.css
 %extensions%/elFinder/css/theme.css
@@ -20391,4 +20392,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20393
+20394
