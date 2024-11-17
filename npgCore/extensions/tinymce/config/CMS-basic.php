@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The configuration parameters for TinyMCE 4.x.
+ * The configuration parameters for TinyMCE.
  *
  * CMS plugin basic-light configuration
  * @author Stephen Billard (sbillard)
