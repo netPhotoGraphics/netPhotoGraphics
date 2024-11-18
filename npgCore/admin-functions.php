@@ -6670,7 +6670,7 @@ function phpWarn() {
 use Milo\Github;
 use Milo\Github\Http;
 
-function fetchGithubLatest($owner, $repro, $option) {
+function fetchGithubLatest($owner, $repro, $option, $required = true) {
 	global $__githubError;
 	try {
 		$client = extension_loaded('curl') ?
@@ -6681,7 +6681,11 @@ function fetchGithubLatest($owner, $repro, $option) {
 		$fullRepoData = $api->decode($fullRepoResponse);
 		$assets = $fullRepoData->assets;
 		if (empty($assets)) {
-			throw new Exception(gettext('GitHub reported no assets.'));
+			if ($required) {
+				throw new Exception(gettext('GitHub reported no assets.'));
+			} else {
+				purge($option);
+			}
 		} else {
 			$item = array_pop($assets);
 			setOption($option, $item->browser_download_url);

@@ -57,7 +57,7 @@ if (isset($_GET['action'])) {
 if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	if (getOption('getDEVUpdates_lastCheck') + 8640 < time()) {
 		setOption('getDEVUpdates_lastCheck', time());
-		fetchGithubLatest('sbillard', 'netPhotoGraphics-DEV', 'getDEVUpdates_latest');
+		fetchGithubLatest('sbillard', 'netPhotoGraphics-DEV', 'getDEVUpdates_latest', false);
 	}
 
 	npgFilters::register('admin_utilities_buttons', 'devReleases::buttons');
