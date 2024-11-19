@@ -255,11 +255,24 @@ class Metadata {
 	 *
 	 */
 	static function read_exif($path) {
+		static $php_fixes = [
+				//	definitions for some "undefined" tags
+				'UndefinedTag:0xA432' => 'LensInfo',
+				'UndefinedTag:0xA434' => 'LensType'
+		];
+
 		$rslt = [];
 		if (exif_imagetype($path)) {
 			$e = error_reporting(0);
 			$php_rslt = exif_read_data($path);
 			error_reporting($e);
+
+			//	cleanup some phpEXIF shortcommings
+			foreach ($php_fixes as $php => $exif) {
+				if (!isset($php_rslt[$exif]) && isset($php_rslt[$php])) {
+					$php_rslt[$exif] = $php_rslt[$php];
+				}
+			}
 
 			if (!empty($php_rslt)) {
 				//	first "handle" the "COMPUTED" elements whose EXIF data may be missing.
