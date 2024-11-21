@@ -496,21 +496,21 @@ class elFinder {
 	const ERROR_COPY_TO = 'errCopyTo';
 	const ERROR_CREATING_TEMP_DIR = 'errCreatingTempDir';
 	const ERROR_DIR_NOT_FOUND = 'errFolderNotFound';
-	const ERROR_EXISTS = 'errExists';		// 'File named "$1" already exists.'
+	const ERROR_EXISTS = 'errExists';	// 'File named "$1" already exists.'
 	const ERROR_EXTRACT = 'errExtract';
 	const ERROR_EXTRACT_EXEC = 'errExtractExec';
-	const ERROR_FILE_NOT_FOUND = 'errFileNotFound';	 // 'File not found.'
+	const ERROR_FILE_NOT_FOUND = 'errFileNotFound';	// 'File not found.'
 	const ERROR_FTP_DOWNLOAD_FILE = 'errFtpDownloadFile';
 	const ERROR_FTP_MKDIR = 'errFtpMkdir';
 	const ERROR_FTP_UPLOAD_FILE = 'errFtpUploadFile';
 	const ERROR_INV_PARAMS = 'errCmdParams';
-	const ERROR_INVALID_DIRNAME = 'errInvDirname';	// 'Invalid folder name.'
-	const ERROR_INVALID_NAME = 'errInvName';		// 'Invalid file name.'
-	const ERROR_LOCKED = 'errLocked';		// '"$1" is locked and can not be renamed, moved or removed.'
+	const ERROR_INVALID_DIRNAME = 'errInvDirname'; // 'Invalid folder name.'
+	const ERROR_INVALID_NAME = 'errInvName';	// 'Invalid file name.'
+	const ERROR_LOCKED = 'errLocked';	// '"$1" is locked and can not be renamed, moved or removed.'
 	const ERROR_MAX_TARGTES = 'errMaxTargets'; // 'Max number of selectable items is $1.'
 	const ERROR_MKDIR = 'errMkdir';
 	const ERROR_MKFILE = 'errMkfile';
-	const ERROR_MKOUTLINK = 'errMkOutLink';		// 'Unable to create a link to outside the volume root.'
+	const ERROR_MKOUTLINK = 'errMkOutLink';	// 'Unable to create a link to outside the volume root.'
 	const ERROR_MOVE = 'errMove';
 	const ERROR_NETMOUNT = 'errNetMount';
 	const ERROR_NETMOUNT_FAILED = 'errNetMountFailed';
@@ -519,32 +519,32 @@ class elFinder {
 	const ERROR_NOT_ARCHIVE = 'errNoArchive';
 	const ERROR_NOT_DIR = 'errNotFolder';
 	const ERROR_NOT_FILE = 'errNotFile';
-	const ERROR_NOT_REPLACE = 'errNotReplace';		// Object "$1" already exists at this location and can not be replaced with object of another type.
+	const ERROR_NOT_REPLACE = 'errNotReplace';	// Object "$1" already exists at this location and can not be replaced with object of another type.
 	const ERROR_NOT_UTF8_CONTENT = 'errNotUTF8Content';
 	const ERROR_OPEN = 'errOpen';
 	const ERROR_PERM_DENIED = 'errPerm';
 	const ERROR_REAUTH_REQUIRE = 'errReauthRequire'; // 'Re-authorization is required.'
 	const ERROR_RENAME = 'errRename';
-	const ERROR_REPLACE = 'errReplace';		 // 'Unable to replace "$1".'
+	const ERROR_REPLACE = 'errReplace';	 // 'Unable to replace "$1".'
 	const ERROR_RESIZE = 'errResize';
 	const ERROR_RESIZESIZE = 'errResizeSize';
-	const ERROR_RM = 'errRm';				// 'Unable to remove "$1".'
-	const ERROR_RM_SRC = 'errRmSrc';			// 'Unable remove source file(s)'
+	const ERROR_RM = 'errRm';		// 'Unable to remove "$1".'
+	const ERROR_RM_SRC = 'errRmSrc';	 // 'Unable remove source file(s)'
 	const ERROR_SAVE = 'errSave';
-	const ERROR_SEARCH_TIMEOUT = 'errSearchTimeout';	// 'Timed out while searching "$1". Search result is partial.'
+	const ERROR_SEARCH_TIMEOUT = 'errSearchTimeout'; // 'Timed out while searching "$1". Search result is partial.'
 	const ERROR_SESSION_EXPIRES = 'errSessionExpires';
 	const ERROR_TRGDIR_NOT_FOUND = 'errTrgFolderNotFound'; // 'Target folder "$1" not found.'
 	const ERROR_UNKNOWN = 'errUnknown';
 	const ERROR_UNKNOWN_CMD = 'errUnknownCmd';
 	const ERROR_UNSUPPORT_TYPE = 'errUsupportType';
-	const ERROR_UPLOAD = 'errUpload';			// 'Upload error.'
-	const ERROR_UPLOAD_FILE = 'errUploadFile';		// 'Unable to upload "$1".'
-	const ERROR_UPLOAD_FILE_MIME = 'errUploadMime';		// 'File type not allowed.'
-	const ERROR_UPLOAD_FILE_SIZE = 'errUploadFileSize';	// 'File exceeds maximum allowed size.'
-	const ERROR_UPLOAD_NO_FILES = 'errUploadNoFiles';	// 'No files found for upload.'
-	const ERROR_UPLOAD_TEMP = 'errUploadTemp';		// 'Unable to make temporary file for upload.'
+	const ERROR_UPLOAD = 'errUpload';	 // 'Upload error.'
+	const ERROR_UPLOAD_FILE = 'errUploadFile';	// 'Unable to upload "$1".'
+	const ERROR_UPLOAD_FILE_MIME = 'errUploadMime';	// 'File type not allowed.'
+	const ERROR_UPLOAD_FILE_SIZE = 'errUploadFileSize'; // 'File exceeds maximum allowed size.'
+	const ERROR_UPLOAD_NO_FILES = 'errUploadNoFiles'; // 'No files found for upload.'
+	const ERROR_UPLOAD_TEMP = 'errUploadTemp';	// 'Unable to make temporary file for upload.'
 	const ERROR_UPLOAD_TOTAL_SIZE = 'errUploadTotalSize'; // 'Data exceeds the maximum allowed size.'
-	const ERROR_UPLOAD_TRANSFER = 'errUploadTransfer';	// '"$1" transfer error.'
+	const ERROR_UPLOAD_TRANSFER = 'errUploadTransfer'; // '"$1" transfer error.'
 	const ERROR_MAX_MKDIRS = 'errMaxMkdirs'; // 'You can create up to $1 folders at one time.'
 
 	/**
@@ -605,7 +605,7 @@ class elFinder {
 		$this->version = (string) self::$ApiVersion;
 
 		// set error handler of WARNING, NOTICE
-		$errLevel = E_WARNING | E_NOTICE | E_USER_WARNING | E_USER_NOTICE | E_STRICT | E_RECOVERABLE_ERROR;
+		$errLevel = E_WARNING | E_NOTICE | E_USER_WARNING | E_USER_NOTICE | E_RECOVERABLE_ERROR;
 		if (defined('E_DEPRECATED')) {
 			$errLevel |= E_DEPRECATED | E_USER_DEPRECATED;
 		}
@@ -4206,11 +4206,6 @@ var go = function() {
 				$proc = true;
 				break;
 
-			case E_STRICT:
-				elFinder::$phpErrors[] = "STRICT: $errstr in $errfile line $errline.";
-				$proc = true;
-				break;
-
 			case E_RECOVERABLE_ERROR:
 				elFinder::$phpErrors[] = "RECOVERABLE_ERROR: $errstr in $errfile line $errline.";
 				$proc = true;
@@ -4834,9 +4829,9 @@ var go = function() {
 
 		$https = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
 		$url = ($https ? 'https://' : 'http://')
-						. $_SERVER['SERVER_NAME']											 // host
+						. $_SERVER['SERVER_NAME']						// host
 						. ((empty($_SERVER['SERVER_PORT']) || (!$https && $_SERVER['SERVER_PORT'] == 80) || ($https && $_SERVER['SERVER_PORT'] == 443)) ? '' : (':' . $_SERVER['SERVER_PORT'])) // port
-						. $_SERVER['REQUEST_URI'];											 // path & query
+						. $_SERVER['REQUEST_URI'];						// path & query
 		list($url) = explode('?', $url);
 
 		return $url;
@@ -5150,7 +5145,7 @@ var go = function() {
 		$descriptorspec = array(
 				0 => array("pipe", "r"), // stdin
 				1 => array("pipe", "w"), // stdout
-				2 => array("pipe", "w")	// stderr
+				2 => array("pipe", "w") // stderr
 		);
 
 		$process = proc_open($command, $descriptorspec, $pipes, $cwd, null);

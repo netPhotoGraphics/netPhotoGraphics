@@ -83,7 +83,6 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
 			E_USER_ERROR => gettext('USER ERROR'),
 			E_USER_WARNING => gettext('USER WARNING'),
 			E_USER_NOTICE => gettext('USER NOTICE'),
-			E_STRICT => gettext('STRICT NOTICE'),
 			E_RECOVERABLE_ERROR => gettext('RECOVERABLE ERROR'),
 			E_DEPRECATED => gettext('DEPRECATED'),
 			E_USER_DEPRECATED => gettext('USER DEPRECATED NOTICE')

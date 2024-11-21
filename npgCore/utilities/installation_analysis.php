@@ -221,7 +221,6 @@ echo '</head>';
 												E_USER_ERROR => 'E_USER_ERROR',
 												E_USER_NOTICE => 'E_USER_NOTICE',
 												E_USER_WARNING => 'E_USER_WARNING',
-												E_STRICT => 'E_STRICT',
 												E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
 												E_DEPRECATED => 'E_DEPRECATED',
 												E_USER_DEPRECATED => 'E_USER_DEPRECATED'
@@ -230,13 +229,9 @@ echo '</head>';
 										$reporting = error_reporting();
 										$text = array();
 
-										if ((($reporting | E_NOTICE | E_STRICT) & E_ALL) == E_ALL) {
+										if ((($reporting | E_NOTICE ) & E_ALL) == E_ALL) {
 											$t = 'E_ALL';
 											$reporting = $reporting ^ E_ALL;
-											if ($reporting & E_STRICT) {
-												$t .= ' ^ E_STRICT';
-												$reporting = $reporting ^ E_STRICT;
-											}
 											if ($reporting & E_NOTICE) {
 												$t .= ' ^ E_NOTICE';
 												$reporting = $reporting ^ E_NOTICE;
@@ -498,8 +493,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+							$('.overview_list').height(height);
 </script>
 
 <?php
