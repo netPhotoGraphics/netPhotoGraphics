@@ -156,6 +156,27 @@ class Metadata {
 	}
 
 	/**
+	 * formats LensType data
+	 *
+	 * @param array $lens the raw LensInfo
+	 */
+	static function lensSpecification($lens) {
+		if ($lens[0] == $lens[1]) {
+			$v = sprintf('%0.0fmm', $lens[0]);
+		} else {
+			$v = sprintf('%0.0f-%0.0fmm', $lens[0], $lens[1]);
+		}
+		if ($lens[2] == $lens[3]) {
+			if ($lens[2] != 0) {
+				$v .= sprintf(' f/%0.1f', $lens[2]);
+			}
+		} else {
+			$v .= sprintf(' f/%0.1f-%0.1f', $lens[3], $lens[2]);
+		}
+		return $v;
+	}
+
+	/**
 	 * Fetches the IPTC array for a single tag.
 	 *
 	 * @param string $tag the metadata tag sought
@@ -255,11 +276,31 @@ class Metadata {
 	 *
 	 */
 	static function read_exif($path) {
+		//see https://exiftool.org/TagNames/EXIF.html for list of EXIF tags
+
+		static $php_fixes = [
+				//	definitions for some "undefined" tags
+				'UndefinedTag:0x9010' => 'OffsetTime',
+				'UndefinedTag:0x9011' => 'OffsetTimeOriginal',
+				'UndefinedTag:0x9012' => 'OffsetTimeDigitized',
+				'UndefinedTag:0xA431' => 'SerialNumber',
+				'UndefinedTag:0xA432' => 'LensInfo',
+				'UndefinedTag:0xA433' => 'LensMake',
+				'UndefinedTag:0xA434' => 'LensType',
+				'UndefinedTag:0xA435' => 'LensSerialNumber'
+		];
+
 		$rslt = [];
 		if (exif_imagetype($path)) {
 			$e = error_reporting(0);
 			$php_rslt = exif_read_data($path);
 			error_reporting($e);
+			//	cleanup some phpEXIF shortcommings
+			foreach ($php_fixes as $php => $exif) {
+				if (!isset($php_rslt[$exif]) && isset($php_rslt[$php])) {
+					$php_rslt[$exif] = $php_rslt[$php];
+				}
+			}
 
 			if (!empty($php_rslt)) {
 				//	first "handle" the "COMPUTED" elements whose EXIF data may be missing.
@@ -318,7 +359,7 @@ class Metadata {
 
 			if (!empty($localpath)) { // there is some kind of image to get metadata from
 
-				/* check EXIF data */
+				/* check and format EXIF data */
 				$exifraw = self::read_exif($localpath);
 				if (!empty($exifraw)) {
 					$obj->set('hasMetadata', 1);
@@ -333,6 +374,9 @@ class Metadata {
 									break;
 								case 'EXIFFNumber':
 									$value = round(self::rationalNum($value), 1);
+									break;
+								case 'EXIFLensInfo':
+									$value = metadata::lensSpecification(explode(':', $value));
 									break;
 							}
 							$obj->set($field, $value);

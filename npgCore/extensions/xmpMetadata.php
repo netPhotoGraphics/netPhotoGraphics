@@ -636,8 +636,8 @@ class xmpmetadata {
 				'XMPGPSLatitude' => array('XMP', '<exif:GPSLatitude>', gettext('Latitude'), false, 52, true, 'number', false),
 				'XMPGPSLongitude' => array('XMP', '<exif:GPSLongitude>', gettext('Longitude'), false, 52, true, 'number', false),
 				'XMPISOSpeedRatings' => array('XMP', '<exif:ISOSpeedRatings>', gettext('ISO Sensitivity'), true, 52, true, 'string', false),
-				'XMPLensInfo' => array('XMP', '<aux:LensInfo>', gettext('Lens Info'), false, 52, true, 'string', false),
-				'XMPLensType' => array('XMP', '<aux:Lens>', gettext('Lens Type'), false, 52, true, 'string', false),
+				'XMPLensInfo' => array('XMP', '<aux:LensInfo>', gettext('Lens Specification'), false, 52, true, 'string', false),
+				'XMPLensType' => array('XMP', '<aux:Lens>', gettext('Lens Model'), false, 52, true, 'string', false),
 				'XMPMake' => array('XMP', '<tiff:Make>', gettext('Camera Maker'), true, 52, true, 'string', false),
 				'XMPMeteringMode' => array('XMP', '<exif:MeteringMode>', gettext('Metering Mode'), true, 52, true, 'string', false),
 				'XMPModel' => array('XMP', '<tiff:Model>', gettext('Camera Model'), true, 52, true, 'string', false),
@@ -980,25 +980,9 @@ class xmpmetadata {
 										if (isset($matches[1]) && !empty($matches[1])) {
 											$lens = array();
 											foreach ($matches[1] as $i => $f) {
-												$term = explode('/', $f);
-												if ($term[0] != 0 && $term[1] != 0) {
-													$lens[$i] = metadata::toFraction($term[0] / $term[1]);
-												} else {
-													$lens[$i] = 0;
-												}
+												$lens[$i] = metadata::rationalNum($f);
 											}
-											if ($lens[0] == $lens[1]) {
-												$v = sprintf('%0.0fmm', $lens[0]);
-											} else {
-												$v = sprintf('%0.0f-%0.0fmm', $lens[0], $lens[1]);
-											}
-											if ($lens[2] == $lens[3]) {
-												if ($lens[2] != 0) {
-													$v .= sprintf(' f/%0.1f', $lens[2]);
-												}
-											} else {
-												$v .= sprintf(' f/%0.1f-%0.1f', $lens[3], $lens[2]);
-											}
+											$v = metadata::lensSpecification($lens);
 										}
 										break;
 									case 'rating':

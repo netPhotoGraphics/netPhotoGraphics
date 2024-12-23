@@ -829,7 +829,7 @@ class MobileDetect {
 	 * @param null $userAgent Inject the User-Agent header. If null, will use HTTP_USER_AGENT
 	 *                          from the $headers array instead.
 	 */
-	public function __construct(array $headers = null, $userAgent = null) {
+	public function __construct($headers = null, $userAgent = null) {
 		$this->setHttpHeaders($headers);
 		$this->setUserAgent($userAgent);
 	}
@@ -852,7 +852,7 @@ class MobileDetect {
 	 * @param array|null $httpHeaders The headers to set. If null, then using PHP's _SERVER to extract
 	 *                           the headers. The default null is left for backwards compatibility.
 	 */
-	public function setHttpHeaders(array $httpHeaders = null) {
+	public function setHttpHeaders($httpHeaders = null) {
 		// use global _SERVER if $httpHeaders aren't defined
 		if (!is_array($httpHeaders) || !count($httpHeaders)) {
 			$httpHeaders = $_SERVER;
@@ -934,7 +934,7 @@ class MobileDetect {
 	 *
 	 * @return  boolean If there were CloudFront headers to be set
 	 */
-	public function setCfHeaders(array $cfHeaders = null): bool {
+	public function setCfHeaders($cfHeaders = null): bool {
 		// use global _SERVER if $cfHeaders aren't defined
 		if (!is_array($cfHeaders) || !count($cfHeaders)) {
 			$cfHeaders = $_SERVER;
@@ -981,7 +981,7 @@ class MobileDetect {
 	 *
 	 * @return string|null
 	 */
-	public function setUserAgent(string $userAgent = null): ?string {
+	public function setUserAgent($userAgent = null): ?string {
 		// Invalidate cache due to #375
 		$this->cache = array();
 
@@ -1229,7 +1229,7 @@ class MobileDetect {
 	 * @param array|null $httpHeaders deprecated
 	 * @return bool
 	 */
-	public function isTablet(string $userAgent = null, array $httpHeaders = null): bool {
+	public function isTablet($userAgent = null, $httpHeaders = null): bool {
 		// Check specifically for cloudfront headers if the useragent === 'Amazon CloudFront'
 		if ($this->getUserAgent() === 'Amazon CloudFront') {
 			$cfHeaders = $this->getCfHeaders();
@@ -1259,7 +1259,7 @@ class MobileDetect {
 	 * @todo: The httpHeaders part is not yet used.
 	 *
 	 */
-	public function is(string $key, string $userAgent = null, array $httpHeaders = null): bool {
+	public function is(string $key, $userAgent = null, $httpHeaders = null): bool {
 		// Set the UA and HTTP headers only if needed (eg. batch mode).
 		if ($httpHeaders) {
 			$this->setHttpHeaders($httpHeaders);
@@ -1287,7 +1287,7 @@ class MobileDetect {
 	 *
 	 * @todo: search in the HTTP headers too.
 	 */
-	public function match($regex, string $userAgent = null): bool {
+	public function match($regex, $userAgent = null): bool {
 		if (!\is_string($userAgent) && !\is_string($this->userAgent)) {
 			return false;
 		}

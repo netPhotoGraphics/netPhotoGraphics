@@ -6,46 +6,36 @@ namespace Milo\Github\Http;
 
 use Milo\Github;
 
-
 /**
  * HTTP request or response ascendant.
  *
  * @author  Miloslav Hůla (https://github.com/milo)
  */
-abstract class Message
-{
+abstract class Message {
+
 	use Github\Strict;
 
 	private array $headers = [];
 
-
 	public function __construct(
-		array $headers = [],
-		private ?string $content = null,
+					array $headers = [],
+					private ?string $content = null,
 	) {
 		foreach ($headers as $name => $value) {
 			$this->setHeader($name, $value);
 		}
 	}
 
-
-	public function hasHeader(string $name): bool
-	{
+	public function hasHeader(string $name): bool {
 		return array_key_exists(strtolower($name), $this->headers);
 	}
 
-
-	public function getHeader(string $name, string $default = null): ?string
-	{
+	public function getHeader(string $name, string|null $default = null): ?string {
 		$name = strtolower($name);
-		return array_key_exists($name, $this->headers)
-			? $this->headers[$name]
-			: $default;
+		return array_key_exists($name, $this->headers) ? $this->headers[$name] : $default;
 	}
 
-
-	protected function addHeader(string $name, ?string $value): static
-	{
+	protected function addHeader(string $name, ?string $value): static {
 		$name = strtolower($name);
 		if (!array_key_exists($name, $this->headers) && $value !== null) {
 			$this->headers[$name] = $value;
@@ -54,9 +44,7 @@ abstract class Message
 		return $this;
 	}
 
-
-	protected function setHeader(string $name, ?string $value): static
-	{
+	protected function setHeader(string $name, ?string $value): static {
 		$name = strtolower($name);
 		if ($value === null) {
 			unset($this->headers[$name]);
@@ -67,18 +55,15 @@ abstract class Message
 		return $this;
 	}
 
-
 	/**
 	 * @return string[]
 	 */
-	public function getHeaders(): array
-	{
+	public function getHeaders(): array {
 		return $this->headers;
 	}
 
-
-	public function getContent(): ?string
-	{
+	public function getContent(): ?string {
 		return $this->content;
 	}
+
 }

@@ -245,24 +245,37 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<td class="leftcolumn"><?php echo gettext("Metadata"); ?></td>
 											<td class="middlecolumn">
 												<?php
-												$data = '';
+												$data = [];
 												$exif = $image->getMetaData();
 												if (is_array($exif)) {
 													foreach ($exif as $field => $value) {
-														$display = $_exifvars[$field][METADATA_DISPLAY] && !empty($value) && !($_exifvars[$field][METADATA_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
-														if ($display) {
-															$label = $_exifvars[$field][METADATA_SOURCE] . ':' . $_exifvars[$field][METADATA_DISPLAY_TEXT];
-															$data .= "<tr><td class=\"medtadata_tag " . html_encode($field) . "\">$label: </td> <td>" . html_encode($value) . "</td></tr>\n";
+														$show = $_exifvars[$field][METADATA_DISPLAY] && !empty($value) && !($_exifvars[$field][METADATA_FIELD_TYPE] == 'time' && $value == '0000-00-00 00:00:00');
+														if ($show) {
+															$data[$field] = ['EXIFname' => $field, 'source' => $_exifvars[$field][METADATA_SOURCE], 'field' => $_exifvars[$field][METADATA_DISPLAY_TEXT], 'value' => $value];
 														}
 													}
 												}
 												if (empty($data)) {
 													echo gettext('None selected for display');
 												} else {
+													$data = sortMultiArray($data, ['field' => false, 'source' => false]);
 													?>
 													<div class="metadata_container">
 														<table class="metadata_table" >
-															<?php echo $data; ?>
+															<?php
+															foreach ($data as $tag => $line) {
+																?>
+																<tr>
+																	<td class="medtadata_tag <?php echo html_encode($line['EXIFname']); ?>">
+																		<?php echo $line['source'] . ':' . $line['field']; ?>
+																	</td>
+																	<td>
+																		<?php echo html_encode($line['value']); ?>
+																	</td>
+																</tr>
+																<?php
+															}
+															?>
 														</table>
 													</div>
 													<?php

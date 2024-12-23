@@ -689,8 +689,12 @@ class AlbumBase extends MediaObject {
 		if (file_exists(SERVERCACHE . '/' . $folder)) {
 			$filestoremove = safe_glob(SERVERCACHE . '/' . $folder . '/*');
 			foreach ($filestoremove as $file) {
-				chmod($file, 0777);
-				$success = $success && unlink($file);
+				if (is_dir($file)) {
+					$success = $success && self::_removeCache(str_replace(SERVERCACHE . '/', '', Rfile));
+				} else {
+					chmod($file, 0777);
+					$success = $success && unlink($file);
+				}
 			}
 			rmdir(SERVERCACHE . '/' . $folder);
 		}
@@ -756,11 +760,9 @@ class AlbumBase extends MediaObject {
 					chmod($d, FILE_MOD);
 				}
 			}
-			$success = self::move($newfolder);
+			$success = $success && parent::move(array('folder' => $newfolder));
 			if ($success) {
 				$this->updateParent($newfolder);
-				//rename the cache folder
-				$cacherename = rename(SERVERCACHE . '/' . $this->name, SERVERCACHE . '/' . $newfolder);
 				return 0;
 			}
 		}
@@ -799,26 +801,26 @@ class AlbumBase extends MediaObject {
 	 *
 	 */
 	function copy($newfolder) {
-// album name to destination folder
+		// album name to destination folder
 		if (substr($newfolder, -1, 1) != '/')
 			$newfolder .= '/';
 		$newfolder .= basename($this->localpath);
-// First, ensure the new base directory exists.
+		// First, ensure the new base directory exists.
 		$oldfolder = $this->name;
 		$dest = ALBUM_FOLDER_SERVERPATH . internalToFilesystem($newfolder);
-// Check to see if the destination directory already exists
+		// Check to see if the destination directory already exists
 		if (file_exists($dest)) {
-// Disallow moving an album over an existing one.
+			// Disallow moving an album over an existing one.
 			return 3;
 		}
 		if (substr($newfolder, count($oldfolder)) == $oldfolder) {
-// Disallow copying to a subfolder of the current folder (infinite loop).
+			// Disallow copying to a subfolder of the current folder (infinite loop).
 			return 4;
 		}
 		$success = $this->succeed($dest);
 		$filemask = substr($this->localpath, 0, -1) . '.*';
 		if ($success) {
-//	replicate the album metadata and sub-files
+			//	replicate the album metadata and sub-files
 			$uniqueset = array('folder' => $newfolder);
 			$parentname = dirname($newfolder);
 			if (empty($parentname) || $parentname == '/' || $parentname == '.') {
@@ -829,9 +831,9 @@ class AlbumBase extends MediaObject {
 			}
 			$newID = parent::copy($uniqueset);
 			if ($newID) {
-//	replicate the tags
+				//	replicate the tags
 				storeTags(readTags($this->getID(), 'albums', ''), $newID, 'albums');
-//	copy the sidecar files
+				//	copy the sidecar files
 				$filestocopy = safe_glob($filemask);
 				foreach ($filestocopy as $file) {
 					if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {

@@ -231,7 +231,7 @@ class mobile extends \Detection\MobileDetect {
 	 * (non-PHPdoc)
 	 * @see Mobile_Detect::isTablet()
 	 */
-	public function isTablet(string $userAgent = null, array $httpHeaders = null): bool {
+	public function isTablet($userAgent = null, $httpHeaders = null): bool {
 		if (getOption('mobileTheme_test') == 'tablet' || isset($_GET['mobile']) && $_GET['mobile'] == 'tablet') {
 			return true;
 		}

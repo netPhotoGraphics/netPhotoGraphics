@@ -211,32 +211,4 @@ class deprecated_functions {
 		self::notify($message, $method);
 	}
 
-	static function logCore($uri) {
-		$parts = mb_parse_url($uri);
-		$use = ltrim(str_replace(WEBPATH, '', $parts['path']), '/');
-		$use = strtr($use, array('zp-core/zp-extensions' => 'zp-extensions', 'zp-core/' => ''));
-		$use = getAdminLink($use, '');
-		if (isset($_SERVER['HTTP_REFERER'])) {
-			$refs = mb_parse_url($_SERVER['HTTP_REFERER']);
-			if (basename(dirname($parts['path'])) == 'setup') {
-				//	don't log it if setup did it.
-				return;
-			}
-			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> referred from <code>%2$s</code> is deprecated.'), $uri, $_SERVER['HTTP_REFERER']);
-		} else {
-			$output = sprintf(gettext('The use of <code>zp-core</code> in the URL <code>%1$s</code> is deprecated.'), $uri);
-		}
-		$output .= "\n&nbsp;&nbsp;" . sprintf(gettext('Use <code>%1$s</code> instead.'), $use);
-
-		if (file_exists(DEPRECATED_LOG)) {
-			$content = file_get_contents(DEPRECATED_LOG);
-			$log = !preg_match('~' . preg_quote($parts['path']) . '~', $content);
-		} else {
-			$log = true;
-		}
-		if ($log) {
-			self::log($output);
-		}
-	}
-
 }

@@ -313,16 +313,6 @@ if (isset($_loggedin) && $_loggedin) {
 	loadLocalOptions(0, $_gallery->getCurrentTheme());
 }
 
-if (defined('MOD_REWRITE') && MOD_REWRITE && OFFSET_PATH != 2) {
-	$uri = getRequestURI();
-	$parts = mb_parse_url($uri);
-	if (strpos($parts['path'], 'zp-core') !== FALSE) {
-		//	deprecated use of zp-core in URL
-		require_once(PLUGIN_SERVERPATH . 'deprecated-functions/class.php');
-		deprecated_functions::logCore($uri, '');
-	}
-}
-
 if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
 	npgFilters::register('admin_note', 'phpWarn');
 }
