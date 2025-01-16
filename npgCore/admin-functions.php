@@ -6684,7 +6684,7 @@ function fetchGithubLatest($owner, $repro, $option, $required = true) {
 			if ($required) {
 				throw new Exception(gettext('GitHub reported no assets.'));
 			} else {
-				purge($option);
+				purgeOption($option);
 			}
 		} else {
 			$item = array_pop($assets);
