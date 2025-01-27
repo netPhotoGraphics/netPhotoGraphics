@@ -10,8 +10,8 @@ require_once(__DIR__ . '/classes.php');
 class _Authority {
 
 	protected $admin_users = array();
+	protected $admin_allusers = array();
 	protected $admin_groups = array();
-	protected $admin_other = array();
 	protected $rightsset = NULL;
 	protected $master_user = NULL;
 	protected $master_userObj = NULL;
@@ -383,9 +383,16 @@ class _Authority {
 	function getAdministrators($what = 'users') {
 		$list = array();
 		switch ($what) {
+			case 'all':
+				return self::getAdministrators('allusers') + $this->getAdministrators('groups');
+				break;
 			case 'users':
 				$list = $this->admin_users;
 				$valid = ' WHERE `valid`=1';
+				break;
+			case 'allusers':
+				$list = $this->admin_allusers;
+				$valid = ' WHERE `valid`>=1';
 				break;
 			case 'groups':
 				if (extensionEnabled('user_groups')) {
@@ -395,15 +402,6 @@ class _Authority {
 					return array();
 				}
 				break;
-			case 'admin_other':
-				$list = $this->admin_other;
-				$valid = ' WHERE `valid`>1';
-				break;
-			case 'all':
-				$list = self::getAdministrators('groups');
-			case 'allusers':
-				$list = $list + self::getAdministrators('users') + self::getAdministrators('admin_other');
-				return $list;
 			default:
 				throw new Exception(gettext('Unknown getAdministrators request.'));
 				return array();
@@ -423,11 +421,11 @@ class _Authority {
 				case 'users':
 					$this->admin_users = $list;
 					break;
+				case 'allusers';
+					$this->admin_allusers = $list;
+					break;
 				case 'groups':
 					$this->admin_groups = $list;
-					break;
-				case 'admin_other':
-					$this->admin_other = $list;
 					break;
 			}
 		}
