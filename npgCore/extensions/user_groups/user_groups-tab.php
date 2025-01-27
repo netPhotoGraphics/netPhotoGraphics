@@ -76,7 +76,7 @@ if (isset($_GET['action'])) {
 			$groupobj = npg_Authority::newAdministrator($groupname, 0);
 			$groupobj->remove();
 			// clear out existing user assignments
-			npg_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
+			user_groups::removeFromUsers($groupname, $admins);
 			header("Location: " . getAdminLink(PLUGIN_FOLDER . '/user_groups/user_groups-tab.php') . '?page=admin&tab=' . $subtab . '&deleted&subpage=' . $subpage);
 			exit();
 		case 'savegroups':
@@ -113,18 +113,8 @@ if (isset($_GET['action'])) {
 						if ($group->getName() == 'group') {
 							//have to update any users who have this group designate.
 							$groupname = $group->getUser();
-							foreach ($admins as $admin) {
-								$hisgroups = explode(',', strval($admin['group']));
-								if (in_array($groupname, $hisgroups)) {
-									$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
-									user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
-									$success = $userobj->save();
-									if ($success == 1) {
-										npgFilters::apply('save_user_complete', '', $userobj, 'update');
-									}
-								}
-							}
-							//user assignments: first clear out existing ones
+							// remove current members (they will be added back later if still members)
+							user_groups::removeFromUsers($groupname, $admins);
 							npg_Authority::updateAdminField('group', NULL, array('`valid`>=' => '1', '`group`=' => $groupname));
 							if (isset($groupelement['userlist'])) {
 								//then add the ones marked
@@ -139,9 +129,8 @@ if (isset($_GET['action'])) {
 									}
 									if (!in_array($groupname, $hisgroups)) {
 										$hisgroups[] = $groupname;
-										$userobj->setGroup(implode(',', $hisgroups));
 									}
-									user_groups::merge_rights($userobj, array(1 => $groupname), user_groups::getPrimeObjects($userobj));
+									user_groups::merge_rights($userobj, $hisgroups, user_groups::getPrimeObjects($userobj));
 									$success = $userobj->save();
 									if ($success == 1) {
 										$saved = true;

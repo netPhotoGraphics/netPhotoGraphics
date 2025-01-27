@@ -80,7 +80,7 @@ class user_groups {
 		foreach ($newobjects as $object) {
 			$objects[] = $object;
 		}
-		$userobj->setGroup($newgroups = implode(',', $groups));
+		$userobj->setGroup(implode(',', $groups));
 		$userobj->setRights($rights);
 		$userobj->setObjects($objects);
 	}
@@ -266,10 +266,10 @@ class user_groups {
 
 	static function admin_alterrights($alterrights, $userobj) {
 		global $_authority;
-		$group = $userobj->getGroup();
+		$groups = explode(',', $userobj->getGroup());
 		$adminGroups = $_authority->getAdministrators('groups');
 		foreach ($adminGroups as $adminGroup) {
-			if ($group == $adminGroup['user']) {
+			if (in_array($adminGroup['user'], $groups)) {
 				return ' disabled="disabled"';
 			}
 		}
@@ -289,6 +289,24 @@ class user_groups {
 			$saveobjects = array();
 		}
 		return $saveobjects;
+	}
+
+	static function removeFromUsers($groupname, $admins) {
+		foreach ($admins as $key => $admin) {
+			if ($admin['valid']) {
+				$userobj = npg_Authority::newAdministrator($admin['user'], $admin['valid']);
+				$hisgroups = explode(',', $userobj->getGroup());
+				if (in_array($groupname, $hisgroups)) {
+					unset($hisgroups[array_search($groupname, $hisgroups)]);
+					$hisgroups = implode(',', $hisgroups);
+					$userobj->setGroup($admins[$key]['group'] = $hisgroups);
+					$success = $userobj->save();
+					if ($success == 1) {
+						npgFilters::apply('save_user_complete', '', $userobj, 'update');
+					}
+				}
+			}
+		}
 	}
 
 }
