@@ -768,6 +768,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	/**
+	 * Returns the move_copy_remove album list
+	 *
+	 * @staticvar array $list
+	 * @return arrau
+	 */
+	function mcr_albumlist() {
+		static $list = [];
+		if (empty($list)) {
+			// one time generation of this list.
+			$list = genAlbumList();
+		}
+		return $list;
+	}
+
+	/**
 	 *
 	 * @param string $text
 	 * @param string $key
@@ -2077,7 +2092,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since 1.1.3
 	 */
 	function printAlbumEditForm($index, $album, $buttons = true) {
-		global $_sortby, $_gallery, $mcr_albumlist, $_albumthumb_selector, $_current_admin_obj;
+		global $_sortby, $_gallery, $_albumthumb_selector, $_current_admin_obj;
 		$isPrimaryAlbum = '';
 		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$myalbum = $_current_admin_obj->getAlbum();
@@ -2790,12 +2805,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<select id="a-<?php echo $prefix; ?>albumselectmenu" name="a-<?php echo $prefix; ?>albumselect" onchange="">
 								<?php
 								$exclude = $album->name;
-								if (count(explode('/', $exclude)) > 1 && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if (count(explode('/ ', $exclude)) > 1 && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<option value="" selected="selected">/</option>
 									<?php
 								}
-								foreach ($mcr_albumlist as $fullfolder => $albumtitle) {
+								foreach (mcr_albumlist() as $fullfolder => $albumtitle) {
 									// don't allow copy in place or to subalbums
 									if ($fullfolder == dirname($exclude) || $fullfolder == $exclude || strpos($fullfolder, $exclude . '/') === 0) {
 										$disabled = ' disabled="disabled"';
@@ -3417,7 +3432,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$notify = '&noaction';
 		}
 
-		// Move/Copy/Rename the album after saving.
+// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
 		if (isset($_POST['a-' . $prefix . 'MoveCopyRename'])) {
 			$movecopyrename_action = sanitize($_POST['a-' . $prefix . 'MoveCopyRename'], 3);
@@ -3781,7 +3796,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-		//we are dealing with file system items, convert the names
+//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
 			$zipfileFS = tempnam('', 'zip');
@@ -3979,7 +3994,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$source = SERVERPATH . '/themes/' . internalToFilesystem($source);
 		$target = SERVERPATH . '/themes/' . internalToFilesystem($target);
 
-		// If the target theme already exists, nothing to do.
+// If the target theme already exists, nothing to do.
 		if (is_dir($target)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Directory “%s” already exists!'), basename($target));
 		}
@@ -5091,7 +5106,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 	}
 
 	if (in_array('mass_movecopy_data', $colorboxBookmark)) {
-		global $mcr_albumlist, $album;
+		global $album;
 		$bglevels = array('#fff', '#f8f8f8', '#efefef', '#e8e8e8', '#dfdfdf', '#d8d8d8', '#cfcfcf', '#c8c8c8');
 		?>
 		<div id="mass_movecopy_copy" style="display:none;">
@@ -5102,7 +5117,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 				?>
 				<select class="ignoredirty" id="massalbumselectmenu" name="massalbumselect" onchange="">
 					<?php
-					foreach ($mcr_albumlist as $fullfolder => $albumtitle) {
+					foreach (mcr_albumlist() as $fullfolder => $albumtitle) {
 						$singlefolder = $fullfolder;
 						$saprefix = "";
 						$salevel = 0;
@@ -6604,7 +6619,7 @@ function curlDL($fileUrl, $saveTo) {
 		throw new Exception(sprintf(gettext('Could not create: %1$s'), $saveTo . '/' . basename($fileUrl)));
 	}
 
-	//Create a cURL handle.
+//Create a cURL handle.
 	$ch = curl_init($fileUrl);
 	curl_setopt_array($ch, array(
 			CURLOPT_FILE => $fp, //Pass file handle to cURL.
@@ -6612,21 +6627,21 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-	//Execute the request.
+//Execute the request.
 	curl_exec($ch);
 
-	//If there was an error, throw an Exception
+//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-	//Get the HTTP status code.
+//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	//Close the cURL handler.
+//Close the cURL handler.
 	curl_close($ch);
 
-	//Close the file handle.
+//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {

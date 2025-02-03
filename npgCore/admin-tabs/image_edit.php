@@ -493,7 +493,7 @@ if (isset($_GET['singleimage']) && $_GET['singleimage'] || $totalimages == 1) {
 											<?php echo gettext("to"); ?>:
 											<select id="albumselectmenu-<?php echo $currentimage; ?>"	name="<?php echo $currentimage; ?>-albumselect" onchange="">
 												<?php
-												foreach ($mcr_albumlist as $fullfolder => $albumtitle) {
+												foreach (mcr_albumlist() as $fullfolder => $albumtitle) {
 													$singlefolder = $fullfolder;
 													$saprefix = "";
 													$salevel = 0;
