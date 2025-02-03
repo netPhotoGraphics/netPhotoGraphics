@@ -630,13 +630,6 @@ echo "\n</head>";
 			 */
 			if (isset($_GET['album']) && !$is_massedit) {
 				/** SINGLE ALBUM ******************************************************************* */
-				if (isset($_SESSION['mcr_albumlist'])) {
-					$mcr_albumlist = $_SESSION['mcr_albumlist'];
-				} else {
-					// one time generation of this list.
-					$_SESSION['mcr_albumlist'] = $mcr_albumlist = genAlbumList();
-				}
-
 				$oldalbumimagesort = $_gallery->getSortType('image');
 				$direction = $_gallery->getSortDirection('image');
 				if ($album->isDynamic()) {
@@ -775,183 +768,181 @@ echo "\n</head>";
 					<?php
 				}
 				/*				 * * MULTI-ALBUM ************************************************************************** */
-			} else
-
-			if ($is_massedit) {
-				require_once(CORE_SERVERPATH . 'admin-tabs/album_masedit.php');
-			} else { /* Display a list of albums to edit. */
-				npgFilters::apply('admin_note', 'albums', $subtab);
-				?>
-				<h1><?php echo gettext("Albums"); ?></h1>
-				<div class="tabbox">
-					<?php
-					consolidatedEditMessages('');
-					if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-						$consider = $_gallery;
-					} else {
-						$managed = $_current_admin_obj->getObjects();
-						$consider = new TransientAlbum('holder', FALSE);
-						foreach ($managed as $obj) {
-							if ($obj['type'] === 'albums') {
-								$consider->setSubalbum($obj['data']);
-							}
-						}
-					}
-
-					$albums = getNestedAlbumList($consider, $album_nesting);
-					if (count($albums) > 0) {
-						if (count($albums) > 1) {
-
-							printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
-
-							$sort = $_sortby;
-							foreach ($sort as $name => $action) {
-								$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
-							}
-							?>
-							<br clear="all"><br />
-							<?php
-							$type = strtolower($_gallery->getSortType());
-							if ($type && !in_array($type, $sort)) {
-								if ($type == 'manual') {
-									$sort[gettext('Manual')] = $type;
-								} else {
-									$sort[gettext('Custom')] = $type = 'custom';
+			} else {
+				if ($is_massedit) {
+					require_once(CORE_SERVERPATH . 'admin-tabs/album_masedit.php');
+				} else { /* Display a list of albums to edit. */
+					npgFilters::apply('admin_note', 'albums', $subtab);
+					?>
+					<h1><?php echo gettext("Albums"); ?></h1>
+					<div class="tabbox">
+						<?php
+						consolidatedEditMessages('');
+						if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+							$consider = $_gallery;
+						} else {
+							$managed = $_current_admin_obj->getObjects();
+							$consider = new TransientAlbum('holder', FALSE);
+							foreach ($managed as $obj) {
+								if ($obj['type'] === 'albums') {
+									$consider->setSubalbum($obj['data']);
 								}
 							}
-							if ($_gallery->getSortDirection()) {
-								$type .= '_DESC';
-							}
-							$cv = array($type);
-							if (($type == 'manual') || ($type == 'random') || ($type == '')) {
-								$dsp = 'none';
-							} else {
-								$dsp = 'inline';
-							}
-							printSortableDirections(gettext("Drag the albums into the order you wish them displayed."));
-							?>
-							<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=gallery_sortorder" >
-								<?php XSRFToken('gallery_sortorder'); ?>
-								<span class="nowrap">
-									<?php echo gettext('Sort albums by:'); ?>
-									<select id="albumsortselect" name="gallery_sortby" onchange="this.form.submit();">
-										<?php generateListFromArray($cv, $sort, false, true); ?>
-									</select>
-								</span>
-							</form>
-							<br clear="all">
-							<p class="notebox">
-								<?php echo gettext('<strong>Note:</strong> Dragging an album under a different parent will move the album. You cannot move albums under a <em>dynamic</em> album.'); ?>
-							</p>
-							<?php
 						}
-						?>
-						<p>
-							<?php
-							echo gettext('Select an album to edit its description and data.');
-							?>
-						</p>
 
-						<form class="dirtylistening" onReset="setClean('sortableListForm'); $('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
-							<?php
-							XSRFToken('savealbumorder');
-							if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-								applyButton(array('buttonClass' => 'serialize'));
-								resetButton();
-							}
-							if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+						$albums = getNestedAlbumList($consider, $album_nesting);
+						if (count($albums) > 0) {
+							if (count($albums) > 1) {
+								printEditDropdown('', array('1', '2', '3', '4', '5'), $album_nesting);
+								$sort = $_sortby;
+								foreach ($sort as $name => $action) {
+									$sort[$name . ' (' . gettext('descending') . ')'] = $action . '_DESC';
+								}
 								?>
-								<span class="floatright" style="padding-right: 3px;
-											">
-												<?php
-												npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);
-									"));
-												npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);
-									"));
-												?>
-								</span>
+								<br clear="all"><br />
+								<?php
+								$type = strtolower($_gallery->getSortType());
+								if ($type && !in_array($type, $sort)) {
+									if ($type == 'manual') {
+										$sort[gettext('Manual')] = $type;
+									} else {
+										$sort[gettext('Custom')] = $type = 'custom';
+									}
+								}
+								if ($_gallery->getSortDirection()) {
+									$type .= '_DESC';
+								}
+								$cv = array($type);
+								if (($type == 'manual') || ($type == 'random') || ($type == '')) {
+									$dsp = 'none';
+								} else {
+									$dsp = 'inline';
+								}
+								printSortableDirections(gettext("Drag the albums into the order you wish them displayed."));
+								?>
+								<form name="gallery_sort" style="float: right;padding-right: 10px;" method="post" action="<?php echo getAdminLink('admin-tabs/edit.php'); ?>?page=edit&action=gallery_sortorder" >
+									<?php XSRFToken('gallery_sortorder'); ?>
+									<span class="nowrap">
+										<?php echo gettext('Sort albums by:'); ?>
+										<select id="albumsortselect" name="gallery_sortby" onchange="this.form.submit();">
+											<?php generateListFromArray($cv, $sort, false, true); ?>
+										</select>
+									</span>
+								</form>
+								<br clear="all">
+								<p class="notebox">
+									<?php echo gettext('<strong>Note:</strong> Dragging an album under a different parent will move the album. You cannot move albums under a <em>dynamic</em> album.'); ?>
+								</p>
 								<?php
 							}
 							?>
-							<br class="clearall" />
-							<br />
-
-							<div class="headline">&nbsp;
-								<?php printBulkActions($checkarray_albums); ?>
-							</div>
-							<div class="subhead">
-								<label style="float: left;
-											 padding-top:3px;
-											 padding-left:5px;
-											 padding-bottom:2px;
-											 ">
-												 <?php
-												 npgButton('button', $thumbmsg, array(
-														 'buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;showthumbs=' . $thumbshow,
-														 'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
-																 )
-												 );
-												 ?>
-								</label>
-								<label style="float: right;
-											 padding-top:5px;
-											 padding-right:25px;
-											 ">
-									<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);
-												 " />
-								</label>
-							</div>
-							<div class="bordered">
-								<ul class="page-list" id="albumsort">
-									<?php printNestedAlbumsList($albums, $showthumb, NULL); ?>
-								</ul>
-
-							</div>
-							<div>
-								<?php printAlbumLegend(); ?>
-							</div>
-
-							<br class="clearall" />
-							<span id="serializeOutput"></span>
-							<input name="update" type="hidden" value="Save Order" />
-
-							<div>
+							<p>
 								<?php
+								echo gettext('Select an album to edit its description and data.');
+								?>
+							</p>
+
+							<form class="dirtylistening" onReset="setClean('sortableListForm'); $('#albumsort').sortable('cancel');" action="?page=edit&amp;action=savealbumorder" method="post" name="sortableListForm" name="sortableListForm" id="sortableListForm" onsubmit="return confirmAction();" autocomplete="off" >
+								<?php
+								XSRFToken('savealbumorder');
 								if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									applyButton(array('buttonClass' => 'serialize'));
 									resetButton();
 								}
 								if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
-									<span class="floatright">
-										<?php
-										npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
-										npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
-										?>
+									<span class="floatright" style="padding-right: 3px;
+												">
+													<?php
+													npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);
+									"));
+													npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);
+									"));
+													?>
 									</span>
 									<?php
 								}
 								?>
-							</div>
+								<br class="clearall" />
+								<br />
 
-						</form>
-						<br class="clearall" />
-					</div>
+								<div class="headline">&nbsp;
+									<?php printBulkActions($checkarray_albums); ?>
+								</div>
+								<div class="subhead">
+									<label style="float: left;
+												 padding-top:3px;
+												 padding-left:5px;
+												 padding-bottom:2px;
+												 ">
+													 <?php
+													 npgButton('button', $thumbmsg, array(
+															 'buttonLink' => getAdminLink('admin-tabs/edit.php') . '?page=edit&amp;showthumbs=' . $thumbshow,
+															 'buttonTitle' => addslashes(gettext('Thumbnail generation may be time consuming on slow servers or when there are a lot of images.'))
+																	 )
+													 );
+													 ?>
+									</label>
+									<label style="float: right;
+												 padding-top:5px;
+												 padding-right:25px;
+												 ">
+										<?php echo gettext("Check All"); ?> <input type="checkbox" name="allbox" id="allbox" onclick="checkAll(this.form, 'ids[]', this.checked);
+													 " />
+									</label>
+								</div>
+								<div class="bordered">
+									<ul class="page-list" id="albumsort">
+										<?php printNestedAlbumsList($albums, $showthumb, NULL); ?>
+									</ul>
 
-					<?php
-				} else {
-					echo gettext("There are no albums for you to edit.");
-					if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
-						?>
-						<span class="floatright">
-							<p>
-								<?php
-								npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
-								npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
-								?>
-							</p>
-						</span>
+								</div>
+								<div>
+									<?php printAlbumLegend(); ?>
+								</div>
+
+								<br class="clearall" />
+								<span id="serializeOutput"></span>
+								<input name="update" type="hidden" value="Save Order" />
+
+								<div>
+									<?php
+									if ($album_nesting > 1 || npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+										applyButton(array('buttonClass' => 'serialize'));
+										resetButton();
+									}
+									if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+										?>
+										<span class="floatright">
+											<?php
+											npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
+											npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
+											?>
+										</span>
+										<?php
+									}
+									?>
+								</div>
+
+							</form>
+							<br class="clearall" />
+						</div>
+
 						<?php
+					} else {
+						echo gettext("There are no albums for you to edit.");
+						if (npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+							?>
+							<span class="floatright">
+								<p>
+									<?php
+									npgButton('button', FOLDER_ICON . ' ' . gettext('New album'), array('buttonClick' => "newAlbumJS('', false);"));
+									npgButton('button', FOLDER_ICON . ' ' . gettext('New dynamic album'), array('buttonClick' => "newAlbumJS('', true);"));
+									?>
+								</p>
+							</span>
+							<?php
+						}
 					}
 				}
 			}

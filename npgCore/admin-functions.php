@@ -768,6 +768,21 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	/**
+	 * Returns the move_copy_remove album list
+	 *
+	 * @staticvar array $list
+	 * @return arrau
+	 */
+	function mcr_albumlist() {
+		static $list = [];
+		if (empty($list)) {
+			// one time generation of this list.
+			$list = genAlbumList();
+		}
+		return $list;
+	}
+
+	/**
 	 *
 	 * @param string $text
 	 * @param string $key
@@ -1648,11 +1663,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-												 } else {
-													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-												 }
+										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+										 } else {
+											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+										 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -2046,11 +2061,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();
-							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();
-							$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+						$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<?php
 					foreach ($stuff as $item => $name) {
@@ -2077,7 +2092,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @since 1.1.3
 	 */
 	function printAlbumEditForm($index, $album, $buttons = true) {
-		global $_sortby, $_gallery, $mcr_albumlist, $_albumthumb_selector, $_current_admin_obj;
+		global $_sortby, $_gallery, $_albumthumb_selector, $_current_admin_obj;
 		$isPrimaryAlbum = '';
 		if (!npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 			$myalbum = $_current_admin_obj->getAlbum();
@@ -2277,7 +2292,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																		 togglePassword('<?php echo $suffix; ?>');" />
+																 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2610,9 +2625,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-													 $('#<?php echo $prefix; ?>expirationdate').val('');
-													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-													 $('.<?php echo $prefix; ?>expire').html('');"
+												 $('#<?php echo $prefix; ?>expirationdate').val('');
+												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+												 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2770,7 +2785,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -2790,12 +2805,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 							<select id="a-<?php echo $prefix; ?>albumselectmenu" name="a-<?php echo $prefix; ?>albumselect" onchange="">
 								<?php
 								$exclude = $album->name;
-								if (count(explode('/', $exclude)) > 1 && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
+								if (count(explode('/ ', $exclude)) > 1 && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
 									?>
 									<option value="" selected="selected">/</option>
 									<?php
 								}
-								foreach ($mcr_albumlist as $fullfolder => $albumtitle) {
+								foreach (mcr_albumlist() as $fullfolder => $albumtitle) {
 									// don't allow copy in place or to subalbums
 									if ($fullfolder == dirname($exclude) || $fullfolder == $exclude || strpos($fullfolder, $exclude . '/') === 0) {
 										$disabled = ' disabled="disabled"';
@@ -3417,7 +3432,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$notify = '&noaction';
 		}
 
-		// Move/Copy/Rename the album after saving.
+// Move/Copy/Rename the album after saving.
 		$movecopyrename_action = '';
 		if (isset($_POST['a-' . $prefix . 'MoveCopyRename'])) {
 			$movecopyrename_action = sanitize($_POST['a-' . $prefix . 'MoveCopyRename'], 3);
@@ -3781,7 +3796,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-		//we are dealing with file system items, convert the names
+//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
 			$zipfileFS = tempnam('', 'zip');
@@ -3979,7 +3994,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$source = SERVERPATH . '/themes/' . internalToFilesystem($source);
 		$target = SERVERPATH . '/themes/' . internalToFilesystem($target);
 
-		// If the target theme already exists, nothing to do.
+// If the target theme already exists, nothing to do.
 		if (is_dir($target)) {
 			return gettext('Cannot create new theme.') . ' ' . sprintf(gettext('Directory “%s” already exists!'), basename($target));
 		}
@@ -4152,12 +4167,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 *
 	 * @param $id int record id for the save
 	 * @param string $background background color
-	 * @param string $alterrights are the items changable
+	 * @param string $alterrights are the items changeable
 	 * @param bit $rights rights of the admin
 	 */
 	function printAdminRightsTable($id, $background, $alterrights, $rights) {
 		$rightslist = sortMultiArray(npg_Authority::getRights(), array('sort' => false, 'value' => false));
-
 		$element = 3;
 		$activeset = false;
 		$format = 'user[%2$s][%1$s]';
@@ -4963,30 +4977,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script>
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-				var sel = obj.options[obj.selectedIndex].value;
-				var mark;
-				switch (sel) {
+			var sel = obj.options[obj.selectedIndex].value;
+							var mark;
+							switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-					case '<?php echo $key; ?>':
-					mark = '<?php echo $mark; ?>';
-									break;
+				case '<?php echo $key; ?>':
+								mark = '<?php echo $mark; ?>';
+								break;
 			<?php
 		}
 		?>
-				default:
-				mark = false;
-								break;
+			default:
+							mark = false;
+							break;
 			}
 			if (mark) {
-				$.colorbox({
-					href: '#' + mark,
-					inline: true,
-					open: true,
-					close: '<?php echo gettext("ok"); ?>'
-				});
-				}
+			$.colorbox({
+			href: '#' + mark,
+							inline: true,
+							open: true,
+							close: '<?php echo gettext("ok"); ?>'
+			});
+			}
 			}
 
 		</script>
@@ -5092,7 +5106,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 	}
 
 	if (in_array('mass_movecopy_data', $colorboxBookmark)) {
-		global $mcr_albumlist, $album;
+		global $album;
 		$bglevels = array('#fff', '#f8f8f8', '#efefef', '#e8e8e8', '#dfdfdf', '#d8d8d8', '#cfcfcf', '#c8c8c8');
 		?>
 		<div id="mass_movecopy_copy" style="display:none;">
@@ -5103,7 +5117,7 @@ function printBulkActions($checkarray, $checkAll = false) {
 				?>
 				<select class="ignoredirty" id="massalbumselectmenu" name="massalbumselect" onchange="">
 					<?php
-					foreach ($mcr_albumlist as $fullfolder => $albumtitle) {
+					foreach (mcr_albumlist() as $fullfolder => $albumtitle) {
 						$singlefolder = $fullfolder;
 						$saprefix = "";
 						$salevel = 0;
@@ -5378,26 +5392,26 @@ function codeblocktabsJS() {
 	?>
 	<script charset="utf-8">
 
-		$(function () {
-			var tabContainers = $('div.tabs > div');
-			$('.first').addClass('selected');
-		});
-		function cbclick(num, id) {
-			$('.cbx-' + id).hide();
-			$('#cb' + num + '-' + id).show();
-			$('.cbt-' + id).removeClass('selected');
-			$('#cbt' + num + '-' + id).addClass('selected');
-		}
+						$(function () {
+						var tabContainers = $('div.tabs > div');
+										$('.first').addClass('selected');
+						});
+						function cbclick(num, id) {
+						$('.cbx-' + id).hide();
+										$('#cb' + num + '-' + id).show();
+										$('.cbt-' + id).removeClass('selected');
+										$('#cbt' + num + '-' + id).addClass('selected');
+						}
 
 		function cbadd(id, offset) {
-			var num = $('#cbu-' + id + ' li').length - offset;
-			$('li:last', $('#cbu-' + id)).remove();
-			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-							'</div>');
-			cbclick(num, id);
+		var num = $('#cbu-' + id + ' li').length - offset;
+						$('li:last', $('#cbu-' + id)).remove();
+						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+						'</div>');
+						cbclick(num, id);
 		}
 
 	</script>
@@ -6504,7 +6518,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
@@ -6605,7 +6619,7 @@ function curlDL($fileUrl, $saveTo) {
 		throw new Exception(sprintf(gettext('Could not create: %1$s'), $saveTo . '/' . basename($fileUrl)));
 	}
 
-	//Create a cURL handle.
+//Create a cURL handle.
 	$ch = curl_init($fileUrl);
 	curl_setopt_array($ch, array(
 			CURLOPT_FILE => $fp, //Pass file handle to cURL.
@@ -6613,21 +6627,21 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-	//Execute the request.
+//Execute the request.
 	curl_exec($ch);
 
-	//If there was an error, throw an Exception
+//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-	//Get the HTTP status code.
+//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	//Close the cURL handler.
+//Close the cURL handler.
 	curl_close($ch);
 
-	//Close the file handle.
+//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {

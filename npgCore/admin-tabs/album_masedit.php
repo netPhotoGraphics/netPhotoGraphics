@@ -3,8 +3,6 @@
  * the "guts" of the mass album edit page
  */
 
-// one time generation of this list.
-$mcr_albumlist = genAlbumList();
 $albumdir = "";
 if (isset($_GET['album'])) {
 	$folder = sanitize_path($_GET['album']);
