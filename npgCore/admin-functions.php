@@ -743,6 +743,8 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 */
 	function genAlbumList($curAlbum = NULL, $rights = UPLOAD_RIGHTS | MANAGED_OBJECT_RIGHTS_UPLOAD) {
 		global $_gallery;
+		$returnDynamic = !($rights & (UPLOAD_RIGHTS | MANAGED_OBJECT_RIGHTS_UPLOAD));
+
 		$list = array();
 		if (is_null($curAlbum)) {
 			$albums = array();
@@ -756,11 +758,12 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$albums = $curAlbum->getAlbums(0);
 		}
+
 		if (is_array($albums)) {
 			foreach ($albums as $folder) {
 				$album = newAlbum($folder);
 				if ($album->isDynamic()) {
-					if ($rights & (UPLOAD_RIGHTS | MANAGED_OBJECT_RIGHTS_UPLOAD) == 0) {
+					if ($returnDynamic) {
 						$list[$album->getFileName()] = $album->getTitle();
 					}
 				} else {
