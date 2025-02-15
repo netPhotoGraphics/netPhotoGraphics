@@ -11,11 +11,12 @@
  */
 ini_set('display_errors', 1);
 
-$__script = 'Mod_rewrite';
+define('OFFSET_PATH', 2);
 require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
+$__script = 'Mod_rewrite';
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;
 
