@@ -613,9 +613,9 @@ class imageProcessing {
 				if (array_key_exists('rotation', $result)) {
 					$rotation = $result['rotation'];
 				}
-			} else if (class_exists('Image')) {
+			} else if (class_exists('Metadata')) {
 				//try the file directly as this might be an image not in the database
-				$result = Image::read_exif($img);
+				$result = Metadata::read_exif($img);
 				if (array_key_exists('Orientation', $result)) {
 					$rotation = $result['Orientation'];
 				}
