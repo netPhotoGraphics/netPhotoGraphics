@@ -4690,12 +4690,8 @@ function postAlbumSort($parentid) {
 				if (is_null($newparent)) {
 					$dest = $albumname;
 				} else {
-					$parent = query_single_row('SELECT `dynamic`, `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $newparent);
-					if ($parent['dynamic']) {
-						return "&mcrerr=5";
-					} else {
-						$dest = $parent['folder'] . '/' . $albumname;
-					}
+					$parent = query_single_row('SELECT `folder` FROM ' . prefix('albums') . ' WHERE `id`=' . $newparent);
+					$dest = $parent['folder'] . '/' . $albumname;
 				}
 				if ($e = $album->move($dest)) {
 					return "&mcrerr=" . $e;
@@ -6527,7 +6523,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
 				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
-			 <?php echo CLIPBOARD; ?>
+		 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
 }

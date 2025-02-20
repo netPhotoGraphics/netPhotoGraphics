@@ -663,7 +663,7 @@ class Gallery {
 				}
 
 				/* refresh 'metadata' albums */
-				$albumids = query("SELECT `id`, `mtime`, `folder`, `dynamic` FROM " . prefix('albums'));
+				$albumids = query("SELECT `id`, `mtime`, `folder` FROM " . prefix('albums'));
 				if ($albumids) {
 					while ($analbum = db_fetch_assoc($albumids)) {
 						if (($mtime = filemtime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($analbum['folder']))) > $analbum['mtime']) {
