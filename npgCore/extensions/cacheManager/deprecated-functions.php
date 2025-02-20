@@ -49,7 +49,7 @@ class cachemanager_internal_deprecations {
 				cacheManager::addCacheSize($whom, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $thumb);
 				break;
 			default:
-				trigger_error(sprintf(gettext('Call to undefined method cachemanager::%1$s()'), $method), E_USER_ERROR);
+				trigger_error(sprintf(gettext('Call to undefined method cachemanager::%1$s()'), $method), E_USER_WARNING);
 		}
 	}
 

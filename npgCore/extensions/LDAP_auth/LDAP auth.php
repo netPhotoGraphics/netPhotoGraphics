@@ -226,7 +226,7 @@ class npg_Authority extends _Authority {
 				ldap_set_option($ad, LDAP_OPT_REFERRALS, 0);
 				return $ad;
 			} else {
-				trigger_error(gettext('Could not connect to LDAP server.'), E_USER_ERROR);
+				trigger_error(gettext('Could not connect to LDAP server.'), E_USER_WARNING);
 			}
 		}
 		return false;

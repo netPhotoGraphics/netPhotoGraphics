@@ -747,7 +747,7 @@ class _Authority {
 		}
 		switch ($v) {
 			default:
-				trigger_error(sprintf(gettext('_Authority::getRights() does not support version %1$s'), $v), E_USER_ERROR);
+				trigger_error(sprintf(gettext('_Authority::getRights() does not support version %1$s'), $v), E_USER_WARNING);
 				return self::getRights();
 			case 4:
 				$rightsset = array('NO_RIGHTS' => array('value' => 1,

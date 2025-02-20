@@ -351,7 +351,7 @@ class PersistentObject {
 			return 0; // If this object isn't supposed to be persisted, don't save it.
 		}
 		if (!$this->unique_set) { // If we don't have a unique set, then this is incorrect. Don't attempt to save.
-			trigger_error('empty $this->unique set is empty', E_USER_ERROR);
+			trigger_error('empty $this->unique set is empty', E_USER_WARNING);
 			return 0;
 		}
 		if (!npgFilters::apply('save_object', TRUE, $this, $this->updates)) {

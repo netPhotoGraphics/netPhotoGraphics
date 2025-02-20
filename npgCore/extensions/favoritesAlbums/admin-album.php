@@ -32,7 +32,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'savealbum') {
 	}
 	if (!$allow) {
 		if (!npgFilters::apply('admin_managed_albums_access', false, $return)) {
-			trigger_error(gettext("You do not have edit rights on this album."), E_USER_ERROR);
+			trigger_error(gettext("You do not have edit rights on this album."), E_USER_WARNING);
 		}
 	}
 

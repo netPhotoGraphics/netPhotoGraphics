@@ -42,7 +42,7 @@ class Service
       if (class_exists('TypeError')) {
         throw new TypeError($errorMessage);
       }
-      trigger_error($errorMessage, E_USER_ERROR);
+      trigger_error($errorMessage, E_USER_WARNING);
     }
   }
 
