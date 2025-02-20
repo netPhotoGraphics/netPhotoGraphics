@@ -140,7 +140,7 @@ class rewriteRules {
 			$this->conf_vars = $_conf_vars['special_pages'];
 			$i = strpos($_config_contents, '/** Do not edit below this line. **/');
 			if ($i === false) {
-				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
+				trigger_error(gettext('The Configuration file is corrupt. You will need to restore it from a backup.'), E_USER_WARNING);
 			}
 			$this->_cfg_a = substr($_config_contents, 0, $i);
 			$this->_cfg_b = "//\n" . substr($_config_contents, $i);

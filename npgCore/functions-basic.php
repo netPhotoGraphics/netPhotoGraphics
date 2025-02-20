@@ -68,7 +68,7 @@ function npgExceptionHandler($ex) {
 function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $deprecated = null, $trace = 1) {
 	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
-	if (error_reporting() == 0 && !in_array($errno, array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE))) {
+	if (error_reporting() == 0 && !in_array($errno, array(E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
 	}
 	$errorType = array(
@@ -80,7 +80,6 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
 			E_CORE_WARNING => gettext('CORE WARNING'),
 			E_COMPILE_ERROR => gettext('COMPILE ERROR'),
 			E_COMPILE_WARNING => gettext('COMPILE WARNING'),
-			E_USER_ERROR => gettext('USER ERROR'),
 			E_USER_WARNING => gettext('USER WARNING'),
 			E_USER_NOTICE => gettext('USER NOTICE'),
 			E_RECOVERABLE_ERROR => gettext('RECOVERABLE ERROR'),
@@ -98,7 +97,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $de
 	$msg = sprintf(gettext('%1$s: "%2$s" in %3$s on line %4$s'), $err, $errstr, $errfile, $errline);
 	debugLogBacktrace($msg, $trace);
 
-	if ($errno == E_ERROR || $errno == E_USER_ERROR) {
+	if ($errno == E_ERROR || $errno == E_USER_WARNING) {
 		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
@@ -118,7 +117,7 @@ function npgShutDownFunction() {
 		$_siteMutex->__destruct();
 	}
 	$error = error_get_last();
-	if ($error && !in_array($error['type'], array(E_USER_ERROR, E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
+	if ($error && !in_array($error['type'], array(E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$file = str_replace('\\', '/', $error['file']);
 		preg_match('~(.*)/(' . USER_PLUGIN_FOLDER . '|' . PLUGIN_FOLDER . ')~', $file, $matches);
 		if (isset($matches[2])) {

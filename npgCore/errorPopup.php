@@ -24,7 +24,7 @@ function displayError($what, $brief, $addl) {
 	}
 
 	if (defined('TESTING_MODE') && TESTING_MODE) {
-		trigger_error($log, E_USER_ERROR);
+		trigger_error($log, E_USER_WARNING);
 	} else {
 		debugLogBacktrace($log);
 		?>

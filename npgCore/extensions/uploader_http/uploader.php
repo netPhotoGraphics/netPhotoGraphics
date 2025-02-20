@@ -79,7 +79,7 @@ if (isset($_POST['processed'])) {
 			} else {
 				$AlbumDirName = str_replace(SERVERPATH, '', $_gallery->albumdir);
 				trigger_error(gettext("The album could not be created in the “albums” folder. This is usually a permissions problem. Try setting the permissions on the “albums” and “cache” folders to be world-writable using a shell:") . " <code>chmod 777 " . $AlbumDirName . '/' . CACHEFOLDER . '/' . "</code>, "
-								. gettext("or use your FTP program to give everyone write permissions to those folders."), E_USER_ERROR);
+								. gettext("or use your FTP program to give everyone write permissions to those folders."), E_USER_WARNING);
 			}
 
 			foreach ($_FILES['files']['error'] as $key => $error) {

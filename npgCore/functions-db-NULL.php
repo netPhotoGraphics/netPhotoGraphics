@@ -19,7 +19,7 @@ Define('DATABASE_DESIRED_VERSION', '0.0.0');
  * @param bool $errorstop set to false to omit error messages
  * @return true if successful connection
  */
-function db_connect($config, $errorstop = E_USER_ERROR) {
+function db_connect($config, $errorstop = E_USER_WARNING) {
 	global $_DB_connection, $_DB_details;
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	$_DB_connection = NULL;
