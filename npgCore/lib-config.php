@@ -28,7 +28,7 @@ class configFile {
 			if (isset($parts[1])) {
 				$_config_contents = $parts[0] . "\$conf['" . $item . "'] = " . $value . ";\n/** Do not edit below this line. **/" . $parts[1];
 			} else {
-				trigger_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'), E_USER_ERROR);
+				trigger_error(gettext('The configuration file is corrupt. You will need to restore it from a backup.'), E_USER_WARNING);
 			}
 		}
 		return $_config_contents;

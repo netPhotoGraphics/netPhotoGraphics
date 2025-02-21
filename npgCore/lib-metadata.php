@@ -99,12 +99,17 @@ class Metadata {
 	static function rationalNum($v) {
 		if (!empty($v)) {
 			if (preg_match('~^(\d*)/(\d*)$~', $v, $matches)) {
-				if (isset($matches[2]) && $matches[2]) {
+				if ($matches[1] == 0) {
+					return 0;
+				}
+				if (isset($matches[2])) {
+					if ($matches[2] == 0) { // [sic]
+						return 0;
+					}
 					if ($matches[2] == 1) {
 						return $matches[1];
-					} else if ($matches[2] != 0) {
-						return (float) $matches[1] / $matches[2];
 					}
+					return (float) $matches[1] / $matches[2];
 				}
 			}
 		}
@@ -153,6 +158,22 @@ class Metadata {
 			$sec = $sec - 60;
 		}
 		return sprintf('%d° %d\' %.2f" %s', $d[0], $min, $sec, $ref);
+	}
+
+	/**
+	 * Turns Degree Minute Second representation of coordinate into a decimal representation
+	 *
+	 * @param string $coord
+	 * @param string $ref N, S, E, or W
+	 * @return type
+	 */
+	static function decimalCoord($coord, $ref) {
+		$d = preg_split('/[:,\.]/', str_replace('-', '', $coord) . ':0:0');
+		$dd = $d[0] + $d[1] / 60 + ($d[2] . '.' . $d[3]) / 3600;
+		if (in_array($ref, ['S', 'W'])) {
+			$dd = -$dd;
+		}
+		return $dd;
 	}
 
 	/**
@@ -505,12 +526,8 @@ class Metadata {
 			foreach (array('EXIFGPSLatitude', 'EXIFGPSLongitude') as $source) {
 				$data = $obj->fetchMetadata($source);
 				if (!empty($data)) {
-					$ref = strtoupper($obj->get($source . 'Ref'));
-					$obj->set($source, self::toDMS($data, $ref));
-					if (in_array($ref, array('S', 'W'))) {
-						$data = '-' . $data;
-					}
-					$obj->set(substr($source, 4), $data);
+					$value = self::decimalCoord($data, strtoupper($obj->get($source . 'Ref')));
+					$obj->set(substr($source, 4), $value);
 				}
 			}
 

@@ -154,7 +154,7 @@ final class Item implements CacheItemInterface
             throw new \TypeError($error);
         }
 
-        trigger_error($error, E_USER_ERROR);
+        trigger_error($error, E_USER_WARNING);
     }
 
     /**

@@ -459,7 +459,7 @@ function formattedDate($format, $dt = NULL) {
 		  $df = array_key_first($x);
 		  array_pop($x);
 		  if ($if && array_key_exists($if[0], $intlFmt)) {
-		  trigger_error($df . '=>' . $if . ' is a problem', E_USER_ERROR);
+		  trigger_error($df . '=>' . $if . ' is a problem', E_USER_WARNING);
 		  }
 		  }
 		 */

@@ -366,7 +366,7 @@ class Image extends MediaObject {
 	 * @return float
 	 */
 	private function floatGPS($coord) {
-		$d = preg_split('/[:,\.]/', str_replace('-', '', $coord) . '.0');
+		$d = preg_split('/[,\.]/', str_replace('-', '', $coord) . '.0');
 		$v = floatval($d[0] + $d[1] * pow(10, -strlen($d[1])));
 		if (substr($coord, 0, 1) == '-') {
 			$v = -$v;

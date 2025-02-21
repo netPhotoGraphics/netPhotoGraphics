@@ -656,7 +656,7 @@ if (isset($_GET['download'])) {
 	$item = sanitize($_GET['download']);
 	if (empty($item) || !extensionEnabled('downloadList')) {
 		if (TEST_RELEASE) {
-			trigger_error(gettext('Forbidden'), E_USER_ERROR);
+			trigger_error(gettext('Forbidden'), E_USER_WARNING);
 		} else {
 			header("HTTP/1.0 403 Forbidden");
 			header("Status: 403 Forbidden");

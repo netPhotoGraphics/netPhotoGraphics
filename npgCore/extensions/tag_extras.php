@@ -38,7 +38,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 		return FALSE;
 	}
 	if (npg_loggedin()) {
-		$albumWhere = "WHERE `dynamic`=0";
+		$albumWhere = "";
 	} else {
 		$albumscheck = query_full_array("SELECT `id`, `folder` FROM " . prefix('albums') . " ORDER BY title");
 		$passwordcheck = array();
@@ -47,7 +47,7 @@ function getAllTagsFromAlbum($albumname, $subalbums = false, $mode = 'images') {
 				$passwordcheck[] = $albumcheck['id'];
 			}
 		}
-		$albumWhere = "WHERE `dynamic`=0 AND `show`=1";
+		$albumWhere = "WHERE `show`=1";
 		if (!empty($passwordcheck)) {
 			$albumWhere .= ' AND id in(' . implode(',', $passwordcheck) . ')';
 		}
