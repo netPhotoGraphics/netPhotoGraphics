@@ -218,7 +218,6 @@ echo '</head>';
 												E_CORE_WARNING => 'E_CORE_WARNING',
 												E_COMPILE_ERROR => 'E_COMPILE_ERROR',
 												E_COMPILE_WARNING => 'E_COMPILE_WARNING',
-												E_USER_ERROR => 'E_USER_ERROR',
 												E_USER_NOTICE => 'E_USER_NOTICE',
 												E_USER_WARNING => 'E_USER_WARNING',
 												E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
@@ -493,8 +492,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+									$('.overview_list').height(height);
 </script>
 
 <?php

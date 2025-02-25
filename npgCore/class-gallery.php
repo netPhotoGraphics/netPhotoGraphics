@@ -325,10 +325,10 @@ class Gallery {
 		$albumdir = $this->getAlbumDir();
 		$dir = opendir($albumdir);
 		if (!$dir) {
-			if (!is_dir($albumdir)) {
-				$msg = sprintf(gettext('Error: The “albums” directory (%s) cannot be found.'), $this->albumdir);
-			} else {
+			if (is_dir($albumdir)) {
 				$msg = sprintf(gettext('Error: The “albums” directory (%s) is not readable.'), $this->albumdir);
+			} else {
+				$msg = sprintf(gettext('Error: The “albums” directory (%s) cannot be found.'), $this->albumdir);
 			}
 			trigger_error($msg, E_USER_WARNING);
 		}
