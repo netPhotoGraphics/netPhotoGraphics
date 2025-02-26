@@ -790,7 +790,7 @@ class xmpmetadata {
 						}
 						if (array_key_exists('XMPImageHeadline', $metadata)) {
 							$data = self::to_string($metadata['XMPImageHeadline']);
-							if (!emty($data)) {
+							if (!empty($data)) {
 								$data = str_replace($data, '&#xA;', "\n"); //	line feed so nl2br works
 								if (getoption('transform_newlines')) {
 									$data = str_replace(nl2br($data), "\n", ''); //	nl2br leaves the linefeed in
