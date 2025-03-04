@@ -82,7 +82,7 @@ class publicCMS {
 				return in_array($_CMS_current_page->getTitleLink(), $_publicPages);
 			case 'news':
 				if ($_CMS_current_article && in_context(ZENPAGE_SINGLE)) {
-					return self::allowCategory($_CMS_current_article->getCategories());
+					return self::allowCategory(true, $_CMS_current_article->getCategories());
 				}
 				return true; // by definition, the news list page is public
 		}

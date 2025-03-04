@@ -508,6 +508,129 @@ class feed {
 	}
 
 	/**
+	 * Gets the feed item data in a gallery feed
+	 *
+	 * @param object $item Object of an image or album
+	 * @return array
+	 */
+	protected function getItemGallery($item) {
+		if ($this->mode == "albums") {
+			$albumobj = $item;
+			$totalimages = $albumobj->getNumImages();
+			$itemlink = $this->host . $albumobj->getLink();
+			$thumb = $albumobj->getAlbumThumbImage();
+			$thumburl = '<img border="0" src="' . FULLHOSTPATH . html_encode($thumb->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($albumobj->getTitle($this->locale)) . '" />';
+			$title = $albumobj->getTitle($this->locale);
+			if ($this->sortorder == "latestupdated") {
+				$filechangedate = filectime(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($albumobj->name));
+				$latestimage = query_single_row("SELECT mtime FROM " . prefix('images') . " WHERE albumid = " . $albumobj->getID() . " AND `show`=1 ORDER BY id DESC");
+				if ($latestimage && $this->sortorder == 'latestupdated') {
+					$count = db_count('images', "WHERE albumid = " . $albumobj->getID() . " AND mtime = " . $latestimage['mtime']);
+				} else {
+					$count = $totalimages;
+				}
+				if ($count != 0) {
+					$imagenumber = sprintf(ngettext('%s (%u image)', '%s (%u images)', $count), $title, $count);
+				} else {
+					$imagenumber = $title;
+				}
+				$feeditem['desc'] = '<a title="' . $title . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' .
+								'<p>' . html_encode($imagenumber) . '</p>' . $albumobj->getDesc($this->locale) . '<br />' . sprintf(gettext("Last update: %s"), formattedDate(DATE_FORMAT, $filechangedate));
+			} else {
+				if ($totalimages != 0) {
+					$imagenumber = sprintf(ngettext('%s (%u image)', '%s (%u images)', $totalimages), $title, $totalimages);
+				} else {
+					$imagenumber = $title;
+				}
+				$feeditem['desc'] = '<a title="' . html_encode($title) . '" href="' . PROTOCOL . '://' . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . '<br />' . sprintf(gettext("Date: %s"), formattedDate(DATE_FORMAT, $item->get('mtime')));
+			}
+			$ext = getSuffix($thumb->localpath);
+		} else {
+			$ext = getSuffix($item->localpath);
+			$albumobj = $item->getAlbum();
+			$itemlink = $item->getLink();
+			$fullimagelink = html_encode($item->getFullImageURL());
+			$thumburl = '<img border="0" src="' . FULLHOSTPATH . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . $item->getTitle($this->locale) . '" /><br />';
+			$title = $item->getTitle($this->locale);
+			$albumtitle = $albumobj->getTitle($this->locale);
+			$datecontent = '<br />Date: ' . formattedDate(DATE_FORMAT, $item->get('mtime'));
+			if ((($ext == "flv") || ($ext == "mp3") || ($ext == "mp4") || ($ext == "3gp") || ($ext == "mov")) AND $this->mode != "album") {
+				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . FULLHOSTPATH . $itemlink . '">' . $thumburl . '</a>' . $item->getDesc($this->locale) . $datecontent;
+			} else {
+				$feeditem['desc'] = '<a title="' . html_encode($title) . ' in ' . html_encode($albumobj->getTitle($this->locale)) . '" href="' . FULLHOSTPATH . $itemlink . '"><img src="' . FULLHOSTPATH . html_encode($item->getCustomImage(array('size' => $this->imagesize, 'thumb' => TRUE))) . '" alt="' . html_encode($title) . '" /></a>' . $item->getDesc($this->locale) . $datecontent;
+			}
+		}
+		// title
+		if ($this->mode != "albums") {
+			$feeditem['title'] = sprintf('%1$s (%2$s)', $item->getTitle($this->locale), $albumobj->getTitle($this->locale));
+		} else {
+			$feeditem['title'] = $imagenumber;
+		}
+		//link
+		$feeditem['link'] = FULLHOSTPATH . $itemlink;
+
+		// enclosure
+		$feeditem['enclosure'] = '';
+		if (getOption("RSS_enclosure") AND $this->mode != "albums") {
+			$feeditem['enclosure'] = '<enclosure url="' . FULLHOSTPATH . $fullimagelink . '" type="' . mimeTypes::getType($ext) . '" length="' . filesize($item->localpath) . '" />';
+		}
+		//category
+		if ($this->mode != "albums") {
+			$feeditem['category'] = html_encode($albumobj->getTitle($this->locale));
+		} else {
+			$feeditem['category'] = html_encode($albumobj->getTitle($this->locale));
+		}
+		//media content
+		$feeditem['media_content'] = '';
+		$feeditem['media_thumbnail'] = '';
+		if (getOption("RSS_mediarss") AND $this->mode != "albums") {
+			$feeditem['media_content'] = '<media:content url="' . FULLHOSTPATH . $fullimagelink . '" type="image/jpeg" />';
+			$feeditem['media_thumbnail'] = '<media:thumbnail url="' . FULLHOSTPATH . $fullimagelink . '" width="' . $this->imagesize . '"	height="' . $this->imagesize . '" />';
+		}
+		//date
+		if ($this->mode != "albums") {
+			$feeditem['pubdate'] = formattedDate("r", strtotime($item->getPublishDate()));
+		} else {
+			$feeditem['pubdate'] = formattedDate("r", strtotime($albumobj->getPublishDate()));
+		}
+		return $feeditem;
+	}
+
+	/**
+	 * Gets the feed item data in a Zenpage news feed
+	 *
+	 * @param array $item Titlelink a Zenpage article or filename of an image if a combined feed
+	 * @return array
+	 */
+	protected function getItemNews($item) {
+		$categories = '';
+		$feeditem['enclosure'] = '';
+		$obj = newArticle($item['titlelink']);
+		$title = $feeditem['title'] = get_language_string($obj->getTitle('all'), $this->locale);
+		$link = $obj->getLink();
+		$count2 = 0;
+		$plaincategories = $obj->getCategories();
+		$categories = '';
+		foreach ($plaincategories as $cat) {
+			$catobj = newCategory($cat['titlelink']);
+			$categories .= get_language_string($catobj->getTitle('all'), $this->locale) . ', ';
+		}
+		$categories = rtrim($categories, ', ');
+		$feeditem['desc'] = shortenContent($obj->getContent($this->locale), getOption('RSS_truncate_length'), '...');
+
+		if (!empty($categories)) {
+			$feeditem['category'] = html_encode($categories);
+			$feeditem['title'] = $title . ' (' . $categories . ')';
+		}
+		$feeditem['link'] = FULLHOSTPATH . $link;
+		$feeditem['media_content'] = '';
+		$feeditem['media_thumbnail'] = '';
+		$feeditem['pubdate'] = formattedDate("r", strtotime($item['date']));
+
+		return $feeditem;
+	}
+
+	/**
 	 * Gets the feed item data in a Zenpage news feed
 	 *
 	 * @param array $item Titlelink a Zenpage article or filename of an image if a combined feed
