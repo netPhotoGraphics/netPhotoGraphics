@@ -207,7 +207,7 @@ class openStreetMapOptions {
 class openStreetMap {
 
 	/**
-	 * Contains the array of the image or images from albums geodata
+	 * Contains the array of geodata
 	 * @var array
 	 */
 	public $geodata = NULL;
@@ -242,14 +242,16 @@ class openStreetMap {
 	 * "single" (one marker)
 	 * "cluster" (several markers always clustered)
 	 * "single-cluster" (markers of the images of the current album)
+	 * "polyline-cluster" (markers for a polyline track)
 	 * Default created by the $geodata property: "single "if array with one entry, "cluster" if more entries
 	 * @var string
 	 */
 	public $mode = NULL;
-	public $polycolor = 'blue';
+
 	/**
 	 * the color of the polyline
 	 */
+	public $polycolor = 'blue';
 
 	/**
 	 *

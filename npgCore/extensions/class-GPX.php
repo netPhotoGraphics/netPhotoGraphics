@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Creates map route images from GPX files.
+ * Creates a map track image from a GPX file.
  *
  * This plugin provides handlers for <b>GPX</b> files.
  * A GPX file, or GPS Exchange Format file, is an XML file that stores geographic
- * information like waypoints, tracks, and routes. The "image" shown will be the
- * map route defined by the file.
+ * information like waypoints, tracks, and routes.
+ * The "image" shown will be the map track defined by the file.
  *
  * Loads the openstreetmap plugin.
  *
@@ -18,7 +18,7 @@
  */
 $plugin_is_filter = 800 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_description = gettext('Treats GPX files as "images" and shows Map routes defined by the GPX file.');
+	$plugin_description = gettext('Treats GPX files as "images" and shows the map track defined by the file.');
 }
 
 $option_interface = '';
@@ -29,10 +29,9 @@ require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
 class GPX extends TextObject_core {
 
-	protected $GPXpath = array();
-	protected $streetmap;
-	protected $name = '';
-	protected $color = 'blue';
+	protected $GPXtrk = array();
+	protected $trkname = '';
+	protected $trkcolor = 'blue';
 
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
@@ -41,43 +40,27 @@ class GPX extends TextObject_core {
 
 			$gpx = simplexml_load_file($this->localpath);
 
-			if (isset($gpx->wpt->name)) {
-				$this->name = $gpx->wpt->name;
-			}
-			if (isset($gpx->wpt->color)) {
-				$this->color = $gpx->wpt->color;
-			}
-			if (isset($gpx->trk->name)) {
-				$this->name = $gpx->trk->name;
-			}
-			if (isset($gpx->trk->color)) {
-				$this->color = $gpx->trk->color;
-			}
-
 			if ($gpx !== false) {
-				if (isset($gpx->wpt)) {
-					foreach ($gpx->wpt as $wpt) {
-						$this->GPXpath[] = array(
-								'lat' => (string) $wpt['lat'],
-								'long' => (string) $wpt['lon'],
-								'title' => !empty($wpt->name) ? (string) $wpt->name : 'Waypoint',
-								'desc' => !empty($wpt->desc) ? (string) $wpt->desc : '',
-								'thumb' => '',
-								'current' => 0
-						);
-					}
-				}
 
-				if (isset($gpx->trk->trkseg->trkpt)) {
-					foreach ($gpx->trk->trkseg->trkpt as $trkpt) {
-						$this->GPXpath[] = array(
-								'lat' => (string) $trkpt['lat'],
-								'long' => (string) $trkpt['lon'],
-								'title' => 'Track Point',
-								'desc' => '',
-								'thumb' => '',
-								'current' => 0
-						);
+				/* get track points */
+				if (isset($gpx->trk)) {
+					if (isset($gpx->trk->trkseg->trkpt)) {
+						foreach ($gpx->trk->trkseg->trkpt as $trkpt) {
+							$this->GPXtrk[] = array(
+									'lat' => (string) $trkpt['lat'],
+									'long' => (string) $trkpt['lon'],
+									'title' => 'Track Point',
+									'desc' => '',
+									'thumb' => '',
+									'current' => 0
+							);
+						}
+					}
+					if (isset($gpx->trk->name)) {
+						$this->trkname = $gpx->trk->name;
+					}
+					if (isset($gpx->trk->color)) {
+						$this->trkcolor = $gpx->trk->color;
 					}
 				}
 			} else {
@@ -122,36 +105,22 @@ class GPX extends TextObject_core {
 	}
 
 	function getContent($w = NULL, $h = NULL) {
-		if (empty($this->GPXpath)) {
+		if (empty($this->GPXtrk)) {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
 		}
 
 		require_once(__DIR__ . '/openstreetmap.php');
 
-		$start = reset($this->GPXpath);
-
-//fool openStreetMap that the "image" has GPS coordinates
-		$this->set('GPSLatitude', $start['lat']);
-		$this->set('GPSLongitude', $start['long']);
-		$map = new openStreetMap(null, $this);
-//revert
-		$this->set('GPSLatitude', null);
-		$this->set('GPSLongitude', null);
+		$map = new openStreetMap($this->GPXtrk, $this);
 
 		$map->class = $map->mapid = 'osm_poly';
-
-		$map->polycolor = $this->color; //	somehow this should come from the GPX file
-
-		$map->geodata = $this->GPXpath;
+		$map->polycolor = $this->trkcolor;
 		$map->mode = 'polyline-cluster';
-		$map->fitbounds = null; //openStreetMap caches this from the forced coordinates
 
 		ob_start();
 		$map->printMap();
 		$img = ob_get_clean();
 		return ($img);
-
-		return('<span class="osm_path_image"></span>'); // so printDefaultSizedImage won't complain
 	}
 
 }
