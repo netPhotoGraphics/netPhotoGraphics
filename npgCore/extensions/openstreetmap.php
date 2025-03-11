@@ -476,7 +476,7 @@ class openStreetMap {
 
 	/**
 	 * If no $geodata array is passed the function gets geodata from the current image or the images of the current album
-	 * if in appropiate context.
+	 * if in appropriate context.
 	 *
 	 * Alternatively you can pass an image or album object directly. This ignores the $geodata parameter then.
 	 *
@@ -501,7 +501,7 @@ class openStreetMap {
 	 *
 	 * @global string $_gallery_page
 	 * @param array $geodata Array as noted above if no current image or album should be used
-	 * @param obj Image or album object If set this object is used and $geodatat is ignored if set as well
+	 * @param obj Image or album object If set this object is used and $geodata is ignored if set as well
 	 */
 	function __construct($geodata = NULL, $obj = NULL) {
 		global $_gallery_page, $_current_album, $_current_image, $_current_search;
