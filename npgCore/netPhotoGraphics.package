@@ -821,6 +821,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/cacheManager.php
 %extensions%/captcha.php
 %extensions%/class-AnyFile.php
+%extensions%/class-GPX.php
 %extensions%/class-textobject.php
 %extensions%/class-video.php
 %extensions%/clone.php
@@ -938,6 +939,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/class-AnyFile/class-TIFF.php
 %extensions%/class-AnyFile/Default.png
 %extensions%/class-AnyFile/tiffDefault.png
+%extensions%/class-GPX
+%extensions%/class-GPX/Default.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
 %extensions%/class-textobject/pdfDefault.png
@@ -20392,4 +20395,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-20394
+20397
