@@ -246,6 +246,10 @@ class openStreetMap {
 	 * @var string
 	 */
 	public $mode = NULL;
+	public $polycolor = 'blue';
+	/**
+	 * the color of the polyline
+	 */
 
 	/**
 	 *
@@ -1026,7 +1030,7 @@ class openStreetMap {
 						}
 						?>
 							];
-							var polyline = L.polyline(polylinePoints).addTo(map);
+							var polyline = L.polyline(polylinePoints, {color: '<?php echo $this->polycolor; ?>'}).addTo(map);
 							// Adjust the map view to fit the polyline
 							map.fitBounds(polyline.getBounds());
 						<?php
