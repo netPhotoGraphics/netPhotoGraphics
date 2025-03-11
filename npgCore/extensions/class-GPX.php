@@ -31,6 +31,8 @@ class GPX extends TextObject_core {
 
 	protected $GPXpath = array();
 	protected $streetmap;
+	protected $name = '';
+	protected $color = 'blue';
 
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
@@ -38,6 +40,20 @@ class GPX extends TextObject_core {
 			parent::__construct($album, $filename, $quiet);
 
 			$gpx = simplexml_load_file($this->localpath);
+
+			if (isset($gpx->wpt->name)) {
+				$this->name = $gpx->wpt->name;
+			}
+			if (isset($gpx->wpt->color)) {
+				$this->color = $gpx->wpt->color;
+			}
+			if (isset($gpx->trk->name)) {
+				$this->name = $gpx->trk->name;
+			}
+			if (isset($gpx->trk->color)) {
+				$this->color = $gpx->trk->color;
+			}
+
 			if ($gpx !== false) {
 				if (isset($gpx->wpt)) {
 					foreach ($gpx->wpt as $wpt) {
@@ -124,7 +140,7 @@ class GPX extends TextObject_core {
 
 		$map->class = $map->mapid = 'osm_poly';
 
-		$map->polycolor = 'green'; //	somehow this should come from the GPX file
+		$map->polycolor = $this->color; //	somehow this should come from the GPX file
 
 		$map->geodata = $this->GPXpath;
 		$map->mode = 'polyline-cluster';
