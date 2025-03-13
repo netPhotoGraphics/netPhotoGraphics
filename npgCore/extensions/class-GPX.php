@@ -1,14 +1,32 @@
 <?php
 
 /**
- * Creates a map track image from a GPX file.
+ * Uses <code>openstreetmap</code> to create a map Track image from a
+ * <b>GPX</b> file.
  *
- * This plugin provides handlers for <b>GPX</b> files.
+ * This plugin provides an image handler for <b>GPX</b> files.
  * A GPX file, or GPS Exchange Format file, is an XML file that stores geographic
- * information like waypoints, tracks, and routes.
- * The "image" shown will be the map track defined by the file.
+ * information like Waypoints, Tracks, and Routes.
+ * The "image" shown will be the map Track defined by the file.
  *
- * Loads the openstreetmap plugin.
+ * The plugin supports an extension to the standard <b>GPX</b> file to optionally
+ * set the color of the Track. To specify the Track color add a <code>color</code> tag to the
+ * Track section:
+ *
+ * <block>
+ * <trk>
+ * 	<name>GraphHopper Track</name>
+ *
+ * 	<i><color>purple</color></i>
+ *
+ * 	<trkseg>
+ * 		<trkpt lat="47.009857" lon="-113.075981"><ele>1298.6</ele></trkpt>
+ * 		...
+ * 		<trkpt lat="47.025194" lon="-113.063088"><ele>1313.8</ele></trkpt>
+ * 	</trkseg>
+ * </trk>
+ * </block>
+ *
  *
  * @author Stephen Billard (sbillard)
  *
@@ -18,7 +36,7 @@
  */
 $plugin_is_filter = 800 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
-	$plugin_description = gettext('Treats GPX files as "images" and shows the map track defined by the file.');
+	$plugin_description = gettext('Treats GPX files as "images" and shows the map Track defined by the file.');
 }
 
 $option_interface = '';
@@ -104,6 +122,13 @@ class GPX extends TextObject_core {
 		return $imgfile;
 	}
 
+	/**
+	 * Returns the "image" html for the track
+	 *
+	 * @param type $w
+	 * @param type $h
+	 * @return type
+	 */
 	function getContent($w = NULL, $h = NULL) {
 		if (empty($this->GPXtrk)) {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
