@@ -753,7 +753,6 @@ class openStreetMap {
 	 * @return array
 	 */
 	function getCenter() {
-//$this->center = array(53.18, 10.38); //demotest
 		if (!is_null($this->center)) {
 			return $this->center;
 		}
