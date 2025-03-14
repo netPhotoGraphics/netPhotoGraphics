@@ -249,13 +249,13 @@ if (!defined('OFFSET_PATH')) {
 	$plugin_version = '';
 	$plugin_is_filter = '';
 	$plugin_URL = '';
-	$option_interface = '';
+	$option_interface = false;
 	$doclink = '';
-	$plugin_deprecataed = '';
+	$plugin_deprecated = '';
 
 	require_once($pluginToBeDocPath);
 
-	$macro_params = array($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink);
+	$macro_params = array($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink, $plugin_deprecated);
 
 	$buttonlist = npgFilters::apply('admin_utilities_buttons', array());
 	foreach ($buttonlist as $key => $button) {
@@ -272,6 +272,7 @@ if (!defined('OFFSET_PATH')) {
 
 	require_once(PLUGIN_SERVERPATH . 'macroList.php');
 	list($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink) = $macro_params;
+
 	$content_macros = getMacros();
 	krsort($content_macros);
 	foreach ($content_macros as $macro => $detail) {

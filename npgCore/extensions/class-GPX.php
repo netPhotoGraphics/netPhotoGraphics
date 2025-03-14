@@ -39,8 +39,6 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Treats GPX files as "images" and shows the map Track defined by the file.');
 }
 
-$option_interface = '';
-
 Gallery::addImageHandler('gpx', 'GPX');
 
 require_once(__DIR__ . '/class-textobject/class-textobject_core.php');

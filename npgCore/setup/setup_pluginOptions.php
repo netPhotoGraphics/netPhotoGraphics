@@ -32,6 +32,7 @@ $extension = sanitize($_GET['plugin']);
 
 if ($extension != 'cacheManager') {
 	require_once(PLUGIN_SERVERPATH . 'cacheManager.php');
+	unset($option_interface);
 }
 
 if ($icon == 2) {
@@ -85,22 +86,26 @@ foreach ($_conf_vars['special_pages'] as $definition) {
 		setOptionDefault($definition['option'], $definition['default'], '', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . $extension . '.php[special_pages]');
 	}
 }
-if ($str = isolate('$option_interface', $p)) {
-	//	prime the default options
-	eval($str);
-	setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $name, $option_interface), $fullLog);
-	$option_interface = new $option_interface;
-	if (method_exists($option_interface, 'getOptionsSupported')) {
-		if (!$_current_admin_obj) {
-			$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
-			$_loggedin = $_current_admin_obj->getRights();
-		}
 
-		$options = $option_interface->getOptionsSupported();
-		$owner = replaceScriptPath($path);
-		foreach ($options as $option) {
-			if (isset($option['key'])) {
-				setOptionDefault($option['key'], NULL, '', $owner);
+if ($str = isolate('$option_interface', $p)) {
+	eval($str);
+	if (isset($option_interface) && $option_interface) {
+
+		//	prime the default options
+		setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $name, $option_interface), $fullLog);
+		$option_interface = new $option_interface;
+		if (method_exists($option_interface, 'getOptionsSupported')) {
+			if (!$_current_admin_obj) {
+				$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
+				$_loggedin = $_current_admin_obj->getRights();
+			}
+
+			$options = $option_interface->getOptionsSupported();
+			$owner = replaceScriptPath($path);
+			foreach ($options as $option) {
+				if (isset($option['key'])) {
+					setOptionDefault($option['key'], NULL, '', $owner);
+				}
 			}
 		}
 	}
