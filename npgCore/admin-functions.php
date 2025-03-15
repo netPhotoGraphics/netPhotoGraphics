@@ -5687,13 +5687,23 @@ function parseDMS($geoString, $isLatitude) {
 		}
 	}
 	$g = $matches[0];
-	if (isset($matches[1]) && is_numeric($matches[1])) {
+	if (isset($matches[1])) {
 		//	in degree:min:second form
-		$g = $g + $matches[1] / 60;
-		if (isset($matches[2]) && is_numeric($matches[2])) {
-			$g = $g + $matches[2] / 3600;
+
+		if ($g < 0 || !is_numeric($matches[1]) || $matches[1] < 0) {
+			return NULL;
 		}
 
+		$g = $g + $matches[1] / 60;
+		if (isset($matches[2])) {
+			if (!is_numeric($matches[2]) || $matches[2] < 0) {
+				return NULL;
+			}
+			$g = $g + $matches[2] / 3600;
+		}
+		if (isset($matches[3])) {
+			return NULL;
+		}
 		$g = $g * $ref;
 	}
 
