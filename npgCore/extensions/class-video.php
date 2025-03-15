@@ -190,15 +190,14 @@ class Video extends Image {
 	function getThumbImageFile() {
 		global $_gallery;
 
-		$path = SERVERPATH;
 		if (is_null($this->objectsThumb)) {
 			$suffix = getSuffix($this->filename);
-			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/', CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
-				$imgfile = $path . '/' . $folder . '/' . $suffix . 'Default.png';
+			foreach (array(THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/', USER_PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__)), CORE_FOLDER . '/' . PLUGIN_FOLDER . '/' . stripSuffix(basename(__FILE__))) as $folder) {
+				$imgfile = SERVERPATH . '/' . $folder . '/' . $suffix . 'Default.png';
 				if (file_exists($imgfile)) {
 					break;
 				} else { // check for a default image
-					$imgfile = $path . '/' . $folder . '/multimediaDefault.png';
+					$imgfile = SERVERPATH . '/' . $folder . '/multimediaDefault.png';
 					if (file_exists($imgfile)) {
 						break;
 					}
