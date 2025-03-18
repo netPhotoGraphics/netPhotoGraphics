@@ -48,7 +48,7 @@ function processDocBlock($docBlock) {
 			'&lt;/b&gt;' => '</strong>',
 			'&lt;strong&gt;' => '<strong>',
 			'&lt;/strong&gt;' => '</strong>',
-			'&lt;code&gt;' => '<span class="inlinecode">',
+			'&lt;code&gt;' => '<span class="code inlinecode">',
 			'&lt;/code&gt;' => '</span>',
 			'&lt;sup&gt;' => '<span class="superscript">',
 			'&lt;/sup&gt;' => '</span>',
@@ -69,10 +69,12 @@ function processDocBlock($docBlock) {
 			'&lt;/pre&gt;' => '</pre>',
 			'&lt;br&gt;' => '<br />',
 			'&lt;br /&gt;' => '<br />',
-			'&lt;var&gt;' => '<span class="inlinecode">',
+			'&lt;var&gt;' => '<span class="var inlinecode">',
 			'&lt;/var&gt;' => '</span>',
 			'&lt;flag&gt;' => '<span class="warningbox">',
-			'&lt;/flag&gt;' => '</span>'
+			'&lt;/flag&gt;' => '</span>',
+			'&lt;block&gt;' => '<block>',
+			'&lt;/block&gt;' => '</block>'
 	);
 	$const_tr = array(
 			'%CORE_FOLDER%' => CORE_FOLDER,
@@ -99,8 +101,12 @@ function processDocBlock($docBlock) {
 	$body = $doc = '';
 	$par = false;
 	$empty = false;
+	$inBlock = false;
 	$lines = explode("\n", strtr($docBlock, $const_tr));
 	foreach ($lines as $line) {
+		if ($inBlock) {
+			$line = str_replace("\t", '&nbsp;&nbsp;', $line);
+		}
 		$line = trim(preg_replace('~^\s*\*~', '', $line));
 		if (empty($line)) {
 			if (!$empty) {
@@ -187,6 +193,14 @@ function processDocBlock($docBlock) {
 
 				$line = preg_replace('~\&amp;(\w+);~i', '&\1;', html_encode($line));
 				$line = strtr($line, array_merge($tags, $markup));
+				if ($line === '<block>') {
+					$inBlock = true;
+				} else if ($line === '</block>') {
+					$inBlock = false;
+				}
+				if ($inBlock) {
+					$line .= '<br/>';
+				}
 				$doc .= $line . " \n";
 				$empty = false;
 			}
@@ -235,13 +249,13 @@ if (!defined('OFFSET_PATH')) {
 	$plugin_version = '';
 	$plugin_is_filter = '';
 	$plugin_URL = '';
-	$option_interface = '';
+	$option_interface = false;
 	$doclink = '';
-	$plugin_deprecataed = '';
+	$plugin_deprecated = '';
 
 	require_once($pluginToBeDocPath);
 
-	$macro_params = array($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink);
+	$macro_params = array($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink, $plugin_deprecated);
 
 	$buttonlist = npgFilters::apply('admin_utilities_buttons', array());
 	foreach ($buttonlist as $key => $button) {
@@ -258,6 +272,7 @@ if (!defined('OFFSET_PATH')) {
 
 	require_once(PLUGIN_SERVERPATH . 'macroList.php');
 	list($plugin_description, $plugin_notice, $plugin_disable, $plugin_author, $plugin_version, $plugin_is_filter, $plugin_URL, $option_interface, $doclink) = $macro_params;
+
 	$content_macros = getMacros();
 	krsort($content_macros);
 	foreach ($content_macros as $macro => $detail) {

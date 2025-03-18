@@ -79,10 +79,13 @@ class publicCMS {
 		global $_publicPages, $_CMS_current_page, $_CMS_current_article;
 		switch ($page) {
 			case 'pages':
-				return in_array($_CMS_current_page->getTitleLink(), $_publicPages);
+				if (in_array($_CMS_current_page->getTitleLink(), $_publicPages)) {
+					return true;
+				}
+				break;
 			case 'news':
 				if ($_CMS_current_article && in_context(ZENPAGE_SINGLE)) {
-					return self::allowCategory(true, $_CMS_current_article->getCategories());
+					return self::allowCategory($allow, $_CMS_current_article->getCategories());
 				}
 				return true; // by definition, the news list page is public
 		}
@@ -92,13 +95,17 @@ class publicCMS {
 	static function allowCategory($allow, $catlist) {
 		global $_publicCategories;
 		if (empty($catlist)) {
-			return true;
+			return $allow;
 		}
 		$categories = array();
 		foreach ($catlist as $category) {
 			$categories[] = $category['titlelink'];
 		}
-		return count(array_intersect($categories, $_publicCategories));
+		$categories = array_intersect($categories, $_publicCategories);
+		if (empty($categories)) {
+			return $allow;
+		}
+		return true;
 	}
 
 }

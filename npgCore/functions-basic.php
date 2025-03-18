@@ -1640,9 +1640,13 @@ function build_url($parts) {
  * @return array
  */
 function mb_parse_url($url) {
-	$enc_url = preg_replace_callback('%[^:/@?&=#]+%usD', function ($matches) {
-		return urlencode($matches[0]);
-	}, $url);
+	if ($url) {
+		$enc_url = preg_replace_callback('%[^:/@?&=#]+%usD', function ($matches) {
+			return urlencode($matches[0]);
+		}, $url);
+	} else {
+		$enc_url = '';
+	}
 
 	$parts = parse_url($enc_url);
 	if ($parts === false) {

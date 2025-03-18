@@ -86,4 +86,37 @@ class TextObject extends TextObject_core {
 						'desc' => gettext('Check to place watermark image on default thumbnail images.')));
 	}
 
+	/**
+	 * Returns the image file name for the thumbnail image.
+	 *
+	 * @return string
+	 */
+	function getThumbImageFile() {
+		global $_gallery;
+
+		if (is_null($this->objectsThumb)) {
+			switch (getSuffix($this->filename)) {
+				case 'txt':
+				case 'htm':
+				case 'html':
+				default: // just in case we extend and are lazy...
+					$img = '/textDefault.png';
+					break;
+				case 'pdf':
+					$img = '/pdfDefault.png';
+					break;
+			}
+			$imgfile = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
+			if (!file_exists($imgfile)) {
+				$imgfile = SERVERPATH . "/" . USER_PLUGIN_FOLDER . '/' . substr(basename(__FILE__), 0, -4) . $img;
+				if (!file_exists($imgfile)) {
+					$imgfile = SERVERPATH . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
+				}
+			}
+		} else {
+			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
+		}
+		return $imgfile;
+	}
+
 }

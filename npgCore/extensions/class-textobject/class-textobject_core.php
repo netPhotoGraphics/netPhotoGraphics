@@ -66,37 +66,6 @@ class TextObject_core extends Image {
 	}
 
 	/**
-	 * Returns the image file name for the thumbnail image.
-	 *
-	 * @return string
-	 */
-	function getThumbImageFile() {
-		global $_gallery;
-
-		$path = SERVERPATH;
-		if (is_null($this->objectsThumb)) {
-			switch (getSuffix($this->filename)) {
-				case 'txt':
-				case 'htm':
-				case 'html':
-				default: // just in case we extend and are lazy...
-					$img = '/textDefault.png';
-					break;
-				case 'pdf':
-					$img = '/pdfDefault.png';
-					break;
-			}
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
-			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-textobject/' . $img;
-			}
-		} else {
-			$imgfile = dirname($this->localpath) . '/' . $this->objectsThumb;
-		}
-		return $imgfile;
-	}
-
-	/**
 	 * returns a link to the thumbnail for the text file.
 	 *
 	 * @param string $type 'image' or 'album'

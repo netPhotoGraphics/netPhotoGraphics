@@ -207,7 +207,7 @@ class openStreetMapOptions {
 class openStreetMap {
 
 	/**
-	 * Contains the array of the image or images from albums geodata
+	 * Contains the array of geodata
 	 * @var array
 	 */
 	public $geodata = NULL;
@@ -242,10 +242,16 @@ class openStreetMap {
 	 * "single" (one marker)
 	 * "cluster" (several markers always clustered)
 	 * "single-cluster" (markers of the images of the current album)
+	 * "polyline-cluster" (markers for a polyline track)
 	 * Default created by the $geodata property: "single "if array with one entry, "cluster" if more entries
 	 * @var string
 	 */
 	public $mode = NULL;
+
+	/**
+	 * the color of the polyline
+	 */
+	public $polycolor = 'blue';
 
 	/**
 	 *
@@ -470,7 +476,7 @@ class openStreetMap {
 
 	/**
 	 * If no $geodata array is passed the function gets geodata from the current image or the images of the current album
-	 * if in appropiate context.
+	 * if in appropriate context.
 	 *
 	 * Alternatively you can pass an image or album object directly. This ignores the $geodata parameter then.
 	 *
@@ -495,11 +501,12 @@ class openStreetMap {
 	 *
 	 * @global string $_gallery_page
 	 * @param array $geodata Array as noted above if no current image or album should be used
-	 * @param obj Image or album object If set this object is used and $geodatat is ignored if set as well
+	 * @param obj Image or album object If set this object is used and $geodata is ignored if set as well
 	 */
 	function __construct($geodata = NULL, $obj = NULL) {
 		global $_gallery_page, $_current_album, $_current_image, $_current_search;
 
+		$this->geodata = $geodata;
 		$this->showalbummarkers = getOption('osmap_showalbummarkers');
 		if (is_object($obj)) {
 			$this->obj = $obj;
@@ -515,7 +522,6 @@ class openStreetMap {
 				} else {
 					$this->mode = 'cluster';
 				}
-				$this->geodata = $geodata;
 			} else {
 				switch ($_gallery_page) {
 					case 'image.php':
@@ -747,7 +753,6 @@ class openStreetMap {
 	 * @return array
 	 */
 	function getCenter() {
-//$this->center = array(53.18, 10.38); //demotest
 		if (!is_null($this->center)) {
 			return $this->center;
 		}
@@ -848,7 +853,7 @@ class openStreetMap {
 				}
 			}
 			?>
-			<div id="<?php echo $this->mapid . $this->mapnumber; ?>">
+			<div id="<?php echo $this->mapid . $this->mapnumber; ?>" class="<?php echo $this->mapid; ?>">
 				<?php
 				if ($this->hide == 'hide') {
 					$class = $class . ' hidden_map';
@@ -914,8 +919,6 @@ class openStreetMap {
 				?>
 			</div>
 			<script>
-
-
 				var geodata = new Array();
 			<?php echo $geodataJS; ?>
 				var map = L.map('<?php echo $this->mapid . $this->mapnumber; ?>_data', {
@@ -1015,6 +1018,24 @@ class openStreetMap {
 							map.addLayer(markers_cluster);
 						<?php
 						break;
+					case 'polyline-cluster':
+						?>
+							var markers_cluster = new L.MarkerClusterGroup({
+								maxClusterRadius: <?php echo $this->clusterradius; ?>,
+								showCoverageOnHover: <?php echo $this->cluster_showcoverage_on_hover; ?>
+							}); //radius > Option
+							var polylinePoints = [
+						<?php
+						foreach ($this->geodata as $point) {
+							echo "\t\t[" . $point['lat'] . ', ' . $point['long'] . "],\n";
+						}
+						?>
+							];
+							var polyline = L.polyline(polylinePoints, {color: '<?php echo $this->polycolor; ?>'}).addTo(map);
+							// Adjust the map view to fit the polyline
+							map.fitBounds(polyline.getBounds());
+						<?php
+						break;
 				}
 			}
 			?>
@@ -1065,6 +1086,8 @@ class openStreetMap {
  * @param string $hide the initial display state for the map. Not yet implemented
  */
 function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false, $id = NULL, $hide = NULL, $text = NULL) {
+
+
 
 	$map = new openStreetMap($geodata, $obj);
 

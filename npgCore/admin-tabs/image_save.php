@@ -51,9 +51,9 @@ if (isset($_POST['checkForPostTruncation'])) {
 					}
 					foreach (array('GPSLatitude', 'GPSLongitude') as $geo) {
 						if (isset($_POST["$i-$geo"])) {
-							$dms = parseDMS($_POST["$i-$geo"]);
+							$dms = parseDMS($_POST["$i-$geo"], $geo == 'GPSLatitude');
 							if (is_null($dms) && !empty($_POST["$i-$geo"])) {
-								$notify .= '&dms=' . $geo;
+								$notify .= '&dms=' . substr($geo, 3);
 							} else {
 								$image->set($geo, $dms);
 							}
