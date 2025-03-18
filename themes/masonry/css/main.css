@@ -81,7 +81,7 @@ input,textarea,select{font:11px arial,helvetica,serif;padding:4px 6px;border:1px
 input[type="submit"],input[type="reset"]{cursor:pointer;padding:5px 10px;font-style:italic;font-size:13px;}
 input[type="checkbox"]{border:0;}
 
-.box {border:1px solid;float:left;font-size:11px;margin:0 10px 10px 0;padding:10px;}
+.box {border:1px solid;font-size:11px;margin:0 10px 10px 0;padding:10px;}
 .box.col2 {width:68px;}
 .box.col3 {width:88px;}
 .box.col4 {width:108px;}
