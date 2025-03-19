@@ -626,7 +626,6 @@ ul.pagelist li.next {
 	margin: 0 auto;
 	line-height: 0;
 	width: 580px;
-	/*	font-size: 0.7em; */
 	padding: 10px;
 	border: 1px solid #e6e6e6;
 	background-image: url(images/white_pixel_8.png);
@@ -636,7 +635,6 @@ ul.pagelist li.next {
 #image div {
 	line-height: 1.6em;
 	text-align: left;
-	font-size: 1.6em;
 }
 
 /* centering flowplayer 3 on image.php */

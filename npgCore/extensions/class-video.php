@@ -575,6 +575,10 @@ class html5Player {
 		return '<span class="error"><img src="' . html_encode($obj->getCustomImage(array('size' => $s, 'thumb' => 3))) . '" class="multimedia_default" width=' . $s . ' height=' . $s . ' title="' . gettext('No multimedia extension installed for this format.') . '"></span>';
 	}
 
+	function isVideo() {
+		return true;
+	}
+
 }
 
 function class_video_enable($enabled) {

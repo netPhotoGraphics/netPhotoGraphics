@@ -1213,14 +1213,12 @@ class Image extends MediaObject {
 			case'Image':
 			case 'Transientimage':
 				return true;
-			default:
-				return false;
 		}
-		return TRUE;
+		return false;
 	}
 
 	function isVideo() {
-		return get_class($this) == 'Video';
+		return false;
 	}
 
 	/**
