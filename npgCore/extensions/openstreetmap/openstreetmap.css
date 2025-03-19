@@ -2,13 +2,17 @@
 	min-width:120px!important;
 	max-width:120px!important;
 	width:120px!important;
-	}
+}
 
 .leaflet-popup-content img {
 	height:auto;
 	margin:10px 0;
-	}
+}
 
 .leaflet-popup-content,.leaflet-popup-content * {
 	word-wrap:break-word;
-	}
+}
+
+.hidden_map {
+	display: none;
+}

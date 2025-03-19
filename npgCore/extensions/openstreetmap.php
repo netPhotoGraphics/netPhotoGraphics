@@ -896,13 +896,6 @@ class openStreetMap {
 				if ($class) {
 					$class = ' class="' . $class . '"';
 				}
-				?>
-				<style>
-					.hidden_map {
-						display: none;
-					}
-				</style>
-				<?php
 				if ($this->hide == 'colorbox') {
 					?>
 					<div class="colorboxmap hidden_map">
