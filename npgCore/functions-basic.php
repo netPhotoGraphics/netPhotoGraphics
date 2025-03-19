@@ -560,9 +560,7 @@ function varDebug($args) {
  *
  * @param string $message the debug information
  * @param bool $reset set to true to reset the log to zero before writing the message
- * @param string $log
-
-  alternative log file
+ * @param string $log alternative log file
  */
 function debugLog($message, $reset = false, $log = 'debug') {
 	global $_adminCript;
