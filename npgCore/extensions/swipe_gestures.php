@@ -121,8 +121,8 @@ class swipeGestures {
 					document.location.href = '<?php echo $nexturl; ?>';
 					},
 			<?php } ?>
-				threshold: <?php echo getOption('swipe_gestures_threshold'); ?>
-				excludedElements: "label, button, input, select, textarea"
+				threshold: <?php echo getOption('swipe_gestures_threshold'); ?>,
+								excludedElements: "label, button, input, select, textarea"
 				});
 			</script>
 			<?php

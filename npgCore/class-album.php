@@ -690,7 +690,7 @@ class AlbumBase extends MediaObject {
 			$filestoremove = safe_glob(SERVERCACHE . '/' . $folder . '/*');
 			foreach ($filestoremove as $file) {
 				if (is_dir($file)) {
-					$success = $success && self::_removeCache(str_replace(SERVERCACHE . '/', '', Rfile));
+					$success = $success && self::_removeCache(str_replace(SERVERCACHE . '/', '', $file));
 				} else {
 					chmod($file, 0777);
 					$success = $success && unlink($file);

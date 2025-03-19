@@ -20,8 +20,7 @@ $plugin_description = gettext("Enables jQuery tag suggestions on the search fiel
 
 $option_interface = 'tag_suggest';
 
-npgFilters::register('theme_head', 'tag_suggest::CSS');
-npgFilters::register('theme_body_close', 'tag_suggest::JS');
+npgFilters::register('theme_head', 'tag_suggest::theme');
 npgFilters::register('admin_close', 'tag_suggest::JS');
 
 class tag_suggest {
@@ -41,8 +40,9 @@ class tag_suggest {
 		return $options;
 	}
 
-	static function CSS() {
+	static function theme() {
 		scriptLoader(getPlugin('tag_suggest/tag.css', 'force'));
+		self::js();
 	}
 
 	static function JS() {
