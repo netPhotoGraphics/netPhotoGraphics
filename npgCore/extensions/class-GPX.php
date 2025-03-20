@@ -121,8 +121,8 @@ class GPX extends TextObject_core {
 	/**
 	 * Returns the "image" html for the track
 	 *
-	 * @param type $w
-	 * @param type $h
+	 * @param type $w optional width
+	 * @param type $h optional height
 	 * @return type
 	 */
 	function getContent($w = NULL, $h = NULL) {
