@@ -9,7 +9,9 @@ if (!defined('WEBPATH'))
 		<meta charset="<?php echo getOption('charset'); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 		<?php
-		if (!((($_gallery_page == 'pages.php') && (getPageTitleLink() == 'map')) || ($_gallery_page == 'album.php'))) {
+		if (!((($_gallery_page == 'pages.php') && (getPageTitleLink() == 'map')) ||
+						($_gallery_page == 'album.php') ||
+						($_gallery_page == 'image.php' && get_class($_current_image) == 'GPX'))) {
 			npgFilters::remove('theme_head', 'GoogleMap::js');
 			npgFilters::remove('theme_head', 'openStreetMap::scripts');
 		}
@@ -223,17 +225,17 @@ if (!defined('WEBPATH'))
 				case 63235: case 39:
 								if (e.ctrlKey || (docElem.scrollLeft == docElem.scrollWidth - docElem.clientWidth)) {
 	<?php if ($NextURL) { ?>window.location.href = nextURL; <?php } ?>return false; }
-		break;
-		case 63234: case 37:
-						if (e.ctrlKey || (docElem.scrollLeft == 0)) {
+				break;
+				case 63234: case 37:
+								if (e.ctrlKey || (docElem.scrollLeft == 0)) {
 	<?php if ($PrevURL) { ?>window.location.href = prevURL; <?php } ?>return false; }
-		break;
-		}
-		return true;
-		}
+				break;
+				}
+				return true;
+				}
 
-		document.onkeydown = keyboardNavigation;
-		//]]>
+				document.onkeydown = keyboardNavigation;
+				//]]>
 			</script>
 			<?php
 		}
