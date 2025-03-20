@@ -37,6 +37,7 @@
 $plugin_is_filter = 800 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Treats GPX files as "images" and shows the map Track defined by the file.');
+	$plugin_disable = extensionEnabled('openstreetmap') ? '' : gettext('class-GPX requires the openStreetMap plugin be enabled.');
 }
 
 Gallery::addImageHandler('gpx', 'GPX');
@@ -129,7 +130,13 @@ class GPX extends TextObject_core {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
 		}
 
-		require_once(__DIR__ . '/openstreetmap.php');
+		$this->updateDimensions();
+		if (is_null($w)) {
+			$w = $this->getWidth();
+		}
+		if (is_null($h)) {
+			$h = $this->getHeight();
+		}
 
 		$map = new openStreetMap($this->GPXtrk, $this);
 
@@ -137,10 +144,13 @@ class GPX extends TextObject_core {
 		$map->polycolor = $this->trkcolor;
 		$map->mode = 'polyline-cluster';
 		$map->hide = false;
+		$map->width = $w . 'px';
+		$map->height = $h . 'px';
 
 		ob_start();
 		$map->printMap();
 		$img = ob_get_clean();
+
 		return ($img);
 	}
 
