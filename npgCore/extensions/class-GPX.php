@@ -136,6 +136,7 @@ class GPX extends TextObject_core {
 		$map->class = $map->mapid = 'osm_poly';
 		$map->polycolor = $this->trkcolor;
 		$map->mode = 'polyline-cluster';
+		$map->hide = false;
 
 		ob_start();
 		$map->printMap();
