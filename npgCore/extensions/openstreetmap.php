@@ -852,6 +852,7 @@ class openStreetMap {
 				}
 			}
 			?>
+
 			<div id="<?php echo $this->mapid . $this->mapnumber; ?>" class="<?php echo $this->mapid; ?>">
 				<?php
 				if ($this->hide == 'hide') {
@@ -1083,8 +1084,6 @@ class openStreetMap {
  * @param string $hide the initial display state for the map. Not yet implemented
  */
 function printOpenStreetMap($geodata = NULL, $width = NULL, $height = NULL, $mapcenter = NULL, $zoom = NULL, $fitbounds = NULL, $class = '', $mapnumber = NULL, $obj = NULL, $minimap = false, $id = NULL, $hide = NULL, $text = NULL) {
-
-
 
 	$map = new openStreetMap($geodata, $obj);
 
