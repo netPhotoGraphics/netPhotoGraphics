@@ -706,19 +706,19 @@ class openStreetMap {
 		$geodata = $this->getGeoData();
 		if (!empty($geodata)) {
 			$count = -1;
-			$js_geodata = '';
+			$js_geodata = 'var geodata = [';
 			foreach ($geodata as $geo) {
-				$count++;
-				$js_geodata .= ' geodata[' . $count . '] = {
-                  lat : ' . number_format($geo['lat'], 12, '.', '') . ',
-                  long : ' . number_format($geo['long'], 12, '.', '') . ',
-                  title : "' . js_encode(shortenContent($geo['title'], 50, '...')) . '",
-                  desc : "' . js_encode(shortenContent($geo['desc'], 100, '...')) . '",
-                  thumb : "' . $geo['thumb'] . '",
-                  current : ' . $geo['current'] . '
-                };' . "\n";
+				$js_geodata .= '
+					{lat : ' . number_format($geo['lat'], 12, '.', '') . ',
+                     long : ' . number_format($geo['long'], 12, '.', '') . ',
+                     title : "' . js_encode(shortenContent($geo['title'], 50, '...')) . '",
+                     desc : "' . js_encode(shortenContent($geo['desc'], 100, '...')) . '",
+                     thumb : "' . $geo['thumb'] . '",
+                     current : ' . $geo['current'] . '},';
 			}
-			return $this->geodatajs = $js_geodata;
+			$this->geodatajs = rtrim($js_geodata, ",\n") . "
+                          ];\n";
+			return $this->geodatajs;
 		}
 	}
 
@@ -841,8 +841,7 @@ class openStreetMap {
 	 * Prints the required HTML and JS for the map
 	 */
 	function printMap() {
-		$geodataJS = $this->getGeoDataJS();
-		if (!empty($geodataJS) && !empty($this->center)) {
+		if (!empty($this->getGeoDataJS()) && !empty($this->center)) {
 			$class = $this->class;
 			$id = $this->mapid . $this->mapnumber;
 			$id_data = $id . '_data';
@@ -912,8 +911,13 @@ class openStreetMap {
 				?>
 			</div>
 			<script>
-				var geodata = new Array();
-			<?php echo $geodataJS; ?>
+
+
+			<?php
+			if ($this->mode != 'polyline-cluster') {
+				echo $this->getGeoDataJS();
+			}
+			?>
 				var map = L.map('<?php echo $this->mapid . $this->mapnumber; ?>_data', {
 					center: [<?php echo number_format($this->center[0], 12, '.', ''); ?>,<?php echo number_format($this->center[1], 12, '.', ''); ?>],
 					zoom: <?php echo $this->zoom; ?>, //option
