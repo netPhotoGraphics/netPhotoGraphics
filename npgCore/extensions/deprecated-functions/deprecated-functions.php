@@ -421,3 +421,12 @@ function getSearchURL($words, $dates, $fields, $page, $object_list = NULL) {
 	deprecated_functions::notify(gettext('Use <code>SearchEngine::getURL()</code> method instead.'));
 	return SearchEngine::getURL($words, $dates, $fields, $page, $object_list);
 }
+
+/**
+ * @deprecated since 2.1.4
+ */
+function loadJqueryMobile() {
+	deprecated_functions::notify(gettext('jQueryMobile is not compatible with jQuery 3.x'));
+	scriptLoader(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.css');
+	scriptLoader(SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/common/jquerymobile/jquery.mobile-1.4.5.min.js');
+}
