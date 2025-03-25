@@ -54,7 +54,7 @@ class GPX extends TextObject_core {
 
 	protected $GPXtrk = array();
 	protected $trkname = '';
-	protected $trkcolor = 'blue';
+	protected $trkcolor;
 
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
@@ -103,6 +103,9 @@ class GPX extends TextObject_core {
 					if (is_object($gpx->rte->extensions->children('gpxx', true))) {
 						$this->trkcolor = $gpx->rte->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
 					}
+				}
+				if (empty($this->trkcolor)) {
+					$this->trkcolor = 'blue';
 				}
 			} else {
 				$this->exists = false;
