@@ -10,21 +10,27 @@
  * The "image" shown will be the map Track defined by the file.
  *
  * The plugin supports an extension to the standard <b>GPX</b> file to optionally
- * set the color of the Track. To specify the Track color add a <code>color</code> tag to the
- * Track section:
+ * set the color of the Track. To specify the Track color insure that <code>gpxx</code>
+ * namespace is defined as below in your <gpx> head tag and add a
+ * <code>gpxx:DisplayColor</code> extension to the Track section.
  *
  * <block>
- * <trk>
- * 	<name>GraphHopper Track</name>
- *
- * 	<i><color>purple</color></i>
- *
- * 	<trkseg>
- * 		<trkpt lat="47.009857" lon="-113.075981"><ele>1298.6</ele></trkpt>
- * 		...
- * 		<trkpt lat="47.025194" lon="-113.063088"><ele>1313.8</ele></trkpt>
- * 	</trkseg>
- * </trk>
+ * <gpx <i>xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"</i>>
+ * 	...
+ * 	<trk>
+ * 		<name>GraphHopper Track</name>
+ * 		<i><extensions>
+ * 		 	<gpxx:TrackExtension>
+ * 		 	 	<gpxx:DisplayColor>Red</gpxx:DisplayColor>
+ * 		 	</gpxx:TrackExtension>
+ * 		</extensions></i>
+ * 		<trkseg>
+ * 			<trkpt lat="47.009857" lon="-113.075981"><ele>1298.6</ele></trkpt>
+ * 			...
+ * 			<trkpt lat="47.025194" lon="-113.063088"><ele>1313.8</ele></trkpt>
+ * 		</trkseg>
+ * 	 </trk>
+ * </gpx>
  * </block>
  *
  *
@@ -76,8 +82,8 @@ class GPX extends TextObject_core {
 					if (isset($gpx->trk->name)) {
 						$this->trkname = $gpx->trk->name;
 					}
-					if (isset($gpx->trk->color)) {
-						$this->trkcolor = $gpx->trk->color;
+					if (is_object($gpx->trk->extensions->children('gpxx', true))) {
+						$this->trkcolor = $gpx->trk->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
 					}
 				}
 			} else {

@@ -85,7 +85,7 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 		}
 		return false;
 	}
-	
+
 </script>
 
 <?php
@@ -241,9 +241,13 @@ if (count($themelist) == 0) {
 					<?php echo $ico; ?>
 
 					<?php
+					$msg = gettext('Theme is deprecated');
 					if (isset($themeinfo['deprecated'])) {
+						if (is_string($themeinfo['deprecated'])) {
+							$msg .= ': ' . $themeinfo['deprecated'];
+						}
 						?>
-						<strong><span class="deprecated"><?php echo $themeinfo['name']; ?></span></strong> <a title="<?php echo gettext('Theme is deprecated'); ?>"><?php echo WARNING_SIGN_ORANGE; ?></a>
+						<strong><span class="deprecated"><?php echo $themeinfo['name']; ?></span></strong> <a title="<?php echo $msg; ?>"><?php echo WARNING_SIGN_ORANGE; ?></a>
 						<?php
 					} else {
 						?>
