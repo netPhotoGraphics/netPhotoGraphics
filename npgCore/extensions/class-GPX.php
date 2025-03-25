@@ -85,6 +85,9 @@ class GPX extends TextObject_core {
 					if (is_object($gpx->trk->extensions->children('gpxx', true))) {
 						$this->trkcolor = $gpx->trk->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
 					}
+					if (empty($this->trkcolor)) {
+						$this->trkcolor = 'blue';
+					}
 				} else if (isset($gpx->rte)) {
 					foreach ($gpx->rte->rtept as $rtept) {
 						$this->GPXtrk[] = array(// we will treate routes as if they were tracks
@@ -103,9 +106,9 @@ class GPX extends TextObject_core {
 					if (is_object($gpx->rte->extensions->children('gpxx', true))) {
 						$this->trkcolor = $gpx->rte->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
 					}
-				}
-				if (empty($this->trkcolor)) {
-					$this->trkcolor = 'blue';
+					if (empty($this->trkcolor)) {
+						$this->trkcolor = 'green';
+					}
 				}
 			} else {
 				$this->exists = false;
