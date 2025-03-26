@@ -139,7 +139,7 @@
 
 		<?php
 		if ($zpmas_ss) {
-			scriptLoader(__DIR__ . '/js/jquery.cycle.all.js');
+			scriptLoader($_themeroot . '/js/jquery.cycle.all.js');
 		}
 		scriptLoader(PLUGIN_SERVERPATH . 'colorbox_js/themes/' . $zpmas_cbstyle . '/colorbox.css');
 		?>
