@@ -1024,9 +1024,11 @@ class openStreetMap {
 							}); //radius > Option
 							var polylinePoints = [
 						<?php
+						$text = '';
 						foreach ($this->geodata as $point) {
-							echo "\t\t[" . $point['lat'] . ', ' . $point['long'] . "],\n";
+							$text .= "\t\t[" . $point['lat'] . ', ' . $point['long'] . "],\n";
 						}
+						echo rtrim($text, ",\n") . "\n";
 						?>
 							];
 							var polyline = L.polyline(polylinePoints, {color: '<?php echo $this->polycolor; ?>'}).addTo(map);

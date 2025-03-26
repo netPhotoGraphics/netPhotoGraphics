@@ -45,6 +45,7 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Treats GPX files as "images" and shows the map Track defined by the file.');
 	$plugin_disable = extensionEnabled('openstreetmap') ? '' : gettext('class-GPX requires the openStreetMap plugin be enabled.');
 }
+$option_interface = 'GPX';
 
 Gallery::addImageHandler('gpx', 'GPX');
 
@@ -52,11 +53,16 @@ require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
 
 class GPX extends TextObject_core {
 
-	protected $GPXtrk = array();
-	protected $trkname = '';
-	protected $trkcolor;
+	protected $GPXpath = array();
+	protected $GPXpathName = '';
+	protected $GPXpathColor;
 
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
+
+		if (OFFSET_PATH == 2) {
+			setOptionDefault('GPX_Track_color', 'blue');
+			setOptionDefault('GPX_Route_color', 'green');
+		}
 
 		if (is_object($album)) {
 			parent::__construct($album, $filename, $quiet);
@@ -64,12 +70,11 @@ class GPX extends TextObject_core {
 			$gpx = simplexml_load_file($this->localpath);
 
 			if ($gpx !== false) {
-
 				/* get track points */
 				if (isset($gpx->trk)) {
 					if (isset($gpx->trk->trkseg->trkpt)) {
 						foreach ($gpx->trk->trkseg->trkpt as $trkpt) {
-							$this->GPXtrk[] = array(
+							$this->GPXpath[] = array(
 									'lat' => (string) $trkpt['lat'],
 									'long' => (string) $trkpt['lon'],
 									'title' => 'Track Point',
@@ -80,32 +85,40 @@ class GPX extends TextObject_core {
 						}
 					}
 					if (isset($gpx->trk->name)) {
-						$this->trkname = $gpx->trk->name;
+						$this->GPXpathName = $gpx->trk->name;
 					}
 					if (is_object($gpx->trk->extensions->children('gpxx', true))) {
-						$this->trkcolor = $gpx->trk->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
+						$this->GPXpathColor = $gpx->trk->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
 					}
-				} else if (isset($gpx->rte)) {
-					foreach ($gpx->rte->rtept as $rtept) {
-						$this->GPXtrk[] = array(// we will treate routes as if they were tracks
-								'lat' => (string) $rtept['lat'],
-								'long' => (string) $rtept['lon'],
-								'title' => 'Track Point',
-								'desc' => '',
-								'thumb' => '',
-								'current' => 0
-						);
+					if (empty($this->GPXpathColor)) {
+						$this->GPXpathColor = getOption('GPX_Track_color');
 					}
-
-					if (isset($gpx->rte->name)) {
-						$this->trkname = $gpx->rte->name;
-					}
-					if (is_object($gpx->rte->extensions->children('gpxx', true))) {
-						$this->trkcolor = $gpx->rte->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
+				} else {
+					/* 	get route points */
+					if (isset($gpx->rte)) {
+						foreach ($gpx->rte->rtept as $rtept) {
+							$this->GPXpath[] = array(// we will treate routes as if they were tracks
+									'lat' => (string) $rtept['lat'],
+									'long' => (string) $rtept['lon'],
+									'title' => 'Track Point',
+									'desc' => '',
+									'thumb' => '',
+									'current' => 0
+							);
+						}
+						if (isset($gpx->rte->name)) {
+							$this->GPXpathName = $gpx->rte->name;
+						}
+						if (is_object($gpx->rte->extensions->children('gpxx', true))) {
+							$this->GPXpathColor = $gpx->rte->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
+						}
+						if (empty($this->GPXpathColor)) {
+							$this->GPXpathColor = getOption('GPX_Route_color');
+						}
 					}
 				}
-				if (empty($this->trkcolor)) {
-					$this->trkcolor = 'blue';
+				if (empty($this->GPXpathColor)) {
+					$this->GPXpathColor = 'black';
 				}
 			} else {
 				$this->exists = false;
@@ -120,7 +133,14 @@ class GPX extends TextObject_core {
 	 * @return array
 	 */
 	function getOptionsSupported() {
-		return array();
+		return array(
+				gettext('Default color for Tracks') => array('key' => 'GPX_Track_color',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => sprintf(gettext('Track paths will be %1$s by default.'), getOption('GPX_Track_color'))),
+				gettext('Default color for Routes') => array('key' => 'GPX_Route_color',
+						'type' => OPTION_TYPE_TEXTBOX,
+						'desc' => sprintf(gettext('Route paths will be %1$s by default.'), getOption('GPX_Route_color')))
+		);
 	}
 
 	/**
@@ -153,7 +173,7 @@ class GPX extends TextObject_core {
 	 * @return type
 	 */
 	function getContent($w = NULL, $h = NULL) {
-		if (empty($this->GPXtrk)) {
+		if (empty($this->GPXpath)) {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
 		}
 
@@ -165,10 +185,10 @@ class GPX extends TextObject_core {
 			$h = $this->getHeight();
 		}
 
-		$map = new openStreetMap($this->GPXtrk, $this);
+		$map = new openStreetMap($this->GPXpath, $this);
 
 		$map->class = $map->mapid = 'osm_poly';
-		$map->polycolor = $this->trkcolor;
+		$map->polycolor = $this->GPXpathColor;
 		$map->mode = 'polyline-cluster';
 		$map->hide = false;
 		$map->width = $w . 'px';
