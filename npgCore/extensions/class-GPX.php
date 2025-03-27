@@ -66,64 +66,74 @@ class GPX extends TextObject_core {
 
 		if (is_object($album)) {
 			parent::__construct($album, $filename, $quiet);
+		}
+	}
 
-			$gpx = simplexml_load_file($this->localpath);
+	/**
+	 * fetches the path color if it exists
+	 *
+	 * @param object $which
+	 * @parm string $default
+	 */
+	private function getPathColor($which, $default) {
+		if (!empty($which->extensions) && is_object($which->extensions->children('gpxx', true))) {
+			return $which->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
+		}
+		return getOption($default);
+	}
 
-			if ($gpx !== false) {
-				/* get track points */
-				if (isset($gpx->trk)) {
-					if (isset($gpx->trk->trkseg->trkpt)) {
-						foreach ($gpx->trk->trkseg->trkpt as $trkpt) {
-							$this->GPXpath[] = array(
-									'lat' => (string) $trkpt['lat'],
-									'long' => (string) $trkpt['lon'],
-									'title' => 'Track Point',
-									'desc' => '',
-									'thumb' => '',
-									'current' => 0
-							);
-						}
-					}
-					if (isset($gpx->trk->name)) {
-						$this->GPXpathName = $gpx->trk->name;
-					}
-					if (is_object($gpx->trk->extensions->children('gpxx', true))) {
-						$this->GPXpathColor = $gpx->trk->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
-					}
-					if (empty($this->GPXpathColor)) {
-						$this->GPXpathColor = getOption('GPX_Track_color');
-					}
-				} else {
-					/* 	get route points */
-					if (isset($gpx->rte)) {
-						foreach ($gpx->rte->rtept as $rtept) {
-							$this->GPXpath[] = array(// we will treate routes as if they were tracks
-									'lat' => (string) $rtept['lat'],
-									'long' => (string) $rtept['lon'],
-									'title' => 'Track Point',
-									'desc' => '',
-									'thumb' => '',
-									'current' => 0
-							);
-						}
-						if (isset($gpx->rte->name)) {
-							$this->GPXpathName = $gpx->rte->name;
-						}
-						if (is_object($gpx->rte->extensions->children('gpxx', true))) {
-							$this->GPXpathColor = $gpx->rte->extensions->children('gpxx', true)->TrackExtension->DisplayColor;
-						}
-						if (empty($this->GPXpathColor)) {
-							$this->GPXpathColor = getOption('GPX_Route_color');
-						}
+	/**
+	 * load the GPX data
+	 */
+	private function parseGPX() {
+
+		$gpx = simplexml_load_file($this->localpath);
+
+		if ($gpx !== false) {
+			/* get track points */
+			if (isset($gpx->trk)) {
+				if (isset($gpx->trk->trkseg->trkpt)) {
+					foreach ($gpx->trk->trkseg->trkpt as $trkpt) {
+						$this->GPXpath[] = array(
+								'lat' => (string) $trkpt['lat'],
+								'long' => (string) $trkpt['lon'],
+								'title' => 'Track Point',
+								'desc' => '',
+								'thumb' => '',
+								'current' => 0
+						);
 					}
 				}
-				if (empty($this->GPXpathColor)) {
-					$this->GPXpathColor = 'black';
+				if (isset($gpx->trk->name)) {
+					$this->GPXpathName = $gpx->trk->name;
 				}
+				$this->GPXpathColor = self::getPathColor($gpx->trk, 'GPX_Track_color');
 			} else {
-				$this->exists = false;
-				trigger_error(sprintf(gettext('%1$s: Failed to load GPX file.'), $this->displayname));
+				/* 	get route points */
+				if (isset($gpx->rte)) {
+					foreach ($gpx->rte->rtept as $rtept) {
+						$this->GPXpath[] = array(// we will treate routes as if they were tracks
+								'lat' => (string) $rtept['lat'],
+								'long' => (string) $rtept['lon'],
+								'title' => 'Track Point',
+								'desc' => '',
+								'thumb' => '',
+								'current' => 0
+						);
+					}
+					if (isset($gpx->rte->name)) {
+						$this->GPXpathName = $gpx->rte->name;
+					}
+
+					$this->GPXpathColor = self::getPathColor($gpx->rte, 'GPX_Route_color');
+				}
 			}
+			if (empty($this->GPXpathColor)) {
+				$this->GPXpathColor = 'black';
+			}
+		} else {
+			$this->exists = false;
+			trigger_error(sprintf(gettext('%1$s: Failed to load GPX file.'), $this->displayname));
 		}
 	}
 
@@ -173,6 +183,9 @@ class GPX extends TextObject_core {
 	 * @return type
 	 */
 	function getContent($w = NULL, $h = NULL) {
+
+		self::parseGPX();
+
 		if (empty($this->GPXpath)) {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
 		}

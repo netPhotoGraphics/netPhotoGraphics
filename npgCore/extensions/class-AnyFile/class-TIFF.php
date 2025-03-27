@@ -19,18 +19,15 @@ class Tiff extends AnyFile {
 		return '<img src="' . html_encode($this->getFullImageURL(FULLWEBPATH)) . '" width="' . $w . 'px" height="' . $h . 'px"  class="AnyFile-Tiff" >';
 	}
 
-	function getThumbImageFile($path = NULL) {
+	function getThumbImageFile() {
 		global $_gallery;
-		if (is_null($path)) {
-			$path = SERVERPATH;
-		}
 		if (is_null($this->objectsThumb)) {
 			$img = '/tiffDefault.png';
-			$imgfile = $path . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
+			$imgfile = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($_gallery->getCurrentTheme()) . '/images/' . $img;
 			if (!file_exists($imgfile)) {
-				$imgfile = $path . "/" . USER_PLUGIN_FOLDER . '/class-AnyFile' . $img;
+				$imgfile = SERVERPATH . "/" . USER_PLUGIN_FOLDER . '/class-AnyFile' . $img;
 				if (!file_exists($imgfile)) {
-					$imgfile = $path . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-AnyFile/Default.png';
+					$imgfile = SERVERPATH . "/" . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/class-AnyFile/Default.png';
 				}
 			}
 		} else {
