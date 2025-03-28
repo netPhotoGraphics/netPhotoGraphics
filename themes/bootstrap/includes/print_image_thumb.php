@@ -12,15 +12,8 @@
 			}
 		}
 		$objectclass = strtolower(get_class($_current_image));
-		$isTextObject = false;
-		if ($objectclass == 'textobject') {
-			$isTextObject = true;
-			$isEmbedVideo = false;
-			$link = zpB_getLink($_current_image->getContent());
-			if ($link) {
-				$isEmbedVideo = true;
-			}
-		}
+		$isTextObject = $objectclass == 'textobject';
+		$isEmbedLink = $objectclass == 'externalLink';
 		?>
 		<?php if (!empty($fullimage)) { ?>
 			<div class="col-xs-6 col-sm-3 image-thumb">
@@ -59,9 +52,9 @@
 					</div>
 					<?php
 					// embed online video (hack of textobject)
-				} else if ($isTextObject && $isEmbedVideo) {
+				} else if ($isEmbedLink) {
 					?>
-					<a class="thumb" href="<?php echo html_encode($link); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
+					<a class="thumb" href="<?php echo zpB_getLink($_current_image->getContent()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>
@@ -70,7 +63,7 @@
 					</a>
 					<?php
 					// txt, htm or html content
-				} else if ($isTextObject && !$isEmbedVideo) {
+				} else if ($isTextObject) {
 					?>
 					<a class="thumb" href="javascript:;" data-src="#item<?php echo $_current_image->getIndex(); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>" data-fancybox="images">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
@@ -87,7 +80,7 @@
 					// other media object not displayed in fancybox
 				} else {
 					?>
-					<a class="thumb" href="<?php echo html_encode($fullimage); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
+					<a class="thumb" href="<?php echo html_encode(getImageURL()); ?>" title="<?php echo html_encode(getBareImageTitle()); ?>">
 						<?php printImageThumb(getBareImageTitle(), 'remove-attributes img-responsive'); ?>
 						<div class="hidden caption">
 							<h4><?php printBareImageTitle(); ?></h4>

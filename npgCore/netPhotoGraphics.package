@@ -1149,7 +1149,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/class-AnyFile/Default.png
 %extensions%/class-AnyFile/tiffDefault.png
 %extensions%/class-GPX
-%extensions%/class-GPX/Default.png
+%extensions%/class-GPX/gpxDefault.png
 %extensions%/class-textobject
 %extensions%/class-textobject/class-textobject_core.php
 %extensions%/class-textobject/pdfDefault.png
