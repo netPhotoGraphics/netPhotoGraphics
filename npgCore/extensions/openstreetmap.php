@@ -622,7 +622,7 @@ class openStreetMap {
 			$lat = $image->getGPSLatitude();
 			$long = $image->getGPSLongitude();
 			if (!empty($lat) && !empty($long)) {
-				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(array('size' => 150, 'thumb' => TRUE)) . "' alt='' /></a>";
+				$thumb = "<a href='" . $image->getLink() . "'><img src='" . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . "' alt='' /></a>";
 				$title = shortenContent($image->getTitle(), 50, '...') . '<br />';
 				$desc = shortenContent($image->getDesc(), 100, '...');
 				return array('lat' => $lat, 'long' => $long, 'title' => $title, 'desc' => $desc, 'thumb' => $thumb, 'current' => 0);
@@ -975,7 +975,9 @@ class openStreetMap {
 			if ($this->showscale) {
 				?>
 					L.control.scale().addTo(map);
-			<?php } ?>
+				<?php
+			}
+			?>
 
 				L.control.zoom({position: '<?php echo $this->zoomcontrolpos; ?>'}).addTo(map);
 			<?php if ($this->showcursorpos) { ?>
