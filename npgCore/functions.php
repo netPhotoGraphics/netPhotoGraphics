@@ -2349,13 +2349,13 @@ function scriptLoader($script, $scriptTag = 'inline') {
 					$content = preg_replace('~[^\S\r\n]+~', ' ', $content) . "\n";
 					$content = preg_replace('~[\r\n]+~', "\n", $content);
 					if (getSuffix($scriptFS) == 'css') {
-						echo "\n" . '<style>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
+						echo "\n" . '<style>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */' . "\n";
 						$content = str_replace(': ', ':', $content);
-						echo $content;
+						echo ltrim($content, "\n");
 						echo "</style>\n";
 					} else {
-						echo "\n" . '<script>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */';
-						echo $content;
+						echo "\n" . '<script>/* src="' . str_replace(SERVERPATH . '/', '', $script) . '" */' . "\n";
+						echo ltrim($content, "\n");
 						echo "</script>\n";
 					}
 					return;
