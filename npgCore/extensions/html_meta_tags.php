@@ -258,7 +258,7 @@ class htmlmetatags {
 				$desc = getBareImageDesc();
 				$canonicalurl = FULLHOSTPATH . $_current_image->getLink();
 				if (getOption('htmlmeta_opengraph') || getOption('htmlmeta_twittercard')) {
-					$thumb = FULLHOSTPATH . html_encode(getCustomSizedImageMaxSpace($ogimage_width, $ogimage_height));
+					$thumb = FULLHOSTPATH . html_encode(getCustomSizedImageThumbMaxSpace($ogimage_width, $ogimage_height));
 					$twittercard_type = 'summary_large_image';
 				}
 				$metadata = $_current_image->getMetaData();

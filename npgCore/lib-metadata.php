@@ -168,8 +168,8 @@ class Metadata {
 	 * @return type
 	 */
 	static function decimalCoord($coord, $ref) {
-		$d = preg_split('/[:,\.]/', str_replace('-', '', $coord) . ':0:0');
-		$dd = $d[0] + $d[1] / 60 + ($d[2] . '.' . $d[3]) / 3600;
+		$d = explode(':', str_replace('-', '', $coord) . ':0:0');
+		$dd = $d[0] + $d[1] / 60 + $d[2] / 3600;
 		if (in_array($ref, ['S', 'W'])) {
 			$dd = -$dd;
 		}
