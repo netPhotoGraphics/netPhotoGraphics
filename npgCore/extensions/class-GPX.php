@@ -14,6 +14,9 @@
  * namespace is defined as below in your <gpx> head tag and add a
  * <code>gpxx:DisplayColor</code> extension to the Track section.
  *
+ * The default thumbnail was obtained from
+ * {@link https://www.flaticon.com/free-icons/maps-and-location Maps and location icons created by Good Ware - Flaticon}.
+ *
  * <block>
  * <gpx <i>xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"</i>>
  * 	...
