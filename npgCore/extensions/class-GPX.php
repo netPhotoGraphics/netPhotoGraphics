@@ -59,6 +59,7 @@ class GPX extends TextObject_core {
 	protected $GPXpath = array();
 	protected $GPXpathName = '';
 	protected $GPXpathColor;
+	var $GPXwaypoints = array();
 
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
@@ -133,6 +134,31 @@ class GPX extends TextObject_core {
 			}
 			if (empty($this->GPXpathColor)) {
 				$this->GPXpathColor = 'black';
+			}
+			/* get waypoints */
+			foreach ($gpx->wpt as $wpt) {
+				if (isset($wpt->name)) {
+					$name = (string) $wpt->name;
+				} else {
+					$name = '';
+				}
+				if (isset($wpt->desc)) {
+					$desc = (string) $wpt->desc;
+				} else {
+					$desc = '';
+				}
+				if (isset($wpt->type)) {
+					$type = (string) $wpt->type;
+				} else {
+					$type = '';
+				}
+				$this->GPXwaypoints[] = array(
+						'lat' => (string) $wpt['lat'],
+						'long' => (string) $wpt['lon'],
+						'name' => $name,
+						'desc' => $desc,
+						'type' => $type
+				);
 			}
 		} else {
 			$this->exists = false;

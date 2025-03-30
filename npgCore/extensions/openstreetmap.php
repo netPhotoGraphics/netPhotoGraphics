@@ -1012,9 +1012,10 @@ class openStreetMap {
 								if (text === '') {
 									markers_cluster.addLayer(L.marker([value.lat, value.long]));
 								} else {
-									markers_cluster.addLayer(L.marker([value.lat, value.long]).bindPopup(text));
+									markers_cluster(L.marker([value.lat, value.long]).bindPopup(text));
 								}
-							});
+							}
+							);
 							map.addLayer(markers_cluster);
 						<?php
 						break;
@@ -1037,6 +1038,44 @@ class openStreetMap {
 							// Adjust the map view to fit the polyline
 							map.fitBounds(polyline.getBounds());
 						<?php
+						if (!empty($this->obj->GPXwaypoints)) {
+							?>
+								var waypoints = [
+							<?php
+							$text = '';
+							foreach ($this->obj->GPXwaypoints as $point) {
+								$text .= '
+{lat : ' . $point['lat'] . ',
+long : ' . $point['long'] . ',
+name : "' . js_encode($point['name']) . '",
+desc : "' . js_encode($point['desc']) . '",
+type : "' . js_encode($point['type']) . '"},
+';
+							}
+							echo rtrim($text, ",\n") . "\n";
+							?>
+								];
+								$.each(waypoints, function (index, value) {
+									if (value.desc !== '') {
+										text = value.desc;
+									} else {
+										text = value.name;
+									}
+									if (value.type !== '') {
+										if (text !== '') {
+											text += '<br/>';
+										}
+										text += '<i>' + value.type + '</i>';
+									}
+									if (text === '') {
+										marker = markers_cluster.addLayer(L.marker([value.lat, value.long]));
+									} else {
+										markers_cluster.addLayer(L.marker([value.lat, value.long]).bindPopup(text));
+									}
+								});
+								map.addLayer(markers_cluster);
+							<?php
+						}
 						break;
 				}
 			}
