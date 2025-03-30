@@ -1014,7 +1014,8 @@ class openStreetMap {
 								} else {
 									markers_cluster(L.marker([value.lat, value.long]).bindPopup(text));
 								}
-							});
+							}
+							);
 							map.addLayer(markers_cluster);
 						<?php
 						break;
@@ -1047,7 +1048,8 @@ class openStreetMap {
 {lat : ' . $point['lat'] . ',
 long : ' . $point['long'] . ',
 name : "' . js_encode($point['name']) . '",
-desc : "' . js_encode($point['desc']) . '"},
+desc : "' . js_encode($point['desc']) . '",
+type : "' . js_encode($point['type']) . '"},
 ';
 							}
 							echo rtrim($text, ",\n") . "\n";
@@ -1058,6 +1060,9 @@ desc : "' . js_encode($point['desc']) . '"},
 										text = value.desc;
 									} else {
 										text = value.name;
+									}
+									if (value.type !== '') {
+										text += '<br/>' + value.type;
 									}
 									if (text === '') {
 										marker = markers_cluster.addLayer(L.marker([value.lat, value.long]));

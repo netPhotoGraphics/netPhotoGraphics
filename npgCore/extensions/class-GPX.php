@@ -147,11 +147,17 @@ class GPX extends TextObject_core {
 				} else {
 					$desc = '';
 				}
+				if (isset($wpt->type)) {
+					$type = (string) $wpt->type;
+				} else {
+					$type = '';
+				}
 				$this->GPXwaypoints[] = array(
 						'lat' => (string) $wpt['lat'],
 						'long' => (string) $wpt['lon'],
+						'name' => $name,
 						'desc' => $desc,
-						'name' => $name
+						'type' => $type
 				);
 			}
 		} else {
