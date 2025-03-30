@@ -1046,14 +1046,19 @@ class openStreetMap {
 								$text .= '
 {lat : ' . $point['lat'] . ',
 long : ' . $point['long'] . ',
-name : "' . js_encode($point['name']) . '"},
+name : "' . js_encode($point['name']) . '",
+desc : "' . js_encode($point['desc']) . '"},
 ';
 							}
 							echo rtrim($text, ",\n") . "\n";
 							?>
 								];
 								$.each(waypoints, function (index, value) {
-									text = value.name;
+									if (value.desc !== '') {
+										text = value.desc;
+									} else {
+										text = value.name;
+									}
 									if (text === '') {
 										marker = markers_cluster.addLayer(L.marker([value.lat, value.long]));
 									} else {

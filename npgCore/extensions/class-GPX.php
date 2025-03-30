@@ -142,15 +142,15 @@ class GPX extends TextObject_core {
 				} else {
 					$name = '';
 				}
-				if (isset($wpt->sym)) {
-					$sym = (string) $wpt->sym;
+				if (isset($wpt->desc)) {
+					$desc = (string) $wpt->desc;
 				} else {
-					$sym = '';
+					$desc = '';
 				}
 				$this->GPXwaypoints[] = array(
 						'lat' => (string) $wpt['lat'],
 						'long' => (string) $wpt['lon'],
-						'sym' => (string) $sym,
+						'desc' => $desc,
 						'name' => $name
 				);
 			}
