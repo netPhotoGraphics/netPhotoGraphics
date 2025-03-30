@@ -1062,7 +1062,10 @@ type : "' . js_encode($point['type']) . '"},
 										text = value.name;
 									}
 									if (value.type !== '') {
-										text += '<br/><i>' + value.type + '</i>';
+										if (text !== '') {
+											text += '<br/>';
+										}
+										text += '<i>' + value.type + '</i>';
 									}
 									if (text === '') {
 										marker = markers_cluster.addLayer(L.marker([value.lat, value.long]));
