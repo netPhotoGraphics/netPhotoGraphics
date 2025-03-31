@@ -1062,6 +1062,9 @@ type : "' . js_encode($point['type']) . '"},
 										text = value.name;
 									}
 									if (value.type !== '') {
+										if (text === value.type) {
+											text = '';
+										}
 										if (text !== '') {
 											text += '<br/>';
 										}
