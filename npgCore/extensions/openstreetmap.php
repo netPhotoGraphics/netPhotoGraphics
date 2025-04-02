@@ -1012,7 +1012,7 @@ class openStreetMap {
 								if (text === '') {
 									markers_cluster.addLayer(L.marker([value.lat, value.long]));
 								} else {
-									markers_cluster(L.marker([value.lat, value.long]).bindPopup(text));
+									markers_cluster.addLayer(L.marker([value.lat, value.long]).bindPopup(text));
 								}
 							}
 							);
