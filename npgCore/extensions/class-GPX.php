@@ -119,7 +119,7 @@ class GPX extends TextObject_core {
 						$this->GPXpath[] = array(// we will treate routes as if they were tracks
 								'lat' => (string) $rtept['lat'],
 								'long' => (string) $rtept['lon'],
-								'title' => 'Track Point',
+								'title' => 'Route Point',
 								'desc' => '',
 								'thumb' => '',
 								'current' => 0
@@ -137,6 +137,16 @@ class GPX extends TextObject_core {
 			}
 			/* get waypoints */
 			foreach ($gpx->wpt as $wpt) {
+				if (isset($wpt->ele)) {
+					$ele = (string) $wpt->ele;
+				} else {
+					$ele = '';
+				}
+				if (isset($wpt->time)) {
+					$time = (string) $wpt->time;
+				} else {
+					$time = '';
+				}
 				if (isset($wpt->name)) {
 					$name = (string) $wpt->name;
 				} else {
@@ -152,12 +162,20 @@ class GPX extends TextObject_core {
 				} else {
 					$type = '';
 				}
+				if (isset($wpt->sym)) {
+					$sym = (string) $wpt->sym;
+				} else {
+					$sym = '';
+				}
 				$this->GPXwaypoints[] = array(
 						'lat' => (string) $wpt['lat'],
 						'long' => (string) $wpt['lon'],
+						'ele' => $ele,
+						'time' => $time,
 						'name' => $name,
 						'desc' => $desc,
-						'type' => $type
+						'type' => $type,
+						'sym' => $sym
 				);
 			}
 		} else {
