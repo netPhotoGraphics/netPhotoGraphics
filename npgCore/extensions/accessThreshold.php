@@ -322,8 +322,8 @@ if (extensionEnabled('accessThreshold')) {
 					$_siteMutex->unlock();
 				}
 				db_close();
-				header("HTTP/1.0 503 Service Unavailable");
-				header("Status: 503 Service Unavailable");
+				header("HTTP/1.0 429 Too Many Requests");
+				header("Status: 429 Too Many Requests");
 				header("Retry-After: $window");
 				exit(); //	terminate the script with no output
 			}
@@ -370,4 +370,5 @@ if (extensionEnabled('accessThreshold')) {
 		unset($__locale);
 		unset($mu);
 	}
+	unset($me);
 }
