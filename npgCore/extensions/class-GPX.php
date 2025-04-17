@@ -6,15 +6,18 @@
  *
  * This plugin provides an image handler for <b>GPX</b> files.
  * A GPX file, or GPS Exchange Format file, is an XML file that stores geographic
- * information like Waypoints, Tracks, and Routes.
+ * information like <i>Waypoints</i>, <i>Tracks</i>, and <i>Routes</i>.
  * The "image" shown will be the map Track defined by the file.
  *
  * The plugin supports an extension to the standard <b>GPX</b> file to optionally
- * set the color of the Track. To specify the Track color insure that <code>gpxx</code>
+ * set the color of the track. To specify the track color insure that <code>gpxx</code>
  * namespace is defined as below in your <gpx> head tag and add a
- * <code>gpxx:DisplayColor</code> extension to the Track section.
+ * <code>gpxx:DisplayColor</code> extension to the track section.
  *
- * The default thumbnail was obtained from
+ * Optionally the plugin will create <i>Waypoints</i> for each image in the album that have
+ * geodata coordinates.
+ *
+ * The default thumbnail for <b>GPX</b> images was obtained from
  * {@link https://www.flaticon.com/free-icons/maps-and-location Maps and location icons created by Good Ware - Flaticon}.
  *
  * <block>
@@ -64,6 +67,7 @@ class GPX extends TextObject_core {
 	function __construct($album = NULL, $filename = NULL, $quiet = false) {
 
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('GPX_Image_Waypoints', FALSE);
 			setOptionDefault('GPX_Track_color', 'blue');
 			setOptionDefault('GPX_Route_color', 'green');
 		}
@@ -185,12 +189,40 @@ class GPX extends TextObject_core {
 	}
 
 	/**
+	 * fetches geodata from the images within the album and creates waypoint data
+	 * for them.
+	 *
+	 */
+	function imageWaypoints() {
+		$album = $this->album;
+		$images = $album->getImages(0, 0, null, null, false);
+		foreach ($images as $an_image) {
+			$image = newImage($album, $an_image);
+			$lat = (string) $image->getGPSLatitude();
+			$long = (string) $image->getGPSLongitude();
+			if (!(empty($lat) || empty($long))) {
+				$this->GPXwaypoints[] = array(
+						'lat' => $lat,
+						'long' => $long,
+						'name' => '',
+						'desc' => '<a href="' . $image->getLink() . '">' . stripSuffix($image->getFilename()) . '<br/><img src="' . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . ' alt="" /></a>',
+						'type' => gettext('Image'),
+						'sym' => ''
+				);
+			}
+		}
+	}
+
+	/**
 	 * Standard option interface
 	 *
 	 * @return array
 	 */
 	function getOptionsSupported() {
 		return array(
+				gettext('Album image waypoints') => array('key' => 'GPX_Image_Waypoints',
+						'type' => OPTION_TYPE_CHECKBOX,
+						'desc' => gettext('Waypoints will be created for images in the album that have geodata.')),
 				gettext('Default color for Tracks') => array('key' => 'GPX_Track_color',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => sprintf(gettext('Track paths will be %1$s by default.'), getOption('GPX_Track_color'))),
@@ -232,6 +264,9 @@ class GPX extends TextObject_core {
 	function getContent($w = NULL, $h = NULL) {
 
 		self::parseGPX();
+		if (getOption('GPX_Image_Waypoints')) {
+			$this->imageWaypoints();
+		}
 
 		if (empty($this->GPXpath)) {
 			trigger_error(sprintf(gettext('%1$s: No GPX path'), $this->displayname));
