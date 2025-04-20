@@ -36,7 +36,7 @@ if ($extension != 'cacheManager') {
 }
 
 if ($icon == 2) {
-	$name = '<span style="text-decoration: line-through;">' . $extension . '</span>';
+	$name = '<s>' . $extension . '</s>';
 } else {
 	$name = $extension;
 }

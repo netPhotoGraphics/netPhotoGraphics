@@ -261,16 +261,18 @@ function printContactForm($subject_override = '') {
 				$code = NULL;
 			}
 
-			$captcha = !$_captcha->checkCaptcha($code, $code_ok);
+			$captchaErr = !$_captcha->checkCaptcha($code, $code_ok);
+		} else {
+			$captchaErr = false;
 		}
 		// CAPTCHA end
 		// If required fields are empty or not valid print note
-		if ($captcha || count($error) != 0) {
+		if ($captchaErr || count($error) != 0) {
 			?>
 			<div class="errorbox">
 				<h2>
 					<?php
-					if ($captcha) {
+					if ($captchaErr) {
 						echo (gettext('Captcha verification failed.'));
 						if (count($error) > 0) {
 							echo '<br />';

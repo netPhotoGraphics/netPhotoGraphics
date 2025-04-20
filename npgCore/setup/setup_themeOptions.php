@@ -30,9 +30,14 @@ $icon = $_GET['class'];
 $fullLog = !$nolog && (isset($_GET['fullLog']) || $icon == 2);
 
 $theme = sanitize($_REQUEST['theme']);
+if ($icon == 2) {
+	$name = '<s>' . $theme . '</s>';
+} else {
+	$name = $theme;
+}
 $__script = 'Theme:' . $theme;
 
-setupLog(sprintf(gettext('Theme:%s setup started'), $theme), $fullLog);
+setupLog(sprintf(gettext('Theme:%s setup started'), $name), $fullLog);
 
 $requirePath = getPlugin('themeoptions.php', $theme);
 if (!empty($requirePath)) {
@@ -53,7 +58,7 @@ if (!empty($requirePath)) {
 	setThemeOption('constructed', 1, NULL, $theme); //	mark the theme "constructed"
 	@ob_end_clean(); //	Flush any unwanted output
 
-	setupLog(sprintf(gettext('Theme:%s option interface instantiated'), $theme), $fullLog);
+	setupLog(sprintf(gettext('Theme:%s option interface instantiated'), $name), $fullLog);
 }
 /* then set any "standard" options that may not have been covered by the theme */
 standardThemeOptions($theme, NULL);
@@ -66,7 +71,7 @@ if (protectedTheme($theme)) {
 list($usec, $sec) = explode(" ", microtime());
 $last = (float) $usec + (float) $sec;
 /* and record that we finished */
-setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $theme, $last - $startTO), $fullLog);
+setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $name, $last - $startTO), $fullLog);
 
 if (isset($_GET['curl'])) {
 	echo $icon + 1;
