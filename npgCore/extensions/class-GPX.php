@@ -56,6 +56,7 @@ $option_interface = 'GPX';
 Gallery::addImageHandler('gpx', 'GPX');
 
 require_once(__DIR__ . '/class-textobject/class-textobject_core.php');
+define('TRUNCATE_LENGTH', 80);
 
 class GPX extends TextObject_core {
 
@@ -200,13 +201,17 @@ class GPX extends TextObject_core {
 			$image = newImage($album, $an_image);
 			$lat = (string) $image->getGPSLatitude();
 			$long = (string) $image->getGPSLongitude();
+			$title = js_encode(shortenContent($image->getTitle()));
+			if (empty($title)) {
+				$title = js_encode(stripSuffix($image->getFilename()));
+			}
 			if (!(empty($lat) || empty($long))) {
 				$this->GPXwaypoints[] = array(
 						'lat' => $lat,
 						'long' => $long,
 						'name' => '',
-						'desc' => '<a href="' . $image->getLink() . '">' . stripSuffix($image->getFilename()) . '<br/><img src="' . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . ' alt="" /></a>',
-						'type' => gettext('Image'),
+						'desc' => '<a href="' . $image->getLink() . '">' . $title . '<img src="' . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . ' alt="" /></a>' . js_encode(shortenContent($image->getDesc())),
+						'type' => '',
 						'sym' => ''
 				);
 			}
