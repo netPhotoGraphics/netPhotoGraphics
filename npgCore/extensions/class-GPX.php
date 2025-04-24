@@ -201,12 +201,17 @@ class GPX extends TextObject_core {
 			$lat = (string) $image->getGPSLatitude();
 			$long = (string) $image->getGPSLongitude();
 			if (!(empty($lat) || empty($long))) {
+				$title = $image->getTitle();
+				if (empty($title)) {
+					$title = $image->getFilename();
+				}
+				$title = shortenContent($title, 50);
 				$this->GPXwaypoints[] = array(
 						'lat' => $lat,
 						'long' => $long,
 						'name' => '',
-						'desc' => '<a href="' . $image->getLink() . '">' . stripSuffix($image->getFilename()) . '<br/><img src="' . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . ' alt="" /></a>',
-						'type' => gettext('Image'),
+						'desc' => '<a href="' . $image->getLink() . '">' . $title . '<img src="' . $image->getCustomImage(array('width' => 120, 'thumb' => TRUE)) . ' alt="" /></a>' . shortenContent($image->getDesc(), 100),
+						'type' => '',
 						'sym' => ''
 				);
 			}

@@ -216,7 +216,7 @@ function html_encodeTagged($original, $allowScript = true) {
  *
  * Algorithm copyright by Stephen Billard for use in netPhotoGraphics and derivitive implementations
  */
-function shortenContent($articlecontent, $shorten = TRUNCATE_LENGTH, $shortenindicator = NULL) {
+function shortenContent($articlecontent, $shorten = 80, $shortenindicator = NULL) {
 	//conservatve check if the string is too long.
 	if ($shorten && ($articlecontent && mb_strlen(strip_tags($articlecontent)) > (int) $shorten)) {
 		if (is_null($shortenindicator)) {

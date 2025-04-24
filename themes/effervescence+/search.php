@@ -21,7 +21,7 @@ $backgroundImagePath = "";
 
 		<?php $handler->theme_head($_themeroot); ?>
 		<script>
-			
+
 			function toggleExtraElements(category, show) {
 				if (show) {
 					jQuery('.' + category + '_showless').show();
@@ -33,7 +33,7 @@ $backgroundImagePath = "";
 					jQuery('.' + category + '_extrashow').hide();
 				}
 			}
-			
+
 		</script>
 	</head>
 
@@ -137,7 +137,6 @@ $backgroundImagePath = "";
 						printf(ngettext('%1$u Hit for <em>%2$s</em>', '%1$u Hits for <em>%2$s</em>', $total), $total, html_encode($searchwords));
 					}
 					if ($zenpage && $_current_page == 1) { //test of page searches
-						define('TRUNCATE_LENGTH', 80);
 						define('SHOW_ITEMS', 5);
 						?>
 						<div id="efsearch">
@@ -164,7 +163,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 												<?php print printPageURL(); ?>
-												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), 80); ?></p>
 											</li>
 											<?php
 										}
@@ -197,7 +196,7 @@ $backgroundImagePath = "";
 											?>
 											<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 												<?php printNewsURL(); ?>
-												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), TRUNCATE_LENGTH); ?></p>
+												<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), 80); ?></p>
 											</li>
 											<?php
 										}

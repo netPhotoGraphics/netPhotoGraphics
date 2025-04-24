@@ -80,7 +80,6 @@ if (!defined('WEBPATH'))
 				}
 
 				if ($zenpage && $_current_page == 1) { //test of CMS searches
-					define('TRUNCATE_LENGTH', 80);
 					define('SHOW_ITEMS', 5);
 					?>
 					<div>
@@ -107,7 +106,7 @@ if (!defined('WEBPATH'))
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="pages_extrashow" style="display:none;"'; ?>>
 											<?php printPageURL(); ?>
-											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), TRUNCATE_LENGTH); ?></p>
+											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_page->getContent(), 80); ?></p>
 										</li>
 										<?php
 									}
@@ -140,7 +139,7 @@ if (!defined('WEBPATH'))
 										?>
 										<li<?php if ($c > SHOW_ITEMS) echo ' class="news_extrashow" style="display:none;"'; ?>>
 											<?php printNewsURL(); ?>
-											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent()); ?></p>
+											<p style="text-indent:1em;"><?php echo shortenContent($_CMS_current_article->getContent(), 80); ?></p>
 										</li>
 										<?php
 									}
