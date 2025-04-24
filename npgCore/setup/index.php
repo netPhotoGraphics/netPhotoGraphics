@@ -208,9 +208,9 @@ if (isset($_GET['mod_rewrite'])) {
 $_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 $update_config = false;
 
-if (preg_match('~zenphoto~i', $_config_contents)) {
+if (preg_match('~zenphoto20~i', $_config_contents)) {
 	/* clean up some old stuff */
-	$_config_contents = preg_replace('~ZenPhoto20 Configuration Variables~i', 'netPhotoGraphics Configuration Variables', $_config_contents);
+	$_config_contents = preg_replace('~ZenPhoto20~i', 'netPhotoGraphics', $_config_contents);
 	$_config_contents = preg_replace('~zenphoto has problems~i', 'netPhotoGraphics has problems', $_config_contents);
 	$_config_contents = preg_replace('~zenphoto albums~i', 'netPhotoGraphics albums', $_config_contents);
 	$_config_contents = preg_replace('~zenphoto installation~i', 'netPhotoGraphics installation', $_config_contents);
