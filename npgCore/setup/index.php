@@ -211,6 +211,7 @@ $update_config = false;
 if (preg_match('~zenphoto~i', $_config_contents)) {
 	/* clean up some old stuff */
 	$contents = preg_replace('~ZenPhoto20~i', 'netPhotoGraphics', $_config_contents);
+	$contents = preg_replace('~ZenPhoto Configuration~i', 'netPhotoGraphics Configuration', $contents);
 	$contents = preg_replace('~zenphoto has problems~i', 'netPhotoGraphics has problems', $contents);
 	$contents = preg_replace('~zenphoto albums~i', 'netPhotoGraphics albums', $contents);
 	$contents = preg_replace('~zenphoto installation~i', 'netPhotoGraphics installation', $contents);
