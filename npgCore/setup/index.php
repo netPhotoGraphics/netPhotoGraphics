@@ -208,19 +208,19 @@ if (isset($_GET['mod_rewrite'])) {
 $_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 $update_config = false;
 
+//	low priority fix of defines no longer valid, must use $conf
+$_config_contents = preg_replace('`\/\/ define\((.*), (.*)\);`i', '// $conf[$1] = $2;', $_config_contents);
+
+//	low priority remove references to zenphoto
 if (preg_match('~zenphoto~i', $_config_contents)) {
-	/* clean up some old stuff */
-	$contents = preg_replace('~ZenPhoto20~i', 'netPhotoGraphics', $_config_contents);
-	$contents = preg_replace('~ZenPhoto Configuration~i', 'netPhotoGraphics Configuration', $contents);
-	$contents = preg_replace('~zenphoto has problems~i', 'netPhotoGraphics has problems', $contents);
-	$contents = preg_replace('~zenphoto albums~i', 'netPhotoGraphics albums', $contents);
-	$contents = preg_replace('~zenphoto installation~i', 'netPhotoGraphics installation', $contents);
-	$contents = preg_replace('~override zenphoto~i', 'override netPhotoGraphics', $contents);
-	$contents = preg_replace("~'/zenphoto'~i", '/netPhotoGraphics', $contents);
-	$contents = preg_replace("~'/full/server/path/to/zenphoto'~i", '/full/server/path/to/netPhotoGraphics', $contents);
-	if ($update_config = $contents != $_config_contents) {
-		$_config_contents = $contents;
-	}
+	$_config_contents = preg_replace('~ZenPhoto20~i', 'netPhotoGraphics', $_config_contents);
+	$_config_contents = preg_replace('~ZenPhoto Configuration~i', 'netPhotoGraphics Configuration', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto has problems~i', 'netPhotoGraphics has problems', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto albums~i', 'netPhotoGraphics albums', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto installation~i', 'netPhotoGraphics installation', $_config_contents);
+	$_config_contents = preg_replace('~override zenphoto~i', 'override netPhotoGraphics', $_config_contents);
+	$_config_contents = preg_replace("~'/zenphoto'~i", "'/netPhotoGraphics'", $_config_contents);
+	$_config_contents = preg_replace("~'/full/server/path/to/zenphoto'~i", "'/full/server/path/to/netPhotoGraphics'", $_config_contents);
 }
 
 if (strpos($_config_contents, "\$conf['mysql_pass']") !== false) {
