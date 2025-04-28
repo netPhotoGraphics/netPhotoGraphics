@@ -208,6 +208,21 @@ if (isset($_GET['mod_rewrite'])) {
 $_config_contents = file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) ? file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) : NULL;
 $update_config = false;
 
+//	low priority fix of defines no longer valid, must use $conf
+$_config_contents = preg_replace('`\/\/ define\((.*), (.*)\);`i', '// $conf[$1] = $2;', $_config_contents);
+
+//	low priority remove references to zenphoto
+if (preg_match('~zenphoto~i', $_config_contents)) {
+	$_config_contents = preg_replace('~ZenPhoto20~i', 'netPhotoGraphics', $_config_contents);
+	$_config_contents = preg_replace('~ZenPhoto Configuration~i', 'netPhotoGraphics Configuration', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto has problems~i', 'netPhotoGraphics has problems', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto albums~i', 'netPhotoGraphics albums', $_config_contents);
+	$_config_contents = preg_replace('~zenphoto installation~i', 'netPhotoGraphics installation', $_config_contents);
+	$_config_contents = preg_replace('~override zenphoto~i', 'override netPhotoGraphics', $_config_contents);
+	$_config_contents = preg_replace("~'/zenphoto'~i", "'/netPhotoGraphics'", $_config_contents);
+	$_config_contents = preg_replace("~'/full/server/path/to/zenphoto'~i", "'/full/server/path/to/netPhotoGraphics'", $_config_contents);
+}
+
 if (strpos($_config_contents, "\$conf['mysql_pass']") !== false) {
 	preg_match_all('~\$conf\[(\'mysql_.*\')\]\s*=(.*);~i', $_config_contents, $matches);
 	$index = array_flip($matches[1]);
@@ -330,7 +345,7 @@ if (isset($_REQUEST['FILESYSTEM_CHARSET'])) {
 if ($update_config) {
 	configFile::store($_config_contents);
 	//	reload the page so that the database config takes effect
-	$q = '?' . ltrim($debugq . $autorunq, '&') . '&db_config';
+	$q = '?config=updated' . ltrim($debugq . $autorunq, '&');
 	setuplog(gettext('Configuration file updated'));
 	header('Location: ' . FULLWEBPATH . '/' . CORE_FOLDER . '/setup/index.php' . $q);
 	exit();
