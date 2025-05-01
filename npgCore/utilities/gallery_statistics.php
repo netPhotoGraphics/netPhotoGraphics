@@ -28,12 +28,11 @@ $_gallery->garbageCollect();
 printAdminHeader('overview', 'statistics');
 scriptLoader(CORE_SERVERPATH . 'admin-statistics.css');
 
-/*
+/**
  * http://php.net/manual/de/function.filesize.php
  *
  * @author Jonas Sweden
  */
-
 function gallerystats_filesize_r($path) {
 	if (!file_exists($path))
 		return 0;
@@ -462,9 +461,7 @@ function printBarGraph($sortorder = "mostimages", $type = "albums", $from_number
 	} // foreach end
 	echo "</table>";
 }
-?>
 
-<?php
 echo '</head>';
 ?>
 
@@ -476,7 +473,7 @@ echo '</head>';
 		<?php
 		printTabs();
 
-// getting the counts
+		// getting the counts
 		$albumcount = $_gallery->getNumAlbums(true);
 		$albumscount_unpub = $albumcount - $_gallery->getNumAlbums(true, true);
 		$imagecount = $_gallery->getNumImages();
@@ -725,7 +722,9 @@ echo '</head>';
 						<span id="rss-popular"></span>
 						<?php printBarGraph("popular", "rss"); ?>
 
-					<?php } ?>
+						<?php
+					}
+					?>
 					<?php
 				}
 
@@ -749,6 +748,9 @@ echo '</head>';
 						if ($from_number < $to_number) {
 							$to_number = $to_number - $from_number;
 						}
+					}
+					if (!isset($_GET['stats'])) {
+						$_GET['stats'] = '';
 					}
 					?>
 					<form name="limit" id="limit" action="<?php echo getAdminLink('utilities/gallery_statistics.php'); ?>">
