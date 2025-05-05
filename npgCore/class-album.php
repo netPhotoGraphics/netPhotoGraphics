@@ -388,6 +388,10 @@ class AlbumBase extends MediaObject {
 	 * @return array
 	 */
 	function getAlbums($page = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
+		if (is_null($this->subalbums)) {
+			$this->subalbums = array();
+		}
+
 		if ($page == 0) {
 			return $this->subalbums;
 		} else {
@@ -444,6 +448,9 @@ class AlbumBase extends MediaObject {
 	function getImages($page = 0, $firstPageCount = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
 		// Return the cut of images based on $page. Page 0 means show all.
 		$images_per_page = galleryImagesPerPage();
+		if (is_null($this->images)) {
+			$this->images = array();
+		}
 		if ($page == 0 || !$images_per_page) {
 			return $this->images;
 		} else {
@@ -1364,8 +1371,9 @@ class Album extends AlbumBase {
 	 */
 	function getAlbums($page = 0, $sorttype = null, $sortdirection = null, $care = true, $mine = NULL) {
 		global $_gallery;
-		if (!$this->exists)
+		if (!$this->exists) {
 			return array();
+		}
 		if ($mine || is_null($this->subalbums) || $care && $sorttype . $sortdirection !== $this->lastsubalbumsort) {
 			if (is_null($sorttype)) {
 				$sorttype = $this->getSortType('album');
