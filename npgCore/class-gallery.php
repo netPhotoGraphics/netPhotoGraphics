@@ -862,7 +862,7 @@ class Gallery {
 	 * @since  1.0.0
 	 */
 	function sortAlbumArray($parentalbum, $albums, $sortkey, $sortdirection, $mine) {
-		if (count($albums) == 0) {
+		if (is_null($albums) || count($albums) == 0) {
 			return array();
 		}
 		if (is_null($mine) && npg_loggedin(MANAGE_ALL_ALBUM_RIGHTS)) {
