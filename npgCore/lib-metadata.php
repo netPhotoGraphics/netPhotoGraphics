@@ -397,7 +397,12 @@ class Metadata {
 									$value = round(self::rationalNum($value), 1);
 									break;
 								case 'EXIFLensInfo':
-									$value = metadata::lensSpecification(explode(':', $value));
+									$value = self::lensSpecification(explode(':', $value));
+									break;
+								default:
+									if (is_string($value)) {
+										$value = trim($value);
+									}
 									break;
 							}
 							$obj->set($field, $value);
