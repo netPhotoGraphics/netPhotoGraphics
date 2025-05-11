@@ -46,7 +46,7 @@ if ($debug = isset($_REQUEST['debug'])) {
 
 $upgrade = false;
 
-//	remo;ve protected setup files from old release
+//	remove protected setup files from old release
 $setup_protected = safe_glob(CORE_SERVERPATH . 'setup/*.xxx');
 foreach ($setup_protected as $protected) {
 	chmod($protected, 0777);
