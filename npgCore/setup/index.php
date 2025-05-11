@@ -29,6 +29,7 @@ $_initial_session_path = session_save_path();
 
 require_once(CORE_SERVERPATH . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
+require_once(CORE_SERVERPATH . '/lib-utf8.php');
 
 //allow only one setup to run
 $setupMutex = new npgMutex('sP');
@@ -45,7 +46,13 @@ if ($debug = isset($_REQUEST['debug'])) {
 
 $upgrade = false;
 
-require_once(CORE_SERVERPATH . '/lib-utf8.php');
+//	remo;ve protected setup files from old release
+$setup_protected = safe_glob(CORE_SERVERPATH . 'setup/*.xxx');
+foreach ($setup_protected as $protected) {
+	chmod($protected, 0777);
+	unlink($protected);
+}
+
 if (isset($_REQUEST['autorun'])) {
 	$displayLimited = true;
 	if (!empty($_REQUEST['autorun'])) {
