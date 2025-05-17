@@ -13,7 +13,11 @@ admin_securityChecks(DEBUG_RIGHTS, $return = currentRelativeURL());
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
 	accessThreshold::handleOptionSave(NULL, NULL);
 }
-$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+	$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+} else {
+	$recentIP = array();
+}
 
 switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 	default:
