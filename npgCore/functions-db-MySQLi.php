@@ -29,6 +29,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		mysqli_report(MYSQLI_REPORT_OFF); //	preserve the pre PHP 8.1 setting
 
 		$denied = array(
+				1040, /* Too Many Questions */
 				1044, /* invalid user */
 				1045, /* invalid password */
 				1698, /* no password */
