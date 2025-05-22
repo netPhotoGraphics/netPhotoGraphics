@@ -18,16 +18,20 @@ class imageProcessing {
 	 */
 	static function error($status_text, $errormessage, $errorimg) {
 		global $newfilename, $album, $image;
-		$err = sprintf(gettext('Image Processing Error: %s'), $errormessage);
+		$err = sprintf(gettext('%1$s: %2$s'), $status_text, $errormessage);
 		if (isset($_GET['debug'])) {
 			echo '<strong>' . $err . '</strong>';
 		} else {
 			switch ($status_text) {
+				case '403 Forbidden':
+					$log = DEBUG_403;
+					break;
 				case '404 Not Found':
 					$log = DEBUG_404;
 					break;
-				case '403 Forbidden':
-					$log = DEBUG_403;
+				case '400 Bad Request':
+				case '422 Unprocessable Content':
+					$log = TEST_RELEASE;
 					break;
 				default:
 					$log = true;

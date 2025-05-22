@@ -40,7 +40,7 @@ $debug = isset($_GET['debug']);
 
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageProcessing::error('422 Unprocessable Entity', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('400 Bad Request', gettext("Too few arguments!"), 'err-imagenotfound.png');
 }
 
 // Fix special characters in the album and image names if mod_rewrite is on:
@@ -61,22 +61,17 @@ if (getOption('secure_image_processor')) {
 	require_once(__DIR__ . '/functions.php');
 	$albumobj = newAlbum(filesystemToInternal($album));
 	if (!$albumobj->checkAccess()) {
-		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(1)'), $album), 'err-imageforbidden.png');
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Access not allowed.'), $album), 'err-imageforbidden.png');
 	}
 	unset($albumobj);
 }
 
-if ($forbidden = getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
+if (getOption('image_processor_flooding_protection') && (!isset($_GET['ipcheck']) || $_GET['ipcheck'] != ipProtectTag($album, $image, $checkArgs))) {
 	// maybe it was from javascript which does not know better!
 	require_once(__DIR__ . '/functions.php'); //	just to be sure...
-	if ($_loggedin & ALBUM_RIGHTS) {
-		$forbidden = false;
-	} else {
-		$forbidden = 2;
+	if (!$_loggedin & ALBUM_RIGHTS) {
+		imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Unauthorized'), $album), 'err-imageforbidden.png');
 	}
-}
-if ($forbidden) {
-	imageProcessing::error('403 Forbidden', sprintf(gettext('%1$s: Forbidden(%2$s)'), $album, $forbidden), 'err-imageforbidden.png');
 }
 
 if (!isset($_GET['s']) && !isset($_GET['w']) && !isset($_GET['h'])) {
@@ -115,12 +110,12 @@ if (!is_dir(SERVERCACHE)) {
 	mkdir(SERVERCACHE, FOLDER_MOD);
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_dir(SERVERCACHE))
-		imageProcessing::error('422 Unprocessable Entity', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-imagefail.png');
+		imageProcessing::error('422 Unprocessable Content', gettext("The cache directory does not exist. Please create it and set the permissions to 0777."), 'err-imagefail.png');
 }
 if (!is_writable(SERVERCACHE)) {
 	chmod(SERVERCACHE, FOLDER_MOD);
 	if (!is_writable(SERVERCACHE))
-		imageProcessing::error('422 Unprocessable Entity', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-imagefail.png');
+		imageProcessing::error('422 Unprocessable Content', gettext("The cache directory is not writable! Attempts to chmod did not work."), 'err-imagefail.png');
 }
 if (!file_exists($imgfile)) {
 	if (isset($_GET['z'])) { //	flagged as a special image
@@ -167,7 +162,7 @@ if (file_exists($newfile) & !$adminrequest) {
 if ($process) { // If the file hasn't been cached yet, create it.
 	$result = imageProcessing::cache($newfilename, $imgfile, $args, !$adminrequest, $theme, $album);
 	if (!$result) {
-		imageProcessing::error('422 Unprocessable Entity', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
+		imageProcessing::error('422 Unprocessable Content', sprintf(gettext('Image processing of %s resulted in a fatal error.'), filesystemToInternal($image)), 'err-imagegeneral.png');
 	}
 	$fmt = filemtime($newfile);
 }

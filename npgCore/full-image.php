@@ -17,7 +17,7 @@ require_once(__DIR__ . "/lib-image.php");
 
 $disposal = getOption('protect_full_image');
 if ($disposal == 'No access') { // illegal use of the script!
-	imageProcessing::error('403 Forbidden', gettext("Forbidden"), 'err-imageforbidden.png');
+	imageProcessing::error('403 Forbidden', gettext("Access not allowed"), 'err-imageforbidden.png');
 } else {
 	if (isset($_GET['dsp'])) {
 		$disposal = sanitize($_GET['dsp']);
@@ -25,7 +25,7 @@ if ($disposal == 'No access') { // illegal use of the script!
 }
 // Check for minimum parameters.
 if (!isset($_GET['a']) || !isset($_GET['i'])) {
-	imageProcessing::error('422 Unprocessable Entity', gettext("Too few arguments! Image not found."), 'err-imagenotfound.png');
+	imageProcessing::error('400 Bad Request', gettext("Too few arguments!"), 'err-imagenotfound.png');
 }
 
 list($album8, $image8) = rewrite_get_album_image('a', 'i');
@@ -223,7 +223,7 @@ if ($disposal == 'Download') {
 
 if (is_null($cache_path) || !file_exists($cache_path)) { //process the image
 	if ($forbidden) {
-		imageProcessing::error('403 Forbidden', gettext("Forbidden(2)"), 'err-imageforbidden.png');
+		imageProcessing::error('403 Forbidden', gettext("Unauthorized"), 'err-imageforbidden.png');
 	}
 	if ($force_cache && !$process) {
 		// we can just use the original!
