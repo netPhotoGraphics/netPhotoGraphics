@@ -220,7 +220,7 @@ define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 define('SESSION_NAME', 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
 
 define('FALLBACK_SUFFIX', 'webp');
-define('CURL_ENABLED', function_exists('curl_init'));
+define('CURL_ENABLED', function_exists('curl_init') && version_compare(PHP_VERSION, 8.0, '>='));
 define('AUTHCOOKIE', 'user_auth' . str_replace('/', '_', WEBPATH));
 
 define('DESIRED_PHP_EXTENSIONS', array(
