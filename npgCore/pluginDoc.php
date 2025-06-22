@@ -118,7 +118,7 @@ function processDocBlock($docBlock) {
 			}
 		} else {
 			if (strpos($line, '@') === 0) {
-				preg_match('/@(.*?)\s/', $line, $matches);
+				preg_match('/@([^\s]+)\s?/', $line, $matches);
 				if (!empty($matches)) {
 					switch ($case = strtolower($matches[1])) {
 						case 'author':
@@ -157,9 +157,8 @@ function processDocBlock($docBlock) {
 							$links[] = array('text' => $text, 'link' => $line);
 							break;
 						case 'deprecated':
-							preg_match('~.*(deprecated\s+[since\s+[\d+\.]*]*)\s*[and]*(.*)~i', $line, $matches);
-
-							$plugin_deprecated = ucfirst(trim($matches[1])) . '<br />' . ucfirst(trim($matches[2]));
+							preg_match('~.*(deprecated(\s+since\s+[\d+\.]*)?)\s*(.*)~i', $line, $matches);
+							$plugin_deprecated = ucfirst(trim($matches[1])) . '<br />' . ucfirst(trim($matches[3]));
 							break;
 					}
 				}
@@ -423,14 +422,14 @@ if (!defined('OFFSET_PATH')) {
 
 					<div id="plugin-content">
 						<h1><?php echo $ico; ?><?php
-							echo html_encode($extension);
-							if ($plugincategory) {
-								?>
+				echo html_encode($extension);
+				if ($plugincategory) {
+							?>
 								<em><small>{<?php printf('%1$s plugins', $plugincategory); ?>}</small></em>
 								<?php
 							}
 							?></h1>
-						<?php
+							<?php
 						if ($plugin_deprecated) {
 							?>
 							<h3 class="warningbox"><?php echo $plugin_deprecated; ?></h3>
