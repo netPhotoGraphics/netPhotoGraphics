@@ -27,7 +27,6 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 		<?php printTabs(); ?>
 		<div id="content">
 			<?php
-			printSetupWarning();
 			npgFilters::apply('admin_note', 'clone', '');
 			?>
 
@@ -231,11 +230,11 @@ scriptLoader(CORE_SERVERPATH . 'js/sprintf.js');
 								</a>
 							</span>
 							<span class="icons"<?php
-									if (empty($folderlist))
-										echo
+							if (empty($folderlist))
+								echo
 
-										' style="display:none;"';
-									?>>
+								' style="display:none;"';
+							?>>
 								<a id="downbutton" href="javascript:buttonAction($('#cloneFolder').val());" title="">
 									<?php echo ARROW_DOWN_GREEN; ?>
 								</a>
