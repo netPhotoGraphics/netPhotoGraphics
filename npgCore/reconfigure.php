@@ -207,11 +207,11 @@ function checkSignature($mandatory) {
 	foreach ($matches[1] as $need) {
 		$needs[] = rtrim(trim($need), ":*");
 	}
-// serialize the following
+	// serialize the following
 	$_configMutex->lock();
 	if (file_exists(__DIR__ . '/setup/')) {
 		chdir(__DIR__ . '/setup/');
-//just in case files were uploaded over a protected setup folder
+		//just in case files were uploaded over a protected setup folder
 		$have = safe_glob('*.php');
 		foreach ($have as $key => $f) {
 			$f = str_replace('.php', '.xxx', $f);

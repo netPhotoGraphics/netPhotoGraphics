@@ -400,10 +400,10 @@ function printAdminHeader($tab, $subtab = NULL) {
 	}
 
 	function printSetupWarning() {
-		list($diff, $needs, $found, $present) = checkSignature(0);
-		if (npg_loggedin(ADMIN_RIGHTS) && $present && (npgFunctions::hasPrimaryScripts() || empty($needs))) {
-			//	button to restore setup files if needed
-			if (empty($needs)) {
+		list($versionDiff, $needs, $restore, $found) = checkSignature(0);
+		$found = array_diff($found, $restore, array('setup-functions.php', 'icon.php', 'setup.css'));
+		if (npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts()) {
+			if (!empty($found)) {
 				?>
 				<div class="warningbox">
 					<h2><?php echo gettext('Your Setup scripts are not protected.'); ?></h2>
