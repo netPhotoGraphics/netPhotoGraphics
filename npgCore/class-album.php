@@ -1646,7 +1646,7 @@ class Album extends AlbumBase {
 	protected function loadFileNames($dirs = false) {
 		$albumdir = $this->localpath;
 		$dir = opendir($albumdir);
-		if (!$dir) {
+		if ($dir === false) {
 			if (is_dir($albumdir)) {
 				$msg = sprintf(gettext("Error: The album %s is not readable."), html_encode($this->name));
 			} else {
