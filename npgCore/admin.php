@@ -308,9 +308,9 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 }
 
 /*
- * connect with Github for curren release
+ * connect with Github for curren release if not a clone install
  */
-if (class_exists('Milo\Github\Api')) {
+if (class_exists('Milo\Github\Api') && npgFunctions::hasPrimaryScripts()) {
 	/*
 	 * Update check Copyright 2017 by Stephen L Billard for use in https://%GITHUB%/netPhotoGraphics and derivitives
 	 */
