@@ -168,6 +168,13 @@ if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	}
 }
 
+
+if (isset($_conf_vars['CURL_ENABLED'])) {
+	define('CURL_ENABLED', $_conf_vars['CURL_ENABLED']);
+} else {
+	define('CURL_ENABLED', function_exists('curl_init'));
+}
+
 if (isset($_conf_vars['WEBPATH'])) {
 	define('WEBPATH', $_conf_vars['WEBPATH']);
 } else {
@@ -220,7 +227,7 @@ define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 define('SESSION_NAME', 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
 
 define('FALLBACK_SUFFIX', 'webp');
-define('CURL_ENABLED', function_exists('curl_init'));
+
 define('AUTHCOOKIE', 'user_auth' . str_replace('/', '_', WEBPATH));
 
 define('DESIRED_PHP_EXTENSIONS', array(

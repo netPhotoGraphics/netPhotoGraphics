@@ -38,6 +38,12 @@ function access($attr, $path, $data, $volume) {
 
 function accessImage($attr, $path, $data, $volume) {
 	global $validSuffix;
+	if ($attr == 'write') {
+		if (getAlbumFolder(SERVERPATH) == str_replace('\\', '/', $path) . '/' && $attr == 'write') {
+			//	block if write to root album folder
+			return false;
+		}
+	}
 	if (access($attr, $path, $data, $volume)) {
 		return true;
 	}
@@ -237,7 +243,7 @@ if ($_REQUEST['origin'] == 'upload') {
 				'uploadAllow' => array('image'),
 				'acceptedName' => '/^[^\.].*$/'
 		);
-		if ($rights & ADMIN_RIGHTS) {
+		if ($rights & (ADMIN_RIGHTS | MANAGE_ALL_ALBUM_RIGHTS)) {
 			$opts['roots'][2]['accessControl'] = 'access';
 		} else {
 			$opts['roots'][0]['uploadDeny'] = array('text/x-php', 'application');
@@ -245,6 +251,7 @@ if ($_REQUEST['origin'] == 'upload') {
 			if ($rights & FILES_RIGHTS) {
 				$opts['roots'][2]['accessControl'] = 'accessAlbums';
 			} else {
+				$opts['roots'][2]['disabled'] = array('zipdl');	 // Disable downloads
 				$opts['roots'][2]['accessControl'] = 'accessImage';
 			}
 

@@ -15,7 +15,7 @@ if (isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == getXSRFToken('setup')) {
 } else {
 	$must = 0;
 }
-list($diff, $needs, $found) = checkSignature($must);
+list($diff, $needs, $restore) = checkSignature($must);
 
 if (empty($needs)) {
 	if (isset($_GET['autorun'])) {
@@ -61,7 +61,7 @@ if (empty($needs)) {
 						<p>
 							<?php
 							if (npgFunctions::hasPrimaryScripts()) {
-								if ($found) {
+								if ($restore) {
 									//	leave as direct link incase the admin mod_rewrite mechanism is not yet setup
 									echo '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php?xsrfToken=' . getXSRFToken('setup') . '">' . gettext('Click to restore the setup scripts and run setup.') . '</a>';
 								} else {

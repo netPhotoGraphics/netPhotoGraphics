@@ -148,6 +148,7 @@ if (!CURL_ENABLED) {
 			foreach ($custom as $key => $cacheimage) {
 				if (!is_array($enabled) || in_array($key, $enabled)) {
 					$owner = $themeid = $cacheimage['theme'];
+					$checked = '';
 
 					if (array_key_exists('class', $cacheimage)) {
 						$type = $cacheimage['class'];
@@ -165,12 +166,25 @@ if (!CURL_ENABLED) {
 							}
 						case 'plugin':
 							if (getPlugin($owner . '.php')) {
+								if (!extensionEnabled($owner)) {
+									$themeid = '<span class="deprecated" title="' . gettext('Plugin is not enabled') . '">' . $themeid . '</span>';
+									$checked = ' disabled="disabled"';
+								}
 								break;
 							}
 						case 'deprecated';
 							//	owner no longer exists
-							$themeid = '<span class="deprecated" title="' . gettext('Owner no longer exists') . '">' . $themeid . '/>';
+							$themeid = '<span class="deprecated" title="' . gettext('Owner no longer exists') . '">' . $themeid . '</span>';
+							$checked = ' disabled="disabled"';
 							break;
+					}
+
+					if (is_array($enabled)) {
+						$checked = ' checked="checked" disabled="disabled"';
+					} else {
+						if ($currenttheme == $cacheimage['theme'] || $cacheimage['theme'] == 'admin' || $cacheimage['album']) {
+							$checked = ' checked="checked"';
+						}
 					}
 
 					$theme = preg_replace('/[^A-Za-z0-9\-_]/', '', $themeid);
@@ -184,15 +198,6 @@ if (!CURL_ENABLED) {
 						$cacheimage['album'] = NULL;
 					}
 
-					if (is_array($enabled)) {
-						$checked = ' checked="checked" disabled="disabled"';
-					} else {
-						if ($currenttheme == $cacheimage['theme'] || $cacheimage['theme'] == 'admin' || $cacheimage['album']) {
-							$checked = ' checked="checked"';
-						} else {
-							$checked = '';
-						}
-					}
 					$cachesizes++;
 					$size = isset($cacheimage['image_size']) ? $cacheimage['image_size'] : NULL;
 					$width = isset($cacheimage['image_width']) ? $cacheimage['image_width'] : NULL;
