@@ -753,11 +753,7 @@ function npg_session_start() {
 				'httponly' => TRUE,
 				'samesite' => 'Strict'
 		);
-		if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
-			session_set_cookie_params($sessionCookie);
-		} else {
-			session_set_cookie_params($sessionCookie['lifetime'], $sessionCookie['path'], $sessionCookie['domain'], $sessionCookie['secure'], $sessionCookie['httponly']);
-		}
+		session_set_cookie_params($sessionCookie);
 		$result = session_start();
 		define('npg_SID', session_id());
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
@@ -858,11 +854,7 @@ function setNPGCookie($name, $value, $time = NULL, $uniqueoptions = array()) {
 		debugLogVar(["setNPGCookie($name, $value)" => $options, 'album_session' => GALLERY_SESSION, 'SESSION' => session_id()]);
 	}
 	if (($time < 0) || !GALLERY_SESSION) {
-		if (version_compare(PHP_VERSION, '7.3.0', '>=')) {
-			setcookie($name, $cookiev, $options);
-		} else {
-			setcookie($name, $cookiev, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly']);
-		}
+		setcookie($name, $cookiev, $options);
 	}
 	if ($time < 0) {
 		if (session_id()) {

@@ -165,25 +165,21 @@ echo "\n</head>";
 								}
 							</style>
 							<?php
-							if (version_compare(PHP_VERSION, '7.1.0', '>=')) {
-								$env = getenv();
-								if (empty($env)) {
-									echo gettext('There are no environmental variables passed.');
-								} else {
-									?>
-									<dl class="list">
-										<?php
-										foreach ($env as $var => $val) {
-											?>
-											<dt class="var"><?php echo $var; ?></dt><dd class="val"><?php echo $val; ?></dd>
-											<?php
-										}
-										?>
-									</dl>
-									<?php
-								}
+							$env = getenv();
+							if (empty($env)) {
+								echo gettext('There are no environmental variables passed.');
 							} else {
-								echo gettext('Retrieving the environmental vairables requires PHP version 7.1 or greater.');
+								?>
+								<dl class="list">
+									<?php
+									foreach ($env as $var => $val) {
+										?>
+										<dt class="var"><?php echo $var; ?></dt><dd class="val"><?php echo $val; ?></dd>
+										<?php
+									}
+									?>
+								</dl>
+								<?php
 							}
 							break;
 						case 'server':

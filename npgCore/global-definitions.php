@@ -2,7 +2,7 @@
 
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
-Define('PHP_MIN_VERSION', '7.2');
+Define('PHP_MIN_VERSION', '7.3');
 Define('PHP_MIN_SUPPORTED_VERSION', '7.4');
 
 $time = time();
