@@ -171,9 +171,9 @@ class static_html_cache {
 	 *
 	 */
 	function startHTMLCache() {
-		global $_gallery_page, $_themeScript_timer;
+		global $_gallery_page, $_Script_processing_timer;
 		if ($this->enabled && $accessType = $this->checkIfAllowedPage()) {
-			$_themeScript_timer['static cache start'] = microtime();
+			$_Script_processing_timer['static cache start'] = microtime();
 			$cachefilepath = $this->createCacheFilepath($accessType);
 			if (!empty($cachefilepath)) {
 				$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachefilepath;
@@ -191,9 +191,9 @@ class static_html_cache {
 							echo $content;
 
 							// cache statistics
-							list($usec, $sec) = explode(' ', $_themeScript_timer['start']);
+							list($usec, $sec) = explode(' ', $_Script_processing_timer['start']);
 							$start = (float) $usec + (float) $sec;
-							list($usec, $sec) = explode(' ', $_themeScript_timer['static cache start']);
+							list($usec, $sec) = explode(' ', $_Script_processing_timer['static cache start']);
 							$start_cache = (float) $usec + (float) $sec;
 							list($usec, $sec) = explode(' ', microtime());
 							$end = (float) $usec + (float) $sec;
@@ -207,7 +207,7 @@ class static_html_cache {
 					$this->pageCachePath = $cachefilepath;
 				}
 			}
-			unset($_themeScript_timer['static cache start']); // leave it out of the summary page
+			unset($_Script_processing_timer['static cache start']); // leave it out of the summary page
 		}
 	}
 
@@ -216,7 +216,7 @@ class static_html_cache {
 	 *
 	 */
 	function endHTMLCache() {
-		global $_themeScript_timer, $_image_need_cache;
+		global $_Script_processing_timer, $_image_need_cache;
 		$cachefilepath = $this->pageCachePath;
 		if (!empty($cachefilepath)) {
 			$pagecontent = ob_get_clean();

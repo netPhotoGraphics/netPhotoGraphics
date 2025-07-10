@@ -8,8 +8,9 @@
  * @package admin
  */
 // force UTF-8 Ø
-
-$_adminScript_timer['start'] = microtime();
+if (!isset($_Script_processing_timer)) {
+	$_Script_processing_timer['start'] = microtime();
+}
 ini_set('post_max_size', "10M");
 ini_set('post_input_vars', "2500");
 
@@ -39,9 +40,11 @@ if (abs(OFFSET_PATH) != 2) {
 	if (TEST_RELEASE) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
+
+	$_Script_processing_timer['admin-core'] = microtime();
+
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
-
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
 		if (DEBUG_PLUGINS) {
 			switch ($mask) {
@@ -64,6 +67,14 @@ if (abs(OFFSET_PATH) != 2) {
 				}
 				$_loaded_plugins[$extension] = $extension;
 			}
+		}
+		switch ($mask) {
+			case FEATURE_PLUGIN:
+				$_Script_processing_timer['feature plugins'] = microtime();
+				break;
+			case ADMIN_PLUGIN:
+				$_Script_processing_timer['admin plugins'] = microtime();
+				break;
 		}
 	}
 

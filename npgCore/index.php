@@ -9,7 +9,6 @@
 if (!defined('OFFSET_PATH'))
 	die(); //	no direct linking
 
-$_themeScript_timer['start'] = microtime();
 require_once(__DIR__ . '/functions.php');
 
 if (GALLERY_SESSION || npg_loggedin()) {
@@ -22,7 +21,7 @@ if (function_exists('openssl_encrypt')) {
 	$_themeCript->set_secret_iv(SECRET_IV);
 	$_themeCript->set_cipher(INCRIPTION_METHOD);
 }
-$_themeScript_timer['basic requirements'] = microtime();
+$_Script_processing_timer['basic requirements'] = microtime();
 
 npgFilters::apply('feature_plugin_load');
 if (DEBUG_PLUGINS) {
@@ -40,7 +39,7 @@ foreach (getEnabledPlugins() as $extension => $plugin) {
 		$_loaded_plugins[$extension] = $extension;
 	}
 }
-$_themeScript_timer['feature plugins'] = microtime();
+$_Script_processing_timer['feature plugins'] = microtime();
 
 require_once(CORE_SERVERPATH . 'rewrite.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');
@@ -52,7 +51,7 @@ checkInstall();
 // who cares if MOD_REWRITE is set. If we somehow got redirected here, handle the rewrite
 rewriteHandler();
 recordPolicyACK();
-$_themeScript_timer['general functions'] = microtime();
+$_Script_processing_timer['general functions'] = microtime();
 
 /**
  * Invoke the controller to handle requests
@@ -78,7 +77,7 @@ if (isset($_GET['p'])) {
 } else {
 	$_index_theme = setupTheme();
 }
-$_themeScript_timer['controller'] = microtime();
+$_Script_processing_timer['controller'] = microtime();
 
 //	Load the THEME plugins
 if (preg_match('~' . CORE_FOLDER . '~', $_themeScript)) {
@@ -98,7 +97,7 @@ if (preg_match('~' . CORE_FOLDER . '~', $_themeScript)) {
 			$_loaded_plugins[$extension] = $extension;
 		}
 	}
-	$_themeScript_timer['theme plugins'] = microtime();
+	$_Script_processing_timer['theme plugins'] = microtime();
 	$_themeScript = npgFilters::apply('load_theme_script', $_themeScript, $_requested_object);
 	$custom = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($_index_theme) . '/functions.php';
 	if (file_exists($custom)) {
@@ -174,7 +173,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	include(CORE_SERVERPATH . '404.php');
 }
 
-$_themeScript_timer['theme load'] = microtime();
+$_Script_processing_timer['theme load'] = microtime();
 npgFilters::apply('software_information', $_themeScript, $_loaded_plugins, $_index_theme);
 db_close(); // close the database as we are done
 if (isset($_siteMutex)) { //	unlock the thread mutex if it has been instantiated
@@ -183,16 +182,16 @@ if (isset($_siteMutex)) { //	unlock the thread mutex if it has been instantiated
 if (TEST_RELEASE) {
 	echo "\n";
 
-	list($usec, $sec) = explode(' ', array_shift($_themeScript_timer));
+	list($usec, $sec) = explode(' ', array_shift($_Script_processing_timer));
 	$first = $last = (float) $usec + (float) $sec;
 
-	foreach ($_themeScript_timer as $step => $time) {
+	foreach ($_Script_processing_timer as $step => $time) {
 		list($usec, $sec) = explode(" ", $time);
 		$cur = (float) $usec + (float) $sec;
 		printf("<!-- " . gettext('Script processing %1$s:%2$.4f seconds') . " -->\n", $step, $cur - $last);
 		$last = $cur;
 	}
-	if (count($_themeScript_timer) > 1) {
+	if (count($_Script_processing_timer) > 1) {
 		printf("<!-- " . gettext('Script processing total:%.4f seconds') . " -->\n", $last - $first);
 	}
 }
