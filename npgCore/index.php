@@ -24,22 +24,20 @@ if (function_exists('openssl_encrypt')) {
 $_Script_processing_timer['basic requirements'] = microtime();
 
 npgFilters::apply('feature_plugin_load');
-if (DEBUG_PLUGINS) {
-	debugLog('Loading the "feature" plugins.');
-}
 
 foreach (getEnabledPlugins() as $extension => $plugin) {
 	$loadtype = $plugin['priority'];
 	if ($loadtype & FEATURE_PLUGIN) {
-		$start = microtime();
 		require_once($plugin['path']);
 		if (DEBUG_PLUGINS) {
-			npgFunctions::pluginDebug($extension, $priority, $start);
+			$_loaded_plugins[$extension] = $extension;
+			$_Script_processing_timer['feature plugins»' . $extension] = microtime();
 		}
-		$_loaded_plugins[$extension] = $extension;
 	}
 }
-$_Script_processing_timer['feature plugins'] = microtime();
+if (!DEBUG_PLUGINS) {
+	$_Script_processing_timer['feature plugins'] = microtime();
+}
 
 require_once(CORE_SERVERPATH . 'rewrite.php');
 require_once(CORE_SERVERPATH . 'template-functions.php');
@@ -83,21 +81,19 @@ $_Script_processing_timer['controller'] = microtime();
 if (preg_match('~' . CORE_FOLDER . '~', $_themeScript)) {
 	$custom = false;
 } else {
-	if (DEBUG_PLUGINS) {
-		debugLog('Loading the "theme" plugins.');
-	}
 	foreach (getEnabledPlugins() as $extension => $plugin) {
 		$loadtype = $plugin['priority'];
 		if ($loadtype & THEME_PLUGIN) {
-			$start = microtime();
 			require_once($plugin['path']);
 			if (DEBUG_PLUGINS) {
-				npgFunctions::pluginDebug($extension, $priority, $start);
+				$_loaded_plugins[$extension] = $extension;
+				$_Script_processing_timer['theme plugins»' . $extension] = microtime();
 			}
-			$_loaded_plugins[$extension] = $extension;
 		}
 	}
-	$_Script_processing_timer['theme plugins'] = microtime();
+	if (!DEBUG_PLUGINS) {
+		$_Script_processing_timer['theme plugins'] = microtime();
+	}
 	$_themeScript = npgFilters::apply('load_theme_script', $_themeScript, $_requested_object);
 	$custom = SERVERPATH . '/' . THEMEFOLDER . '/' . internalToFilesystem($_index_theme) . '/functions.php';
 	if (file_exists($custom)) {

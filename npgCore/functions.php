@@ -3089,15 +3089,6 @@ class npgFunctions {
 		return sprintf('%s | %u', implode(' | ', $class), $priority & PLUGIN_PRIORITY);
 	}
 
-	static function pluginDebug($extension, $priority, $start) {
-		list($usec, $sec) = explode(" ", $start);
-		$start = (float) $usec + (float) $sec;
-		list($usec, $sec) = explode(" ", microtime());
-		$end = (float) $usec + (float) $sec;
-		$priority = self::getPriorityDisplay($priority);
-		debugLog(sprintf('    ' . $extension . '(%s)=>%.4fs', $priority, $end - $start));
-	}
-
 	/**
 	 * handles compound plugin disable criteria
 	 * @param array $criteria
