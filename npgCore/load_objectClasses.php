@@ -11,11 +11,13 @@
  */
 $_plugin_differed_actions = array(); //	final initialization for class plugins (mostly for language translation issues)
 
-$root_classes = ['classes' => __DIR__ . '/classes.php',
+$root_classes = [
+		'classes' => __DIR__ . '/classes.php',
 		'gallery' => __DIR__ . '/class-gallery.php',
 		'album' => __DIR__ . '/class-album.php',
 		'image' => __DIR__ . '/class-image.php',
-		'search' => __DIR__ . '/class-search.php'];
+		'search' => __DIR__ . '/class-search.php'
+];
 
 foreach ($root_classes as $class => $path) {
 	require_once($path);

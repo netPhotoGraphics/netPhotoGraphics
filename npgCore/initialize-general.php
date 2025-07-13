@@ -28,6 +28,7 @@ if (function_exists('openssl_encrypt')) {
 	$_adminCript = NULL;
 }
 
+$_Script_processing_timer['initialize encryption'] = microtime();
 
 require_once(__DIR__ . '/load_objectClasses.php');
 
