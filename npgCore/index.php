@@ -177,18 +177,17 @@ if (isset($_siteMutex)) { //	unlock the thread mutex if it has been instantiated
 }
 if (TEST_RELEASE) {
 	echo "\n";
-
 	list($usec, $sec) = explode(' ', array_shift($_Script_processing_timer));
 	$first = $last = (float) $usec + (float) $sec;
 
 	foreach ($_Script_processing_timer as $step => $time) {
 		list($usec, $sec) = explode(" ", $time);
 		$cur = (float) $usec + (float) $sec;
-		printf("<!-- " . gettext('Script processing %1$s:%2$.4f seconds') . " -->\n", $step, $cur - $last);
+		printf('<!-- ' . gettext('Script processing %1$s:%2$.6f seconds') . " -->\n", $step, $cur - $last);
 		$last = $cur;
 	}
 	if (count($_Script_processing_timer) > 1) {
-		printf("<!-- " . gettext('Script processing total:%.4f seconds') . " -->\n", $last - $first);
+		printf('<!-- ' . gettext('Script processing total:%1$.6f seconds') . " -->\n", $last - $first);
 	}
 }
 $_HTML_cache->endHTMLCache();

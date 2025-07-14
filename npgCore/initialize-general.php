@@ -10,6 +10,7 @@ global $_current_context_stack, $_HTML_cache;
 httpsRedirect();
 
 require_once(__DIR__ . '/lib-filter.php');
+require_once(__DIR__ . '/load_objectClasses.php');
 
 $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
 $_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.
@@ -28,9 +29,7 @@ if (function_exists('openssl_encrypt')) {
 	$_adminCript = NULL;
 }
 
-$_Script_processing_timer['initialize encryption'] = microtime();
 
-require_once(__DIR__ . '/load_objectClasses.php');
 
 $_albumthumb_selector = array(array('field' => '', 'direction' => '', 'desc' => gettext('random')),
 		array('field' => 'id', 'direction' => 'DESC', 'desc' => gettext('most recent')),
@@ -54,3 +53,5 @@ $_locale_Subdomains = npgFunctions::languageSubdomains();
 
 //	use this for labeling "News" pages, etc.
 define('NEWS_LABEL', get_language_string(getSerializedArray(getOption('CMS_news_label'))));
+
+$_Script_processing_timer['initialize-general'] = microtime();

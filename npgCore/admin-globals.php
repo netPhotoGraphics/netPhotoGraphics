@@ -43,7 +43,7 @@ if (abs(OFFSET_PATH) != 2) {
 
 	$_Script_processing_timer['admin-core'] = microtime();
 
-//load feature and admin plugins
+	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
 	$what = [FEATURE_PLUGIN => 'feature plugins', ADMIN_PLUGIN => 'admin plugins'];
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
@@ -64,10 +64,10 @@ if (abs(OFFSET_PATH) != 2) {
 			$_Script_processing_timer[$what[$mask]] = microtime();
 		}
 	}
-
-	if (!defined('EDITOR_SANITIZE_LEVEL'))
-		define('EDITOR_SANITIZE_LEVEL', 1);
 }
+if (!defined('EDITOR_SANITIZE_LEVEL'))
+	define('EDITOR_SANITIZE_LEVEL', 1);
+
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);
@@ -120,12 +120,12 @@ if (isset($_loggedin) && $_loggedin) {
 			$_loggedin = ALL_RIGHTS;
 		} else {
 			if ($_loggedin & MANAGE_ALL_ALBUM_RIGHTS) {
-// these are lock-step linked!
+				// these are lock-step linked!
 				$_loggedin = $_loggedin | ALBUM_RIGHTS;
 			}
 		}
 
-//	establish the menu order
+		//	establish the menu order
 		$_admin_menu['overview'] = NULL;
 		$_admin_menu['options'] = NULL;
 		$_admin_menu['logs'] = NULL;
@@ -314,3 +314,6 @@ if (isset($_loggedin) && $_loggedin) {
 if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
 	npgFilters::register('admin_note', 'phpWarn');
 }
+
+$_Script_processing_timer['admin-globals'] = microtime();
+
