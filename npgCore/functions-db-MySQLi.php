@@ -61,7 +61,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);
 			$er = 'MySQLi::__construct()';
-			if (empty($errorstop) || is_object($_DB_connection) || in_array($e, $denied)) {
+			if (is_object($_DB_connection) || empty($errorstop) || in_array(db_errorno(), $denied)) {
 				break;
 			}
 			sleep(pow(2, $i));
@@ -80,8 +80,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		return false;
 	}
 
-	$_DB_details['mysql_host'] = $config['mysql_host'];
-	if (!$_DB_connection->select_db($config['mysql_database'])) {
+	if (!$_DB_connection->select_db($db)) {
 		if ($errorstop) {
 			dbErrorReport(null, 'MySQLi::select_db()');
 		}
@@ -414,9 +413,7 @@ function db_truncate_table($table) {
 }
 
 function db_LIKE_escape($str) {
-	return strtr($str, array('_' => '\\_', '%' => '\\%
-
-				'));
+	return strtr($str, array('_' => '\\_', '%' => '\\%'));
 }
 
 function db_free_result($result) {
