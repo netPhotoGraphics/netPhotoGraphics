@@ -26,6 +26,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 	global $_DB_connection, $_DB_details;
 	$_DB_details = unserialize(DB_NOT_CONNECTED);
 	if (function_exists('mysqli_connect')) {
+		$er = 'MySQLi::__construct()';
 		mysqli_report(MYSQLI_REPORT_OFF); //	preserve the pre PHP 8.1 setting
 
 		$denied = array(
@@ -60,7 +61,6 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		error_reporting(0);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);
-			$er = 'MySQLi::__construct()';
 			if (is_object($_DB_connection) || empty($errorstop) || in_array(db_errorno(), $denied)) {
 				break;
 			}
