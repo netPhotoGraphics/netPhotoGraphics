@@ -8,8 +8,9 @@
  * @package admin
  */
 // force UTF-8 Ø
-
-$_adminScript_timer['start'] = microtime();
+if (!isset($_Script_processing_timer)) {
+	$_Script_processing_timer['start'] = microtime();
+}
 ini_set('post_max_size', "10M");
 ini_set('post_input_vars', "2500");
 
@@ -33,26 +34,19 @@ require_once(CORE_SERVERPATH . 'admin-functions.php');
 $_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
-	//	just incase
+//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
 	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 	if (TEST_RELEASE) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
+
+	$_Script_processing_timer['admin-core'] = microtime();
+
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
-
+	$what = [FEATURE_PLUGIN => 'feature plugins', ADMIN_PLUGIN => 'admin plugins'];
 	foreach (array(FEATURE_PLUGIN, ADMIN_PLUGIN) as $mask) {
-		if (DEBUG_PLUGINS) {
-			switch ($mask) {
-				case FEATURE_PLUGIN:
-					debugLog('Loading the "feature" plugins.');
-					break;
-				case ADMIN_PLUGIN:
-					debugLog('Loading the "admin" plugins.');
-					break;
-			}
-		}
 
 		foreach ($enabled as $extension => $plugin) {
 			$priority = $plugin['priority'];
@@ -60,16 +54,20 @@ if (abs(OFFSET_PATH) != 2) {
 				$start = microtime();
 				require_once($plugin['path']);
 				if (DEBUG_PLUGINS) {
-					npgFunctions::pluginDebug($extension, $priority, $start);
+					$_Script_processing_timer[$what[$mask] . '»' . $extension] = microtime();
 				}
 				$_loaded_plugins[$extension] = $extension;
 			}
 		}
-	}
 
-	if (!defined('EDITOR_SANITIZE_LEVEL'))
-		define('EDITOR_SANITIZE_LEVEL', 1);
+		if (!DEBUG_PLUGINS) {
+			$_Script_processing_timer[$what[$mask]] = microtime();
+		}
+	}
 }
+if (!defined('EDITOR_SANITIZE_LEVEL'))
+	define('EDITOR_SANITIZE_LEVEL', 1);
+
 if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);
@@ -97,7 +95,7 @@ $_sortby = array(
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
 	if ($_current_admin_obj->reset) {
-		//	There are no valid administrators, allow user creation or backup restore (if possible)
+//	There are no valid administrators, allow user creation or backup restore (if possible)
 		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 		if (count($filelist) > 0) {
 			$link = getAdminLink('utilities/backup_restore.php') . '?tab=backup';
@@ -272,7 +270,7 @@ if (isset($_loggedin) && $_loggedin) {
 		}
 
 		if ($_loggedin & ADMIN_RIGHTS && OFFSET_PATH != 2) {
-			//NOTE: the following listed variables will be assumed by the admin:plugins script
+//NOTE: the following listed variables will be assumed by the admin:plugins script
 			list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 			$_admin_menu['plugins'] = array('text' => gettext("plugins"),
 					'link' => getAdminLink('admin-tabs/plugins.php'),
@@ -305,7 +303,7 @@ if (isset($_loggedin) && $_loggedin) {
 			$_admin_menu['admin']['subtabs'] = NULL;
 		}
 
-		//	so as to make it generally available as we make much use of it
+//	so as to make it generally available as we make much use of it
 		if (OFFSET_PATH != 2) {
 			require_once(PLUGIN_SERVERPATH . 'colorbox_js.php');
 		}
@@ -316,3 +314,6 @@ if (isset($_loggedin) && $_loggedin) {
 if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
 	npgFilters::register('admin_note', 'phpWarn');
 }
+
+$_Script_processing_timer['admin-globals'] = microtime();
+

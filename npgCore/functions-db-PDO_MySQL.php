@@ -28,6 +28,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 	$_DB_last_result = NULL;
 	if (class_exists('PDO')) {
 		$denied = array(
+				1040, /* Too Many Questions */
 				1044, /* invalid user */
 				1045, /* invalid password */
 				1698, /* no password */
@@ -58,7 +59,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 				break;
 			} catch (PDOException $e) {
 				$_DB_last_result = $e;
-				if (empty($errorstop) || in_array($e, $denied) || $i >= MYSQL_CONNECTION_RETRIES) {
+				if (empty($errorstop) || in_array($e, $denied) || $i >= MYSQL_CONNECTION_RETRIES - 1) {
 					if ($errorstop) {
 						dbErrorReport(null, 'PDO::__construct()');
 					}

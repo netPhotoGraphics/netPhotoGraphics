@@ -11,17 +11,27 @@
  */
 $_plugin_differed_actions = array(); //	final initialization for class plugins (mostly for language translation issues)
 
-require_once(__DIR__ . '/classes.php');
-require_once(__DIR__ . '/class-gallery.php');
-require_once(__DIR__ . '/class-album.php');
-require_once(__DIR__ . '/class-image.php');
-require_once(__DIR__ . '/class-search.php');
+$root_classes = [
+		'classes' => __DIR__ . '/classes.php',
+		'gallery' => __DIR__ . '/class-gallery.php',
+		'album' => __DIR__ . '/class-album.php',
+		'image' => __DIR__ . '/class-image.php',
+		'search' => __DIR__ . '/class-search.php'
+];
+
+foreach ($root_classes as $class => $path) {
+	require_once($path);
+	if (DEBUG_PLUGINS) {
+		$_Script_processing_timer['root»' . $class] = microtime();
+	}
+}
+
+if (!DEBUG_PLUGINS) {
+	$_Script_processing_timer['root classes'] = microtime();
+}
 
 $_loaded_plugins = array();
 // load the class & filter plugins
-if (DEBUG_PLUGINS) {
-	debugLog('Loading the "class" plugins.');
-}
 if (abs(OFFSET_PATH) == 2) {
 	// setup does not need (and might have problems with) plugins so just load some specific ones
 	//	NOTE: these should be ordered by priority, descending
@@ -34,17 +44,21 @@ if (abs(OFFSET_PATH) == 2) {
 } else {
 	$enabled = getEnabledPlugins();
 }
+
 foreach ($enabled as $extension => $plugin) {
 	$priority = $plugin['priority'];
 	if ($priority & CLASS_PLUGIN) {
-		$start = microtime();
 		require_once($plugin['path']);
 		if (DEBUG_PLUGINS) {
-			npgFunctions::pluginDebug($extension, $priority, $start);
+			$_Script_processing_timer['classes»' . $extension] = microtime();
 		}
 		$_loaded_plugins[$extension] = $extension;
 	}
 }
+if (!DEBUG_PLUGINS) {
+	$_Script_processing_timer['plugin classes'] = microtime();
+}
+
 
 //	check for logged in users and set up the locale
 require_once(__DIR__ . '/auth_processor.php');

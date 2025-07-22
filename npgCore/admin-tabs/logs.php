@@ -240,14 +240,14 @@ echo "\n</head>";
 				?>
 			</div>
 		</div>
+		<script>
+			window.addEventListener('load', function () {
+				$('.logtext').scrollTo('#bottom');
+			}, false);
+		</script>
 		<?php printAdminFooter(); ?>
 	</div>
 
-	<script>
-		window.addEventListener('load', function () {
-			$('.logtext').scrollTo('#bottom');
-		}, false);
-	</script>
 	<?php
 	// to fool the validator
 	echo "\n</body>";

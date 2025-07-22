@@ -701,11 +701,12 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 
 							$err = versionCheck(PHP_MIN_VERSION, PHP_DESIRED_VERSION, PHP_VERSION);
 							if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
-								$vers = ' style="color: red;font-weight:bold;"';
+								$vers = ' style="color: red;font-weight:bold;text-decoration:line-through"';
+								$dep = sprintf(gettext('PHP versions less than %1$s are deprecated.'), PHP_MIN_SUPPORTED_VERSION) . ' ';
 							} else {
-								$vers = '';
+								$dep = $vers = '';
 							}
-							$good = checkMark($err, '<span' . $vers . '>' . sprintf(gettext("PHP version %s"), PHP_VERSION) . '</span>', "", sprintf(gettext('PHP Version %1$s or greater is required. Version %2$s or greater is strongly recommended as earlier versions may not be <a href="http://php.net/supported-versions.php">actively supported</a>. Use earlier versions at your own risk.'), PHP_MIN_VERSION, PHP_DESIRED_VERSION), false) && $good;
+							$good = checkMark($err, '<span' . $vers . '>' . sprintf(gettext("PHP version %s"), PHP_VERSION) . '</span>', "", sprintf(gettext('PHP Version %1$s or greater is required. ' . $dep . 'Version %2$s or greater is strongly recommended as earlier versions may not be <a href="http://php.net/supported-versions.php">actively supported</a>. Use earlier versions at your own risk.'), PHP_MIN_VERSION, PHP_DESIRED_VERSION), false) && $good;
 
 							checkmark($session && session_id() && $_initial_session_path !== false, gettext('PHP <code>Sessions</code>.'), gettext('PHP <code>Sessions</code> [appear to not be working].'), sprintf(gettext('PHP Sessions are required for administrative functions. Check your <code>session.save_path</code> (<code>%1$s</code>) and the PHP configuration <code>[session]</code> settings'), session_save_path()), true);
 

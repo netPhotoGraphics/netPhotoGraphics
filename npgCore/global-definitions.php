@@ -2,9 +2,28 @@
 
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
-Define('PHP_MIN_VERSION', '7.2');
+Define('PHP_MIN_VERSION', '7.3');
 Define('PHP_MIN_SUPPORTED_VERSION', '7.4');
-Define('PHP_DESIRED_VERSION', '8.0');
+
+$time = time();
+switch ($time) {
+	case $time <= strtotime('1/1/2026'):
+		Define('PHP_DESIRED_VERSION', '8.1');
+		break;
+	case $time <= strtotime('1/1/2027'):
+		Define('PHP_DESIRED_VERSION', '8.2');
+		break;
+	case $time <= strtotime('1/1/2028'):
+		Define('PHP_DESIRED_VERSION', '8.3');
+		break;
+	case $time <= strtotime('1/1/2029'):
+		Define('PHP_DESIRED_VERSION', '8.4');
+		break;
+	default:
+		Define('PHP_DESIRED_VERSION', '8.5');
+		break;
+}
+unset($time);
 
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));

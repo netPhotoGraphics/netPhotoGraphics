@@ -155,6 +155,7 @@ class debug {
 					gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
 					gettext('<em>testing mode</em>') => 'TESTING',
 					gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
+					gettext('<em>show plugin load times</em>') => 'PLUGINS',
 					gettext('Log 403 forbidden image processing information') => '403',
 					gettext('Log 404 error processing debug information') => '404',
 					gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
@@ -162,14 +163,16 @@ class debug {
 					gettext('Log image processing debug information') => 'IMAGE',
 					gettext('Log language selection processing') => 'LOCALE',
 					gettext('Log admin saves and login attempts') => 'LOGIN',
-					gettext('Log plugin load sequence') => 'PLUGINS',
 					gettext('Log Feed issues') => 'FEED',
 					gettext('Log Managed Objects changes') => 'OBJECTS'
 			);
 			$options[NULL] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
 					'checkboxes' => $list,
 					'order' => 1,
-					'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . gettext('If <em>disable auto protect scripts</em> is checked <em>Setup</em> will not protect its scrpts after an install.'));
+					'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . '<br/>' .
+					gettext('If <em>disable auto protect scripts</em> is checked <em>Setup</em> will not protect its scrpts after an install.') . '<br/>' .
+					gettext('<em>show plugin load times</em> lists load times for individual plugins in the <code>Script processing</code> HTML comments at the end of the page.')
+			);
 		}
 		return $options;
 	}

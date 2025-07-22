@@ -7,6 +7,7 @@
  */
 // force UTF-8 Ø
 require_once(__DIR__ . '/initialize-basic.php');
+
 require_once(__DIR__ . '/lib-i18n.php');
 require_once(__DIR__ . '/initialize-general.php');
 
@@ -3087,15 +3088,6 @@ class npgFunctions {
 			$class[] = 'THEME';
 		}
 		return sprintf('%s | %u', implode(' | ', $class), $priority & PLUGIN_PRIORITY);
-	}
-
-	static function pluginDebug($extension, $priority, $start) {
-		list($usec, $sec) = explode(" ", $start);
-		$start = (float) $usec + (float) $sec;
-		list($usec, $sec) = explode(" ", microtime());
-		$end = (float) $usec + (float) $sec;
-		$priority = self::getPriorityDisplay($priority);
-		debugLog(sprintf('    ' . $extension . '(%s)=>%.4fs', $priority, $end - $start));
 	}
 
 	/**
