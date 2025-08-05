@@ -30,7 +30,6 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		mysqli_report(MYSQLI_REPORT_OFF); //	preserve the pre PHP 8.1 setting
 
 		$denied = array(
-				1040, /* Too Many Questions */
 				1044, /* invalid user */
 				1045, /* invalid password */
 				1698, /* no password */
@@ -41,10 +40,9 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		if (is_object($_DB_connection)) {
 			$_DB_connection->close(); //	don't want to leave connections open
 		}
-
-		list($username, $password) = selectDBuser($config);
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
+
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
 			$port = ini_get('mysqli.default_port');
 		} else {
@@ -60,6 +58,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		$er_reporting = error_reporting();
 		error_reporting(0);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
+			list($username, $password) = selectDBuser($config);
 			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);
 			if (is_object($_DB_connection) || empty($errorstop) || in_array(db_errorno(), $denied)) {
 				break;
