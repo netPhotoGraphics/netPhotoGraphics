@@ -53,6 +53,11 @@ define('DATABASE_PREFIX', $_conf_vars['mysql_prefix']);
 if (!isset($_conf_vars['charset'])) {
 	$_conf_vars['charset'] = 'UTF-8';
 }
+if (!is_array($_conf_vars['mysql_user'])) {
+	//	migrate to array of users
+	$_conf_vars['mysql_user'] = array($_conf_vars['mysql_user'] => $_conf_vars['mysql_pass']);
+	unset($_conf_vars['mysql_pass']);
+}
 define('LOCAL_CHARSET', $_conf_vars['charset']);
 if (!isset($_conf_vars['special_pages'])) {
 	//	get the default version form the distribution files
@@ -87,8 +92,7 @@ if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db
 	require_once(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php');
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array(
 			'db_software' => '',
-			'mysql_user' => '',
-			'mysql_pass' => '',
+			'mysql_user' => [],
 			'mysql_host' => '',
 			'mysql_port' => '',
 			'mysql_socket' => '',
@@ -112,7 +116,7 @@ if (!$__initialDBConnection && OFFSET_PATH != 2) {
 }
 
 $as_ci = false;
-foreach ($col = query_full_array("SHOW COLLATION WHERE Charset = 'utf8mb4'") as $collation) {
+foreach ($col = query_full_array("SHOW COLLATION WHERE Charset = 'utf8mb4'", OFFSET_PATH != 2) as $collation) {
 	if ($collation['Collation'] == 'utf8mb4_0900_as_ci') {
 		$as_ci = true;
 		break;

@@ -235,10 +235,10 @@ if (strpos($_config_contents, "\$conf['mysql_pass']") !== false) {
 	$index = array_flip($matches[1]);
 	$user = trim($matches[2][$index["'mysql_user'"]]);
 	if ($user !== '' && ($user[0] == '"' || $user[0] == '\'')) {
-		$user = trim($user, '\'"');
-		$pass = trim(trim($matches[2][$index["'mysql_pass'"]]), '\'"');
+		$user = $user;
+		$pass = trim($matches[2][$index["'mysql_pass'"]]);
 		$_config_contents = preg_replace('~\$conf\[\'mysql_pass\'\]\s*=\s*.*\n~i', '', $_config_contents);
-		$_config_contents = configFile::update('mysql_user', '["' . $user . '" => "' . $pass . '"]', $_config_contents, false);
+		$_config_contents = configFile::update('mysql_user', '[' . $user . ' => ' . $pass . ']', $_config_contents, false);
 		$update_config = true;
 	}
 }

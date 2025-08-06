@@ -28,7 +28,6 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 	$_DB_last_result = NULL;
 	if (class_exists('PDO')) {
 		$denied = array(
-				1040, /* Too Many Questions */
 				1044, /* invalid user */
 				1045, /* invalid password */
 				1698, /* no password */
@@ -36,7 +35,6 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 				3878, /* empty password */
 				3955 /* account blocked by password lock */
 		);
-		list($username, $password) = selectDBuser($config);
 		$db = $config['mysql_database'];
 		$hostname = $config['mysql_host'];
 		if (!isset($config['mysql_port']) || empty($config['mysql_port'])) {
@@ -54,6 +52,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 			$_DB_connection = NULL; //	don't want to leave connections open
 		}
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
+			list($username, $password) = selectDBuser($config);
 			try {
 				$_DB_connection = new PDO("mysql:host=$hostname;port=$port;socket=$socket;dbname=$db", $username, $password);
 				break;

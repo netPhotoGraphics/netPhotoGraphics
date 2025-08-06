@@ -432,11 +432,18 @@ function db_name() {
  * @return array with user=>password
  */
 function selectDBuser($conf) {
-	if (is_array($conf['mysql_user'])) {
-		$user = array_rand($conf['mysql_user']);
+	static $users;
+	if (is_null($users)) {
+		$users = array_keys($conf['mysql_user']);
+		shuffle($users);
+	}
+	if (!$user = next($users)) {
+		$user = reset($users);
+	}
+	if ($user) {
 		return array($user, $conf['mysql_user'][$user]);
 	}
-	return array($conf['mysql_user'], $conf['mysql_pass']);
+	return array('', '');
 }
 
 /**
