@@ -81,7 +81,7 @@ foreach ($renames as $change) {
 }
 unset($_tableFields);
 
-$tagkeys = query_full_array('SHOW KEYS FROM ' . prefix('tags'));
+$tagkeys = query_full_array('SHOW KEYS FROM ' . prefix('tags'), false);
 foreach ($tagkeys as $tagkey) {
 	if ($tagkey['Column_name'] == 'name' && is_null($tagkey['Sub_part'])) {
 		//	set key size so changing the  tag:name field to utf8mb4 succeeds
