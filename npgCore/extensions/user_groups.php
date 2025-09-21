@@ -266,7 +266,7 @@ class user_groups {
 
 	static function admin_alterrights($alterrights, $userobj) {
 		global $_authority;
-		$groups = explode(',', $userobj->getGroup());
+		$groups = explode(',', strval($userobj->getGroup()));
 		$adminGroups = $_authority->getAdministrators('groups');
 		foreach ($adminGroups as $adminGroup) {
 			if (in_array($adminGroup['user'], $groups)) {
