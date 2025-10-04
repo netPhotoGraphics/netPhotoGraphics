@@ -91,9 +91,6 @@ class accessThreshold {
 				gettext('Mointor only') => array('key' => 'accessThreshold_Monitor', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 7,
 						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
-				gettext('Log Suspension') => array('key' => 'accessThreshold_Log', 'type' => OPTION_TYPE_CHECKBOX,
-						'order' => 7,
-						'desc' => sprintf(gettext('It this box is checked, data will be collected but visitors will not be blocked.'), getOption('accessThreshold_LIMIT'))),
 				gettext('Clear list') => array('key' => 'accessThreshold_CLEAR', 'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 99,
 						'value' => 0,
@@ -343,9 +340,6 @@ if (extensionEnabled('accessThreshold')) {
 			}
 			$recentIP[$ip]['interval'] = $__interval;
 			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
-				if (getOption('accessThreshold_Log')) {
-					npgFilters::apply('access_control', 4, 'threshold', 'accessThreshold', getRequestURI());
-				}
 				$recentIP[$ip]['blocked'] = 2;
 				if (isset($recentIP[$ip]['timesBlocked'])) {
 					$recentIP[$ip]['timesBlocked']++;
