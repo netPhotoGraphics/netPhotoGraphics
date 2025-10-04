@@ -9,8 +9,6 @@ global $_current_context_stack, $_HTML_cache;
 //	insure the site is secure if that is the site's intent
 httpsRedirect();
 
-$_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
-
 require_once(__DIR__ . '/lib-filter.php');
 require_once(__DIR__ . '/load_objectClasses.php');
 

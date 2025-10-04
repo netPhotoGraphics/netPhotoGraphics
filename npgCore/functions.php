@@ -3315,6 +3315,9 @@ class _captcha {
 
 }
 
+global $_captcha;
+$_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
+
 /**
  * stand-in for when there is no HTML cache plugin enabled
  */

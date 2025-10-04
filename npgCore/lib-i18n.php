@@ -489,13 +489,13 @@ function timezoneDiff($server, $local) {
 		foreach ($timezones as $key => $zones) {
 			foreach ($zones as $id => $zone) {
 				if (!isset($offset_server) && !$zone['dst'] && $zone['timezone_id'] === $server) {
-					$offset_server = (int) $zone['offset'];
+					$offset_server = intdiv($zone['offset'], 3600);
 				}
 				if (!isset($offset_local) && !$zone['dst'] && $zone['timezone_id'] === $local) {
-					$offset_local = (int) $zone['offset'];
+					$offset_local = intdiv($zone['offset'], 3600);
 				}
 				if (isset($offset_server) && isset($offset_local)) {
-					return ($offset_server - $offset_local) / 3600;
+					return $offset_server - $offset_local;
 				}
 			}
 		}
