@@ -160,21 +160,21 @@ class zenPhotoCompatibilityPack {
 		self::nextObjFilter(NULL, NULL);
 
 		if (is_object($_authority)) {
-			$_zp_authority = clone $_authority;
+			$_zp_authority = &$_authority;
 		}
 		if (is_object($_current_admin_obj)) {
-			$_zp_current_admin_obj = clone $_current_admin_obj;
+			$_zp_current_admin_obj = &$_current_admin_obj;
 		}
 		if (is_object($_current_search)) {
-			$_zp_current_search = clone $_current_search;
+			$_zp_current_search = &$_current_search;
 		}
 		if (is_object($_current_DailySummary)) {
-			$_zp_current_DailySummary = clone $_current_DailySummary;
+			$_zp_current_DailySummary = &$_current_DailySummary;
 		}
-		$_zp_loggedin = $_loggedin;
-		$_zp_page = $_current_page;
-		$_zp_gallery_page = $_gallery_page;
-		$_zp_themeroot = $_themeroot;
+		$_zp_loggedin = &$_loggedin;
+		$_zp_page = &$_current_page;
+		$_zp_gallery_page = &$_gallery_page;
+		$_zp_themeroot = &$_themeroot;
 
 		return $param;
 	}
@@ -186,27 +186,27 @@ class zenPhotoCompatibilityPack {
 		global $_CMS_current_article, $_CMS_current_page, $_CMS_current_category, $_current_album, $_current_image;
 
 		if ($_current_album) {
-			$_zp_current_album = clone $_current_album;
+			$_zp_current_album = &$_current_album;
 		} else {
 			$_zp_current_album = NULL;
 		}
 		if ($_current_image) {
-			$_zp_current_image = clone $_current_image;
+			$_zp_current_image = &$_current_image;
 		} else {
 			$_zp_current_image = NULL;
 		}
 		if ($_CMS_current_page) {
-			$_zp_current_zenpage_page = clone $_CMS_current_page;
+			$_zp_current_zenpage_page = &$_CMS_current_page;
 		} else {
 			$_zp_current_zenpage_page = $_zp_current_page = NULL;
 		}
 		if ($_CMS_current_article) {
-			$_zp_current_zenpage_news = clone $_CMS_current_article;
+			$_zp_current_zenpage_news = &$_CMS_current_article;
 		} else {
 			$_zp_current_zenpage_news = $_zp_current_article = NULL;
 		}
 		if ($_CMS_current_category) {
-			$_zp_current_category = clone $_CMS_current_category;
+			$_zp_current_category = &$_CMS_current_category;
 		} else {
 			$_zp_current_category = NULL;
 		}
@@ -223,8 +223,8 @@ class zenPhotoCompatibilityPack {
 			}
 			$tabs['development']['subtabs'][gettext("legacy Converter")] = USER_PLUGIN_FOLDER . '/zenphotoCompatibilityPack/legacyConverter.php?page=development&tab=legacyConverter';
 		}
-		$_zp_authority = clone $_authority;
-		$_zp_current_admin_obj = clone $_current_admin_obj;
+		$_zp_authority = &$_authority;
+		$_zp_current_admin_obj = &$_current_admin_obj;
 
 		return $tabs;
 	}
@@ -268,7 +268,7 @@ switch (OFFSET_PATH) {
 
 			}
 
-			$_zp_zenpage = clone $_CMS;
+			$_zp_zenpage = &$_CMS;
 
 			//define the legacy definitions
 			define('ZP_NEWS_ENABLED', $_CMS->news_enabled);
@@ -288,8 +288,8 @@ switch (OFFSET_PATH) {
 
 		require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
 
-		$_zp_captcha = clone $_captcha;
-		$_zp_gallery = clone $_gallery;
+		$_zp_captcha = &$_captcha;
+		$_zp_gallery = &$_gallery;
 
 		define('ZENFOLDER', CORE_FOLDER);
 		define('SERVER_HTTP_HOST', FULLHOSTPATH);
