@@ -315,7 +315,7 @@ if (extensionEnabled('accessThreshold')) {
 			if (!$monitor) {
 				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
 				$mu->unlock();
-				if (is_object($_siteMutex)) {
+				if (isset($_siteMutex) && is_object($_siteMutex)) {
 					$_siteMutex->unlock();
 				}
 				db_close();
