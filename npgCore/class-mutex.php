@@ -97,6 +97,7 @@ class npgMutex {
 		if ($this->locked) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
+			fwrite($this->mutex, "Unlocked \n");
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;
