@@ -337,7 +337,7 @@ function getOptionContent() {
 						<td class="option_value">
 							<?php
 							$max = min(CONCURRENCY_MAX, 60);
-							putSlider('', 'threadConcurrency', 1, $max, THREAD_CONCURRENCY);
+							putSlider('', 'threadConcurrency', 0, $max, THREAD_CONCURRENCY);
 							?>
 						</td>
 						<td class="option_desc">
@@ -346,6 +346,7 @@ function getOptionContent() {
 								<div class="option_desc_hidden">
 									<?php
 									echo gettext('Limit to the number of front-end scripts that will execute concurrently.');
+									echo '<br/>' . gettext('When <i>Thread concurrency</i> is zero the number of threads is not constrained.');
 									?>
 								</div>
 							</span>

@@ -664,7 +664,7 @@ function optionCheck($urls) {
 		foreach ($urls as $whom => $url) {
 			$urls[$whom] = $url . '&curl';
 		}
-		$sections = array_chunk($urls, min(10, THREAD_CONCURRENCY - 1), true);
+		$sections = array_chunk($urls, min(10, THREAD_CONCURRENCY ? (THREAD_CONCURRENCY - 1) : 5), true);
 		foreach ($sections as $block) {
 			$checks = new ParallelCURL($block);
 			$rsp = $checks->getResults();

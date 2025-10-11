@@ -227,7 +227,7 @@ function loadAlbum($album) {
 		if ($count) {
 			echo '{ ';
 			if (CURL_ENABLED) {
-				$sections = array_chunk($needsCaching, min(5, THREAD_CONCURRENCY - 1), true);
+				$sections = array_chunk($needsCaching, min(5, THREAD_CONCURRENCY ? (THREAD_CONCURRENCY - 1) : 5), true);
 				foreach ($sections as $block) {
 					set_time_limit(200);
 					$uriList = array();

@@ -110,18 +110,17 @@ if (!$__initialDBConnection && OFFSET_PATH != 2) {
 
 define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
 $chunk = getOption('THREAD_CONCURRENCY');
-if (!$chunk) {
+if (is_null($chunk)) {
 	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
 }
 define('THREAD_CONCURRENCY', $chunk);
 unset($chunk);
-define('MUTEX_ENABLED', !getOption('NO_MUTEX'));
 
 $_configMutex = new npgMutex('cF');
 $_npgMutex = new npgMutex();
 
-if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && $_conf_vars['THREAD_CONCURRENCY']) {
-	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
+if (OFFSET_PATH == 0 && THREAD_CONCURRENCY) { //	limit the number simultaneous of front-end accesses
+	$_siteMutex = new npgMutex('tH', THREAD_CONCURRENCY);
 	$_siteMutex->lock();
 }
 
