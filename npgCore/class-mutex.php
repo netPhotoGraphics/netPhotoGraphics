@@ -13,7 +13,7 @@ class npgMutex {
 
 	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
 		// if any of the construction fails, run in free mode (lock = NULL)
-		if (defined('SERVERPATH')) {
+		if (defined('SERVERPATH') && defined('MUTEX_ENABLED')) {
 			if (is_null($folder)) {
 				$folder = SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER;
 			}

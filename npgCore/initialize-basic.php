@@ -26,13 +26,6 @@ if (DISPLAY_ERRORS) {
 set_error_handler("npgErrorHandler");
 set_exception_handler("npgExceptionHandler");
 register_shutdown_function('npgShutDownFunction');
-$_configMutex = new npgMutex('cF');
-$_npgMutex = new npgMutex();
-
-if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && isset($_conf_vars['THREAD_CONCURRENCY']) && $_conf_vars['THREAD_CONCURRENCY']) {
-	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
-	$_siteMutex->lock();
-}
 
 if (!defined('CHMOD_VALUE')) {
 	define('CHMOD_VALUE', isset($_conf_vars['CHMOD']) ? $_conf_vars['CHMOD'] : fileperms(__DIR__) & 0666);
@@ -113,6 +106,23 @@ define('MySQL_CONNECTIONS', $software['connections']);
 
 if (!$__initialDBConnection && OFFSET_PATH != 2) {
 	_setup(13);
+}
+
+define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
+$chunk = getOption('THREAD_CONCURRENCY');
+if (!$chunk) {
+	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
+}
+define('THREAD_CONCURRENCY', $chunk);
+unset($chunk);
+define('MUTEX_ENABLED', !getOption('NO_MUTEX'));
+
+$_configMutex = new npgMutex('cF');
+$_npgMutex = new npgMutex();
+
+if (OFFSET_PATH >= 0 && OFFSET_PATH != 2 && $_conf_vars['THREAD_CONCURRENCY']) {
+	$_siteMutex = new npgMutex('tH', $_conf_vars['THREAD_CONCURRENCY']);
+	$_siteMutex->lock();
 }
 
 $as_ci = false;
@@ -231,16 +241,6 @@ define('GITHUB_ORG', 'netPhotoGraphics');
 define('GITHUB', 'github.com/' . GITHUB_ORG . '/netPhotoGraphics');
 
 define('ENCODING_FALLBACK', getOption('encoding_fallback') && MOD_REWRITE);
-
-define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
-
-$chunk = getOption('THREAD_CONCURRENCY');
-if (!$chunk) {
-	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
-}
-define('THREAD_CONCURRENCY', $chunk);
-
-unset($chunk);
 
 $_tagURLs_values = array(
 		'{*FULLWEBPATH*}' => FULLWEBPATH,
