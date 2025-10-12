@@ -59,6 +59,9 @@ if (!isset($_conf_vars['special_pages'])) {
 	unset($conf);
 }
 
+$_configMutex = new npgMutex('cF');
+$_npgMutex = new npgMutex();
+
 if (OFFSET_PATH != 2) {
 	if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		_setup(11);
@@ -115,9 +118,6 @@ if (is_null($chunk)) {
 }
 define('THREAD_CONCURRENCY', $chunk);
 unset($chunk);
-
-$_configMutex = new npgMutex('cF');
-$_npgMutex = new npgMutex();
 
 if (OFFSET_PATH == 0 && THREAD_CONCURRENCY) { //	limit the number simultaneous of front-end accesses
 	$_siteMutex = new npgMutex('tH', THREAD_CONCURRENCY);
