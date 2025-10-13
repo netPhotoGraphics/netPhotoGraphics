@@ -70,7 +70,7 @@ class npgMutex {
 					if (flock($this->mutex, LOCK_EX)) {
 						$this->locked = true;
 						ftruncate($this->mutex, 0);
-						fwrite($this->mutex, getUserIP() . "\n");
+						fwrite($this->mutex, getUserIP() . NEWLINE . 'Locked ' . gmdate('D, d M Y H:i:s') . " GMT" . NEWLINE);
 						if (TEST_RELEASE) {
 							ob_start();
 							debug_print_backtrace();
@@ -97,7 +97,7 @@ class npgMutex {
 		if ($this->locked) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
-			fwrite($this->mutex, "Unlocked\n");
+			fwrite($this->mutex, 'Un-locked ' . gmdate('D, d M Y H:i:s') . " GMT" . NEWLINE);
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;
