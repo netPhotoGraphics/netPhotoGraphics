@@ -97,7 +97,7 @@ class npgMutex {
 		if ($this->locked) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
-			fwrite($this->mutex, 'Un-locked ' . gmdate('D, d M Y H:i:s') . " GMT" . NEWLINE);
+			ftruncate($this->mutex, 0); //	which_lock prefers empty files
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;
