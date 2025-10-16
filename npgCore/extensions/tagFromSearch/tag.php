@@ -148,6 +148,9 @@ echo "\n</head>";
 					} else {
 						$tags = array();
 					}
+					foreach ($tags as $key => $tag) {
+						$tags[$key] = trim($tag);
+					}
 					$tags = array_unique($tags);
 					$totag = array();
 					if ($imagechecked)

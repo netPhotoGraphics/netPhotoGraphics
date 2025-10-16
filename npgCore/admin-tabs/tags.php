@@ -52,6 +52,10 @@ if (isset($_GET['action'])) {
 			} else {
 				$tags = array();
 			}
+			foreach ($tags as $key => $tag) {
+				$tags[$key] = trim($tag);
+			}
+			$tags = array_unique($tags);
 			if (isset($_POST['lang_list_tags_'])) {
 				$langs = sanitize($_POST['lang_list_tags_']);
 			} else {

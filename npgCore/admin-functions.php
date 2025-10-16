@@ -3360,6 +3360,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		} else {
 			$tags = array();
 		}
+		foreach ($tags as $key => $tag) {
+			$tags[$key] = trim($tag);
+		}
 		$tags = array_unique($tags);
 		$album->setTags($tags);
 		if (isset($_POST[$prefix . 'thumb']))
@@ -5158,6 +5161,10 @@ function bulkTags() {
 	} else {
 		$tags = array();
 	}
+	foreach ($tags as $key => $tag) {
+		$tags[$key] = trim($tag);
+	}
+	$tags = array_unique($tags);
 	return $tags;
 }
 

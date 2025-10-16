@@ -31,6 +31,9 @@ function processTags($object) {
 	} else {
 		$tags = array();
 	}
+	foreach ($tags as $key => $tag) {
+		$tags[$key] = trim($tag);
+	}
 	$tags = array_unique($tags);
 	$object->setTags($tags);
 }

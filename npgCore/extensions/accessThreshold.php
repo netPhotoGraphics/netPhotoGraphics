@@ -274,95 +274,95 @@ if (OFFSET_PATH) {
 	if (OFFSET_PATH == 2) {
 		setOption('accessThreshold_Owner', getUserIP());
 	}
-}
-
-if (extensionEnabled('accessThreshold')) {
-	if (!isset($_current_admin_obj) || (!$me = $_current_admin_obj && !$_current_admin_obj->transient)) {
-		$me = getUserIP() == getOption('accessThreshold_Owner');
-	} else {
-		if ($_current_admin_obj->master) {
-			if (getOption('accessThreshold_Owner') != $ip = getUserIP()) {
-				//	keep it mostly current if the user does not have a static IP
-				setOption('accessThreshold_Owner', $ip);
-			}
-		}
-	}
-
-	if (!$me) {
-		$monitor = getOption('accessThreshold_Monitor');
-		$mu = new npgMutex('aT');
-		$mu->lock();
-		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
-			$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
+} else {
+	if (extensionEnabled('accessThreshold')) {
+		if (!isset($_current_admin_obj) || (!$me = $_current_admin_obj && !$_current_admin_obj->transient)) {
+			$me = getUserIP() == getOption('accessThreshold_Owner');
 		} else {
-			$recentIP = array();
-		}
-
-		$__time = time();
-		$full_ip = getUserIP();
-		$ip = accessThreshold::maskIP($full_ip);
-		$window = getOption('accessThreshold_IP_ACCESS_WINDOW');
-		if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > $window) {
-			$recentIP[$ip] = array(
-					'accessed' => array(),
-					'blocked' => 0,
-					'timesBlocked' => isset($recentIP[$ip]['timesBlocked']) ? $recentIP[$ip]['timesBlocked'] : 0,
-					'interval' => 0
-			);
-		}
-		$recentIP[$ip]['lastAccessed'] = $__time;
-		if (isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
-			if (!$monitor) {
-				file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
-				$mu->unlock();
-				if (isset($_siteMutex) && is_object($_siteMutex)) {
-					$_siteMutex->unlock();
-				}
-				db_close();
-				header("HTTP/1.0 429 Too Many Requests");
-				header("Status: 429 Too Many Requests");
-				header("Retry-After: $window");
-				exit(); //	terminate the script with no output
-			}
-		} else {
-			$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
-			$__previous = $__interval = $__count = 0;
-			array_walk($recentIP[$ip]['accessed'], 'accessThreshold::walk', $__time);
-			foreach ($recentIP[$ip]['accessed'] as $key => $data) {
-				if (is_null($data)) {
-					unset($recentIP[$ip]['accessed'][$key]);
+			if ($_current_admin_obj->master) {
+				if (getOption('accessThreshold_Owner') != $ip = getUserIP()) {
+					//	keep it mostly current if the user does not have a static IP
+					setOption('accessThreshold_Owner', $ip);
 				}
 			}
-			if ($__count > 1) {
-				$__interval = $__interval / $__count;
+		}
+
+		if (!$me) {
+			$monitor = getOption('accessThreshold_Monitor');
+			$mu = new npgMutex('aT');
+			$mu->lock();
+			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg')) {
+				$recentIP = getSerializedArray(file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg'));
 			} else {
-				$__interval = 0;
+				$recentIP = array();
 			}
-			$recentIP[$ip]['interval'] = $__interval;
-			if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
-				$recentIP[$ip]['blocked'] = 2;
-				if (isset($recentIP[$ip]['timesBlocked'])) {
-					$recentIP[$ip]['timesBlocked']++;
+
+			$__time = time();
+			$full_ip = getUserIP();
+			$ip = accessThreshold::maskIP($full_ip);
+			$window = getOption('accessThreshold_IP_ACCESS_WINDOW');
+			if (isset($recentIP[$ip]['lastAccessed']) && $__time - $recentIP[$ip]['lastAccessed'] > $window) {
+				$recentIP[$ip] = array(
+						'accessed' => array(),
+						'blocked' => 0,
+						'timesBlocked' => isset($recentIP[$ip]['timesBlocked']) ? $recentIP[$ip]['timesBlocked'] : 0,
+						'interval' => 0
+				);
+			}
+			$recentIP[$ip]['lastAccessed'] = $__time;
+			if (isset($recentIP[$ip]['blocked']) && $recentIP[$ip]['blocked']) {
+				if (!$monitor) {
+					file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+					$mu->unlock();
+					if (isset($_siteMutex) && is_object($_siteMutex)) {
+						$_siteMutex->unlock();
+					}
+					db_close();
+					header("HTTP/1.0 429 Too Many Requests");
+					header("Status: 429 Too Many Requests");
+					header("Retry-After: $window");
+					exit(); //	terminate the script with no output
+				}
+			} else {
+				$recentIP[$ip]['accessed'][] = array('time' => $__time, 'ip' => $full_ip);
+				$__previous = $__interval = $__count = 0;
+				array_walk($recentIP[$ip]['accessed'], 'accessThreshold::walk', $__time);
+				foreach ($recentIP[$ip]['accessed'] as $key => $data) {
+					if (is_null($data)) {
+						unset($recentIP[$ip]['accessed'][$key]);
+					}
+				}
+				if ($__count > 1) {
+					$__interval = $__interval / $__count;
 				} else {
-					$recentIP[$ip]['timesBlocked'] = 1;
+					$__interval = 0;
+				}
+				$recentIP[$ip]['interval'] = $__interval;
+				if ($__count > getOption('accessThreshold_SIGNIFICANT') && $__interval < getOption('accessThreshold_THRESHOLD')) {
+					$recentIP[$ip]['blocked'] = 2;
+					if (isset($recentIP[$ip]['timesBlocked'])) {
+						$recentIP[$ip]['timesBlocked']++;
+					} else {
+						$recentIP[$ip]['timesBlocked'] = 1;
+					}
 				}
 			}
+			if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
+				$recentIP = sortMultiArray($recentIP, array('lastAccessed' => true), true, false, true);
+				$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
+			}
+			file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
+			$mu->unlock();
+			unset($ip);
+			unset($full_ip);
+			unset($recentIP);
+			unset($__time);
+			unset($__interval);
+			unset($__previous);
+			unset($__count);
+			unset($__locale);
+			unset($mu);
 		}
-		if (count($recentIP) - 1 > getOption('accessThreshold_IP_RETENTION')) {
-			$recentIP = sortMultiArray($recentIP, array('lastAccessed' => true), true, false, true);
-			$recentIP = array_slice($recentIP, 0, getOption('accessThreshold_IP_RETENTION'));
-		}
-		file_put_contents(SERVERPATH . '/' . DATA_FOLDER . '/recentIP.cfg', serialize($recentIP));
-		$mu->unlock();
-		unset($ip);
-		unset($full_ip);
-		unset($recentIP);
-		unset($__time);
-		unset($__interval);
-		unset($__previous);
-		unset($__count);
-		unset($__locale);
-		unset($mu);
+		unset($me);
 	}
-	unset($me);
 }
