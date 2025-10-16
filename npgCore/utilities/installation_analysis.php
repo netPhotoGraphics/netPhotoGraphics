@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-									$(document).ready(function () {
-										$(".doc").colorbox({
-											close: '<?php echo gettext("close"); ?>',
-											maxHeight: "98%",
-											innerWidth: '560px'
-										});
-									});
-									//-->
+																	$(document).ready(function () {
+												$(".doc").colorbox({
+													close: '<?php echo gettext("close"); ?>',
+													maxHeight: "98%",
+													innerWidth: '560px'
+												});
+											});
+											//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -186,6 +186,28 @@ echo '</head>';
 									</div>
 								</li>
 								<?php
+								if (isset($_conf_vars['GitHub_SSL_OPT'])) {
+									?>
+									<li>
+										<div class="hangng_indent">
+											<?php
+											printf(gettext('<code>GitHub_SSL_OPT</code> is set to 0x%05X in npg.cfg.php'), $_conf_vars['GitHub_SSL_OPT']);
+											?>
+										</div>
+									</li>
+									<?php
+								}
+								if (isset($_conf_vars['CURL_ENABLED'])) {
+									?>
+									<li>
+										<div class="hangng_indent">
+											<?php
+											printf(gettext('<code>CURL_ENABLED</code> is set %1$s in npg.cfg.php'), $_conf_vars['CURL_ENABLED'] ? 'TRUE' : 'FALSE');
+											?>
+										</div>
+									</li>
+									<?php
+								}
 							}
 							?>
 							<li>
