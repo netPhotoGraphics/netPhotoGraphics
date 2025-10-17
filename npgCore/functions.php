@@ -1275,7 +1275,7 @@ function storeTags($tags, $id, $tbl) {
 	if ($id) {
 		$tagsLC = array();
 		foreach ($tags as $key => $tag) {
-			$tag = trim($tag, '\'"');
+			$tag = trim($tag, ' \'"');
 			if (!empty($tag)) {
 				$lc_tag = mb_strtolower($tag);
 				if (!in_array($lc_tag, $tagsLC)) {

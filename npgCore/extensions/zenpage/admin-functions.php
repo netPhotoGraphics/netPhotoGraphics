@@ -27,12 +27,9 @@ function getExpiryDatePost() {
  */
 function processTags($object) {
 	if (isset($_POST['tag_list_tags_'])) {
-		$tags = sanitize($_POST['tag_list_tags_']);
+		$tags = array_map('trim', sanitize($_POST['tag_list_tags_']));
 	} else {
 		$tags = array();
-	}
-	foreach ($tags as $key => $tag) {
-		$tags[$key] = trim($tag);
 	}
 	$tags = array_unique($tags);
 	$object->setTags($tags);
