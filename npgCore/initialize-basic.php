@@ -28,15 +28,25 @@ set_exception_handler("npgExceptionHandler");
 register_shutdown_function('npgShutDownFunction');
 
 if (!defined('CHMOD_VALUE')) {
-	define('CHMOD_VALUE', isset($_conf_vars['CHMOD']) ? $_conf_vars['CHMOD'] : fileperms(__DIR__) & 0666);
+	if (isset($_conf_vars['CHMOD'])) {
+		define('CHMOD_VALUE', $_conf_vars['CHMOD']);
+	} else {
+		if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
+			define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . '/security.log') & 0777);
+			define('CHMOD_VALUE', LOG_MOD & 0666);
+		} else {
+			define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
+			define('CHMOD_VALUE', LOG_MOD & 0666);
+		}
+		if (!defined('CHMOD_VALUE')) {
+			define('CHMOD_VALUE', fileperms(__DIR__) & 0666);
+		}
+	}
 }
+
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
 define('FILE_MOD', CHMOD_VALUE & 0666 | 0400);
-if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
-	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . '/security.log') & 0777);
-} else if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
-	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE) & 0777);
-} else {
+if (!defined('LOG_MOD')) {
 	define('LOG_MOD', FILE_MOD);
 }
 if (!isset($_conf_vars['mysql_prefix'])) {
@@ -47,13 +57,13 @@ if (!isset($_conf_vars['charset'])) {
 	$_conf_vars['charset'] = 'UTF-8';
 }
 if (!is_array($_conf_vars['mysql_user'])) {
-	//	migrate to array of users
+//	migrate to array of users
 	$_conf_vars['mysql_user'] = array($_conf_vars['mysql_user'] => $_conf_vars['mysql_pass']);
 	unset($_conf_vars['mysql_pass']);
 }
 define('LOCAL_CHARSET', $_conf_vars['charset']);
 if (!isset($_conf_vars['special_pages'])) {
-	//	get the default version form the distribution files
+//	get the default version form the distribution files
 	require (CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt');
 	$_conf_vars['special_pages'] = $conf['special_pages'];
 	unset($conf);

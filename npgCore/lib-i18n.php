@@ -156,7 +156,7 @@ class i18n {
 		bindtextdomain($domain, $domainpath);
 		bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
-		//invalidate because the locale was not setup until now
+		//	invalidate because the locale was not setup until now
 		$_active_languages = $_all_languages = NULL;
 	}
 
@@ -321,11 +321,13 @@ class i18n {
 				$matches = explode('.', $_SERVER['HTTP_HOST']);
 
 				$new_locale = self::validateLocale($matches[0], 'HTTP_HOST');
-				if ($new_locale && getNPGCookie('dynamic_locale')) {
-					clearNPGCookie('dynamic_locale');
+				if ($new_locale) {
+					if (getNPGCookie('dynamic_locale')) {
+						clearNPGCookie('dynamic_locale');
+					}
+					if (DEBUG_LOCALE)
+						debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$new_locale");
 				}
-				if (DEBUG_LOCALE && $new_locale)
-					debugLog("dynamic_locale from HTTP_HOST: " . sanitize($matches[0]) . "=>$new_locale");
 			}
 		}
 
@@ -350,7 +352,7 @@ class i18n {
 				debugLog("locale from locale option: " . $new_locale);
 		}
 
-		//check the HTTP accept lang
+		//	check the HTTP accept lang
 		if (empty($new_locale)) { // if one is not set, see if there is a match from 'HTTP_ACCEPT_LANGUAGE'
 			$languageSupport = self::generateLanguageList();
 			$userLang = self::parseHttpAcceptLanguage();
@@ -571,7 +573,7 @@ function localeCompare($a, $b, $nat, $case) {
 		$Collator->setAttribute(Collator::CASE_FIRST, $case ? Collator::OFF : Collator::UPPER_FIRST);
 		return $Collator->compare($a, $b);
 	} else {
-		//create the comparator function
+		//	create the comparator function
 		$comp = 'str';
 		if ($nat) {
 			$comp .= 'nat';
