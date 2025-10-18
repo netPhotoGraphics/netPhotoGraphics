@@ -65,7 +65,7 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																	$(document).ready(function () {
+																					$(document).ready(function () {
 												$(".doc").colorbox({
 													close: '<?php echo gettext("close"); ?>',
 													maxHeight: "98%",
@@ -160,11 +160,6 @@ echo '</head>';
 								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
 								?>
 							</li>
-							<li>
-								<div class="hangng_indent">
-									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
-								</div>
-							</li>
 
 							<?php
 							$loaded = get_loaded_extensions();
@@ -210,6 +205,11 @@ echo '</head>';
 								}
 							}
 							?>
+							<li>
+								<div class="hangng_indent">
+									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
+								</div>
+							</li>
 							<li>
 								<?php
 								$memoryLimit = INI_GET('memory_limit');
