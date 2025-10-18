@@ -614,7 +614,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 	}
 	$datecount = $_CMS->getAllArticleDates($yearsonly, $order);
 	$lastyear = "";
-	$nr = "";
+	$nr = 0;
 	echo "\n<ul $class>\n";
 	foreach ($datecount as $key => $val) {
 		$nr++;
