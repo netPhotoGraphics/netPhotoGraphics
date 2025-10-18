@@ -35,7 +35,7 @@
 $plugin_is_filter = 5 | CLASS_PLUGIN;
 if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext("Enable <strong>VideoJS</strong> to handle multimedia files.");
-	$plugin_notice = gettext("<strong>IMPORTANT</strong>: Only one multimedia extension plugin can be enabled at the time and the class-video plugin must be enabled, too.") . '<br /><br />' . gettext("Please see <a href='http://videojs.com'>VideoJS.com</a> for more info about the player and its license.");
+	$plugin_notice = gettext("<strong>IMPORTANT</strong>: Only one multimedia extension plugin can be enabled at the time and the class-video plugin must be enabled, too.") . '<br /><br />' . gettext("Please see <a href='https://videojs.org'>VideoJS.org</a> for more info about the player and its license.");
 	$plugin_disable = npgFunctions::pluginDisable(array(array(!extensionEnabled('class-video'), gettext('This plugin requires the <em>class-video</em> plugin')), array(class_exists('Video') && Video::multimediaExtension() != 'VideoJS' && Video::multimediaExtension() != 'html5Player', sprintf(gettext('VideoJS not enabled, <a href="#%1$s"><code>%1$s</code></a> is already instantiated.'), class_exists('Video') ? Video::multimediaExtension() : false)), array(getOption('album_folder_class') === 'external', gettext('This player does not support <em>External Albums</em>.'))));
 }
 
