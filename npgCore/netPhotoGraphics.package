@@ -952,7 +952,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/global-definitions.php
 %core%/gpl-2.0-standalone.htm
 %core%/htaccess
-%core%/htmlawed.php
+%core%/htmLawed.php
 %core%/i.php
 %core%/index.php
 %core%/initialize-basic.php
