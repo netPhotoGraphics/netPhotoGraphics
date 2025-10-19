@@ -57,7 +57,7 @@
 					?>
 					<?php
 					if (getOption('twitter_profile') != '') {
-						echo '<a href="http://www.twitter.com/';
+						echo '<a href="';
 						echo getOption('twitter_profile');
 						echo '" target="_blank"><em class="social-icon-twitter"></em></a> ';
 					}
