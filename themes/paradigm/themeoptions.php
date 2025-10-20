@@ -135,54 +135,54 @@ class ThemeOptions {
 						'key' => 'analytics_code',
 						'type' => OPTION_TYPE_CLEARTEXT,
 						'order' => 9,
-						'desc' => gettext('If you use <a href="http://www.google.com/analytics">Google Analytics</a>, paste your ID here')
+						'desc' => gettext('If you use <a href="https://www.google.com/analytics">Google Analytics</a>, paste your ID here')
 				),
 				gettext('ShareThis id') => array(
 						'key' => 'sharethis_id',
 						'type' => OPTION_TYPE_TEXTBOX,
 						'order' => 10,
-						'desc' => gettext('Provide your <a href="http://www.sharethis.com">ShareThis</a> ID')
+						'desc' => gettext('Provide your <a href="https://www.sharethis.com">ShareThis</a> ID')
 				),
 				gettext('AddThis code') => array(
 						'key' => 'addthis_code',
 						'type' => OPTION_TYPE_TEXTAREA,
 						'order' => 11,
-						'desc' => gettext('Write your <a href="http://www.addthis.com">Addthis</a> Code (the one under "Go to www.addthis.com/dashboard to customize your tools"). Use small buttons for AddThis. Do not add both Addthis and Sharethis!')
+						'desc' => gettext('Write your <a href="https://www.addthis.com">Addthis</a> Code (the one under "Go to www.addthis.com/dashboard to customize your tools"). Use small buttons for AddThis. Do not add both Addthis and Sharethis!')
 				),
 				gettext('URL to Facebook') => array(
 						'key' => 'facebook_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://www.facebook.com">Facebook</a> page or profile URL')
+						'desc' => gettext('Provide your <a href="https://www.facebook.com">Facebook</a> page or profile URL')
 				),
-				gettext('Twitter profile name') => array(
+				gettext('X.com profile name') => array(
 						'key' => 'twitter_profile',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://www.twitter.com">Twitter</a> profile name (without the @)')
+						'desc' => gettext('Provide your <a href="https://x.com">X.com</a> profile name (without the @)')
 				),
 				gettext('URL to Google Plus Page') => array(
 						'key' => 'googleplus_page_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://plus.google.com">Google Plus</a> <em>page</em> URL')
+						'desc' => gettext('Provide your <a href="https://plus.google.com">Google Plus</a> <em>page</em> URL')
 				),
 				gettext('URL to FlickR') => array(
 						'key' => 'flickr_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://www.flickr.com">FlickR</a> gallery URL')
+						'desc' => gettext('Provide your <a href="https://www.flickr.com">FlickR</a> gallery URL')
 				),
 				gettext('URL to 500px') => array(
 						'key' => '500px_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://500px.com">500px</a> gallery URL')
+						'desc' => gettext('Provide your <a href="https://500px.com">500px</a> gallery URL')
 				),
 				gettext('URL to Instagram') => array(
 						'key' => 'instagram_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://instagram.com/">Instagram</a>')
+						'desc' => gettext('Provide your <a href="https://instagram.com/">Instagram</a>')
 				),
 				gettext('URL to Pinterest') => array(
 						'key' => 'pinterest_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://pinterest.com/">Pinterest</a> board or page')
+						'desc' => gettext('Provide your <a href="https://pinterest.com/">Pinterest</a> board or page')
 				),
 				gettext('URL to Deviantart') => array(
 						'key' => 'deviantart_url',
@@ -192,7 +192,7 @@ class ThemeOptions {
 				gettext('URL to Tumblr') => array(
 						'key' => 'tumblr_url',
 						'type' => OPTION_TYPE_TEXTBOX,
-						'desc' => gettext('Provide your <a href="http://tumblr.com/">Tumblr</a> page URL')
+						'desc' => gettext('Provide your <a href="https://tumblr.com/">Tumblr</a> page URL')
 				)
 		);
 	}

@@ -12,7 +12,7 @@
  *
  * @param string $uri The uri to send the request to. Sets `curl_setopt($ch, CURLOPT_URL, $uri);`
  * @param array $options An array of cURL options to set (uri is set via the separate parameter)
- * See http://php.net/manual/en/function.curl-setopt.php for more info
+ * See https://php.net/manual/en/function.curl-setopt.php for more info
  * @return boolean
  */
 function curlRequest($uri, $options = array()) {
