@@ -1452,7 +1452,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	$indent = 1;
 	$open = array($indent => 0);
 	$parents = array(NULL);
-	$order = explode('-', $currentitem_sortorder);
+	$order = explode('-', strval($currentitem_sortorder));
 	$baseindent = max(1, count($order));
 	$mylevel = count($order);
 	$myparentsort = reset($order);
