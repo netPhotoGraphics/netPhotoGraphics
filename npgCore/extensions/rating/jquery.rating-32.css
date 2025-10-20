@@ -1,4 +1,4 @@
-/* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
+/* jQuery.Rating Plugin CSS - https://github.com/fyneworks/star-rating/ */
 div.rating-cancel,div.star-rating{float:left;width:33px;height:31px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden}
 div.rating-cancel,div.rating-cancel a{background:url(delete-32.png) no-repeat 0 -32px}
 div.star-rating,div.star-rating a{background:url(star-32.png) no-repeat 0 0px}
