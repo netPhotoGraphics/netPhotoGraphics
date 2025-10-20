@@ -8,13 +8,13 @@ namespace Base32;
  * Last update: 2012-06-20
  *
  * RFC 4648 compliant
- * @link http://www.ietf.org/rfc/rfc4648.txt
+ * @link https://www.ietf.org/rfc/rfc4648.txt
  *
  * Some groundwork based on this class
  * https://github.com/NTICompass/PHP-Base32
  *
  * @author Christian Riesen <chris.riesen@gmail.com>
- * @link http://christianriesen.com
+ * @link https://christianriesen.com
  * @license MIT License see LICENSE file
  */
 class Base32 {
