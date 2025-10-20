@@ -1,7 +1,7 @@
 <?php
 /**
  * Provide javaScript tag "suggestions"
- * Based on Remy Sharp's {@link http://remysharp.com/2007/12/28/jquery-tag-suggestion/ jQuery Tag Suggestion}
+ * Based on Remy Sharp's {@link https://remysharp.com/2007/12/28/jquery-tag-suggestion/ jQuery Tag Suggestion}
  * plugin as modified for netPhotoGraphics to enhance performance.
  *
  * This plugin provides suggestions for tag fields such as the search form. It is
