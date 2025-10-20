@@ -322,6 +322,12 @@ class i18n {
 
 				$new_locale = self::validateLocale($matches[0], 'HTTP_HOST');
 				if ($new_locale) {
+					if (self::validateLocale($matches[1], 'HTTP_HOST')) {
+						//	deny some web crawlers which cascade multiple locale prefixes
+						header("HTTP/1.0 403 Forbidden");
+						header("Status: 403 Forbidden");
+						exit(); //	terminate the script with no output
+					}
 					if (getNPGCookie('dynamic_locale')) {
 						clearNPGCookie('dynamic_locale');
 					}
