@@ -37,21 +37,21 @@ Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 == INSTALATION AND USAGE ==
 
  * INSTALL file
- * http://sourceforge.net/apps/mediawiki/phpqrcode/index.php?title=Main_Page
+ * https://sourceforge.net/p/phpqrcode/wiki/Home/
 
 == CONTACT ==
 
 Fell free to contact me via e-mail (deltalab at poczta dot fm) or using
 folowing project pages:
 
- * http://sourceforge.net/projects/phpqrcode/
- * http://phpqrcode.sourceforge.net/
+ * https://sourceforge.net/projects/phpqrcode/
+ * https://phpqrcode.sourceforge.net/
   
 == ACKNOWLEDGMENTS ==
 
 Based on C libqrencode library (ver. 3.1.1) 
 Copyright (C) 2006-2010 by Kentaro Fukuchi
-http://megaui.net/fukuchi/works/qrencode/index.en.html
+https://fukuchi.org/en/works/qrencode/index.html
 
 QR Code is registered trademarks of DENSO WAVE INCORPORATED in JAPAN and other
 countries.
