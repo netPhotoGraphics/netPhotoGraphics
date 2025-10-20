@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2009 Trent Foley (http://trentacular.com)
  * Licensed under the MIT License:
- *   http://www.opensource.org/licenses/mit-license.php
+ *   https://opensource.org/license/mit
  */
 ;(function($) {
 	var defaults = {
