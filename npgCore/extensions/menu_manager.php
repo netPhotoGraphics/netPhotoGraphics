@@ -1338,7 +1338,7 @@ function printCustomMenu($menuset = 'default', $option = 'list', $css_id = '', $
 			}
 		}
 	}
-// cleanup any hanging list elements
+	// cleanup any hanging list elements
 	while ($indent > 1) {
 		if ($open[$indent]) {
 			echo "</li>\n";
