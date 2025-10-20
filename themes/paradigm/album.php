@@ -16,7 +16,7 @@ if (!defined('WEBPATH'))
 	}
 	?>">
 				 <?php include(SERVERPATH . '/' . THEMEFOLDER . '/paradigm/includes/breadcrumbs.php'); ?>
-		<div id="center" class="row" itemscope itemtype="http://schema.org/ImageGallery">
+		<div id="center" class="row" itemscope itemtype="https://schema.org/ImageGallery">
 			<section class="col-sm-9" id="main" itemprop="mainContentOfPage">
 
 				<h1 itemprop="name"><?php printAlbumTitle(); ?></h1>
