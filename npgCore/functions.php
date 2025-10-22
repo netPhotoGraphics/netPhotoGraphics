@@ -3323,6 +3323,8 @@ $_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
  */
 class _npg_HTML_cache {
 
+	public $enabled = false;
+
 	function disable() {
 
 	}
