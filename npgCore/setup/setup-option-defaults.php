@@ -617,6 +617,9 @@ if (isset($_GET['mod_rewrite'])) {
 	</p>
 	<?php
 }
+if (ob_get_length()) {
+	ob_flush();
+}
 flush();
 
 if (!CURL_ENABLED) {
