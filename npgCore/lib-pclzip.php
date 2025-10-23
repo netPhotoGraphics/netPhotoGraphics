@@ -3,7 +3,7 @@
 // PhpConcept Library - Zip Module 2.8.2
 // --------------------------------------------------------------------------------
 // License GNU/LGPL - Vincent Blavet - August 2009
-// http://www.phpconcept.net
+// https://www.phpconcept.net
 // --------------------------------------------------------------------------------
 //
 // Presentation :
@@ -12,7 +12,7 @@
 //   WinZip application and other tools.
 //
 // Description :
-//   See readme.txt and http://www.phpconcept.net
+//   See readme.txt and https://www.phpconcept.net
 //
 // Warning :
 //   This library and the associated files are non commercial, non professional
