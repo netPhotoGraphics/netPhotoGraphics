@@ -20,6 +20,9 @@ if (defined('CHMOD_VALUE')) {
 } else {
 	$chmod = fileperms(CORE_SERVERPATH) & 0666;
 }
+if ($chmod & 0600 != 0600) {
+	$chmod = 0666; // make sure we can access our files!
+}
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
