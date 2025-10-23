@@ -1,6 +1,6 @@
 <div id="breadcrumbs" class="row">
 	<div class="col-sm-9">
-		<ul class="breadcrumb" itemscope itemtype="http://schema.org/Breadcrumb">
+		<ul class="breadcrumb" itemscope itemtype="https://schema.org/breadcrumb">
 
 			<?php if ($_gallery_page == 'index.php') { ?>
 			<?php } ?>
