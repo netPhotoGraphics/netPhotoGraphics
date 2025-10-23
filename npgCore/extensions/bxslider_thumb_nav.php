@@ -12,7 +12,7 @@
  * @package plugins/bxslider_thumb_nav
  * @pluginCategory theme
  */
-$plugin_description = gettext("Responsive jQuery bxSlider thumb nav plugin based on <a href='http://bxslider.com'>http://bxslider.com</a>");
+$plugin_description = gettext("Responsive jQuery bxSlider thumb nav plugin based on <a href='https://bxslider.com'>https://bxslider.com</a>");
 $plugin_disable = (extensionEnabled('jCarousel_thumb_nav')) ? sprintf(gettext('Only one Carousel plugin may be enabled. <a href="#%1$s"><code>%1$s</code></a> is already enabled.'), 'jCarousel_thumb_nav') : '';
 $option_interface = 'bxslider';
 
