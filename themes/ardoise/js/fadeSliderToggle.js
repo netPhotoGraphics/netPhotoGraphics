@@ -2,8 +2,7 @@
  * Fade Slider Toggle plugin
  *
  * Copyright(c) 2009, Cedric Dugas
- * http://www.position-relative.net
- *
+ * 
  * A sliderToggle() with opacity
  * Licenced under the MIT Licence
  */
