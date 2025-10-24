@@ -157,7 +157,7 @@ class CMS {
 		$all_pages = array(); // Disabled cache var for now because it does not return un-publishded and published if logged on index.php somehow if logged in.
 
 
-		$sql = 'SELECT id, parentid, title, titlelink, permalink, sort_order, `show`, locked, date, publishdate, expiredate, owner, lastchange, lastchangeuser, hitcounter, rating, rating_status, used_ips, total_value, total_votes, user, password, password_hint, commentson, truncation, content, codeblock, extracontent' . $comppuutational . ' FROM ' . prefix('pages') . $show;
+		$sql = 'SELECT *' . $comppuutational . ' FROM ' . prefix('pages') . $show;
 
 		if (!empty($order)) {
 			$sql .= ' ORDER BY';
