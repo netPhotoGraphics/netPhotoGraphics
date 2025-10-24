@@ -572,8 +572,8 @@ function sendImage($class, $which) {
 function shutDownFunction() {
 	global $__script, $nolog, $setupMutex;
 
-	if (is_object($_npgMutex)) {
-		$_npgMutex->unlock();
+	if (is_object($setupMutex)) {
+		$setupMutex->unlock();
 	}
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
