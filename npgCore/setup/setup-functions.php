@@ -399,8 +399,9 @@ function setupLog($message, $anyway = false, $reset = false) {
 			fclose($f);
 			chmod(SETUPLOG, LOG_MOD);
 		}
-		if (is_object($_npgMutex))
+		if (is_object($_npgMutex)) {
 			$_npgMutex->unlock();
+		}
 	}
 }
 
@@ -569,8 +570,11 @@ function sendImage($class, $which) {
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function shutDownFunction() {
-	global $__script, $nolog;
+	global $__script, $nolog, $setupMutex;
 
+	if (is_object($_npgMutex)) {
+		$_npgMutex->unlock();
+	}
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$msg = '<span class="error">' . sprintf(gettext('%1$s *ERROR* "%2$s" in %3$s on line %4$s'), $__script, $error['message'], $error['file'], $error['line']) . '</span>';
