@@ -70,6 +70,7 @@ class ParallelCURL {
 		}
 
 		// Start performing the request
+		set_time_limit(100);
 		do {
 			$execReturnValue = curl_multi_exec($mh, $runningHandles);
 		} while ($execReturnValue == CURLM_CALL_MULTI_PERFORM);
@@ -79,7 +80,7 @@ class ParallelCURL {
 			if (curl_multi_select($mh) != -1) {
 				usleep(100);
 			}
-
+			set_time_limit(100);
 			do {
 				$execReturnValue = curl_multi_exec($mh, $runningHandles);
 			} while ($execReturnValue == CURLM_CALL_MULTI_PERFORM);
