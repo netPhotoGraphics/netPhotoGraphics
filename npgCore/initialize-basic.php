@@ -33,6 +33,7 @@ if (!defined('CHMOD_VALUE')) {
 
 define('FOLDER_MOD', CHMOD_VALUE | 0311);
 define('FILE_MOD', CHMOD_VALUE & 0666 | 0400);
+define('IMG_MOD', CHMOD_VALUE & 0666 | 0444);
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 	define('LOG_MOD', fileperms(SERVERPATH . '/' . DATA_FOLDER . '/' . '/security.log') & 0777);
 } else if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
@@ -40,6 +41,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/security.log')) {
 } else {
 	define('LOG_MOD', FILE_MOD);
 }
+
 if (!isset($_conf_vars['mysql_prefix'])) {
 	$_conf_vars['mysql_prefix'] = '';
 }

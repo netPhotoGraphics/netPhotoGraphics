@@ -506,7 +506,7 @@ class imageProcessing {
 					fwrite($fw, $content);
 					fclose($fw);
 				}
-				chmod($newfile, FILE_MOD);
+				chmod($newfile, IMG_MOD);
 				if (DEBUG_IMAGE)
 					debugLog('Finished:' . basename($imgfile));
 			} else {
@@ -514,7 +514,7 @@ class imageProcessing {
 					debugLog('imageProcessing::cache: failed to create ' . $newfile);
 				self::error('404 Not Found', sprintf(gettext('imageProcessing::cache: failed to create %s'), $newfile), 'err-imagefail.png');
 			}
-			chmod($newfile, FILE_MOD);
+			chmod($newfile, IMG_MOD);
 
 			gl_imageKill($newim);
 			gl_imageKill($im);

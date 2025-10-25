@@ -762,9 +762,10 @@ class AlbumBase extends MediaObject {
 			foreach ($filestomove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
 					$d = stripslashes($dest) . '.' . getSuffix($file);
+					$perms = fileperms($file);
 					chmod($file, 0777);
 					$success = $success && rename($file, $d);
-					chmod($d, FILE_MOD);
+					chmod($d, $perms);
 				}
 			}
 			$success = $success && parent::move(array('folder' => $newfolder));
