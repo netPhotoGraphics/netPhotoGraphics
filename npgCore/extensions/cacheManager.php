@@ -403,7 +403,9 @@ class cacheManager {
 	static function addCacheSize($owner, $size, $width, $height, $cw, $ch, $cx, $cy, $thumb, $watermark = NULL, $effects = NULL, $maxspace = NULL) {
 		global $_set_theme_album, $_gallery;
 		$albumName = '';
-		if (getPlugin($owner . '.php')) {
+		if ($owner == 'admin') {
+			$class = 'system';
+		} else if (getPlugin($owner . '.php')) {
 			$class = 'plugin';
 		} else {
 			$ownerList = array_map('strtolower', array_keys($_gallery->getThemes()));
