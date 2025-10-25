@@ -3296,6 +3296,13 @@ class npgFunctions {
 		return '[' . ltrim($example, ',') . ']';
 	}
 
+	static function flushOutput() {
+		if (ob_get_length()) {
+			ob_flush();
+		}
+		flush();
+	}
+
 }
 
 /**

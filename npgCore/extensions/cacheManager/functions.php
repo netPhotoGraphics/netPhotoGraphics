@@ -250,10 +250,7 @@ function loadAlbum($album) {
 							<?php
 						}
 					}
-					if (ob_get_length()) {
-						ob_flush();
-					}
-					flush();
+					npgFunctions::flushOutput();
 				}
 			} else {
 				set_time_limit(200);
