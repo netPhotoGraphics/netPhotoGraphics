@@ -56,6 +56,11 @@ if (isset($old['NETPHOTOGRAPHICS'])) {
 } else {
 	$from = NULL;
 }
+if (isset($old['REQUESTS'])) {
+	$priority_plugins = $old['REQUESTS'];
+} else {
+	$priority_plugins = array();
+}
 
 if (CURL_ENABLED) {
 	//	preload for check images
@@ -241,6 +246,11 @@ foreach ($plugins as $key => $extension) {
 		$addl = '';
 	}
 	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
+}
+foreach ($priority_plugins as $whom => $what) { //	move priority plugins to front of the lisy
+	$plugin = [$whom => $plugin_links[$whom]];
+	unset($plugin_links[$whom]);
+	$plugin_links = array_merge($plugin, $plugin_links);
 }
 
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
