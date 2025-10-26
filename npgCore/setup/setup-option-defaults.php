@@ -101,19 +101,6 @@ if ($rslt) {
 	db_free_result($rslt);
 }
 
-//effervescence_plus migration
-if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
-	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
-		$_gallery->setCurrentTheme('effervescence+');
-		$_gallery->save();
-	}
-	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
-	foreach ($options as $option) {
-		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
-	}
-	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
-}
-
 //tnyMCE v7 migration
 $tinymce_v5_configs = array();
 if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce/config')) {
@@ -178,7 +165,6 @@ if (!empty($tinymce_v5_configs)) {
 				break;
 			default:
 				$found = substr($found, 0, $last + 1) . gettext(' and ') . substr($found, $last + 1);
-
 				break;
 		}
 
@@ -627,10 +613,7 @@ if (isset($_GET['mod_rewrite'])) {
 	</p>
 	<?php
 }
-if (ob_get_length()) {
-	ob_flush();
-}
-flush();
+npgFunctions::flushOutput();
 
 if (!CURL_ENABLED) {
 	?>
@@ -998,18 +981,6 @@ foreach (getOptionsLike('logviewed_') as $option => $value) {
 	}
 }
 
-//effervescence_plus migration
-if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
-	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
-		$_gallery->setCurrentTheme('effervescence+');
-		$_gallery->save();
-	}
-	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
-	foreach ($options as $option) {
-		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
-	}
-	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
-}
 $displayErrors = false;
 
 //migrate favorites data
@@ -1239,6 +1210,9 @@ foreach ($_languages as $language => $dirname) {
 }
 setOption('locale_unsupported', serialize($unsupported));
 i18n::setupCurrentLocale($_setupCurrentLocale_result);
+
+set_time_limit(100);
+setupLog(gettext('Set Theme options'), true);
 ?>
 <p>
 	<?php
@@ -1247,21 +1221,25 @@ i18n::setupCurrentLocale($_setupCurrentLocale_result);
 	localeSort($themes);
 	echo gettext('Theme setup:') . '<br />';
 	$displayErrors = $displayErrors || optionCheck($theme_links);
-	flush();
 	?>
 </p>
 
 <?php
+npgFunctions::flushOutput();
+
+set_time_limit(100);
+setupLog(gettext('Set Plugin options'), true);
 localeSort($plugins);
-$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
 ?>
 <p>
 	<?php
 	echo gettext('Plugin setup:') . '<br />';
 	$displayErrors = $displayErrors || optionCheck($plugin_links);
-	flush();
 	?>
 </p>
+<?php
+npgFunctions::flushOutput();
+?>
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
