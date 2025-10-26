@@ -20,7 +20,6 @@ if (sanitize($_POST['errors'])) {
 setupLog($result, true);
 npgFilters::apply('log_setup', true, 'install', $result);
 unset($_SESSION['SetupStarted']);
-if (function_exists('opcache_reset')) {
-	opcache_reset();
-}
+
+db_close();
 exit();
