@@ -684,10 +684,7 @@ function optionCheck($urls) {
 					$errors = true;
 				}
 			}
-			if (ob_get_length()) {
-				ob_flush();
-			}
-			flush();
+			npgFunctions::flushOutput();
 		}
 	} else {
 		foreach ($urls as $whom => $link) {

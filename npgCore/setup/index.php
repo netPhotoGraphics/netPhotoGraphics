@@ -1746,10 +1746,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							</script>
 							<?php
 							// set defaults on any options that need it
-							if (ob_get_length()) {
-								ob_flush();
-							}
-							flush();
+							npgFunctions::flushOutput();
 							require(__DIR__ . '/setup-option-defaults.php');
 
 							if ($debug == 'albumids') {
