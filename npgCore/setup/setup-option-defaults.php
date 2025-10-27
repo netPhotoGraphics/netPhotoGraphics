@@ -233,11 +233,18 @@ foreach ($plugins as $key => $extension) {
 	}
 	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
-foreach ($priority_plugins as $whom => $what) { //	move priority plugins to front of the lisy
-	$plugin = [$whom => $plugin_links[$whom]];
+$priority_links = array();
+foreach ($priority_plugins as $whom => $what) { //	move priority plugins to front of the list
+	$priority_links [$whom] = $plugin_links[$whom];
 	unset($plugin_links[$whom]);
-	$plugin_links = array_merge($plugin, $plugin_links);
 }
+//	No need to setup plugins which are not enabled
+foreach ($plugin_links as $whom => $what) {
+	if (!extensionEnabled($whom)) {
+		unset($plugin_links[$whom]);
+	}
+}
+$plugin_links = array_merge($priority_links, $plugin_links); //	unless, of course, they were just disabled
 
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 
