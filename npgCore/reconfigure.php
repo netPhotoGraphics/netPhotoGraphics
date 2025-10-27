@@ -234,7 +234,7 @@ function checkSignature($mandatory) {
 
 /**
  *
- * Notificatnion handler for configuration change
+ * Notification handler for configuration change
  * @param string $tab
  * @param string $subtab
  * @return string
@@ -335,8 +335,34 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							break;
 						case 'REQUESTS':
 							if (!empty($rslt)) {
+								$found = safe_glob(CORE_SERVERPATH . '/setup/*.txt');
+								if (empty($found)) {
+									?>
+									<script>
+						<?php
+						foreach ($rslt['old'] as $plugin => $request) {
+							?>
+											$.ajax({
+												type: 'GET',
+												cache: false,
+												data: '<?php echo 'plugin=' . $plugin . '&class=1' . TEST_RELEASE ? '&fullLog=true' : ''; ?>',
+												url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
+											});
+							<?php
+						}
+						?>
+									</script>
+									<?php
+									$old = getSerializedArray(getOption('netphotographics_install'));
+									unset($old['REQUESTS']);
+									unset($diff['REQUESTS']);
+									setOption('netphotographics_install', serialize($old));
+									$notice = gettext('setup has been executed for:');
+								} else {
+									$notice = gettext('setup has been requested by:');
+								}
 								echo '<li><div id="files">';
-								echo gettext('setup has been requested by:');
+								echo $notice;
 								echo '<ul>';
 								foreach ($rslt['old'] as $request) {
 									echo '<li>' . $request . '</li>';
@@ -362,21 +388,23 @@ function reconfigurePage($diff, $needs, $mandatory) {
 			if ($mandatory) {
 				printf(gettext('The change detected is critical. %1$s<em>setup</em>%2$s <strong>must</strong> be run for the site to function.'), $l1, $l2);
 			} else {
-				printf(gettext('The change detected may not be critical but you should run %1$ssetup%2$s at your earliest convenience.'), $l1, $l2);
-				$request = mb_parse_url(getRequestURI());
-				if (isset($request['query'])) {
-					$query = parse_query($request['query']);
-				} else {
-					$query = array();
+				if (!empty($diff)) {
+					printf(gettext('The change detected may not be critical but you should run %1$ssetup%2$s at your earliest convenience.'), $l1, $l2);
+					$request = mb_parse_url(getRequestURI());
+					if (isset($request['query'])) {
+						$query = parse_query($request['query']);
+					} else {
+						$query = array();
+					}
+					$query['dismiss'] = 'config_warning';
+					$query['xsrfToken'] = $token;
+					?>
+					<p>
+						<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
+					</p>
+					<br class="clearall" />
+					<?php
 				}
-				$query['dismiss'] = 'config_warning';
-				$query['xsrfToken'] = $token;
-				?>
-				<p>
-					<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
-				</p>
-				<br class="clearall" />
-				<?php
 			}
 			?>
 		</p>

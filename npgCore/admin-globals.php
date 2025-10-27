@@ -95,7 +95,7 @@ $_sortby = array(
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
 	if ($_current_admin_obj->reset) {
-//	There are no valid administrators, allow user creation or backup restore (if possible)
+		//	There are no valid administrators, allow user creation or backup restore (if possible)
 		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 		if (count($filelist) > 0) {
 			$link = getAdminLink('utilities/backup_restore.php') . '?tab=backup';
