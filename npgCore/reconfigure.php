@@ -335,39 +335,43 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							break;
 						case 'REQUESTS':
 							if (!empty($rslt)) {
-								$found = safe_glob(CORE_SERVERPATH . '/setup/*.txt');
-								if (empty($found)) {
-									?>
-									<script>
-						<?php
-						foreach ($rslt['old'] as $plugin => $request) {
-							?>
-											$.ajax({
-												type: 'GET',
-												cache: false,
-												data: '<?php echo 'plugin=' . $plugin . '&class=1' . TEST_RELEASE ? '&fullLog=true' : ''; ?>',
-												url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
-											});
-							<?php
-						}
+								restoreSetupScrpts(20);
+								?>
+								<script>
+					<?php
+					foreach ($rslt['old'] as $plugin => $request) {
 						?>
-									</script>
-									<?php
-									$old = getSerializedArray(getOption('netphotographics_install'));
-									unset($old['REQUESTS']);
-									unset($diff['REQUESTS']);
-									setOption('netphotographics_install', serialize($old));
-									$notice = gettext('setup has been executed for:');
-								} else {
-									$notice = gettext('setup has been requested by:');
-								}
-								echo '<li><div id="files">';
-								echo $notice;
-								echo '<ul>';
-								foreach ($rslt['old'] as $request) {
-									echo '<li>' . $request . '</li>';
-								}
-								echo '</ul></div></li>';
+										$.ajax({
+											type: 'GET',
+											cache: false,
+											data: '<?php echo 'plugin=' . $plugin . '&class=1' . (TEST_RELEASE ? '&fullLog=true' : ''); ?>',
+											url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
+										});
+						<?php
+					}
+					?>
+								</script>
+								<?php
+								$old = getSerializedArray(getOption('netphotographics_install'));
+								unset($old['REQUESTS']);
+								unset($diff['REQUESTS']);
+								setOption('netphotographics_install', serialize($old));
+								?>
+								<li>
+									<div id="files">
+										<?php
+										echo gettext('Setup has been executed for:');
+										?>
+										<ul>
+											<?php
+											foreach ($rslt['old'] as $request) {
+												echo '<li>' . $request . '</li>';
+											}
+											?>
+										</ul>
+									</div>
+								</li>
+								<?php
 							}
 							break;
 						default:
@@ -423,9 +427,10 @@ function reconfigurePage($diff, $needs, $mandatory) {
  * 						11	No config file
  * 						12	No database specified
  * 						13	No DB connection
+ * 						20	Plugin requested
  */
 function restoreSetupScrpts($reason) {
-//log setup file restore no matter what!
+	//log setup file restore no matter what!
 	require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 
 	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
@@ -444,6 +449,10 @@ function restoreSetupScrpts($reason) {
 			break;
 		case 4:
 			$addl = gettext('by cloning');
+			break;
+		case 20:
+			$addl = gettext('by plugin request');
+			$allowed = true;
 			break;
 	}
 	security_logger::log_setup($allowed, 'restore', $addl);
