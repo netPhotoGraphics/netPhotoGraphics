@@ -238,21 +238,16 @@ foreach ($plugin_links as $whom => $what) {
 
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 
-$theme_links = array();
 setOption('known_themes', serialize(array())); //	reset known themes
 foreach ($themes as $key => $theme) {
-	$class = 0;
 	if (protectedTheme($theme)) {
 		unset($themes[$key]);
 	} else {
-		$class = 1;
 		$thirdParty = true;
 	}
 	if (isset($info[$theme]['deprecated'])) {
-		$class = 2;
 		$deprecated = true;
 	}
-	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
@@ -1209,15 +1204,27 @@ setOption('locale_unsupported', serialize($unsupported));
 i18n::setupCurrentLocale($_setupCurrentLocale_result);
 
 set_time_limit(100);
+
+//	mark themes not constructed
 setupLog(gettext('Set Theme options'), true);
+query('DELETE FROM ' . prefix('options') . ' WHERE `name`="constructed" AND LENGTH(`theme`)>0');
+
+$theme = $_gallery->getCurrentTheme();
+
+if (protectedTheme($theme)) {
+	$class = 0;
+} else {
+	$class = 1;
+}
+if (isset($info[$theme]['deprecated'])) {
+	$class = 2;
+}
+$theme_link = [$theme => FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique];
 ?>
 <p>
 	<?php
-	setOption('known_themes', serialize(array())); //	reset known themes
-	$themes = array_keys($info = $_gallery->getThemes());
-	localeSort($themes);
-	echo gettext('Theme setup:') . '<br />';
-	$displayErrors = $displayErrors || optionCheck($theme_links);
+	echo gettext('Theme setup:') . ' ';
+	$displayErrors = $displayErrors || optionCheck($theme_link);
 	?>
 </p>
 
@@ -1240,13 +1247,13 @@ npgFunctions::flushOutput();
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-		echo gettext('Successful initialization');
-		if ($thirdParty) {
-			?>
+echo gettext('Successful initialization');
+if ($thirdParty) {
+	?>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
-			echo gettext('Successful initialization (third party item)');
-		}
-		?>
+		echo gettext('Successful initialization (third party item)');
+	}
+?>
 		<span id="errornote" style="display:<?php echo $displayErrors ? 'show' : 'none'; ?>"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {

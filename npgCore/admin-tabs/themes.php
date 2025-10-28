@@ -42,6 +42,7 @@ if (isset($_GET['action'])) {
 					}
 					/* set any "standard" options that may not have been covered by the theme */
 					standardThemeOptions($newtheme, $_set_theme_album);
+					setThemeOption('constructed', 1, $_set_theme_album, $newtheme);
 				}
 				header('Location: ' . getAdminLink('admin-tabs/themes.php') . '?themealbum=' . sanitize($_GET['themealbum']));
 				exit();

@@ -119,6 +119,22 @@ class themeSwitcher {
 				$theme = $new;
 			}
 		}
+		if (!getThemeOption('constructed', NULL, $theme)) {
+			$opthandler = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme . '/themeoptions.php';
+			if (file_exists($opthandler)) {
+				require_once($opthandler);
+				$opt = new ThemeOptions(true); //	prime the default options!
+			}
+			/* set any "standard" options that may not have been covered by the theme */
+			require_once(CORE_SERVERPATH . 'admin-functions.php');
+			standardThemeOptions($theme, NULL);
+			setThemeOption('constructed', 1, NULL, $theme);
+			//	reload page
+			header("HTTP/1.0 307 Temporary redirect");
+			header("Status: 307 Temporary redirect");
+			header('Location: ' . getRequestURI());
+			exit();
+		}
 		return $theme;
 	}
 
