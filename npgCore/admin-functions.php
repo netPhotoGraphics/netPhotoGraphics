@@ -1259,7 +1259,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 										<ul class="customchecklist">
 											<?php
 										}
-
 										foreach ($row['checkboxes'] as $display => $checkbox) {
 											$checked = in_array($checkbox, $setOptions);
 											if (is_numeric($display)) {
@@ -1274,7 +1273,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 												?>
 												<label class="<?php echo $labelClass; ?>">
 													<?php if ($behind) echo($display); ?>
-													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> class="all_<?php echo $key; ?>"/>
+													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"'; ?> class="all_<?php echo $key; ?>"<?php echo $disabled; ?>/>
 													<?php if (!$behind) echo($display); ?>
 												</label>
 												<?php
