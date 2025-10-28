@@ -4,14 +4,14 @@ function get_html_translation_table (table, quote_style) {
     // Returns the internal translation table used by htmlspecialchars and htmlentities
     //
     // version: 1008.1718
-    // discuss at: http://phpjs.org/functions/get_html_translation_table    // +   original by: Philip Peterson
-    // +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   original by: Philip Peterson
+    // +    revised by: Kevin van Zonneveld (https://kvz.io/)
     // +   bugfixed by: noname
     // +   bugfixed by: Alex
     // +   bugfixed by: Marco    // +   bugfixed by: madipta
     // +   improved by: KELAN
-    // +   improved by: Brett Zamir (http://brett-zamir.me)
-    // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
+    // +   improved by: Brett Zamir (https://github.com/brettz9)
+    // +   bugfixed by: Brett Zamir (https://github.com/brettz9)
     // +      input by: Frank Forte    // +   bugfixed by: T.Wild
     // +      input by: Ratheous
     // %          note: It has been decided that we're not going to add global
@@ -135,12 +135,12 @@ function htmlentities (string, quote_style) {
     // Convert all applicable characters to HTML entities
     //
     // version: 1008.1718
-    // discuss at: http://phpjs.org/functions/htmlentities    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   original by: Kevin van Zonneveld (https://kvz.io/)
+    // +    revised by: Kevin van Zonneveld (https://kvz.io/)
     // +   improved by: nobbler
     // +    tweaked by: Jack
-    // +   bugfixed by: Onno Marsman    // +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +    bugfixed by: Brett Zamir (http://brett-zamir.me)
+    // +   bugfixed by: Onno Marsman    // +    revised by: Kevin van Zonneveld (https://kvz.io/)
+    // +    bugfixed by: Brett Zamir (https://github.com/brettz9)
     // +      input by: Ratheous
     // -    depends on: get_html_translation_table
     // *     example 1: htmlentities('Kevin & van Zonneveld');    // *     returns 1: 'Kevin &amp; van Zonneveld'
