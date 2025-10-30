@@ -65,7 +65,7 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																					$(document).ready(function () {
+																									$(document).ready(function () {
 												$(".doc").colorbox({
 													close: '<?php echo gettext("close"); ?>',
 													maxHeight: "98%",
@@ -198,6 +198,17 @@ echo '</head>';
 										<div class="hangng_indent">
 											<?php
 											printf(gettext('<code>CURL_ENABLED</code> is set %1$s in npg.cfg.php'), $_conf_vars['CURL_ENABLED'] ? 'TRUE' : 'FALSE');
+											?>
+										</div>
+									</li>
+									<?php
+								}
+								if (isset($_conf_vars['PARALLEL_CURL'])) {
+									?>
+									<li>
+										<div class="hangng_indent">
+											<?php
+											printf(gettext('<code>PARALLEL_CURL</code> is set %1$s in npg.cfg.php'), $_conf_vars['PARALLEL_CURL'] ? 'TRUE' : 'FALSE');
 											?>
 										</div>
 									</li>
