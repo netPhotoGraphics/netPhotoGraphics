@@ -195,6 +195,7 @@ if (isset($_conf_vars['CURL_ENABLED'])) {
 } else {
 	define('CURL_ENABLED', function_exists('curl_init'));
 }
+define('PARALLEL_CURL', CURL_ENABLED && (isset($_conf_vars['PARALLEL_CURL']) ? $_conf_vars['PARALLEL_CURL'] : true));
 
 if (isset($_conf_vars['WEBPATH'])) {
 	define('WEBPATH', $_conf_vars['WEBPATH']);

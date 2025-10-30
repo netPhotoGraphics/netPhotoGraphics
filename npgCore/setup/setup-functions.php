@@ -664,7 +664,7 @@ function renameOption($oldKey, $newKey) {
  */
 function optionCheck($urls) {
 	$errors = false;
-	if (CURL_ENABLED) {
+	if (PARALLEL_CURL) {
 		foreach ($urls as $whom => $url) {
 			$urls[$whom] = $url . '&curl';
 		}
