@@ -100,7 +100,7 @@ class _Authority {
 	protected static function getHashList($fullList = false) {
 		$full = $encodings = array_reverse(self::$hashList);
 
-//	deprecate encodings
+		//	deprecate encodings
 		unset($encodings['pbkdf2*']);
 		if (!defined('PASSWORD_ARGON2ID')) {
 			unset($encodings['Argon2id']);

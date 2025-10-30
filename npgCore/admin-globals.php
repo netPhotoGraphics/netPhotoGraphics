@@ -235,12 +235,11 @@ if (isset($_loggedin) && $_loggedin) {
 				$optiondefault = '&tab=gallery';
 			}
 			$subtabs[gettext("gallery")] = 'admin-tabs/options.php?page=options&tab=gallery';
+			$new = array();
 			if ($_loggedin & ADMIN_RIGHTS) {
 				$subtabs[gettext("security")] = 'admin-tabs/options.php?page=options&tab=security';
 				if (npg_Authority::flagOptionTab()) {
 					$new = array(gettext("security"));
-				} else {
-					$new = array();
 				}
 			}
 			$subtabs[gettext("image")] = 'admin-tabs/options.php?page=options&tab=image';
