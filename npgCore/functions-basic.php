@@ -636,9 +636,7 @@ function debugLog($message, $reset = false, $log = 'debug') {
  *
  * @param string $message Message to prefix the backtrace
  * @param int $omit count of "callers" to remove from backtrace
- * @param string $log
-
-  alternative log file
+ * @param string $log alternative log file
  */
 function debugLogBacktrace($message, $omit = 0, $log = 'debug') {
 	global $_current_admin_obj, $_index_theme;
@@ -2039,6 +2037,26 @@ function setOption($key, $value, $persistent = true) {
 		return $result;
 	} else {
 		return true;
+	}
+}
+
+function tracer($file, $line, $mode = 'a') {
+	global $traceTime;
+	if (defined('trace_debug')) {
+		$f = fopen(dirname(__DIR__) . '/npgData/' . '/trace-' . hash('sha256', $_SERVER['REQUEST_URI']) . '.log', $mode);
+		if ($f) {
+			if ($mode == 'w') {
+				fwrite($f, date('Y-m-d H:i:s') . ' ' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "\n");
+			}
+			$t = $file . ':' . $line;
+			if ($traceTime) {
+				$t = $t . ' (' . sprintf('%1$6f', microtime(true) - $traceTime) . ')';
+			}
+			$traceTime = microtime(true);
+			fwrite($f, $t . NEWLINE);
+			fflush($f);
+			fclose($f);
+		}
 	}
 }
 

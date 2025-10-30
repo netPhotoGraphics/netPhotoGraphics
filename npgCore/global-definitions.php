@@ -1,5 +1,7 @@
 <?php
 
+//define('trace_debug', true); //	un comment this for load tracing
+
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
 Define('PHP_MIN_VERSION', '7.4');
