@@ -1,5 +1,5 @@
 /* Bulgarian initialisation for the jQuery UI date picker plugin. */
-/* Written by Stoyan Kyosev (http://svest.org). */
+/* Written by Stoyan Kyosev (https://github.com/skyosev). */
 ( function( factory ) {
 	"use strict";
 
