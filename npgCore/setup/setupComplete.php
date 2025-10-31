@@ -14,11 +14,11 @@ require_once(__DIR__ . '/setup-functions.php');
 
 npg_session_start();
 if (sanitize($_POST['errors'])) {
-	$result = sprintf('Option setup <span class="logerror">' . gettext('completed with errors') . '</span> in %1$.4f seconds', $_POST['optionComplete']);
+	$result = gettext('Setup <span class="logerror"> completed with errors</span>');
 } else {
-	$result = sprintf(gettext('Option setup completed in %1$.4f seconds'), $_POST['optionComplete']);
+	$result = gettext('Completed');
 }
-setupLog($result, true);
+setupLog(sprintf(gettext('Option setup completed in %1$.4f seconds'), $_POST['optionComplete']), true);
 npgFilters::apply('log_setup', true, 'install', $result);
 unset($_SESSION['SetupStarted']);
 
