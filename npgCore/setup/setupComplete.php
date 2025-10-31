@@ -11,11 +11,12 @@
  */
 require_once(dirname(__DIR__) . '/functions.php');
 require_once(__DIR__ . '/setup-functions.php');
+
 npg_session_start();
 if (sanitize($_POST['errors'])) {
-	$result = '<span class="logerror">' . gettext('Completed with errors') . '</span>';
+	$result = sprintf('Option setup <span class="logerror">' . gettext('completed with errors') . '</span> in %1$.4f seconds', $_POST['optionComplete']);
 } else {
-	$result = gettext('Completed');
+	$result = sprintf(gettext('Option setup completed in %1$.4f seconds'), $_POST['optionComplete']);
 }
 setupLog($result, true);
 npgFilters::apply('log_setup', true, 'install', $result);

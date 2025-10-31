@@ -1746,6 +1746,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							</script>
 							<?php
 							// set defaults on any options that need it
+							$optionStart = microtime(true);
 							npgFunctions::flushOutput();
 							require(__DIR__ . '/setup-option-defaults.php');
 
@@ -1848,6 +1849,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								default:
 									break;
 							}
+							$optionComplete = microtime(true) - $optionStart;
 							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script>
@@ -1859,7 +1861,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$.ajax({
 										type: 'POST',
 										cache: false,
-										data: 'errors=' + errors,
+										data: 'errors=' + errors + '&optionComplete=' + <?php echo $optionComplete; ?>,
 										url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setupComplete.php'
 									});
 									$('.delayshow').show();
