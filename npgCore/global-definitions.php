@@ -1,7 +1,5 @@
 <?php
 
-//define('trace_debug', true); //	un comment this for load tracing
-
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
 Define('PHP_MIN_VERSION', '7.4');
@@ -188,7 +186,6 @@ if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		unset($conf);
 	}
 }
-
 
 if (isset($_conf_vars['CURL_ENABLED'])) {
 	define('CURL_ENABLED', $_conf_vars['CURL_ENABLED']);

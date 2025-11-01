@@ -209,7 +209,7 @@ function stripSuffix($filename) {
  * @return string
  */
 function sanitize_path($filename) {
-	$filename = strip_tags(str_replace('\\', '/', $filename));
+	$filename = strip_tags(str_replace('\\', '/', strval($filename)));
 	$filename = preg_replace(array('/[[:cntrl:]]/', '/\/\.+/', '/^\.+/', '/</', '/>/', '/\?/', '/\*/', '/\"/', '/\|/', '/\/+$/', '/^\/+/'), '', $filename);
 	$filename = preg_replace('/\/\/+/', '/', $filename);
 	return $filename;
@@ -2040,10 +2040,16 @@ function setOption($key, $value, $persistent = true) {
 	}
 }
 
-function tracer($file, $line, $mode = 'a') {
-	global $traceTime;
-	if (defined('trace_debug')) {
-		$f = fopen(dirname(__DIR__) . '/npgData/' . '/trace-' . hash('sha256', $_SERVER['REQUEST_URI']) . '.log', $mode);
+function tracer($file, $line) {
+	global $traceFile, $traceTime;
+	if (defined('TRACE_DEBUG')) {
+		if ($traceFile) {
+			$mode = 'a';
+		} else {
+			$traceFile = dirname(__DIR__) . '/npgData/' . '/trace-' . microtime(true) . '.log';
+			$mode = 'w';
+		}
+		$f = fopen($traceFile, $mode);
 		if ($f) {
 			if ($mode == 'w') {
 				fwrite($f, date('Y-m-d H:i:s') . ' ' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "\n");
