@@ -12,6 +12,7 @@ class npgMutex {
 	private $lock = NULL;
 
 	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
+		global $_conf_vars;
 		// if any of the construction fails, run in free mode (lock = NULL)
 		if (defined('SERVERPATH')) {
 			if (is_null($folder)) {
@@ -28,6 +29,9 @@ class npgMutex {
 			} else {
 				$this->lock = $folder . '/' . $lock;
 			}
+		}
+		if (isset($_conf_vars['MUTEX_RUN_FREE'])) {
+			$this->locked = $_conf_vars['MUTEX_RUN_FREE'];
 		}
 		return $this->lock;
 	}
@@ -94,7 +98,7 @@ class npgMutex {
 	 * 	Unlock the mutex.
 	 */
 	public function unlock() {
-		if ($this->locked) {
+		if ($this->locked && $this->mutex) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
 			ftruncate($this->mutex, 0); //	which_lock prefers empty files
