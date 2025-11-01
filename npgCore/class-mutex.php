@@ -67,7 +67,7 @@ class npgMutex {
 
 	public function lock() {
 		//	if "flock" is not supported run un-serialized
-		//	Only lock an unlocked mutex, we don't support recursive mutex'es
+		//	Only lock an unlocked mutex, we don't support recursive mutexes
 		if (!$this->locked && $this->lock) {
 			if ($this->mutex = @fopen($this->lock, 'wb')) {
 				try {

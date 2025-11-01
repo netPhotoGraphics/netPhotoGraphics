@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																									$(document).ready(function () {
-												$(".doc").colorbox({
-													close: '<?php echo gettext("close"); ?>',
-													maxHeight: "98%",
-													innerWidth: '560px'
-												});
-											});
-											//-->
+																																	$(document).ready(function () {
+										$(".doc").colorbox({
+											close: '<?php echo gettext("close"); ?>',
+											maxHeight: "98%",
+											innerWidth: '560px'
+										});
+									});
+									//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -181,39 +181,50 @@ echo '</head>';
 									</div>
 								</li>
 								<?php
-								if (isset($_conf_vars['GitHub_SSL_OPT'])) {
-									?>
-									<li>
-										<div class="hangng_indent">
-											<?php
-											printf(gettext('<code>GitHub_SSL_OPT</code> is set to 0x%05X in npg.cfg.php'), $_conf_vars['GitHub_SSL_OPT']);
-											?>
-										</div>
-									</li>
-									<?php
-								}
-								if (isset($_conf_vars['CURL_ENABLED'])) {
-									?>
-									<li>
-										<div class="hangng_indent">
-											<?php
-											printf(gettext('<code>CURL_ENABLED</code> is set %1$s in npg.cfg.php'), $_conf_vars['CURL_ENABLED'] ? 'TRUE' : 'FALSE');
-											?>
-										</div>
-									</li>
-									<?php
-								}
-								if (isset($_conf_vars['PARALLEL_CURL'])) {
-									?>
-									<li>
-										<div class="hangng_indent">
-											<?php
-											printf(gettext('<code>PARALLEL_CURL</code> is set %1$s in npg.cfg.php'), $_conf_vars['PARALLEL_CURL'] ? 'TRUE' : 'FALSE');
-											?>
-										</div>
-									</li>
-									<?php
-								}
+							}
+							if (isset($_conf_vars['CURL_ENABLED'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>CURL_ENABLED</code> is set %1$s in npg.cfg.php'), $_conf_vars['CURL_ENABLED'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['GitHub_SSL_OPT'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>GitHub_SSL_OPT</code> is set to 0x%05X in npg.cfg.php'), $_conf_vars['GitHub_SSL_OPT']);
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['MUTEX_RUN_FREE'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>MUTEX_RUN_FREE</code> is set %1$s in npg.cfg.php'), $_conf_vars['MUTEX_RUN_FREE'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['PARALLEL_CURL'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>PARALLEL_CURL</code> is set %1$s in npg.cfg.php'), $_conf_vars['PARALLEL_CURL'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
 							}
 							?>
 							<li>
@@ -525,8 +536,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+							$('.overview_list').height(height);
 </script>
 
 <?php
