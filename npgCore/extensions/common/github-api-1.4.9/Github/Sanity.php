@@ -4,7 +4,7 @@ namespace Milo\Github;
 
 
 /**
- * Undefined member access check. Stolen from Nette\Object (http://nette.org).
+ * Undefined member access check. Stolen from Nette\Object (https://nette.org).
  */
 abstract class Sanity
 {
