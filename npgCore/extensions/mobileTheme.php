@@ -2,7 +2,7 @@
 /**
  *
  * Mobile devices are detected with
- * {@link http://code.google.com/p/php-mobile-detect/ php-mobile-detect}.
+ * {@link https://github.com/serbanghita/mobile-detect}.
  * A particular theme may be designated for <i>phones</i> and for <i>tablets</i>. If the connecting
  * device is one of those, the theme will automatically switch to the designated mobile theme.
  *
