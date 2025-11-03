@@ -92,6 +92,9 @@
 <h2>General</h2>
 <p>Versions of PHP less than PHP 8.0 are no longer supported.</p>
 <p>netPhotoGraphics has been updated to deal with PHP 8x deprecation changes. The nature of these deprecations makes it near impossible to anticipate all changes needed. Should you receive a deprecation notice please report it via the GitHub issues mechanism.</p>
+<p><strong>npg.cfg.php</strong></p>
+<p>Configuration file processing has been enhanced to deal with the limitations that some servers place on netPhotoGraphics. The following are lines that can be added:</p>
+<p>// use when the checking for updates gives an error that the SSL certificate is not trusted<br><em>$conf['GitHub_SSL_OPT'] = [CURLOPT_SSL_VERIFYPEER =&gt; 0];</em>  <br>// use if PHP cURL seems enabled but does not work<br><em>$conf['CURL_ENABLED'] = false;<br></em>// use when setup or image caching times out. Causes netPhotoGraphics to use image fetches instead of cURL<em><br></em><em>$conf['PARALLEL_CURL'] = false;<br></em>// use when mutexes are not working.<em>  <br></em><em>$conf['MUTEX_RUN_FREE'] = true;</em></p>
 <p><strong>Setup</strong></p>
 <p>Plugin and Theme setup has been optimized to process only the Current Theme and enabled plugins are processed during Setup. Those themes and plugins not setup during the setup process will be processed when they are enabled.</p>
 <p><strong>clone</strong></p>
