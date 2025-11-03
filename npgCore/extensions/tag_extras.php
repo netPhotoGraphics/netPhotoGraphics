@@ -284,7 +284,7 @@ function printAllTags($tags, $mode, $separator = '', $class = '', $showcounter =
 
 /**
  * Removes duplicate entries in multi dimensional array.
- * From kenrbnsn at rbnsn dot com http://uk.php.net/manual/en/function.array-unique.php#57202
+ * From kenrbnsn at rbnsn dot com https://uk.php.net/manual/en/function.array-unique.php#57202
  * @param array $array
  * @return array
  */

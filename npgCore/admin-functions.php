@@ -3914,7 +3914,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * Return an array of files from a directory and sub directories
 	 *
 	 * This is a non recursive function that digs through a directory. More info here:
-	 * @link http://planetozh.com/blog/2005/12/php-non-recursive-function-through-directories/
+	 * @link https://planetozh.com/blog/2005/12/php-non-recursive-function-through-directories/
 	 *
 	 * @param string $dir directory
 	 * @return array
