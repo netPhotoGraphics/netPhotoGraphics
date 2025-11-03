@@ -12,7 +12,6 @@ httpsRedirect();
 require_once(__DIR__ . '/lib-filter.php');
 require_once(__DIR__ . '/load_objectClasses.php');
 
-$_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
 $_HTML_cache = new _npg_HTML_cache(); // this will be overridden by the plugin if enabled.
 //encrypt/decrypt constants
 define('SECRET_KEY', getOption('secret_key_text'));

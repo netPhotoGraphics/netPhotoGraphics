@@ -399,8 +399,9 @@ function setupLog($message, $anyway = false, $reset = false) {
 			fclose($f);
 			chmod(SETUPLOG, LOG_MOD);
 		}
-		if (is_object($_npgMutex))
+		if (is_object($_npgMutex)) {
 			$_npgMutex->unlock();
+		}
 	}
 }
 
@@ -569,8 +570,11 @@ function sendImage($class, $which) {
  * @Copyright 2018 by Stephen L Billard for use in {@link https://%GITHUB% netPhotoGraphics} and derivatives
  */
 function shutDownFunction() {
-	global $__script, $nolog;
+	global $__script, $nolog, $setupMutex;
 
+	if (is_object($setupMutex)) {
+		$setupMutex->unlock();
+	}
 	$error = error_get_last();
 	if ($error && !in_array($error['type'], array(E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$msg = '<span class="error">' . sprintf(gettext('%1$s *ERROR* "%2$s" in %3$s on line %4$s'), $__script, $error['message'], $error['file'], $error['line']) . '</span>';
@@ -660,11 +664,11 @@ function renameOption($oldKey, $newKey) {
  */
 function optionCheck($urls) {
 	$errors = false;
-	if (CURL_ENABLED) {
+	if (PARALLEL_CURL) {
 		foreach ($urls as $whom => $url) {
 			$urls[$whom] = $url . '&curl';
 		}
-		$sections = array_chunk($urls, min(10, THREAD_CONCURRENCY - 1), true);
+		$sections = array_chunk($urls, min(10, THREAD_CONCURRENCY ? (THREAD_CONCURRENCY - 1) : 5), true);
 		foreach ($sections as $block) {
 			$checks = new ParallelCURL($block);
 			$rsp = $checks->getResults();
@@ -680,10 +684,7 @@ function optionCheck($urls) {
 					$errors = true;
 				}
 			}
-			if (ob_get_length()) {
-				ob_flush();
-			}
-			flush();
+			npgFunctions::flushOutput();
 		}
 	} else {
 		foreach ($urls as $whom => $link) {

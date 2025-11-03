@@ -96,19 +96,6 @@ if ($rslt) {
 	db_free_result($rslt);
 }
 
-//effervescence_plus migration
-if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
-	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
-		$_gallery->setCurrentTheme('effervescence+');
-		$_gallery->save();
-	}
-	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
-	foreach ($options as $option) {
-		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
-	}
-	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
-}
-
 //tnyMCE v7 migration
 $tinymce_v5_configs = array();
 if (is_dir(USER_PLUGIN_SERVERPATH . 'tinymce/config')) {
@@ -173,7 +160,6 @@ if (!empty($tinymce_v5_configs)) {
 				break;
 			default:
 				$found = substr($found, 0, $last + 1) . gettext(' and ') . substr($found, $last + 1);
-
 				break;
 		}
 
@@ -184,7 +170,7 @@ if (!empty($tinymce_v5_configs)) {
 		setupLog('<span class="logwarning">' . $msg . '</span>', true);
 		?>
 		<div class="warningbox">
-		<?php echo $msg; ?>
+			<?php echo $msg; ?>
 		</div>
 		<?php
 		$autorun = false;
@@ -243,23 +229,25 @@ foreach ($plugins as $key => $extension) {
 	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
+//	No need to setup plugins which are not enabled
+foreach ($plugin_links as $whom => $what) {
+	if (!extensionEnabled($whom)) {
+		unset($plugin_links[$whom]);
+	}
+}
+
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 
-$theme_links = array();
 setOption('known_themes', serialize(array())); //	reset known themes
 foreach ($themes as $key => $theme) {
-	$class = 0;
 	if (protectedTheme($theme)) {
 		unset($themes[$key]);
 	} else {
-		$class = 1;
 		$thirdParty = true;
 	}
 	if (isset($info[$theme]['deprecated'])) {
-		$class = 2;
 		$deprecated = true;
 	}
-	$theme_links[$theme] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
 $salt = 'abcdefghijklmnopqursuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+-={}[]|;,.<>?/';
@@ -593,13 +581,13 @@ setOptionDefault('time_zone', formattedDate('T'));
 if (isset($_GET['mod_rewrite'])) {
 	?>
 	<p>
-	<?php echo gettext('Mod_Rewrite '); ?>
+		<?php echo gettext('Mod_Rewrite '); ?>
 		<span>
-	<?php
-	if (CURL_ENABLED) {
-		$icon = curlRequest($mod_rewrite_link . '&curl');
-		if (is_numeric($icon)) {
-			?>
+			<?php
+			if (CURL_ENABLED) {
+				$icon = curlRequest($mod_rewrite_link . '&curl');
+				if (is_numeric($icon)) {
+					?>
 					<img id = "MODREWRITE" src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" height = "16px" width = "16px">
 					<?php
 				} else {
@@ -615,11 +603,12 @@ if (isset($_GET['mod_rewrite'])) {
 			?>
 		</span>
 	</p>
-			<?php
-		}
+	<?php
+}
+npgFunctions::flushOutput();
 
-		if (!CURL_ENABLED) {
-			?>
+if (!CURL_ENABLED) {
+	?>
 	<script>
 		$(function () {
 			$('img').on("error", function () {
@@ -984,18 +973,6 @@ foreach (getOptionsLike('logviewed_') as $option => $value) {
 	}
 }
 
-//effervescence_plus migration
-if (file_exists(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus')) {
-	if ($_gallery->getCurrentTheme() == 'effervescence_plus') {
-		$_gallery->setCurrentTheme('effervescence+');
-		$_gallery->save();
-	}
-	$options = query_full_array('SELECT LCASE(`name`) as name, `value` FROM ' . prefix('options') . ' WHERE `theme`="effervescence_plus"');
-	foreach ($options as $option) {
-		setThemeOption($option['name'], $option['value'], NULL, 'effervescence+', true);
-	}
-	npgFunctions::removeDir(SERVERPATH . '/' . THEMEFOLDER . '/effervescence_plus');
-}
 $displayErrors = false;
 
 //migrate favorites data
@@ -1225,37 +1202,58 @@ foreach ($_languages as $language => $dirname) {
 }
 setOption('locale_unsupported', serialize($unsupported));
 i18n::setupCurrentLocale($_setupCurrentLocale_result);
+
+set_time_limit(100);
+
+//	mark themes not constructed
+setupLog(gettext('Set Theme options'), true);
+query('DELETE FROM ' . prefix('options') . ' WHERE `name`="constructed" AND LENGTH(`theme`)>0');
+
+$theme = $_gallery->getCurrentTheme();
+
+if (protectedTheme($theme)) {
+	$class = 0;
+} else {
+	$class = 1;
+}
+if (isset($info[$theme]['deprecated'])) {
+	$class = 2;
+}
+$theme_link = [$theme => FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_themeOptions.php?theme=' . urlencode($theme) . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique];
 ?>
 <p>
-<?php
-setOption('known_themes', serialize(array())); //	reset known themes
-$themes = array_keys($info = $_gallery->getThemes());
-localeSort($themes);
-echo gettext('Theme setup:') . '<br />';
-$displayErrors = $displayErrors || optionCheck($theme_links);
-?>
+	<?php
+	echo gettext('Theme setup:') . ' ';
+	$displayErrors = $displayErrors || optionCheck($theme_link);
+	?>
 </p>
 
-	<?php
-	localeSort($plugins);
-	$deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));
-	?>
-<p>
 <?php
-echo gettext('Plugin setup:') . '<br />';
-$displayErrors = $displayErrors || optionCheck($plugin_links);
+npgFunctions::flushOutput();
+
+set_time_limit(100);
+setupLog(gettext('Set Plugin options'), true);
+localeSort($plugins);
 ?>
+<p>
+	<?php
+	echo gettext('Plugin setup:') . '<br />';
+	$displayErrors = $displayErrors || optionCheck($plugin_links);
+	?>
 </p>
+<?php
+npgFunctions::flushOutput();
+?>
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-	echo gettext('Successful initialization');
-	if ($thirdParty) {
-		?>
+echo gettext('Successful initialization');
+if ($thirdParty) {
+	?>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
 		echo gettext('Successful initialization (third party item)');
 	}
-	?>
+?>
 		<span id="errornote" style="display:<?php echo $displayErrors ? 'show' : 'none'; ?>"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {
@@ -1267,60 +1265,60 @@ $displayErrors = $displayErrors || optionCheck($plugin_links);
 	</span>
 </p>
 <br clear="all">
-		<?php
-		if ($displayErrors) {
-			$autorun = false;
-		}
-		$userPlugins = array_diff($plugins, $npgPlugins);
-		if (!empty($themes) || !empty($userPlugins)) {
-			//	There are either un-distributed themes or un-distributed plugins present
-			require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
-			$deprecated = new deprecated_functions();
-			$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
-			$prior = getSerializedArray(getOption('deprecated_functions_signature'));
-			if (!array_key_exists('signature', $prior)) {
-				$prior = array('signature' => reset($prior), 'themes' => array(), 'plugins' => array());
-			}
-			if ($current != $prior) {
-				$newThemes = array_diff($themes, $prior['themes']);
-				$newPlugins = array_diff($userPlugins, $prior['plugins']);
-				if ($current['signature'] != $prior['signature'] || !empty($newThemes) | !empty($newPlugins)) {
-					setOption('deprecated_functions_signature', serialize($current));
-					enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
-					if (!empty($prior['signature'])) {
-						setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
-					}
-				}
+<?php
+if ($displayErrors) {
+	$autorun = false;
+}
+$userPlugins = array_diff($plugins, $npgPlugins);
+if (!empty($themes) || !empty($userPlugins)) {
+	//	There are either un-distributed themes or un-distributed plugins present
+	require_once(PLUGIN_SERVERPATH . 'deprecated-functions.php');
+	$deprecated = new deprecated_functions();
+	$current = array('signature' => sha1(serialize($deprecated->listed_functions)), 'themes' => $themes, 'plugins' => $userPlugins);
+	$prior = getSerializedArray(getOption('deprecated_functions_signature'));
+	if (!array_key_exists('signature', $prior)) {
+		$prior = array('signature' => reset($prior), 'themes' => array(), 'plugins' => array());
+	}
+	if ($current != $prior) {
+		$newThemes = array_diff($themes, $prior['themes']);
+		$newPlugins = array_diff($userPlugins, $prior['plugins']);
+		if ($current['signature'] != $prior['signature'] || !empty($newThemes) | !empty($newPlugins)) {
+			setOption('deprecated_functions_signature', serialize($current));
+			enableExtension('deprecated-functions', 900 | CLASS_PLUGIN);
+			if (!empty($prior['signature'])) {
+				setupLog('<span class="logwarning">' . gettext('There has been a change in function deprecation, Themes, or Plugins. The deprecated-functions plugin has been enabled.') . '</span>', true);
 			}
 		}
+	}
+}
 
-		$compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
-		$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
-		if (empty($compatibilityWas)) {
-			$compatibilityWas = $compatibilityIs;
-		} else {
-			$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), $compatibilityWas);
+$compatibilityIs = array('themes' => $themes, 'plugins' => $plugins);
+$compatibilityWas = getSerializedArray(getOption('zenphotoCompatibilityPack_signature'));
+if (empty($compatibilityWas)) {
+	$compatibilityWas = $compatibilityIs;
+} else {
+	$compatibilityWas = array_merge(array('themes' => array(), 'plugins' => array()), $compatibilityWas);
+}
+$newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $npgPlugins);
+$newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
+
+if (!empty($newPlugins) || !empty($newThemes)) {
+
+	$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
+	$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
+	if (!empty($themeChange) || !empty($pluginChange)) {
+		enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
+		setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
+		if (!empty($themeChange)) {
+			setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', true);
 		}
-		$newPlugins = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins'], $npgPlugins);
-		$newThemes = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
-
-		if (!empty($newPlugins) || !empty($newThemes)) {
-
-			$themeChange = array_diff($compatibilityIs['themes'], $compatibilityWas['themes']);
-			$pluginChange = array_diff($compatibilityIs['plugins'], $compatibilityWas['plugins']);
-			if (!empty($themeChange) || !empty($pluginChange)) {
-				enableExtension('zenphotoCompatibilityPack', 1 | CLASS_PLUGIN);
-				setupLog('<span class="logwarning">' . gettext('There has been a change of themes or plugins. The zenphotoCompatibilityPack plugin has been enabled.') . '</span>', true);
-				if (!empty($themeChange)) {
-					setupLog('<span class="logwarning">' . sprintf(gettext('New themes: <em>%1$s</em>'), trim(implode(', ', $themeChange), ',')) . '</span>', true);
-				}
-				if (!empty($pluginChange)) {
-					setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', true);
-				}
-			}
+		if (!empty($pluginChange)) {
+			setupLog('<span class="logwarning">' . sprintf(gettext('New plugins: <em>%1$s</em>'), trim(implode(', ', $pluginChange), ',')) . '</span>', true);
 		}
+	}
+}
 
 
-		$_gallery->garbageCollect();
+$_gallery->garbageCollect();
 
-		setOption('zenphotoCompatibilityPack_signature', serialize($compatibilityIs));
+setOption('zenphotoCompatibilityPack_signature', serialize($compatibilityIs));

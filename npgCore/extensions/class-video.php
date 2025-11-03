@@ -600,7 +600,7 @@ function class_video_enable($enabled) {
 	} else {
 		$report = gettext('Metadata fields will be <span style = "color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
-	requestSetup('Video Metadata', $report);
+	requestSetup('class-video', $report);
 }
 
 $_multimedia_extension = new html5Player();

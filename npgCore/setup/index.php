@@ -20,6 +20,12 @@ if (defined('CHMOD_VALUE')) {
 } else {
 	$chmod = fileperms(CORE_SERVERPATH) & 0666;
 }
+if ($chmod & 0600 != 0600) {
+	$chmod = 0666; // make sure we can access our files!
+}
+if (!defined('CHMOD_VALUE')) {
+	define('CHMOD_VALUE', $chmod);
+}
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 	mkdir(SERVERPATH . '/' . DATA_FOLDER, $chmod | 0311);
@@ -488,10 +494,6 @@ header("Cache-Control: no-cache, must-revalidate, no-store, pre-check=0, post-ch
 header("Pragma: no-cache");
 header("Expires: Thu, 19 Nov 1981 08:52:00 GMT");
 
-if (defined('CHMOD_VALUE')) {
-	$chmod = CHMOD_VALUE & 0666;
-}
-
 enableExtension('security-logger', 100 | CLASS_PLUGIN);
 
 $cloneid = bin2hex(FULLWEBPATH);
@@ -543,7 +545,6 @@ if ($setup_checked) {
 	if (isset($_POST['db'])) {
 		setupLog(gettext("Post of Database credentials"), true);
 	} else {
-
 		if (!isset($_SESSION['SetupStarted']) || $_SESSION['SetupStarted'] != NETPHOTOGRAPHICS_VERSION) {
 			$_SESSION['SetupStarted'] = NETPHOTOGRAPHICS_VERSION;
 			npgFilters::apply('log_setup', true, 'install', gettext('Started'));
@@ -561,10 +562,8 @@ if ($setup_checked) {
 		} else {
 			$clone = ' ' . gettext('clone');
 		}
-
 		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s GMT'), NETPHOTOGRAPHICS_VERSION, $clone, gmdate('D, d M Y H:i:s')), true, true); // initialize the log file
 	}
-
 	if ($environ) {
 		setupLog(gettext("Full environment"));
 	} else {
@@ -573,6 +572,7 @@ if ($setup_checked) {
 			setupLog(sprintf(gettext("Query error: %s"), $connectDBErr), true);
 		}
 	}
+
 	setNPGCookie('setup_test_cookie', NETPHOTOGRAPHICS_VERSION, 3600);
 }
 
@@ -583,6 +583,7 @@ if (!isset($_setupCurrentLocale_result) || empty($_setupCurrentLocale_result)) {
 	if (DEBUG_LOCALE)
 		debugLog('$_setupCurrentLocale_result = ' . $_setupCurrentLocale_result);
 }
+
 if ($test_release = getOption('markRelease_state')) {
 	$test_release = strpos($test_release, '-DEBUG');
 }
@@ -1745,10 +1746,8 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							</script>
 							<?php
 							// set defaults on any options that need it
-							if (ob_get_length()) {
-								ob_flush();
-							}
-							flush();
+							$optionStart = microtime(true);
+							npgFunctions::flushOutput();
 							require(__DIR__ . '/setup-option-defaults.php');
 
 							if ($debug == 'albumids') {
@@ -1850,6 +1849,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								default:
 									break;
 							}
+							$optionComplete = microtime(true) - $optionStart;
 							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script>
@@ -1861,7 +1861,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									$.ajax({
 										type: 'POST',
 										cache: false,
-										data: 'errors=' + errors,
+										data: 'errors=' + errors + '&optionComplete=' + <?php echo $optionComplete; ?>,
 										url: '<?php echo WEBPATH . '/' . CORE_FOLDER; ?>/setup/setupComplete.php'
 									});
 									$('.delayshow').show();

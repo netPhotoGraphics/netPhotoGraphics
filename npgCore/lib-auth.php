@@ -46,7 +46,7 @@ class _Authority {
 					if (isset(self::$hashList[ucfirst(PASSWORD_DEFAULT)])) {
 						define('PASSWORD_FUNCTION_DEFAULT', self::$hashList[ucfirst(PASSWORD_DEFAULT)]);
 					} else {
-//	we need to add a new hash algorithm to the list!
+						//	we need to add a new hash algorithm to the list!
 						define('PASSWORD_FUNCTION_DEFAULT', end(self::$hashList));
 					}
 				}
@@ -100,7 +100,7 @@ class _Authority {
 	protected static function getHashList($fullList = false) {
 		$full = $encodings = array_reverse(self::$hashList);
 
-//	deprecate encodings
+		//	deprecate encodings
 		unset($encodings['pbkdf2*']);
 		if (!defined('PASSWORD_ARGON2ID')) {
 			unset($encodings['Argon2id']);
@@ -1862,7 +1862,7 @@ class _Authority {
 								 name="<?php printf($format, 'disclose_password', $id); ?>"
 								 id="disclose_password<?php echo $id; ?>"
 								 onclick="passwordClear('<?php echo $id; ?>');
-										 togglePassword('<?php echo $id; ?>');">
+												 togglePassword('<?php echo $id; ?>');">
 				</label>
 			</span>
 			<label for="pass<?php echo $id; ?>" id="strength<?php echo $id; ?>">
@@ -1871,7 +1871,7 @@ class _Authority {
 							 id="pass<?php echo $id; ?>"
 							 onchange="$('#passrequired-<?php echo $id; ?>').val(1);"
 							 onclick="passwordClear('<?php echo $id; ?>');
-									 $('#show_disclose_password<?php echo $id; ?>').show();"
+											 $('#show_disclose_password<?php echo $id; ?>').show();"
 							 onkeyup="passwordStrength('<?php echo $id; ?>');"
 							 <?php echo $disable; ?> class="password_input inputbox"/>
 			</label>

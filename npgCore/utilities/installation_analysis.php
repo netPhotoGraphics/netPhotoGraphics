@@ -65,7 +65,7 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-									$(document).ready(function () {
+																																	$(document).ready(function () {
 										$(".doc").colorbox({
 											close: '<?php echo gettext("close"); ?>',
 											maxHeight: "98%",
@@ -160,11 +160,6 @@ echo '</head>';
 								printf(gettext('PHP version: <strong>%1$s</strong>'), phpversion());
 								?>
 							</li>
-							<li>
-								<div class="hangng_indent">
-									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
-								</div>
-							</li>
 
 							<?php
 							$loaded = get_loaded_extensions();
@@ -187,7 +182,56 @@ echo '</head>';
 								</li>
 								<?php
 							}
+							if (isset($_conf_vars['CURL_ENABLED'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>CURL_ENABLED</code> is set %1$s in npg.cfg.php'), $_conf_vars['CURL_ENABLED'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['GitHub_SSL_OPT'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>GitHub_SSL_OPT</code> is set to 0x%05X in npg.cfg.php'), $_conf_vars['GitHub_SSL_OPT']);
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['MUTEX_RUN_FREE'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>MUTEX_RUN_FREE</code> is set %1$s in npg.cfg.php'), $_conf_vars['MUTEX_RUN_FREE'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
+							}
+							if (isset($_conf_vars['PARALLEL_CURL'])) {
+								?>
+								<li>
+									<div class="hangng_indent">
+										<?php
+										printf(gettext('<code>PARALLEL_CURL</code> is set %1$s in npg.cfg.php'), $_conf_vars['PARALLEL_CURL'] ? 'TRUE' : 'FALSE');
+										?>
+									</div>
+								</li>
+								<?php
+							}
 							?>
+							<li>
+								<div class="hangng_indent">
+									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
+								</div>
+							</li>
 							<li>
 								<?php
 								$memoryLimit = INI_GET('memory_limit');
@@ -492,8 +536,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+							$('.overview_list').height(height);
 </script>
 
 <?php

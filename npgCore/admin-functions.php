@@ -402,7 +402,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 	function printSetupWarning() {
 		list($versionDiff, $needs, $restore, $found) = checkSignature(0);
 		$found = array_diff($found, $restore, array('setup-functions.php', 'icon.php', 'setup.css'));
-		if (npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts()) {
+		if (npg_loggedin(ADMIN_RIGHTS)) {
 			if (!empty($found)) {
 				?>
 				<div class="warningbox">
@@ -411,6 +411,17 @@ function printAdminHeader($tab, $subtab = NULL) {
 					echo gettext('The Setup environment is not totally secure, you should protect the scripts to thwart hackers.') . ' ';
 					if (npgFunctions::hasPrimaryScripts()) {
 						echo '<a href="' . getAdminLink('admin.php') . '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup') . '">' . gettext('Protect the scripts.') . '</a>';
+					} else {
+						$clone = clonedFrom();
+						$base = substr(SERVERPATH, 0, strlen(SERVERPATH) - strlen(WEBPATH));
+						if (strpos($base, $clone) == 0) {
+							$base = substr($clone, strlen($base));
+							$link = $base . '/' . CORE_FOLDER . '/admin.php';
+							$source = '<a href="' . $link . '">' . $_SERVER['HTTP_HOST'] . $base . '</a>';
+						} else {
+							$source = $clone;
+						}
+						echo sprintf(gettext('You must protect the scripts from %1$s'), $source);
 					}
 					?>
 				</div>
@@ -1248,7 +1259,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 										<ul class="customchecklist">
 											<?php
 										}
-
 										foreach ($row['checkboxes'] as $display => $checkbox) {
 											$checked = in_array($checkbox, $setOptions);
 											if (is_numeric($display)) {
@@ -1263,7 +1273,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 												?>
 												<label class="<?php echo $labelClass; ?>">
 													<?php if ($behind) echo($display); ?>
-													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"' . $disabled; ?> class="all_<?php echo $key; ?>"/>
+													<input type="checkbox" id="__<?php echo $checkbox; ?>" name="<?php echo $postkey; ?>[]" value="<?php echo $checkbox; ?>"<?php if ($checked) echo ' checked="checked"'; ?> class="all_<?php echo $key; ?>"<?php echo $disabled; ?>/>
 													<?php if (!$behind) echo($display); ?>
 												</label>
 												<?php
@@ -1671,11 +1681,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 				<label class="displayinline">
 					<input id="<?php echo $listitem; ?>"<?php echo $class; ?> name="<?php echo $namechecked; ?>" type="checkbox"<?php echo $checked; ?> value="<?php echo $item; ?>" <?php echo $alterrights; ?>
 								 onclick="
-										 if ($('#<?php echo $listitem; ?>').is(':checked')) {
-											 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
-										 } else {
-											 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
-										 }
+												 if ($('#<?php echo $listitem; ?>').is(':checked')) {
+													 $('.<?php echo $listitem; ?>_checked').attr('checked', 'checked');
+												 } else {
+													 $('.<?php echo $listitem; ?>_extra').removeAttr('checked');
+												 }
 								 "/>
 								 <?php echo html_encode($display); ?>
 				</label>
@@ -2069,11 +2079,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<div id="menu_selector_button">
 			<div id="menu_button">
 				<a onclick="$('#menu_selections').show();
-						$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+							$('#menu_button').hide();<?php echo $toggle; ?>" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 			</div>
 			<div id="menu_selections" style="display: none;">
 				<a onclick="$('#menu_selections').hide();
-						$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
+							$('#menu_button').show();" class="floatright" title="<?php echo gettext('Select what shows on page'); ?>"><?php echo '&nbsp;&nbsp;' . MENU_SYMBOL; ?></a>
 				<div class="floatright">
 					<?php
 					foreach ($stuff as $item => $name) {
@@ -2300,7 +2310,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 														 name="disclose_password<?php echo $suffix; ?>"
 														 id="disclose_password<?php echo $suffix; ?>"
 														 onclick="passwordClear('<?php echo $suffix; ?>');
-																 togglePassword('<?php echo $suffix; ?>');" />
+																		 togglePassword('<?php echo $suffix; ?>');" />
 														 <?php echo addslashes(gettext('Show')); ?>
 										</label>
 
@@ -2633,9 +2643,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 name="<?php echo $prefix; ?>Published"
 										 value="1" <?php if ($album->getShow()) echo ' checked="checked"'; ?>
 										 onclick="$('#<?php echo $prefix; ?>publishdate').val('');
-												 $('#<?php echo $prefix; ?>expirationdate').val('');
-												 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
-												 $('.<?php echo $prefix; ?>expire').html('');"
+													 $('#<?php echo $prefix; ?>expirationdate').val('');
+													 $('#<?php echo $prefix; ?>publishdate').css('color', 'black');
+													 $('.<?php echo $prefix; ?>expire').html('');"
 										 />
 										 <?php echo gettext("Published"); ?>
 						</label>
@@ -2793,7 +2803,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 										 } else {
 											 ?>
 											 onclick="toggleAlbumMCR('<?php echo $prefix; ?>', '');
-													 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
+															 deleteConfirm('Delete-<?php echo $prefix; ?>', '<?php echo $prefix; ?>', deleteAlbum1);"
 											 <?php
 										 }
 										 ?> />
@@ -3356,7 +3366,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			$album->setOwner(sanitize($_POST[$prefix . 'owner']));
 		}
 		if (isset($_POST['tag_list_tags_' . $prefix])) {
-			$tags = sanitize($_POST['tag_list_tags_' . $prefix]);
+			$tags = array_map('trim', sanitize($_POST['tag_list_tags_' . $prefix]));
 		} else {
 			$tags = array();
 		}
@@ -3804,10 +3814,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 	 * @param string $file the file to zip
 	 */
 	function putZip($zipname, $file) {
-//we are dealing with file system items, convert the names
+		//we are dealing with file system items, convert the names
 		$fileFS = internalToFilesystem($file);
 		if (class_exists('ZipArchive')) {
-			$zipfileFS = tempnam('', 'zip');
+			$zipfileFS = tempnam(sys_get_temp_dir(), 'zip');
+			@unlink($zipfileFS); //	zipArchive wants there not to be a file
 			$zip = new ZipArchive;
 			$zip->open($zipfileFS, ZipArchive::CREATE);
 			$zip->addFile($fileFS, basename($fileFS));
@@ -4091,7 +4102,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 					} else {
 						if (file_exists($fullname)) {
 							$result = $result && copy($fullname, $fullDest);
-							chmod($fullDest, FILE_MOD);
+							chmod($fullDest, fileperms($fullname));
 						}
 					}
 				}
@@ -4981,30 +4992,30 @@ function printBulkActions($checkarray, $checkAll = false) {
 		<script>
 			//<!-- <![CDATA[
 			function checkFor(obj) {
-			var sel = obj.options[obj.selectedIndex].value;
-							var mark;
-							switch (sel) {
+				var sel = obj.options[obj.selectedIndex].value;
+				var mark;
+				switch (sel) {
 		<?php
 		foreach ($colorboxBookmark as $key => $mark) {
 			?>
-				case '<?php echo $key; ?>':
-								mark = '<?php echo $mark; ?>';
-								break;
+					case '<?php echo $key; ?>':
+					mark = '<?php echo $mark; ?>';
+									break;
 			<?php
 		}
 		?>
-			default:
-							mark = false;
-							break;
+				default:
+				mark = false;
+								break;
 			}
 			if (mark) {
-			$.colorbox({
-			href: '#' + mark,
-							inline: true,
-							open: true,
-							close: '<?php echo gettext("ok"); ?>'
-			});
-			}
+				$.colorbox({
+					href: '#' + mark,
+					inline: true,
+					open: true,
+					close: '<?php echo gettext("ok"); ?>'
+				});
+				}
 			}
 
 		</script>
@@ -5157,6 +5168,10 @@ function bulkTags() {
 	} else {
 		$tags = array();
 	}
+	foreach ($tags as $key => $tag) {
+		$tags[$key] = trim($tag);
+	}
+	$tags = array_unique($tags);
 	return $tags;
 }
 
@@ -5396,26 +5411,26 @@ function codeblocktabsJS() {
 	?>
 	<script charset="utf-8">
 
-						$(function () {
-						var tabContainers = $('div.tabs > div');
-										$('.first').addClass('selected');
-						});
-						function cbclick(num, id) {
-						$('.cbx-' + id).hide();
-										$('#cb' + num + '-' + id).show();
-										$('.cbt-' + id).removeClass('selected');
-										$('#cbt' + num + '-' + id).addClass('selected');
-						}
+		$(function () {
+			var tabContainers = $('div.tabs > div');
+			$('.first').addClass('selected');
+		});
+		function cbclick(num, id) {
+			$('.cbx-' + id).hide();
+			$('#cb' + num + '-' + id).show();
+			$('.cbt-' + id).removeClass('selected');
+			$('#cbt' + num + '-' + id).addClass('selected');
+		}
 
 		function cbadd(id, offset) {
-		var num = $('#cbu-' + id + ' li').length - offset;
-						$('li:last', $('#cbu-' + id)).remove();
-						$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
-						$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
-						$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
-						'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
-						'</div>');
-						cbclick(num, id);
+			var num = $('#cbu-' + id + ' li').length - offset;
+			$('li:last', $('#cbu-' + id)).remove();
+			$('#cbu-' + id).append('<li><a class="cbt-' + id + '" id="cbt' + num + '-' + id + '" onclick="cbclick(' + num + ',' + id + ');" title="' + '<?php echo gettext('codeblock %u'); ?>'.replace(/%u/, num) + '">&nbsp;&nbsp;' + num + '&nbsp;&nbsp;</a></li>');
+			$('#cbu-' + id).append('<li><a id="cbp-' + id + '" onclick="cbadd(' + id + ',' + offset + ');" title="<?php echo gettext('add codeblock'); ?>">&nbsp;&nbsp;+&nbsp;&nbsp;</a></li>');
+			$('#cbd-' + id).append('<div class="cbx-' + id + '" id="cb' + num + '-' + id + '" style="display:none">' +
+							'<textarea name="codeblock' + num + '-' + id + '" class="codeblock" id="codeblock' + num + '-' + id + '" rows="40" cols="60"></textarea>' +
+							'</div>');
+			cbclick(num, id);
 		}
 
 	</script>
@@ -6536,7 +6551,7 @@ function linkPickerIcon($obj, $id = NULL, $extra = NULL) {
 	}
 	?>
 	<a onclick="<?php echo $clickid; ?>$('.pickedObject').removeClass('pickedObject');
-										$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
+				$('#<?php echo $iconid; ?>').addClass('pickedObject');<?php linkPickerPick($obj, $id, $extra); ?>" title="<?php echo gettext('pick source'); ?>">
 			 <?php echo CLIPBOARD; ?>
 	</a>
 	<?php
@@ -6704,6 +6719,12 @@ use Milo\Github\Http;
 
 function fetchGithubLatest($owner, $repro, $option, $required = true) {
 	global $__githubError;
+	if (version_compare(PHP_VERSION, 8.0, '<')) {
+		$__githubError = sprintf(gettext('Could not determine the %s latest release. '), $repro) . gettext('PHP version 8.0 opr higher requires.');
+		debugLog($__githubError);
+		npgFilters::register('admin_note', 'githubWarn');
+		return;
+	}
 	try {
 		$client = extension_loaded('curl') ?
 						new Http\CurlClient(getOption('GitHub_SSL_OPT')) :
@@ -6715,15 +6736,12 @@ function fetchGithubLatest($owner, $repro, $option, $required = true) {
 		if (empty($assets)) {
 			if ($required) {
 				throw new Exception(gettext('GitHub reported no assets.'));
-			} else {
-				purgeOption($option);
 			}
 		} else {
 			$item = array_pop($assets);
 			setOption($option, $item->browser_download_url);
 		}
 	} catch (Exception $e) {
-		purgeOption($option);
 		$__githubError = sprintf(gettext('Could not determine the %s latest release. '), $repro) . $e->getMessage();
 		debugLog($__githubError);
 		npgFilters::register('admin_note', 'githubWarn');

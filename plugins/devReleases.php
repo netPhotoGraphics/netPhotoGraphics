@@ -19,6 +19,7 @@
 
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Provides an install button from the development releases.');
+$plugin_disable = version_compare(PHP_VERSION, 8.0, '<') ? gettext('PHP must be version 8.0 or higher.') : '';
 
 require_once(GITHUB_API_PATH);
 

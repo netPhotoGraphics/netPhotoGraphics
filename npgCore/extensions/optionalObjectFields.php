@@ -449,7 +449,7 @@ class optionalObjectFields extends fieldExtender {
 		if ($type == 'save') {
 			$tagsprefix = 'tag_list_tags_' . $i;
 			if (isset($_POST[$tagsprefix])) {
-				$tags = sanitize($_POST[$tagsprefix]);
+				$tags = array_map('trim', sanitize($_POST[$tagsprefix]));
 			} else {
 				$tags = array();
 			}

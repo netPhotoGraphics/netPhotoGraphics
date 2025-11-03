@@ -1,5 +1,6 @@
 <?php
 // force UTF-8  Ø
+require_once(CORE_SERVERPATH . 'template-functions.php'); //	just in case
 clearNPGCookie('index_page_paged');
 list($album, $image) = rewrite_get_album_image('album', 'image');
 if ($image) { //	maybe we can find it

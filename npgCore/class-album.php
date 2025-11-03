@@ -762,9 +762,10 @@ class AlbumBase extends MediaObject {
 			foreach ($filestomove as $file) {
 				if (in_array(strtolower(getSuffix($file)), $this->sidecars)) {
 					$d = stripslashes($dest) . '.' . getSuffix($file);
+					$perms = fileperms($file);
 					chmod($file, 0777);
 					$success = $success && rename($file, $d);
-					chmod($d, FILE_MOD);
+					chmod($d, $perms);
 				}
 			}
 			$success = $success && parent::move(array('folder' => $newfolder));
@@ -1042,10 +1043,11 @@ class AlbumBase extends MediaObject {
 		$this->set('album_theme', $theme);
 		if (!getThemeOption('constructed', $this, $theme)) {
 			if (!(false === ($requirePath = getPlugin('themeoptions.php', $theme)))) {
-//prime the options
+				//prime the options
 				$_set_theme_album = $this;
 				require_once($requirePath);
 				$optionHandler = new ThemeOptions(true);
+				setThemeOption('constructed', 1, $this, $theme);
 			}
 		}
 	}

@@ -2,8 +2,8 @@
 
 const stdExclude = array('Thumbs.db', 'readme.md', 'data', '.', '..');
 
-Define('PHP_MIN_VERSION', '7.3');
-Define('PHP_MIN_SUPPORTED_VERSION', '7.4');
+Define('PHP_MIN_VERSION', '7.4');
+Define('PHP_MIN_SUPPORTED_VERSION', '8.0');
 
 $time = time();
 switch ($time) {
@@ -187,12 +187,12 @@ if (file_exists($const_serverpath . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	}
 }
 
-
 if (isset($_conf_vars['CURL_ENABLED'])) {
 	define('CURL_ENABLED', $_conf_vars['CURL_ENABLED']);
 } else {
 	define('CURL_ENABLED', function_exists('curl_init'));
 }
+define('PARALLEL_CURL', CURL_ENABLED && (isset($_conf_vars['PARALLEL_CURL']) ? $_conf_vars['PARALLEL_CURL'] : true));
 
 if (isset($_conf_vars['WEBPATH'])) {
 	define('WEBPATH', $_conf_vars['WEBPATH']);
@@ -212,12 +212,8 @@ if (isset($_conf_vars['SERVERPATH'])) {
 define('CORE_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/');
 define('PLUGIN_SERVERPATH', SERVERPATH . '/' . CORE_FOLDER . '/' . PLUGIN_FOLDER . '/');
 define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
+define('GITHUB_API_PATH', PLUGIN_SERVERPATH . 'common/github-api-2.0.2/github-api.php');
 
-if (version_compare(PHP_VERSION, 8.0, '<')) {
-	define('GITHUB_API_PATH', PLUGIN_SERVERPATH . 'common/github-api-1.4.9/github-api.php');
-} else {
-	define('GITHUB_API_PATH', PLUGIN_SERVERPATH . 'common/github-api-2.0.2/github-api.php');
-}
 unset($matches);
 unset($const_webpath);
 unset($const_serverpath);

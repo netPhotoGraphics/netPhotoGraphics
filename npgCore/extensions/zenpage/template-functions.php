@@ -614,7 +614,7 @@ function printNewsArchive($class = 'archive', $yearclass = 'year', $monthclass =
 	}
 	$datecount = $_CMS->getAllArticleDates($yearsonly, $order);
 	$lastyear = "";
-	$nr = "";
+	$nr = 0;
 	echo "\n<ul $class>\n";
 	foreach ($datecount as $key => $val) {
 		$nr++;
@@ -1452,7 +1452,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 	$indent = 1;
 	$open = array($indent => 0);
 	$parents = array(NULL);
-	$order = explode('-', $currentitem_sortorder);
+	$order = explode('-', strval($currentitem_sortorder));
 	$baseindent = max(1, count($order));
 	$mylevel = count($order);
 	$myparentsort = reset($order);

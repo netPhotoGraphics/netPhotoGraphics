@@ -1275,7 +1275,7 @@ function storeTags($tags, $id, $tbl) {
 	if ($id) {
 		$tagsLC = array();
 		foreach ($tags as $key => $tag) {
-			$tag = trim($tag, '\'"');
+			$tag = trim($tag, ' \'"');
 			if (!empty($tag)) {
 				$lc_tag = mb_strtolower($tag);
 				if (!in_array($lc_tag, $tagsLC)) {
@@ -3296,6 +3296,13 @@ class npgFunctions {
 		return '[' . ltrim($example, ',') . ']';
 	}
 
+	static function flushOutput() {
+		if (ob_get_length()) {
+			ob_flush();
+		}
+		flush();
+	}
+
 }
 
 /**
@@ -3315,10 +3322,15 @@ class _captcha {
 
 }
 
+global $_captcha;
+$_captcha = new _captcha(); // this will be overridden by the plugin if enabled.
+
 /**
  * stand-in for when there is no HTML cache plugin enabled
  */
 class _npg_HTML_cache {
+
+	public $enabled = false;
 
 	function disable() {
 

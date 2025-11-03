@@ -93,11 +93,13 @@ if ($plugin_disable) {
 						$valid = FALSE;
 					}
 					if ($valid || !$only_valid) {
-						$clones[$row['aux']] = array('url' => $row['data'] . '/', 'valid' => $valid);
+						$url = preg_replace('~http(s*)~i', PROTOCOL, $row['data']);
+						$clones[$row['aux']] = array('url' => $url . '/', 'valid' => $valid);
 					}
 				}
 				db_free_result($result);
 			}
+
 			return $clones;
 		}
 

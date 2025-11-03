@@ -181,7 +181,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'crop') {
 		if (DEBUG_IMAGE)
 			debugLog('image_crop: failed to create ' . $imgpath);
 	}
-	chmod($imgpath, FILE_MOD);
+	chmod($imgpath, IMG_MOD);
 	gl_imageKill($newim);
 	gl_imageKill($timg);
 	Gallery::clearCache($albumname);
@@ -356,7 +356,7 @@ if ($pasteobj && isset($_REQUEST['size'])) {
 		return confirm('<?php echo gettext('Are you sure you want to permanently alter this image?'); ?>');
 	}
 
-	
+
 </script>
 </head>
 <body>

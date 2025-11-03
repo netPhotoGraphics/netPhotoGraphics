@@ -95,7 +95,7 @@ $_sortby = array(
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
 	if ($_current_admin_obj->reset) {
-//	There are no valid administrators, allow user creation or backup restore (if possible)
+		//	There are no valid administrators, allow user creation or backup restore (if possible)
 		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
 		if (count($filelist) > 0) {
 			$link = getAdminLink('utilities/backup_restore.php') . '?tab=backup';
@@ -235,12 +235,11 @@ if (isset($_loggedin) && $_loggedin) {
 				$optiondefault = '&tab=gallery';
 			}
 			$subtabs[gettext("gallery")] = 'admin-tabs/options.php?page=options&tab=gallery';
+			$new = array();
 			if ($_loggedin & ADMIN_RIGHTS) {
 				$subtabs[gettext("security")] = 'admin-tabs/options.php?page=options&tab=security';
 				if (npg_Authority::flagOptionTab()) {
 					$new = array(gettext("security"));
-				} else {
-					$new = array();
 				}
 			}
 			$subtabs[gettext("image")] = 'admin-tabs/options.php?page=options&tab=image';

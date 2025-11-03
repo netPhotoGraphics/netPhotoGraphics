@@ -41,7 +41,6 @@ foreach (security_logger::$typelist as $what => $where) {
 class security_logger {
 
 	public static $typelist = array(
-			'access_control' => 'security_logger::access_control',
 			'admin_log_actions' => 'security_logger::log_action',
 			'admin_login_attempt' => 'security_logger::adminLoginlogger',
 			'admin_managed_albums_access' => 'security_logger::adminAlbumGate',
@@ -468,19 +467,6 @@ class security_logger {
 	 * @param string $txt
 	 */
 	static function security_misc($success, $requestor, $auth, $txt) {
-		list($user, $name) = security_logger::populate_user();
-		security_logger::logger((int) $success, $user, $name, $requestor, $auth, $txt);
-		return $success;
-	}
-
-	/**
-	 * Log access control actions
-	 * @param bool $success
-	 * @param string $requestor
-	 * @param string $auth
-	 * @param string $txt
-	 */
-	static function access_control($success, $requestor, $auth, $txt) {
 		list($user, $name) = security_logger::populate_user();
 		security_logger::logger((int) $success, $user, $name, $requestor, $auth, $txt);
 		return $success;

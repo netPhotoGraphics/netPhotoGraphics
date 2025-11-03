@@ -48,12 +48,13 @@ if (isset($_GET['action'])) {
 			$language = sanitize($_POST['language']);
 			$action = $_POST['tag_action'];
 			if (isset($_POST['tag_list_tags_'])) {
-				$tags = sanitize($_POST['tag_list_tags_']);
+				$tags = array_map('trim', sanitize($_POST['tag_list_tags_']));
 			} else {
 				$tags = array();
 			}
+			$tags = array_unique($tags);
 			if (isset($_POST['lang_list_tags_'])) {
-				$langs = sanitize($_POST['lang_list_tags_']);
+				$langs = array_map('trim', sanitize($_POST['lang_list_tags_']));
 			} else {
 				$langs = array();
 			}

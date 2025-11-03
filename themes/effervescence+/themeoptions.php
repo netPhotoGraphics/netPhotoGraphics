@@ -12,8 +12,7 @@ require_once(__DIR__ . '/functions.php');
 
 class ThemeOptions {
 
-	function __construct($setDefaultOptions) {
-
+	function __construct() {
 		$me = basename(__DIR__);
 		setThemeOptionDefault('Theme_logo', '');
 		setThemeOptionDefault('Allow_search', true);
@@ -207,12 +206,12 @@ class ThemeOptions {
 				<select id="EF_themeselect_logo" name="Graphic_logo">
 					<option value="" style="background-color:LightGray"><?php echo gettext('*no logo selected'); ?></option>';
 					<option value="*"<?php if ($currentValue == '*') echo ' selected="selected"'; ?>><?php echo gettext('Effervescence'); ?></option>';
-					<?php generateListFromFiles($currentValue, SERVERPATH . '/' . UPLOAD_FOLDER . '/images', '.png'); ?>
+				<?php generateListFromFiles($currentValue, SERVERPATH . '/' . UPLOAD_FOLDER . '/images', '.png'); ?>
 				</select>
-				<?php
-				break;
+					<?php
+					break;
+			}
 		}
-	}
 
-}
-?>
+	}
+	?>

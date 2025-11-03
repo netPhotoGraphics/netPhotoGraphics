@@ -34,7 +34,9 @@ $plugin_description = gettext("Debugging aids.");
 $option_interface = 'debug';
 
 npgFilters::register('admin_tabs', 'debug::tabs', 100);
-npgFilters::register('admin_utilities_buttons', 'debug::button');
+if (npgFunctions::hasPrimaryScripts()) {
+	npgFilters::register('admin_utilities_buttons', 'debug::button');
+}
 
 if (isset($_GET['markRelease'])) {
 	XSRFdefender('markRelease');
@@ -150,38 +152,49 @@ class debug {
 						'order' => 3,
 						'desc' => gettext('Adds the <a href="https://jquery.com/upgrade-guide/">jQuery migration</a> tool to theme pages. (If <em>No migration</em> is selected jQuery v1.12 and jQuery migration v1.4.1 will be loaded instead of jQuery v3.'))
 		);
-		if (npgFunctions::hasPrimaryScripts()) {
-			$list = array(
-					gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
-					gettext('<em>testing mode</em>') => 'TESTING',
-					gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
-					gettext('<em>show plugin load times</em>') => 'PLUGINS',
-					gettext('Log 403 forbidden image processing information') => '403',
-					gettext('Log 404 error processing debug information') => '404',
-					gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
-					gettext('Log filter application sequence') => 'FILTERS',
-					gettext('Log image processing debug information') => 'IMAGE',
-					gettext('Log language selection processing') => 'LOCALE',
-					gettext('Log admin saves and login attempts') => 'LOGIN',
-					gettext('Log Feed issues') => 'FEED',
-					gettext('Log Managed Objects changes') => 'OBJECTS'
-			);
-			$options[NULL] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
-					'checkboxes' => $list,
-					'order' => 1,
-					'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . '<br/>' .
-					gettext('If <em>disable auto protect scripts</em> is checked <em>Setup</em> will not protect its scrpts after an install.') . '<br/>' .
-					gettext('<em>show plugin load times</em> lists load times for individual plugins in the <code>Script processing</code> HTML comments at the end of the page.')
-			);
+
+		$list = array(
+				gettext('Display PHP errors') => 'DISPLAY‑ERRORS',
+				gettext('<em>testing mode</em>') => 'TESTING',
+				gettext('<em>disable auto protect scripts</em>') => 'UNPROTECT',
+				gettext('<em>show plugin load times</em>') => 'PLUGINS',
+				gettext('Log 403 forbidden image processing information') => '403',
+				gettext('Log 404 error processing debug information') => '404',
+				gettext('Log the <em>EXPLAIN</em> output from SQL SELECT queries') => 'EXPLAIN',
+				gettext('Log filter application sequence') => 'FILTERS',
+				gettext('Log image processing debug information') => 'IMAGE',
+				gettext('Log language selection processing') => 'LOCALE',
+				gettext('Log admin saves and login attempts') => 'LOGIN',
+				gettext('Log Feed issues') => 'FEED',
+				gettext('Log Managed Objects changes') => 'OBJECTS'
+		);
+		$options[NULL] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
+				'checkboxes' => $list,
+				'order' => 1,
+				'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . '<br/>' .
+				gettext('If <em>disable auto protect scripts</em> is checked <em>Setup</em> will not protect its scrpts after an install.') . '<br/>' .
+				gettext('<em>show plugin load times</em> lists load times for individual plugins in the <code>Script processing</code> HTML comments at the end of the page.')
+		);
+
+		if (!npgFunctions::hasPrimaryScripts()) {
+			setOption('debug_marks_primary', getOption('debug_marks'));
+			$options[NULL]['key'] = 'debug_marks_primary';
+			$options[NULL]['disabled'] = 1;
+			$options[NULL]['desc'] .= '<br /><br />' . gettext('<b>Note:</b> These settings are controlled by the primary installation.');
 		}
+
 		return $options;
 	}
 
 	function handleOptionSave($themename, $themealbum) {
-		$version = self::version(false);
-		if (TEST_RELEASE && NETPHOTOGRAPHICS_VERSION != $version) {
-			self::updateVersion($version);
-			setOption('markRelease_state', $version);
+		if (npgFunctions::hasPrimaryScripts()) {
+			$version = self::version(false);
+			if (TEST_RELEASE && NETPHOTOGRAPHICS_VERSION != $version) {
+				self::updateVersion($version);
+				setOption('markRelease_state', $version);
+			}
+		} else {
+			purgeOption('debug_marks_primary');
 		}
 	}
 

@@ -123,7 +123,4 @@ if (isset($_GET['curl'])) {
 	sendImage($icon, 'plugin_' . $extension);
 }
 db_close();
-if (function_exists('opcache_reset')) {
-	opcache_reset();
-}
 exit();

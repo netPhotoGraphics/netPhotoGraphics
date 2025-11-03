@@ -9,11 +9,13 @@
 // force UTF-8 Ø
 
 /* Don't put anything before this line! */
-define('OFFSET_PATH', 1);
 
 require_once(__DIR__ . '/admin-globals.php');
 require_once(CORE_SERVERPATH . 'reconfigure.php');
-require_once(GITHUB_API_PATH);
+
+if (version_compare(PHP_VERSION, 8.0, '>=')) {
+	require_once(GITHUB_API_PATH);
+}
 
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {

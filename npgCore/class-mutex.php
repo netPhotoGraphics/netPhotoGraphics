@@ -12,6 +12,7 @@ class npgMutex {
 	private $lock = NULL;
 
 	function __construct($lock = 'npg', $concurrent = NULL, $folder = NULL) {
+		global $_conf_vars;
 		// if any of the construction fails, run in free mode (lock = NULL)
 		if (defined('SERVERPATH')) {
 			if (is_null($folder)) {
@@ -28,6 +29,9 @@ class npgMutex {
 			} else {
 				$this->lock = $folder . '/' . $lock;
 			}
+		}
+		if (isset($_conf_vars['MUTEX_RUN_FREE'])) {
+			$this->locked = $_conf_vars['MUTEX_RUN_FREE'];
 		}
 		return $this->lock;
 	}
@@ -63,14 +67,14 @@ class npgMutex {
 
 	public function lock() {
 		//	if "flock" is not supported run un-serialized
-		//	Only lock an unlocked mutex, we don't support recursive mutex'es
+		//	Only lock an unlocked mutex, we don't support recursive mutexes
 		if (!$this->locked && $this->lock) {
 			if ($this->mutex = @fopen($this->lock, 'wb')) {
 				try {
 					if (flock($this->mutex, LOCK_EX)) {
 						$this->locked = true;
 						ftruncate($this->mutex, 0);
-						fwrite($this->mutex, getUserIP() . "\n");
+						fwrite($this->mutex, getUserIP() . NEWLINE . 'Locked ' . gmdate('D, d M Y H:i:s') . " GMT" . NEWLINE);
 						if (TEST_RELEASE) {
 							ob_start();
 							debug_print_backtrace();
@@ -94,9 +98,10 @@ class npgMutex {
 	 * 	Unlock the mutex.
 	 */
 	public function unlock() {
-		if ($this->locked) {
+		if ($this->locked && $this->mutex) {
 			//Only unlock a locked mutex.
 			$this->locked = false;
+			ftruncate($this->mutex, 0); //	which_lock prefers empty files
 			flock($this->mutex, LOCK_UN);
 			fclose($this->mutex);
 			return true;

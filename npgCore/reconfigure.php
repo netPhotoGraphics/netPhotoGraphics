@@ -234,7 +234,7 @@ function checkSignature($mandatory) {
 
 /**
  *
- * Notificatnion handler for configuration change
+ * Notification handler for configuration change
  * @param string $tab
  * @param string $subtab
  * @return string
@@ -310,7 +310,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where .= '&amp;notoken';
 	}
-//	leave this as a direct link incase the admin mod_rewrite mechanism has not yet been established
+	//	leave this as a direct link incase the admin mod_rewrite mechanism has not yet been established
 	$l1 = '<a href="' . WEBPATH . '/' . CORE_FOLDER . '/setup.php' . '?autorun=' . $where . '">';
 	$l2 = '</a>';
 	?>
@@ -335,13 +335,43 @@ function reconfigurePage($diff, $needs, $mandatory) {
 							break;
 						case 'REQUESTS':
 							if (!empty($rslt)) {
-								echo '<li><div id="files">';
-								echo gettext('setup has been requested by:');
-								echo '<ul>';
-								foreach ($rslt['old'] as $request) {
-									echo '<li>' . $request . '</li>';
-								}
-								echo '</ul></div></li>';
+								restoreSetupScrpts(20);
+								?>
+								<script>
+					<?php
+					foreach ($rslt['old'] as $plugin => $request) {
+						?>
+										$.ajax({
+											type: 'GET',
+											cache: false,
+											data: '<?php echo 'plugin=' . $plugin . '&class=1' . (TEST_RELEASE ? '&fullLog=true' : ''); ?>',
+											url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
+										});
+						<?php
+					}
+					?>
+								</script>
+								<?php
+								$old = getSerializedArray(getOption('netphotographics_install'));
+								unset($old['REQUESTS']);
+								unset($diff['REQUESTS']);
+								setOption('netphotographics_install', serialize($old));
+								?>
+								<li>
+									<div id="files">
+										<?php
+										echo gettext('Setup has been executed for:');
+										?>
+										<ul>
+											<?php
+											foreach ($rslt['old'] as $request) {
+												echo '<li>' . $request . '</li>';
+											}
+											?>
+										</ul>
+									</div>
+								</li>
+								<?php
 							}
 							break;
 						default:
@@ -362,21 +392,23 @@ function reconfigurePage($diff, $needs, $mandatory) {
 			if ($mandatory) {
 				printf(gettext('The change detected is critical. %1$s<em>setup</em>%2$s <strong>must</strong> be run for the site to function.'), $l1, $l2);
 			} else {
-				printf(gettext('The change detected may not be critical but you should run %1$ssetup%2$s at your earliest convenience.'), $l1, $l2);
-				$request = mb_parse_url(getRequestURI());
-				if (isset($request['query'])) {
-					$query = parse_query($request['query']);
-				} else {
-					$query = array();
+				if (!empty($diff)) {
+					printf(gettext('The change detected may not be critical but you should run %1$ssetup%2$s at your earliest convenience.'), $l1, $l2);
+					$request = mb_parse_url(getRequestURI());
+					if (isset($request['query'])) {
+						$query = parse_query($request['query']);
+					} else {
+						$query = array();
+					}
+					$query['dismiss'] = 'config_warning';
+					$query['xsrfToken'] = $token;
+					?>
+					<p>
+						<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
+					</p>
+					<br class="clearall" />
+					<?php
 				}
-				$query['dismiss'] = 'config_warning';
-				$query['xsrfToken'] = $token;
-				?>
-				<p>
-					<?php npgButton('button', gettext('dismiss'), array('buttonLink' => '?' . html_encode(http_build_query($query)), 'buttonTitle' => gettext('Ignore this configuration change.'))); ?>
-				</p>
-				<br class="clearall" />
-				<?php
 			}
 			?>
 		</p>
@@ -395,9 +427,10 @@ function reconfigurePage($diff, $needs, $mandatory) {
  * 						11	No config file
  * 						12	No database specified
  * 						13	No DB connection
+ * 						20	Plugin requested
  */
 function restoreSetupScrpts($reason) {
-//log setup file restore no matter what!
+	//log setup file restore no matter what!
 	require_once(PLUGIN_SERVERPATH . 'security-logger.php');
 
 	$allowed = defined('ADMIN_RIGHTS') && npg_loggedin(ADMIN_RIGHTS) && npgFunctions::hasPrimaryScripts();
@@ -416,6 +449,10 @@ function restoreSetupScrpts($reason) {
 			break;
 		case 4:
 			$addl = gettext('by cloning');
+			break;
+		case 20:
+			$addl = gettext('by plugin request');
+			$allowed = true;
 			break;
 	}
 	security_logger::log_setup($allowed, 'restore', $addl);
