@@ -1,6 +1,6 @@
 <?php
 /**
- * Mailing using {@link http://sourceforge.net/projects/phpmailer/ Sourceforge PHPMailer} classes
+ * Mailing using {@link https://sourceforge.net/projects/phpmailer/ Sourceforge PHPMailer} classes
  *
  * Configure the plugin options as necessary for your e-mail server.
  *
