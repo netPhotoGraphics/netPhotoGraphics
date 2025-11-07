@@ -592,7 +592,9 @@ if (isset($_GET['mod_rewrite'])) {
 					<?php
 				} else {
 					?>
-					<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png" title="<?php echo gettext('Mod Rewrite is not working'); ?>" />
+					<a href="<?php echo $mod_rewrite_link . '&debug'; ?>" target="_blank" >
+						<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER; ?>/images/action.png" title="<?php echo gettext('Mod Rewrite is not working'); ?>" />
+					</a>
 					<?php
 				}
 			} else {
@@ -1247,13 +1249,13 @@ npgFunctions::flushOutput();
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-echo gettext('Successful initialization');
-if ($thirdParty) {
-	?>
+		echo gettext('Successful initialization');
+		if ($thirdParty) {
+			?>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
-		echo gettext('Successful initialization (third party item)');
-	}
-?>
+			echo gettext('Successful initialization (third party item)');
+		}
+		?>
 		<span id="errornote" style="display:<?php echo $displayErrors ? 'show' : 'none'; ?>"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {
