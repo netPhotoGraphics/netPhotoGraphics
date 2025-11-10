@@ -54,7 +54,7 @@ $old = getSerializedArray(getOption('netphotographics_install'));
 if (isset($old['NETPHOTOGRAPHICS'])) {
 	$from = preg_replace('/\[.*\]/', '', $old['NETPHOTOGRAPHICS']);
 } else {
-	$from = NULL;
+	$from = '';
 }
 
 if (CURL_ENABLED) {
