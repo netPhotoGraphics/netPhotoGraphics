@@ -1691,6 +1691,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							echo "\n</div><!-- main -->";
 							echo "</body>";
 							echo "</html>";
+							$setupMutex->unlock();
 							exit();
 						}
 					} else {
