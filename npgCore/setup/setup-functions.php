@@ -379,9 +379,6 @@ function setupLog($message, $anyway = false, $reset = false) {
 		$_logCript = NULL;
 	}
 	if ($debug || $anyway) {
-		if (is_object($_npgMutex)) {
-			$_npgMutex->lock();
-		}
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);
 		}
@@ -398,9 +395,6 @@ function setupLog($message, $anyway = false, $reset = false) {
 			fwrite($f, $message . NEWLINE);
 			fclose($f);
 			chmod(SETUPLOG, LOG_MOD);
-		}
-		if (is_object($_npgMutex)) {
-			$_npgMutex->unlock();
 		}
 	}
 }

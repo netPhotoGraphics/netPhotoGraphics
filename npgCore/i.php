@@ -133,8 +133,8 @@ if (!file_exists($imgfile)) {
 }
 
 // Make the directories for the albums in the cache.
-$_npgMutex->lock(); //	avoid multiple threads trying to create the same folders
 $next = '';
+$_npgMutex->lock(); //	avoid multiple threads trying to create the same folders
 foreach (explode('/', $album) as $folder) {
 	$dir = SERVERCACHE . '/' . internalToFilesystem($next . $folder);
 	$next = $next . $folder . '/';
