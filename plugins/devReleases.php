@@ -41,6 +41,7 @@ if (isset($_GET['action'])) {
 			}
 			purgeOption('getDEVUpdates_lastCheck');
 			purgeOption('getUpdates_lastCheck');
+			purgeOption('getDEVUpdates_latest');
 			$_SESSION['errormessage'] = $msg;
 			header('HTTP/1.0 303 See Other');
 			header("Status: 303 See Other");
