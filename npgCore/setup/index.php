@@ -1691,6 +1691,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							echo "\n</div><!-- main -->";
 							echo "</body>";
 							echo "</html>";
+							$setupMutex->unlock();
 							exit();
 						}
 					} else {
@@ -1821,7 +1822,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
 							}
 							?>
-							<div id ="golink" class="delayshow"<?php echo (CURL_ENABLED) ? '' : ' style="display:none;"'; ?>>
+							<div id ="golink" class="delayshow" style="display:none;">
 								<?php
 								if ($query && !$noclones) {
 									?>

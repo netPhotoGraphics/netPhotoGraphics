@@ -16,6 +16,11 @@ require_once('setup-functions.php');
 register_shutdown_function('shutDownFunction');
 require_once(dirname(__DIR__) . '/initialize-basic.php');
 
+if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
+	ini_set('display_errors', 1);
+} else {
+	ini_set('display_errors', 0);
+}
 $__script = 'Mod_rewrite';
 list($usec, $sec) = explode(" ", microtime());
 $start = (float) $usec + (float) $sec;
@@ -23,7 +28,7 @@ $start = (float) $usec + (float) $sec;
 if ($test_release = getOption('markRelease_state')) {
 	$test_release = strpos($test_release, '-DEBUG');
 }
-$fullLog = defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false;
+$fullLog = !$nolog && (defined('TEST_RELEASE') && TEST_RELEASE || $test_release !== false);
 
 setupLog(sprintf(gettext('Mod_rewrite setup started')), $fullLog);
 

@@ -269,7 +269,7 @@ if (isset($_loggedin) && $_loggedin) {
 		}
 
 		if ($_loggedin & ADMIN_RIGHTS && OFFSET_PATH != 2) {
-//NOTE: the following listed variables will be assumed by the admin:plugins script
+			//NOTE: the following listed variables will be assumed by the admin:plugins script
 			list($plugin_subtabs, $plugin_default, $pluginlist, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 			$_admin_menu['plugins'] = array('text' => gettext("plugins"),
 					'link' => getAdminLink('admin-tabs/plugins.php'),

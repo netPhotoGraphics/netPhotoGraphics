@@ -29,6 +29,13 @@ function curlRequest($uri, $options = array()) {
 		}
 		$ch = curl_init($uri);
 		curl_setopt_array($ch, $options);
+		// Set custom headers to mimic a real browser for iPage hosting!
+		curl_setopt($ch, CURLOPT_HTTPHEADER, [
+				'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+				'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+				'Accept-Language: en-US,en;q=0.9',
+				'Connection: keep-alive',
+		]);
 		$curl_exec = curl_exec($ch);
 		if (curl_errno($ch)) {
 			throw new Exception(sprintf(gettext('Curl returned error #%1$s'), curl_errno($ch)));
@@ -66,6 +73,13 @@ class ParallelCURL {
 		foreach ($urls as $i => $url) {
 			$ch[$i] = curl_init($url);
 			curl_setopt_array($ch[$i], $options);
+			// Set custom headers to mimic a real browser for iPage hosting!
+			curl_setopt($ch[$i], CURLOPT_HTTPHEADER, [
+					'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+					'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+					'Accept-Language: en-US,en;q=0.9',
+					'Connection: keep-alive',
+			]);
 			curl_multi_add_handle($mh, $ch[$i]);
 		}
 
