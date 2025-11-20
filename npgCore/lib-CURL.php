@@ -42,7 +42,6 @@ function curlRequest($uri, $options = array()) {
 		} else {
 			$result = trim($curl_exec);
 		}
-		curl_close($ch);
 		return $result;
 	}
 	throw new Exception(gettext('ERROR: Your server does not support cURL.'));
@@ -117,7 +116,6 @@ class ParallelCURL {
 			}
 			// Remove and close the handle
 			curl_multi_remove_handle($mh, $ch[$i]);
-			curl_close($ch[$i]);
 		}
 
 		// Clean up the curl_multi handle

@@ -343,7 +343,6 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		function gl_rotateImage($im, $rotate) {
 			//GD rotates anti-clockwise
 			$newim_rot = imagerotate($im, 360 - $rotate, 0);
-			imagedestroy($im);
 			return $newim_rot;
 		}
 
@@ -458,8 +457,8 @@ if (!function_exists('gl_graphicsLibInfo')) {
 		 * @param resource $im
 		 * @return bool
 		 */
-		function gl_imageKill($im) {
-			return imagedestroy($im);
+		function gl_imageKill(&$im) {
+			$im = NULL;
 		}
 
 		/**

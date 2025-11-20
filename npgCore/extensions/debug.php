@@ -168,7 +168,7 @@ class debug {
 				gettext('Log Feed issues') => 'FEED',
 				gettext('Log Managed Objects changes') => 'OBJECTS'
 		);
-		$options[NULL] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
+		$options[''] = array('key' => 'debug_marks', 'type' => OPTION_TYPE_CHECKBOX_ARRAYLIST,
 				'checkboxes' => $list,
 				'order' => 1,
 				'desc' => gettext('<em>Testing mode</em> adds unique ids to the urls of javaScript and CSS files to bypass the cache expires settings.') . '<br/>' .
@@ -178,9 +178,9 @@ class debug {
 
 		if (!npgFunctions::hasPrimaryScripts()) {
 			setOption('debug_marks_primary', getOption('debug_marks'));
-			$options[NULL]['key'] = 'debug_marks_primary';
-			$options[NULL]['disabled'] = 1;
-			$options[NULL]['desc'] .= '<br /><br />' . gettext('<b>Note:</b> These settings are controlled by the primary installation.');
+			$options['']['key'] = 'debug_marks_primary';
+			$options['']['disabled'] = 1;
+			$options['']['desc'] .= '<br /><br />' . gettext('<b>Note:</b> These settings are controlled by the primary installation.');
 		}
 
 		return $options;

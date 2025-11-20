@@ -969,7 +969,7 @@
                 }
             }
 
-            ImageDestroy($image);
+            // deprecated in PHP 8.5 imagedestroy($image);
         }
 
         //----------------------------------------------------------------------
@@ -984,7 +984,7 @@
                 ImageJpeg($image, $filename, $q);
             }
 
-            ImageDestroy($image);
+            // deprecated in PHP 8.5 imagedestroy($image);
         }
 
         //----------------------------------------------------------------------
@@ -1025,7 +1025,7 @@
 
             $target_image =ImageCreate($imgW * $pixelPerPoint, $imgH * $pixelPerPoint);
             ImageCopyResized($target_image, $base_image, 0, 0, 0, 0, $imgW * $pixelPerPoint, $imgH * $pixelPerPoint, $imgW, $imgH);
-            ImageDestroy($base_image);
+            // deprecated in PHP 8.5 imagedestroy($base_image);
 
             return $target_image;
         }

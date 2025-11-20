@@ -446,7 +446,7 @@ if ($_imagick_present && (getOption('use_imagick') || !extension_loaded('gd'))) 
 			case IMG_FLIP_HORIZONTAL:
 				$im->flopImage();
 				break;
-			case IMG_FLIP_VERTICAL;
+			case IMG_FLIP_VERTICAL:
 				$im->flipImage();
 				break;
 			case IMG_FLIP_BOTH:

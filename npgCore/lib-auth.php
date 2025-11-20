@@ -167,7 +167,7 @@ class _Authority {
 		}
 
 		if (!in_array($hash = getOption('strong_hash'), $encodings)) {
-			$options[NULL] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
+			$options[''] = array('key' => 'lib_auth_note', 'type' => OPTION_TYPE_NOTE,
 					'order' => 4,
 					'desc' => '<span class="warningbox">' . gettext('You should use a more robust hashing algorithm.') . '</span>'
 			);
@@ -421,7 +421,7 @@ class _Authority {
 				case 'users':
 					$this->admin_users = $list;
 					break;
-				case 'allusers';
+				case 'allusers':
 					$this->admin_allusers = $list;
 					break;
 				case 'groups':

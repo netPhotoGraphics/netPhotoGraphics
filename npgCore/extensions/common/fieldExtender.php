@@ -127,7 +127,7 @@ class fieldExtender {
 											case 2:
 												$dbType = 'smallint';
 												break;
-											case 3;
+											case 3:
 												$dbType = 'mediumint';
 												break;
 											case 4:

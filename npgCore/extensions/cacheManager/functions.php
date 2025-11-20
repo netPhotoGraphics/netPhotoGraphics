@@ -89,7 +89,7 @@ function getSpecialImageImageProcessorURI($i, $uri) {
 			$uri = str_replace(CORE_FOLDER, CORE_PATH, $uri);
 		case CORE_PATH:
 			switch ($folders[0]) {
-				case PLUGIN_PATH;
+				case PLUGIN_PATH:
 					$uri = str_replace(PLUGIN_FOLDER, PLUGIN_PATH, $uri);
 					$folders[0] = PLUGIN_FOLDER;
 					break;

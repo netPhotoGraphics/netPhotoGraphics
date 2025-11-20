@@ -172,7 +172,7 @@ if (!CURL_ENABLED) {
 								}
 								break;
 							}
-						case 'deprecated';
+						case 'deprecated':
 							//	owner no longer exists
 							$themeid = '<span class="deprecated" title="' . gettext('Owner no longer exists') . '">' . $themeid . '</span>';
 							$checked = ' disabled="disabled"';
