@@ -163,11 +163,7 @@ if (isset($_GET['action'])) {
 		/*		 * *************************************************************************** */
 		case "clear_cache":
 			XSRFdefender('clear_cache');
-			if (isset($_GET['album'])) {
-				$album = sanitize_path($_GET['album']);
-			} else {
-				$album = sanitize_path($_POST['album']);
-			}
+			$album = sanitize_path($_GET['album']);
 			Gallery::clearCache($album);
 			header('Location: ' . getAdminLink('admin-tabs/edit.php') . '?page=edit&cleared&album=' . pathurlencode($album));
 			exit();
@@ -213,12 +209,13 @@ if (isset($_GET['action'])) {
 			$id = sanitize_numeric($_REQUEST['albumid']);
 			$where = ' WHERE `id`=' . $id;
 			$imgwhere = ' WHERE `albumid`=' . $id;
-			$return = sanitize_path($r = $_GET['return']);
-			if (!empty($return)) {
-				$return = '&album=' . pathurlencode($return);
+			if (isset($_GET['return'])) {
+				$return = '&album=' . pathurlencode(sanitize_path($r = $_GET['return']));
 				if (strpos($r, '*') === 0) {
 					$return .= '&tab=subalbuminfo';
 				}
+			} else {
+				$return = '&album=' . pathurlencode($_GET['album']);
 			}
 			query("UPDATE " . prefix('albums') . " SET `hitcounter`= 0" . $where);
 			query("UPDATE " . prefix('images') . " SET `hitcounter`= 0" . $imgwhere);
