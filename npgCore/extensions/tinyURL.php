@@ -166,7 +166,7 @@ class tinyURL {
 							$_GET['p'] = $tbl;
 							$_GET['title'] = $result['titlelink'];
 							break;
-						case 'news_categories';
+						case 'news_categories':
 							$_GET['p'] = 'news';
 							$_GET['category'] = $result['titlelink'];
 							break;

@@ -51,7 +51,7 @@ switch (isset($_REQUEST['data_sortby']) ? $_REQUEST['data_sortby'] : '') {
 		}
 		$recentIP = sortMultiArray($recentIP, array('blocked' => true, 'lastAccessed' => true), true, false, true);
 		break;
-	case 'timesBlocked';
+	case 'timesBlocked':
 		$sort = 'timesBlocked';
 		foreach ($recentIP as $key => $value) {
 			if (!isset($value['timesBlocked']) || $value['timesBlocked'] == 0) {

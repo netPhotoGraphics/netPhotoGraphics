@@ -266,7 +266,7 @@ function shortenContent($articlecontent, $shorten = 80, $shortenindicator = NULL
 							default:
 								//close the tag
 								$short .= $html;
-							case '</PageBreak>';
+							case '</PageBreak>':
 								$html = '';
 								break;
 						}
@@ -2697,7 +2697,7 @@ function applyMacros($text) {
 			switch ($class) {
 				case 'error':
 					break;
-				case 'function';
+				case 'function':
 				case 'procedure':
 					if (is_callable($macro['value'])) {
 						if ($class == 'function') {

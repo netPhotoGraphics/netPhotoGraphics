@@ -611,7 +611,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 
 	function getCurrentTab() {
 		global $_admin_menu, $_admin_tab, $_admin_subtab;
-		if (isset($_admin_menu[$_admin_tab]['subtabs'])) {
+		if ($_admin_tab && isset($_admin_menu[$_admin_tab]['subtabs'])) {
 			$tabs = $_admin_menu[$_admin_tab]['subtabs'];
 		} else {
 			$tabs = NULL;
@@ -1081,7 +1081,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 						case OPTION_TYPE_PASSWORD:
 						case OPTION_TYPE_TEXTBOX:
 						case OPTION_TYPE_TEXTAREA:
-						case OPTION_TYPE_RICHTEXT;
+						case OPTION_TYPE_RICHTEXT:
 							$clear = '';
 							$wide = 'width: 100%';
 							switch ($type) {
@@ -4906,7 +4906,7 @@ function printEditDropdown($subtab, $nestinglevels, $nesting, $query = NULL) {
 					case 'groupinfo':
 						$which = str_replace('&amp;tab=', '', $query);
 						switch ($which) {
-							case 'assignment';
+							case 'assignment':
 								printf(ngettext('%u user per page', '%u users per page', $level), $level);
 								break;
 							case 'group':
