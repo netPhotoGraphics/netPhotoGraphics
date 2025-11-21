@@ -107,8 +107,9 @@ if (isset($_GET['refresh'])) {
 } else {
 	if (isset($_REQUEST['return']))
 		$ret = sanitize($_REQUEST['return']);
-	if (!empty($ret))
+	if (!empty($ret)) {
 		$ret = '&amp;return=' . $ret;
+	}
 	$metaURL = $starturl = '?' . $type . 'refresh=start' . $albumparm . '&amp;XSRFToken=' . getXSRFToken('refresh') . $ret;
 }
 
