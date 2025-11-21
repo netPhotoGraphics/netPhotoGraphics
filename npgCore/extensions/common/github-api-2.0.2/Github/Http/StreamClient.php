@@ -83,6 +83,7 @@ class StreamClient extends AbstractClient
 		$content = file_get_contents($url, false, $context);
 		restore_error_handler();
 
+		$http_response_header = http_get_last_response_headers();
 		if (!isset($http_response_header)) {
 			throw new BadResponseException('Missing HTTP headers, request failed.', 0, $e);
 		}

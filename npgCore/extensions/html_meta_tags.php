@@ -236,7 +236,7 @@ class htmlmetatags {
 				$type = 'website';
 				break;
 			case 'album.php':
-			case 'favorites.php';
+			case 'favorites.php':
 				$pagetitle = getBareAlbumTitle() . " - ";
 				$date = getAlbumDate();
 				$desc = getBareAlbumDesc();
@@ -454,7 +454,7 @@ class htmlmetatags {
 									$altlink .= str_replace($locallink, '', $_gallery->getLink($_current_page));
 									break;
 								case 'album.php':
-								case 'favorites.php';
+								case 'favorites.php':
 									$altlink .= str_replace($locallink, '', $_current_album->getLink($_current_page));
 									break;
 								case 'image.php':

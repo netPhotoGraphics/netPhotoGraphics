@@ -241,7 +241,7 @@ function getHitcounter($obj = NULL) {
 	global $_current_album, $_current_image, $_gallery, $_gallery_page, $_CMS_current_article, $_CMS_current_page, $_CMS_current_category, $_scriptpage_hitcounters;
 	if (is_null($obj)) {
 		switch ($_gallery_page) {
-			case'index.php';
+			case'index.php':
 				$obj = $_gallery;
 				break;
 			case 'album.php':

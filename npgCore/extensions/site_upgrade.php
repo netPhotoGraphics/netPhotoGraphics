@@ -84,7 +84,7 @@ class site_upgrade {
 				</p>
 				<?php
 				break;
-			case 'closed_for_test';
+			case 'closed_for_test':
 				?>
 				<p class="notebox">
 					<strong><?php echo gettext('Site is available for testing only.'); ?></strong>
@@ -104,7 +104,7 @@ class site_upgrade {
 				</li>
 				<?php
 				break;
-			case 'closed_for_test';
+			case 'closed_for_test':
 				?>
 				<li>
 					<?php echo gettext('Site status:'); ?> <span style="color:RED"><strong><?php echo gettext('The site is in test mode!'); ?></strong></span>

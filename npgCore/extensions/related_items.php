@@ -77,7 +77,7 @@ function getRelatedItems($type = 'news', $album = NULL) {
 				$result = array_merge($result1, $result2, $result3, $result4);
 				$result = sortMultiArray($result, ['weight' => true], true, false, false); // sort by search result weight
 				break;
-			default;
+			default:
 				$result = NULL;
 				break;
 		}

@@ -33,7 +33,7 @@ if (function_exists('printAddThis')) {
 				$zpmin_social = false;
 				break;
 			case 'album.php':
-			case 'favorites.php';
+			case 'favorites.php':
 				$zpmin_metatitle = getBareAlbumTitle() . ' | ';
 				$zpmin_metadesc = truncate_string(getBareAlbumDesc(), 150, '...');
 				if (extensionEnabled('rss'))
