@@ -19,8 +19,7 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 	ini_set('display_errors', 0);
 }
 
-list($usec, $sec) = explode(" ", microtime());
-$startPO = (float) $usec + (float) $sec;
+$startPO = microtime(true);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
@@ -90,7 +89,6 @@ foreach ($_conf_vars['special_pages'] as $definition) {
 if ($str = isolate('$option_interface', $p)) {
 	eval($str);
 	if (isset($option_interface) && $option_interface) {
-
 		//	prime the default options
 		setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $name, $option_interface), $fullLog);
 		$option_interface = new $option_interface;
@@ -112,8 +110,7 @@ if ($str = isolate('$option_interface', $p)) {
 }
 @ob_end_clean(); //	Flush any unwanted output
 
-list($usec, $sec) = explode(" ", microtime());
-$last = (float) $usec + (float) $sec;
+$last = microtime(true);
 /* and record that we finished */
 setupLog(sprintf(gettext('Plugin:%1$s setup completed in %2$.4f seconds'), $name, $last - $startPO), $fullLog);
 

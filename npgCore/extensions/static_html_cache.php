@@ -173,7 +173,7 @@ class static_html_cache {
 	function startHTMLCache() {
 		global $_gallery_page, $_Script_processing_timer;
 		if ($this->enabled && $accessType = $this->checkIfAllowedPage()) {
-			$_Script_processing_timer['static cache start'] = microtime();
+			$_Script_processing_timer['static cache start'] = microtime(true);
 			$cachefilepath = $this->createCacheFilepath($accessType);
 			if (!empty($cachefilepath)) {
 				$cachefilepath = SERVERPATH . '/' . STATIC_CACHE_FOLDER . "/" . $cachefilepath;
@@ -191,12 +191,9 @@ class static_html_cache {
 							echo $content;
 
 							// cache statistics
-							list($usec, $sec) = explode(' ', $_Script_processing_timer['start']);
-							$start = (float) $usec + (float) $sec;
-							list($usec, $sec) = explode(' ', $_Script_processing_timer['static cache start']);
-							$start_cache = (float) $usec + (float) $sec;
-							list($usec, $sec) = explode(' ', microtime());
-							$end = (float) $usec + (float) $sec;
+							$start = $_Script_processing_timer['start'];
+							$start_cache = $_Script_processing_timer['static cache start'];
+							$end = microtime(true);
 							echo "<!-- " . sprintf(gettext('Cached content of %3$s served by static_html_cache in %1$.4f seconds plus %2$.4f seconds unavoidable overhead.'), $end - $start_cache, $start_cache - $start, date('D, d M Y H:i:s', filemtime($cachefilepath))) . " -->\n";
 							exit();
 						}

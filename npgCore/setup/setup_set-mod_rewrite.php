@@ -22,8 +22,7 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 	ini_set('display_errors', 0);
 }
 $__script = 'Mod_rewrite';
-list($usec, $sec) = explode(" ", microtime());
-$start = (float) $usec + (float) $sec;
+$start = microtime(true);
 
 if ($test_release = getOption('markRelease_state')) {
 	$test_release = strpos($test_release, '-DEBUG');
@@ -45,8 +44,7 @@ setOption('mod_rewrite_detected', 1);
 setOptionDefault('mod_rewrite', 1);
 setupLog('<span class="lognotice">' . gettext('Note: “Module mod_rewrite” is working.') . '</span><div class="logAddl">' . $msg . '</div>', $fullLog);
 
-list($usec, $sec) = explode(" ", microtime());
-$last = (float) $usec + (float) $sec;
+$last = microtime(true);
 /* and record that we finished */
 setupLog(sprintf(gettext('Mod_rewrite setup completed in %1$.4f seconds'), $last - $start), $fullLog);
 
