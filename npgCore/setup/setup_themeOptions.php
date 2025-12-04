@@ -19,8 +19,7 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 	ini_set('display_errors', 0);
 }
 
-list($usec, $sec) = explode(" ", microtime());
-$startTO = (float) $usec + (float) $sec;
+$startTO = microtime(true);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
 
@@ -68,8 +67,7 @@ if (protectedTheme($theme)) {
 	purgeOption('albums_per_row', $theme);
 }
 
-list($usec, $sec) = explode(" ", microtime());
-$last = (float) $usec + (float) $sec;
+$last = microtime(true);
 /* and record that we finished */
 setupLog(sprintf(gettext('Theme:%s setup completed in %2$.4f seconds'), $name, $last - $startTO), $fullLog);
 

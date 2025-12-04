@@ -255,4 +255,4 @@ $_tagURLs_values = array(
 		'{*USER_PLUGIN_PATH*}' => USER_PLUGIN_PATH
 );
 
-$_Script_processing_timer['initialize-basic'] = microtime();
+$_Script_processing_timer['initialize-basic'] = microtime(true);

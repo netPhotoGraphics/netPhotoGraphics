@@ -369,32 +369,21 @@ function permissionsSelector($permission_names, $select) {
 	return $selector;
 }
 
-function setupLog($message, $anyway = false, $reset = false) {
-	global $debug, $_npgMutex, $chmod, $_adminCript;
+function setupLog($message, $anyway = false) {
+	global $debug, $_adminCript;
 
-	$message = preg_replace('~<form.*</form>~is', '', $message);
-	if (getOption('setup_log_encryption')) {
-		$_logCript = $_adminCript;
-	} else {
-		$_logCript = NULL;
-	}
 	if ($debug || $anyway) {
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);
 		}
-		if ($reset) {
-			$mode = 'w';
-		} else {
-			$mode = 'a';
+		$message = preg_replace('~<form.*</form>~is', '', $message);
+		if (getOption('setup_log_encryption')) {
+			$message = $_adminCript->encrypt($message);
 		}
-		$f = fopen(SETUPLOG, $mode);
-		if ($f) {
-			if ($_logCript) {
-				$message = $_logCript->encrypt($message);
-			}
-			fwrite($f, $message . NEWLINE);
+		$message .= NEWLINE;
+		if ($f = fopen(SETUPLOG, 'a')) {
+			fwrite($f, $message);
 			fclose($f);
-			chmod(SETUPLOG, LOG_MOD);
 		}
 	}
 }

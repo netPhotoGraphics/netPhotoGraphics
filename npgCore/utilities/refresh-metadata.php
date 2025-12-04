@@ -100,15 +100,17 @@ if (isset($_GET['refresh'])) {
 		$metaURL = $backurl;
 	} else {
 		if (!empty($ret)) {
-			$ret = '&amp;return=' . $ret;
+			$ret = '&amp;return=' . pathurlencode($ret);
 		}
 		$metaURL = $redirecturl = '?' . $type . 'refresh=continue&amp;id=' . $imageid . $albumparm . $ret . '&XSRFToken=' . getXSRFToken('refresh');
 	}
 } else {
-	if (isset($_REQUEST['return']))
+	if (isset($_REQUEST['return'])) {
 		$ret = sanitize($_REQUEST['return']);
-	if (!empty($ret))
-		$ret = '&amp;return=' . $ret;
+	}
+	if (!empty($ret)) {
+		$ret = '&amp;return=' . pathurlencode($ret);
+	}
 	$metaURL = $starturl = '?' . $type . 'refresh=start' . $albumparm . '&amp;XSRFToken=' . getXSRFToken('refresh') . $ret;
 }
 
@@ -129,6 +131,7 @@ if ($type !== 'tab=prune&amp;') {
 		}
 	}
 }
+
 
 printAdminHeader($tab, 'Refresh');
 if (!empty($metaURL)) {

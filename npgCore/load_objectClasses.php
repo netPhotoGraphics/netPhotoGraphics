@@ -22,12 +22,12 @@ $root_classes = [
 foreach ($root_classes as $class => $path) {
 	require_once($path);
 	if (DEBUG_PLUGINS) {
-		$_Script_processing_timer['root»' . $class] = microtime();
+		$_Script_processing_timer['root»' . $class] = microtime(true);
 	}
 }
 
 if (!DEBUG_PLUGINS) {
-	$_Script_processing_timer['root classes'] = microtime();
+	$_Script_processing_timer['root classes'] = microtime(true);
 }
 
 $_loaded_plugins = array();
@@ -50,13 +50,13 @@ foreach ($enabled as $extension => $plugin) {
 	if ($priority & CLASS_PLUGIN) {
 		require_once($plugin['path']);
 		if (DEBUG_PLUGINS) {
-			$_Script_processing_timer['classes»' . $extension] = microtime();
+			$_Script_processing_timer['classes»' . $extension] = microtime(true);
 		}
 		$_loaded_plugins[$extension] = $extension;
 	}
 }
 if (!DEBUG_PLUGINS) {
-	$_Script_processing_timer['plugin classes'] = microtime();
+	$_Script_processing_timer['plugin classes'] = microtime(true);
 }
 
 

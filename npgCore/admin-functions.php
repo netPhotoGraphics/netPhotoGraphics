@@ -158,7 +158,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			</script>
 			<?php
 			npgFilters::apply('admin_head');
-			$_Script_processing_timer["preamble($tab)"] = microtime();
+			$_Script_processing_timer["preamble($tab)"] = microtime(true);
 		}
 
 		function printSortableHead() {
@@ -268,17 +268,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 		<?php
 		npgFilters::apply('admin_close');
 		db_close(); //	close the database as we are done
-		$_Script_processing_timer['admin_body'] = microtime();
+		$_Script_processing_timer['admin_body'] = microtime(true);
 
 		if (TEST_RELEASE) {
 			echo "\n";
+			$first = $last = array_shift($_Script_processing_timer);
 
-			list($usec, $sec) = explode(' ', array_shift($_Script_processing_timer));
-			$first = $last = (float) $usec + (float) $sec;
-
-			foreach ($_Script_processing_timer as $step => $time) {
-				list($usec, $sec) = explode(" ", $time);
-				$cur = (float) $usec + (float) $sec;
+			foreach ($_Script_processing_timer as $step => $cur) {
 				printf("<!-- " . gettext('Script processing %1$s:%2$.6f seconds') . " -->\n", $step, $cur - $last);
 				$last = $cur;
 			}
@@ -2916,13 +2912,19 @@ function printAdminHeader($tab, $subtab = NULL) {
 		$albumLink = pathurlencode($album->name);
 		if ($imagcount = $album->getNumImages() > 0) {
 			if (!$album->isDynamic()) {
-				npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'), 'buttonTitle' => gettext("Clears the album’s cached images."), 'buttonClass' => 'fixedwidth'));
+				npgButton('button', WASTEBASKET . ' ' . gettext('Clear album image cache'),
+								array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=clear_cache&amp;album=' . $albumLink . '&amp;XSRFToken=' . getXSRFToken('clear_cache'),
+										'buttonTitle' => gettext("Clears the album’s cached images."),
+										'buttonClass' => 'fixedwidth'));
 				?>
 				<br /><br />
 				<?php
 			}
 			if (extensionEnabled('hitcounter')) {
-				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'), array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . $albumLink . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'), 'buttonTitle' => gettext("Resets album’s hit counters."), 'buttonClass' => 'fixedwidth'));
+				npgButton('button', RECYCLE_ICON . ' ' . gettext('Reset album hit counters'),
+								array('buttonLink' => getAdminLink('admin-tabs/edit.php') . '?action=reset_hitcounters&amp;album=' . $albumLink . '&amp;albumid=' . $album->getID() . '&amp;XSRFToken=' . getXSRFToken('hitcounter'),
+										'buttonTitle' => gettext("Resets album’s hit counters."),
+										'buttonClass' => 'fixedwidth'));
 				?>
 				<br /><br />
 				<?php

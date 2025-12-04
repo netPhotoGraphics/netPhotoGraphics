@@ -9,7 +9,7 @@
  */
 // force UTF-8 Ø
 if (!isset($_Script_processing_timer)) {
-	$_Script_processing_timer['start'] = microtime();
+	$_Script_processing_timer['start'] = microtime(true);
 }
 ini_set('post_max_size', "10M");
 ini_set('post_input_vars', "2500");
@@ -41,7 +41,7 @@ if (abs(OFFSET_PATH) != 2) {
 		enableExtension('debug', 10 | ADMIN_PLUGIN, false);
 	}
 
-	$_Script_processing_timer['admin-core'] = microtime();
+	$_Script_processing_timer['admin-core'] = microtime(true);
 
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
@@ -51,17 +51,17 @@ if (abs(OFFSET_PATH) != 2) {
 		foreach ($enabled as $extension => $plugin) {
 			$priority = $plugin['priority'];
 			if ($priority & $mask) {
-				$start = microtime();
+				$start = microtime(true);
 				require_once($plugin['path']);
 				if (DEBUG_PLUGINS) {
-					$_Script_processing_timer[$what[$mask] . '»' . $extension] = microtime();
+					$_Script_processing_timer[$what[$mask] . '»' . $extension] = microtime(true);
 				}
 				$_loaded_plugins[$extension] = $extension;
 			}
 		}
 
 		if (!DEBUG_PLUGINS) {
-			$_Script_processing_timer[$what[$mask]] = microtime();
+			$_Script_processing_timer[$what[$mask]] = microtime(true);
 		}
 	}
 }
@@ -314,5 +314,5 @@ if (version_compare(PHP_VERSION, PHP_MIN_SUPPORTED_VERSION, '<')) {
 	npgFilters::register('admin_note', 'phpWarn');
 }
 
-$_Script_processing_timer['admin-globals'] = microtime();
+$_Script_processing_timer['admin-globals'] = microtime(true);
 

@@ -562,7 +562,12 @@ if ($setup_checked) {
 		} else {
 			$clone = ' ' . gettext('clone');
 		}
-		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s GMT'), NETPHOTOGRAPHICS_VERSION, $clone, gmdate('D, d M Y H:i:s')), true, true); // initialize the log file
+		// initialize the log file
+		if ($f = fopen(SETUPLOG, 'w')) {
+			fclose($f);
+			chmod(SETUPLOG, LOG_MOD);
+		}
+		setupLog(sprintf(gettext('netPhotoGraphics Setup v%1$s%2$s: %3$s GMT'), NETPHOTOGRAPHICS_VERSION, $clone, gmdate('D, d M Y H:i:s')), true);
 	}
 	if ($environ) {
 		setupLog(gettext("Full environment"));

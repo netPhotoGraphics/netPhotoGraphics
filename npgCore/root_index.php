@@ -1,6 +1,6 @@
 <?php
 
-$_Script_processing_timer['start'] = microtime();
+$_Script_processing_timer['start'] = microtime(true);
 $closed = file_exists('SITE_ROOT/extract.php');
 if ($closed) {
 	if (isset($_GET['npgUpdate'])) {

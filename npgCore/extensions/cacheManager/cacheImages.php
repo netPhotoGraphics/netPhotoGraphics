@@ -29,10 +29,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'select' && isset($_POST['enabl
 	$enabled = false;
 }
 
-if (isset($_GET['album'])) {
-	$alb = sanitize($_GET['album']);
-} else if (isset($_POST['album'])) {
-	$alb = sanitize(urldecode($_POST['album']));
+if (isset($_REQUEST['album'])) {
+	$alb = sanitize(urldecode($_REQUEST['album']));
 } else {
 	$alb = '';
 }
