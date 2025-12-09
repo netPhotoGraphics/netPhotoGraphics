@@ -344,7 +344,7 @@ class scriptlessSocialsharing {
 				}
 				?>
 				<li<?php echo $li_class; ?>>
-					<a class="<?php echo $button['class']; ?>" title="<?php echo $button['title']; ?>" xxxhref="<?php echo $button['url']; ?>" target="_blank">
+					<a class="<?php echo $button['class']; ?>" title="<?php echo $button['title']; ?>" href="<?php echo $button['url']; ?>" target="_blank">
 						<?php
 						if (!$iconsonly) {
 							echo $button['title'];
