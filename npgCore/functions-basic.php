@@ -424,7 +424,7 @@ function db_name() {
 }
 
 /**
- * Rotates through array of user=>password values changing each minute
+ * Rotates through array of user=>password values
  * This distributes the MySQL user in hopes of mitigating the MySQL
  * max questions exceeded error.
  *
