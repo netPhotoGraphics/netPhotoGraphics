@@ -6665,21 +6665,18 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-//Execute the request.
+	//Execute the request.
 	curl_exec($ch);
 
-//If there was an error, throw an Exception
+	//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-//Get the HTTP status code.
+	//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-//Close the cURL handler.
-	curl_close($ch);
-
-//Close the file handle.
+	//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {
