@@ -379,7 +379,7 @@ if ($action == 'backup') {
 							$row = substr($string, $sep + strlen(TABLE_SEPARATOR));
 							if (!empty($row)) {
 								$row = decompressRow($row);
-								$row = unserialize($row);
+								$row = getSerializedArray($row);
 								foreach ($row as $key => $element) {
 									if ($compression_handler == 'bzip2' || $compression_handler == 'gzip') {
 										if (!empty($element)) {
@@ -621,7 +621,7 @@ if (isset($_GET['compression'])) {
 							<div style="max-width: 750px;">
 								<p>
 									<?php
-									foreach (unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
+									foreach (getSerializedArray(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
 										?>
 										<span class="nowrap">
 											<label>
@@ -694,7 +694,7 @@ if (isset($_GET['compression'])) {
 							<div style="max-width: 750px;">
 								<p>
 									<?php
-									foreach (unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
+									foreach (getSerializedArray(file_get_contents(CORE_SERVERPATH . 'databaseTemplate')) as $table => $row) {
 										?>
 										<span class="nowrap">
 											<label>

@@ -66,7 +66,7 @@ if (isset($_POST['login'])) { //	Handle the login form.
 	} else {
 		$_loggedin = $_authority->checkCookieCredentials();
 		if (!$_loggedin && isset($_SESSION['admin'][$cloneid = bin2hex(FULLWEBPATH)])) { //	"passed" login
-			$user = unserialize($_SESSION['admin'][$cloneid]);
+			$user = getSerializedArray($_SESSION['admin'][$cloneid]);
 			$user2 = $_authority->getAnAdmin(array('`user`=' => $user->getUser(), '`valid`=' => 1));
 			if ($user2 && $user->getPass() == $user2->getPass()) {
 				npg_Authority::logUser($user2);
