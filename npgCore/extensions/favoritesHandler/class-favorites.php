@@ -7,10 +7,10 @@
  */
 class favorites extends AlbumBase {
 
-	public $imageSortDirection;
-	public $albumSortDirection;
-	public $imageSortType;
-	public $albumSortType;
+	public $image_sort_direction;
+	public $album_sort_direction;
+	public $image_sort_type;
+	public $album_sort_type;
 	public $list = array('');
 	public $owner;
 	public $instance = '';
@@ -29,10 +29,10 @@ class favorites extends AlbumBase {
 		$this->setOwner($this->owner = $user);
 		$this->setTitle(get_language_string(getOption('favorites_title')));
 		$this->setDesc(get_language_string(getOption('favorites_desc')));
-		$this->imageSortDirection = getOption('favorites_image_sort_direction');
-		$this->albumSortDirection = getOption('favorites_album_sort_direction');
-		$this->imageSortType = getOption('favorites_image_sort_type');
-		$this->albumSortType = getOption('favorites_album_sort_type');
+		$this->image_sort_direction = getOption('favorites_image_sort_direction');
+		$this->album_sort_direction = getOption('favorites_album_sort_direction');
+		$this->image_sort_type = getOption('favorites_image_sort_type');
+		$this->album_sort_type = getOption('favorites_album_sort_type');
 		$this->multi = getOption('favorites_multi');
 		$list = query_full_array('SELECT `aux` FROM ' . prefix('plugin_storage') . ' WHERE `type`="favoritesHandler" AND `aux` LIKE' . db_quote('%' . $user . '%'));
 
@@ -182,6 +182,86 @@ class favorites extends AlbumBase {
 	}
 
 	/**
+	 * Returns either the subalbum sort direction or the image sort direction of the album
+	 *
+	 * @param string $what 'image_sortdirection' if you want the image direction,
+	 *        'album_sortdirection' if you want it for the album
+	 *
+	 * @return string
+	 */
+	function getSortDirection($what = 'image') {
+		global $_gallery;
+		if ($what == 'image') {
+			$direction = $this->image_sort_direction;
+			$type = $this->image_sort_type;
+		} else {
+			$direction = $this->album_sort_direction;
+			$type = $this->album_sort_type;
+		}
+		if (empty($type)) {
+			// using inherited type, so use inherited direction
+			if ($what == 'image') {
+				$direction = IMAGE_SORT_DIRECTION;
+			} else {
+				$direction = $_gallery->getSortDirection();
+			}
+		}
+		return $direction;
+	}
+
+	/**
+	 * sets sort directions
+	 *
+	 * @param bool $val the direction
+	 * @param string $what 'images' if you want the image direction,
+	 *        'albums' if you want it for the album
+	 */
+	function setSortDirection($val, $what = 'image') {
+		if ($what == 'image') {
+			$this->image_sort_direction = (int) ($val && true);
+		} else {
+			$this->album_sort_direction = (int) ($val && true);
+		}
+	}
+
+	/**
+	 * Returns the sort type of the album images
+	 * Will return a parent sort type if the sort type for this album is empty
+	 *
+	 * @return string
+	 */
+	function getSortType($what = 'image') {
+		global $_gallery;
+		if ($what == 'image') {
+			$type = $this->image_sort_type;
+		} else {
+			$type = $this->album_sort_type;
+		}
+		if (empty($type)) {
+			if ($what == 'image') {
+				$type = IMAGE_SORT_TYPE;
+			} else {
+				$type = $_gallery->getSortType();
+			}
+		}
+		return $type;
+	}
+
+	/**
+	 * Stores the sort type for the album
+	 *
+	 * @param string $sorttype the album sort type
+	 * @param string $what 'Description'image' or 'album'
+	 */
+	function setSortType($sorttype, $what = 'image') {
+		if ($what == 'image') {
+			$this->image_sort_type = $sorttype;
+		} else {
+			$this->album_sort_type = $sorttype;
+		}
+	}
+
+	/**
 	 * Returns all folder names for all the subdirectories.
 	 *
 	 * @param string $page  Which page of subalbums to display.
@@ -285,10 +365,9 @@ class favorites extends AlbumBase {
 				foreach ($images as $data) {
 					if (in_array($data['filename'], $this->imageNames)) {
 						$this->dupImages = true;
-					} else {
-						$this->images[] = array('folder' => $data['folder'], 'filename' => $data['filename']);
-						$this->imageNames[$data['folder'] . '/' . $data['filename']] = $data['filename'];
 					}
+					$this->images[] = array('folder' => $data['folder'], 'filename' => $data['filename']);
+					$this->imageNames[$data['folder'] . '/' . $data['filename']] = $data['filename'];
 				}
 				ksort($this->imageNames, SORT_LOCALE_STRING);
 				$this->lastimagesort = $sorttype . $sortdirection;
