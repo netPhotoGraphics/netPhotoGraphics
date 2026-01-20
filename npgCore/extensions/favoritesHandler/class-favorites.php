@@ -247,12 +247,26 @@ class favorites extends AlbumBase {
 		return $type;
 	}
 
-	/**
-	 * Stores the sort type for the album
-	 *
-	 * @param string $sorttype the album sort type
-	 * @param string $what 'Description'image' or 'album'
-	 */
+	function getImageSortKey($sorttype = null) {
+		if (is_null($sorttype)) {
+			$sorttype = $this->getSortType();
+		}
+		if ($sorttype == 'favoritesorder') {
+			return 'favoritesorder';
+		}
+		return lookupSortKey($sorttype, 'filename', 'images');
+	}
+
+	function getAlbumSortKey($sorttype = null) {
+		if (empty($sorttype)) {
+			$sorttype = $this->getSortType('album');
+		}
+		if ($sorttype == 'favoritesorder') {
+			return 'favoritesorder';
+		}
+		return lookupSortKey($sorttype, 'sort_order', 'albums');
+	}
+
 	function setSortType($sorttype, $what = 'image') {
 		if ($what == 'image') {
 			$this->image_sort_type = $sorttype;
@@ -282,6 +296,7 @@ class favorites extends AlbumBase {
 					$albumobj = newAlbum($data['id'], true, true);
 					if ($albumobj->exists) { // fail to instantiate?
 						$results[$data['id']] = $albumobj->getData();
+						$results[$data['id']]['favoritesorder'] = $data['id'];
 					} else {
 						query("DELETE FROM " . prefix('plugin_storage') . ' WHERE `id`=' . $row['id']);
 					}
@@ -340,11 +355,12 @@ class favorites extends AlbumBase {
 					$data = getSerializedArray($row['data']);
 					$imageObj = newImage(array('folder' => dirname($data['id']), 'filename' => basename($data['id'])), true, true);
 					if ($imageObj->exists) {
-						$images[] = array_merge(array('folder' => dirname($data['id']), 'filename' => basename($data['id'])), $imageObj->getData());
+						$images[] = array_merge(array('folder' => dirname($data['id']), 'filename' => basename($data['id']), 'favoritesorder' => $id), $imageObj->getData());
 					} else {
 						query("DELETE FROM " . prefix('plugin_storage') . ' WHERE `id`=' . $row['id']);
 					}
 				}
+
 				db_free_result($result);
 				if (is_null($sorttype)) {
 					$sorttype = $this->getSortType();
