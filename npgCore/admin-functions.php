@@ -2213,9 +2213,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 											break;
 									}
 									$images = $album->getImages();
-									if ($album->dupImages) {
-										echo '<div class="warningbox">' . gettext('Images with duplicate names have been excluded.') . '</div>';
-									}
 									?>
 								</td>
 							</tr>
@@ -2332,7 +2329,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 
 						$sort = $_sortby;
-						if (!$album->isDynamic()) {
+						if ($class = $album->isDynamic()) {
+							if ($class == 'fav') {
+								$sort[gettext('Order added')] = 'favoritesorder';
+							}
+						} else {
 							$sort[gettext('Manual')] = 'manual';
 						}
 						$sort[gettext('Custom')] = 'custom';
@@ -3377,8 +3378,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$tags = array_unique($tags);
 		$album->setTags($tags);
-		if (isset($_POST[$prefix . 'thumb']))
+		if (isset($_POST[$prefix . 'thumb'])) {
 			$album->setThumb(sanitize($_POST[$prefix . 'thumb']));
+		}
 
 		if (isset($_POST[$prefix . 'sortby'])) {
 			$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
@@ -3390,7 +3392,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 			}
 			$album->setSortType($sorttype, 'image');
-
 			if (($sorttype == 'manual') || ($sorttype == 'random')) {
 				$album->setSortDirection(false, 'image');
 			} else {

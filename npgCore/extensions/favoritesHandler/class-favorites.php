@@ -16,7 +16,6 @@ class favorites extends AlbumBase {
 	public $instance = '';
 	public $multi;
 	public $imageNames; // list of images for handling duplicate file names
-	public $dupImages = false; //	will be set true if more than one favorite has the same filename
 
 	function __construct($user) {
 
@@ -379,9 +378,6 @@ class favorites extends AlbumBase {
 				$images = sortByKey($images, $sortkey, $order);
 				$this->imageNames = $this->images = array();
 				foreach ($images as $data) {
-					if (in_array($data['filename'], $this->imageNames)) {
-						$this->dupImages = true;
-					}
 					$this->images[] = array('folder' => $data['folder'], 'filename' => $data['filename']);
 					$this->imageNames[$data['folder'] . '/' . $data['filename']] = $data['filename'];
 				}
