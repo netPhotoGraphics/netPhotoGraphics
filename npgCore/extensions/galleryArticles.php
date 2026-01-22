@@ -182,7 +182,7 @@ class galleryArticles {
 			case 'images':
 				$album = $obj->album->name;
 				$image = $obj->filename;
-				$dbstring = unserialize(getOption('galleryArticles_image_text'));
+				$dbstring = getSerializedArray(getOption('galleryArticles_image_text'));
 				$localtext = get_language_string($dbstring);
 				$galleryitem_text[$locale] = sprintf($localtext, $obj->getTitle($locale), $obj->album->getTitle($locale));
 				foreach (i18n::generateLanguageList() as $key => $val) {

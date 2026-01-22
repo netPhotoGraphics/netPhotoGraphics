@@ -1711,7 +1711,6 @@ class dynamicAlbum extends AlbumBase {
 
 	public $searchengine; // cache the search engine for dynamic albums
 	public $imageNames; // list of images for handling duplicate file names
-	public $dupImages = false; //	true if the image search has multiple files with the same basename
 
 	function __construct($folder8, $cache = true, $quiet = false) {
 		$folder8 = trim($folder8, '/');
@@ -1866,15 +1865,7 @@ class dynamicAlbum extends AlbumBase {
 			$this->lastimagesort = $sorttype . $sortdirection;
 			$this->imageNames = array();
 			foreach ($this->images as $key => $image) {
-				if (in_array($image['filename'], $this->imageNames)) {
-					unset($this->images[$key]);
-					$this->dupImages = true;
-				} else {
-					$this->imageNames[$image['folder'] . '/' . $image['filename']] = $image['filename'];
-				}
-			}
-			if ($this->dupImages) {
-				$this->images = array_values($this->images);
+				$this->imageNames[$image['folder'] . '/' . $image['filename']] = $image['filename'];
 			}
 			ksort($this->imageNames, SORT_LOCALE_STRING);
 		}

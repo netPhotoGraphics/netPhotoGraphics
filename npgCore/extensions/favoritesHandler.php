@@ -152,6 +152,7 @@ class favoritesHandler {
 	function handleOption($option, $currentValue) {
 		$sort = array(gettext('Filename') => 'filename',
 				gettext('Custom') => 'custom',
+				gettext('Order added') => 'favoritesorder',
 				gettext('Date') => 'date',
 				gettext('Title') => 'title',
 				gettext('ID') => 'id',

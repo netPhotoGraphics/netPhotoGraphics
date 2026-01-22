@@ -518,7 +518,7 @@ if ($_authority->count('allusers') == 0) { //	empty administrators table
 		foreach ($clone['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
-		$admin_obj = unserialize($_SESSION['admin'][$cloneid]);
+		$admin_obj = getSerializedArray($_SESSION['admin'][$cloneid]);
 		$admindata = $admin_obj->getData();
 		$myadmin = new npg_Administrator($admindata['user'], 1);
 		unset($admindata['id']);

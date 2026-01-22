@@ -2973,7 +2973,7 @@ class npgFunctions {
 		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
-				$text = unserialize($text);
+				$text = unserialize($text, ['allowed_classes' => false]);
 			}
 			if (is_array($text)) {
 				foreach ($text as $key => $textelement) {
@@ -3005,7 +3005,7 @@ class npgFunctions {
 		global $_tagURLs_values;
 		if ($text) {
 			if ($serial = is_serialized($text)) {
-				$text = unserialize($text);
+				$text = unserialize($text, ['allowed_classes' => false]);
 			}
 			if (is_array($text)) {
 				foreach ($text as $key => $textelement) {

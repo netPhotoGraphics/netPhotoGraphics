@@ -50,7 +50,7 @@ class ipBlocker {
 
 				if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 					$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
-					$_ipBlocker_list = unserialize($raw);
+					$_ipBlocker_list = getSerializedArray($raw);
 					if (isset($_ipBlocker_list['Suspend']) || isset($_ipBlocker_list['Options']) || isset($_ipBlocker_list['Block'])) {
 						if (isset($_ipBlocker_list['Block'])) {
 							self::setList($_ipBlocker_list['Block']);
@@ -238,7 +238,7 @@ class ipBlocker {
 		if (!isset($_ipBlocker_list)) {
 			if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists')) {
 				$raw = file_get_contents(SERVERPATH . '/' . DATA_FOLDER . '/ipBlockerLists');
-				return unserialize($raw);
+				return getSerializedArray($raw);
 			}
 		}
 		return array();

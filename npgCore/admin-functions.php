@@ -273,7 +273,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 		if (TEST_RELEASE) {
 			echo "\n";
 			$first = $last = array_shift($_Script_processing_timer);
-
 			foreach ($_Script_processing_timer as $step => $cur) {
 				printf("<!-- " . gettext('Script processing %1$s:%2$.6f seconds') . " -->\n", $step, $cur - $last);
 				$last = $cur;
@@ -1020,12 +1019,16 @@ function printAdminHeader($tab, $subtab = NULL) {
 				} else if ($theme) {
 					$v = getThemeOption($key, $album, $theme);
 				} else {
-					$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key);
-					$db = query_single_row($sql);
-					if ($db) {
-						$v = $db['value'];
+					if (empty($key)) {
+						$v = false; //	no need to query
 					} else {
-						$v = false;
+						$sql = "SELECT `value` FROM " . prefix('options') . " WHERE `name`=" . db_quote($key);
+						$db = query_single_row($sql);
+						if ($db) {
+							$v = $db['value'];
+						} else {
+							$v = false;
+						}
 					}
 				}
 
@@ -2210,9 +2213,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 											break;
 									}
 									$images = $album->getImages();
-									if ($album->dupImages) {
-										echo '<div class="warningbox">' . gettext('Images with duplicate names have been excluded.') . '</div>';
-									}
 									?>
 								</td>
 							</tr>
@@ -2329,7 +2329,11 @@ function printAdminHeader($tab, $subtab = NULL) {
 						}
 
 						$sort = $_sortby;
-						if (!$album->isDynamic()) {
+						if ($class = $album->isDynamic()) {
+							if ($class == 'fav') {
+								$sort[gettext('Order added')] = 'favoritesorder';
+							}
+						} else {
 							$sort[gettext('Manual')] = 'manual';
 						}
 						$sort[gettext('Custom')] = 'custom';
@@ -3374,8 +3378,9 @@ function printAdminHeader($tab, $subtab = NULL) {
 		}
 		$tags = array_unique($tags);
 		$album->setTags($tags);
-		if (isset($_POST[$prefix . 'thumb']))
+		if (isset($_POST[$prefix . 'thumb'])) {
 			$album->setThumb(sanitize($_POST[$prefix . 'thumb']));
+		}
 
 		if (isset($_POST[$prefix . 'sortby'])) {
 			$sorttype = strtolower(sanitize($_POST[$prefix . 'sortby'], 3));
@@ -3387,7 +3392,6 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 			}
 			$album->setSortType($sorttype, 'image');
-
 			if (($sorttype == 'manual') || ($sorttype == 'random')) {
 				$album->setSortDirection(false, 'image');
 			} else {
@@ -6662,21 +6666,18 @@ function curlDL($fileUrl, $saveTo) {
 			CURLOPT_SSL_VERIFYPEER => false, //Allow insecure connections.
 			CURLOPT_FOLLOWLOCATION => true //Follow redirects.
 	));
-//Execute the request.
+	//Execute the request.
 	curl_exec($ch);
 
-//If there was an error, throw an Exception
+	//If there was an error, throw an Exception
 	if (curl_errno($ch)) {
 		throw new Exception(sprintf(gettext('Curl returned the error: %1$s'), curl_error($ch)));
 	}
 
-//Get the HTTP status code.
+	//Get the HTTP status code.
 	$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-//Close the cURL handler.
-	curl_close($ch);
-
-//Close the file handle.
+	//Close the file handle.
 	fclose($fp);
 
 	if ($statusCode != 200) {
