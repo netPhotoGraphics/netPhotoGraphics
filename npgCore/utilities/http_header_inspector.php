@@ -21,16 +21,19 @@ printAdminHeader('overview', 'http_header_inspector');
 				<h1><?php echo (gettext('HTTP header inspector')); ?></h1>
 				<?php
 				if (in_array(PROTOCOL, stream_get_wrappers())) {
+					$er_reporting = error_reporting(); //	supress any error reports
+					error_reporting(0);
 					$check_headers = array(
 							array(
 									'headline' => FULLWEBPATH . '/index.php',
-									'headers' => @get_headers(FULLWEBPATH . '/index.php'),
+									'headers' => get_headers(FULLWEBPATH . '/index.php'),
 							),
 							array(
 									'headline' => FULLWEBPATH . '/' . CORE_FOLDER . '/admin.php',
-									'headers' => @get_headers(FULLWEBPATH . '/' . CORE_FOLDER . '/admin.php')
+									'headers' => get_headers(FULLWEBPATH . '/' . CORE_FOLDER . '/admin.php')
 							)
 					);
+					error_reporting($er_reporting);
 					foreach ($check_headers as $check_header) {
 						?>
 						<h2><?php echo html_encode($check_header['headline']); ?></h2>
