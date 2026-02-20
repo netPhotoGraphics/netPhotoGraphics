@@ -288,7 +288,9 @@ if (isset($_loggedin) && $_loggedin) {
 					'alert' => $new,
 					'default' => $default);
 			$_admin_menu['overview']['subtabs'][gettext('Database Reference')] = "/" . CORE_FOLDER . '/utilities/database_reference.php?tab=databaseref';
-			$_admin_menu['overview']['subtabs'][gettext('HTTP header inspector')] = "/" . CORE_FOLDER . '/utilities/http_header_inspector.php';
+			if (ini_get('allow_url_fopen')) {
+				$_admin_menu['overview']['subtabs'][gettext('HTTP header inspector')] = "/" . CORE_FOLDER . '/utilities/http_header_inspector.php';
+			}
 		}
 
 		$_admin_menu = npgFilters::apply('admin_tabs', $_admin_menu);
