@@ -39,13 +39,11 @@ if (function_exists('printSlideShow')) {
 										<a href="<?php echo html_encode(getGalleryIndexURL()); ?>" title="<?php echo gettext('Albums Index'); ?>"><?php printGalleryTitle(); ?></a>
 										<?php
 									}
-									?></a> 
+									?></a>
 									<?php
 									if (is_null($_current_album)) {
 										$search = new SearchEngine();
-										if ($params = getNPGCookie('search_params')) {
-											$params = trim($params);
-										}
+										$params = getNPGCookie('search_params');
 										$search->setSearchParams($params);
 										$images = $search->getImages(0);
 										$searchwords = $search->getSearchWords();
