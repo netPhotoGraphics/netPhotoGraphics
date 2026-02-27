@@ -76,3 +76,4 @@ local.properties
 *.sh
 /docto.exe
 /user guide.docx
+/notifications.txt
