@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																																	$(document).ready(function () {
-										$(".doc").colorbox({
-											close: '<?php echo gettext("close"); ?>',
-											maxHeight: "98%",
-											innerWidth: '560px'
-										});
-									});
-									//-->
+																																											$(document).ready(function () {
+												$(".doc").colorbox({
+													close: '<?php echo gettext("close"); ?>',
+													maxHeight: "98%",
+													innerWidth: '560px'
+												});
+											});
+											//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -238,13 +238,18 @@ echo '</head>';
 								printf(gettext('PHP memory limit: <strong>%1$s</strong>; <strong>%2$s</strong> used'), $memoryLimit < 0 ? 'none' : convert_size(parse_size($memoryLimit)), convert_size(memory_get_peak_usage(), 1));
 								?>
 							</li>
-
+							<li>
+								<?php
+								$timeLimit = INI_GET('max_execution_time');
+								printf(gettext('PHP execution time limit: <strong>%1$s seconds</strong>'), $timeLimit <= 0 ? 'none' : $timeLimit);
+								?>
+							</li>
 							<li>
 								<?php
 								if (class_exists('Collator')) {
-									echo gettext('PHP Collaror class will be used for localized string sorting.');
+									echo gettext('PHP Collator class will be used for localized string sorting.');
 								} else {
-									echo gettext('PHP Collaror class is not present. Localized string sorting is not available.');
+									echo gettext('PHP Collator class is not present. Localized string sorting is not available.');
 								}
 								?>
 							</li>
@@ -536,8 +541,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+									$('.overview_list').height(height);
 </script>
 
 <?php
