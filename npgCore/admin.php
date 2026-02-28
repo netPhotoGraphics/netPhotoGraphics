@@ -71,6 +71,9 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 
 		if (npg_loggedin($needs)) {
 			switch ($action) {
+				case 'dismiss_notification':
+					unlink(SERVERPATH . '/notification.txt');
+					break;
 				case 'purgeDBitems':
 					XSRFdefender('purgeDBitems');
 					$class = 'messagebox fade-message';
@@ -484,6 +487,24 @@ $buttonlist = array();
 				}
 			} else {
 				$newVersion = FALSE;
+			}
+
+			if ($_authority->isMasterUser($_current_admin_obj->getUser()) &&
+							file_exists(SERVERPATH . '/notification.txt') &&
+							$notification = file_get_contents(SERVERPATH . '/notification.txt')) {
+				?>
+				<div class="messagebox">
+					<h2>Notice:</h2>
+					<?php
+					echo $notification;
+					?>
+					<div style="text-align: right; padding-bottom: 1em;">
+						<a href="<?php echo getAdminLink('admin.php') . '?action=dismiss_notification'; ?>" style=" margin-right: 1em;">
+							<?php echo gettext('Dismiss'); ?>
+						</a>
+					</div>
+				</div>
+				<?php
 			}
 
 			npgFilters::apply('admin_note', 'overview', '');
