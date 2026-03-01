@@ -466,9 +466,9 @@ $buttonlist = array();
 				if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
 					if ($extract) {
 						$f = fopen($file, 'r');
-						$buffer = fread($f, 1024);
+						$buffer = fread($f, 8192);
 						fclose($f);
-						preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
+						preg_match('~netPhotoGraphics (.*) files~', $buffer, $matches);
 						$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
 						$buttonTitle = gettext('Install the netPhotoGraphics update.');
 					} else {
