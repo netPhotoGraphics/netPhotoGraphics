@@ -7,4 +7,4 @@
 <li>Welcome others and are open-minded. Remember that this is a community we
 build together.</li>
 </ul>
-<p>Visit on <a href="https://github.com/netPhotoGraphics/netPhotoGraphics/discussions"><em>Discussions</em></a> to get started.</p>
+<p>Visit <a href="https://github.com/netPhotoGraphics/netPhotoGraphics/discussions"><em>Discussions</em></a> to get started.</p>
