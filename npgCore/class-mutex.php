@@ -21,13 +21,8 @@ class npgMutex {
 			if (!is_dir($folder)) {
 				mkdir_recursive($folder, (fileperms(__DIR__) & 0666) | 0311);
 			}
-
-			if ($concurrent > 1) {
-				If ($lock = self::which_lock($lock, $concurrent, $folder)) {
-					$this->lock = $lock;
-				}
-			} else {
-				$this->lock = $folder . '/' . $lock;
+			If ($lock = self::which_lock($lock, $concurrent, $folder)) {
+				$this->lock = $lock;
 			}
 		}
 		if (isset($_conf_vars['MUTEX_RUN_FREE'])) {
@@ -36,27 +31,24 @@ class npgMutex {
 		return $this->lock;
 	}
 
-	// returns the integer id of the lock to be obtained
+	// returns the id of the lock to be obtained
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
 		$locks = [];
 		for ($i = 1; $i <= $concurrent; $i++) {
 			$file = $folder . '/' . $lock . '_' . $i;
 			if (file_exists($file)) {
-				$locks[$file] = filemtime($file);
+				if ((time() - 600) > ($locks[$file] = filemtime($file))) {
+					// no lock should be held that long
+					$locks[$file] = -1;
+					unlink($file);
+				}
 			} else {
 				$locks[$file] = -1;
 			}
 		}
-		asort($locks);
-		foreach ($locks as $lock => $mtime) {
-			if ($mtime === -1 || empty(filesize($lock))) {
-				return($lock);
-			}
-		}
-		//	no free locks, will have to wait...
-		$lock = array_rand($locks);
-		return $lock;
+		arsort($locks);
+		return array_key_first($locks);
 	}
 
 	function __destruct() {

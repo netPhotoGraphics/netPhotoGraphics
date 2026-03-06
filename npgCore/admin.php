@@ -71,6 +71,9 @@ if (npg_loggedin()) { /* Display the admin pages. Do action handling first. */
 
 		if (npg_loggedin($needs)) {
 			switch ($action) {
+				case 'dismiss_notification':
+					unlink(SERVERPATH . '/notification.txt');
+					break;
 				case 'purgeDBitems':
 					XSRFdefender('purgeDBitems');
 					$class = 'messagebox fade-message';
@@ -463,9 +466,9 @@ $buttonlist = array();
 				if ($newVersion = npg_loggedin(ADMIN_RIGHTS) && (($extract = file_exists($file = SERVERPATH . '/extract.php.bin') || file_exists($file = SERVERPATH . '/extract.php')) || !empty($found))) {
 					if ($extract) {
 						$f = fopen($file, 'r');
-						$buffer = fread($f, 1024);
+						$buffer = fread($f, 8192);
 						fclose($f);
-						preg_match('~Extracting netPhotoGraphics (.*) files~', $buffer, $matches);
+						preg_match('~netPhotoGraphics (.*) files~', $buffer, $matches);
 						$buttonText = sprintf(gettext('Install version %1$s'), $matches[1]);
 						$buttonTitle = gettext('Install the netPhotoGraphics update.');
 					} else {
@@ -484,6 +487,24 @@ $buttonlist = array();
 				}
 			} else {
 				$newVersion = FALSE;
+			}
+
+			if ($_authority->isMasterUser($_current_admin_obj->getUser()) &&
+							file_exists(SERVERPATH . '/notification.txt') &&
+							$notification = file_get_contents(SERVERPATH . '/notification.txt')) {
+				?>
+				<div class="messagebox">
+					<h2>Notice:</h2>
+					<?php
+					echo $notification;
+					?>
+					<div style="text-align: right; padding-bottom: 1em;">
+						<a href="<?php echo getAdminLink('admin.php') . '?action=dismiss_notification'; ?>" style=" margin-right: 1em;">
+							<?php echo gettext('Dismiss'); ?>
+						</a>
+					</div>
+				</div>
+				<?php
 			}
 
 			npgFilters::apply('admin_note', 'overview', '');
