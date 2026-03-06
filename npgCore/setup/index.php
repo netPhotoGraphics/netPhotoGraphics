@@ -18,7 +18,7 @@ require_once(dirname(__DIR__) . '/global-definitions.php');
 if (defined('CHMOD_VALUE')) {
 	$chmod = CHMOD_VALUE;
 } else {
-	$chmod = fileperms(CORE_SERVERPATH) & 0666;
+	$chmod = isset($_conf_vars['CHMOD']) ? $_conf_vars['CHMOD'] : fileperms(__DIR__) & 0666;
 }
 if ($chmod & 0600 != 0600) {
 	$chmod = 0666; // make sure we can access our files!
