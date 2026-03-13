@@ -41,7 +41,7 @@ class npgMutex {
 				if ((time() - 600) > ($locks[$file] = filemtime($file))) {
 					// no lock should be held that long
 					$locks[$file] = -1;
-					unlink($file);
+					@unlink($file);
 				}
 			} else {
 				$locks[$file] = -1;
