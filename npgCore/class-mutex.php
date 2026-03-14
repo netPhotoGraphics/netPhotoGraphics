@@ -37,15 +37,17 @@ class npgMutex {
 		$locks = [];
 		for ($i = 1; $i <= $concurrent; $i++) {
 			$file = $folder . '/' . $lock . '_' . $i;
+			$e = error_reporting(0); //	supress error if race condition removes file
 			if (file_exists($file)) {
 				if ((time() - 600) > ($locks[$file] = filemtime($file))) {
 					// no lock should be held that long
+					unlink($file);
 					$locks[$file] = -1;
-					@unlink($file);
 				}
 			} else {
 				$locks[$file] = -1;
 			}
+			error_reporting($e);
 		}
 		arsort($locks);
 		return array_key_first($locks);
