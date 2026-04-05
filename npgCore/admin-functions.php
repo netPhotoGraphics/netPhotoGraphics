@@ -233,7 +233,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 				}
 				?>
 				| <a href="<?php echo getAdminLink('license.php'); ?>" title="<?php echo gettext('netPhotoGraphics license'); ?>"><?php echo gettext('License'); ?></a>
-				| <a href="https://forum.netPhotoGraphics.org" title="<?php echo gettext('Forum'); ?>"><?php echo gettext('Forum'); ?></a>
+				| <a href="https://<?php echo GITHUB; ?>/discussions" title="<?php echo gettext('netPhotoGraphics Discussions'); ?>"><?php echo gettext('Discussions'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/issues" title="<?php echo gettext('Support'); ?>"><?php echo gettext('Support'); ?></a>
 				| <a href="https://<?php echo GITHUB; ?>/commits/master" title="<?php echo gettext('View Change log'); ?>"><?php echo gettext('Change log'); ?></a>
 				| <?php
