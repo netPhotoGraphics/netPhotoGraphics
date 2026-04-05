@@ -1,0 +1,10 @@
+<p>You may have noticed that the <b>netPhotoGraphics</b> Forum has been closed. The time needed to maintain it was not justified by its use. Instead we have activated GitHub <em>Discussions</em> as a place to connect with other members of our community.</p>
+<p>On <em>Discussions</em> you:</p>
+<ul>
+<li>Ask questions you’re wondering about.</li>
+<li>Share ideas.</li>
+<li>Engage with other community members.</li>
+<li>Welcome others and are open-minded. Remember that this is a community we
+build together.</li>
+</ul>
+<p>Visit <a href="https://github.com/netPhotoGraphics/netPhotoGraphics/discussions"><em>Discussions</em></a> to get started.</p>
