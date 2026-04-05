@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																																											$(document).ready(function () {
-												$(".doc").colorbox({
-													close: '<?php echo gettext("close"); ?>',
-													maxHeight: "98%",
-													innerWidth: '560px'
-												});
-											});
-											//-->
+																																													$(document).ready(function () {
+										$(".doc").colorbox({
+											close: '<?php echo gettext("close"); ?>',
+											maxHeight: "98%",
+											innerWidth: '560px'
+										});
+									});
+									//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -405,7 +405,7 @@ echo '</head>';
 								} else {
 									$filter = '<em>' . gettext('No spam filter configured') . '</em>';
 								}
-								printf(gettext('Spam filter: %s'), $filter)
+								printf(gettext('Spam filter: %s'), $filter);
 								?>
 							</li>
 							<?php
@@ -541,8 +541,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+							$('.overview_list').height(height);
 </script>
 
 <?php

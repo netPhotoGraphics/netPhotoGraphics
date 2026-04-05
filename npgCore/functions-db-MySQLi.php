@@ -55,8 +55,7 @@ function db_connect($config, $errorstop = E_USER_WARNING) {
 		}
 
 		//	supress error reports for this loop
-		$er_reporting = error_reporting();
-		error_reporting(0);
+		$er_reporting = error_reporting(0);
 		for ($i = 0; $i <= MYSQL_CONNECTION_RETRIES - 1; $i++) {
 			list($username, $password) = selectDBuser($config);
 			$_DB_connection = @mysqli_connect($hostname, $username, $password, $db, $port, $socket);

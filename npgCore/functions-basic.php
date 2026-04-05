@@ -53,7 +53,7 @@ function getUserID() {
  * @param type $ex the exception
  */
 function npgExceptionHandler($ex) {
-	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), null, $ex->getTrace());
+	npgErrorHandler($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
 }
 
 /**
@@ -65,7 +65,7 @@ function npgExceptionHandler($ex) {
  * @param string $errline
  * @return void|boolean
  */
-function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $deprecated = null, $trace = 1) {
+function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $trace = 1) {
 	global $_current_admin_obj, $_index_theme;
 	// if error has been supressed with an @
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_WARNING, E_USER_NOTICE))) {

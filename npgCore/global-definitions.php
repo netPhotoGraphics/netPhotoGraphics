@@ -34,7 +34,7 @@ if (!isset($_SERVER['HTTP_HOST']))
 
 global $_conf_vars, $_options;
 $_conf_options_associations = $_options = array();
-$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
+$_conf_vars = array('db_software' => 'NULL', 'mysql_prefix' => '_', 'mysql_user' => array(), 'charset' => 'UTF-8', 'UTF-8' => 'utf8');
 
 require_once(__DIR__ . '/functions-basic.php');
 
@@ -134,7 +134,7 @@ $_DB_details = array(
 		'mysql_user' => ['' => '']
 );
 define('DB_NOT_CONNECTED', serialize($_DB_details));
-define('MYSQL_CONNECTION_RETRIES', 5);
+define('MYSQL_CONNECTION_RETRIES', max(5, count($_conf_vars['mysql_user'])));
 
 /**
  * OFFSET_PATH definitions:
