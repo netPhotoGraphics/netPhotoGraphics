@@ -1,5 +1,5 @@
 <p>You may have noticed that the <b>netPhotoGraphics</b> Forum has been closed. The time needed to maintain it was not justified by its use. Instead we have activated GitHub <em>Discussions</em> as a place to connect with other members of our community.</p>
-<p>On <em>Discussions</em> you:</p>
+<p>On <em>Discussions</em> We hope that you:</p>
 <ul>
 <li>Ask questions you’re wondering about.</li>
 <li>Share ideas.</li>
