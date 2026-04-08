@@ -494,13 +494,13 @@ $buttonlist = array();
 							file_exists(SERVERPATH . '/notification.txt') &&
 							$notification = file_get_contents(SERVERPATH . '/notification.txt')) {
 				?>
-				<div class="messagebox">
+				<div id="notify" class="messagebox">
 					<h2>Notice:</h2>
 					<?php
 					echo $notification;
 					?>
 					<div style="text-align: right; padding-bottom: 1em;">
-						<a href="<?php echo getAdminLink('admin.php') . '?action=dismiss_notification'; ?>" style=" margin-right: 1em;">
+						<a href="<?php echo getAdminLink('admin.php') . '?action=dismiss_notification'; ?>" style=" margin-right: 1em;" onclick="$('#notify').hide();">
 							<?php echo gettext('Dismiss'); ?>
 						</a>
 					</div>
