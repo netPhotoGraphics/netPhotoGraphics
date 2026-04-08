@@ -96,11 +96,8 @@ function displayError($what, $brief, $addl) {
 				<div class="reasonbox">
 					<?php echo $brief; ?>
 				</div>
-
 			</div>
 		</div>
-
-
 
 		<script>
 			// Make the DIV element draggable:
