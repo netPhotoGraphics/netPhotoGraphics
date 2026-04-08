@@ -98,10 +98,10 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $tr
 	debugLogBacktrace($msg, $trace);
 
 	if ($errno == E_ERROR || $errno == E_USER_WARNING) {
-		// out of curtesy show the error message on the WEB page since there will likely be a blank page otherwise
+		// out of curtesy show message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
-			<?php echo html_encode($msg); ?>
+			<?php echo gettext('netPhotoGraphics encountered an error executing your request.'); ?>
 		</div>
 		<?php
 	}
@@ -393,14 +393,16 @@ function dbErrorReport($sql, $type = 'Query: ') {
 
 	$what = gettext('Database Server Error');
 	$er = db_errorno();
+	$addl = NULL;
 	if ($er) {
-		$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, $er . ': ' . db_error());
+		$brief = sprintf(gettext('%1$s Error %2$s'), DATABASE_SOFTWARE, $er);
+		$addl = ': ' . db_error();
 	} else {
 		$brief = $type;
 		$type = null;
 	}
 
-	displayError($what, $brief, $type . $sql);
+	displayError($what, $brief, $type . $sql . $addl);
 }
 
 /**
