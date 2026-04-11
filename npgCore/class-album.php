@@ -1314,7 +1314,7 @@ class Album extends AlbumBase {
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
 		$this->linkname = $this->name = $folder8;
 		$this->localpath = $localpath;
-		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !file_exists($this->localpath) || !(is_dir($this->localpath)) || $folder8 && $folder8[0] == '.' || preg_match('~/\.*/~', $folder8))) {
+		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !(is_folder($this->localpath)) || $folder8 && $folder8[0] == '.' || preg_match('~/\.*/~', $folder8))) {
 			return;
 		}
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
