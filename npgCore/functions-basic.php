@@ -1104,7 +1104,8 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
-			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
+			$target = internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum);
+			if (!(@is_readable($target) && is_dir($target))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
 					//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);
