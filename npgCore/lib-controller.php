@@ -284,7 +284,7 @@ class Controller {
 		}
 		array_push($handled, '');
 
-		if (!is_dir($path)) {
+		if (!protected_is_dir($path)) {
 			//see if there is a dynamic album in the path
 			$parents = array();
 			$folders = explode('/', $folder);

@@ -283,8 +283,8 @@ class ipBlocker {
 		if (self::blocked($ip)) {
 			db_close();
 			sleep(30);
-			header("HTTP/1.0 503 " . gettext("Unavailable"));
-			header("Status: 503 " . gettext("Unavailable"));
+			header("HTTP/1.0 403 Forbidden");
+			header("Status: 403 Forbidden");
 			exit(); //	terminate the script with no output
 		}
 	}
