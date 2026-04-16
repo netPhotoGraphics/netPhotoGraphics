@@ -101,7 +101,12 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $tr
 		// out of curtesy show message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
-			<?php echo gettext('netPhotoGraphics encountered an error executing your request.'); ?>
+			<?php
+			echo gettext('netPhotoGraphics encountered an error executing your request.');
+			if (defined('TESTING_MODE') && TESTING_MODE) {
+				echo '<br /> ' . $msg;
+			}
+			?>
 		</div>
 		<?php
 	}
