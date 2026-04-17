@@ -144,8 +144,9 @@ define('MYSQL_CONNECTION_RETRIES', max(5, count($_conf_vars['mysql_user'])));
  * 		3		plugin scripts
  * 		4		sub-folders scripts
  */
+$const_doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 $const_webpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-$const_serverpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']));
+$const_serverpath = $const_doc_root . $const_webpath;
 
 /**
  * see if we are executing out of any of the known script folders. If so we know how to adjust the paths
@@ -215,6 +216,7 @@ define('USER_PLUGIN_SERVERPATH', SERVERPATH . '/' . USER_PLUGIN_FOLDER . '/');
 define('GITHUB_API_PATH', PLUGIN_SERVERPATH . 'common/github-api-2.0.2/github-api.php');
 
 unset($matches);
+unset($const_doc_root);
 unset($const_webpath);
 unset($const_serverpath);
 
