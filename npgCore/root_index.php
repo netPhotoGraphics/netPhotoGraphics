@@ -60,8 +60,10 @@ define('OFFSET_PATH', 0);
 if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
 	require(__DIR__ . '/DATA_FOLDER/CONFIGFILE');
 	if ($closed || isset($conf['site_upgrade_state']) && $conf['site_upgrade_state'] == 'closed') {
-		if (file_exists('SITE_ROOT/USER_PLUGIN_FOLDER/site_upgrade/closed.php')) {
-			include('SITE_ROOT/USER_PLUGIN_FOLDER/site_upgrade/closed.php');
+		if (file_exists(__DIR__ . '/USER_PLUGIN_FOLDER/site_upgrade/closed.php')) {
+			$_SERVER['SCRIPT_NAME'] = dirname($_SERVER['SCRIPT_NAME']) . '/plugins/site_upgrade/closed.php';
+			$_SERVER['SCRIPT_FILENAME'] = __DIR__ . dirname($_SERVER['SCRIPT_NAME']) . '/plugins/site_upgrade/closed.php';
+			include(__DIR__ . '/USER_PLUGIN_FOLDER/site_upgrade/closed.php');
 		}
 		exit();
 	}
