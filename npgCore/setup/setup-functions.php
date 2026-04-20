@@ -371,7 +371,6 @@ function permissionsSelector($permission_names, $select) {
 
 function setupLog($message, $anyway = false) {
 	global $debug, $_adminCript;
-
 	if ($debug || $anyway) {
 		if (!file_exists(dirname(SETUPLOG))) {
 			mkdir_recursive(dirname(SETUPLOG), $chmod | 0311);

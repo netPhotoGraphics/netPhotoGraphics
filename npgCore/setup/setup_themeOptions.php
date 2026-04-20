@@ -22,6 +22,7 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 $startTO = microtime(true);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
+$_loggedin = ADMIN_RIGHTS; //	just incase this is a new install
 
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 

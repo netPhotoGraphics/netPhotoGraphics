@@ -254,8 +254,8 @@ if (isset($_GET['purge'])) {
 			} else {
 				query('UPDATE ' . prefix('plugin_storage') . 'SET `data`=' . db_quote(trim($newinstall, '/')) . ' WHERE `id`=' . $rslt['id']);
 			}
-			$cloneid = bin2hex(rtrim($newinstall, '/'));
-			$_SESSION['clone'][$cloneid] = array(
+			// admin synchronization
+			$clone_data = array(
 					'link' => $newinstall,
 					'UTF8_image_URI' => UTF8_IMAGE_URI,
 					'mod_rewrite' => MOD_REWRITE,
@@ -275,8 +275,10 @@ if (isset($_GET['purge'])) {
 				unset($datum['Privileges']);
 				$adminTable[$datum['Field']] = $datum;
 			}
-			$_SESSION['admin']['db_admin_fields'] = $adminTable;
-			$_SESSION['admin'][$cloneid] = serialize($_current_admin_obj);
+			$clone_data['db_admin_fields'] = $adminTable;
+			$clone_data['admin'] = serialize($_current_admin_obj);
+			file_put_contents($folder . '/clone_data', serialize($clone_data));
+
 			//	leave as direct link incase the admin mod_rewrite mechanism is not yet setup
 			$msg[] = get_npgButton('button', gettext('setup the new install'), array('buttonClick' => 'window.open(\'' . $newinstall . CORE_FOLDER . '/setup/index.php?autorun\');')) . '<br clear="all">';
 		} else {

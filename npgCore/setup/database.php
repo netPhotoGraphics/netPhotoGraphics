@@ -17,9 +17,10 @@ $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 $database = $orphans = $datefields = array();
 $template = getSerializedArray(file_get_contents(CORE_SERVERPATH . 'databaseTemplate'));
 
-if (isset($_SESSION['admin']['db_admin_fields'])) { //	we are in a clone install, be srue admin fields match
+if (file_exists(CORE_SERVERPATH . 'clone_data')) { //	we are in a clone install, be srue admin fields match
+	$clone_data = unserialize(file_get_contents(CORE_SERVERPATH . 'clone_data'));
 	$adminTable = $template['administrators']['fields'];
-	foreach ($_SESSION['admin']['db_admin_fields'] as $key => $datum) {
+	foreach ($clone_data['db_admin_fields'] as $key => $datum) {
 		if (!isset($adminTable[$key])) {
 			$template['administrators']['fields'][$key] = $datum;
 		}
@@ -170,8 +171,7 @@ $disable = getSerializedArray(getOption('metadata_disabled'));
 $display = getSerializedArray(getOption('metadata_displayed'));
 
 //	Add in the enabled image metadata fields
-$metadataProviders = array('class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata');
-foreach ($metadataProviders as $source => $handler) {
+foreach (METADATA_PROVIDERS as $source => $handler) {
 	if ($source == 'class-image') {
 		$enabled = true;
 	} else {
