@@ -1169,7 +1169,7 @@ function xmpmetadata_enable($enabled) {
 	} else {
 		$report = gettext('XMP metadata fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
-	requestSetup('XMP metadata', $report);
+	requestSetup('xmpMetadata', $report);
 }
 
 ?>

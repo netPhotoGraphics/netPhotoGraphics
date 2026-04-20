@@ -576,7 +576,7 @@ class ExternalFeed extends feed {
 if (OFFSET_PATH == 2) {
 	require_once(PLUGIN_SERVERPATH . 'site_upgrade.php');
 	if (!file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/rss-closed.xml')) {
-		site_upgrade::updateXML(array('externalFeed-closed.xm' => 'externalFeed'));
+		site_upgrade::updateXML(array('externalFeed-closed.xml' => 'externalFeed'));
 	}
 } else if (!OFFSET_PATH) {
 	// feed calls before anything else
