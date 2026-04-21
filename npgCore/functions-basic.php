@@ -1092,21 +1092,15 @@ function hasDynamicAlbumSuffix($path) {
 	return array_key_exists(getSuffix($path), $_albumHandlers);
 }
 
-function protected_is_dir($target) {
+function npg_is_dir($target) {
 	if (empty($target) || $target[0] == '.' || preg_match('~/\.*/~', $target)) {
 		return false;
 	}
-	$e = error_reporting(0);
-	$yes = is_readable($target) && is_dir($target);
-	error_reporting($e);
-	return $yes;
+	return is_dir($target);
 }
 
-function protected_file_exists($target) {
-	$e = error_reporting(0);
-	$yes = !empty($target) && is_readable($target);
-	error_reporting($e);
-	return $yes;
+function npg_file_exists($target) {
+	return !empty($target) && file_exists($target);
 }
 
 /**
@@ -1126,7 +1120,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
-			if (!protected_is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
+			if (!npg_is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
 					//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);

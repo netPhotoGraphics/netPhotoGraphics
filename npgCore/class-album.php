@@ -22,7 +22,7 @@ function newAlbum($folder8, $cache = true, $quiet = false) {
 	global $_albumHandlers;
 	$folder8 = sanitize_path($folder8);
 	$suffix = getSuffix($folder8);
-	if (!$suffix || !array_key_exists($suffix, $_albumHandlers) || protected_is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder8))) {
+	if (!$suffix || !array_key_exists($suffix, $_albumHandlers) || npg_is_dir(ALBUM_FOLDER_SERVERPATH . internalToFilesystem($folder8))) {
 		$album = new Album($folder8, $cache, $quiet);
 	} else {
 		$album = new $_albumHandlers[$suffix]($folder8, $cache, $quiet);
@@ -1314,7 +1314,7 @@ class Album extends AlbumBase {
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS . "/";
 		$this->linkname = $this->name = $folder8;
 		$this->localpath = $localpath;
-		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !protected_is_dir($this->localpath))) {
+		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !npg_is_dir($this->localpath))) {
 			return;
 		}
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
@@ -1718,7 +1718,7 @@ class dynamicAlbum extends AlbumBase {
 		$localpath = ALBUM_FOLDER_SERVERPATH . $folderFS;
 		$this->linkname = $this->name = $folder8;
 		$this->localpath = rtrim($localpath, '/');
-		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !protected_file_exists($this->localpath) || protected_is_dir($this->localpath))) {
+		if (!$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !npg_file_exists($this->localpath) || npg_is_dir($this->localpath))) {
 			return;
 		}
 		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache, empty($folder8));
