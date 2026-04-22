@@ -284,7 +284,7 @@ class Controller {
 		}
 		array_push($handled, '');
 
-		if (!npg_is_dir($path)) {
+		if (!is_dir($path)) {
 			//see if there is a dynamic album in the path
 			$parents = array();
 			$folders = explode('/', $folder);
