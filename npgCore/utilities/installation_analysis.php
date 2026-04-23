@@ -56,7 +56,7 @@ echo '</head>';
 								} else {
 									$source = $clone;
 								}
-								$source = '<br />&nbsp;&nbsp;&nbsp;' . sprintf(gettext('source: %s'), $source);
+								$source = '<br />' . sprintf(gettext('source: %s'), $source);
 							}
 
 							$graphics_lib = gl_graphicsLibInfo();
@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																																													$(document).ready(function () {
-										$(".doc").colorbox({
-											close: '<?php echo gettext("close"); ?>',
-											maxHeight: "98%",
-											innerWidth: '560px'
-										});
-									});
-									//-->
+																$(document).ready(function () {
+												$(".doc").colorbox({
+													close: '<?php echo gettext("close"); ?>',
+													maxHeight: "98%",
+													innerWidth: '560px'
+												});
+											});
+											//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -82,7 +82,7 @@ echo '</head>';
 										$notes = '';
 									}
 									printf(gettext('netPhotoGraphics version <strong>%1$s (%2$s)</strong>'), NETPHOTOGRAPHICS_VERSION_CONCISE, $official);
-									echo $notes . $source;
+									echo $source . $notes;
 									?>
 								</div>
 							</li>
@@ -541,8 +541,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-							$('.overview_list').height(height);
+									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+									$('.overview_list').height(height);
 </script>
 
 <?php

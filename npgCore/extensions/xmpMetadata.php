@@ -29,7 +29,7 @@
  *
  * @author Stephen Billard (sbillard)
  *
- * @package plugins/xmpmetadata
+ * @package plugins/xmpMetadata
  * @pluginCategory media
  */
 $plugin_is_filter = 9 | CLASS_PLUGIN;
@@ -37,22 +37,22 @@ if (defined('SETUP_PLUGIN')) { //	gettext debugging aid
 	$plugin_description = gettext('Extracts <em>XMP</em> metadata from images and <code>XMP</code> sidecar files.');
 }
 
-$option_interface = 'xmpmetadata';
+$option_interface = 'xmpMetadata';
 
-npgFilters::register('album_instantiate', 'xmpmetadata::album_instantiate');
-npgFilters::register('new_album', 'xmpmetadata::new_album');
-npgFilters::register('album_refresh', 'xmpmetadata::new_album');
-npgFilters::register('image_instantiate', 'xmpmetadata::image_instantiate');
-npgFilters::register('image_metadata', 'xmpmetadata::new_image');
-npgFilters::register('upload_filetypes', 'xmpmetadata::sidecars');
-npgFilters::register('save_album_data', 'xmpmetadata::putXMP');
-npgFilters::register('edit_album_utilities', 'xmpmetadata::create');
-npgFilters::register('save_image_data', 'xmpmetadata::putXMP');
-npgFilters::register('edit_image_utilities', 'xmpmetadata::create');
-npgFilters::register('bulk_image_actions', 'xmpmetadata::bulkActions');
-npgFilters::register('bulk_album_actions', 'xmpmetadata::bulkActions');
+npgFilters::register('album_instantiate', 'xmpMetadata::album_instantiate');
+npgFilters::register('new_album', 'xmpMetadata::new_album');
+npgFilters::register('album_refresh', 'xmpMetadata::new_album');
+npgFilters::register('image_instantiate', 'xmpMetadata::image_instantiate');
+npgFilters::register('image_metadata', 'xmpMetadata::new_image');
+npgFilters::register('upload_filetypes', 'xmpMetadata::sidecars');
+npgFilters::register('save_album_data', 'xmpMetadata::putXMP');
+npgFilters::register('edit_album_utilities', 'xmpMetadata::create');
+npgFilters::register('save_image_data', 'xmpMetadata::putXMP');
+npgFilters::register('edit_image_utilities', 'xmpMetadata::create');
+npgFilters::register('bulk_image_actions', 'xmpMetadata::bulkActions');
+npgFilters::register('bulk_album_actions', 'xmpMetadata::bulkActions');
 
-$ext = getOption('xmpmetadata_suffix');
+$ext = getOption('xmpMetadata_suffix');
 if (is_null($ext)) {
 	$ext = 'xmp';
 }
@@ -65,7 +65,7 @@ require_once (CORE_SERVERPATH . 'lib-metadata.php');
  * Plugin option handling class
  *
  */
-class xmpmetadata {
+class xmpMetadata {
 
 	private static $XML_trans = array(
 			'&#128;' => '€',
@@ -570,11 +570,11 @@ class xmpmetadata {
 	/**
 	 * Class instantiation function
 	 *
-	 * @return xmpmetadata_options
+	 * @return xmpMetadata_options
 	 */
 	function __construct() {
 		if (OFFSET_PATH == 2) {
-			setOptionDefault('xmpmetadata_suffix', 'xmp');
+			setOptionDefault('xmpMetadata_suffix', 'xmp');
 		}
 	}
 
@@ -593,11 +593,11 @@ class xmpmetadata {
 		$listi = array();
 		localeSort($list);
 		foreach ($list as $suffix) {
-			$listi[$suffix] = 'xmpmetadata_examine_images_' . $suffix;
+			$listi[$suffix] = 'xmpMetadata_examine_images_' . $suffix;
 		}
-		return array(gettext('Sidecar file extension') => array('key' => 'xmpmetadata_suffix', 'type' => OPTION_TYPE_TEXTBOX,
+		return array(gettext('Sidecar file extension') => array('key' => 'xmpMetadata_suffix', 'type' => OPTION_TYPE_TEXTBOX,
 						'desc' => gettext('The plugin will look for files with <em>image_name.extension</em> and extract XMP metadata from them into the <em>image_name</em> record.')),
-				gettext('Process extensions') => array('key' => 'xmpmetadata_examine_imagefile', 'type' => OPTION_TYPE_CHECKBOX_UL,
+				gettext('Process extensions') => array('key' => 'xmpMetadata_examine_imagefile', 'type' => OPTION_TYPE_CHECKBOX_UL,
 						'checkboxes' => $listi,
 						'desc' => gettext('If no sidecar file exists and the extension is enabled, the plugin will search within that type <em>image</em> file for an <code>XMP</code> block. <strong>Warning</strong> do not set this option unless you require it. Searching image files can be computationally intensive.'))
 		);
@@ -883,7 +883,7 @@ class xmpmetadata {
 	 */
 	static function new_image($image) {
 		$source = '';
-		if (getOption('xmpmetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
+		if (getOption('xmpMetadata_examine_images_' . strtolower(substr(strrchr($image->localpath, "."), 1)))) {
 			$metadata_path = $image->localpath;
 		} else {
 			$metadata_path = '';
@@ -1145,16 +1145,16 @@ class xmpmetadata {
 	}
 
 	static function bulkActions($actions) {
-		return array_merge($actions, array(gettext('Export metadata') => 'xmpmetadata::publish'));
+		return array_merge($actions, array(gettext('Export metadata') => 'xmpMetadata::publish'));
 	}
 
 }
 
-function xmpmetadata_enable($enabled) {
+function xmpMetadata_enable($enabled) {
 	if ($enabled) {
 		//establish defaults for display and disable
 		$display = $disable = array();
-		$exifvars = xmpmetadata::getmetadataFields();
+		$exifvars = xmpMetadata::getmetadataFields();
 		foreach ($exifvars as $key => $item) {
 			if ($exifvars[$key][METADATA_DISPLAY]) {
 				$display[$key] = $key;
@@ -1169,7 +1169,7 @@ function xmpmetadata_enable($enabled) {
 	} else {
 		$report = gettext('XMP metadata fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Image object.');
 	}
-	requestSetup('XMP metadata', $report);
+	requestSetup('xmpMetadata', $report);
 }
 
 ?>

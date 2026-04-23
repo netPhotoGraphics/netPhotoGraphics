@@ -22,6 +22,11 @@ if ($nolog = isset($_GET['debug']) || isset($_GET['fail'])) {
 $startPO = microtime(true);
 
 require_once(dirname(__DIR__) . '/admin-globals.php');
+if (!$_current_admin_obj) {
+	$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
+	$_loggedin = $_current_admin_obj->getRights();
+}
+
 define('ZENFOLDER', CORE_FOLDER); //	since the zenphotoCompatibilityPack will not be present
 
 $icon = $_GET['class'];
@@ -93,11 +98,6 @@ if ($str = isolate('$option_interface', $p)) {
 		setupLog(sprintf(gettext('Plugin:%1$s option interface instantiated (%2$s)'), $name, $option_interface), $fullLog);
 		$option_interface = new $option_interface;
 		if (method_exists($option_interface, 'getOptionsSupported')) {
-			if (!$_current_admin_obj) {
-				$_current_admin_obj = $_authority->getMasterUser(); //	option interface can presume logged in
-				$_loggedin = $_current_admin_obj->getRights();
-			}
-
 			$options = $option_interface->getOptionsSupported();
 			$owner = replaceScriptPath($path);
 			foreach ($options as $option) {

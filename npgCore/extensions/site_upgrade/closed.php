@@ -5,8 +5,8 @@
  * If you wish to change the appearance or behavior of
  * the site when closed you may edit the .htm and .xmp files
  */
-if (isset($_SERVER['SCRIPT_FILENAME'])) {
-	$_dir = dirname($_SERVER['SCRIPT_FILENAME']);
+if (isset($_SERVER['SCRIPT_NAME'])) {
+	$_dir = dirname($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME']);
 } else {
 	$_dir = __DIR__;
 }

@@ -339,7 +339,13 @@ function reconfigurePage($diff, $needs, $mandatory) {
 								?>
 								<script>
 					<?php
+					$required = false;
+					$message = gettext('Plugin setup has been executed for:');
 					foreach ($rslt['old'] as $plugin => $request) {
+						if (array_key_exists($plugin, IMAGE_METADATA_PROVIDERS)) {
+							$required = true;
+							$message = gettext('Plugn setup has been requested for:');
+						}
 						?>
 										$.ajax({
 											type: 'GET',
@@ -354,13 +360,14 @@ function reconfigurePage($diff, $needs, $mandatory) {
 								<?php
 								$old = getSerializedArray(getOption('netphotographics_install'));
 								unset($old['REQUESTS']);
-								unset($diff['REQUESTS']);
-								setOption('netphotographics_install', serialize($old));
+								if (!$required) {
+									unset($diff['REQUESTS']);
+								}
 								?>
 								<li>
 									<div id="files">
 										<?php
-										echo gettext('Setup has been executed for:');
+										echo $message;
 										?>
 										<ul>
 											<?php

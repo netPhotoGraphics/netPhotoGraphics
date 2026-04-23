@@ -35,8 +35,9 @@ class npgMutex {
 	// rotates locks sequentially mod $concurrent
 	private static function which_lock($lock, $concurrent, $folder) {
 		$locks = [];
-		for ($i = 1; $i <= $concurrent; $i++) {
-			$file = $folder . '/' . $lock . '_' . $i;
+		$i = 1;
+		do {
+			$file = $folder . '/' . $lock . ($concurrent ? '_' . $i : '');
 			$e = error_reporting(0); //	supress error if race condition removes file
 			if (file_exists($file)) {
 				if ((time() - 600) > ($locks[$file] = filemtime($file))) {
@@ -48,8 +49,8 @@ class npgMutex {
 				$locks[$file] = -1;
 			}
 			error_reporting($e);
-		}
-		arsort($locks);
+		} while ($i++ < $concurrent);
+		asort($locks);
 		return array_key_first($locks);
 	}
 

@@ -229,13 +229,6 @@ foreach ($plugins as $key => $extension) {
 	$plugin_links[$extension] = FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php?plugin=' . $extension . '&class=' . $class . $fullLog . '&from=' . $from . '&unique=' . $unique;
 }
 
-//	No need to setup plugins which are not enabled
-foreach ($plugin_links as $whom => $what) {
-	if (!extensionEnabled($whom)) {
-		unset($plugin_links[$whom]);
-	}
-}
-
 setOption('deleted_deprecated_plugins', serialize($deprecatedDeleted));
 
 setOption('known_themes', serialize(array())); //	reset known themes
@@ -503,22 +496,23 @@ setOptionDefault('online_persistance', 5);
 
 if ($_authority->count('allusers') == 0) { //	empty administrators table
 	$groupsdefined = NULL;
-	if (isset($_SESSION['clone'][$cloneid])) { //replicate the user who cloned the install
-		$clone = $_SESSION['clone'][$cloneid];
-		setOption('UTF8_image_URI', $clone['UTF8_image_URI']);
-		setOption('strong_hash', $clone['strong_hash']);
-		setOption('extra_auth_hash_text', $clone['hash']);
-		setOption('deprecated_functions_signature', $clone['deprecated_functions_signature']);
-		setOption('zenphotoCompatibilityPack_signature', $clone['zenphotoCompatibilityPack_signature']);
-		if ($clone['mod_rewrite']) {
+	if (isset($clone_data)) { //replicate the user who cloned the install
+		setOption('UTF8_image_URI', $clone_data['UTF8_image_URI']);
+		setOption('strong_hash', $clone_data['strong_hash']);
+		setOption('extra_auth_hash_text', $clone_data['hash']);
+		setOption('deprecated_functions_signature', $clone_data['deprecated_functions_signature']);
+		setOption('zenphotoCompatibilityPack_signature', $clone_data['zenphotoCompatibilityPack_signature']);
+		if ($clone_data['mod_rewrite']) {
 			$_GET['mod_rewrite'] = true;
+			$mod_rewrite_link = FULLWEBPATH . '/' . CORE_PATH . '/setup/setup_set-mod_rewrite' . getOption('mod_rewrite_suffix') . '?rewrite=' . MOD_REWRITE . '&unique=' . $unique;
+
 			setOption('mod_rewrite', 1);
 		}
 		//	replicate plugins state
-		foreach ($clone['plugins'] as $pluginOption => $priority) {
+		foreach ($clone_data['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
 		}
-		$admin_obj = getSerializedArray($_SESSION['admin'][$cloneid]);
+		$admin_obj = unserialize($clone_data['admin']);
 		$admindata = $admin_obj->getData();
 		$myadmin = new npg_Administrator($admindata['user'], 1);
 		unset($admindata['id']);
@@ -527,11 +521,7 @@ if ($_authority->count('allusers') == 0) { //	empty administrators table
 			$myadmin->set($key, $value);
 		}
 		$myadmin->save();
-		npg_Authority::logUser($myadmin);
-		$_loggedin = ALL_RIGHTS;
 		setOption('license_accepted', NETPHOTOGRAPHICS_VERSION);
-		unset($_SESSION['clone'][$cloneid]);
-		unset($_SESSION['admin'][$cloneid]);
 	} else {
 		if (npg_Authority::$preferred_version > ($oldv = getOption('libauth_version'))) {
 			if (empty($oldv)) {
@@ -1235,7 +1225,14 @@ npgFunctions::flushOutput();
 
 set_time_limit(100);
 setupLog(gettext('Set Plugin options'), true);
-localeSort($plugins);
+
+//	No need to setup plugins which are not enabled
+foreach ($plugin_links as $whom => $what) {
+	if (!extensionEnabled($whom)) {
+		unset($plugin_links[$whom]);
+	}
+}
+ksort($plugin_links, SORT_FLAG_CASE | SORT_NATURAL);
 ?>
 <p>
 	<?php

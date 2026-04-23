@@ -101,7 +101,12 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $tr
 		// out of curtesy show message on the WEB page since there will likely be a blank page otherwise
 		?>
 		<div style="padding: 10px 15px 10px 15px;	background-color: #FDD;	border-width: 1px 1px 2px 1px;	border-style: solid;	border-color: #FAA;	margin-bottom: 10px;	font-size: 100%;">
-			<?php echo gettext('netPhotoGraphics encountered an error executing your request.'); ?>
+			<?php
+			echo gettext('netPhotoGraphics encountered an error executing your request.');
+			if (defined('TESTING_MODE') && TESTING_MODE) {
+				echo '<br /> ' . $msg;
+			}
+			?>
 		</div>
 		<?php
 	}
@@ -1087,23 +1092,6 @@ function hasDynamicAlbumSuffix($path) {
 	return array_key_exists(getSuffix($path), $_albumHandlers);
 }
 
-function protected_is_dir($target) {
-	if (empty($target) || $target[0] == '.' || preg_match('~/\.*/~', $target)) {
-		return false;
-	}
-	$e = error_reporting(0);
-	$yes = is_readable($target) && is_dir($target);
-	error_reporting($e);
-	return $yes;
-}
-
-function protected_file_exists($target) {
-	$e = error_reporting(0);
-	$yes = !empty($target) && is_readable($target);
-	error_reporting($e);
-	return $yes;
-}
-
 /**
  * Handles the special cases of album/image[rewrite_suffix]
  *
@@ -1121,7 +1109,7 @@ function rewrite_get_album_image($albumvar, $imagevar) {
 	//	we assume that everything is correct if rewrite rules were not applied
 	if ($_rewritten) {
 		if (!empty($ralbum) && empty($rimage)) { //	rewrite rules never set the image part!
-			if (!protected_is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
+			if (!is_dir(internalToFilesystem(getAlbumFolder(SERVERPATH) . $ralbum))) {
 				if (RW_SUFFIX && preg_match('|^(.*)' . preg_quote(RW_SUFFIX) . '$|', $ralbum, $matches)) {
 					//has an RW_SUFFIX attached
 					$rimage = basename($matches[1]);

@@ -1730,6 +1730,13 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								}
 							}
 
+							if (file_exists(SERVERPATH . '/clone_data')) { // first setup for a clone
+								$clone_data = getSerializedArray(file_get_contents(SERVERPATH . '/clone_data'));
+								unlink(SERVERPATH . '/clone_data');
+								foreach ($clone_data['plugins'] as $pluginOption => $priority) {
+									setOption($pluginOption, $priority);
+								}
+							}
 
 							require_once(CORE_SERVERPATH . 'setup/database.php');
 
