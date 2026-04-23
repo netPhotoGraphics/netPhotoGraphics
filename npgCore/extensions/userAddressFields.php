@@ -156,9 +156,9 @@ class userAddressFields extends fieldExtender {
 
 function userAddressFields_enable($enabled) {
 	if ($enabled) {
-		$report = gettext('<em>user address</em> fields will be added to the Administrator object.');
+		$report = gettext('<em>user address</em> fields added to the Administrator object.');
 	} else {
-		$report = gettext('<em>user address</em> fields will be <span style="color:red;font-weight:bold;">dropped</span> from the Administrator object.');
+		$report = gettext('<em>user address</em> fields <span style="color:red;font-weight:bold;">dropped</span> from the Administrator object.');
 	}
 	requestSetup('userAddressFields', $report);
 }

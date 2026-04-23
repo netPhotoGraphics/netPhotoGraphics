@@ -191,9 +191,9 @@ class googleTFA extends fieldExtender {
 
 function googleTFA_enable($enabled) {
 	if ($enabled) {
-		$report = gettext('<em>OTAsecret</em> field will be added to the Administrator object.');
+		$report = gettext('<em>OTAsecret</em> field added to the Administrator object.');
 	} else {
-		$report = gettext('<em>OTAsecret</em> field will be <span style = "color:red;font-weight:bold;">dropped</span> from the Administrator object.');
+		$report = gettext('<em>OTAsecret</em> field <span style = "color:red;font-weight:bold;">dropped</span> from the Administrator object.');
 	}
 	requestSetup('googleTFA', $report);
 }

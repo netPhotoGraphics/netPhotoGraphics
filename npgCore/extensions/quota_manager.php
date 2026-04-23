@@ -326,9 +326,9 @@ class quota_manager extends fieldExtender {
 
 function quota_manager_enable($enabled) {
 	if ($enabled) {
-		$report = gettext('<em>filesize</em> field will be added to the images database.');
+		$report = gettext('<em>filesize</em> field added to the images database.');
 	} else {
-		$report = gettext('<em>filesize</em> field will be <span style = "color:red;font-weight:bold;">dropped</span> from the images database.');
+		$report = gettext('<em>filesize</em> field <span style = "color:red;font-weight:bold;">dropped</span> from the images database.');
 	}
 	requestSetup('quota_manager', $report);
 }
