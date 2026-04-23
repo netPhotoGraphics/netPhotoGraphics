@@ -345,15 +345,16 @@ function reconfigurePage($diff, $needs, $mandatory) {
 						if (array_key_exists($plugin, IMAGE_METADATA_PROVIDERS)) {
 							$required = true;
 							$message = gettext('Plugn setup has been requested for:');
+						} else {
+							?>
+											$.ajax({
+												type: 'GET',
+												cache: false,
+												data: '<?php echo 'plugin=' . $plugin . '&class=1' . (TEST_RELEASE ? '&fullLog=true' : ''); ?>',
+												url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
+											});
+							<?php
 						}
-						?>
-										$.ajax({
-											type: 'GET',
-											cache: false,
-											data: '<?php echo 'plugin=' . $plugin . '&class=1' . (TEST_RELEASE ? '&fullLog=true' : ''); ?>',
-											url: '<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/setup_pluginOptions.php' ?>'
-										});
-						<?php
 					}
 					?>
 								</script>
