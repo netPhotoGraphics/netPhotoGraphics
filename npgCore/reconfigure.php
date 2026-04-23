@@ -360,7 +360,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 								<li>
 									<div id="files">
 										<?php
-										echo gettext('Setup has been executed for:');
+										echo gettext('Setup has been requested for:');
 										?>
 										<ul>
 											<?php

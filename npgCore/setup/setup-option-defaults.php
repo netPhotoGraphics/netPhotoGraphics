@@ -494,11 +494,6 @@ $questions[] = getSerializedArray(getAllTranslations("What is the date of the Id
 setOptionDefault('challenge_foils', serialize($questions));
 setOptionDefault('online_persistance', 5);
 
-if (file_exists(SERVERPATH . '/clone_data')) {
-	$clone_data = getSerializedArray(file_get_contents(SERVERPATH . '/clone_data'));
-	unlink(SERVERPATH . '/clone_data');
-}
-
 if ($_authority->count('allusers') == 0) { //	empty administrators table
 	$groupsdefined = NULL;
 	if (isset($clone_data)) { //replicate the user who cloned the install
@@ -516,12 +511,6 @@ if ($_authority->count('allusers') == 0) { //	empty administrators table
 		//	replicate plugins state
 		foreach ($clone_data['plugins'] as $pluginOption => $priority) {
 			setOption($pluginOption, $priority);
-		}
-		foreach (METADATA_PROVIDERS as $source => $handler) {
-			if ($source !== 'class_image' && extensionEnabled($source)) {
-				//	have to run a differred setup to get the fields added
-				requestSetup($source, sprintf('%1$s. fields will be added to the Image object.', $source));
-			}
 		}
 		$admin_obj = unserialize($clone_data['admin']);
 		$admindata = $admin_obj->getData();

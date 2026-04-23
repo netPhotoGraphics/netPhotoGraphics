@@ -91,7 +91,7 @@ define('FEATURE_PLUGIN', 4096);
 define('THEME_PLUGIN', 1024);
 define('PLUGIN_PRIORITY', 1023);
 
-define('METADATA_PROVIDERS', ['class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpmetadata']);
+define('IMAGE_METADATA_PROVIDERS', ['class-image' => 'image', 'class-video' => 'Video', 'xmpMetadata' => 'xmpMetadata']);
 
 //exif index defines
 define('METADATA_SOURCE', 0);

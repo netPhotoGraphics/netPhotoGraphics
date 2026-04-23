@@ -17,13 +17,19 @@ $utf8mb4 = version_compare($dbSoftware['version'], '5.5.3', '>=');
 $database = $orphans = $datefields = array();
 $template = getSerializedArray(file_get_contents(CORE_SERVERPATH . 'databaseTemplate'));
 
-if (file_exists(CORE_SERVERPATH . 'clone_data')) { //	we are in a clone install, be srue admin fields match
-	$clone_data = unserialize(file_get_contents(CORE_SERVERPATH . 'clone_data'));
+if (isset($clone_data)) { //	we are in a clone install
+	// be shrue admin fields match
 	$adminTable = $template['administrators']['fields'];
 	foreach ($clone_data['db_admin_fields'] as $key => $datum) {
 		if (!isset($adminTable[$key])) {
 			$template['administrators']['fields'][$key] = $datum;
 		}
+	}
+	// set plugin enable state so image metadata providers will have their fields will be created
+	// NOTE: these settings will be temporary if the database is not yet setup.
+	//       They will get permanantly set by setup-options-default later.
+	foreach ($clone_data['plugins'] as $pluginOption => $priority) {
+		setOption($pluginOption, $priority);
 	}
 }
 $_DB_Structure_change = FALSE;
@@ -171,7 +177,7 @@ $disable = getSerializedArray(getOption('metadata_disabled'));
 $display = getSerializedArray(getOption('metadata_displayed'));
 
 //	Add in the enabled image metadata fields
-foreach (METADATA_PROVIDERS as $source => $handler) {
+foreach (IMAGE_METADATA_PROVIDERS as $source => $handler) {
 	if ($source == 'class-image') {
 		$enabled = true;
 	} else {
