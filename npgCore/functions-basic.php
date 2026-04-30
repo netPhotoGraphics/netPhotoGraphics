@@ -221,7 +221,7 @@ function sanitize_path($filename) {
 }
 
 /**
- * Checks if the input is numeric, rounds if so, otherwise returns false.
+ * Checks if the input is numeric, rounds if so, otherwise returns 0.
  *
  * @param mixed $num the number to be sanitized
  * @return int
@@ -229,7 +229,7 @@ function sanitize_path($filename) {
 function sanitize_numeric($num) {
 	if ($num) {
 		$f = filter_var(str_replace(', ', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-		if ($f) {
+		if (is_numeric($f)) {
 			return (int) round($f);
 		}
 	}
