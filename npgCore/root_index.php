@@ -30,6 +30,9 @@ if ($closed) {
 				break;
 			}
 		}
+		unset($count);
+		unset($from);
+		unset($to);
 		if (preg_match('~\.php$~i', $base)) {
 			if (file_exists(__DIR__ . $base)) {
 				trigger_error('Malformed admin link: ' . $base, E_USER_DEPRECATED);
