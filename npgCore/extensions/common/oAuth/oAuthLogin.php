@@ -16,7 +16,7 @@
 class oAuthLogin {
 
 	/**
-	 * "comon" option initialization
+	 * "common" option initialization
 	 */
 	function __construct() {
 		$class = get_called_class();
