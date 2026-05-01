@@ -1321,7 +1321,6 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/common/oAuth/OAuth.php
 %extensions%/common/oAuth/oauth_client.php
 %extensions%/common/oAuth/oAuthLogin.php
-%extensions%/common/oAuth/twitteroauth.php
 %extensions%/contact_form
 %extensions%/contact_form/form.php
 %extensions%/cookieconsent
@@ -2391,4 +2390,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-2393
+2392
