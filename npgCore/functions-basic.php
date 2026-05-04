@@ -736,8 +736,7 @@ function debugLogVar($var) {
  */
 function npg_session_start() {
 	global $_conf_vars;
-
-	if (($id = session_id()) && session_name() == SESSION_NAME) {
+	if (($id = session_id()) && session_name() == SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
 		if (!defined('npg_SID')) {
 			define('npg_SID', session_id());
 		}
@@ -770,7 +769,9 @@ function npg_session_start() {
 		$result = session_start();
 		define('npg_SID', session_id());
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
+		$_SESSION['name'] = SESSION_NAME;
 		$_SESSION['ip'] = getUserIP();
+		$_SESSION['URI'] = getRequestURI();
 		return $result;
 	}
 }
