@@ -65,7 +65,7 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																$(document).ready(function () {
+																						$(document).ready(function () {
 												$(".doc").colorbox({
 													close: '<?php echo gettext("close"); ?>',
 													maxHeight: "98%",
@@ -229,7 +229,12 @@ echo '</head>';
 							?>
 							<li>
 								<div class="hangng_indent">
-									<?php echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>'; ?>
+									<?php
+									echo gettext('PHP Session path:') . ' <strong>' . session_save_path() . '</strong>';
+									if (isset($_conf_vars['SESSION_SAVE_PATH'])) {
+										echo gettext(' [defined in npg.cfg.php]');
+									}
+									?>
 								</div>
 							</li>
 							<li>

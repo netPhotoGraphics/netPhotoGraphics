@@ -67,6 +67,8 @@ if (file_exists(__DIR__ . '/DATA_FOLDER/CONFIGFILE')) {
 			$_SERVER['SCRIPT_NAME'] = dirname($_SERVER['SCRIPT_NAME']) . '/plugins/site_upgrade/closed.php';
 			$_SERVER['SCRIPT_FILENAME'] = __DIR__ . dirname($_SERVER['SCRIPT_NAME']) . '/plugins/site_upgrade/closed.php';
 			include(__DIR__ . '/USER_PLUGIN_FOLDER/site_upgrade/closed.php');
+		} else {
+			echo 'Site is closed';
 		}
 		exit();
 	}

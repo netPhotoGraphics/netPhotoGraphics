@@ -713,7 +713,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$dep = $vers = '';
 							}
 							$good = checkMark($err, '<span' . $vers . '>' . sprintf(gettext("PHP version %s"), PHP_VERSION) . '</span>', "", sprintf(gettext('PHP Version %1$s or greater is required. ' . $dep . 'Version %2$s or greater is strongly recommended as earlier versions may not be <a href="https://php.net/supported-versions.php">actively supported</a>. Use earlier versions at your own risk.'), PHP_MIN_VERSION, PHP_DESIRED_VERSION), false) && $good;
-
 							checkmark($session && session_id() && $_initial_session_path !== false, gettext('PHP <code>Sessions</code>.'), gettext('PHP <code>Sessions</code> [appear to not be working].'), sprintf(gettext('PHP Sessions are required for administrative functions. Check your <code>session.save_path</code> (<code>%1$s</code>) and the PHP configuration <code>[session]</code> settings'), session_save_path()), true);
 
 							if (preg_match('#(1|ON)#i', ini_get('session.use_strict_mode'))) {
@@ -1686,6 +1685,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 								</div>
 								<?php
+								npg_session_destroy();
 								$_authority->printLoginForm('', false);
 							}
 							?>
@@ -1932,6 +1932,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 								</div>
 								<?php
+								npg_session_destroy();
 								$_authority->printLoginForm('', false);
 							} else {
 								if (!empty($task) && substr($task, 0, 1) != '&') {

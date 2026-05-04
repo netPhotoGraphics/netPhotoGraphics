@@ -47,7 +47,10 @@ function saveOptions() {
 
 	setOption('locale_disallowed', serialize($disallow));
 
-	setOption('mod_rewrite', (int) isset($_POST['mod_rewrite']));
+	if (isset($_POST['mod_rewrite'])) {
+		setOption('mod_rewrite', 1);
+		setOption('mod_rewrite_detected', 1);
+	}
 
 	$oldsuffix = getOption('mod_rewrite_suffix');
 	$newsuffix = sanitize($_POST['mod_rewrite_suffix'], 3);

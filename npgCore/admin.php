@@ -356,7 +356,10 @@ if (!npg_loggedin()) {
 	// If they are not logged in, display the login form and exit
 	?>
 	<body style="background-image: none">
-		<?php $_authority->printLoginForm($came_from); ?>
+		<?php
+		npg_session_destroy();
+		$_authority->printLoginForm($came_from);
+		?>
 	</body>
 	<?php
 	echo "\n</html>";
