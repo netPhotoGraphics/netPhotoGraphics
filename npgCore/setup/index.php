@@ -1863,6 +1863,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									break;
 							}
 							$optionComplete = microtime(true) - $optionStart;
+							unset($_SESSION['SetupStarted']);
 							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script>

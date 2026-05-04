@@ -28,13 +28,12 @@ define('ADMIN_THUMB_SMALL', 40);
 define('UPLOAD_ERR_QUOTA', -1);
 define('UPLOAD_ERR_BLOCKED', -2);
 
-npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 $_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
-//	just incase
+	//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
 	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 	if (TEST_RELEASE) {
@@ -94,6 +93,14 @@ $_sortby = array(
 
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
+	if (OFFSET_PATH != 2) {
+		npg_session_start();
+	} else {
+		if (!defined('npg_SID')) {
+			define('npg_SID', 'none');
+		}
+	}
+
 	if ($_current_admin_obj->reset) {
 		//	There are no valid administrators, allow user creation or backup restore (if possible)
 		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
