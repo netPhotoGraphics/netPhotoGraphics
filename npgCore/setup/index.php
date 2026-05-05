@@ -1614,6 +1614,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								checkmark(-1, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup could not find the  <em>example_robots.txt</em> file.'));
 							} else {
 								if (file_exists(SERVERPATH . '/robots.txt')) {
+									$robots = file_get_contents(SERVERPATH . '/robots.txt');
+									$robots_new = str_replace('/backup/', '/npgData/', $robots);
+									if ($robots_new != $robots) {
+										file_put_contents(SERVERPATH . '/robots.txt', $robots_new);
+									}
 									checkmark(-2, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup did not create a <em>robots.txt</em> file because one already exists.'));
 								} else {
 									$robots = str_replace('%FULLWEBPATH%', FULLWEBPATH, $robots);

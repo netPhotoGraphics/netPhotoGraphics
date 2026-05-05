@@ -12,8 +12,8 @@ Crawl-delay: 30
 Disallow: /*/albums/
 Allow: /cache*/
 Allow: /*/cache*/
-Disallow: /backup/
-Disallow: /*/backup/
+Disallow: /npgData/
+Disallow: /*/npgData/
 Disallow: /plugins/
 Disallow: /*/plugins/
 Disallow: /themes/
