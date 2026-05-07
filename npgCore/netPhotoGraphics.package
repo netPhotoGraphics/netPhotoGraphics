@@ -845,9 +845,6 @@ plugins/common/jquerymobile/images/icons-svg/video-white.svg
 plugins/cookieInvalidator.php
 plugins/customFieldExtender.php
 plugins/devReleases.php
-plugins/ipBlocker/
-plugins/ipBlocker/Private IP Address Ranges.txt
-plugins/ipBlocker.php
 plugins/noCaptcha.php
 plugins/pluginEnabler/
 plugins/pluginEnabler/handler.php
@@ -2390,4 +2387,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-2392
+2389
