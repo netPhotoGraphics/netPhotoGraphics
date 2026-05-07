@@ -144,6 +144,7 @@ $iX = round($sizedwidth * 0.05);
 $iY = round($sizedheight * 0.05);
 
 if (isset($_GET['action']) && $_GET['action'] == 'crop') {
+	npg_session_start();
 	XSRFdefender('crop');
 	$cw = $_REQUEST['w'];
 	$ch = $_REQUEST['h'];

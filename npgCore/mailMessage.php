@@ -14,6 +14,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 $user = $_authority->getAnAdmin(['`id`=' => $_REQUEST['user']]);
 
 if (isset($_POST['send'])) {
+	npg_session_start();
 	XSRFdefender('mailMessage');
 	$subject = NULL;
 	$message = NULL;

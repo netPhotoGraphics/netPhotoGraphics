@@ -34,7 +34,6 @@ if (npg_loggedin() && !empty($_admin_menu)) {
 	}
 }
 
-
 if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
 	if (time() > getOption('last_garbage_collect') + 864000) {

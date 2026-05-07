@@ -24,6 +24,7 @@ $plugin_disable = version_compare(PHP_VERSION, 8.0, '<') ? gettext('PHP must be 
 require_once(GITHUB_API_PATH);
 
 if (isset($_GET['action'])) {
+	npg_session_start();
 	if ($_GET['action'] == 'check_update') {
 		XSRFdefender('check_update');
 		purgeOption('getDEVUpdates_lastCheck');
