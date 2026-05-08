@@ -15,7 +15,7 @@ $plugin_notice = gettext('The only translation performed is one or more <em>whit
 $plugin_disable = npgFilters::has_filter('seoFriendly') && !extensionEnabled('seo_null') ? sprintf(gettext('Only one SEO filter plugin can be enabled. <em>%1$s</em> is already enabled.'), stripSuffix(npgFilters::script('seoFriendly'))) : '';
 
 if ($plugin_disable) {
-	enableExtension('seo_null', 0);
+	enableExtension('seo_null', 0, false);
 } else {
 	npgFilters::register('seoFriendly', 'null_seo::filter');
 	npgFilters::register('seoFriendly_js', 'null_seo::js');

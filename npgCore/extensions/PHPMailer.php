@@ -21,7 +21,7 @@ $plugin_disable = npgFunctions::pluginDisable(array(
 $option_interface = '_PHPMailer';
 
 if ($plugin_disable) {
-	enableExtension('PHPMailer', 0);
+	enableExtension('PHPMailer', 0, false);
 } else {
 	npgFilters::register('sendmail', '_PHPMailer');
 }

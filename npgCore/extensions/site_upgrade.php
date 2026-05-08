@@ -40,7 +40,7 @@ $plugin_notice = (MOD_REWRITE) ? false : gettext('<em>mod_rewrite</em> is not en
 $plugin_disable = npgFunctions::hasPrimaryScripts() ? false : gettext('Open and close site from primary installation.');
 
 if ($plugin_disable) {
-	enableExtension('site_upgrade', 0);
+	enableExtension('site_upgrade', 0, false);
 }
 define('SITE_UPGRADE_FILELIST', array(
 		'closed.htm' => '+', // copy and update define

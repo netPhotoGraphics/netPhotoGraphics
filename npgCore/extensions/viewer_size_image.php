@@ -71,7 +71,7 @@ class viewer_size_image_options {
 }
 
 if ($plugin_disable) {
-	enableExtension('viewer_size_image', 0);
+	enableExtension('viewer_size_image', 0, false);
 } else {
 	if (!OFFSET_PATH) {
 		$saved = isset($_COOKIE['viewer_size_image_saved']) ? $_COOKIE['viewer_size_image_saved'] : NULL; //	This cookie set by JavaScript, so not bound to the IP. cannot use getNPGCookie()
@@ -141,7 +141,7 @@ if ($plugin_disable) {
 			$cookiepath = '/';
 		?>
 		<script>
-			
+
 		<?php
 		$selector = getOption('viewer_size_image_radio') == 1;
 		if ($selector) {
@@ -169,7 +169,7 @@ if ($plugin_disable) {
 			<?php
 		}
 		?>
-			
+
 		</script>
 		<div>
 			<?php

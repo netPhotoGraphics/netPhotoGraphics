@@ -15,7 +15,7 @@ $plugin_disable = npgFilters::has_filter('seoFriendly') && !extensionEnabled('se
 $option_interface = 'seo_basic';
 
 if ($plugin_disable) {
-	enableExtension('seo_null', 0);
+	enableExtension('seo_null', 0, false);
 } else {
 	npgFilters::register('seoFriendly', 'seo_basic::filter');
 	npgFilters::register('seoFriendly_js', 'seo_basic::js');

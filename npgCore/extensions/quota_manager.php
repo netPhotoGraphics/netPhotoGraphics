@@ -37,7 +37,7 @@ $option_interface = 'quota_manager';
 require_once(PLUGIN_SERVERPATH . 'common/fieldExtender.php');
 
 if ($plugin_disable) {
-	enableExtension('quota_manager', 0);
+	enableExtension('quota_manager', 0, false);
 } else {
 	npgFilters::register('save_admin_data', 'quota_manager::save_admin');
 	npgFilters::register('edit_admin_custom', 'quota_manager::edit_admin');
