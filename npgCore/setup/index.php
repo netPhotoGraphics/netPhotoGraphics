@@ -1836,6 +1836,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 							if ((bool) strpos($_debug, 'UNPROTECT')) {
 								$query = '';
 							} else {
+								npg_session_start();
 								$query = '?action=protect_setup&XSRFToken=' . getXSRFToken('protect_setup');
 							}
 							?>
