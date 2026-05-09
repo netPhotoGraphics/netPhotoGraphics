@@ -8,6 +8,7 @@
  * @package admin
  */
 // force UTF-8 Ø
+
 if (!isset($_Script_processing_timer)) {
 	$_Script_processing_timer['start'] = microtime(true);
 }

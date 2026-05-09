@@ -16,7 +16,6 @@ require_once(CORE_SERVERPATH . 'reconfigure.php');
 if (version_compare(PHP_VERSION, 8.0, '>=')) {
 	require_once(GITHUB_API_PATH);
 }
-
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
 	if (!$_current_admin_obj->getID() || empty($msg) && !npg_loggedin(OVERVIEW_RIGHTS)) {

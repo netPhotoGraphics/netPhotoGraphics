@@ -471,7 +471,7 @@ class slideshow {
 	static function js() {
 		global $__slideshow_scripts;
 		$__slideshow_scripts = getPlugin('slideshow/slideshow.css', getCurrentTheme(), true);
-		scriptLoader(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
+		scriptLoader(CORE_SERVERPATH . PLUGIN_FOLDER . '/slideshow/jquery.cycle.all.js');
 		scriptLoader(getPlugin('slideshow/slideshow' . getOption('slideshow_controls') . '.css', getCurrentTheme()));
 	}
 
