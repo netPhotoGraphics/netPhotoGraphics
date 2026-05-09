@@ -65,7 +65,7 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																						$(document).ready(function () {
+																								$(document).ready(function () {
 												$(".doc").colorbox({
 													close: '<?php echo gettext("close"); ?>',
 													maxHeight: "98%",
@@ -85,6 +85,16 @@ echo '</head>';
 									echo $source . $notes;
 									?>
 								</div>
+							</li>
+							<li>
+								<?php
+								$themes = $_gallery->getThemes();
+								$currenttheme = $_gallery->getCurrentTheme();
+								if (array_key_exists($currenttheme, $themes) && isset($themes[$currenttheme]['name'])) {
+									$currenttheme = $themes[$currenttheme]['name'];
+								}
+								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
+								?>
 							</li>
 							<li>
 								<?php
@@ -116,16 +126,6 @@ echo '</head>';
 								} elseif (getNPGCookie('ssl_state')) {
 									echo ' (' . gettext('HTTPS connection') . ')';
 								}
-								?>
-							</li>
-							<li>
-								<?php
-								$themes = $_gallery->getThemes();
-								$currenttheme = $_gallery->getCurrentTheme();
-								if (array_key_exists($currenttheme, $themes) && isset($themes[$currenttheme]['name'])) {
-									$currenttheme = $themes[$currenttheme]['name'];
-								}
-								printf(gettext('Current gallery theme: <strong>%1$s</strong>'), $currenttheme);
 								?>
 							</li>
 							<li>

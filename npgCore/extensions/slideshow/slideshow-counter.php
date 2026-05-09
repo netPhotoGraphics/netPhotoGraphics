@@ -5,7 +5,7 @@
  *
  * @package plugins/slideshow
  */
-require_once(file_get_contents(dirname(dirname($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'])) . '/core-locator.npg') . "functions.php");
+require_once(dirname(dirname(__DIR__)) . "/functions.php");
 
 $album_name = sanitize($_GET["album"]);
 $img_name = sanitize($_GET["img"]);
