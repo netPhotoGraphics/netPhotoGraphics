@@ -29,6 +29,7 @@ define('ADMIN_THUMB_SMALL', 40);
 define('UPLOAD_ERR_QUOTA', -1);
 define('UPLOAD_ERR_BLOCKED', -2);
 
+npg_session_start();
 require_once(CORE_SERVERPATH . 'admin-functions.php');
 
 $_admin_menu = array();

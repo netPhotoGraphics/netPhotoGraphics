@@ -39,7 +39,6 @@ if (npgFunctions::hasPrimaryScripts()) {
 }
 
 if (isset($_GET['markRelease'])) {
-	npg_session_start();
 	XSRFdefender('markRelease');
 	$version = debug::version($_GET['markRelease'] == 'released');
 	setOption('markRelease_state', $version);

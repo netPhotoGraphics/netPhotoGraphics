@@ -3,8 +3,6 @@
  * presents a form to get the user's googleAuthenticator authorization code.
  */
 require_once(dirname(dirname(__DIR__)) . '/admin-globals.php');
-npg_session_start();
-
 require_once (PLUGIN_SERVERPATH . 'googleTFA/Secret.php');
 require_once (PLUGIN_SERVERPATH . 'googleTFA/SecretFactory.php');
 
@@ -73,3 +71,4 @@ if (isset($_SESSION['OTA'])) {
 		exit();
 	}
 }
+npg_session_destroy();

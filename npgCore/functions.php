@@ -2445,10 +2445,7 @@ function js_encode($this_string) {
  * 																							parts of URL being used for more security
  */
 function getXSRFToken($action, $modifier = NULL) {
-	if (TEST_RELEASE && !defined('npg_SID')) {
-		debugLogBacktrace('npg_SID not defined for getXSRFToken');
-	}
-	return sha1($action . $modifier . defined('npg_SID') ? npg_SID : '');
+	return sha1($action . $modifier . npg_SID);
 }
 
 /**
