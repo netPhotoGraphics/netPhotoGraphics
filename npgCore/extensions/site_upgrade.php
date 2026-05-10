@@ -37,11 +37,7 @@
 $plugin_is_filter = defaultExtension(900 | FEATURE_PLUGIN);
 $plugin_description = gettext('Utility to divert access to the gallery to a screen saying the site is upgrading.');
 $plugin_notice = (MOD_REWRITE) ? false : gettext('<em>mod_rewrite</em> is not enabled. This plugin may not work without rewrite redirection if the upgrade is significantly different than the running release.');
-$plugin_disable = npgFunctions::hasPrimaryScripts() ? false : gettext('Open and close site from primary installation.');
 
-if ($plugin_disable) {
-	enableExtension('site_upgrade', 0, false);
-}
 define('SITE_UPGRADE_FILELIST', array(
 		'closed.htm' => '+', // copy and update define
 		'closed.php' => '*' // copy and update

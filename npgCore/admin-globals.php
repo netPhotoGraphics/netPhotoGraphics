@@ -44,6 +44,11 @@ if (abs(OFFSET_PATH) != 2) {
 
 	$_Script_processing_timer['admin-core'] = microtime(true);
 
+	if (isset($_GET['site_state'])) {
+		$_conf_vars['site_upgrade_state'] = $_GET['site_state'];
+	}
+
+
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
 	$what = [FEATURE_PLUGIN => 'feature plugins', ADMIN_PLUGIN => 'admin plugins'];
@@ -95,14 +100,6 @@ $_sortby = array(
 
 // setup sub-tab arrays for use in dropdown
 if (isset($_loggedin) && $_loggedin) {
-	if (OFFSET_PATH != 2) {
-		npg_session_start();
-	} else {
-		if (!defined('npg_SID')) {
-			define('npg_SID', 'none');
-		}
-	}
-
 	if ($_current_admin_obj->reset) {
 		//	There are no valid administrators, allow user creation or backup restore (if possible)
 		$filelist = safe_glob(SERVERPATH . "/" . BACKUPFOLDER . '/*.zdb');
