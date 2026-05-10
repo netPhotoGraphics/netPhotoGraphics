@@ -46,7 +46,7 @@ $option_interface = 'slideshow';
 
 global $_gallery, $_gallery_page;
 if ($plugin_disable) {
-	enableExtension('slideshow', 0, false);
+	enableExtension('slideshow', 0);
 }
 
 /**

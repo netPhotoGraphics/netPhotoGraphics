@@ -32,7 +32,7 @@ $plugin_description = gettext('Allows multiple installations to share a single s
 $plugin_disable = (SYMLINK) ? (npgFunctions::hasPrimaryScripts()) ? false : gettext('Only the primary installation may clone offspring installations.') : gettext('Your server does not support symbolic linking.');
 
 if ($plugin_disable) {
-	enableExtension('clone', 0, false);
+	enableExtension('clone', 0);
 } else {
 	require_once(CORE_SERVERPATH . 'reconfigure.php');
 	npgFilters::register('admin_tabs', 'npgClone::tabs', -312);

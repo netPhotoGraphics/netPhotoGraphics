@@ -21,7 +21,7 @@ $plugin_disable = (version_compare(PHP_VERSION, '5.3', '>=') && version_compare(
 $plugin_notice = gettext('This plugin will throw <em>deprecated</em> errors on PHP 8.1 and will cease working on a future version of PHP. The author has archived <em>blueimp/jQuery-File-Upload</em> upon which the plugin is based so no further updates are expected.');
 
 if ($plugin_disable) {
-	enableExtension('uploader_jQuery', 0, false);
+	enableExtension('uploader_jQuery', 0);
 } else {
 	if (npg_loggedin(UPLOAD_RIGHTS)) {
 		npgFilters::register('upload_handlers', 'jQueryUploadHandler');

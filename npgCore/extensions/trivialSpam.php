@@ -16,7 +16,7 @@ $plugin_disable = (isset($_spamFilter) && !extensionEnabled('trivialSpam')) ? sp
 $option_interface = '_TrivialSpam';
 
 if ($plugin_disable) {
-	enableExtension('trivialSpam', 0, false);
+	enableExtension('trivialSpam', 0);
 } else {
 	$_spamFilter = new _TrivialSpam();
 }
