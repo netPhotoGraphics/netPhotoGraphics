@@ -2222,21 +2222,10 @@ function getThemeOption($option, $album = NULL, $theme = NULL) {
  * @return type
  */
 function getDBTables() {
-	$tables = array();
-	$prefix = trim(prefix(), '`');
-	$resource = db_show('tables');
-	if ($resource) {
-		while ($row = db_fetch_assoc($resource)) {
-			$table = reset($row);
-			if (empty($prefix)) {
-				$tables[] = $table;
-			} else {
-				if (strpos(strtolower($table), strtolower($prefix)) === 0) {
-					$tables[] = substr($table, strlen($prefix));
-				}
-			}
-		}
-		db_free_result($resource);
+	static $tables = array();
+	if (empty($tables)) {
+		$db = unserialize(file_get_contents(CORE_SERVERPATH . 'databaseTemplate'));
+		$tables = array_keys($db);
 	}
 	return $tables;
 }
