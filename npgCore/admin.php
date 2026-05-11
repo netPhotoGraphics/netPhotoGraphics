@@ -572,19 +572,21 @@ $buttonlist = array();
 				//	button to restore setup files if needed
 				switch (abs($setupUnprotected)) {
 					case 1:
-						$buttonlist[] = array(
-								'XSRFTag' => 'restore_setup',
-								'category' => gettext('Admin'),
-								'enable' => true,
-								'button_text' => gettext('Setup » restore scripts'),
-								'formname' => 'restore_setup',
-								'action' => getAdminLink('admin.php') . '?action=restore_setup',
-								'icon' => LOCK_OPEN,
-								'alt' => '',
-								'title' => gettext('Restores setup files so setup can be run.'),
-								'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
-								'rights' => ADMIN_RIGHTS
-						);
+						if (npgFunctions::hasPrimaryScripts()) {
+							$buttonlist[] = array(
+									'XSRFTag' => 'restore_setup',
+									'category' => gettext('Admin'),
+									'enable' => true,
+									'button_text' => gettext('Setup » restore scripts'),
+									'formname' => 'restore_setup',
+									'action' => getAdminLink('admin.php') . '?action=restore_setup',
+									'icon' => LOCK_OPEN,
+									'alt' => '',
+									'title' => gettext('Restores setup files so setup can be run.'),
+									'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
+									'rights' => ADMIN_RIGHTS
+							);
+						}
 						break;
 					case 2:
 						if (!$newVersion) {
