@@ -30391,7 +30391,7 @@ msgstr "Instalaci požaduje:"
 #: npgCore/reconfigure.php:350
 #, php-format
 msgid "The script <code>%1$s</code> has changed."
-msgstr "Skript <code>%1$s</code> se změni"
+msgstr "Skript <code>%1$s</code> se změnil."
 
 #: npgCore/reconfigure.php:352
 #: npgCore/reconfigure.php:352
