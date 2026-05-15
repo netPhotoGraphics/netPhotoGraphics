@@ -519,7 +519,7 @@ class Gallery {
 	 */
 	function garbageCollect($cascade = true, $complete = false, $restart = '') {
 		global $_gallery, $_authority;
-		require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/comment_form/functions.php'); // in case comment_form not enabled
+		require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/comment_form/functions.php'); // in case comment_form not enabled
 		if (empty($restart)) {
 			setOption('last_garbage_collect', time());
 			/* purge old search cache items */

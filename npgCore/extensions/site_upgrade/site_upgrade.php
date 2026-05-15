@@ -13,7 +13,7 @@ admin_securityChecks(ADMIN_RIGHTS, currentRelativeURL());
 XSRFdefender('site_upgrade');
 
 $report = '';
-switch (isset($_REQUEST['siteState']) ? $_REQUEST['siteState'] : NULL) {
+switch ($state = isset($_REQUEST['siteState']) ? $_REQUEST['siteState'] : NULL) {
 	case 'closed':
 		setSiteState('closed');
 		npgFilters::apply('security_misc', true, 'site_upgrade', 'admin_auth', 'closed');
@@ -41,7 +41,7 @@ switch (isset($_REQUEST['siteState']) ? $_REQUEST['siteState'] : NULL) {
 		break;
 }
 
-header('Location: ' . getAdminLink('admin.php') . $report);
+header('Location: ' . getAdminLink('admin.php') . ($report ? $report . '&' : '?') . 'site_state=' . $state);
 exit();
 
 /**

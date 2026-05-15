@@ -33,9 +33,9 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER)) {
 
 $_initial_session_path = session_save_path();
 
-require_once(CORE_SERVERPATH . '/functions.php');
+require_once(CORE_SERVERPATH . 'functions.php');
 require_once(__DIR__ . '/setup-functions.php');
-require_once(CORE_SERVERPATH . '/lib-utf8.php');
+require_once(CORE_SERVERPATH . 'lib-utf8.php');
 
 //allow only one setup to run
 $setupMutex = new npgMutex('sP');
@@ -109,9 +109,9 @@ if (isset($_REQUEST['xsrfToken']) || isset($_REQUEST['update']) || isset($_REQUE
 }
 $_SESSION['save_session_path'] = session_save_path();
 
-$en_US = CORE_SERVERPATH . '/locale/en_US/';
+$en_US = CORE_SERVERPATH . 'locale/en_US/';
 if (!file_exists($en_US)) {
-	mkdir(CORE_SERVERPATH . '/locale/', $chmod | 0311);
+	mkdir(CORE_SERVERPATH . 'locale/', $chmod | 0311);
 	mkdir($en_US, $chmod | 0311);
 }
 
@@ -150,14 +150,14 @@ if (file_exists($oldconfig = SERVERPATH . '/' . DATA_FOLDER . '/zenphoto.cfg.php
 	configMod();
 } else if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	$update_config = true;
-	copy(CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
+	copy(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt', SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE);
 	configMod();
 }
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0777);
 }
-copy(CORE_SERVERPATH . '/dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
+copy(CORE_SERVERPATH . 'dataaccess', SERVERPATH . '/' . DATA_FOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . DATA_FOLDER . '/.htaccess', 0444);
 
 if (!file_exists(SERVERPATH . '/' . BACKUPFOLDER)) {
@@ -185,7 +185,7 @@ if (file_exists(SERVERPATH . '/backup')) {
 if (file_exists(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', 0777);
 }
-copy(CORE_SERVERPATH . '/denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
+copy(CORE_SERVERPATH . 'denyaccess', SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . BACKUPFOLDER . '/.htaccess', $chmod | 0311);
 
 if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
@@ -194,7 +194,7 @@ if (!file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER)) {
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess')) {
 	chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', 0777);
 }
-copy(CORE_SERVERPATH . '/denyaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess');
+copy(CORE_SERVERPATH . 'denyaccess', SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess');
 chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . MUTEX_FOLDER . '/.htaccess', $chmod | 0311);
 
 if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/lastPublishCheck')) {
@@ -256,7 +256,7 @@ if (strpos($_config_contents, "\$conf['charset']") === false) {
 }
 
 if (strpos($_config_contents, "\$conf['special_pages']") === false) {
-	$template = file_get_contents(CORE_SERVERPATH . '/netPhotoGraphics_cfg.txt');
+	$template = file_get_contents(CORE_SERVERPATH . 'netPhotoGraphics_cfg.txt');
 	$i = strpos($template, "\$conf['special_pages']");
 	$j = strpos($template, '//', $i);
 	$k = strpos($_config_contents, '/** Do not edit below this line. **/');
@@ -398,7 +398,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 	if (isset($_conf_vars) && isset($_conf_vars['special_pages'])) {
 		if (isset($_conf_vars['db_software'])) {
 			$confDB = $_conf_vars['db_software'];
-			if (extension_loaded(strtolower($confDB)) && file_exists(CORE_SERVERPATH . '/functions-db-' . $confDB . '.php')) {
+			if (extension_loaded(strtolower($confDB)) && file_exists(CORE_SERVERPATH . 'functions-db-' . $confDB . '.php')) {
 				$selected_database = $confDB;
 			} else {
 				$selected_database = $preferred;
@@ -416,7 +416,7 @@ if (file_exists(SERVERPATH . '/' . DATA_FOLDER . '/' . CONFIGFILE)) {
 		}
 
 		if (!$selected_database) {
-			require_once(CORE_SERVERPATH . '/functions-db-NULL.php');
+			require_once(CORE_SERVERPATH . 'functions-db-NULL.php');
 		}
 	} else {
 		// There is a problem with the configuration file
@@ -482,8 +482,8 @@ if ($selected_database) {
 	}
 }
 
-require_once(CORE_SERVERPATH . '/admin-functions.php');
-require_once(CORE_SERVERPATH . '/' . PLUGIN_FOLDER . '/security-logger.php');
+require_once(CORE_SERVERPATH . 'admin-functions.php');
+require_once(CORE_SERVERPATH . PLUGIN_FOLDER . '/security-logger.php');
 
 $system_check = !$connection || !$setup_checked && (($upgrade && $autorun) || setupUserAuthorized());
 
@@ -713,7 +713,6 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								$dep = $vers = '';
 							}
 							$good = checkMark($err, '<span' . $vers . '>' . sprintf(gettext("PHP version %s"), PHP_VERSION) . '</span>', "", sprintf(gettext('PHP Version %1$s or greater is required. ' . $dep . 'Version %2$s or greater is strongly recommended as earlier versions may not be <a href="https://php.net/supported-versions.php">actively supported</a>. Use earlier versions at your own risk.'), PHP_MIN_VERSION, PHP_DESIRED_VERSION), false) && $good;
-
 							checkmark($session && session_id() && $_initial_session_path !== false, gettext('PHP <code>Sessions</code>.'), gettext('PHP <code>Sessions</code> [appear to not be working].'), sprintf(gettext('PHP Sessions are required for administrative functions. Check your <code>session.save_path</code> (<code>%1$s</code>) and the PHP configuration <code>[session]</code> settings'), session_save_path()), true);
 
 							if (preg_match('#(1|ON)#i', ini_get('session.use_strict_mode'))) {
@@ -1615,6 +1614,11 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								checkmark(-1, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup could not find the  <em>example_robots.txt</em> file.'));
 							} else {
 								if (file_exists(SERVERPATH . '/robots.txt')) {
+									$robots = file_get_contents(SERVERPATH . '/robots.txt');
+									$robots_new = str_replace('/backup/', '/npgData/', $robots);
+									if ($robots_new != $robots) {
+										file_put_contents(SERVERPATH . '/robots.txt', $robots_new);
+									}
 									checkmark(-2, gettext('<em>robots.txt</em> file'), gettext('<em>robots.txt</em> file [Not created]'), gettext('Setup did not create a <em>robots.txt</em> file because one already exists.'));
 								} else {
 									$robots = str_replace('%FULLWEBPATH%', FULLWEBPATH, $robots);
@@ -1686,6 +1690,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 								</div>
 								<?php
+								npg_session_destroy();
 								$_authority->printLoginForm('', false);
 							}
 							?>
@@ -1863,6 +1868,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									break;
 							}
 							$optionComplete = microtime(true) - $optionStart;
+							unset($_SESSION['SetupStarted']);
 							?>
 							<input type="hidden" id="setupErrors" value="<?php echo (int) $updateErrors; ?>" />
 							<script>
@@ -1932,6 +1938,7 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 									?>
 								</div>
 								<?php
+								npg_session_destroy();
 								$_authority->printLoginForm('', false);
 							} else {
 								if (!empty($task) && substr($task, 0, 1) != '&') {

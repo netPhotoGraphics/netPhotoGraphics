@@ -71,6 +71,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $tr
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
 	}
+	npg_session_destroy();
 	$errorType = array(
 			E_ERROR => gettext('ERROR'),
 			E_WARNING => gettext('WARNING'),
@@ -221,7 +222,7 @@ function sanitize_path($filename) {
 }
 
 /**
- * Checks if the input is numeric, rounds if so, otherwise returns false.
+ * Checks if the input is numeric, rounds if so, otherwise returns 0.
  *
  * @param mixed $num the number to be sanitized
  * @return int
@@ -229,7 +230,7 @@ function sanitize_path($filename) {
 function sanitize_numeric($num) {
 	if ($num) {
 		$f = filter_var(str_replace(', ', '.', trim($num)), FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-		if ($f) {
+		if (is_numeric($f)) {
 			return (int) round($f);
 		}
 	}
@@ -521,7 +522,7 @@ function pathurlencode($path) {
 
 /**
  * Makes directory recursively, returns TRUE if exists or was created sucessfuly.
- * Note: PHP5 includes a recursive parameter to mkdir, but it apparently does not
+ * Note: PHP5 includes a recursive parameter to mkdir, but it apparently
  * 				does not traverse symlinks!
  * @param string $pathname The directory path to be created.
  * @return boolean TRUE if exists or made or FALSE on failure.
@@ -735,8 +736,7 @@ function debugLogVar($var) {
  */
 function npg_session_start() {
 	global $_conf_vars;
-
-	if (($id = session_id()) && session_name() == SESSION_NAME) {
+	if (($id = session_id()) && session_name() == SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
 		if (!defined('npg_SID')) {
 			define('npg_SID', session_id());
 		}
@@ -747,14 +747,15 @@ function npg_session_start() {
 		}
 		session_name(SESSION_NAME);
 		//	insure that the session data has a place to be saved
-		if (isset($_conf_vars['session_save_path'])) {
-			session_save_path($_conf_vars['session_save_path']);
+		if (isset($_conf_vars['SESSION_SAVE_PATH'])) {
+			$_session_path = SERVERPATH . '/' . $_conf_vars['SESSION_SAVE_PATH'];
+		} else {
+			$_session_path = SERVERPATH . '/PHP_sessions';
 		}
-		$_session_path = session_save_path();
 		if (ini_get('session.save_handler') == 'files' && !file_exists($_session_path) || !is_writable($_session_path)) {
-			mkdir_recursive(SERVERPATH . '/PHP_sessions', (fileperms(__DIR__) & 0666) | 0311);
-			session_save_path(SERVERPATH . '/PHP_sessions');
+			mkdir_recursive($_session_path, (fileperms(__DIR__) & 0666) | 0311);
 		}
+		session_save_path($_session_path);
 		//	setup session cookie
 		$sessionCookie = array(
 				'lifetime' => 0,
@@ -768,18 +769,23 @@ function npg_session_start() {
 		$result = session_start();
 		define('npg_SID', session_id());
 		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
+		$_SESSION['name'] = SESSION_NAME;
+		$_SESSION['ip'] = getUserIP();
+		$_SESSION['URI'] = getRequestURI();
 		return $result;
 	}
 }
 
 function npg_session_destroy() {
-	$name = session_name();
-	$_SESSION = array();
-	if (ini_get("session.use_cookies")) {
-		$params = session_get_cookie_params();
-		setcookie($name, 'null', 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
-	} else {
-		setcookie($name, 'null', 1);
+	if (!headers_sent()) {
+		$name = session_name();
+		$_SESSION = array();
+		if (ini_get("session.use_cookies")) {
+			$params = session_get_cookie_params();
+			setcookie($name, 'null', 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+		} else {
+			setcookie($name, 'null', 1);
+		}
 	}
 	if (session_status() == PHP_SESSION_ACTIVE) {
 		session_destroy();

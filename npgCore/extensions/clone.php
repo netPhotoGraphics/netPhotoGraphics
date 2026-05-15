@@ -31,17 +31,6 @@ $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Allows multiple installations to share a single set of script files.');
 $plugin_disable = (SYMLINK) ? (npgFunctions::hasPrimaryScripts()) ? false : gettext('Only the primary installation may clone offspring installations.') : gettext('Your server does not support symbolic linking.');
 
-if (OFFSET_PATH == 2) {
-	$priority = extensionEnabled('cloneZenphoto');
-	if (!is_null($priority)) {
-		enableExtension('clone', $priority);
-		purgeOption('_plugin_cloneZenphoto');
-		$sql = 'UPDATE ' . prefix('plugin_storage') . ' SET `type`="clone" WHERE `type`="cloneZenphoto"';
-		query($sql);
-	}
-}
-
-
 if ($plugin_disable) {
 	enableExtension('clone', 0);
 } else {

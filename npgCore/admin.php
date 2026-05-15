@@ -16,7 +16,6 @@ require_once(CORE_SERVERPATH . 'reconfigure.php');
 if (version_compare(PHP_VERSION, 8.0, '>=')) {
 	require_once(GITHUB_API_PATH);
 }
-
 $came_from = NULL;
 if (npg_loggedin() && !empty($_admin_menu)) {
 	if (!$_current_admin_obj->getID() || empty($msg) && !npg_loggedin(OVERVIEW_RIGHTS)) {
@@ -33,7 +32,6 @@ if (npg_loggedin() && !empty($_admin_menu)) {
 		$came_from = urldecode(currentRelativeURL());
 	}
 }
-
 
 if (npg_loggedin(ADMIN_RIGHTS)) {
 	checkInstall();
@@ -356,7 +354,10 @@ if (!npg_loggedin()) {
 	// If they are not logged in, display the login form and exit
 	?>
 	<body style="background-image: none">
-		<?php $_authority->printLoginForm($came_from); ?>
+		<?php
+		npg_session_destroy();
+		$_authority->printLoginForm($came_from);
+		?>
 	</body>
 	<?php
 	echo "\n</html>";
@@ -571,19 +572,21 @@ $buttonlist = array();
 				//	button to restore setup files if needed
 				switch (abs($setupUnprotected)) {
 					case 1:
-						$buttonlist[] = array(
-								'XSRFTag' => 'restore_setup',
-								'category' => gettext('Admin'),
-								'enable' => true,
-								'button_text' => gettext('Setup » restore scripts'),
-								'formname' => 'restore_setup',
-								'action' => getAdminLink('admin.php') . '?action=restore_setup',
-								'icon' => LOCK_OPEN,
-								'alt' => '',
-								'title' => gettext('Restores setup files so setup can be run.'),
-								'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
-								'rights' => ADMIN_RIGHTS
-						);
+						if (npgFunctions::hasPrimaryScripts()) {
+							$buttonlist[] = array(
+									'XSRFTag' => 'restore_setup',
+									'category' => gettext('Admin'),
+									'enable' => true,
+									'button_text' => gettext('Setup » restore scripts'),
+									'formname' => 'restore_setup',
+									'action' => getAdminLink('admin.php') . '?action=restore_setup',
+									'icon' => LOCK_OPEN,
+									'alt' => '',
+									'title' => gettext('Restores setup files so setup can be run.'),
+									'hidden' => '<input type="hidden" name="action" value="restore_setup" />',
+									'rights' => ADMIN_RIGHTS
+							);
+						}
 						break;
 					case 2:
 						if (!$newVersion) {

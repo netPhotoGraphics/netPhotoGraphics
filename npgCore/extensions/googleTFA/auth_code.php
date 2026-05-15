@@ -71,3 +71,4 @@ if (isset($_SESSION['OTA'])) {
 		exit();
 	}
 }
+npg_session_destroy();

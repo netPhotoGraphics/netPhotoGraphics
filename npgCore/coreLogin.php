@@ -18,7 +18,10 @@ printAdminHeader('login');
 echo "\n</head>";
 ?>
 <body style="background-image: none">
-	<?php $_authority->printLoginForm($_GET['redirect']); ?>
+	<?php
+	npg_session_destroy();
+	$_authority->printLoginForm($_GET['redirect']);
+	?>
 </body>
 <?php
 echo "\n</html>";

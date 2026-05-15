@@ -8,6 +8,7 @@
  * @package admin
  */
 // force UTF-8 Ø
+
 if (!isset($_Script_processing_timer)) {
 	$_Script_processing_timer['start'] = microtime(true);
 }
@@ -34,7 +35,7 @@ require_once(CORE_SERVERPATH . 'admin-functions.php');
 $_admin_menu = array();
 
 if (abs(OFFSET_PATH) != 2) {
-//	just incase
+	//	just incase
 	require_once(CORE_SERVERPATH . 'lib-filter.php');
 	require_once(PLUGIN_SERVERPATH . 'dynamic-locale.php');
 	if (TEST_RELEASE) {
@@ -42,6 +43,11 @@ if (abs(OFFSET_PATH) != 2) {
 	}
 
 	$_Script_processing_timer['admin-core'] = microtime(true);
+
+	if (isset($_GET['site_state'])) {
+		$_conf_vars['site_upgrade_state'] = $_GET['site_state'];
+	}
+
 
 	//load feature and admin plugins
 	$enabled = getEnabledPlugins();
