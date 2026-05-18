@@ -5569,6 +5569,7 @@ function admin_securityChecks($rights, $return) {
 	$rights = npgFilters::apply('admin_allow_access', $rights, $returnurl);
 	if (!($rights & $_loggedin)) {
 		// prevent nefarious access to this page.
+		npg_session_destroy();
 		$uri = mb_parse_url($returnurl);
 		$redirect = getAdminLink('admin.php') . '?from=' . $uri['path'];
 		header("HTTP/1.0 302 Found");
