@@ -283,8 +283,10 @@ class Controller {
 			$handled[$key] = '.' . $suffix;
 		}
 		array_push($handled, '');
-
-		if (!is_dir($path)) {
+		$e = error_reporting(0); //	suppress open_basedir errors
+		$isdir = is_dir($path);
+		error_reporting($e);
+		if (!$isdir) {
 			//see if there is a dynamic album in the path
 			$parents = array();
 			$folders = explode('/', $folder);
