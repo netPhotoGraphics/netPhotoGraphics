@@ -1316,8 +1316,9 @@ class Album extends AlbumBase {
 		$this->localpath = $localpath;
 
 		$e = error_reporting(0); //	suppress open_basedir errors
-		$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, !file_exists($this->localpath) || !(is_dir($this->localpath)) || $folder8 && $folder8[0] == '.' || preg_match('~/\.*/~', $folder8));
+		$nv = !file_exists($this->localpath) || !(is_dir($this->localpath)) || $folder8 && $folder8[0] == '.' || preg_match('~/\.*/~', $folder8);
 		error_reporting($e);
+		$this->exists = AlbumBase::albumCheck($folder8, $folderFS, $quiet, $nv);
 		if (!$this->exists) {
 			return;
 		}
