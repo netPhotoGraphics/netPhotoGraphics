@@ -1,6 +1,9 @@
 /*
 Login form basic styling
 */
+/*
+    Author : sbillard
+*/
 
 #loginform {
 	text-align: left;
@@ -15,6 +18,10 @@ Login form basic styling
 	font-size: medium;
 
 	box-sizing: border-box;
+}
+
+#loginform form {
+	text-align: center;
 }
 
 #loginform fieldset {
@@ -52,8 +59,7 @@ Login form basic styling
 
 #loginform .logon_link {
 	text-align: center;
-
-	word-break: break-word;
+	overflow-wrap: break-word;
 }
 
 #logon_box fieldset {
@@ -76,6 +82,7 @@ Login form basic styling
 #loginform button[type] {
 	display: inline-block !important;
 	height: 35px !important;
+	margin: 0 5px;
 
 	max-width: 100%;
 }
@@ -88,7 +95,6 @@ Login form basic styling
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 	flex-wrap: wrap;
 	gap: 10px;
 }
@@ -101,8 +107,18 @@ Login form basic styling
 		margin-top: 4vh;
 	}
 
+	#loginform .button_center {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+
 	#loginform button[type] {
-		width: 100%;
+		width: 260px;
+		max-width: 100%;
+		margin: 0;
+		display: block !important;
 	}
 
 	#loginform .show_checkbox {
