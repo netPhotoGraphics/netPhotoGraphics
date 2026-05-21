@@ -2,66 +2,89 @@
 Login form basic styling
 */
 /*
-    Author     : sbillard
+    Author : sbillard
 */
 
 #loginform {
 	text-align: left;
 	padding: 10px;
-	width: 365px;
+
+	width: 100%;
+	max-width: 365px;
+
 	margin: 25px auto;
-	margin-top: 15%;
+	margin-top: 8vh;
+
 	font-size: medium;
+
+	box-sizing: border-box;
+}
+
+#loginform form {
+	text-align: center;
 }
 
 #loginform fieldset {
-	padding:10px;
-	text-align:left;
+	padding: 10px;
+	text-align: left;
 	border: 1px solid lightgray;
+
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
 }
 
 #loginform .show_checkbox {
 	float: right;
-	position:relative;
+	position: relative;
 	top: -1.9em;
 	height: 0;
 	z-index: 999999;
 }
 
 #loginform input.textfield {
-	margin: 0px;
-	width: 97%;
+	margin: 0;
+	width: 100%;
 	font-size: medium;
-	padding: 4px;
+	padding: 10px;
+
+	box-sizing: border-box;
 }
 
 #loginform .logon_form_text {
 	padding: 4px;
-	text-align:left;
-	margin-left: 10px;
+	text-align: left;
 	margin-left: 5px;
 }
 
 #loginform .logon_link {
-	text-align:center;
+	text-align: center;
+	overflow-wrap: break-word;
 }
 
 #logon_box fieldset {
-	width: 310px;
-	text-align: left;
+	width: 100%;
+	max-width: 310px;
+
+	box-sizing: border-box;
 }
 
 .logon_welcome {
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px;
 	margin-bottom: 10px;
 	font-size: 100%;
-	width: 94%;
+	width: 100%;
 	font-weight: normal;
+
+	box-sizing: border-box;
 }
 
 #loginform button[type] {
-	display: inline !important;
+	display: inline-block !important;
 	height: 35px !important;
+	margin: 0 5px;
+
+	max-width: 100%;
 }
 
 #loginform .icon_center {
@@ -72,4 +95,36 @@ Login form basic styling
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+	#loginform {
+		padding: 12px;
+		margin-top: 4vh;
+	}
+
+	#loginform .button_center {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+
+	#loginform button[type] {
+		width: 260px;
+		max-width: 100%;
+		margin: 0;
+		display: block !important;
+	}
+
+	#loginform .show_checkbox {
+		float: none;
+		position: static;
+		height: auto;
+		margin-top: 10px;
+	}
 }
