@@ -322,8 +322,12 @@ if (isset($_GET['security_ack'])) {
 }
 
 $permission_names = array(
+		0400 => gettext('readonly'),
+		0440 => gettext('readonly'),
 		0444 => gettext('readonly'),
-		0644 => gettext('strict'),
+		0600 => gettext('strict'),
+		0640 => gettext('strict'),
+		0644 => gettext('relaxed'),
 		0664 => gettext('relaxed'),
 		0666 => gettext('loose')
 );
@@ -893,8 +897,9 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 								} else {
 									$chmodselector = '';
 								}
-								if (array_key_exists($chmod | 4, $permission_names)) {
-									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$chmod | 4], $chmod);
+
+								if (array_key_exists($chmod, $permission_names)) {
+									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$chmod], $chmod);
 								} else {
 									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), $chmod);
 								}

@@ -491,7 +491,7 @@ $buttonlist = array();
 				$newVersion = FALSE;
 			}
 
-			if ($_authority->isMasterUser($_current_admin_obj->getUser()) &&
+			if (npg_loggedin(ADMIN_RIGHTS) &&
 							file_exists(SERVERPATH . '/notification.txt') &&
 							$notification = file_get_contents(SERVERPATH . '/notification.txt')) {
 				?>
