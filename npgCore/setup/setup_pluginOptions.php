@@ -119,5 +119,6 @@ if (isset($_GET['curl'])) {
 } else {
 	sendImage($icon, 'plugin_' . $extension);
 }
+npg_session_destroy();
 db_close();
 exit();

@@ -45,7 +45,10 @@ if (empty($needs)) {
 			// If they are not logged in, display the login form and exit
 			?>
 			<body style="background-image: none">
-				<?php $_authority->printLoginForm(); ?>
+				<?php
+				npg_session_destroy();
+				$_authority->printLoginForm();
+				?>
 			</body>
 			<?php
 			echo "\n</html>";

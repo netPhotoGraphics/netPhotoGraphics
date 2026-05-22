@@ -53,6 +53,7 @@ if (isset($_GET['curl'])) {
 } else {
 	sendImage(0, 'Mod_rewrite');
 }
+npg_session_destroy();
 db_close();
 exit();
 ?>
