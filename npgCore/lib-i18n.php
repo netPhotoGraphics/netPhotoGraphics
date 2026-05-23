@@ -415,9 +415,9 @@ class i18n {
 	 */
 	static function htmlLanguageCode($locale = NULL) {
 		if ($locale) {
-			echo ' lang="' . str_replace('_', '-', $locale);
+			echo ' lang="' . str_replace('_', '-', $locale) . '"';
 		} else if ($lang = self::getUserLocale('-')) {
-			echo ' lang="' . $lang;
+			echo ' lang="' . $lang . '"';
 		}
 	}
 
