@@ -95,4 +95,4 @@ if ($_themeScript && file_exists($_themeScript)) {
 	</html>
 	<?php
 }
-?>
+npg_session_destroy();
