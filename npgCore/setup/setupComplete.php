@@ -19,6 +19,6 @@ if (sanitize($_POST['errors'])) {
 }
 setupLog(sprintf(gettext('Option setup completed in %1$.4f seconds'), $_POST['optionComplete']), true);
 npgFilters::apply('log_setup', true, 'install', $result);
-
+npg_session_destroy();
 db_close();
 exit();

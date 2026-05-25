@@ -31,8 +31,9 @@ if (isset($_SESSION['OTA'])) {
 			$_SESSION['OTA'] = array('user' => $user, 'redirect' => $link); //	restore for the next attempt
 		}
 		printAdminHeader('overview');
-		echo "\n</head>";
 		?>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		</head>
 		<body style="background-image: none">
 			<div id="loginform">
 				<p>
