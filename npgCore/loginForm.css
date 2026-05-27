@@ -13,9 +13,7 @@ html,
 body,
 #loginform,
 #loginform * {
-	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
 	box-sizing: border-box;
 }
 
@@ -386,6 +384,6 @@ body,
 
 		padding: 0 10px;
 
-		word-break: break-word;
+		overflow-wrap: break-word;
 	}
 }
