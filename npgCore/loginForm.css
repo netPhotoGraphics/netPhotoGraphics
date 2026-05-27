@@ -5,34 +5,82 @@ Login form basic styling
     Author : sbillard
 */
 
-#loginform {
-	text-align: left;
-	padding: 10px;
+/* =========================================================
+   GLOBAL SAFETY / TEXT SCALING
+========================================================= */
 
-	width: 100%;
-	max-width: 365px;
-
-	margin: 25px auto;
-	margin-top: 8vh;
-
-	font-size: medium;
-
+html,
+body,
+#loginform,
+#loginform * {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
 	box-sizing: border-box;
 }
+
+/* =========================================================
+   BASE
+========================================================= */
+
+#loginform {
+	text-align: left;
+	width: 100%;
+	max-width: 365px;
+	margin: 40px auto;
+	padding: 10px;
+	font-size: medium;
+}
+
+/* Logo */
+
+#loginform img {
+	display: block;
+	margin: 0 auto 14px auto;
+
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+
+/* =========================================================
+   FORMS
+========================================================= */
 
 #loginform form {
 	text-align: center;
 }
 
 #loginform fieldset {
-	padding: 10px;
-	text-align: left;
-	border: 1px solid lightgray;
-
-	box-sizing: border-box;
 	width: 100%;
-	min-width: 0;
+	padding: 12px;
+	border: 1px solid lightgray;
+	box-sizing: border-box;
+	text-align: left;
 }
+
+#loginform legend {
+	text-align: left !important;
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+
+	display: table;
+
+	color: #444;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+/* =========================================================
+   LOGIN FORM
+========================================================= */
+
+#logon_box {
+	max-width: 520px;
+	margin: 0 auto;
+}
+
+/* Password checkbox */
 
 #loginform .show_checkbox {
 	float: right;
@@ -42,89 +90,302 @@ Login form basic styling
 	z-index: 999999;
 }
 
+/* =========================================================
+   INPUTS
+========================================================= */
+
 #loginform input.textfield {
-	margin: 0;
 	width: 100%;
-	font-size: medium;
-	padding: 10px;
-
+	height: 36px;
+	padding: 6px 8px;
+	font-size: 15px;
 	box-sizing: border-box;
 }
 
-#loginform .logon_form_text {
-	padding: 4px;
-	text-align: left;
-	margin-left: 5px;
-}
-
-#loginform .logon_link {
-	text-align: center;
-	overflow-wrap: break-word;
-}
-
-#logon_box fieldset {
-	width: 100%;
-	max-width: 310px;
-
-	box-sizing: border-box;
-}
-
-.logon_welcome {
-	padding: 5px 10px;
-	margin-bottom: 10px;
-	font-size: 100%;
-	width: 100%;
-	font-weight: normal;
-
-	box-sizing: border-box;
-}
-
-#loginform button[type] {
-	display: inline-block !important;
-	height: 35px !important;
-	margin: 0 5px;
-
-	max-width: 100%;
-}
-
-#loginform .icon_center {
-	text-align: center;
-}
+/* =========================================================
+   LOGIN BUTTONS
+========================================================= */
 
 #loginform .button_center {
+	text-align: center;
+	margin-top: 14px;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-wrap: wrap;
+
 	gap: 10px;
+	flex-wrap: nowrap;
 }
 
-/* MOBILE */
-@media (max-width: 480px) {
+#loginform .button_center .npgButton {
+	float: none !important;
+
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+
+	flex: 0 0 auto;
+
+	height: 38px !important;
+
+	margin: 0 !important;
+	padding: 0 18px !important;
+
+	box-sizing: border-box;
+	vertical-align: middle;
+}
+
+#loginform .buttonText {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+#loginform .logon_link {
+	text-align: center !important;
+
+	display: block;
+	width: 100%;
+
+	margin-top: 18px;
+
+	overflow-wrap: break-word;
+}
+
+#loginform .logon_link a {
+	display: inline-block;
+	line-height: 1.5;
+}
+
+/* =========================================================
+   OTP / TFA FORM
+========================================================= */
+
+#loginform form#OTP {
+	width: 100%;
+}
+
+/* TFA logo */
+
+#loginform form#OTP img {
+	display: block;
+	margin: 0 auto 12px auto;
+
+	width: auto;
+	height: auto;
+	max-width: 100%;
+}
+
+/* TFA container */
+
+#loginform form#OTP #logon_box {
+	max-width: 340px;
+
+	margin: 0 auto;
+	padding: 12px;
+
+	text-align: center;
+}
+
+#loginform form#OTP br,
+#loginform form#OTP .clearall {
+	display: none;
+}
+
+#loginform form#OTP legend {
+	font-weight: 700;
+}
+
+#loginform form#OTP input.textfield {
+	width: 100%;
+	height: 42px;
+
+	font-size: 16px;
+	text-align: center;
+}
+
+/* TFA buttons */
+
+#loginform form#OTP .button_center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+
+	flex-wrap: nowrap;
+}
+
+#loginform form#OTP .npgButton {
+	float: none !important;
+
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 110px;
+
+	height: 38px !important;
+
+	margin: 8px 0 0 0 !important;
+	padding: 0 18px !important;
+
+	box-sizing: border-box;
+	vertical-align: middle;
+}
+
+/* =========================================================
+   TFA ERROR MESSAGE
+========================================================= */
+
+#loginform #message {
+	width: 100%;
+	max-width: 340px;
+
+	margin: 0 auto 14px auto;
+
+	box-sizing: border-box;
+}
+
+#loginform #message h2 {
+	margin: 0;
+
+	padding: 14px 16px;
+
+	background: #f8dede;
+	border: 1px solid #f1a8a8;
+
+	color: #d9534f;
+
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.4;
+
+	text-align: left;
+
+	box-sizing: border-box;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
 
 	#loginform {
-		padding: 12px;
-		margin-top: 4vh;
+		width: calc(100% - 32px);
+		max-width: 420px;
+
+		margin: 16px auto;
+		padding: 0;
+
+		font-size: 16px !important;
 	}
 
-	#loginform .button_center {
+	#loginform fieldset {
+		padding: 14px;
+		border-radius: 10px;
+	}
+
+	#loginform legend {
+		font-size: 16px;
+		font-weight: 700;
+	}
+
+	#loginform input.textfield {
+		height: 48px;
+
+		padding: 10px 12px;
+
+		font-size: 16px !important;
+	}
+
+	#loginform .npgButton {
+		height: 52px !important;
+		font-size: 16px !important;
+
+		box-sizing: border-box;
+	}
+
+	/* LOGIN buttons */
+
+	#loginform form#login .button_center {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+
 		gap: 10px;
+
+		justify-content: center;
+		align-items: stretch;
+
+		flex-wrap: nowrap;
+		flex-direction: row;
 	}
 
-	#loginform button[type] {
-		width: 260px;
-		max-width: 100%;
-		margin: 0;
-		display: block !important;
+	#loginform form#login .button_center .npgButton {
+		flex: 1 1 0;
+
+		min-width: 0;
+
+		margin: 0 !important;
+		padding: 0 10px !important;
 	}
+
+	/* TFA buttons */
+
+	#loginform form#OTP {
+		width: 100%;
+	}
+
+	#loginform form#OTP #logon_box {
+		max-width: 100%;
+		text-align: center;
+	}
+
+	#loginform form#OTP .button_center {
+		flex-wrap: nowrap;
+	}
+
+	#loginform form#OTP .npgButton {
+		width: calc(50% - 5px) !important;
+
+		min-width: 0;
+
+		margin: 8px 0 0 0 !important;
+
+		display: inline-flex !important;
+	}
+
+	/* Error message mobile */
+
+	#loginform #message {
+		width: 100%;
+		max-width: 100%;
+		margin: 0 auto 12px auto;
+	}
+
+	/* checkbox */
 
 	#loginform .show_checkbox {
 		float: none;
+
 		position: static;
+
 		height: auto;
 		margin-top: 10px;
+	}
+
+	/* forgot password */
+
+	#loginform .logon_link {
+		text-align: center;
+
+		font-size: 16px;
+
+		padding: 0 10px;
+
+		word-break: break-word;
 	}
 }
