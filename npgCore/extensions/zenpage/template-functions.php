@@ -1581,7 +1581,7 @@ function printNestedMenu($option = 'list', $mode = NULL, $counter = TRUE, $css_i
 				if ($limit) {
 					$itemtitle = shortenContent($itemtitle, $limit, MENU_TRUNCATE_INDICATOR);
 				}
-				echo '<li class="' . $current . '"><a href="' . html_encode($itemurl) . '" title="' . html_encode(getBare($itemtitle)) . '">' . html_encode($itemtitle) . '</a>' . $count;
+				echo '<li' . $current . '><a href="' . html_encode($itemurl) . '" title="' . html_encode(getBare($itemtitle)) . '">' . html_encode($itemtitle) . '</a>' . $count;
 			}
 		}
 	}
