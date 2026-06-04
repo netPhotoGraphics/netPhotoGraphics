@@ -561,8 +561,11 @@ if (is_string($refresh)) {
 					<br style="clear:both"/>
 
 					<form class="dirtylistening" onReset="closePasswords();
-							setClean('user_form');" id="user_form" action="?action=saveoptions<?php echo str_replace('&', '&amp;', $ticket); ?>" method="post" autocomplete="off" onsubmit="return checkNewuser();" >
-								<?php XSRFToken('saveadmin'); ?>
+							setClean('user_form');" id="user_form" action="?action=saveoptions<?php echo str_replace('&', '&amp;', $ticket);
+					if ($showgroup)
+						echo '&amp;showgroup=' . $showgroup;
+					?>" method="post" autocomplete="off" onsubmit="return checkNewuser();" >
+						<?php XSRFToken('saveadmin'); ?>
 						<input type="hidden" name="saveadminoptions" value="yes" />
 						<input type="hidden" name="subpage" value="<?php echo $subpage; ?>" />
 						<?php
@@ -632,7 +635,7 @@ if (is_string($refresh)) {
 								</td>
 								<td>
 									<span class="floatright padded">
-										<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users')); ?>
+<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users')); ?>
 									</span>
 									<br clear="all">
 									<br />
@@ -722,8 +725,8 @@ if (is_string($refresh)) {
 													}
 													?>
 													<a id="toggle_<?php echo $id; ?>" onclick="visible = getVisible('<?php echo $id; ?>', 'user', '<?php echo $displaytitle; ?>', '<?php echo $hidetitle; ?>');
-																$('#show_<?php echo $id; ?>').val(visible);
-																toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
+															$('#show_<?php echo $id; ?>').val(visible);
+															toggleExtraInfo('<?php echo $id; ?>', 'user', visible);" title="<?php echo $displaytitle; ?>" >
 															 <?php
 															 if (empty($userid)) {
 																 ?>
@@ -732,7 +735,7 @@ if (is_string($refresh)) {
 															<em><?php echo gettext("New User"); ?></em>
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="adminuser<?php echo $id; ?>" name="user[<?php echo $id; ?>][adminuser]" value=""
 																		 onclick="toggleExtraInfo('<?php echo $id; ?>', 'user', visible);
-																						 $('#adminuser<?php echo $id; ?>').focus();" />
+																				 $('#adminuser<?php echo $id; ?>').focus();" />
 
 															<?php
 														} else {
@@ -754,9 +757,9 @@ if (is_string($refresh)) {
 														if ($pending) {
 															?>
 															<input type="checkbox" name="user[<?php echo $id ?>][confirmed]" value="<?php
-															echo NO_RIGHTS . '"';
-															echo $alterrights;
-															?>" />
+																		 echo NO_RIGHTS . '"';
+																		 echo $alterrights;
+																		 ?>" />
 																		 <?php echo gettext("Authenticate user"); ?>
 																		 <?php
 																	 } else {
@@ -790,7 +793,7 @@ if (is_string($refresh)) {
 																	<a href="<?php echo getAdminLink('admin-tabs/users.php'); ?>?action=viewadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;XSRFToken=<?php echo getXSRFToken('viewadmin') ?>"
 																		 title="<?php printf(gettext('Log on as %s.'), $user['user']); ?>">
 
-																		<?php echo BULLSEYE_BLUE; ?>
+																	<?php echo BULLSEYE_BLUE; ?>
 
 																	</a>
 																	<?php
@@ -800,14 +803,15 @@ if (is_string($refresh)) {
 																?>
 															</span>
 															<span class="floatright padded">
-																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
+																<a href="javascript:if(confirm(<?php echo "'" . js_encode($msg) . "'"; ?>)) { window.location='?action=deleteadmin&adminuser=<?php echo addslashes($user['user']); ?>&amp;subpage=<?php echo $subpage;
+															 if ($showgroup) echo '&amp;showgroup=' . $showgroup; ?>&amp;XSRFToken=<?php echo getXSRFToken('deleteadmin') ?>'; }"
 																	 title="<?php echo gettext('Delete this user.'); ?>" style="color: #c33;">
-																		 <?php echo WASTEBASKET; ?>
+															<?php echo WASTEBASKET; ?>
 																</a>
 															</span>
-															<?php
-															if (isset($user['lastaccess'])) {
-																?>
+																<?php
+																if (isset($user['lastaccess'])) {
+																	?>
 																<div class="floatright padded">
 																	<?php
 																	$online = $user['lastaccess'];
@@ -819,22 +823,22 @@ if (is_string($refresh)) {
 																	?>
 
 																	</span>
-																	<?php
-																}
-																?>
+																<?php
+															}
+															?>
 															</div>
-															<?php
-														}
-														?>
+			<?php
+		}
+		?>
 														&nbsp;
 													</td>
 													<?php
 												} else {
 													?>
 													<td style="margin-top: 0px;<?php echo $background; ?>" valign="top"></td>
-													<?php
-												}
-												?>
+												<?php
+											}
+											?>
 											</tr>
 											<?php
 											$no_change = array();
@@ -843,7 +847,7 @@ if (is_string($refresh)) {
 												<tr class="userextrainfo<?php if (!$current) echo ' hidden'; ?>">
 													<td <?php if (!empty($background)) echo " style=\"$background\""; ?> colspan="100%">
 														<p class="notebox">
-															<?php echo gettext('<strong>Note:</strong> You must have ADMIN rights to alter anything but your personal information.'); ?>
+												<?php echo gettext('<strong>Note:</strong> You must have ADMIN rights to alter anything but your personal information.'); ?>
 														</p>
 													</td>
 												</tr>
@@ -860,7 +864,7 @@ if (is_string($refresh)) {
 																	echo gettext('Usage policy has been acknowledged.');
 																	?>
 																	<span style="float: right; padding-right: 15px;">
-																		<?php echo gettext('Clear'); ?>
+																	<?php echo gettext('Clear'); ?>
 																		<input type="checkbox" name="user[<?php echo $id ?>][policyAck]" value="2">
 																	</span>
 																	<?php
@@ -868,19 +872,19 @@ if (is_string($refresh)) {
 																	echo '<span style="color: red;">' . gettext('Usage policy has not been acknowledged.') . '</span>';
 																	?>
 																	<span style="float: right; padding-right: 15px;">
-																		<?php echo gettext('Set'); ?>
+																	<?php echo gettext('Set'); ?>
 																		<input type="checkbox" name="user[<?php echo $id ?>][policyAck]" value="1">
 																	</span>
-																	<?php
-																}
-																?>
+			<?php
+		}
+		?>
 															</p>
 														</div>
 													</td>
 												</tr>
-												<?php
-											}
-											?>
+		<?php
+	}
+	?>
 											<tr class="userextrainfo<?php if (!$current) echo ' hidden'; ?>">
 												<td <?php if (!empty($background)) echo " style=\"$background\""; ?> valign="top" colspan="100%">
 													<div class="user_left">
@@ -918,28 +922,28 @@ if (is_string($refresh)) {
 																<?php echo gettext('Challenge phrase') ?><br />
 																<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="challengephrase-<?php echo $id ?>" name="user[<?php echo $id ?>][challengephrase]" value="<?php echo html_encode($challenge['challenge']); ?>"<?php echo $_disable; ?> />
 																<br />
-																<?php echo gettext('Challenge response') ?><br />
+															<?php echo gettext('Challenge response') ?><br />
 																<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="<?php echo $id ?>-challengeresponse" name="user[<?php echo $id ?>][challengeresponse]" value="<?php echo html_encode($challenge['response']); ?>"<?php echo $_disable; ?> />
 
 															</p>
 															<?php
 														}
 														?>
-														<?php echo gettext("Full name"); ?><br />
+	<?php echo gettext("Full name"); ?><br />
 														<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_name-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_name]"
 																	 value="<?php echo html_encode($userobj->getName()); ?>"<?php if (in_array('name', $no_change)) echo ' disabled="disabled"'; ?> />
 
 														<p>
-															<?php echo gettext("Email"); ?><br />
+														<?php echo gettext("Email"); ?><br />
 															<input type="text" size="<?php echo TEXT_INPUT_SIZE; ?>" id="admin_email-<?php echo $id ?>" name="user[<?php echo $id ?>][admin_email]" value="<?php echo html_encode($userobj->getEmail()); ?>"<?php if (in_array('email', $no_change)) echo ' disabled="disabled"'; ?>  readonly onfocus="this.removeAttribute('readonly');" />
 														</p>
-														<?php
-														if ($userobj->getEmail() && npgFilters::has_filter('sendmail')) {
-															?>
-															<p>
-																<?php
-																npgButton('button', gettext('e-mail User'), array('buttonLink' => getAdminLink('mailMessage.php') . '?user=' . $userobj->getID()));
+															<?php
+															if ($userobj->getEmail() && npgFilters::has_filter('sendmail')) {
 																?>
+															<p>
+		<?php
+		npgButton('button', gettext('e-mail User'), array('buttonLink' => getAdminLink('mailMessage.php') . '?user=' . $userobj->getID()));
+		?>
 																<br clear="all">
 															</p>
 															<?php
@@ -952,7 +956,7 @@ if (is_string($refresh)) {
 																	<p>
 																		<label>
 																			<input type="checkbox" name="user[<?php echo $id ?>][createAlbum]" id="createAlbum_<?php echo $id ?>" value="1" <?php echo $alterrights; ?>/>
-																			<?php echo gettext('create primary album'); ?>
+																	<?php echo gettext('create primary album'); ?>
 																		</label>
 																	</p>
 																	<?php
@@ -962,11 +966,11 @@ if (is_string($refresh)) {
 																<p>
 																	<label>
 																		<input type="checkbox" name="user[<?php echo $id ?>][delinkAlbum]" id="delinkAlbum_<?php echo $id ?>" value="1" <?php echo $alterrights; ?>/>
-																		<?php printf(gettext('delink primary album <strong>%1$s</strong>(<em>%2$s</em>)'), $primeAlbum->getTitle(), $primeAlbum->name); ?>
+																	<?php printf(gettext('delink primary album <strong>%1$s</strong>(<em>%2$s</em>)'), $primeAlbum->getTitle(), $primeAlbum->name); ?>
 																	</label>
 																</p>
 																<p class="notebox">
-																	<?php echo gettext('The primary album was created in association with the user. It will be removed if the user is deleted. Delinking the album removes this association.'); ?>
+																<?php echo gettext('The primary album was created in association with the user. It will be removed if the user is deleted. Delinking the album removes this association.'); ?>
 																</p>
 																<?php
 															}
@@ -981,10 +985,10 @@ if (is_string($refresh)) {
 															}
 															?>
 														</p>
-														<?php ?>
+																<?php ?>
 														<p>
 															<label for="admin_language_<?php echo $id ?>">
-																<?php echo gettext('Language:'); ?>
+	<?php echo gettext('Language:'); ?>
 															</label>
 														</p>
 														<input type="hidden" name="user[<?php echo $id ?>][admin_language]" id="admin_language_<?php echo $id ?>" value="<?php echo $currentValue; ?>" />
@@ -1078,29 +1082,29 @@ if (is_string($refresh)) {
 								<tr>
 									<td colspan="100%">
 										<span class="floatright padded">
-											<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users', 'showgroup' => $showgroup)); ?>
+								<?php printPageSelector($subpage, $rangeset, 'admin-tabs/users.php', array('page' => 'users', 'showgroup' => $showgroup)); ?>
 										</span>
 									</td>
 								</tr>
-								<?php
-							}
-							?>
+	<?php
+}
+?>
 						</table> <!-- main admin table end -->
 
 						<input type="hidden" name="totaladmins" value="<?php echo $id; ?>" />
 						<input type="hidden" name="checkForPostTruncation" value="1" />
-						<?php
-						if (!$_current_admin_obj->transient) {
-							?>
+							<?php
+							if (!$_current_admin_obj->transient) {
+								?>
 							<p>
 								<?php
 								applyButton();
 								resetButton();
 								?>
 							</p>
-							<?php
-						}
-						?>
+						<?php
+					}
+					?>
 					</form>
 					<?php
 					if (npg_loggedin(ADMIN_RIGHTS)) {
@@ -1108,20 +1112,20 @@ if (is_string($refresh)) {
 							?>
 							<br class="clearall" />
 							<p class="notebox">
-								<?php printf(gettext('The <em>_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), npg_Authority::getVersion(), npg_Authority::$supports_version); ?>
+		<?php printf(gettext('The <em>_Authority</em> object supports a higher version of user rights than currently selected. You may wish to migrate the user rights to gain the new functionality this version provides.'), npg_Authority::getVersion(), npg_Authority::$supports_version); ?>
 								<br class="clearall" />
-								<?php npgButton('button', gettext('Migrate rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
+							<?php npgButton('button', gettext('Migrate rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
 								<br class="clearall" />
 							</p>
 							<br class="clearall" />
-							<?php
-						} else if (npg_Authority::getVersion() > npg_Authority::$preferred_version) {
-							?>
+		<?php
+	} else if (npg_Authority::getVersion() > npg_Authority::$preferred_version) {
+		?>
 							<br class="clearall" />
 							<p class="notebox">
-								<?php printf(gettext('You may wish to revert the <em>_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), npg_Authority::getVersion() - 1); ?>
+		<?php printf(gettext('You may wish to revert the <em>_Authority</em> user rights to version %s for backwards compatibility with prior releases.'), npg_Authority::getVersion() - 1); ?>
 								<br class="clearall" />
-								<?php npgButton('button', gettext('Revert rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
+							<?php npgButton('button', gettext('Revert rights'), array('buttonClick' => "launchScript('', ['action=migrate_rights', 'revert=true', 'XSRFToken=" . getXSRFToken('migrate_rights') . "']);")); ?>
 								<br class="clearall" />
 							</p>
 							<br class="clearall" />
@@ -1158,7 +1162,7 @@ if (is_string($refresh)) {
 
 			</div><!-- end of container -->
 		</div><!-- end of content -->
-		<?php printAdminFooter(); ?>
+<?php printAdminFooter(); ?>
 	</div><!-- end of main -->
 </body>
 </html>
