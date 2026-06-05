@@ -27,9 +27,7 @@ printAdminHeader('license');
 
 echo "\n</head>";
 ?>
-
 <body>
-
 	<?php printLogoAndLinks(); ?>
 	<div id="main">
 		<?php printTabs(); ?>
@@ -57,11 +55,11 @@ echo "\n</head>";
 				</div>
 			</div>
 		</div>
-
 		<?php printAdminFooter(); ?>
 	</div>
 </body>
 </html>
 <?php
+npg_session_destroy();
 exit();
 ?>
