@@ -45,7 +45,6 @@ if (!defined('SEO_FULLWEBPATH')) {
 	define('SEO_FULLWEBPATH', FULLWEBPATH);
 	define('SEO_WEBPATH', WEBPATH);
 }
-checkInstall();
 // who cares if MOD_REWRITE is set. If we somehow got redirected here, handle the rewrite
 rewriteHandler();
 recordPolicyACK();
