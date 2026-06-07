@@ -743,7 +743,7 @@ function npg_session_start() {
 		return TRUE;
 	} else {
 		if ($id) {
-			session_abort(); //	close existing session which has different name
+			session_destroy(); //	kill existing session which has different name
 		}
 		session_name(SESSION_NAME);
 		//	insure that the session data has a place to be saved
@@ -779,7 +779,6 @@ function npg_session_start() {
 function npg_session_destroy() {
 	if (!headers_sent()) {
 		$name = session_name();
-		$_SESSION = array();
 		if (ini_get("session.use_cookies")) {
 			$params = session_get_cookie_params();
 			setcookie($name, 'null', 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
@@ -790,6 +789,7 @@ function npg_session_destroy() {
 	if (session_status() == PHP_SESSION_ACTIVE) {
 		session_destroy();
 	}
+	$_SESSION = array();
 }
 
 /**
