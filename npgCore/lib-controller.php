@@ -172,6 +172,7 @@ class Controller {
 					}
 
 					if ($query != $query2 || preg_replace('~^' . WEBPATH . '/~', '', $parts['path']) != preg_replace('~^' . WEBPATH . '/~', '', html_encode($parts['path']))) {
+						npg_session_destroy();
 						header("HTTP/1.0 301 Moved Permanently");
 						header("Status: 301 Moved Permanently");
 						header('Location: ' . FULLWEBPATH . '/' . preg_replace('~^' . WEBPATH . '/~', '', $redirectURL));
