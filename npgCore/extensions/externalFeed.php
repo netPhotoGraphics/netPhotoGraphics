@@ -590,6 +590,7 @@ if (OFFSET_PATH == 2) {
 		$_gallery_page = 'rss.php';
 		$e = new ExternalFeed(sanitize($_GET));
 		$e->printFeed();
+		npg_session_destroy();
 		exit();
 	}
 }

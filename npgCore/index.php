@@ -165,6 +165,7 @@ if ($_requested_object && $_themeScript && file_exists($_themeScript = SERVERPAT
 	// If the requested object does not exist, issue a 404 and redirect to the 404.php
 	// in the core folder. This script will load the theme 404 page if it exists.
 	$_HTML_cache->abortHTMLCache(false);
+	npg_session_destroy();
 	include(CORE_SERVERPATH . '404.php');
 }
 
