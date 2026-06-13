@@ -88,7 +88,7 @@ class ThemeOptions {
 						'key' => 'gallery_index',
 						'type' => OPTION_TYPE_CHECKBOX,
 						'order' => 1,
-						'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> this is assumed the CMS plugin is enabled.') . '</p>'),
+						'desc' => gettext('Check to move the gallery index from the home page to gallery.php.') . '<p class="notebox">' . gettext('<strong>Note:</strong> It is assumed that the CMS plugin is enabled.') . '</p>'),
 				gettext('Theme logo') => array(
 						'key' => 'Theme_logo',
 						'type' => OPTION_TYPE_TEXTBOX,
