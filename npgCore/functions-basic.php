@@ -772,6 +772,8 @@ function npg_session_start() {
 		$_SESSION['name'] = SESSION_NAME;
 		$_SESSION['ip'] = getUserIP();
 		$_SESSION['URI'] = getRequestURI();
+		$_SESSION['from'] = debug_backtrace();
+
 		return $result;
 	}
 }
