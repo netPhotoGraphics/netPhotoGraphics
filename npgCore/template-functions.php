@@ -4442,6 +4442,7 @@ function policyACKCheck() {
 function policySubmitButton($buttonText, $buttonClass = NULL, $buttonExtra = NULL, $buttonLinked = NULL) {
 	global $_current_admin_obj;
 	if (getOption('GDPR_acknowledge') && !policyACKCheck()) {
+		npg_session_destroy();
 		$linked = '';
 		if ($buttonLinked) {
 			foreach ($buttonLinked as $button) {
