@@ -271,7 +271,7 @@ class site_upgrade {
 		$prior = getSerializedArray(getOption('site_upgrade_hash'));
 		if (isset($prior[$name]) && file_exists(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name)) {
 			$hash = md5(file_get_contents(USER_PLUGIN_SERVERPATH . 'site_upgrade/' . $name));
-			return $hash = $prior[$name];
+			return $hash == $prior[$name];
 		} else {
 			return true;
 		}

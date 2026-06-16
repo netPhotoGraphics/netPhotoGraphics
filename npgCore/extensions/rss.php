@@ -42,7 +42,7 @@ class rss_options {
 			setOptionDefault('RSS_title', 'both');
 
 			require_once(PLUGIN_SERVERPATH . 'site_upgrade.php');
-			if (site_upgrade::replace(USER_PLUGIN_SERVERPATH . 'site_upgrade/rss-closed.xml')) {
+			if (site_upgrade::replace('rss-closed.xml')) {
 				site_upgrade::updateXML(array('rss-closed.xml' => 'RSS'));
 			}
 		}
