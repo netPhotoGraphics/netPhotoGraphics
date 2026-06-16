@@ -236,6 +236,20 @@ class CMS {
 				$published = "published";
 			}
 		}
+		switch ($published) {
+			case 'all':
+				$selector = '';
+				break;
+			case 'published':
+				$selector = '`show`=1';
+				break;
+			case 'unpublished':
+				$selector = '`show`=0';
+				break;
+			case 'sticky':
+				$selector = '`sticky`>=1';
+				break;
+		}
 		if ($category && $category->exists) {
 			$sortObj = $category;
 			$cat = $category->getTitlelink();
@@ -307,8 +321,9 @@ class CMS {
 				} else {
 					$author_conjuction = ' WHERE ';
 				}
-				$show .= $author_conjuction . ' author = ' . db_quote($author);
+				$show = $author_conjuction . ' author = ' . db_quote($author);
 			}
+
 			$order = [];
 			$computational = '';
 			if ($sticky) {
@@ -361,13 +376,18 @@ class CMS {
 				$join = '';
 			}
 			$sql = "SELECT DISTINCT news.date as date, news.publishdate as publishdate, news.expiredate as expiredate, news.lastchange as lastchange, news.title as title, news.titlelink as titlelink, news.sticky as sticky" . $computational . " FROM " . prefix('news') . " as news" . $join;
-			if ($show || $datesearch) {
-				if ($cat) {
-					$sql .= ' AND ';
-				} else {
-					$sql .= ' WHERE ';
-				}
-				$sql .= $show . $datesearch;
+
+			if ($cat) {
+				$conjunction = ' AND ';
+			} else {
+				$conjunction = ' WHERE ';
+			}
+			if ($datesearch) {
+				$sql .= $conjunction . $datesearch;
+				$conjunction = ' AND ';
+			}
+			if ($selector) {
+				$sql .= $conjunction . $selector;
 			}
 
 			if (!empty($order)) {
@@ -375,13 +395,14 @@ class CMS {
 				foreach ($order as $field => $direction) {
 					$sql .= ' ' . $field;
 					if ($direction) {
-						$sql .= ' DESC,';
+						$sql .= ' DESC, ';
 					} else {
-						$sql .= ',';
+						$sql .= ', ';
 					}
 				}
-				$sql = rtrim($sql, ',');
+				$sql = rtrim($sql, ', ');
 			}
+
 			$resource = query($sql);
 
 			$result = array();
