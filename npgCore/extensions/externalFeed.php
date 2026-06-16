@@ -92,8 +92,8 @@ class externalFeed_options {
 						),
 						'desc' => gettext("Choose between " .
 										"latest by id for the latest uploaded, " .
-										"latest by date for the latest uploaded fetched by date, " .
-										"latest by mtime for the latest uploaded fetched by the file's last change timestamp, " .
+										"latest by date for the latest fetched by image's date, " .
+										"latest by mtime for the latest fetched by the image's last change timestamp, " .
 										"or latest by publishdate for the latest published.")),
 				gettext('Album feed sort order:') => array('key' => 'externalFeed_sortorder_albums', 'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array(gettext('latest by id') => 'latest',
@@ -104,9 +104,9 @@ class externalFeed_options {
 						),
 						'order' => 8,
 						'desc' => gettext("Choose between " .
-										"latest by id for the latest uploaded, " .
-										"latest by date for the latest uploaded fetched by date, " .
-										"latest by mtime for the latest uploaded fetched by the file's last change timestamp, " .
+										"latest by id for the latest created, " .
+										"latest by date for the latest fetched by album's date, " .
+										"latest by mtime for the latest fetched by the album's last change timestamp, " .
 										"latest by publishdate for the latest published, " .
 										"or latest updated for the most recently updated album.")),
 				gettext('New requestor:') => array('key' => 'externalFeed_site', 'type' => OPTION_TYPE_TEXTBOX,
