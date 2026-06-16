@@ -16,6 +16,7 @@ if (isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == getXSRFToken('setup')) {
 	$must = 0;
 }
 list($diff, $needs, $restore) = checkSignature($must);
+npg_session_destroy();
 
 if (empty($needs)) {
 	if (isset($_GET['autorun'])) {
@@ -46,7 +47,6 @@ if (empty($needs)) {
 			?>
 			<body style="background-image: none">
 				<?php
-				npg_session_destroy();
 				$_authority->printLoginForm();
 				?>
 			</body>

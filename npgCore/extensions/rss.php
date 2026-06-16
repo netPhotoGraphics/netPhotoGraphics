@@ -663,6 +663,7 @@ function executeRSS() {
 	$_gallery_page = 'rss.php';
 	$rss = new RSS(sanitize($_GET));
 	$rss->printFeed();
+	npg_session_destroy();
 	exit();
 }
 

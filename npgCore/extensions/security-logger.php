@@ -27,7 +27,7 @@ global $_logCript, $_adminCript; //	incase we get demand loaded in a function
 if (getOption('security_log_encryption')) {
 	$_logCript = $_adminCript;
 }
-npgFilters::register('admin_allow_access', 'security_logger::adminGate'); //
+npgFilters::register('admin_allow_access', 'security_logger::adminGate');
 npgFilters::register('federated_login_attempt', 'security_logger::federatedLoginlogger'); //	this is a surgote to "admin_login_attemt'
 
 foreach (security_logger::$typelist as $what => $where) {

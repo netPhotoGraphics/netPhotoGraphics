@@ -444,9 +444,11 @@ if (is_string($refresh)) {
 											}
 											break;
 										default:
-											$hisgroups = explode(',', $user['group']);
-											if (!in_array($showgroup, $hisgroups)) {
-												unset($admins[$key]);
+											if (!empty($user['group'])) {
+												$hisgroups = explode(',', $user['group']);
+												if (!in_array($showgroup, $hisgroups)) {
+													unset($admins[$key]);
+												}
 											}
 											break;
 									}

@@ -100,7 +100,7 @@ updatePublished('news');
 		}
 	}
 
-	
+
 </script>
 
 </head>
@@ -176,7 +176,11 @@ updatePublished('news');
 						$direction = $sortdirection && $sortdirection == 'desc';
 					}
 					$admin = $_current_admin_obj->getUser();
-					$resultU = $_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
+					if ($published == 'all') {
+						$resultU = $_CMS->getArticles(0, 'unpublished', false, $sortorder, $direction, false, $catobj);
+					} else {
+						$resultU = [];
+					}
 					$result = $_CMS->getArticles(0, $published, false, $sortorder, $direction, false, $catobj);
 					foreach (array('result' => $result, 'resultU' => $resultU) as $which => $list) {
 						foreach ($list as $key => $article) {
