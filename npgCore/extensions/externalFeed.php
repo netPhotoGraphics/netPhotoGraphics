@@ -90,7 +90,7 @@ class externalFeed_options {
 								gettext('latest by mtime') => 'latest-mtime',
 								gettext('latest by publishdate') => 'latest-publishdate'
 						),
-						'desc' => gettext("Choose between latest by date for the latest uploaded fetched by date, latest by id for the latest uploaded, latest by mtime for the latest uploaded fetched by the file's last change timestamp, or latest by publishdate for the latest published.")),
+						'desc' => gettext("Choose between latest by id for the latest uploaded, latest by date for the latest uploaded fetched by date, or latest by mtime for the latest uploaded fetched by the file’s last change timestamp.")),
 				gettext('Album feed sort order:') => array('key' => 'externalFeed_sortorder_albums', 'type' => OPTION_TYPE_SELECTOR,
 						'selections' => array(gettext('latest by id') => 'latest',
 								gettext('latest by date') => 'latest-date',
