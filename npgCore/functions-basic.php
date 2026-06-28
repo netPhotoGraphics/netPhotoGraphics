@@ -736,6 +736,7 @@ function debugLogVar($var) {
  */
 function npg_session_start() {
 	global $_conf_vars;
+	if (($id = session_id()) && session_name() === SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
 	if (($id = session_id()) && session_name() == SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
 		if (!defined('npg_SID')) {
 			define('npg_SID', session_id());
