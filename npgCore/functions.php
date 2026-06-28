@@ -2434,7 +2434,7 @@ function js_encode($this_string) {
  * 																							parts of URL being used for more security
  */
 function getXSRFToken($action, $modifier = NULL) {
-	return sha1($action . $modifier . npg_SID);
+	return sha1($action . $modifier . session_id());
 }
 
 /**

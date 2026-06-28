@@ -737,10 +737,6 @@ function debugLogVar($var) {
 function npg_session_start() {
 	global $_conf_vars;
 	if (($id = session_id()) && session_name() === SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
-	if (($id = session_id()) && session_name() == SESSION_NAME || isset($_conf_vars['SESSIONS']) && !$_conf_vars['SESSIONS']) {
-		if (!defined('npg_SID')) {
-			define('npg_SID', session_id());
-		}
 		return TRUE;
 	} else {
 		if ($id) {
@@ -768,12 +764,9 @@ function npg_session_start() {
 		);
 		session_set_cookie_params($sessionCookie);
 		$result = session_start();
-		define('npg_SID', session_id());
-		$_SESSION['version'] = NETPHOTOGRAPHICS_VERSION;
 		$_SESSION['name'] = SESSION_NAME;
 		$_SESSION['ip'] = getUserIP();
 		$_SESSION['URI'] = getRequestURI();
-		$_SESSION['from'] = debug_backtrace();
 
 		return $result;
 	}
@@ -792,7 +785,6 @@ function npg_session_destroy() {
 	if (session_status() == PHP_SESSION_ACTIVE) {
 		session_destroy();
 	}
-	$_SESSION = array();
 }
 
 /**

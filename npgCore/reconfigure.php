@@ -300,7 +300,7 @@ function reconfigurePage($diff, $needs, $mandatory) {
 	} else {
 		$where = 'gallery';
 	}
-	if (function_exists('getXSRFToken') && defined('npg_SID')) {
+	if (function_exists('getXSRFToken')) {
 		$token = getXSRFToken('setup');
 		if (isset($_GET['dismiss']) && isset($_GET['xsrfToken']) && $_GET['xsrfToken'] == $token) {
 			setOption('netphotographics_install', serialize(installSignature()));
