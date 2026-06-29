@@ -71,7 +71,7 @@ function npgErrorHandler($errno, $errstr = '', $errfile = '', $errline = '', $tr
 	if (error_reporting() == 0 && !in_array($errno, array(E_USER_WARNING, E_USER_NOTICE))) {
 		return false;
 	}
-	npg_session_destroy();
+
 	$errorType = array(
 			E_ERROR => gettext('ERROR'),
 			E_WARNING => gettext('WARNING'),
@@ -123,6 +123,7 @@ function npgShutDownFunction() {
 		$_siteMutex->__destruct();
 	}
 	$error = error_get_last();
+
 	if ($error && !in_array($error['type'], array(E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING, E_NOTICE, E_USER_NOTICE))) {
 		$file = str_replace('\\', '/', $error['file']);
 		preg_match('~(.*)/(' . USER_PLUGIN_FOLDER . '|' . PLUGIN_FOLDER . ')~', $file, $matches);
@@ -135,6 +136,7 @@ function npgShutDownFunction() {
 			}
 		}
 		npgErrorHandler($error['type'], $error['message'], $file, $error['line']);
+		npg_session_destroy();
 	}
 	if (function_exists('db_close')) {
 		db_close();
