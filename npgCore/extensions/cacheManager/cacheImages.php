@@ -180,7 +180,7 @@ if (!CURL_ENABLED) {
 					if (is_array($enabled)) {
 						$checked = ' checked="checked" disabled="disabled"';
 					} else {
-						if ($currenttheme == $cacheimage['theme'] || $cacheimage['theme'] == 'admin' || $cacheimage['album']) {
+						if ($currenttheme == $cacheimage['theme'] || $cacheimage['theme'] == 'admin' || isset($cacheimage['album']) && $cacheimage['album']) {
 							$checked = ' checked="checked"';
 						}
 					}
