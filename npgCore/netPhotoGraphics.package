@@ -933,7 +933,6 @@ plugins/zenphotoCompatibilityPack.php
 %core%/class.ncrypt.php
 %core%/classes.php
 %core%/controller.php
-%core%/coreLogin.php
 %core%/cron_runner.php
 %core%/dataaccess
 %core%/databaseTemplate
@@ -2387,4 +2386,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-2389
+2388

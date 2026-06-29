@@ -241,7 +241,7 @@ unset($protocol);
 define('FULLHOSTPATH', PROTOCOL . "://" . $_SERVER['HTTP_HOST']);
 define('FULLWEBPATH', FULLHOSTPATH . WEBPATH);
 
-define('SESSION_NAME', 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(FULLWEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
+define('SESSION_NAME', 'Session_' . preg_replace('~[^a-zA-Z0-9_]+~', '_', trim(WEBPATH, '/') . '_' . NETPHOTOGRAPHICS_VERSION_CONCISE));
 
 define('FALLBACK_SUFFIX', 'webp');
 
