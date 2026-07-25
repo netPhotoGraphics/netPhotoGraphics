@@ -141,7 +141,13 @@ if (isset($_GET['purge'])) {
 						$success = true;
 					}
 					if ($success) {
-						if ($success = SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+						if (is_link(SERVERPATH . '/' . $target)) {
+							$cloneLink = readlink(SERVERPATH . '/' . $target);
+						} else {
+							$cloneLink = SERVERPATH . '/' . $target;
+						}
+
+						if ($success = SYMLINK && @symlink($cloneLink, $folder . $target)) {
 							if ($exists) {
 								if ($link) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
@@ -188,7 +194,13 @@ if (isset($_GET['purge'])) {
 						}
 					}
 
-					if ($success = SYMLINK && @symlink(SERVERPATH . '/' . $target, $folder . $target)) {
+					if (is_link(SERVERPATH . '/' . $target)) {
+						$cloneLink = readlink(SERVERPATH . '/' . $target);
+					} else {
+						$cloneLink = SERVERPATH . '/' . $target;
+					}
+
+					if ($success = SYMLINK && @symlink($cloneLink, $folder . $target)) {
 						if ($exists) {
 							if ($link) {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
@@ -205,7 +217,6 @@ if (isset($_GET['purge'])) {
 							$msg[] = sprintf(gettext('<code>%s</code> Link creation failed.'), $target8) . "<br />\n";
 						}
 					}
-
 					break;
 
 				case 'copy':
