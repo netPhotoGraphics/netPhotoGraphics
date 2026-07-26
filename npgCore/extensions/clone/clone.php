@@ -147,7 +147,7 @@ if (isset($_GET['purge'])) {
 							$cloneLink = SERVERPATH . '/' . $target;
 						}
 
-						if ($success = SYMLINK && @symlink($cloneLink, $folder . $target)) {
+						if ($success = @symlink($cloneLink, $folder . $target)) {
 							if ($exists) {
 								if ($link) {
 									$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
@@ -200,7 +200,7 @@ if (isset($_GET['purge'])) {
 						$cloneLink = SERVERPATH . '/' . $target;
 					}
 
-					if ($success = SYMLINK && @symlink($cloneLink, $folder . $target)) {
+					if ($success = @symlink($cloneLink, $folder . $target)) {
 						if ($exists) {
 							if ($link) {
 								$msg[] = sprintf(gettext('The existing symlink <code>%s</code> was replaced.'), $target8) . "<br />\n";
