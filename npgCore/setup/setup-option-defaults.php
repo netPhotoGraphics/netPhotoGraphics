@@ -177,6 +177,20 @@ if (!empty($tinymce_v5_configs)) {
 	}
 }
 
+// remove orphaned folders
+$orphanedFolders = [
+		'class-Anyfile',
+		'daily-summary',
+		'exampleMacros',
+		'flag_thumbnail',
+		'show_not_logged-in'
+];
+foreach ($orphanedFolders as $folder) {
+	if (!file_exists(USER_PLUGIN_SERVERPATH . $folder . '.php')) {
+		npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $folder);
+	}
+}
+
 $thirdParty = $deprecated = false;
 
 list($plugin_subtabs, $plugin_default, $plugins, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
