@@ -177,10 +177,23 @@ if (!empty($tinymce_v5_configs)) {
 	}
 }
 
-$thirdParty = $deprecated = false;
-
 list($plugin_subtabs, $plugin_default, $plugins, $plugin_paths, $plugin_member, $classXlate, $pluginDetails) = getPluginTabs();
 
+// remove orphaned folders
+$orphanedFolders = [
+		'daily-summary',
+		'exampleMacros',
+		'flag_thumbnail',
+		'show_not_logged-in',
+		'tagURLs'
+];
+foreach ($orphanedFolders as $folder) {
+	if (!in_array($folder, $plugins)) {
+		npgFunctions::removeDir(USER_PLUGIN_SERVERPATH . $folder);
+	}
+}
+
+$thirdParty = $deprecated = false;
 //set plugin default options by instantiating the options interface
 $plugin_links = array();
 $deprecatedDeleted = getSerializedArray(getOption('deleted_deprecated_plugins'));

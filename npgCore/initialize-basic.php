@@ -3,6 +3,9 @@
 /*
  * one time initialization code for basic execution
  */
+
+ini_set('session.use_strict_mode', 1);
+
 require_once(__DIR__ . '/global-definitions.php');
 require_once(__DIR__ . '/class-mutex.php');
 require_once(__DIR__ . '/lib-kses.php');
@@ -12,8 +15,6 @@ require_once(__DIR__ . '/lib-utf8.php');
 $_UTF8 = new utf8();
 
 define('ENT_FLAGS', ENT_QUOTES | ENT_SUBSTITUTE);
-
-ini_set('session.use_strict_mode', 1);
 
 // Set error reporting
 error_reporting(E_ALL);
