@@ -39,6 +39,7 @@ class tinymce {
 
 	function __construct() {
 		if (OFFSET_PATH == 2) {
+			setOptionDefault('tinymce_npgOptions', 'npgOptions.php');
 			setOptionDefault('tinymce_photo', 'photo-ribbon.php');
 			setOptionDefault('tinymce_CMS', 'CMS-ribbon.php');
 			setOptionDefault('tinymce_forms', 'forms-ribbon.php');

@@ -1812,6 +1812,7 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/tinymce/config/forms-light.php
 %extensions%/tinymce/config/forms-ribbon.php
 %extensions%/tinymce/config/forms-slim.php
+%extensions%/tinymce/config/npgOptions.php
 %extensions%/tinymce/config/photo-basic.php
 %extensions%/tinymce/config/photo-full.php
 %extensions%/tinymce/config/photo-light.php
@@ -2386,4 +2387,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-2388
+2389
