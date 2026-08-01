@@ -64,7 +64,7 @@ function getOptionContent() {
 	?>
 	<div id="tab_gallery" class="tabbox">
 		<form class="dirtylistening" onReset="toggle_passwords('', false);
-				setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
+					setClean('form_options');" id="form_options" action="?action=saveoptions" method="post" autocomplete="off" >
 					<?php XSRFToken('saveoptions'); ?>
 			<input type="hidden" name="saveoptions" value="gallery" />
 			<input type="hidden" name="password_enabled" id="password_enabled" value="0" />
@@ -276,7 +276,7 @@ function getOptionContent() {
 												 name="disclose_password"
 												 id="disclose_password"
 												 onclick="passwordClear('');
-														 togglePassword('');" /><?php echo gettext('Show'); ?>
+																 togglePassword('');" /><?php echo gettext('Show'); ?>
 								</label>
 
 								<br />
@@ -321,7 +321,7 @@ function getOptionContent() {
 					<tr class="optionSet">
 						<td class="option_name"><?php echo gettext('Logon welcome'); ?></td>
 						<td class="option_value">
-							<?php print_language_string_list($_gallery->getLogonWelcome('all'), 'logon_welcome', false, null, '', '100%'); ?>
+							<?php print_language_string_list($_gallery->getLogonWelcome('all'), 'logon_welcome', true, null, 'texteditor', '100%'); ?>
 						</td>
 						<td class="option_desc">
 							<span class="option_info">
