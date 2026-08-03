@@ -55,7 +55,7 @@ if (file_exists(CORE_SERVERPATH . 'admin_options/' . $_admin_subtab . '.php')) {
 	<?php
 	$table = NULL;
 
-	npgFilters::apply('texteditor_config', 'forms');
+	npgFilters::apply('texteditor_config', 'npgOptions');
 	npg_Authority::printPasswordFormJS();
 	?>
 	<script>
