@@ -48,7 +48,7 @@ if (isset($_REQUEST['pluginsEnable'])) {
 						$is = 0;
 						break;
 					case 1:
-						$is = (int) (strpos($paths[$extension], CORE_FOLDER) !== false && $extension != 'show_not_logged-in');
+						$is = (int) (strpos($paths[$extension], CORE_FOLDER) !== false );
 						break;
 					case 2:
 						$is = in_array($extension, $savedlist);

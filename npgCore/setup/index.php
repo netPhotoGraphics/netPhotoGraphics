@@ -309,17 +309,7 @@ if (isset($_GET['security_ack'])) {
 	$update_config = true;
 }
 
-$permission_names = array(
-		0400 => gettext('readonly'),
-		0440 => gettext('readonly'),
-		0444 => gettext('readonly'),
-		0600 => gettext('strict'),
-		0640 => gettext('strict'),
-		0644 => gettext('relaxed'),
-		0664 => gettext('relaxed'),
-		0666 => gettext('loose')
-);
-$permissions = array_keys($permission_names);
+$permissions = array_keys(PERMISSION_NAMES);
 if ($updatechmod = isset($_REQUEST['chmod_permissions'])) {
 	setupXSRFDefender('chmod_permissions');
 	$selected = round($_REQUEST['chmod_permissions']);
@@ -880,14 +870,14 @@ $taskDisplay = array('create' => gettext("create"), 'update' => gettext("update"
 													'<input type="hidden" name="xsrfToken" value="' . setupXSRFToken() . '" />' .
 													'<input type="hidden" name="autorun" value="' . str_replace('&autorun=', '', $autorunq) . '">' .
 													'<input type="hidden" name="debug" value="' . intval($debug) . '">' .
-													sprintf(gettext('Set File permissions to %s'), permissionsSelector($permission_names, $chmod)) .
+													sprintf(gettext('Set File permissions to %s'), permissionsSelector($chmod)) .
 													'</form>';
 								} else {
 									$chmodselector = '';
 								}
 
-								if (array_key_exists($chmod, $permission_names)) {
-									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$chmod], $chmod);
+								if (array_key_exists($chmod, PERMISSION_NAMES)) {
+									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), PERMISSION_NAMES[$chmod], $chmod);
 								} else {
 									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), $chmod);
 								}

@@ -352,3 +352,13 @@ define('SWAP_ICON', '<span class="font_icon" style="font-size: x-large;">&#x21C4
 define('WARNING_SIGN_ORANGE', '<span class="font_icon" style="color: darkorange; font-size: large;">&#9888;</span>');
 define('WASTEBASKET', '<span class="font_icon" style="font-size: large; font-weight: bold; color: red;">&#x1F5D1;</span>');
 //end icons
+define('PERMISSION_NAMES', [
+		0400 => gettext('readonly'),
+		0440 => gettext('readonly'),
+		0444 => gettext('readonly'),
+		0600 => gettext('strict'),
+		0640 => gettext('strict'),
+		0644 => gettext('relaxed'),
+		0664 => gettext('relaxed'),
+		0666 => gettext('loose')
+]);

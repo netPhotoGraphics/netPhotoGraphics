@@ -32,7 +32,7 @@ class pluginEnabler {
 				'formname' => 'enablebutton1',
 				'action' => getAdminLink(USER_PLUGIN_FOLDER . '/pluginEnabler/handler.php'),
 				'icon' => BADGE_GOLD,
-				'title' => gettext('Enables all standard plugins (except show_not_logged-in!) Third party plugins are disabled.'),
+				'title' => gettext('Enables all standard plugins. Third party plugins are disabled.'),
 				'alt' => '',
 				'hidden' => '<input type="hidden" name="pluginsEnable" value="1" />',
 				'rights' => ADMIN_RIGHTS,

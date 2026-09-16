@@ -225,7 +225,6 @@ function checkMark($check, $text, $text2, $msg, $stopAutorun = true) {
  * @param $subfolders
  */
 function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $updatechmod) {
-	global $permission_names;
 	$path = str_replace('\\', '/', $path);
 	if (!is_dir($path) && $class == 'std') {
 		mkdir_recursive($path, $chmod);
@@ -254,13 +253,13 @@ function folderCheck($which, $path, $class, $subfolders, $recurse, $chmod, $upda
 				chmod($path, $chmod);
 				$perms = fileperms($path) & 0777;
 				if (!checkPermissions($perms, $chmod)) {
-					if (array_key_exists($perms & 0666 | 4, $permission_names)) {
-						$perms_class = $permission_names[$perms & 0666 | 4];
+					if (array_key_exists($perms & 0666 | 4, PERMISSION_NAMES)) {
+						$perms_class = PERMISSION_NAMES[$perms & 0666 | 4];
 					} else {
 						$perms_class = gettext('unknown');
 					}
-					if (array_key_exists($chmod & 0666 | 4, $permission_names)) {
-						$chmod_class = $permission_names[$chmod & 0666 | 4];
+					if (array_key_exists($chmod & 0666 | 4, PERMISSION_NAMES)) {
+						$chmod_class = PERMISSION_NAMES[$chmod & 0666 | 4];
 					} else {
 						$chmod_class = gettext('unknown');
 					}
@@ -355,13 +354,13 @@ function charsetSelector($select) {
 	return $selector;
 }
 
-function permissionsSelector($permission_names, $select) {
+function permissionsSelector($select) {
 	$select = $select | 4;
 	global $_UTF8;
 	$selector = '<select id="chmod_permissions" name="chmod_permissions" >';
 	$c = 0;
-	foreach ($permission_names as $key => $permission) {
-		$selector .= '	<option value="' . $c . '"' . ($select == $key ? ' selected="selected"' : '') . '>' . sprintf(gettext('%1$s (0%2$o)'), $permission_names[$key], $key) . '</option>';
+	foreach (PERMISSION_NAMES as $key => $permission) {
+		$selector .= '	<option value="' . $c . '"' . ($select == $key ? ' selected="selected"' : '') . '>' . sprintf(gettext('%1$s (0%2$o)'), PERMISSION_NAMES[$key], $key) . '</option>';
 		$c++;
 	}
 	$selector .= '</select>';

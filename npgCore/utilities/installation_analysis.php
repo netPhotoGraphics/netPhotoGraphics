@@ -65,14 +65,14 @@ echo '</head>';
 								?>
 								<script>
 									<!--
-																								$(document).ready(function () {
-												$(".doc").colorbox({
-													close: '<?php echo gettext("close"); ?>',
-													maxHeight: "98%",
-													innerWidth: '560px'
-												});
-											});
-											//-->
+																										$(document).ready(function () {
+										$(".doc").colorbox({
+											close: '<?php echo gettext("close"); ?>',
+											maxHeight: "98%",
+											innerWidth: '560px'
+										});
+									});
+									//-->
 								</script>
 								<li>
 									<div class="hangng_indent">
@@ -135,15 +135,9 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$permission_names = array(
-										0444 => gettext('readonly'),
-										0644 => gettext('strict'),
-										0664 => gettext('relaxed'),
-										0666 => gettext('loose')
-								);
 								$try = CHMOD_VALUE & 0666 | 4;
-								if (array_key_exists($try, $permission_names)) {
-									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), $permission_names[$try], CHMOD_VALUE);
+								if (array_key_exists($try, PERMISSION_NAMES)) {
+									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), PERMISSION_NAMES[$try], CHMOD_VALUE);
 								} else {
 									$value = sprintf(gettext('<em>unknown</em> (<code>%o</code>)'), CHMOD_VALUE);
 								}
@@ -546,8 +540,8 @@ echo '</head>';
 	</div>
 </body>
 <script>
-									var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
-									$('.overview_list').height(height);
+							var height = Math.floor(($('#overview_left').height() - $('.overview-list-h3').height() * 2) / 2 - 7);
+							$('.overview_list').height(height);
 </script>
 
 <?php
