@@ -205,7 +205,13 @@ echo "\n</head>";
 			<div id="container">
 				<?php
 				if (getOption('accessThreshold_Monitor')) {
-					echo gettext('accessThreshold is in monitor mode. No addresses have been blocked.');
+					?>
+					<div class="notebox">
+						<?php
+						echo gettext('accessThreshold is in monitor mode. No addresses have been blocked.');
+						?>
+					</div>
+					<?php
 				}
 				?>
 				<div class="tabbox">
