@@ -940,7 +940,7 @@ function is_serialized($data) {
 }
 
 /**
- * if $string is an serialzied array it is unserialized otherwise an appropriate array is returned
+ * if $string is an serialized array it is un-serialized otherwise an appropriate array is returned
  *
  * @param string $string
  *
