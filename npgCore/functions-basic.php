@@ -1719,11 +1719,24 @@ function getAlbumFolder($root = SERVERPATH) {
  * @param string $log
  */
 function switchLog($log) {
+	$counter = 1;
 	$dir = getcwd();
 	chdir(SERVERPATH . '/' . DATA_FOLDER);
 	$list = safe_glob($log . '-*.log');
-	$counter = count($list) + 1;
-
+	if ($list) {
+		sort($list);
+		$file = substr(end($list), 0, -4);
+		$parts = explode('-', $file);
+		if (isset($parts[1])) {
+			$counter = $parts[1] + 1;
+		}
+		reset($list);
+	}
+	while (count($list) >= SAVE_LOG_HISTORY) {
+		$del = array_shift($list);
+		chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . $del, 0777);
+		unlink(SERVERPATH . '/' . DATA_FOLDER . '/' . $del);
+	}
 	chdir($dir);
 	copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
 	if (getOption($log . '_log_mail')) {

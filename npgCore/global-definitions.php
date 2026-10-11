@@ -25,6 +25,8 @@ switch ($time) {
 }
 unset($time);
 
+define('SAVE_LOG_HISTORY', 10);
+
 if (version_compare(PHP_VERSION, PHP_MIN_VERSION, '<')) {
 	die(sprintf(gettext('netPhotoGraphics requires PHP version %s or greater'), PHP_MIN_VERSION));
 }
