@@ -954,7 +954,7 @@ function getSerializedArray($string) {
 		return array();
 	}
 	if (is_serialized($string)) {
-		$strings = unserialize($string, ['allowed_classes' => false]);
+		$strings = @unserialize($string, ['allowed_classes' => false]);
 		if (is_array($strings)) {
 			return $strings;
 		}
