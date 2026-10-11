@@ -61,7 +61,7 @@ class _Authority {
 			$strongHash = 1000;
 			setOption('strong_hash', 1000);
 		}
-		Define('STRONG_PASSWORD_HASH', $strongHash);
+		define('STRONG_PASSWORD_HASH', $strongHash);
 
 		$sql = 'SELECT * FROM ' . prefix('administrators') . 'WHERE `valid`=1 ORDER BY `rights` DESC, `id`';
 		if ($user = query_single_row($sql, false)) {

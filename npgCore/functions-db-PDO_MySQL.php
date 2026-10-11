@@ -13,8 +13,8 @@
 // force UTF-8 Ø
 
 define('DATABASE_SOFTWARE', 'PDO::MySQL');
-Define('DATABASE_MIN_VERSION', '5.0.0');
-Define('DATABASE_DESIRED_VERSION', '5.6.0');
+define('DATABASE_MIN_VERSION', '5.0.0');
+define('DATABASE_DESIRED_VERSION', '5.6.0');
 
 /**
  * Connect to the database server and select the database.

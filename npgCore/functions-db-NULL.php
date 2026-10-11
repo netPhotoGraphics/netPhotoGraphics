@@ -10,8 +10,8 @@
 // force UTF-8 Ø
 
 define('DATABASE_SOFTWARE', 'NULL_db');
-Define('DATABASE_MIN_VERSION', '0.0.0');
-Define('DATABASE_DESIRED_VERSION', '0.0.0');
+define('DATABASE_MIN_VERSION', '0.0.0');
+define('DATABASE_DESIRED_VERSION', '0.0.0');
 
 /**
  * Connect to the database server and select the database.
