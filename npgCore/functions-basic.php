@@ -1719,7 +1719,7 @@ function getAlbumFolder($root = SERVERPATH) {
  * @param string $log
  */
 function switchLog($log) {
-	$counter = 1;
+	$counter = '0001';
 	$dir = getcwd();
 	chdir(SERVERPATH . '/' . DATA_FOLDER);
 	$list = safe_glob($log . '-*.log');
@@ -1728,7 +1728,7 @@ function switchLog($log) {
 		$file = substr(end($list), 0, -4);
 		$parts = explode('-', $file);
 		if (isset($parts[1])) {
-			$counter = $parts[1] + 1;
+			$counter = sprintf('%04d', $parts[1] + 1);
 		}
 		reset($list);
 	}
