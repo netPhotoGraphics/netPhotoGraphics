@@ -119,7 +119,7 @@ foreach ($recentIP as $ip => $data) {
 
 		$ipDisp = $ip;
 		if (str_contains($ip, ':')) {
-			$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
+			$ipDisp = preg_replace('`(\:0)+`', '::', $ipDisp, 1);
 			$ipDisp = str_replace(':::', '::', $ipDisp);
 		}
 
