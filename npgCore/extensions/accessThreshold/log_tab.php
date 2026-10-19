@@ -119,8 +119,33 @@ foreach ($recentIP as $ip => $data) {
 
 		$ipDisp = $ip;
 		if (str_contains($ip, ':')) {
-			$ipDisp = preg_replace('`(0\:)+`', '::', $ipDisp, 1);
-			$ipDisp = str_replace(':::', '::', $ipDisp);
+			$ipParts = explode(':', $ip);
+			$zeros = array();
+			$start = null;
+			foreach ($ipParts as $i => $e) {
+				if ($e == 0) {
+					if ($start) {
+						$zeros[$start]++;
+					} else {
+						$start = $i;
+						$zeros[$start] = 1;
+					}
+				} else {
+					$start = null;
+				}
+			}
+			if (!empty($zeros)) {
+				arsort($zeros);
+				$n = array_first($zeros);
+				if ($n > 1) {
+					$i = array_key_first($zeros);
+					$ipParts[$i] = '';
+					for ($j = 1; $j < $n; $j++) {
+						unset($ipParts[$j + $i]);
+					}
+					$ipDisp = implode(':', $ipParts);
+				}
+			}
 		}
 
 		$invalid = '';

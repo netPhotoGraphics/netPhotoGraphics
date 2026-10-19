@@ -940,7 +940,7 @@ function is_serialized($data) {
 }
 
 /**
- * if $string is an serialzied array it is unserialized otherwise an appropriate array is returned
+ * if $string is an serialized array it is un-serialized otherwise an appropriate array is returned
  *
  * @param string $string
  *
@@ -954,7 +954,7 @@ function getSerializedArray($string) {
 		return array();
 	}
 	if (is_serialized($string)) {
-		$strings = unserialize($string, ['allowed_classes' => false]);
+		$strings = @unserialize($string, ['allowed_classes' => false]);
 		if (is_array($strings)) {
 			return $strings;
 		}
@@ -1719,11 +1719,24 @@ function getAlbumFolder($root = SERVERPATH) {
  * @param string $log
  */
 function switchLog($log) {
+	$counter = '0001';
 	$dir = getcwd();
 	chdir(SERVERPATH . '/' . DATA_FOLDER);
 	$list = safe_glob($log . '-*.log');
-	$counter = count($list) + 1;
-
+	if ($list) {
+		sort($list);
+		$file = substr(end($list), 0, -4);
+		$parts = explode('-', $file);
+		if (isset($parts[1])) {
+			$counter = sprintf('%04d', $parts[1] + 1);
+		}
+		reset($list);
+	}
+	while (count($list) >= SAVE_LOG_HISTORY) {
+		$del = array_shift($list);
+		chmod(SERVERPATH . '/' . DATA_FOLDER . '/' . $del, 0777);
+		unlink(SERVERPATH . '/' . DATA_FOLDER . '/' . $del);
+	}
 	chdir($dir);
 	copy(SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '.log', SERVERPATH . '/' . DATA_FOLDER . '/' . $log . '-' . $counter . '.log');
 	if (getOption($log . '_log_mail')) {

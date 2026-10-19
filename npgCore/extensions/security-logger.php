@@ -209,11 +209,14 @@ class security_logger {
 		$file = SERVERPATH . '/' . DATA_FOLDER . '/security.log';
 		$max = getOption('security_log_size');
 		$_npgMutex->lock();
-		if (file_exists($file) && $max && filesize($file) > $max) {
+		if (file_exists($file) && filesize($file) > $max) {
 			switchLog('security');
+			$preexists = false;
+			$f = fopen($file, 'w');
+		} else {
+			$preexists = file_exists($file) && filesize($file) > 0;
+			$f = fopen($file, 'a');
 		}
-		$preexists = file_exists($file) && filesize($file) > 0;
-		$f = fopen($file, 'a');
 		if ($f) {
 			if (!$preexists) { // add a header
 				$message = '';

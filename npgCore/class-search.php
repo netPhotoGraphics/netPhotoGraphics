@@ -1460,6 +1460,8 @@ class SearchEngine {
 									}
 									break;
 							}
+						} else {
+							$idlist = array();
 						}
 						$op = '';
 						break;
