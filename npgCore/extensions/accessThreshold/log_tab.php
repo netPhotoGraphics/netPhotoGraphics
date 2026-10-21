@@ -136,9 +136,9 @@ foreach ($recentIP as $ip => $data) {
 			}
 			if (!empty($zeros)) {
 				arsort($zeros);
-				$n = array_first($zeros);
+				$i = array_key_first($zeros);
+				$n = $zeros[$i];
 				if ($n > 1) {
-					$i = array_key_first($zeros);
 					$ipParts[$i] = '';
 					for ($j = 1; $j < $n; $j++) {
 						unset($ipParts[$j + $i]);
