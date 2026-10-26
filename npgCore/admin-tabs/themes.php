@@ -239,11 +239,10 @@ if (count($themelist) == 0) {
 					?>
 				</td>
 				<td <?php echo $style; ?>>
-					<?php echo $ico; ?>
-
 					<?php
-					$msg = gettext('Theme is deprecated');
+					echo $ico;
 					if (isset($themeinfo['deprecated'])) {
+						$msg = gettext('Theme is deprecated');
 						if (is_string($themeinfo['deprecated'])) {
 							$msg .= ': ' . $themeinfo['deprecated'];
 						}
