@@ -12,3 +12,4 @@ $theme_description['desc'] = gettext('A responsive theme ready for desktop to mo
 				gettext('and') . ' <a href="' . FULLWEBPATH . '/' . THEMEFOLDER . '/' . $me . '/changelog.txt' . '" title="ChangeLog File" target="_blank">ChangeLog</a><br />' .
 				gettext('To design your content to be responsive using Bootstrap framework, you can have a look on') . ' <a href="' . FULLWEBPATH . '/' . THEMEFOLDER . '/' . $me . '/bootstrap_grid_system.htm' . '" title="Bootstrap Grid System" target="_blank">' .
 				gettext('Bootstrap Grid System') . '</a>';
+$theme_description['deprecated'] = gettext('The Nova theme replaces Bootstrap.');
