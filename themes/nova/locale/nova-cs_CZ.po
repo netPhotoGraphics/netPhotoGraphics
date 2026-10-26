@@ -1,0 +1,172 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Nova 1.0\n"
+"POT-Creation-Date: 2026-10-24 12:00+0200\n"
+"PO-Revision-Date: 2026-10-24 12:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-KeywordsList: gettext;ngettext\n"
+
+msgid "Images"
+msgstr "Fotografie"
+
+msgid "View full size"
+msgstr "Zobrazit v plné velikosti"
+
+msgid "Images with GPS coordinates"
+msgstr "Fotografie s GPS souřadnicemi"
+
+msgid "Items with descriptions"
+msgstr "Položky s popisky"
+
+msgid "Top"
+msgstr "Nahoru"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Breadcrumb"
+msgstr "Drobečková navigace"
+
+msgid "Pagination"
+msgstr "Stránkování"
+
+msgid "A modern, responsive photo gallery theme without Bootstrap or other frameworks. Plain CSS (Grid, variables, dark mode), album and photo grids, EXIF, map, rating, favorites and lightbox."
+msgstr "Moderní, responzivní vzhled fotogalerie bez Bootstrapu a jiných frameworků. Čisté CSS (Grid, proměnné, tmavý režim), mřížky alb a fotek, EXIF, mapa, hodnocení, oblíbené a lightbox."
+
+msgid "Display a home page with the gallery description and (optionally) the latest news."
+msgstr "Zobrazit úvodní stránku s popisem galerie a (volitelně) nejnovějšími novinkami."
+
+msgid "Display the latest news on the home page (Homepage option has to be selected too)."
+msgstr "Zobrazit nejnovější novinku na úvodní stránce (musí být zapnutá i volba Úvodní stránka)."
+
+msgid "Use the \"menu_manager\" menu named \"nova\" instead of the standard menu."
+msgstr "Místo standardního menu použít menu „nova“ z pluginu menu_manager."
+
+msgid "Show the search icon in the menu."
+msgstr "Zobrazit ikonu vyhledávání v menu."
+
+msgid "Excerpt length for news and pages lists in search page."
+msgstr "Délka výňatku u novinek a stránek ve výsledcích hledání."
+
+msgid "Display a link to the Archive list in the footer."
+msgstr "Zobrazit odkaz na archiv v patičce."
+
+msgid "Show tags on the image page and a tag cloud in the Archive."
+msgstr "Zobrazit štítky na stránce fotografie a mrak štítků v archivu."
+
+msgid "Show the collapsible EXIF panel on the image page. The metadata to show is chosen in Options > Image > Metadata."
+msgstr "Zobrazit na stránce fotografie sbalitelný panel s EXIF. Které údaje se zobrazí, se vybírá v Nastavení > Fotografie > Metadata."
+
+msgid "Footer statistics"
+msgstr "Statistiky v patičce"
+
+msgid "Show GPS and description statistics in the footer (runs a few database counts on every page; disable on very large galleries if pages feel slow)."
+msgstr "Zobrazit v patičce statistiku GPS a popisků (výsledek se ukládá na několik hodin; u velmi velkých galerií lze vypnout, pokud jsou stránky pomalé)."
+
+msgid "Show a map with the photos on album pages that contain photos with GPS coordinates (needs the openStreetMap or googleMap plugin)."
+msgstr "Zobrazit na stránkách alb mapu s fotografiemi, které mají GPS souřadnice (vyžaduje plugin openStreetMap nebo googleMap)."
+
+msgid "Favorites list name (optional)"
+msgstr "Název seznamu oblíbených (nepovinné)"
+
+msgid "Dark mode"
+msgstr "Tmavý režim"
+
+msgid "Inspired by the Bootstrap theme by Vincent3569 (functionality and template structure). Developed in collaboration with Claude, an AI assistant by Anthropic."
+msgstr "Inspirováno vzhledem Bootstrap od Vincent3569 (funkce a struktura šablon). Vytvořeno ve spolupráci s Claude, AI asistentem od Anthropic."
+
+msgid "What are you looking for?"
+msgstr "Co hledáte?"
+
+msgid "How a shortened article in the news list continues: with the \"read more\" link from the Zenpage options, or with the shortening indicator (e.g. \"(...)\") as a link."
+msgstr "Jak pokračuje zkrácený článek v seznamu novinek: odkazem „Zobrazit více“ z nastavení Zenpage, nebo označením zkrácení (např. „(...)“) jako odkazem."
+
+msgid "Clickable shortening indicator"
+msgstr "Klikací označení zkrácení"
+
+msgid "\"Read more\" link"
+msgstr "Odkaz „Zobrazit více“"
+
+msgid "Shortened news articles"
+msgstr "Zkrácené novinky"
+
+msgid "All news"
+msgstr "Všechny novinky"
+
+msgid "Photo map"
+msgstr "Mapa fotografií"
+
+msgid "%s photos with GPS coordinates. Zoom in to see single photos, click a marker to open them."
+msgstr "%s fotografií s GPS souřadnicemi. Přibližte mapu, uvidíte jednotlivé fotografie; kliknutím na značku je otevřete."
+
+msgid "Loading…"
+msgstr "Načítání…"
+
+msgid "Photos in view:"
+msgstr "Fotografií ve výřezu:"
+
+msgid "and %s more – zoom in"
+msgstr "a dalších %s – přibližte mapu"
+
+msgid "The map data could not be loaded."
+msgstr "Data mapy se nepodařilo načíst."
+
+msgid "The map needs JavaScript."
+msgstr "Mapa vyžaduje JavaScript."
+
+msgid "There are no photos with GPS coordinates."
+msgstr "Nejsou zde žádné fotografie s GPS souřadnicemi."
+
+msgid "Photo map page"
+msgstr "Stránka s mapou fotografií"
+
+msgid "Enable the \"Photo map\" page (/page/photomap) with all photos that have GPS coordinates, plus its menu link. Safe for very large galleries: only the visible part of the map is loaded and nearby photos are grouped on the server. With a custom menu, add the page link yourself as a custom page \"photomap\"."
+msgstr "Zapne stránku „Mapa fotografií“ (/page/photomap) se všemi fotografiemi, které mají GPS souřadnice, a odkaz na ni v menu. Bezpečné i pro obrovské galerie: načítá se jen viditelná část mapy a blízké fotografie se seskupují na serveru. Při vlastním menu přidejte odkaz sami jako vlastní stránku „photomap“."
+
+msgid "Random photos"
+msgstr "Náhodné fotografie"
+
+msgid "Latest photos"
+msgstr "Nejnovější fotografie"
+
+msgid "None"
+msgstr "Žádné"
+
+msgid "Photos on the home page"
+msgstr "Fotografie na úvodní stránce"
+
+msgid "Number of photos on the home page"
+msgstr "Počet fotografií na úvodní stránce"
+
+msgid "1 to 6 photos; 3 fits one row."
+msgstr "1 až 6 fotografií; 3 se vejdou do jedné řady."
+
+msgid "A small strip of photos below the description on the home page (Homepage option has to be selected). The selection is cached (random: 6 hours, latest: 1 hour), so the page stays fast even in very large galleries."
+msgstr "Pás fotografií pod popisem na úvodní stránce (musí být zapnutá volba Úvodní stránka). Výběr se ukládá do mezipaměti (náhodné: 6 hodin, nejnovější: 1 hodina), takže stránka zůstane rychlá i ve velmi velkých galeriích."
+
+msgid "Photos"
+msgstr "Fotografie"
+
+msgid "Albums"
+msgstr "Alba"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Statistics and tag cloud on the home page"
+msgstr "Statistiky a mrak štítků na úvodní stránce"
+
+msgid "Show the numbers of photos, albums, pages and news and a cloud of the most used tags at the bottom of the home page (cached for 6 hours)."
+msgstr "Ve spodní části úvodní stránky zobrazí počty fotografií, alb, stránek a novinek a mrak nejpoužívanějších štítků (ukládá se do mezipaměti na 6 hodin)."
+
+msgid "Number of news on the home page"
+msgstr "Počet novinek na úvodní stránce"
+
+msgid "1 to 3 latest news below the photos (needs the \"Latest news on Homepage\" option)."
+msgstr "1 až 3 nejnovější novinky pod fotografiemi (vyžaduje volbu „Nejnovější novinky na úvodní stránce“)."

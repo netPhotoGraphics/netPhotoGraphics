@@ -1,0 +1,172 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Nova 1.0\n"
+"POT-Creation-Date: 2026-10-24 12:00+0200\n"
+"PO-Revision-Date: 2026-10-24 12:00+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: gettext;ngettext\n"
+
+msgid "Images"
+msgstr ""
+
+msgid "View full size"
+msgstr ""
+
+msgid "Images with GPS coordinates"
+msgstr ""
+
+msgid "Items with descriptions"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+msgid "Breadcrumb"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
+
+msgid "A modern, responsive photo gallery theme without Bootstrap or other frameworks. Plain CSS (Grid, variables, dark mode), album and photo grids, EXIF, map, rating, favorites and lightbox."
+msgstr ""
+
+msgid "Display a home page with the gallery description and (optionally) the latest news."
+msgstr ""
+
+msgid "Display the latest news on the home page (Homepage option has to be selected too)."
+msgstr ""
+
+msgid "Use the \"menu_manager\" menu named \"nova\" instead of the standard menu."
+msgstr ""
+
+msgid "Show the search icon in the menu."
+msgstr ""
+
+msgid "Excerpt length for news and pages lists in search page."
+msgstr ""
+
+msgid "Display a link to the Archive list in the footer."
+msgstr ""
+
+msgid "Show tags on the image page and a tag cloud in the Archive."
+msgstr ""
+
+msgid "Show the collapsible EXIF panel on the image page. The metadata to show is chosen in Options > Image > Metadata."
+msgstr ""
+
+msgid "Footer statistics"
+msgstr ""
+
+msgid "Show GPS and description statistics in the footer (runs a few database counts on every page; disable on very large galleries if pages feel slow)."
+msgstr ""
+
+msgid "Show a map with the photos on album pages that contain photos with GPS coordinates (needs the openStreetMap or googleMap plugin)."
+msgstr ""
+
+msgid "Favorites list name (optional)"
+msgstr ""
+
+msgid "Dark mode"
+msgstr ""
+
+msgid "Inspired by the Bootstrap theme by Vincent3569 (functionality and template structure). Developed in collaboration with Claude, an AI assistant by Anthropic."
+msgstr ""
+
+msgid "What are you looking for?"
+msgstr ""
+
+msgid "How a shortened article in the news list continues: with the \"read more\" link from the Zenpage options, or with the shortening indicator (e.g. \"(...)\") as a link."
+msgstr ""
+
+msgid "Clickable shortening indicator"
+msgstr ""
+
+msgid "\"Read more\" link"
+msgstr ""
+
+msgid "Shortened news articles"
+msgstr ""
+
+msgid "All news"
+msgstr ""
+
+msgid "Photo map"
+msgstr ""
+
+msgid "%s photos with GPS coordinates. Zoom in to see single photos, click a marker to open them."
+msgstr ""
+
+msgid "Loading…"
+msgstr ""
+
+msgid "Photos in view:"
+msgstr ""
+
+msgid "and %s more – zoom in"
+msgstr ""
+
+msgid "The map data could not be loaded."
+msgstr ""
+
+msgid "The map needs JavaScript."
+msgstr ""
+
+msgid "There are no photos with GPS coordinates."
+msgstr ""
+
+msgid "Photo map page"
+msgstr ""
+
+msgid "Enable the \"Photo map\" page (/page/photomap) with all photos that have GPS coordinates, plus its menu link. Safe for very large galleries: only the visible part of the map is loaded and nearby photos are grouped on the server. With a custom menu, add the page link yourself as a custom page \"photomap\"."
+msgstr ""
+
+msgid "Random photos"
+msgstr ""
+
+msgid "Latest photos"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Photos on the home page"
+msgstr ""
+
+msgid "Number of photos on the home page"
+msgstr ""
+
+msgid "1 to 6 photos; 3 fits one row."
+msgstr ""
+
+msgid "A small strip of photos below the description on the home page (Homepage option has to be selected). The selection is cached (random: 6 hours, latest: 1 hour), so the page stays fast even in very large galleries."
+msgstr ""
+
+msgid "Photos"
+msgstr ""
+
+msgid "Albums"
+msgstr ""
+
+msgid "Pages"
+msgstr ""
+
+msgid "Statistics and tag cloud on the home page"
+msgstr ""
+
+msgid "Show the numbers of photos, albums, pages and news and a cloud of the most used tags at the bottom of the home page (cached for 6 hours)."
+msgstr ""
+
+msgid "Number of news on the home page"
+msgstr ""
+
+msgid "1 to 3 latest news below the photos (needs the \"Latest news on Homepage\" option)."
+msgstr ""
