@@ -447,7 +447,9 @@ if (SYMLINK && !npgFunctions::hasPrimaryScripts()) {
 			$p = SERVERPATH . '/' . THEMEFOLDER . '/' . $theme;
 			if (is_link($p)) {
 				if (!realpath($p)) { //	theme removed from master install
-					if (!@rmdir($p)) {
+					if (is_dir($p)) {
+						rmdir($p);
+					} else {
 						unlink($p);
 					}
 				}
@@ -1232,13 +1234,13 @@ npgFunctions::flushOutput();
 <p>
 	<span class = "floatright delayshow" style = "display:none">
 		<img src = "<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=0'; ?>" alt = "<?php echo gettext('success'); ?>" height = "16px" width = "16px" /> <?php
-echo gettext('Successful initialization');
-if ($thirdParty) {
-	?>
+		echo gettext('Successful initialization');
+		if ($thirdParty) {
+			?>
 			<img src="<?php echo FULLWEBPATH . '/' . CORE_FOLDER . '/setup/icon.php?icon=1'; ?>" alt="<?php echo gettext('success'); ?>" height="16px" width="16px" /> <?php
-		echo gettext('Successful initialization (third party item)');
-	}
-?>
+			echo gettext('Successful initialization (third party item)');
+		}
+		?>
 		<span id="errornote" style="display:<?php echo $displayErrors ? 'show' : 'none'; ?>"><?php echo CROSS_MARK_RED . ' ' . gettext('Error initializing (click to debug)'); ?></span>
 		<?php
 		if ($deprecated) {
