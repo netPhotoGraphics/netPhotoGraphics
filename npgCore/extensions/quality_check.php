@@ -20,7 +20,6 @@
  */
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Read-only data quality report: incomplete GPS data, missing titles, dates and tags, empty albums.');
-$plugin_version = '1.0';
 
 npgFilters::register('admin_tabs', 'quality_check::tabs');
 

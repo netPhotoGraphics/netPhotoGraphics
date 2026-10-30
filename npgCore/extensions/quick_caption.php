@@ -18,7 +18,7 @@
  */
 $plugin_is_filter = 5 | ADMIN_PLUGIN;
 $plugin_description = gettext('Fast captioning: one photo at a time, type the title and description, press Enter, the next photo appears.');
-$plugin_version = '1.0';
+
 $option_interface = 'quick_caption';
 
 npgFilters::register('admin_tabs', 'quick_caption::tabs');
