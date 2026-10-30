@@ -13,6 +13,11 @@
     ready(function () {
         var $ = function (s, c) { return (c || document).querySelector(s); };
 
+        /* tell assistive technology which menu item is the current page */
+        document.querySelectorAll('.site-nav__list .active > a, .site-nav__list a.active').forEach(function (a) {
+            a.setAttribute('aria-current', 'page');
+        });
+
         /* mobile menu */
         var toggle = $('.nav-toggle'), nav = $('#site-nav');
         if (toggle && nav) {

@@ -303,7 +303,7 @@ function nova_geoHiddenAlbums() {
 function nova_geoSource() {
     $lat = "CAST(REPLACE(`gpslatitude`, ',', '.') AS DECIMAL(10,6))";
     $lon = "CAST(REPLACE(`gpslongitude`, ',', '.') AS DECIMAL(10,6))";
-    $where = "`show` = 1 AND `gpslatitude` IS NOT NULL AND `gpslongitude` IS NOT NULL";
+    $where = "`show` = 1 AND `gpslatitude` IS NOT NULL AND `gpslongitude` IS NOT NULL AND TRIM(`gpslatitude`) <> '' AND TRIM(`gpslongitude`) <> ''";
     $hidden = nova_geoHiddenAlbums();
     if ($hidden) {
         $where .= ' AND `albumid` NOT IN (' . implode(',', $hidden) . ')';
@@ -328,7 +328,7 @@ function nova_geoMeta() {
         return $cache[$key]['d'];
     }
     $row = query_single_row('SELECT COUNT(*) AS n, MIN(la) AS mila, MAX(la) AS mala, MIN(lo) AS milo, MAX(lo) AS malo FROM ' . nova_geoSource() .
-            ' WHERE (la <> 0 OR lo <> 0) AND la BETWEEN -90 AND 90 AND lo BETWEEN -180 AND 180');
+            ' WHERE la <> 0 AND lo <> 0 AND la BETWEEN -90 AND 90 AND lo BETWEEN -180 AND 180');
     $meta = array('n' => (int) ($row['n'] ?? 0), 'bounds' => null);
     if ($meta['n'] > 0) {
         $meta['bounds'] = array((float) $row['mila'], (float) $row['milo'], (float) $row['mala'], (float) $row['malo']);
@@ -368,7 +368,7 @@ function nova_geoEndpoint() {
         list($w, $e) = array($e, $w);
     }
     $src = nova_geoSource();
-    $box = ' WHERE la BETWEEN ' . $s . ' AND ' . $n . ' AND lo BETWEEN ' . $w . ' AND ' . $e . ' AND (la <> 0 OR lo <> 0)';
+    $box = ' WHERE la BETWEEN ' . $s . ' AND ' . $n . ' AND lo BETWEEN ' . $w . ' AND ' . $e . ' AND la <> 0 AND lo <> 0';
 
     if ($mode === 'items') {
         $rows = query_full_array('SELECT `id` FROM ' . $src . $box . ' ORDER BY `id` DESC LIMIT 30');
@@ -588,3 +588,18 @@ function nova_homeNewsCount() {
     $n = (int) getOption('zpB_home_news_count');
     return $n < 1 ? 1 : min($n, 3);
 }
+
+/*
+ * Lazy loading of thumbnails: a page with many photos asks the server only for the thumbnails
+ * that are (nearly) visible instead of all of them at once. Fewer simultaneous requests, so a
+ * hosting rate limit (429 Too Many Requests) is not triggered by opening a big album.
+ */
+function nova_lazyThumb($html) {
+    if (is_string($html) && strpos($html, 'loading=') === false) {
+        $html = preg_replace('/<img\s/', '<img loading="lazy" decoding="async" ', $html, 1);
+    }
+    return $html;
+}
+npgFilters::register('standard_image_thumb_html', 'nova_lazyThumb');
+npgFilters::register('standard_album_thumb_html', 'nova_lazyThumb');
+npgFilters::register('custom_album_thumb_html', 'nova_lazyThumb');

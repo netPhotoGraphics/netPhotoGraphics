@@ -17,6 +17,7 @@
     --text: #1b1b1b;
     --muted: #6a6a66;
     --border: #dcdcd6;
+    --border-strong: #85857f; /* form controls: >= 3:1 against the backgrounds (WCAG 1.4.11) */
     --accent: #1f6fb2;
     --accent-hover: #15507f;
     --danger: #b3261e;
@@ -45,6 +46,7 @@
     --text: #e9e9e6;
     --muted: #a1a19b;
     --border: #34342f;
+    --border-strong: #7a7a74;
     --accent: #7fb6ee;
     --accent-hover: #a9cef5;
     --danger: #f2877f;
@@ -63,6 +65,7 @@
     --text: #e9e9e6;
     --muted: #a1a19b;
     --border: #34342f;
+    --border-strong: #7a7a74;
     --accent: #7fb6ee;
     --accent-hover: #a9cef5;
     --danger: #f2877f;
@@ -209,7 +212,7 @@ body:has(#admin_tb) .site-header__inner { padding-right: 2.25rem; }
 .button, input[type="submit"], input[type="button"], input[type="reset"], form button {
     display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
     padding: .5rem 1rem;
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
     background: var(--surface); color: var(--text);
     font-size: .92rem; line-height: 1.3; cursor: pointer; text-decoration: none;
     transition: background var(--ease), border-color var(--ease);
@@ -225,7 +228,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 input[type="number"], input:not([type]), textarea, select {
     font: inherit; max-width: 100%;
     padding: .55rem .8rem;
-    border: 1px solid var(--border); border-radius: var(--radius);
+    border: 1px solid var(--border-strong); border-radius: var(--radius);
     background: var(--surface); color: var(--text);
 }
 textarea { width: 100%; min-height: 8rem; }
@@ -287,3 +290,15 @@ label { font-weight: 500; }
 #admin_tb_data a:hover { color: var(--accent-hover); }
 #admin_tb h3 { color: var(--header-text) !important; opacity: .8; }
 #admin_tb h3:hover { opacity: 1; }
+
+/* skip link (keyboard users) */
+.skip-link { position: absolute; left: .5rem; top: -4rem; z-index: 100000; padding: .6rem 1rem; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-sm); font-weight: 600; text-decoration: none; }
+.skip-link:focus { top: .5rem; color: var(--on-accent); }
+
+/* user asks for more contrast */
+@media (prefers-contrast: more) {
+    :root { --border: var(--border-strong); --muted: var(--text); }
+    .site-nav__list a, .site-nav__button { opacity: 1; }
+}
+
+.site-main:focus { outline: none; }

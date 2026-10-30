@@ -1,5 +1,5 @@
-Nova - theme for netPhotoGraphics
-=================================
+Nova 1.1 - theme for netPhotoGraphics
+=======================================
 
 A modern, responsive photo gallery theme without Bootstrap or other frameworks.
 Plain CSS (Grid, variables, dark mode), album and photo grids, EXIF, map,
@@ -25,3 +25,9 @@ Built for big galleries (tested design target: 20 000+ geotagged photos):
  - only photos the visitor may see are counted (hidden, unpublished and password protected albums are left out).
 Only Leaflet from the openStreetMap plugin files is used; the plugin itself does not have to be enabled.
 Map tiles come from tile.openstreetmap.org (light use; for heavy traffic switch to your own tile provider in js/nova-map.js).
+
+Accessibility
+-------------
+Accessibility: text/background colours were measured against WCAG 2.1 AA (all text >= 4.5:1 in light and dark mode);
+form controls have a stronger border (>= 3:1); skip link, aria-current in the menu, visible focus, reduced-motion and
+"more contrast" (prefers-contrast) support.

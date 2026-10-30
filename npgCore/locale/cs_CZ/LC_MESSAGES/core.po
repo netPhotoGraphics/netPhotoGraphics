@@ -43091,3 +43091,34 @@ msgstr "Galerie není vícejazyčná, takže se nevybírá jazyk: text se uklád
 
 msgid "single language (no language selection)"
 msgstr "jeden jazyk (bez výběru jazyka)"
+
+msgid "Language of the texts: %s"
+msgstr "Jazyk textů: %s"
+
+msgid "single-language gallery"
+msgstr "galerie s jedním jazykem"
+
+msgid "Only one language is enabled, so there is nothing to choose. More languages can be enabled in Options > General."
+msgstr "Je povolený jen jeden jazyk, takže není z čeho vybírat. Další jazyky lze povolit v Možnosti > Obecné."
+
+msgid "visual editor (TinyMCE) for the description"
+msgstr "vizuální editor (TinyMCE) pro popisek"
+
+msgid "Visual editor for the description"
+msgstr "Vizuální editor pro popisek"
+
+msgid "Edit the description with the TinyMCE editor of the gallery (needs the tinymce plugin enabled and a configuration selected for \"Text editor configuration - gallery\"). It can also be switched on and off on the Quick captions page itself. The plain text field is faster for short texts."
+msgstr "Upravovat popisek editorem TinyMCE z galerie (potřebuje zapnutý plugin tinymce a vybranou konfiguraci v „Konfigurace textového editoru - galerie“). Lze ho zapnout a vypnout i přímo na stránce Rychlé popisování. Prosté textové pole je pro krátké texty rychlejší."
+
+msgid "Change it in Options > Plugins > quick_caption."
+msgstr "Změna v Možnosti > Pluginy > quick_caption."
+
+msgid "File name counts as missing title"
+msgstr "Název shodný se jménem souboru je chybějící"
+
+msgid "A title that is only the file name of the photo counts as missing (when looking for photos without a title). Switch it off if you use file names as titles on purpose."
+msgstr "Název fotky, který je jen jménem souboru, se považuje za chybějící (při hledání fotek bez názvu). Vypněte, pokud názvy shodné se jmény souborů používáte záměrně."
+
+msgid "Edit the description with the TinyMCE editor of the gallery (needs the tinymce plugin enabled and a configuration selected for \"Text editor configuration - gallery\"). The plain text field is faster for short texts."
+msgstr "Upravovat popisek editorem TinyMCE z galerie (potřebuje zapnutý plugin tinymce a vybranou konfiguraci v „Konfigurace textového editoru - galerie“). Prosté textové pole je pro krátké texty rychlejší."
+
