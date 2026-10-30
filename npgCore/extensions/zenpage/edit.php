@@ -169,7 +169,7 @@ $tagsort = 'alpha';
 	}, false);
 
 	$(function () {
-		$("#date").datepicker({
+		$("#date, #pubdate").datepicker({
 			dateFormat: 'yy-mm-dd',
 			showOn: 'button',
 			buttonImage: '<?php echo CALENDAR; ?>',
@@ -849,11 +849,10 @@ $tagsort = 'alpha';
 									resetButton(array('buttonClick' => "$('.copydelete').hide();"));
 									?>
 									<div class="floatright">
-										<a href="<?php echo getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype; ?>&amp;add&amp;XSRFToken=<?php echo getXSRFToken('add') ?>" title="<?php echo $additem; ?>">
-											<?php echo PLUS_ICON; ?>
-											<strong><?php echo $additem; ?></strong>
-										</a>
 										<?php
+										if ($additem) {
+											npgButton('button', PLUS_ICON . ' ' . $additem, array('buttonLink' => getAdminLink(PLUGIN_FOLDER . '/zenpage/edit.php') . '?' . $admintype . '&amp;add&amp;XSRFToken=' . getXSRFToken('add')));
+										}
 										if (!$result->transient) {
 											viewButton(array('buttonLink' => $result->getlink()));
 										}

@@ -28,9 +28,8 @@
 }
 
 .buttonText {
-	font-weight: bold;
-	padding-left: 5px !important;
-	padding-right: 5px !important;
+	font-weight: 600;
+	padding: 0 .2rem;
 }
 
 .npgButton a img, button.npgButton img {
@@ -120,4 +119,124 @@ button.npgButton:hover:disabled, .npgButton:hover:disabled, .npgButton a:hover:d
 
 .npgButton.disabled_button {
 	color: #c2c2c2;
+}
+
+/* ---------- modern look ---------- */
+
+/* buttons */
+.npgButton a, button.npgButton, input[type=submit].npgButton {
+	display: inline-flex;
+	align-items: center;
+	gap: .3rem;
+	float: left;
+	box-sizing: border-box;
+	height: auto !important;
+	min-height: 36px;
+	padding: .35rem .85rem !important;
+	margin: 0 .4rem .4rem 0;
+	line-height: 1.3;
+	font: inherit;
+	font-size: .95rem;
+	color: var(--npg-text);
+	background: var(--npg-surface);
+	background-image: none;
+	border: 1px solid var(--npg-border) !important;
+	border-radius: 8px;
+	box-shadow: 0 1px 1px rgba(20, 30, 50, .05);
+}
+
+.npgButton a {
+	min-height: 36px;
+}
+
+button.npgButton:hover, .npgButton:hover, .npgButton a:hover {
+	background: var(--npg-surface-2);
+	background-image: none;
+	border: 1px solid #b9c0cc !important;
+	border-width: 1px;
+	text-decoration: none;
+}
+
+button.npgButton.positive, .npgButton.positive, .npgButton a.positive {
+	color: var(--npg-ok);
+}
+
+button.npgButton.negative, .npgButton.negative, .npgButton a.negative {
+	color: var(--npg-bad);
+}
+
+.npgButton a.negative:hover, button.negative:hover, .npgButton.negative:hover {
+	background: var(--npg-bad-soft) !important;
+	border-color: #e5a9a5 !important;
+}
+
+.npgButton a:active, button.npgButton:active {
+	background: var(--npg-border-soft);
+	color: var(--npg-text);
+}
+
+/* database backup and restore: the main buttons stand out */
+#dbbackup button.npgButton, #dbrestore button.npgButton,
+#dbbackup .npgButton a, #dbrestore .npgButton a {
+	min-height: 42px;
+	padding: .5rem 1.4rem !important;
+	background: var(--npg-accent-soft);
+	border: 1px solid var(--npg-accent) !important;
+	color: var(--npg-accent);
+	font-weight: 600;
+	box-shadow: 0 1px 3px rgba(36, 86, 201, .25);
+}
+
+#dbbackup button.npgButton:hover, #dbrestore button.npgButton:hover,
+#dbbackup .npgButton a:hover, #dbrestore .npgButton a:hover {
+	background: #d5e1fa;
+	border-color: var(--npg-accent) !important;
+}
+
+#dbbackup button.npgButton:disabled, #dbrestore button.npgButton:disabled {
+	background: var(--npg-surface-2);
+	border-color: var(--npg-border) !important;
+	color: var(--npg-muted);
+	box-shadow: none;
+	cursor: not-allowed;
+}
+
+.overview_utility_buttons .npgButton {
+	float: none;
+	margin: 0;
+}
+
+.box-edit button.npgButton.fixedwidth {
+	float: none;
+	display: flex;
+	width: 100% !important;
+	margin: 0 0 .4rem;
+	text-align: left;
+}
+
+.floatright > button.npgButton:last-child {
+	margin-right: 0;
+}
+
+/* the core puts two line breaks after each button of the Utilities box; the buttons here are blocks already */
+.box-edit button.npgButton.fixedwidth + br,
+.box-edit button.npgButton.fixedwidth + br + br {
+	display: none;
+}
+
+/* all buttons have the same height whatever the icon's own alignment is */
+.npgButton .font_icon[style*="vertical-align"] {
+	vertical-align: baseline !important;
+}
+
+button.npgButton, input[type=submit].npgButton {
+	min-height: 40px;
+}
+
+@media (max-width: 900px) {
+/* bigger touch targets */
+.npgButton a, button.npgButton, input[type=submit].npgButton {
+		min-height: 44px;
+		padding: .5rem 1rem !important;
+	}
 }

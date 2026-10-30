@@ -91,6 +91,7 @@ function printAdminHeader($tab, $subtab = NULL) {
 			<?php
 			load_jQuery_scripts('admin');
 			scriptLoader(CORE_SERVERPATH . 'js/admin.js', 'async');
+			scriptLoader(CORE_SERVERPATH . 'js/admin-menu.js', 'async');
 			scriptLoader(CORE_SERVERPATH . 'js/jquery.scrollTo.min.js', 'async');
 
 			if (extensionEnabled('touchPunch')) {

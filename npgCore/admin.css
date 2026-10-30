@@ -17,21 +17,20 @@
 /* Basics
 ------------------------------ */
 
-html { /* Force vertical scrollbar to prevent page shift "jog" */
-	/* IE */
+html {
 	overflow-y: scroll;
-	/* Moz */
 	height: 100%;
-	margin-bottom: 0.1em;
+	margin-bottom: 0;
 }
 
 body {
-	font: normal 82% Arial, "Helvetica Neue", Helvetica, sans-serif;
-	color: #4B4B4B;
-	text-align: center;
-	background-image: linear-gradient(rgb(244,244,244), rgb(225,225,225));
+	font: 15px/1.5 var(--npg-font);
+	color: var(--npg-text);
+	text-align: left;
 	margin: 0;
 	padding: 0;
+	background: var(--npg-bg);
+	background-image: none;
 }
 
 .centered {
@@ -72,15 +71,15 @@ em {
 
 #footer {
 	clear: both;
-	color: #597580;
-	margin-top: 8px;
-	margin-right: 30px;
-	margin-bottom: 5px;
-	margin-left: 0px;
-	padding-top: 10px;
-	padding-bottom: 15px;
-	padding-right: 50px;
-	padding-left: 16em;
+	color: var(--npg-muted);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: .5rem 1.5rem;
+	margin: 1.25rem 0 0;
+	padding: 1rem 0 0;
+	font-size: .85rem;
+	border-top: 1px solid var(--npg-border);
 }
 
 #footer_left {
@@ -107,7 +106,15 @@ em {
 }
 
 #admin_head {
-	margin-top: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: .5rem 1.5rem;
+	margin: 0;
+	padding: .75rem 1.5rem;
+	background: var(--npg-surface);
+	border-bottom: 1px solid var(--npg-border);
 }
 
 #logo img {
@@ -115,8 +122,8 @@ em {
 }
 
 #administration {
-	padding-left: 3em;
-	float: left;
+	float: none;
+	padding: 0;
 }
 
 #links {
@@ -149,14 +156,16 @@ em {
 /* Text Styles
 ------------------------------ */
 h1 {
-	color: #000;
-	font-size: 136%;
-	font-weight: bold;
-	margin: 0px 0px 20px 0px;
+	color: var(--npg-text);
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 0 0 1rem;
+	line-height: 1.35;
+	overflow-wrap: anywhere;
 }
 
 #content h1 {
-	padding-top: 5px;
+	padding-top: 0;
 }
 
 h2 {
@@ -173,9 +182,9 @@ h2.h2_bordered {
 
 /* edit page subheadlines like "images" or "albums" */
 .subheadline {
-	color: #000;
-	font-size: 136%;
-	font-weight: normal;
+	color: var(--npg-text);
+	font-size: 1.05rem;
+	font-weight: 600;
 	margin: 0px 0px 0px 0px;
 }
 
@@ -207,7 +216,10 @@ sub {
 code {
 	font-family: Courier, Monaco, monospace;
 	font-size: 1.1em;
-	color: #00816A;
+	color: #0b6b53;
+	background: var(--npg-surface-2);
+	padding: 0 .3em;
+	border-radius: 4px;
 }
 
 .fullwidth {
@@ -278,6 +290,7 @@ code {
 
 .navigation ul li {
 	float: none;
+	height: 28px;
 }
 
 .navigation ul ul {
@@ -575,6 +588,7 @@ hr {
 	border: 0px;
 	border-bottom: 1px solid #BAC9CF;
 	margin: 0.5em 0px;
+	border-bottom-color: var(--npg-border);
 }
 
 table.noinput {
@@ -876,13 +890,12 @@ table.checkboxes td {
 }
 
 .tabbox {
-	padding-top: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 10px;
-	background-color: #FAFAFA;
-	border: 1px solid #E5E5E5;
-
+	border: 1px solid var(--npg-border);
+	background: var(--npg-surface);
+	border-radius: var(--npg-radius);
+	box-shadow: var(--npg-shadow);
+	padding: 1.25rem 1.5rem;
+	overflow-x: auto;
 }
 
 div.outerbox {
@@ -926,7 +939,7 @@ div.outerbox {
 
 .middlecolumn {
 	vertical-align: top;
-	padding-right: 20px !important;
+	padding-right: 0 !important;
 	min-width: 300px;
 	width: 95%;
 }
@@ -1103,16 +1116,14 @@ input.tags {
 }
 
 .overview_utility_buttons_field {
-	padding-left: 0px;
-	padding-right: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	margin-left: 10px;
-	margin-top: 5px;
-	margin-right: 10px;
-	margin-bottom: 7px;
-	border: 1px solid #cccccc;
-	width: 520px;
+	border: 1px solid var(--npg-border);
+	width: auto;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: .4rem;
+	margin: .6rem;
+	padding: .6rem;
+	border-radius: 8px;
 }
 
 .overview_utility_buttons {
@@ -1960,13 +1971,12 @@ span.tagMatches span {
 ----------------------------------*/
 .h2_bordered_edit {
 	font-weight: bold;
-	padding: 5px 8px 5px 8px;
-	border-bottom: 2px solid #cccccc;
-	border-left: 1px solid #cccccc;
-	border-right: 1px solid #cccccc;
-	border-top: 1px solid #cccccc;
-	background-repeat: repeat-x;
+	padding: .5rem .75rem;
 	margin-bottom: 0;
+	background: var(--npg-surface-2);
+	border: 1px solid var(--npg-border);
+	border-radius: 8px 8px 0 0;
+	font-size: 1rem;
 }
 
 .box-edit {
@@ -1975,6 +1985,7 @@ span.tagMatches span {
 	background-color: white;
 	border: 1px solid #cccccc;
 	width: 18.4em;
+	display: flow-root;
 }
 
 .box-edit select {
@@ -2011,10 +2022,12 @@ span.tagMatches span {
 }
 
 .box-tags-unpadded {
-	margin: 0 0 10px 0;
+	margin: 0 0 .75rem;
 	padding: 0px 0px 0px 0px;
 	background-color: white;
-	border: 1px solid #cccccc;
+	border: 1px solid var(--npg-border);
+	border-top: 0;
+	border-radius: 0 0 8px 8px;
 }
 
 .tagtext p {
@@ -2040,6 +2053,8 @@ span.tagMatches span {
 	padding: 0px 0px 0px 0px;
 	background-color: white;
 	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	max-width: 100%;
 }
 
 
@@ -2448,8 +2463,8 @@ ul.page-list {
 	float: right !important;
 	padding-top: 18px;
 	margin-right: 10px;
-	overflow: auto;
-	height: 45px;
+	overflow: visible;
+	height: auto;
 }
 
 .page-list_icon {
@@ -2788,4 +2803,1012 @@ form.tinyDirty input[type=submit]:active {
 	left: 0px;
 	z-index: 1000;
 	background: lightgray;
+}
+
+/* ---------- modern look ---------- */
+
+/*
+ * Modern look of the administration (colours as custom properties, side menu, boxes, flexible overview).
+ * Based on the admin_modern plugin by Martin Kroul with Claude (AI assistant by Anthropic). GPL 2 or later.
+ * Rules that replace original rules are merged into those above; the rest follows here.
+ */
+:root {
+	--npg-bg: #f4f5f7;
+	--npg-surface: #ffffff;
+	--npg-surface-2: #f8f9fb;
+	--npg-text: #1d2330;
+	--npg-muted: #5b6475;
+	--npg-border: #d9dde4;
+	--npg-border-soft: #e8ebf0;
+	--npg-accent: #2456c9;
+	--npg-accent-soft: #e6edfb;
+	--npg-ok: #1f7a3d;
+	--npg-ok-soft: #e7f5ec;
+	--npg-bad: #b3261e;
+	--npg-bad-soft: #fcebea;
+	--npg-warn: #7a4b00;
+	--npg-warn-soft: #fff4d6;
+	--npg-radius: 10px;
+	--npg-shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 1px 8px rgba(20, 30, 50, .04);
+	--npg-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+em {
+	color: inherit;
+}
+
+a, a em {
+	color: var(--npg-accent);
+}
+
+a:hover, a:hover em {
+	color: var(--npg-accent);
+	text-decoration: underline;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+	outline: 2px solid var(--npg-accent);
+	outline-offset: 2px;
+}
+
+p {
+	width: auto;
+	max-width: 100%;
+}
+
+h1 a, h1 em {
+	font-weight: 500;
+}
+
+h2 {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0 0 .4rem;
+}
+
+h2.h2_bordered {
+	border-bottom: 1px solid var(--npg-border);
+	padding: .3rem 0;
+}
+
+#administration img {
+	max-height: 56px;
+	width: auto;
+}
+
+#links {
+	float: none;
+	padding: 0;
+	font-size: .93rem;
+	color: var(--npg-muted);
+}
+
+#links a {
+	border-bottom: 0;
+	color: var(--npg-accent);
+}
+
+#links a:hover {
+	color: var(--npg-accent);
+	border-bottom: 0;
+	text-decoration: underline;
+}
+
+/* layout: side menu + content */
+body > #main {
+	display: grid;
+	grid-template-columns: 13.5rem minmax(0, 1fr);
+	column-gap: 1.5rem;
+	align-items: start;
+	padding: 1.25rem 1.5rem;
+	max-width: none;
+	margin: 0;
+	clear: none;
+}
+
+body > #main > * {
+	grid-column: 2;
+}
+
+body > #main > .navigation {
+	grid-column: 1;
+	grid-row: 1 / span 6;
+}
+
+#content {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	min-width: 0;
+	container-type: inline-size;
+	container-name: npg-content;
+}
+
+/* side menu (the original script moves it on scroll; sticky positioning replaces that) */
+.navigation {
+	position: sticky !important;
+	top: .75rem !important;
+	left: auto !important;
+	margin: 0;
+	width: auto;
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border);
+	border-radius: var(--npg-radius);
+	box-shadow: var(--npg-shadow);
+	padding: .4rem;
+	z-index: 1300;
+}
+
+.navigation > ul {
+	width: auto;
+}
+
+.navigation a {
+	text-transform: none;
+	padding: 0 .8rem;
+	line-height: 28px;
+	height: 28px;
+	font-size: .93rem;
+	color: var(--npg-text);
+	border-radius: 7px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.navigation a:hover, .navigation a:focus {
+	text-decoration: none;
+}
+
+.navigation ul ul li {
+	border: 0;
+}
+
+.navigation > ul > li > a,
+.navigation >ul > li:last-of-type > a {
+	border: 0;
+	color: var(--npg-text);
+}
+
+.navigation ul li.has-sub > a:after {
+	content: '\203A';
+	font-size: 1.2em;
+	color: var(--npg-muted);
+	right: .8rem;
+}
+
+.navigation ul ul {
+	width: 17rem;
+	margin-top: 0;
+	padding: .35rem;
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border);
+	border-radius: var(--npg-radius);
+	box-shadow: 0 6px 24px rgba(20, 30, 50, .16);
+	left: calc(100% + .45rem);
+}
+
+/* bridge the gap so the sub menu does not close while the pointer travels to it */
+.navigation ul li.has-sub > ul:before {
+	content: '';
+	position: absolute;
+	left: -.6rem;
+	top: 0;
+	bottom: 0;
+	width: .6rem;
+}
+
+.navigation ul ul li.first, .navigation ul ul li.last {
+	border-radius: 0;
+}
+
+.navigation > ul > li a:hover,
+.navigation > ul > li:hover a {
+	background-color: transparent !important;
+	color: var(--npg-text);
+}
+
+/* the sub menu itself must stay opaque, otherwise the page shows through */
+.navigation ul li.has-sub > ul,
+.navigation ul ul {
+	background-color: var(--npg-surface) !important;
+}
+
+.navigation > ul > li:hover > a,
+.navigation ul ul a:hover,
+.navigation ul ul li:hover > a {
+	background-color: var(--npg-surface-2) !important;
+	color: var(--npg-text);
+}
+
+.navigation ul li a.active,
+.navigation ul ul li a.active,
+.navigation a.active:hover {
+	background-color: var(--npg-accent-soft) !important;
+	color: var(--npg-accent);
+	font-weight: 600;
+}
+
+/* an item that needs attention: a small dot instead of a coloured background */
+.navigation ul li a.nav-alert,
+.navigation ul ul li a.nav-alert {
+	background-color: transparent !important;
+}
+
+.navigation ul li a.nav-alert:hover,
+.navigation ul ul li a.nav-alert:hover {
+	background-color: var(--npg-surface-2) !important;
+}
+
+.navigation ul li a.nav-alert:before,
+.navigation ul ul li a.nav-alert:before {
+	content: '';
+	display: inline-block;
+	width: .5rem;
+	height: .5rem;
+	margin-right: .5rem;
+	vertical-align: middle;
+	border-radius: 50%;
+	background: var(--npg-accent);
+}
+
+.box, .boxb, div.outerbox {
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border-soft);
+	border-radius: 8px;
+	padding: .6rem;
+}
+
+.innerbox_dark, .border {
+	background: var(--npg-surface-2) !important;
+}
+
+fieldset {
+	border: 1px solid var(--npg-border);
+	border-radius: 8px;
+}
+
+/* messages */
+.messagebox, .errorbox, .warningbox, .notebox, .genericbox {
+	width: auto;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: .75rem 1rem;
+	border: 1px solid;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+.messagebox {
+	background: var(--npg-ok-soft);
+	border-color: var(--npg-ok);
+}
+
+.messagebox h2 {
+	color: var(--npg-ok);
+}
+
+.errorbox {
+	background: var(--npg-bad-soft);
+	border-color: var(--npg-bad);
+}
+
+.errorbox h2, .error {
+	color: var(--npg-bad);
+}
+
+.warningbox, .notebox, .newVersion {
+	background: var(--npg-warn-soft);
+	border-color: #d9a200;
+}
+
+.warningbox h2, .notebox h2, .notebox strong {
+	color: var(--npg-warn);
+}
+
+/* tables */
+.bordered, table.options, table.noinput {
+	border: 1px solid var(--npg-border);
+	border-radius: 8px;
+	background: var(--npg-border-soft);
+	overflow: hidden;
+}
+
+table.bordered th, table.options th, .option_shaded {
+	background: var(--npg-surface-2);
+	color: var(--npg-muted);
+	font-weight: 600;
+	font-size: .85rem;
+	letter-spacing: .02em;
+	padding: .55rem .7rem;
+	border-bottom: 1px solid var(--npg-border);
+}
+
+table.bordered tr td, table.options tr td {
+	background: var(--npg-surface);
+	padding: .55rem .7rem;
+	border-bottom: 1px solid var(--npg-border-soft);
+}
+
+table.bordered tr.alt1 td {
+	background: var(--npg-surface-2);
+	border-bottom: 1px solid var(--npg-border-soft);
+}
+
+table.noinput td {
+	font-family: var(--npg-font);
+	font-size: 1em;
+}
+
+/* form fields */
+input, textarea, select {
+	font-family: var(--npg-font);
+	font-size: 1em;
+	color: var(--npg-text);
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=url],
+input[type=search], input[type=date], input[type=datetime-local], input[type=tel], textarea, select {
+	box-sizing: border-box;
+	max-width: 100%;
+	padding: .4rem .6rem;
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border);
+	border-radius: 7px;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus,
+input[type=url]:focus, input[type=search]:focus, textarea:focus, select:focus {
+	border-color: var(--npg-accent);
+	outline: 2px solid var(--npg-accent-soft);
+}
+
+select {
+	padding-right: 1.6rem;
+}
+
+/* a form with unsaved changes: the save button stands out */
+form.dirty button[type=submit], form.dirty input[type=submit],
+form.tinyDirty button[type=submit], form.tinyDirty input[type=submit] {
+	background-image: none;
+	background-color: var(--npg-accent-soft);
+	border-color: var(--npg-accent) !important;
+	color: var(--npg-accent);
+}
+
+form.dirty button[type=submit]:hover, form.dirty input[type=submit]:hover,
+form.tinyDirty button[type=submit]:hover, form.tinyDirty input[type=submit]:hover {
+	background-image: none;
+	background-color: #d5e1fa;
+}
+
+/* tab rows (e.g. language tabs): plain pills instead of folder tabs */
+.ui-tabs-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .4rem;
+	height: auto;
+	margin: 0 0 .9rem;
+	padding: 0;
+	border: 0;
+}
+
+.ui-tabs-nav li, .ui-tabs-nav a {
+	float: none;
+}
+
+.ui-tabs-nav li {
+	margin: 0;
+	border: 0;
+	background: none;
+}
+
+.ui-tabs-nav a {
+	display: block;
+	margin: 0;
+	padding: .3rem .85rem;
+	background: var(--npg-surface-2);
+	border: 1px solid var(--npg-border);
+	border-radius: 999px;
+	color: var(--npg-muted);
+	font-size: .93rem;
+}
+
+.ui-tabs-nav a:hover {
+	background: var(--npg-border-soft);
+	color: var(--npg-text);
+	text-decoration: none;
+}
+
+.ui-tabs-nav .ui-tabs-selected a, .ui-tabs-nav .ui-tabs-active a {
+	background: var(--npg-accent);
+	border-color: var(--npg-accent);
+	color: #fff;
+	padding-top: .3rem;
+	margin: 0;
+}
+
+#footer_left, #footer_right {
+	float: none;
+}
+
+#footer_right a {
+	color: var(--npg-muted);
+	border-bottom: 0;
+	text-decoration: underline;
+}
+
+#footer_right a:hover {
+	color: var(--npg-accent);
+	border-bottom: 0;
+}
+
+/* menu button (shown only on narrow screens) */
+.npg-menu-button {
+	display: none;
+}
+
+/* the version line on the overview: a compact label instead of a full width frame */
+#npgRelease {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: 0 0 1rem;
+	padding: .45rem .95rem;
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border);
+	border-radius: var(--npg-radius);
+	box-shadow: var(--npg-shadow);
+}
+
+#npgRelease h2 {
+	margin: 0;
+	padding: 0;
+	font-size: .93rem;
+	font-weight: 500;
+	line-height: 1.3;
+}
+
+#npgRelease a {
+	color: var(--npg-muted);
+}
+
+#npgRelease a strong {
+	color: var(--npg-text);
+	font-weight: 600;
+}
+
+/* ---------- page specific layouts ---------- */
+/* Overview: the boxes in a flexible grid instead of the original script positioning: three columns when there is room, then two, then one */
+#overviewboxes {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr));
+	gap: 1rem;
+	align-items: start;
+	position: static !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+.overview-section {
+	position: static !important;
+	float: none !important;
+	left: auto !important;
+	top: auto !important;
+	width: auto !important;
+	margin: 0 !important;
+	min-width: 0;
+}
+
+.overview-section h2, .overview-section h3 {
+	font-size: 1rem;
+	padding: .2rem .6rem;
+}
+
+.overview-section ul {
+	width: auto;
+	margin: .4rem .6rem;
+	border-top: 1px solid var(--npg-border-soft);
+}
+
+.overview-section ul li {
+	border-bottom: 1px solid var(--npg-border-soft);
+}
+
+.overview_utility_buttons_field > legend {
+	grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+	.overview_utility_buttons_field {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.overview_utility_buttons {
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	overflow: visible;
+	white-space: normal;
+}
+
+.overview_utility_buttons button {
+	width: 100% !important;
+	justify-content: flex-start;
+	white-space: normal;
+	text-align: left;
+}
+
+/* Theme options: general options and theme options side by side on wide screens, below each other on narrow ones */
+#columns:has(#customOptions) {
+	column-count: auto !important;
+	display: block;
+}
+
+#columns .colwidth {
+	width: 100% !important;
+	max-width: none;
+	box-sizing: border-box;
+}
+
+#columns .colwidth.breakpoint {
+	break-before: auto;
+}
+
+@container npg-content (min-width: 1250px) {
+	#columns:has(#customOptions) {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		grid-template-rows: auto 1fr;
+		grid-auto-flow: column;
+		column-gap: 2rem;
+	}
+}
+
+/* Article and page lists: all icons on one line */
+.page-list_icon {
+	display: inline-block;
+	margin-right: .65rem;
+	vertical-align: middle;
+}
+
+td:has(.page-list_icon) {
+	white-space: nowrap;
+}
+
+td > div:has(> .page-list_icon) {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+/* Tags: three columns across the whole width */
+.tabbox:has(> .floatleft > #tag_action_form) {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25rem;
+	align-items: flex-start;
+}
+
+.tabbox:has(> .floatleft > #tag_action_form) > br {
+	display: none;
+}
+
+.tabbox:has(> .floatleft > #tag_action_form) > .floatleft {
+	float: none;
+	flex: 1 1 22rem;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+.tabbox:has(> .floatleft > #tag_action_form) .tagchecklist,
+.tabbox:has(> .floatleft > #tag_action_form) .tagrenamelist,
+.tabbox:has(> .floatleft > #tag_action_form) .tagnewlist {
+	width: 100%;
+	box-sizing: border-box;
+	height: min(68vh, 44rem);
+}
+
+.tabbox:has(> .floatleft > #tag_action_form) .tagrenamelist input[type=text],
+.tabbox:has(> .floatleft > #tag_action_form) .tagnewlist input[type=text] {
+	width: calc(100% - 1.5rem);
+}
+
+.tagchecklist, .tagrenamelist, .tagnewlist {
+	border: 0;
+}
+
+.tagtext p {
+	width: auto;
+	padding-right: 0;
+}
+
+/* the plugin help popup (loaded into the page by the gallery) */
+#cboxLoadedContent #main {
+	display: block;
+	padding: 0;
+}
+
+#cboxLoadedContent #heading {
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: .6rem;
+	font-weight: 600;
+}
+
+#cboxLoadedContent #google_translate_element {
+	float: none !important;
+	flex: 0 0 auto;
+	min-height: 30px;
+}
+
+#cboxLoadedContent #plugin-content {
+	background: var(--npg-surface-2);
+	border: 1px solid var(--npg-border);
+	border-radius: var(--npg-radius);
+	padding: 1rem 1.25rem;
+}
+
+#cboxLoadedContent #plugin-content h1 {
+	font-size: 1.15rem;
+}
+
+#cboxLoadedContent .border {
+	width: auto;
+	box-sizing: border-box;
+	border-radius: 8px;
+	background: var(--npg-surface) !important;
+}
+
+/* language switch under the side menu: every flag has a cell of the same size, packed without gaps */
+.npg-lang {
+	margin: .4rem .1rem 0;
+	padding: .5rem .25rem .1rem;
+	border-top: 1px solid var(--npg-border);
+}
+
+.npg-lang .flags {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.npg-lang .flags li {
+	display: block;
+	box-sizing: border-box;
+	width: 2.5rem;
+	height: 2rem;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background: transparent;
+}
+
+.npg-lang .flags li > a,
+.npg-lang .flags li.currentLanguage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.navigation .npg-lang .flags li > a {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	border-radius: 0;
+}
+
+.npg-lang .flags li:not(.currentLanguage):hover {
+	border-color: var(--npg-border);
+}
+
+.npg-lang .flags li.currentLanguage {
+	background: var(--npg-accent-soft, #e6edfb);
+	border-color: var(--npg-accent);
+}
+
+.npg-lang .flags img {
+	display: block;
+	margin: 0;
+	border: 0;
+	border-radius: 2px;
+}
+
+#footer_left:empty {
+	display: none;
+}
+
+/* previous / next plugin links on a plugin's settings page */
+p.padded:has(> a[href*="tab=plugin"][href*="single="]),
+p.padded:has(> .floatright > a[href*="tab=plugin"][href*="single="]) {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	margin: .25rem 0;
+}
+
+p.padded > a[href*="tab=plugin"][href*="single="],
+p.padded > .floatright > a[href*="tab=plugin"][href*="single="] {
+	display: inline-flex;
+	align-items: center;
+	gap: .5rem;
+	padding: .35rem .8rem;
+	border: 1px solid var(--npg-border);
+	border-radius: 999px;
+	background: var(--npg-surface);
+	color: var(--npg-text);
+	text-decoration: none;
+	font-size: .9rem;
+	box-shadow: var(--npg-shadow);
+}
+
+p.padded > a[href*="tab=plugin"][href*="single="]::before {
+	content: "\2039";
+	font-size: 1.25rem;
+	line-height: 1;
+	color: var(--npg-accent);
+}
+
+p.padded > .floatright > a[href*="tab=plugin"][href*="single="]::after {
+	content: "\203A";
+	font-size: 1.25rem;
+	line-height: 1;
+	color: var(--npg-accent);
+}
+
+p.padded > a[href*="tab=plugin"][href*="single="]:hover,
+p.padded > .floatright > a[href*="tab=plugin"][href*="single="]:hover {
+	border-color: var(--npg-accent);
+	color: var(--npg-accent);
+}
+
+p.padded > .floatright {
+	float: none;
+	margin-left: auto;
+}
+
+/* user editing: breathing room around the form parts */
+tr.userextrainfo > td {
+	padding: .75rem 1.25rem !important;
+}
+
+/* phones and narrow windows */
+@media (max-width: 900px) {
+#admin_head {
+		padding: .6rem 1rem;
+	}
+body > #main {
+		display: block;
+		padding: .75rem 1rem 1.25rem;
+	}
+.navigation {
+		position: static !important;
+		margin-bottom: 1rem;
+		top: auto !important;
+	}
+/* with the script: the menu is collapsed behind a button */
+.npg-menu-button {
+		display: flex;
+		align-items: center;
+		gap: .5rem;
+		width: 100%;
+		min-height: 44px;
+		padding: .4rem .8rem;
+		font: inherit;
+		font-weight: 600;
+		color: var(--npg-text);
+		background: var(--npg-surface);
+		border: 0;
+		border-radius: 7px;
+		cursor: pointer;
+		text-align: left;
+	}
+.navigation.npg-js > ul {
+		display: none;
+	}
+.navigation.npg-js.npg-open > ul {
+		display: block;
+		margin-top: .3rem;
+	}
+.navigation ul li, .navigation a {
+		height: auto;
+		line-height: 1.4;
+	}
+.navigation a {
+		padding: .7rem .8rem;
+		white-space: normal;
+	}
+/* sub menus below their item instead of beside it */
+.navigation ul ul {
+		display: none;
+		position: static;
+		visibility: visible;
+		width: auto;
+		margin: 0 0 .3rem .8rem !important;
+		padding: 0;
+		border: 0;
+		border-left: 2px solid var(--npg-border);
+		border-radius: 0;
+		box-shadow: none;
+		background: transparent;
+	}
+.navigation ul li.has-sub > ul, .navigation ul ul {
+		background-color: transparent !important;
+	}
+.navigation ul li.has-sub > ul:before {
+		display: none;
+	}
+.navigation ul li:hover > ul {
+		display: none;
+	}
+.navigation ul li.npg-sub-open > ul,
+	.navigation:not(.npg-js) ul li > ul {
+		display: block;
+	}
+.navigation ul li.has-sub > a:after {
+		right: .8rem;
+		top: .7rem;
+	}
+.tabbox {
+		padding: .9rem;
+	}
+h1 {
+		font-size: 1.1rem;
+	}
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=url],
+	input[type=search], input[type=date], textarea, select {
+		min-height: 40px;
+		font-size: 16px; /* stops the automatic zoom on iPhones */
+	}
+input[type=checkbox], input[type=radio] {
+		width: 1.15rem;
+		height: 1.15rem;
+	}
+/* the edit page columns do not fit next to each other */
+.leftcolumn, .rightcolumn, .middlecolumn {
+		min-width: 0;
+		width: auto;
+	}
+#footer {
+		flex-direction: column;
+	}
+}
+
+/* edit pages: the boxes of the right column must fit their column (the original gives them a width in em, which is wider than the column when the text is larger) */
+.box-edit, .box-edit-unpadded, .box-tags-unpadded {
+	box-sizing: border-box;
+	width: auto;
+	max-width: 100%;
+}
+
+/* page and news editing: the fields of the middle column end at the same right edge */
+.width100percent .middlecolumn > input[type=text]:not(.tagsuggest),
+.width100percent .middlecolumn > textarea,
+.width100percent .middlecolumn .tox-tinymce {
+	width: 100% !important;
+	box-sizing: border-box;
+}
+
+/* every control of the edit table ends at the right edge of its cell */
+.width100percent td {
+	padding-right: 0;
+}
+
+.metadata_container,
+.resizeable_tagchecklist,
+.tabs textarea,
+.tabs textarea.codeblock {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.formlayout > .floatleft:last-of-type,
+.formlayout > .floatleft:has(> .rightcolumn) {
+	float: right !important;
+	padding-right: 0;
+}
+
+/* buttons of the page bars: the last one ends where the boxes below end */
+div.floatright[style*="padding-right"] {
+	padding-right: 0 !important;
+}
+
+/* image list of an album: the bar above the list (page size, filter, sort, "what to show" menu) */
+#menu_selector_button {
+	position: relative;
+	float: right;
+	margin: 0 10px 0 .5rem;
+}
+
+#menu_button > a,
+#menu_selections > a {
+	display: inline-block;
+	padding: .3rem .65rem;
+	border: 1px solid var(--npg-border);
+	border-radius: 8px;
+	background: var(--npg-surface);
+	color: var(--npg-text);
+	cursor: pointer;
+	line-height: 1.4;
+	float: none !important;
+	text-decoration: none;
+}
+
+#menu_selections {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 30;
+	padding: .35rem .5rem .5rem;
+	white-space: nowrap;
+	text-align: right;
+	background: var(--npg-surface);
+	border: 1px solid var(--npg-border);
+	border-radius: 8px;
+	box-shadow: var(--npg-shadow);
+}
+
+#menu_selections .floatright {
+	float: none !important;
+	text-align: left;
+	margin-top: .35rem;
+}
+
+form[style*="float: right"][style*="padding-right"] {
+	padding-right: 0 !important;
+}
+
+#tab_imageinfo form[style*="float: right"][style*="padding-right"] {
+	margin-right: 10px;
+}
+
+/* users and groups: the description field is as wide as the boxes below it */
+.user_right > textarea {
+	box-sizing: border-box;
+	width: 460px;
+	max-width: 100%;
+}
+
+/* the bulk action menu has the height of the buttons and sits on the same line as they do */
+#checkallaction {
+	height: 40px;
+}
+
+.headline:has(#checkallaction) {
+	padding: 0;
+	background: none;
+}
+
+.headline > .floatright.padded {
+	padding-right: 0;
+}
+
+/* the filter menus above the lists end at the same right edge as the buttons and the table */
+.floatright > form[style*="float:left"]:last-of-type {
+	margin-right: 0 !important;
+}
+
+/* category and tag lists of the news and page editing fit the column (the original gives them a width in em) */
+.rightcolumn div.zenpagechecklist,
+.rightcolumn #zenpagetags .tagchecklist {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
 }
