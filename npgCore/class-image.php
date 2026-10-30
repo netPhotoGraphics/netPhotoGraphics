@@ -1267,7 +1267,7 @@ class Transientimage extends Image {
 		}
 		$this->filemtime = filemtime($this->localpath);
 		$this->comments = null;
-		$this->instantiate('images', array('filename' => $filename['name'], 'albumid' => $this->album->getID()), 'filename', true, true);
+		$this->instantiate('images', array('filename' => $filename['name'], 'albumid' => $this->album->getID()), null, true, true);
 		$this->exists = false;
 	}
 

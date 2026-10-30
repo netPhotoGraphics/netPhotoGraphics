@@ -2111,7 +2111,7 @@ function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
 			} else {
 				$_current_image_restore = $_current_image;
 				$img = reset($__images);
-				$_current_image = getItemByID('images', $img['id']);
+				$_current_image = newImage($_current_album, $img, true, true);
 				save_context();
 				add_context(NPG_IMAGE);
 				$result = true;
@@ -2119,7 +2119,7 @@ function next_image($all = false, $firstPageCount = NULL, $mine = NULL) {
 		} else {
 			$img = next($__images);
 			if ($img) {
-				$_current_image = getItemByID('images', $img['id']);
+				$_current_image = newImage($_current_album, $img, true, true);
 				$result = true;
 			} else {
 				$__images = NULL;
