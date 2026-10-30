@@ -1112,6 +1112,8 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/publishContent.php
 %extensions%/purgeOptions.php
 %extensions%/qrcode.php
+%extensions%/quality_check.php
+%extensions%/quick_caption.php
 %extensions%/quota_manager.php
 %extensions%/rating.php
 %extensions%/reCAPTCHA_v2.php
@@ -1762,6 +1764,10 @@ plugins/zenphotoCompatibilityPack.php
 %extensions%/qrcode/qrvect.php
 %extensions%/qrcode/README
 %extensions%/qrcode/VERSION
+%extensions%/quality_check
+%extensions%/quality_check/report.php
+%extensions%/quick_caption
+%extensions%/quick_caption/captions.php
 %extensions%/rating
 %extensions%/rating/delete-16.png
 %extensions%/rating/delete-24.png
@@ -2222,6 +2228,7 @@ plugins/zenphotoCompatibilityPack.php
 %core%/images/msdropdown/skin1/dd_arrow.gif
 %core%/images/msdropdown/skin1/title-bg.gif
 %core%/js
+%core%/js/admin-menu.js
 %core%/js/admin.js
 %core%/js/htmlencoder.js
 %core%/js/jquery.mjs.nestedSortable.js
@@ -2421,4 +2428,4 @@ plugins/zenphotoCompatibilityPack.php
 %core%/setup/setup_set-mod_rewrite.php:*
 %core%/setup/setup_themeOptions.php:*
 %core%/setup/setupComplete.php:*
-2423
+2430
