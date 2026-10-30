@@ -459,12 +459,13 @@ function printAdminHeader($tab, $subtab = NULL) {
 						$class = '';
 						$activeTab = $_admin_tab == $key;
 						if ($activeTab) {
-							$class = ' class="active"';
-						} else {
-							if (!empty($alert)) {
-								$class = ' class="nav-alert"';
-							}
+							$class .= 'active';
 						}
+						if (!empty($alert)) {
+							$class .= ' nav-alert';
+						}
+
+						$class = ' class="' . $class . '"';
 						$subtabs = $_admin_menu[$key]['subtabs'];
 						$hasSubtabs = !empty($subtabs) && is_array($subtabs);
 						$loc++;
@@ -5999,7 +6000,6 @@ function getLogTabs() {
 	$names = array_flip($subtabs);
 	natcasesort($names);
 	$subtabs = array_flip($names);
-
 	return array($subtabs, $default, $new);
 }
 

@@ -370,11 +370,6 @@ code {
 	color: black;
 }
 
-.navigation ul li a.nav-alert,
-.navigation ul ul li a.nav-alert{
-	background-color: lightgoldenrodyellow !important;
-}
-
 .navigation ul li a.active,
 .navigation ul ul li a.active {
 	background-color: lightblue !important;
@@ -3591,20 +3586,20 @@ tr.userextrainfo > td {
 
 /* phones and narrow windows */
 @media (max-width: 900px) {
-#admin_head {
+	#admin_head {
 		padding: .6rem 1rem;
 	}
-body > #main {
+	body > #main {
 		display: block;
 		padding: .75rem 1rem 1.25rem;
 	}
-.navigation {
+	.navigation {
 		position: static !important;
 		margin-bottom: 1rem;
 		top: auto !important;
 	}
-/* with the script: the menu is collapsed behind a button */
-.npg-menu-button {
+	/* with the script: the menu is collapsed behind a button */
+	.npg-menu-button {
 		display: flex;
 		align-items: center;
 		gap: .5rem;
@@ -3620,23 +3615,23 @@ body > #main {
 		cursor: pointer;
 		text-align: left;
 	}
-.navigation.npg-js > ul {
+	.navigation.npg-js > ul {
 		display: none;
 	}
-.navigation.npg-js.npg-open > ul {
+	.navigation.npg-js.npg-open > ul {
 		display: block;
 		margin-top: .3rem;
 	}
-.navigation ul li, .navigation a {
+	.navigation ul li, .navigation a {
 		height: auto;
 		line-height: 1.4;
 	}
-.navigation a {
+	.navigation a {
 		padding: .7rem .8rem;
 		white-space: normal;
 	}
-/* sub menus below their item instead of beside it */
-.navigation ul ul {
+	/* sub menus below their item instead of beside it */
+	.navigation ul ul {
 		display: none;
 		position: static;
 		visibility: visible;
@@ -3649,44 +3644,44 @@ body > #main {
 		box-shadow: none;
 		background: transparent;
 	}
-.navigation ul li.has-sub > ul, .navigation ul ul {
+	.navigation ul li.has-sub > ul, .navigation ul ul {
 		background-color: transparent !important;
 	}
-.navigation ul li.has-sub > ul:before {
+	.navigation ul li.has-sub > ul:before {
 		display: none;
 	}
-.navigation ul li:hover > ul {
+	.navigation ul li:hover > ul {
 		display: none;
 	}
-.navigation ul li.npg-sub-open > ul,
+	.navigation ul li.npg-sub-open > ul,
 	.navigation:not(.npg-js) ul li > ul {
 		display: block;
 	}
-.navigation ul li.has-sub > a:after {
+	.navigation ul li.has-sub > a:after {
 		right: .8rem;
 		top: .7rem;
 	}
-.tabbox {
+	.tabbox {
 		padding: .9rem;
 	}
-h1 {
+	h1 {
 		font-size: 1.1rem;
 	}
-input[type=text], input[type=password], input[type=email], input[type=number], input[type=url],
+	input[type=text], input[type=password], input[type=email], input[type=number], input[type=url],
 	input[type=search], input[type=date], textarea, select {
 		min-height: 40px;
 		font-size: 16px; /* stops the automatic zoom on iPhones */
 	}
-input[type=checkbox], input[type=radio] {
+	input[type=checkbox], input[type=radio] {
 		width: 1.15rem;
 		height: 1.15rem;
 	}
-/* the edit page columns do not fit next to each other */
-.leftcolumn, .rightcolumn, .middlecolumn {
+	/* the edit page columns do not fit next to each other */
+	.leftcolumn, .rightcolumn, .middlecolumn {
 		min-width: 0;
 		width: auto;
 	}
-#footer {
+	#footer {
 		flex-direction: column;
 	}
 }
