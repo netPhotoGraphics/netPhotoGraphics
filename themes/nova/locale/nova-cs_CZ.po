@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Nova 1.0\n"
+"Project-Id-Version: Nova 1.1\n"
 "POT-Creation-Date: 2026-10-24 12:00+0200\n"
 "PO-Revision-Date: 2026-10-24 12:00+0200\n"
 "Last-Translator: \n"
@@ -170,3 +170,21 @@ msgstr "Počet novinek na úvodní stránce"
 
 msgid "1 to 3 latest news below the photos (needs the \"Latest news on Homepage\" option)."
 msgstr "1 až 3 nejnovější novinky pod fotografiemi (vyžaduje volbu „Nejnovější novinky na úvodní stránce“)."
+
+msgid "Skip to content"
+msgstr "Přeskočit na obsah"
+
+msgid "Installable app (PWA)"
+msgstr "Instalovatelná aplikace (PWA)"
+
+msgid "Lets visitors install the gallery on a phone or computer (\"Add to home screen\"). Only the theme files are stored on the device, never pages or photos of the private gallery. Needs https."
+msgstr "Umožní nainstalovat galerii na telefon nebo počítač („Přidat na plochu“). V zařízení se ukládají jen soubory vzhledu, nikdy stránky ani fotografie soukromé galerie. Vyžaduje https."
+
+msgid "You are offline"
+msgstr "Nejste připojeni k internetu"
+
+msgid "The gallery is private, so its pages and photos are never stored on this device. Check the connection and try again."
+msgstr "Galerie je soukromá, takže její stránky a fotografie se v tomto zařízení neukládají. Zkontrolujte připojení a zkuste to znovu."
+
+msgid "Try again"
+msgstr "Zkusit znovu"

@@ -38,7 +38,6 @@ function newImage($album, $filename = NULL, $quiet = false) {
 		$xalbum = $album;
 		$dyn = false;
 	}
-
 	if (!is_object($xalbum) || !$xalbum->exists || !isAlbumClass($xalbum)) {
 		$msg = sprintf(gettext('Bad album object parameter to newImage(%s)'), $filename);
 	} else {
@@ -49,6 +48,8 @@ function newImage($album, $filename = NULL, $quiet = false) {
 				$image->albumlink = $album->linkname;
 				$image->albumnamealbum = $album;
 			}
+
+
 			npgFilters::apply('image_instantiate', $image);
 			if ($image->exists) {
 				return $image;
@@ -124,7 +125,7 @@ class Image extends MediaObject {
 		// This is where the magic happens...
 		$this->album = $album;
 		$album_name = $album->name;
-		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), 'filename', false, empty($album_name));
+		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), null, false, empty($album_name));
 		$this->checkForPublish();
 		if ($new || $this->filemtime != $this->get('mtime')) {
 			if ($new) {

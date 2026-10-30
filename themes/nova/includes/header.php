@@ -146,6 +146,7 @@ switch ($_gallery_page) {
 
     <body class="page-<?php echo basename($_gallery_page, '.php'); ?><?php echo !empty($isHomePage) ? ' is-home' : ''; ?>">
         <?php npgFilters::apply('theme_body_open'); ?>
+        <a class="skip-link" href="#main"><?php echo gettext('Skip to content'); ?></a>
 
         <header class="site-header">
             <div class="site-header__inner">
@@ -248,4 +249,4 @@ switch ($_gallery_page) {
             </dialog>
         <?php } ?>
 
-        <main class="site-main">
+        <main class="site-main" id="main" tabindex="-1">

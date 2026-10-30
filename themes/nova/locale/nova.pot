@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Nova 1.0\n"
+"Project-Id-Version: Nova 1.1\n"
 "POT-Creation-Date: 2026-10-24 12:00+0200\n"
 "PO-Revision-Date: 2026-10-24 12:00+0200\n"
 "Last-Translator: \n"
@@ -169,4 +169,22 @@ msgid "Number of news on the home page"
 msgstr ""
 
 msgid "1 to 3 latest news below the photos (needs the \"Latest news on Homepage\" option)."
+msgstr ""
+
+msgid "Skip to content"
+msgstr ""
+
+msgid "Installable app (PWA)"
+msgstr ""
+
+msgid "Lets visitors install the gallery on a phone or computer (\"Add to home screen\"). Only the theme files are stored on the device, never pages or photos of the private gallery. Needs https."
+msgstr ""
+
+msgid "You are offline"
+msgstr ""
+
+msgid "The gallery is private, so its pages and photos are never stored on this device. Check the connection and try again."
+msgstr ""
+
+msgid "Try again"
 msgstr ""

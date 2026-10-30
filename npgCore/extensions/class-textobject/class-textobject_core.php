@@ -51,7 +51,7 @@ class TextObject_core extends Image {
 		$this->sidecars = $_supported_images;
 		$this->objectsThumb = checkObjectsThumb($this->localpath);
 		$this->updateDimensions();
-		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()), 'filename');
+		$new = $this->instantiate('images', array('filename' => $filename, 'albumid' => $this->album->getID()));
 		if ($new || $this->filemtime != $this->get('mtime')) {
 			if ($new)
 				$this->setTitle($this->displayname);

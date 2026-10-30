@@ -42851,3 +42851,274 @@ msgstr "Počet novinek na úvodní stránce"
 
 msgid "1 to 3 latest news below the photos (needs the \"Latest news on Homepage\" option)."
 msgstr "1 až 3 nejnovější novinky pod fotografiemi (vyžaduje volbu „Nejnovější novinky na úvodní stránce“)."
+
+msgid "Skip to content"
+msgstr "Přeskočit na obsah"
+
+msgid "Installable app (PWA)"
+msgstr "Instalovatelná aplikace (PWA)"
+
+msgid "Lets visitors install the gallery on a phone or computer (\"Add to home screen\"). Only the theme files are stored on the device, never pages or photos of the private gallery. Needs https."
+msgstr "Umožní nainstalovat galerii na telefon nebo počítač („Přidat na plochu“). V zařízení se ukládají jen soubory vzhledu, nikdy stránky ani fotografie soukromé galerie. Vyžaduje https."
+
+msgid "You are offline"
+msgstr "Nejste připojeni k internetu"
+
+msgid "The gallery is private, so its pages and photos are never stored on this device. Check the connection and try again."
+msgstr "Galerie je soukromá, takže její stránky a fotografie se v tomto zařízení neukládají. Zkontrolujte připojení a zkuste to znovu."
+
+msgid "Try again"
+msgstr "Zkusit znovu"
+
+msgid "Read-only data quality report: incomplete GPS data, missing titles, dates and tags, empty albums."
+msgstr "Přehled kvality dat (jen pro čtení): neúplné GPS údaje, chybějící názvy, data a štítky, prázdná alba."
+
+msgid "Data quality"
+msgstr "Kvalita dat"
+
+msgid "GPS: only one coordinate"
+msgstr "GPS: jen jedna souřadnice"
+
+msgid "Latitude or longitude is empty or zero while the other one is filled in. Such a photo would land in a wrong place (e.g. in Africa) and is not shown by the theme or plugin maps."
+msgstr "Zeměpisná šířka nebo délka je prázdná či nulová, zatímco druhá je vyplněná. Taková fotka by skončila na špatném místě (např. v Africe) a vzhled ani plugin ji na mapě nezobrazí."
+
+msgid "GPS: coordinates 0, 0"
+msgstr "GPS: souřadnice 0, 0"
+
+msgid "Both coordinates are present but zero (the camera had no GPS fix)."
+msgstr "Obě souřadnice jsou vyplněné, ale nulové (fotoaparát neměl GPS signál)."
+
+msgid "GPS: out of range"
+msgstr "GPS: mimo povolený rozsah"
+
+msgid "Latitude outside -90 to 90 or longitude outside -180 to 180."
+msgstr "Šířka mimo -90 až 90 nebo délka mimo -180 až 180."
+
+msgid "GPS: no other photo of the album within %d km"
+msgstr "GPS: žádná další fotka alba do %d km"
+
+msgid "The photo is far from all other geotagged photos of its album (albums with at least 3 geotagged photos). Typical for a wrong coordinate or a photo placed in the wrong album."
+msgstr "Fotka je daleko od všech ostatních fotek alba s GPS (alba s alespoň 3 takovými fotkami). Typické pro chybnou souřadnici nebo fotku ve špatném albu."
+
+msgid "Photos without a title"
+msgstr "Fotky bez názvu"
+
+msgid "The title is empty or just the file name."
+msgstr "Název je prázdný nebo shodný s názvem souboru."
+
+msgid "Photos without a usable date"
+msgstr "Fotky bez použitelného data"
+
+msgid "The date is empty, 0000-00-00 or outside the years 1850 - next year. Scanned photos often have no date; the date is needed for sorting and the archive."
+msgstr "Datum je prázdné, 0000-00-00 nebo mimo roky 1850 až příští rok. Skenované fotky často datum nemají; datum se používá pro řazení a archiv."
+
+msgid "Photos without tags"
+msgstr "Fotky bez štítků"
+
+msgid "The photo has no tag at all."
+msgstr "Fotka nemá žádný štítek."
+
+msgid "Hidden (not published) photos"
+msgstr "Skryté (nepublikované) fotky"
+
+msgid "Photos that visitors cannot see."
+msgstr "Fotky, které návštěvníci nevidí."
+
+msgid "Albums without a description"
+msgstr "Alba bez popisu"
+
+msgid "The description of the album is empty."
+msgstr "Popis alba je prázdný."
+
+msgid "Empty albums"
+msgstr "Prázdná alba"
+
+msgid "No photos and no sub-albums in the database."
+msgstr "V databázi nejsou žádné fotky ani podalba."
+
+msgid "Hidden (not published) albums"
+msgstr "Skrytá (nepublikovaná) alba"
+
+msgid "Albums that visitors cannot see."
+msgstr "Alba, která návštěvníci nevidí."
+
+msgid "Back to the overview"
+msgstr "Zpět na přehled"
+
+msgid "Distance limit"
+msgstr "Limit vzdálenosti"
+
+msgid "Photo"
+msgstr "Fotka"
+
+msgid "Data"
+msgstr "Údaje"
+
+msgid "Page %1$d of %2$d"
+msgstr "Strana %1$d z %2$d"
+
+msgid "Nothing found. All good."
+msgstr "Nic nenalezeno. Vše v pořádku."
+
+msgid "Read-only report. Nothing is changed in the database. Click a number to see the list with links to edit each item."
+msgstr "Přehled jen pro čtení, v databázi se nic nemění. Kliknutím na číslo zobrazíte seznam s odkazy na úpravu jednotlivých položek."
+
+msgid "Generated in %s s."
+msgstr "Vygenerováno za %s s."
+
+msgid "nearest photo of the album: %d km"
+msgstr "nejbližší fotka alba: %d km"
+
+msgid "Albums with photos from several years"
+msgstr "Alba s fotkami z více let"
+
+msgid "The valid photo dates of the album span at least the chosen number of years (e.g. 2003 and 2011). Typically a photo that belongs to another event, or a wrong date. Photos without a usable date are ignored."
+msgstr "Platná data fotek v albu se liší alespoň o zvolený počet let (např. 2003 a 2011). Typicky jde o fotku z jiné akce nebo o chybné datum. Fotky bez použitelného data se nezapočítávají."
+
+msgid "Albums where at least %d %% of photos have no title"
+msgstr "Alba, kde alespoň %d %% fotek nemá název"
+
+msgid "A photo counts as untitled when its title is empty or the same as its file name. Typical for freshly uploaded scans that still wait for captions."
+msgstr "Fotka se považuje za nepojmenovanou, když je její název prázdný nebo shodný s názvem souboru. Typické pro čerstvě nahrané skeny, které čekají na popisky."
+
+msgid "Year span at least"
+msgstr "Rozsah let alespoň"
+
+msgid "Share of untitled photos at least"
+msgstr "Podíl nepojmenovaných fotek alespoň"
+
+msgid "%1$d of %2$d photos without a title (%3$d %%)"
+msgstr "%1$d z %2$d fotek bez názvu (%3$d %%)"
+
+msgid "Albums where no photo has GPS coordinates"
+msgstr "Alba, kde žádná fotka nemá GPS souřadnice"
+
+msgid "The album contains photos, but none of them has both coordinates. Sorted by the number of photos, so the biggest gaps come first - a good place to add coordinates in bulk."
+msgstr "Album obsahuje fotky, ale žádná z nich nemá obě souřadnice. Řazeno podle počtu fotek, největší mezery jsou nahoře - vhodné místo pro hromadné doplnění souřadnic."
+
+msgid "%d photos"
+msgstr "%d fotek"
+
+msgid "Fast captioning: one photo at a time, type the title and description, press Enter, the next photo appears."
+msgstr "Rychlé popisování: jedna fotka za druhou, napíšete název a popisek, stisknete Enter a objeví se další fotka."
+
+msgid "Quick captions"
+msgstr "Rychlé popisování"
+
+msgid "Show photos"
+msgstr "Zobrazit fotky"
+
+msgid "without a title"
+msgstr "bez názvu"
+
+msgid "without a description"
+msgstr "bez popisku"
+
+msgid "all albums"
+msgstr "všechna alba"
+
+msgid "%s photos left"
+msgstr "zbývá %s fotek"
+
+msgid "Saved."
+msgstr "Uloženo."
+
+msgid "No more photos after this one. Start from the beginning:"
+msgstr "Za touto fotkou už nic nezbývá. Začít od začátku:"
+
+msgid "first photo"
+msgstr "první fotka"
+
+msgid "Nothing to do - all photos in this selection have the text."
+msgstr "Není co dělat - všechny fotky ve výběru už text mají."
+
+msgid "%d left in this album"
+msgstr "v tomto albu zbývá %d"
+
+msgid "Previous photo of the album"
+msgstr "Předchozí fotka alba"
+
+msgid "use it"
+msgstr "použít"
+
+msgid "Save and next"
+msgstr "Uložit a další"
+
+msgid "Skip"
+msgstr "Přeskočit"
+
+msgid "Enter in the title saves and shows the next photo. Ctrl+Enter does the same from the description."
+msgstr "Enter v názvu uloží a zobrazí další fotku. Ctrl+Enter udělá totéž z popisku."
+
+msgid "without tags"
+msgstr "bez štítků"
+
+msgid "type a tag, Enter adds it"
+msgstr "napište štítek, Enter ho přidá"
+
+msgid "Most used tags"
+msgstr "Nejpoužívanější štítky"
+
+msgid "Tags of the previous photo"
+msgstr "Štítky předchozí fotky"
+
+msgid "use them"
+msgstr "použít je"
+
+msgid "Open full editing"
+msgstr "Otevřít plnou editaci"
+
+msgid "Open in gallery"
+msgstr "Otevřít v galerii"
+
+msgid "Modern, clean look of the administration that also works on a phone. Appearance only, nothing else is changed."
+msgstr "Moderní, přehledný vzhled administrace, který funguje i na mobilu. Mění se pouze vzhled, nic jiného."
+
+msgid "a title that is only the file name counts as missing"
+msgstr "název shodný se jménem souboru se považuje za chybějící"
+
+msgid "All photos of the selected album and its sub-albums that still need the text, including the one shown."
+msgstr "Všechny fotky vybraného alba a jeho podalb, které ještě potřebují text, včetně té zobrazené."
+
+msgid "In this selection: %s photos to do"
+msgstr "Ve výběru zbývá fotek: %s"
+
+msgid "%d photos to do in this album"
+msgstr "V tomto albu zbývá fotek: %d"
+
+msgid "The gallery is not multi-lingual, so there is no language to choose: the text is saved as plain text. Switch it on in Options > General > multi-lingual."
+msgstr "Galerie není vícejazyčná, takže se nevybírá jazyk: text se ukládá jako obyčejný text. Zapnete to v Možnosti > Obecné > vícejazyčné."
+
+msgid "single language (no language selection)"
+msgstr "jeden jazyk (bez výběru jazyka)"
+
+msgid "Language of the texts: %s"
+msgstr "Jazyk textů: %s"
+
+msgid "single-language gallery"
+msgstr "galerie s jedním jazykem"
+
+msgid "Only one language is enabled, so there is nothing to choose. More languages can be enabled in Options > General."
+msgstr "Je povolený jen jeden jazyk, takže není z čeho vybírat. Další jazyky lze povolit v Možnosti > Obecné."
+
+msgid "visual editor (TinyMCE) for the description"
+msgstr "vizuální editor (TinyMCE) pro popisek"
+
+msgid "Visual editor for the description"
+msgstr "Vizuální editor pro popisek"
+
+msgid "Edit the description with the TinyMCE editor of the gallery (needs the tinymce plugin enabled and a configuration selected for \"Text editor configuration - gallery\"). It can also be switched on and off on the Quick captions page itself. The plain text field is faster for short texts."
+msgstr "Upravovat popisek editorem TinyMCE z galerie (potřebuje zapnutý plugin tinymce a vybranou konfiguraci v „Konfigurace textového editoru - galerie“). Lze ho zapnout a vypnout i přímo na stránce Rychlé popisování. Prosté textové pole je pro krátké texty rychlejší."
+
+msgid "Change it in Options > Plugins > quick_caption."
+msgstr "Změna v Možnosti > Pluginy > quick_caption."
+
+msgid "File name counts as missing title"
+msgstr "Název shodný se jménem souboru je chybějící"
+
+msgid "A title that is only the file name of the photo counts as missing (when looking for photos without a title). Switch it off if you use file names as titles on purpose."
+msgstr "Název fotky, který je jen jménem souboru, se považuje za chybějící (při hledání fotek bez názvu). Vypněte, pokud názvy shodné se jmény souborů používáte záměrně."
+
+msgid "Edit the description with the TinyMCE editor of the gallery (needs the tinymce plugin enabled and a configuration selected for \"Text editor configuration - gallery\"). The plain text field is faster for short texts."
+msgstr "Upravovat popisek editorem TinyMCE z galerie (potřebuje zapnutý plugin tinymce a vybranou konfiguraci v „Konfigurace textového editoru - galerie“). Prosté textové pole je pro krátké texty rychlejší."
+
