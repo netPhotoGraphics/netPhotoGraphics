@@ -65,7 +65,7 @@ class favoritesAlbum extends favorites {
 			}
 		}
 
-		$new = $this->instantiate('albums', array('folder' => $this->name), null, $cache);
+		$new = $this->instantiate('albums', array('folder' => $this->name), 'folder', $cache);
 		$title = $this->getTitle('all');
 		$desc = $this->getDesc('all');
 
