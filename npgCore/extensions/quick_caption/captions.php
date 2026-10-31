@@ -148,7 +148,7 @@ function qcap_url($params = array()) {
 	global $mode, $folder, $lang;
 	$params = array_merge(array('page' => 'admin', 'tab' => 'captions', 'mode' => $mode),
 					$lang !== '' ? array('lang' => $lang) : array(), $folder !== '' ? array('album' => $folder) : array(), $params);
-	return getAdminLink(USER_PLUGIN_FOLDER . '/quick_caption/captions.php') . '?' . http_build_query($params);
+	return getAdminLink(PLUGIN_FOLDER . '/quick_caption/captions.php') . '?' . http_build_query($params);
 }
 
 if ($mode == 'desc') {
