@@ -16,12 +16,12 @@ if (!in_array($km, $distances)) {
 	$km = 100;
 }
 
-$yearChoices = array(1, 2, 5, 10); //	album check: photos span at least N years (1 = any two different years)
+$yearChoices = array(1, 2, 5, 10); //	album check: images span at least N years (1 = any two different years)
 $yrs = isset($_GET['yrs']) ? (int) $_GET['yrs'] : 1;
 if (!in_array($yrs, $yearChoices)) {
 	$yrs = 1;
 }
-$pctChoices = array(50, 60, 70, 80, 90, 100); //	album check: share of untitled photos
+$pctChoices = array(50, 60, 70, 80, 90, 100); //	album check: share of untitled images
 $pct = isset($_GET['pct']) ? (int) $_GET['pct'] : 90;
 if (!in_array($pct, $pctChoices)) {
 	$pct = 90;
@@ -63,7 +63,7 @@ function qc_base($al) {
 	return "LEFT($al.`filename`, GREATEST(CHAR_LENGTH($al.`filename`) - CHAR_LENGTH(SUBSTRING_INDEX($al.`filename`, '.', -1)) - 1, 0))";
 }
 
-/* photo without a real title: empty, or the same as the file name */
+/* image without a real title: empty, or the same as the file name */
 
 function qc_untitled($al) {
 	$b = qc_base($al);
@@ -72,7 +72,7 @@ function qc_untitled($al) {
 					" OR ($al.`title` LIKE 'a:1:{%' AND ($al.`title` LIKE '%\"\";}' OR $al.`title` LIKE CONCAT('%\"', $b, '\";}') OR $al.`title` LIKE CONCAT('%\"', $al.`filename`, '\";}'))))";
 }
 
-/* photo with a usable date */
+/* image with a usable date */
 
 function qc_dated($al) {
 	return "($al.`date` IS NOT NULL AND $al.`date` >= '1850-01-01' AND $al.`date` <= DATE_ADD(NOW(), INTERVAL 1 YEAR))";
@@ -83,7 +83,7 @@ $totalCnt = "(SELECT COUNT(*) FROM $I AS x WHERE x.`albumid` = a.`id`)";
 $yearMin = "(SELECT MIN(YEAR(x.`date`)) FROM $I AS x WHERE x.`albumid` = a.`id` AND " . qc_dated('x') . ")";
 $yearMax = "(SELECT MAX(YEAR(x.`date`)) FROM $I AS x WHERE x.`albumid` = a.`id` AND " . qc_dated('x') . ")";
 
-/* distance in km between photo i and photo h (flat approximation, good enough for a 25-1000 km limit) */
+/* distance in km between image i and image h (flat approximation, good enough for a 25-1000 km limit) */
 $dist = '111.2 * SQRT(POW(' . qc_lat('h') . ' - ' . qc_lat('i') . ', 2) + POW((' . qc_lon('h') . ' - ' . qc_lon('i') . ') * COS(RADIANS(' . qc_lat('i') . ')), 2))';
 $sameAlbum = "h.`albumid` = i.`albumid` AND h.`id` <> i.`id` AND " . qc_has('h');
 $farWhere = qc_has('i') . " AND (SELECT COUNT(*) FROM $I AS x WHERE x.`albumid` = i.`albumid` AND " . qc_has('x') . ") >= 3" .
@@ -95,7 +95,7 @@ $farExtra = array('km' => "(SELECT ROUND(MIN($dist)) FROM $I AS h WHERE $sameAlb
  */
 $checks = array(
 		'gps_half' => array('image', gettext('GPS: only one coordinate'),
-				gettext('Latitude or longitude is empty or zero while the other one is filled in. Such a photo would land in a wrong place (e.g. in Africa) and is not shown by the theme or plugin maps.'),
+				gettext('Latitude or longitude is empty or zero while the other one is filled in. Such a image would land in a wrong place (e.g. in Africa) and is not shown by the theme or plugin maps.'),
 				"($hasLat AND NOT $hasLon) OR ($hasLon AND NOT $hasLat)"),
 		'gps_zero' => array('image', gettext('GPS: coordinates 0, 0'),
 				gettext('Both coordinates are present but zero (the camera had no GPS fix).'),
@@ -103,29 +103,29 @@ $checks = array(
 		'gps_range' => array('image', gettext('GPS: out of range'),
 				gettext('Latitude outside -90 to 90 or longitude outside -180 to 180.'),
 				"$hasLat AND $hasLon AND (ABS($LAT) > 90 OR ABS($LON) > 180)"),
-		'gps_far' => array('image', sprintf(gettext('GPS: no other photo of the album within %d km'), $km),
-				gettext('The photo is far from all other geotagged photos of its album (albums with at least 3 geotagged photos). Typical for a wrong coordinate or a photo placed in the wrong album.'),
+		'gps_far' => array('image', sprintf(gettext('GPS: no other image of the album within %d km'), $km),
+				gettext('The image is far from all other geotagged images of its album (albums with at least 3 geotagged images). Typical for a wrong coordinate or a image placed in the wrong album.'),
 				$farWhere, $farExtra),
 		'no_date' => array('image', gettext('Photos without a usable date'),
-				gettext('The date is empty, 0000-00-00 or outside the years 1850 - next year. Scanned photos often have no date; the date is needed for sorting and the archive.'),
+				gettext('The date is empty, 0000-00-00 or outside the years 1850 - next year. Scanned images often have no date; the date is needed for sorting and the archive.'),
 				"(i.`date` IS NULL OR i.`date` < '1850-01-01' OR i.`date` > DATE_ADD(NOW(), INTERVAL 1 YEAR))"),
 		'no_tags' => array('image', gettext('Photos without tags'),
-				gettext('The photo has no tag at all.'),
+				gettext('The image has no tag at all.'),
 				"NOT EXISTS (SELECT 1 FROM $T AS t WHERE t.`type` = 'images' AND t.`objectid` = i.`id`)"),
-		'hidden_img' => array('image', gettext('Hidden (not published) photos'),
+		'hidden_img' => array('image', gettext('Hidden (not published) images'),
 				gettext('Photos that visitors cannot see.'),
 				"i.`show` = 0"),
 		'alb_no_desc' => array('album', gettext('Albums without a description'),
 				gettext('The description of the album is empty.'),
 				"(a.`desc` IS NULL OR TRIM(a.`desc`) = '')"),
-		'alb_untitled' => array('album', sprintf(gettext('Albums where at least %d %% of photos have no title'), $pct),
-				gettext('A photo counts as untitled when its title is empty or the same as its file name. Typical for freshly uploaded scans that still wait for captions.'),
+		'alb_untitled' => array('album', sprintf(gettext('Albums where at least %d %% of images have no title'), $pct),
+				gettext('A image counts as untitled when its title is empty or the same as its file name. Typical for freshly uploaded scans that still wait for captions.'),
 				"$totalCnt > 0 AND $untitledCnt * 100 >= " . (int) $pct . " * $totalCnt", array('cnt' => $untitledCnt, 'total' => $totalCnt)),
-		'alb_no_gps' => array('album', gettext('Albums where no photo has GPS coordinates'),
-				gettext('The album contains photos, but none of them has both coordinates. Sorted by the number of photos, so the biggest gaps come first - a good place to add coordinates in bulk.'),
+		'alb_no_gps' => array('album', gettext('Albums where no image has GPS coordinates'),
+				gettext('The album contains images, but none of them has both coordinates. Sorted by the number of images, so the biggest gaps come first - a good place to add coordinates in bulk.'),
 				"$totalCnt > 0 AND NOT EXISTS (SELECT 1 FROM $I AS i WHERE i.`albumid` = a.`id` AND " . qc_has('i') . ")", array('total' => $totalCnt), "total DESC, a.`folder`"),
 		'alb_empty' => array('album', gettext('Empty albums'),
-				gettext('No photos and no sub-albums in the database.'),
+				gettext('No images and no sub-albums in the database.'),
 				"NOT EXISTS (SELECT 1 FROM $I AS x WHERE x.`albumid` = a.`id`) AND NOT EXISTS (SELECT 1 FROM $A AS y WHERE y.`parentid` = a.`id`)"),
 		'alb_hidden' => array('album', gettext('Hidden (not published) albums'),
 				gettext('Albums that visitors cannot see.'),
@@ -201,28 +201,38 @@ printAdminHeader('overview', 'quality');
 					<p><a href="<?php echo html_encode(qc_url()); ?>">&laquo; <?php echo gettext('Back to the overview'); ?></a></p>
 					<h2><?php echo html_encode($def[1]); ?> (<?php echo number_format($total, 0, ',', "\xC2\xA0"); ?>)</h2>
 					<p class="help"><?php echo html_encode($def[2]); ?></p>
-					<?php if ($selected == 'gps_far') { ?>
+					<?php
+					if ($selected == 'gps_far') {
+						?>
 						<p><?php echo gettext('Distance limit'); ?>:
-							<?php foreach ($distances as $d) { ?>
-								<?php echo $d == $km ? '<strong>' . $d . ' km</strong>' : '<a href="' . html_encode(qc_url(array('check' => $selected, 'km' => $d))) . '">' . $d . ' km</a>'; ?>
-							<?php } ?>
+							<?php
+							foreach ($distances as $d) {
+								echo $d == $km ? '<strong>' . $d . ' km</strong>' : '<a href="' . html_encode(qc_url(array('check' => $selected, 'km' => $d))) . '">' . $d . ' km</a>';
+							}
+							?>
 						</p>
-					<?php } ?>
-					<?php if (false) { ?>
+						<?php
+					}
+					if (false) {
+						?>
 						<p><?php echo gettext('Year span at least'); ?>:
 							<?php foreach ($yearChoices as $d) { ?>
 								<?php echo $d == $yrs ? '<strong>' . $d . '</strong>' : '<a href="' . html_encode(qc_url(array('check' => $selected, 'yrs' => $d))) . '">' . $d . '</a>'; ?>
 							<?php } ?>
 						</p>
-					<?php } ?>
-					<?php if ($selected == 'alb_untitled') { ?>
-						<p><?php echo gettext('Share of untitled photos at least'); ?>:
-							<?php foreach ($pctChoices as $d) { ?>
-								<?php echo $d == $pct ? '<strong>' . $d . ' %</strong>' : '<a href="' . html_encode(qc_url(array('check' => $selected, 'pct' => $d))) . '">' . $d . ' %</a>'; ?>
-							<?php } ?>
+						<?php
+					}
+					if ($selected == 'alb_untitled') {
+						?>
+						<p><?php echo gettext('Share of untitled images at least'); ?>:
+							<?php
+							foreach ($pctChoices as $d) {
+								echo $d == $pct ? '<strong>' . $d . ' %</strong>' : '<a href="' . html_encode(qc_url(array('check' => $selected, 'pct' => $d))) . '">' . $d . ' %</a>';
+							}
+							?>
 						</p>
-					<?php } ?>
-					<?php
+						<?php
+					}
 					$rows = $total ? query_full_array(qc_sql($selected, $def, 'list', $perPage, ($pageNo - 1) * $perPage)) : array();
 					if ($rows) {
 						?>
@@ -235,30 +245,45 @@ printAdminHeader('overview', 'quality');
 							</tr>
 							<?php
 							foreach ($rows as $r) {
-								$editAlbum = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($r['folder']);
+								$edit = getAdminLink('admin-tabs/edit.php') . '?page=edit&album=' . pathurlencode($r['folder']);
 								if ($def[0] == 'album') {
-									$edit = $editAlbum;
 									$data = '';
 									if ($selected == 'alb_years') {
 										$data = (int) $r['ymin'] . ' - ' . (int) $r['ymax'];
 									} else if ($selected == 'alb_no_gps') {
-										$data = sprintf(gettext('%d photos'), (int) $r['total']);
+										$data = sprintf(gettext('%d images'), (int) $r['total']);
 									} else if ($selected == 'alb_untitled') {
-										$data = sprintf(gettext('%1$d of %2$d photos without a title (%3$d %%)'), (int) $r['cnt'], (int) $r['total'], round(100 * $r['cnt'] / max(1, $r['total'])));
+										$data = sprintf(gettext('%1$d of %2$d images without a title (%3$d %%)'), (int) $r['cnt'], (int) $r['total'], round(100 * $r['cnt'] / max(1, $r['total'])));
 									}
 									?>
 									<tr>
-										<td><?php echo html_encode($r['folder']); ?><?php echo $r['title'] ? ' &ndash; ' . html_encode(qc_text($r['title'])) : ''; ?></td>
-										<?php if (isset($def[4])) { ?><td><?php echo html_encode($data); ?></td><?php } ?>
-										<td class="n"><a href="<?php echo html_encode($edit); ?>"><?php echo gettext('Edit'); ?></a></td>
+										<td>
+											<?php
+											echo html_encode($r['folder']);
+											if ($r['title']) {
+												echo ' (<em>' . html_encode(qc_text($r['title'])) . '</em>)';
+											}
+											?>
+										</td>
+										<?php
+										if (isset($def[4])) {
+											?><td>
+												<?php echo html_encode($data); ?>
+											</td>
+											<?php
+										}
+										?>
+										<td class="n">
+											<a href="<?php echo html_encode($edit); ?>"><?php echo gettext('Edit'); ?></a>
+										</td>
 									</tr>
 									<?php
 								} else {
-									$edit = $editAlbum . '&singleimage=' . urlencode($r['filename']);
+									$edit .= '&tab=imageinfo&subpage=1&singleimage=' . urlencode($r['filename']);
 									if (strpos($selected, 'gps') === 0) {
 										$data = 'GPS: ' . trim($r['lat']) . ' ; ' . trim($r['lon']);
 										if (isset($r['km'])) {
-											$data .= ' (' . sprintf(gettext('nearest photo of the album: %d km'), (int) $r['km']) . ')';
+											$data .= ' (' . sprintf(gettext('nearest image of the album: %d km'), (int) $r['km']) . ')';
 										}
 									} else if ($selected == 'no_date') {
 										$data = (string) $r['date'];
@@ -291,10 +316,12 @@ printAdminHeader('overview', 'quality');
 							}
 							?>
 						</p>
-					<?php } else { ?>
+						<?php
+					} else {
+						?>
 						<p class="ok"><?php echo gettext('Nothing found. All good.'); ?></p>
-					<?php } ?>
-					<?php
+						<?php
+					}
 				} else {
 					$groups = array('image' => gettext('Photos'), 'album' => gettext('Albums'));
 					?>
@@ -314,22 +341,32 @@ printAdminHeader('overview', 'quality');
 								?>
 								<tr>
 									<td class="n <?php echo $n ? ($info ? '' : 'warn') : 'ok'; ?>">
-										<?php if ($n) { ?><a href="<?php echo html_encode(qc_url(array('check' => $key))); ?>"><?php echo number_format($n, 0, ',', "\xC2\xA0"); ?></a><?php } else { ?>&#10003;&nbsp;0<?php } ?>
+										<?php
+										if ($n) {
+											?>
+											<a href="<?php echo html_encode(qc_url(array('check' => $key))); ?>"><?php echo number_format($n, 0, ',', "\xC2\xA0"); ?></a>
+											<?php
+										} else {
+											?>
+											&#10003;&nbsp;0
+											<?php
+										}
+										?>
 									</td>
 									<td><strong><?php echo html_encode($def[1]); ?></strong><br /><span class="help"><?php echo html_encode($def[2]); ?></span></td>
 								</tr>
-								<?php
-							}
-							?>
+			<?php
+		}
+		?>
 						</table>
-						<?php
+							<?php
+						}
 					}
-				}
-				?>
+					?>
 				<p class="help"><?php printf(gettext('Generated in %s s.'), number_format(microtime(true) - $started, 2)); ?></p>
 			</div>
 		</div><!-- content -->
-		<?php printAdminFooter(); ?>
+<?php printAdminFooter(); ?>
 	</div><!-- main -->
 </body>
 <?php

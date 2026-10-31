@@ -138,7 +138,7 @@ if (!getOption('multi_lingual')) {
 	$lang = '';
 }
 $fnTitle = getOption('quick_caption_filename') !== '0' && getOption('quick_caption_filename') !== 0; // a title that is only the file name counts as missing (plugin option, on unless switched off)
-// the visual editor (TinyMCE) for the description: only when the gallery's TinyMCE plugin is on and set up for photos
+// the visual editor (TinyMCE) for the description: only when the gallery's TinyMCE plugin is on and set up for image
 $editorAvail = class_exists('tinymce') && getOption('tinymce_photo');
 $useEditor = $editorAvail && getOption('quick_caption_editor'); // plugin option
 $posA = isset($_REQUEST['a']) ? (int) $_REQUEST['a'] : 0;
@@ -292,10 +292,10 @@ echo '</head>';
 		<div id="content">
 			<h1><?php echo gettext('Quick captions'); ?></h1>
 			<div class="tabbox qcap">
-				<form method="get" action="<?php echo html_encode(getAdminLink(USER_PLUGIN_FOLDER . '/quick_caption/captions.php')); ?>" class="bar ignoredirty">
+				<form method="get" action="<?php echo html_encode(getAdminLink(PLUGIN_FOLDER . '/quick_caption/captions.php')); ?>" class="bar ignoredirty">
 					<input type="hidden" name="page" value="admin" />
 					<input type="hidden" name="tab" value="captions" />
-					<label style="display:inline;margin:0"><?php echo gettext('Show photos'); ?>:
+					<label style="display:inline;margin:0"><?php echo gettext('Show image'); ?>:
 						<select name="mode" onchange="this.form.submit()">
 							<option value="title"<?php echo $mode == 'title' ? ' selected' : ''; ?>><?php echo gettext('without a title'); ?></option>
 							<option value="desc"<?php echo $mode == 'desc' ? ' selected' : ''; ?>><?php echo gettext('without a description'); ?></option>
@@ -330,11 +330,11 @@ echo '</head>';
 					<?php if ($mode == 'title' && $fnTitle) { ?>
 						<span class="hint" title="<?php echo html_encode(gettext('Change it in Options > Plugins > quick_caption.')); ?>"><?php echo gettext('a title that is only the file name counts as missing'); ?></span>
 					<?php } ?>
-					<span class="hint" title="<?php echo html_encode(gettext('All photos of the selected album and its sub-albums that still need the text, including the one shown.')); ?>"><?php printf(gettext('In this selection: %s photos to do'), number_format($remaining, 0, ',', "\xC2\xA0")); ?></span>
+					<span class="hint" title="<?php echo html_encode(gettext('All image of the selected album and its sub-albums that still need the text, including the one shown.')); ?>"><?php printf(gettext('In this selection: %s image to do'), number_format($remaining, 0, ',', "\xC2\xA0")); ?></span>
 				</form>
 				<?php if ($saved) { ?><p class="saved">&#10003; <?php echo gettext('Saved.'); ?></p><?php } ?>
 				<?php if (!$next) { ?>
-					<p class="done"><?php echo $remaining ? gettext('No more photos after this one. Start from the beginning:') : gettext('Nothing to do - all photos in this selection have the text.'); ?>
+					<p class="done"><?php echo $remaining ? gettext('No more image after this one. Start from the beginning:') : gettext('Nothing to do - all image in this selection have the text.'); ?>
 						<?php if ($remaining) { ?><a href="<?php echo html_encode(qcap_url()); ?>"><?php echo gettext('first photo'); ?></a><?php } ?></p>
 					<?php
 				} else {
@@ -365,7 +365,7 @@ echo '</head>';
 							<input type="hidden" name="orig_desc" value="<?php echo html_encode($desc); ?>" />
 							<input type="hidden" name="desc_simple" value="<?php echo $descSimple ? 1 : 0; ?>" />
 							<p class="meta"><strong><?php echo html_encode($next['folder']); ?></strong><?php echo $next['albumtitle'] ? ' &ndash; ' . html_encode(getBare(qcap_text($next['albumtitle']))) : ''; ?><br />
-								<?php echo html_encode($next['filename']); ?> &middot; <?php printf(gettext('%d photos to do in this album'), $inAlbum); ?></p>
+								<?php echo html_encode($next['filename']); ?> &middot; <?php printf(gettext('%d image to do in this album'), $inAlbum); ?></p>
 							<label for="cap_title"><?php echo gettext('Title'); ?></label>
 							<input type="text" id="cap_title" name="title" value="<?php echo html_encode($shownTitle); ?>" autocomplete="off" autofocus />
 							<label for="cap_desc"><?php echo gettext('Description'); ?></label>
@@ -402,9 +402,13 @@ echo '</head>';
 					<script>
 						(function () {
 							var f = document.getElementById('capform'), d = document.getElementById('cap_desc'), t = document.getElementById('cap_title');
-	<?php if (!empty($selectTitle) && $mode == 'title') { ?>
+	<?php
+	if (!empty($selectTitle) && $mode == 'title') {
+		?>
 								t.select();
-	<?php } ?>
+		<?php
+	}
+	?>
 							var visual = <?php echo $useEditor ? 'true' : 'false'; ?>;
 							function sendForm() {
 								if (visual && window.tinymce) {
