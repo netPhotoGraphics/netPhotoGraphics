@@ -3026,10 +3026,6 @@ body > #main > .navigation {
 }
 
 /* an item that needs attention: a small dot instead of a coloured background */
-.navigation ul li a.nav-alert,
-.navigation ul ul li a.nav-alert {
-	background-color: transparent !important;
-}
 
 .navigation ul li a.nav-alert:hover,
 .navigation ul ul li a.nav-alert:hover {
