@@ -96,9 +96,11 @@ switch ($_gallery_page) {
 		npgFilters::apply('theme_head');
 		echo preg_replace('~<title>.*?</title>\s*~is', '', ob_get_clean());
 		?>
-		<?php if ($_gallery_page == 'photomap.php') {
+		<?php
+		if ($_gallery_page == 'photomap.php') {
 			nova_loadLeaflet();
-		} ?>
+		}
+		?>
 		<title><?php echo html_encode(getMainSiteName() . ' | ' . $_nova_title); ?></title>
 		<?php
 		if (extensionEnabled('rss')) {
@@ -149,7 +151,7 @@ switch ($_gallery_page) {
 	</head>
 
 	<body class="page-<?php echo basename($_gallery_page, '.php'); ?><?php echo!empty($isHomePage) ? ' is-home' : ''; ?>">
-<?php npgFilters::apply('theme_body_open'); ?>
+		<?php npgFilters::apply('theme_body_open'); ?>
 		<a class="skip-link" href="#main"><?php echo gettext('Skip to content'); ?></a>
 
 		<header class="site-header">
@@ -157,7 +159,7 @@ switch ($_gallery_page) {
 				<a class="site-logo" href="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo html_encode(getMainSiteName()); ?></a>
 
 				<button type="button" class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="<?php echo gettext('Menu'); ?>">
-<?php echo nova_icon('menu', 24); ?>
+					<?php echo nova_icon('menu', 24); ?>
 				</button>
 
 				<nav id="site-nav" class="site-nav" aria-label="<?php echo gettext('Menu'); ?>">
@@ -165,19 +167,19 @@ switch ($_gallery_page) {
 						<?php if (extensionEnabled('menu_manager') && getThemeOption('zpB_custom_menu')) { ?>
 							<?php printCustomMenu('nova', 'list-top', '', 'active'); ?>
 						<?php } else { ?>
-	<?php if (getOption('zpB_homepage')) { ?>
+							<?php if (getOption('zpB_homepage')) { ?>
 								<li<?php echo (isset($isHomePage) && $isHomePage) ? ' class="active"' : ''; ?>>
 									<a href="<?php echo html_encode(getGalleryIndexURL()); ?>"><?php echo gettext('Home'); ?></a>
 								</li>
-	<?php } ?>
+							<?php } ?>
 
 							<li<?php echo $_nova_gallery_active ? ' class="active"' : ''; ?>>
-	<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
+								<?php printCustomPageURL(gettext('Gallery'), 'gallery'); ?>
 							</li>
 
-								<?php if ($_zenpage_news_enabled) { ?>
+							<?php if ($_zenpage_news_enabled) { ?>
 								<li<?php echo $_gallery_page == 'news.php' ? ' class="active"' : ''; ?>>
-								<?php printNewsIndexURL(); ?>
+									<?php printNewsIndexURL(); ?>
 								</li>
 							<?php } ?>
 
@@ -186,31 +188,31 @@ switch ($_gallery_page) {
 							<?php } ?>
 						<?php } ?>
 
-							<?php if (nova_mapPageEnabled() && !(extensionEnabled('menu_manager') && getThemeOption('zpB_custom_menu'))) { ?>
+						<?php if (nova_mapPageEnabled() && !(extensionEnabled('menu_manager') && getThemeOption('zpB_custom_menu'))) { ?>
 							<li<?php echo $_gallery_page == 'photomap.php' ? ' class="active"' : ''; ?>>
-							<?php printCustomPageURL(gettext('Photo map'), 'photomap'); ?>
+								<?php printCustomPageURL(gettext('Photo map'), 'photomap'); ?>
 							</li>
 						<?php } ?>
 
-							<?php if (npg_loggedin() && extensionEnabled('favoritesHandler')) { ?>
+						<?php if (npg_loggedin() && extensionEnabled('favoritesHandler')) { ?>
 							<li<?php echo $_gallery_page == 'favorites.php' ? ' class="active"' : ''; ?>>
-							<?php nova_printFavoritesMenu(); ?>
+								<?php nova_printFavoritesMenu(); ?>
 							</li>
 						<?php } ?>
 
-							<?php if (extensionEnabled('contact_form')) { ?>
+						<?php if (extensionEnabled('contact_form')) { ?>
 							<li<?php echo $_gallery_page == 'contact.php' ? ' class="active"' : ''; ?>>
-							<?php printCustomPageURL(gettext('Contact'), 'contact'); ?>
+								<?php printCustomPageURL(gettext('Contact'), 'contact'); ?>
 							</li>
 						<?php } ?>
 
-<?php if (getOption('zpB_allow_search')) { ?>
+						<?php if (getOption('zpB_allow_search')) { ?>
 							<li class="site-nav__icon<?php echo $_gallery_page == 'archive.php' ? ' active' : ''; ?>">
 								<a href="<?php echo html_encode(getCustomPageURL('archive')); ?>" title="<?php echo gettext('Search'); ?>" aria-label="<?php echo gettext('Search'); ?>">
-	<?php echo nova_icon('search'); ?><span class="site-nav__label"><?php echo gettext('Search'); ?></span>
+									<?php echo nova_icon('search'); ?><span class="site-nav__label"><?php echo gettext('Search'); ?></span>
 								</a>
 							</li>
-<?php } ?>
+						<?php } ?>
 
 						<li class="site-nav__icon">
 							<button type="button" class="site-nav__button theme-toggle" title="<?php echo html_encode(gettext('Dark mode')); ?>" aria-label="<?php echo html_encode(gettext('Dark mode')); ?>">
@@ -223,10 +225,10 @@ switch ($_gallery_page) {
 						<?php if (extensionEnabled('user_login-out')) { ?>
 							<?php if (npg_loggedin()) { ?>
 								<li class="site-nav__user"><?php printUserLogin_out(); ?></li>
-	<?php } else { ?>
+							<?php } else { ?>
 								<li class="site-nav__user">
 									<button type="button" class="site-nav__button" data-dialog-open="login-dialog">
-		<?php echo nova_icon('login'); ?><span><?php echo gettext('Login'); ?></span>
+										<?php echo nova_icon('login'); ?><span><?php echo gettext('Login'); ?></span>
 									</button>
 								</li>
 							<?php } ?>
@@ -236,23 +238,30 @@ switch ($_gallery_page) {
 							<li class="site-nav__user"><?php printRegisterURL(gettext('Register')); ?></li>
 						<?php } ?>
 
-<?php if (extensionEnabled('dynamic-locale')) { ?>
-						</ul>
-						<ul class="site-nav__list">
+						<?php
+						if (extensionEnabled('dynamic-locale')) {
+							if (getoption('dynamic_locale_visual')) {
+								?>
+								<div class="break"></div>
+								<?php
+							}
+							?>
 							<li id="flags" class="site-nav__lang"><?php printLanguageSelector(); ?></li>
-<?php } ?>
+							<?php
+						}
+						?>
 					</ul>
 				</nav>
 			</div>
 		</header>
 
-<?php if (extensionEnabled('user_login-out') && !npg_loggedin() && $_gallery_page != 'password.php' && $_gallery_page != 'register.php') { ?>
+		<?php if (extensionEnabled('user_login-out') && !npg_loggedin() && $_gallery_page != 'password.php' && $_gallery_page != 'register.php') { ?>
 			<dialog id="login-dialog" class="dialog">
 				<div class="dialog__body">
 					<button type="button" class="dialog__close" data-dialog-close aria-label="<?php echo gettext('close'); ?>"><?php echo nova_icon('close'); ?></button>
-	<?php printPasswordForm('', true, false); ?>
+					<?php printPasswordForm('', true, false); ?>
 				</div>
 			</dialog>
-<?php } ?>
+		<?php } ?>
 
 		<main class="site-main" id="main" tabindex="-1">
