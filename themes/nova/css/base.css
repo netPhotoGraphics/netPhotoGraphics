@@ -157,6 +157,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
 .site-nav__label { display: none; }
 .site-nav__lang ul { display: flex!important; gap: .25rem; }
 .site-nav__lang img { max-height: 16px; width: auto; }
+.languageSelector {padding: .10rem .8rem;} /* text language drop-down */
 
 /* dark mode toggle: moon in light mode, sun in dark mode */
 .theme-toggle .theme-toggle__sun { display: none; }
