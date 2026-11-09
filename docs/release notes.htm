@@ -92,6 +92,7 @@
 <h2>General</h2>
 <p>Versions of PHP less than PHP 8.0 are no longer supported.</p>
 <p>netPhotoGraphics has been updated to deal with PHP 8x deprecation changes. The nature of these deprecations makes it near impossible to anticipate all changes needed. Should you receive a deprecation notice please report it via the GitHub issues mechanism.</p>
+<p>The administrator interface has been modernized.</p>
 <p><strong>npg.cfg.php</strong></p>
 <p>Configuration file processing has been enhanced to deal with the limitations that some servers place on netPhotoGraphics. The following are lines that can be added:</p>
 <p>// use when the checking for updates gives an error that the SSL certificate is not trusted<br><em>$conf['GitHub_SSL_OPT'] = [CURLOPT_SSL_VERIFYPEER =&gt; 0];</em>  <br>// use if PHP cURL seems enabled but does not work<br><em>$conf['CURL_ENABLED'] = false;<br></em>// use when setup or image caching times out. Causes netPhotoGraphics to use image fetches instead of cURL<em><br></em><em>$conf['PARALLEL_CURL'] = false;<br></em>// use when mutexes are not working.<em>  <br></em><em>$conf['MUTEX_RUN_FREE'] = true;</em></p>
@@ -105,6 +106,7 @@
 <p>Tags are now accent sensitive. Prior to this release <em>tag </em>searching and naming uerd MySQL "ci" collation. That collation treated uppercase letters equal to the lower case equivalent. Accented characters were treated equal to their un-accented equivalent. E.g. C, <em>c, Ç, </em>and <em>ç</em> were all equivalent. Now C and <em>c,</em> are equivalent but different from<em> Ç, </em>and <em>ç.</em></p>
 <h2>Themes</h2>
 <p>The <em>Mobile  </em>has been deprecated. The library it uses, <em>jQueryMobile</em>, is no longer supported and is not compatible with <em>jQuery </em>3.x</p>
+<p>The <em>Bootstrap </em>theme has been deprecated. It is replaced with the <em>Nova </em>theme.</p>
 <h2>Plugins</h2>
 <p>The following plugins have been deprecated:</p>
 <div style="padding-left: 20px;"><em>folderRename</em><br><em>ipBlocker</em><br><em>jCarousel_thumb_nav</em><br><em>lazyImage</em><br><em>slideshow2</em><br><em>text_watermark</em><br><em>twitterLogin</em><br><em>uploader_jQuery</em></div>
