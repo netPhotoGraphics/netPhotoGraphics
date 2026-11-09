@@ -367,49 +367,54 @@ echo '</head>';
 								echo '<strong>' . sprintf(gettext('%1$d of %2$d'), $used['Connections'], MySQL_CONNECTIONS) . '</strong>';
 								?>
 							</li>
-							<li>
-
-								<?php
-								$users = array();
-								$rows = query('SELECT user, host, max_questions
-FROM mysql.user;');
-
-								while ($row = db_fetch_assoc($rows)) {
-									if (array_key_exists($row['user'], $_conf_vars['mysql_user'])) {
-										$users[] = $row;
-									}
-								}
-								if ($indent = count($users) > 1) {
-									?>
-									<div class="hangng_indent">
-										<?php
-									}
-									printf(gettext('%1$s max questions:'), $dbsoftware['application']);
-									if ($indent) {
-										echo '<br />';
-									} else {
-										echo ' ';
-									}
-									foreach ($users as $user) {
-										if ($indent) {
-											echo $user['user'] . ': ';
-										} else {
-											echo '<strong>';
+							<?php
+							$rows = query('SELECT user, host, max_questions FROM mysql.user;', false);
+							if ($rows) {
+								?>
+								<li>
+									<?php
+									$users = array();
+									while ($row = db_fetch_assoc($rows)) {
+										if (array_key_exists($row['user'], $_conf_vars['mysql_user'])) {
+											$users[] = $row;
 										}
-										echo ($user['max_questions'] ? $user['max_questions'] : gettext('unlimited'));
-
+									}
+									if ($indent = count($users) > 1) {
+										?>
+										<div class="hangng_indent">
+											<?php
+										}
+										printf(gettext('%1$s max questions:'), $dbsoftware['application']);
 										if ($indent) {
 											echo '<br />';
 										} else {
-											echo '</strong>';
+											echo ' ';
 										}
+										foreach ($users as $user) {
+											if ($indent) {
+												echo $user['user'] . ': ';
+											} else {
+												echo '<strong>';
+											}
+											echo ($user['max_questions'] ? $user['max_questions'] : gettext('unlimited'));
+
+											if ($indent) {
+												echo '<br />';
+											} else {
+												echo '</strong>';
+											}
+										}
+										if ($indent) {
+											?>
+										</div>
+										<?php
 									}
-									if ($indent) {
-										?>
-									</div>
-									<?php
-								}
-								?>
+									?>
+								</li>
+								<?php
+							}
+							?>
+
 							<li>
 								<?php
 								$host = $_conf_vars['mysql_host'];
