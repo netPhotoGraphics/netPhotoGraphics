@@ -352,16 +352,64 @@ echo '</head>';
 								$dbsoftware = db_software();
 								list($user, $pass) = selectDBuser($_conf_vars);
 								printf(gettext('%1$s version: <strong>%2$s</strong>'), $dbsoftware['application'], $dbsoftware['version']);
-								echo '&nbsp;&nbsp;';
+								?>
+							</li>
+							<li>
+
+								<?php
 								$used = query_single_row("SELECT " . db_quote($user) .
 												" user, COUNT(1) Connections FROM (SELECT user " .
 												db_quote($user) .
 												"FROM information_schema.processlist) A GROUP BY "
 												. db_quote($user) .
 												" WITH ROLLUP;");
-								printf(ngettext('%1$d of %2$d connection used', '%1$d of %2$d connections used', MySQL_CONNECTIONS), $used['Connections'], MySQL_CONNECTIONS);
+								printf(gettext('%1$s connections used: '), $dbsoftware['application']);
+								echo '<strong>' . sprintf(gettext('%1$d of %2$d'), $used['Connections'], MySQL_CONNECTIONS) . '</strong>';
 								?>
 							</li>
+							<li>
+
+								<?php
+								$users = array();
+								$rows = query('SELECT user, host, max_questions
+FROM mysql.user;');
+
+								while ($row = db_fetch_assoc($rows)) {
+									if (array_key_exists($row['user'], $_conf_vars['mysql_user'])) {
+										$users[] = $row;
+									}
+								}
+								if ($indent = count($users) > 1) {
+									?>
+									<div class="hangng_indent">
+										<?php
+									}
+									printf(gettext('%1$s max questions:'), $dbsoftware['application']);
+									if ($indent) {
+										echo '<br />';
+									} else {
+										echo ' ';
+									}
+									foreach ($users as $user) {
+										if ($indent) {
+											echo $user['user'] . ': ';
+										} else {
+											echo '<strong>';
+										}
+										echo ($user['max_questions'] ? $user['max_questions'] : gettext('unlimited'));
+
+										if ($indent) {
+											echo '<br />';
+										} else {
+											echo '</strong>';
+										}
+									}
+									if ($indent) {
+										?>
+									</div>
+									<?php
+								}
+								?>
 							<li>
 								<?php
 								$host = $_conf_vars['mysql_host'];
