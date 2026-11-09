@@ -368,7 +368,7 @@ echo '</head>';
 								?>
 							</li>
 							<?php
-							$rows = query('SELECT user, host, max_questions FROM mysql.user;', false);
+							$rows = query('SELECT user, max_questions FROM mysql.user;', false);
 							if ($rows) {
 								?>
 								<li>
