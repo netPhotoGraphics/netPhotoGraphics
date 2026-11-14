@@ -1982,9 +1982,6 @@ function installSignature() {
 function primeOptions() {
 	global $_options, $_conf_vars;
 	$_options = array();
-	foreach ($_conf_vars as $name => $value) {
-		$_options[strtolower($name)] = $value;
-	}
 	$sql = "SELECT `name`, `value` FROM " . prefix('options') . ' WHERE `theme`="" AND `ownerid`=0';
 	$rslt = query($sql, abs(OFFSET_PATH) != 2);
 	if ($rslt) {
@@ -1993,6 +1990,10 @@ function primeOptions() {
 		}
 		db_free_result($rslt);
 	}
+	foreach ($_conf_vars as $name => $value) {
+		$_options[strtolower($name)] = $value;
+	}
+
 	return $rslt;
 }
 
