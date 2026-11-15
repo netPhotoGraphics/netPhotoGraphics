@@ -337,7 +337,7 @@ function getOptionContent() {
 						<td class="option_value">
 							<?php
 							$max = min(CONCURRENCY_MAX, 60);
-							putSlider('', 'threadConcurrency', 0, $max, THREAD_CONCURRENCY);
+							putSlider('', 'threadConcurrency', 0, $max, getOptionFromDB('THREAD_CONCURRENCY'));
 							?>
 						</td>
 						<td class="option_desc">

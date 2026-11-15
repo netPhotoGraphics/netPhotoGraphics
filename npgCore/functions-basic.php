@@ -2062,6 +2062,7 @@ function setOption($key, $value, $persistent = true) {
 					$_config_contents = configFile::update($configKey, $value, $_config_contents);
 					configFile::store($_config_contents);
 					$_configMutex->unlock();
+					$_conf_vars[$configKey] = $value;
 				}
 			}
 		}
