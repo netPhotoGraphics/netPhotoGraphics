@@ -88,6 +88,17 @@ foreach ($_conf_vars as $name => $value) {
 	}
 }
 
+//Note: Setup will write the THREAD_CONCURRENCY to the config file so that value will be used
+$chunk = getOption('THREAD_CONCURRENCY');
+//	insure that 'THREAD_CONCURRENCY' is in the $_conf_vars array
+$_conf_options_associations[strtolower('THREAD_CONCURRENCY')] = 'THREAD_CONCURRENCY';
+$_options[strtolower('THREAD_CONCURRENCY')] = $chunk;
+//	limit the number simultaneous of front-end accesses
+if (OFFSET_PATH == 0 && $chunk) {
+	$_siteMutex = new npgMutex('tH', $chunk);
+	$_siteMutex->lock();
+}
+
 if (!defined('DATABASE_SOFTWARE') && extension_loaded(strtolower($_conf_vars['db_software']))) {
 	require_once(__DIR__ . '/functions-db-' . $_conf_vars['db_software'] . '.php');
 	$__initialDBConnection = db_connect(array_intersect_key($_conf_vars, array(
@@ -116,17 +127,11 @@ if (!$__initialDBConnection && OFFSET_PATH != 2) {
 }
 
 define('CONCURRENCY_MAX', (int) ceil(MySQL_CONNECTIONS * 0.8));
-$chunk = getOption('THREAD_CONCURRENCY');
 if (is_null($chunk)) {
 	$chunk = min((int) ceil(CONCURRENCY_MAX * 0.75), 50);
 }
 define('THREAD_CONCURRENCY', $chunk);
 unset($chunk);
-
-if (OFFSET_PATH == 0 && THREAD_CONCURRENCY) { //	limit the number simultaneous of front-end accesses
-	$_siteMutex = new npgMutex('tH', THREAD_CONCURRENCY);
-	$_siteMutex->lock();
-}
 
 $as_ci = false;
 foreach ($col = query_full_array("SHOW COLLATION WHERE Charset = 'utf8mb4'", OFFSET_PATH != 2) as $collation) {
