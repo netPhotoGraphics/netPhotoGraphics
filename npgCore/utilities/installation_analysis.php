@@ -135,7 +135,7 @@ echo '</head>';
 							</li>
 							<li>
 								<?php
-								$try = CHMOD_VALUE & 0666 | 4;
+								$try = CHMOD_VALUE & 0666;
 								if (array_key_exists($try, PERMISSION_NAMES)) {
 									$value = sprintf(gettext('<em>%1$s</em> (<code>0%2$o</code>)'), PERMISSION_NAMES[$try], CHMOD_VALUE);
 								} else {
